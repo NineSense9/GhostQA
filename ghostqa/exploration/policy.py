@@ -86,11 +86,11 @@ class LLMNaivePolicy(Policy):
 DEFAULT_WEIGHTS = {
     "w1_novelty": 1.0,
     "w2_ucb": 0.8,
-    "w3_semantic": 1.2,
+    "w3_semantic": 0.8,        # v1.1: lowered - LLM re-ranks, not dominates
     "w4_risk": 0.6,
     "w5_repetition": 1.0,
     "w6_cost": 0.5,
-    "slow_path_interval": 8,
+    "slow_path_interval": 15,  # v1.1: long backstop only; gates do the real work
     "slow_path_topk": 5,
     "slow_path_epsilon": 0.1,
 }
@@ -151,52 +151,61 @@ class GhostPolicy(Policy):
                 - self.w["w5_repetition"] * self._repetition(action, ctx)
                 - self.w["w6_cost"] * ACTION_COST.get(action.type, 0.05))
 
-    # ---- slow-path LLM semantics (cached) ----
-    def _semantic_scores(self, graph, state, actions, ctx) -> dict:
+    # ---- v1.1 gates: LLM is consulted only when it adds information ----
+    def _gate_reasons(self, program_scores, ranked, ctx) -> list:
+        reasons = []
+        if len(ranked) >= 2 and abs(
+                program_scores[ranked[0].key()] - program_scores[ranked[1].key()]
+        ) < self.w["slow_path_epsilon"]:
+            reasons.append("uncertainty")          # UncertaintyGate
+        if ctx.get("entered_new_state", False):
+            reasons.append("novel_state")          # NovelStateGate
+        if ctx.get("cycle_detected", False):
+            reasons.append("stuck")                # StuckGate
+        spec_brief = ctx.get("spec_brief", "")
+        if spec_brief:
+            text = (ctx.get("state_brief", "") + " "
+                    + " ".join(a.brief() for a in ranked[:3])).lower()
+            if any(kw in text for kw in
+                   ("cart", "total", "stock", "register", "login", "购物车",
+                    "总价", "库存", "注册", "登录", "结算", "支付")):
+                reasons.append("spec_relevance")   # SpecRelevanceGate
+        if ctx.get("step_index", 0) % int(self.w["slow_path_interval"]) == 0:
+            reasons.append("interval")             # long backstop
+        return reasons
+
+    def _semantic_scores(self, graph, state, topk_actions, ctx) -> dict:
+        """Score ONLY the top-k candidates; other actions are unaffected."""
         sig = ctx["sig"]
         if sig in self._semantic_cache:
             return self._semantic_cache[sig]
-        if not self.use_llm:
-            return {}
-        keys = [a.key() for a in actions]
-        node = graph.nodes.get(sig)
-        tried = node.tried_actions if node else set()
-        order = sorted(range(len(actions)), key=lambda i: keys[i] in tried)
-        topk = order[: int(self.w["slow_path_topk"])]
-        briefs = [actions[i].brief() for i in topk]
+        briefs = [a.brief() for a in topk_actions]
         raw = self.llm.score_actions(ctx.get("state_brief", ""), briefs,
                                      ctx.get("spec_brief", ""))
-        scores = {keys[topk[i]]: raw.get(i, 0.5) for i in range(len(topk))}
+        scores = {a.key(): raw.get(i, 0.5) for i, a in enumerate(topk_actions)}
         self._semantic_cache[sig] = scores
         return scores
 
     def select(self, graph, state, actions, ctx) -> Action:
-        sig = ctx["sig"]
         program_scores = {a.key(): self._program_score(graph, state, a, ctx)
                           for a in actions}
         ranked = sorted(actions, key=lambda a: -program_scores[a.key()])
 
-        # slow-path triggers: periodic / cycle detected / top-2 too close / new page
-        step = ctx.get("step_index", 0)
-        trigger = (
-            step % int(self.w["slow_path_interval"]) == 0
-            or ctx.get("cycle_detected", False)
-            or ctx.get("entered_new_state", False)
-            or (len(ranked) >= 2 and
-                abs(program_scores[ranked[0].key()] - program_scores[ranked[1].key()])
-                < self.w["slow_path_epsilon"])
-        )
-        if not trigger or not self.use_llm:
+        reasons = self._gate_reasons(program_scores, ranked, ctx) \
+            if self.use_llm else []
+        if not reasons:
             return ranked[0]
 
-        sem = self._semantic_scores(graph, state, actions, ctx)
-        fused = {a.key(): program_scores[a.key()]
-                 + self.w["w3_semantic"] * sem.get(a.key(), 0.5 if sig in self._semantic_cache else 0.0)
-                 for a in actions}
-        best = max(actions, key=lambda a: fused[a.key()])
+        topk = ranked[: int(self.w["slow_path_topk"])]
+        sem = self._semantic_scores(graph, state, topk, ctx)
+        best = max(topk, key=lambda a: program_scores[a.key()]
+                   + self.w["w3_semantic"] * sem.get(a.key(), 0.5))
         ctx["last_decision"] = {
+            "trigger": reasons,
+            "candidates": {a.brief(): round(program_scores[a.key()]
+                           + self.w["w3_semantic"] * sem.get(a.key(), 0.5), 3)
+                           for a in topk},
             "chosen": best.brief(),
             "program_top": ranked[0].brief(),
-            "semantic_used": True,
         }
         return best

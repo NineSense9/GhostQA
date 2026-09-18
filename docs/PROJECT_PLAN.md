@@ -288,10 +288,12 @@ loop until budget exhausted:
 
 ## F. Benchmark 方案：GhostBench v0
 
+> 状态标注（2026-09-18 更新）：✅ Implemented / ⏳ Planned
+
 ### 组成
-1. **SimApps（模拟测试床）**：3 个用 `executor/sim.py` 声明式定义的模拟应用（Todo / Shop / Form），共 15 个埋入 bug，覆盖全部 7 类（crash/状态/导航/边界/表单/数据一致性/语义）。用途：算法快速迭代 + CI 回归 + 消融实验（确定性、零成本）。
-2. **BuggyShop（真实 Web App）**：静态 HTML+JS 单文件商城（首页/列表/详情/购物车/结算/登录），埋 10 个 bug，附 `bugs.manifest.json`（id/类型/触发条件/最短复现路径/难度）。用途：真实环境验证 + 比赛 Demo。
-3. （P2）2-3 个真实开源 Web 应用（如开源 TodoMVC 变体）人工埋 bug，验证泛化性。
+1. **SimApps（模拟测试床）** ✅：2 个模拟应用（sim-shop / sim-todo），共 10 个埋入 bug，覆盖 crash/js_error/dead_action/nav_loop/语义一致性/表单/边界 7 类。用途：算法快速迭代 + CI 回归 + 消融实验（确定性、零成本）。⏳ 第三个 App（sim-form）规划中。
+2. **BuggyShop（真实 Web App）** ✅：`apps/buggy-shop/`，本地 stdlib 服务器 + 11 个静态页面 + localStorage 状态，埋 10 个真实 bug（见 `bugs.manifest.json`：id/类型/严重度/触发条件/fingerprint 匹配键/已知最短复现），语义断言见 `spec.json`。用途：真实环境验证 + 比赛 Demo。
+3. ⏳（P2）2-3 个真实开源 Web 应用人工埋 bug，验证泛化性。
 
 ### Baselines
 Monkey（随机）、DFS、BFS、LLM-naive（每步问 LLM，无状态图/无价值函数）、**GhostQA-full（GhostPolicy+三级 Oracle）**、GhostQA-noLLM（消融：w3=0）、GhostQA-noGraph（消融：Novelty/UCB 关闭）。

@@ -24,20 +24,26 @@
 2. **需求驱动语义 Oracle**：新兴。仅 WebTestPilot（Web 端，神经符号化）；移动端无；**均未接入主动探索闭环**。
 3. **LLM Agent 轨迹的重放验证+最小化**：中低。delta debugging 成熟但只用于随机工具崩溃序列；**对 LLM agent 长轨迹的"确认幻觉/真bug+最小复现"无人系统做**。
 
-## 二、工业界现状
+## 二、工业界现状（2026 年复核，诚实版）
 
-- KaneAI(LambdaTest)/testRigor/Testim/Functionize/Autify/Tricentis/BrowserStack Low Code：自然语言/录制**生成脚本+自愈定位器**，属"辅助执行"，不主动探索找 bug。
-- Applitools/Percy：视觉回归比对层。
-- mabl：低代码+自愈，仍以录制流程为主。
-- **有探索色彩的仅 qa.tech、Momentic**：流程发现/覆盖探索，但**无语义 Oracle、无重放确认与复现最小化的可信闭环**。
-- QA Wolf：AI 辅助人力外包。
+> v0.2 复核结论：竞品在"自主探索"上进展很快，**GhostQA 的差异不能再表述为"第一个让 AI 自己测试"**。
 
-**结论：没有任何工业产品同时具备「状态空间探索 + 语义 Oracle + 自动验证最小化」组合。**
+- **Momentic**：已公开宣传 "point at URL → real bugs"、自动录制、复现步骤、flow graph、覆盖缺口探索。是自主探索测试方向最直接的竞品。
+- **QA.tech**：明确提供 "autonomous exploratory QA agents"。
+- **BrowserStack / KaneAI(LambdaTest) / testRigor / mabl / Functionize / Autify / Tricentis**：主体仍是"自然语言/录制生成脚本+自愈执行"范式，探索能力有限或为辅。
+- **Applitools / Percy**：视觉回归比对层，非执行模型。
+- **OpenAI testing-agent-demo 等开源示范**：证明通用 Agent 可做测试，但无系统化探索与验证闭环。
 
-## 三、GhostQA 差异化（最终确认的 3+2 创新点）
+**竞品普遍缺失的环节**（基于公开资料判断，如有更新需再核）：
+1. 探索策略本身不透明、不可复现、无公开 baseline 对比——"黑盒 Agent 说找到了 bug"。
+2. 缺少**规格驱动的语义 Oracle**（用需求文档判定行为对错，而非只看崩溃）。
+3. 缺少**按 BugFingerprint 的重放验证**与**可执行的最小复现路径**——报告可信度的最后一公里。
+4. 没有公开的 benchmark 与消融实验支撑其"更聪明"的声称。
 
-1. **状态价值函数引导的 LLM/VLM 探索测试**（核心）：区别于 MemoDroid 的记忆复用与 FastBot 的 UCB，用 VLM/LLM 对状态-动作对估计"bug 发现价值"。
-2. **规格驱动语义 Oracle 接入探索闭环**：把 WebTestPilot 思路扩展到与主动探索结合，幻觉误报由重放验证兜底。
-3. **重放验证 + ddmin 最小复现的可信报告闭环**：报告即已验证，每条 bug 附最小复现路径。
-4. （储备）统一状态抽象，Web→Android 跨平台扩展。
-5. （储备）经验-价值双轮数据飞轮：缺陷模式库反哺探索策略。
+## 三、GhostQA 差异化（v0.2 修订版）
+
+1. **Transparent & Measurable Value-Guided Exploration**：状态价值函数各项（Novelty/UCB/Risk/Semantic/Repetition/Cost）全透明、权重可调、决策摘要可审计；与 Monkey/DFS/BFS/LLM-naive 在同一 benchmark 上对比。
+2. **Specification-Driven Semantic Oracle**：需求规格 → 行为断言，观测仅用页面呈现值，接入探索闭环。
+3. **Bug-Specific Replay Verification**：统一 BugFingerprint，候选 bug 必须指纹级重放确认，过滤幻觉与误报。
+4. **Executable Minimum Reproduction**：三态谓词（PASS/FAIL/INVALID）+ ddmin，输出的最小路径保证从干净环境可逐步执行。
+5. **Open GhostBench + Baseline/Ablation**：SimBench（算法迭代）+ WebBench（真实浏览器），多种子 mean±std 公开，消融（no-LLM / no-graph）证明每个组件的边际贡献。

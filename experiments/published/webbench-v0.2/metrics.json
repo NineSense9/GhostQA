@@ -1,0 +1,309 @@
+{
+  "runs": [
+    {
+      "policy": "monkey",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 11,
+      "candidates": 1,
+      "bugs_found": [],
+      "confirmed_bugs": [],
+      "bug_discovery_rate": 0.0,
+      "time_to_first_bug": 15,
+      "repeat_rate": 0.35,
+      "replay_success_rate": null,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 23.4
+    },
+    {
+      "policy": "monkey",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 15,
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-W10",
+        "BUG-W9"
+      ],
+      "confirmed_bugs": [
+        "BUG-W10",
+        "BUG-W9"
+      ],
+      "bug_discovery_rate": 0.2,
+      "time_to_first_bug": 10,
+      "repeat_rate": 0.25,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 44.9
+    },
+    {
+      "policy": "dfs",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 11,
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-W3",
+        "BUG-W8"
+      ],
+      "confirmed_bugs": [
+        "BUG-W3",
+        "BUG-W8"
+      ],
+      "bug_discovery_rate": 0.2,
+      "time_to_first_bug": 8,
+      "repeat_rate": 0.325,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 46.3
+    },
+    {
+      "policy": "dfs",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 11,
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-W3",
+        "BUG-W8"
+      ],
+      "confirmed_bugs": [
+        "BUG-W3",
+        "BUG-W8"
+      ],
+      "bug_discovery_rate": 0.2,
+      "time_to_first_bug": 8,
+      "repeat_rate": 0.325,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 46.5
+    },
+    {
+      "policy": "bfs",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 18,
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-W2",
+        "BUG-W5",
+        "BUG-W6"
+      ],
+      "confirmed_bugs": [
+        "BUG-W2",
+        "BUG-W5",
+        "BUG-W6"
+      ],
+      "bug_discovery_rate": 0.3,
+      "time_to_first_bug": 3,
+      "repeat_rate": 0.25,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 46.3
+    },
+    {
+      "policy": "bfs",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 18,
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-W2",
+        "BUG-W5",
+        "BUG-W6"
+      ],
+      "confirmed_bugs": [
+        "BUG-W2",
+        "BUG-W5",
+        "BUG-W6"
+      ],
+      "bug_discovery_rate": 0.3,
+      "time_to_first_bug": 3,
+      "repeat_rate": 0.25,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 46.4
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 12,
+      "candidates": 2,
+      "bugs_found": [
+        "BUG-W6"
+      ],
+      "confirmed_bugs": [
+        "BUG-W6"
+      ],
+      "bug_discovery_rate": 0.1,
+      "time_to_first_bug": 1,
+      "repeat_rate": 0.0,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 24.8
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 12,
+      "candidates": 2,
+      "bugs_found": [
+        "BUG-W6"
+      ],
+      "confirmed_bugs": [
+        "BUG-W6"
+      ],
+      "bug_discovery_rate": 0.1,
+      "time_to_first_bug": 1,
+      "repeat_rate": 0.0,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 24.7
+    },
+    {
+      "policy": "ghost-full",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 16,
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-W2",
+        "BUG-W5",
+        "BUG-W6"
+      ],
+      "confirmed_bugs": [
+        "BUG-W2",
+        "BUG-W5",
+        "BUG-W6"
+      ],
+      "bug_discovery_rate": 0.3,
+      "time_to_first_bug": 1,
+      "repeat_rate": 0.0,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 16,
+      "tokens": 1201,
+      "wall_seconds": 68.8
+    },
+    {
+      "policy": "ghost-full",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 16,
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-W2",
+        "BUG-W5",
+        "BUG-W6"
+      ],
+      "confirmed_bugs": [
+        "BUG-W2",
+        "BUG-W5",
+        "BUG-W6"
+      ],
+      "bug_discovery_rate": 0.3,
+      "time_to_first_bug": 1,
+      "repeat_rate": 0.0,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 16,
+      "tokens": 1201,
+      "wall_seconds": 68.9
+    }
+  ],
+  "aggregate": [
+    {
+      "policy": "monkey",
+      "runs": 2,
+      "bugs_mean": 0.1,
+      "bugs_std": 0.141,
+      "bugs_min": 0.0,
+      "bugs_max": 0.2,
+      "t2bug_mean": 12.5,
+      "states_mean": 13,
+      "repeat_rate_mean": 0.3,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 34.1
+    },
+    {
+      "policy": "dfs",
+      "runs": 2,
+      "bugs_mean": 0.2,
+      "bugs_std": 0.0,
+      "bugs_min": 0.2,
+      "bugs_max": 0.2,
+      "t2bug_mean": 8,
+      "states_mean": 11,
+      "repeat_rate_mean": 0.325,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 46.4
+    },
+    {
+      "policy": "bfs",
+      "runs": 2,
+      "bugs_mean": 0.3,
+      "bugs_std": 0.0,
+      "bugs_min": 0.3,
+      "bugs_max": 0.3,
+      "t2bug_mean": 3,
+      "states_mean": 18,
+      "repeat_rate_mean": 0.25,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 46.3
+    },
+    {
+      "policy": "ghost-nollm",
+      "runs": 2,
+      "bugs_mean": 0.1,
+      "bugs_std": 0.0,
+      "bugs_min": 0.1,
+      "bugs_max": 0.1,
+      "t2bug_mean": 1,
+      "states_mean": 12,
+      "repeat_rate_mean": 0.0,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 24.8
+    },
+    {
+      "policy": "ghost-full",
+      "runs": 2,
+      "bugs_mean": 0.3,
+      "bugs_std": 0.0,
+      "bugs_min": 0.3,
+      "bugs_max": 0.3,
+      "t2bug_mean": 1,
+      "states_mean": 16,
+      "repeat_rate_mean": 0.0,
+      "llm_calls_mean": 16,
+      "wall_mean_s": 68.8
+    }
+  ]
+}

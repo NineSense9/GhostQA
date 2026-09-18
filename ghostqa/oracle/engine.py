@@ -62,11 +62,15 @@ class OracleEngine:
         if prev is None or new_state is None:
             return findings
 
-        # ---- L2: dead action ----
+        # ---- L2: dead action (with idempotence filter) ----
         if action.type == "click" and not getattr(result, "events", None):
             same_sig = state_signature(prev) == state_signature(new_state)
             same_obs = prev.obs == new_state.obs
-            if same_sig and same_obs:
+            hist = ctx.get("history_sigs", [])
+            prev_sig = hist[-1] if hist else state_signature(prev)
+            ever_effective = (prev_sig, action.target_eid) in ctx.get(
+                "effective_clicks", set())
+            if same_sig and same_obs and not ever_effective:
                 findings.append(Finding(
                     kind="dead_action", severity="medium",
                     description=f"点击无响应：元素 {action.target_eid} 点击后界面无任何变化",

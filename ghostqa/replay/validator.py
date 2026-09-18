@@ -40,6 +40,7 @@ def _replay(executor_factory, actions, oracle: OracleEngine):
     state = executor.reset()
     hist = [state_signature(state)]
     sig_url = {hist[0]: state.url}
+    effective_clicks = set()
     all_findings: list = []
     for i, action in enumerate(actions):
         result = executor.execute(action)
@@ -50,10 +51,16 @@ def _replay(executor_factory, actions, oracle: OracleEngine):
             "step_index": i, "history_sigs": hist,
             "ground_truth": executor.ground_truth() if not result.crashed else {},
             "sig_url_map": sig_url,
+            "effective_clicks": effective_clicks,
         })
         all_findings.extend(findings)
         if result.crashed:
             return "CRASHED", all_findings
+        if action.type == "click":
+            new_sig = state_signature(new_state)
+            if (result.events or new_sig != hist[-1]
+                    or new_state.obs != state.obs):
+                effective_clicks.add((hist[-1], action.target_eid))
         state = new_state
         sig = state_signature(state)
         hist.append(sig)

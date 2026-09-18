@@ -49,6 +49,7 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
     sig_url_map = {sig: state.url}
     recent_action_keys: list = []
     seen_fingerprints = set()
+    effective_clicks = set()                 # (sig, eid) clicks that ever had an effect
     entered_new_state = True                 # the initial state is novel by definition
     t0 = time.time()
 
@@ -87,7 +88,13 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
             "history_sigs": history_sigs,
             "ground_truth": executor.ground_truth() if not exec_result.crashed else {},
             "sig_url_map": sig_url_map,
+            "effective_clicks": effective_clicks,
         })
+        # record click effectiveness for the idempotence filter
+        if action.type == "click" and not exec_result.crashed:
+            if (exec_result.events or new_sig != sig
+                    or (new_state and new_state.obs != state.obs)):
+                effective_clicks.add((sig, action.target_eid))
         for f in findings:
             if f.fingerprint() not in seen_fingerprints:
                 seen_fingerprints.add(f.fingerprint())
