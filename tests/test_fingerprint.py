@@ -104,9 +104,12 @@ def test_entering_unknown_state_triggers_slow_path():
     recorded before add_transition, so the FIRST decision on a newly
     discovered page consults the LLM."""
     from ghostqa.exploration.policy import GhostPolicy
-    from tests.test_explorer import _make_mini_crash_app
+    try:
+        from helpers import make_mini_crash_app
+    except ImportError:  # importlib mode
+        from tests.helpers import make_mini_crash_app
     llm = SpyLLM()
-    ex = SimExecutor(_make_mini_crash_app())
+    ex = SimExecutor(make_mini_crash_app())
     run_exploration(ex, GhostPolicy(llm), budget=5, oracle=OracleEngine())
     # step 0 (novel initial state) and step 1 (just arrived at page A)
     # must have triggered slow path at least twice
