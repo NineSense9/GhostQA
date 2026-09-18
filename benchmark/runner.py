@@ -22,6 +22,17 @@ from ghostqa.state.models import ConfirmedBug
 from benchmark.sim_apps import APPS
 
 
+def evidence_matches(evidence: dict, match: dict) -> bool:
+    """Match semantics: exact equality; key suffix '_contains' = substring match."""
+    for k, v in match.items():
+        if k.endswith("_contains"):
+            if v not in str(evidence.get(k[:-len("_contains")], "")):
+                return False
+        elif evidence.get(k) != v:
+            return False
+    return True
+
+
 def match_manifest(candidates, manifest) -> set:
     """Map findings to seeded bug ids. Every manifest entry must carry
     discriminating match keys so one finding can only hit its own bug."""
@@ -31,8 +42,7 @@ def match_manifest(candidates, manifest) -> set:
         for bug in manifest:
             if f.kind != bug["kind"]:
                 continue
-            if bug["match"] and all(f.evidence.get(k) == v
-                                    for k, v in bug["match"].items()):
+            if bug["match"] and evidence_matches(f.evidence, bug["match"]):
                 found.add(bug["id"])
     return found
 
@@ -68,7 +78,7 @@ def run_one(app_name: str, make_app, policy, budget: int, validate: bool = True)
         for f in result.candidates:
             ids = {b["id"] for b in manifest
                    if b["kind"] == f.kind and b["match"]
-                   and all(f.evidence.get(k) == v for k, v in b["match"].items())}
+                   and evidence_matches(f.evidence, b["match"])}
             if not ids:
                 continue
             vr = validate_candidate(factory, result.actions(), f, oracle)

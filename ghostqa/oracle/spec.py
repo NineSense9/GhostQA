@@ -41,13 +41,27 @@ DEFAULT_REGISTRY.register("cart_count", lambda gt: len(gt.get("cart", [])))
 
 
 def load_spec(path: str) -> list:
+    """Accepts either a JSON list of assertions or {"assertions": [...]}."""
     with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
+        data = json.load(f)
+    if isinstance(data, dict):
+        return data.get("assertions", [])
+    return data
 
 
 def _operand(val: dict, obs: dict, gt: dict, registry: ExprRegistry):
     if "obs" in val:
         return obs.get(val["obs"])
+    if "obs_sum" in val:
+        values = obs.get(val["obs_sum"])
+        if values is None:
+            return 0.0                       # empty list sums to zero
+        if not isinstance(values, list):
+            values = [values]
+        try:
+            return sum(float(v) for v in values)
+        except (TypeError, ValueError):
+            return None
     if "gt" in val:
         return gt.get(val["gt"])
     if "const" in val:
@@ -55,6 +69,13 @@ def _operand(val: dict, obs: dict, gt: dict, registry: ExprRegistry):
     if "expr" in val:
         return registry.eval(val["expr"], gt)
     raise ValueError(f"bad operand {val}")
+
+
+def _num(v):
+    try:
+        return float(v)
+    except (TypeError, ValueError):
+        return None
 
 
 def eval_pred(node: dict, obs: dict, gt: dict, registry: ExprRegistry):
@@ -69,6 +90,10 @@ def eval_pred(node: dict, obs: dict, gt: dict, registry: ExprRegistry):
     right = _operand(node["right"], obs, gt, registry)
     if left is None or right is None:
         return None                            # page does not expose these values
+    # numeric coercion: web obs are strings ("5" vs 5.0 should be equal)
+    ln, rn = _num(left), _num(right)
+    if ln is not None and rn is not None and op not in ("contains", "not_contains"):
+        left, right = ln, rn
     if op == "eq":
         return left == right
     if op == "ne":

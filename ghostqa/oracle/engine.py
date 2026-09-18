@@ -51,10 +51,11 @@ class OracleEngine:
                 step_index=step,
                 evidence={"action": action.brief(), "error": err}))
 
-        if new_state is not None and len(new_state.elements) == 0:
+        if (new_state is not None and len(new_state.elements) == 0
+                and new_state.meta.get("body_text_len", 0) < 20):
             findings.append(Finding(
                 kind="blank", severity="high",
-                description=f"白屏/无可交互元素：{new_state.url}",
+                description=f"白屏/无可交互元素且页面无文本内容：{new_state.url}",
                 step_index=step,
                 evidence={"url": new_state.url}))
 

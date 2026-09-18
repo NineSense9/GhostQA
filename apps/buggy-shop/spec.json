@@ -1,0 +1,27 @@
+{
+  "app": "buggy-shop",
+  "note": "Specification-driven semantic oracle. Uses ONLY page-presented values (data-obs / input values) - never internal app state.",
+  "assertions": [
+    {"id": "cart_total_consistent", "severity": "high",
+     "desc": "购物车显示总价应与列表商品金额之和一致",
+     "when": {"url_contains": "/cart"},
+     "assert": {"op": "eq", "left": {"obs": "cart_total"},
+                "right": {"obs_sum": "cart_item_price"}}},
+    {"id": "stock_non_negative", "severity": "medium",
+     "desc": "库存显示不应为负数",
+     "when": {"url_contains": "/detail"},
+     "assert": {"op": "ge", "left": {"obs": "stock_num"}, "right": {"const": 0}}},
+    {"id": "register_requires_username", "severity": "high",
+     "desc": "用户名为空时不应提示注册成功",
+     "when": {"url_contains": "/register"},
+     "assert": {"op": "implies",
+                "cond": {"op": "eq", "left": {"obs": "input_reg_user"}, "right": {"const": ""}},
+                "then": {"op": "not_contains", "left": {"obs": "form_msg"},
+                         "right": {"const": "成功"}}}},
+    {"id": "login_gate", "severity": "high",
+     "desc": "个人中心不应在未登录状态下展示内容",
+     "when": {"url_contains": "/profile"},
+     "assert": {"op": "not_contains", "left": {"obs": "login_state"},
+                "right": {"const": "未登录"}}}
+  ]
+}
