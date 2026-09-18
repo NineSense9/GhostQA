@@ -1,0 +1,14 @@
+{
+  "app": "buggy-flow-holdout",
+  "note": "HOLDOUT. Do not use for GhostPolicy weight tuning. Score only after the algorithm is frozen. GhostQA exploration must never read this file.",
+  "bugs": [
+    {"id": "BUG-H1", "category": "js error", "severity": "medium",
+     "desc": "更新日志点击查看详情抛出未捕获异常",
+     "kind": "js_error", "trigger_depth": 3, "prerequisites": [],
+     "match": {"error_contains": "changelog detail"}},
+    {"id": "BUG-H2", "category": "boundary", "severity": "medium",
+     "desc": "账单数量可被减为负数",
+     "kind": "semantic", "trigger_depth": 8, "prerequisites": ["login", "project"],
+     "match": {"assert_id": "bill_qty_non_negative"}}
+  ]
+}
