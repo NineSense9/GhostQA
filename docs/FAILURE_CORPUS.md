@@ -15,5 +15,10 @@ Not a database — a working log. Add a row when a failure is confirmed.
 | LLM bad ranking | MockLLM down-ranks Help, which hid a nav-loop on BuggyShop | recorded, not “fixed” by cheating |
 | frontier unreachable | Reset+replay landed on a different variant than the target | counted in `restore_failures` |
 | flaky web event | `networkidle` timeout after click | swallowed; settle-ms still waits |
+| input action explosion | 1 field × 6 payloads counted as 6 frontier actions | **mitigated** v0.3.1 InteractionOpportunity |
+| local form sink | Agent enumerates payloads instead of clicking 下一步 | **mitigated** by PayloadPolicy first-wave; WorkflowBFS `input_share=0` |
+| frontier payload cardinality bias | `score += len(raw_pending_actions)` | **mitigated** v1.1 interaction counts |
+| restore budget waste | Ghost-full restore_ratio 0.08–0.33, BDR=0 | **unresolved** — opportunity-cost relocate still over-jumps |
+| risk keyword tunnel vision | 注册 scored above 登录; relocate after adding 登录 still empty BDR | **unresolved** for Ghost-full; Ghost-noFrontier finds D6 |
 
 Add new rows; do not delete negative results.

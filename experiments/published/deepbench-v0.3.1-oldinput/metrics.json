@@ -1,0 +1,202 @@
+{
+  "runs": [
+    {
+      "policy": "ghost-oldinput",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 17,
+      "clusters": 15,
+      "variants": 17,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 15
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.113,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.1,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 17,
+      "tokens": 3506,
+      "wall_seconds": 37.4,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 13,
+      "input_action_share": 0.325,
+      "unique_inputs_touched": 3,
+      "progress_actions": 22,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 8.2,
+      "interaction_opportunity_mean": 4.95,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 11
+      }
+    },
+    {
+      "policy": "ghost-oldinput",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 17,
+      "clusters": 15,
+      "variants": 17,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 15
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.113,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.1,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 17,
+      "tokens": 3506,
+      "wall_seconds": 37.3,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 13,
+      "input_action_share": 0.325,
+      "unique_inputs_touched": 3,
+      "progress_actions": 22,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 8.2,
+      "interaction_opportunity_mean": 4.95,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 11
+      }
+    }
+  ],
+  "aggregate": [
+    {
+      "policy": "ghost-oldinput",
+      "runs": 2,
+      "budgets": [
+        40
+      ],
+      "bugs_mean": 0.143,
+      "bugs_std": 0.0,
+      "bugs_min": 0.143,
+      "bugs_max": 0.143,
+      "deep_mean": 0.111,
+      "auc_mean": 0.113,
+      "t2bug_mean": 1,
+      "states_mean": 17,
+      "clusters_mean": 15,
+      "relocate_mean": 0,
+      "repeat_rate_mean": 0.1,
+      "llm_calls_mean": 17,
+      "wall_mean_s": 37.3
+    }
+  ]
+}

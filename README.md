@@ -4,7 +4,7 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.3（Algorithm Proof）
+## 当前状态：v0.3.1（Exploration Repair）
 
 | 能力 | 状态 |
 |---|---|
@@ -15,10 +15,11 @@
 | 两层状态模型（structural cluster + data-obs semantic variant） | ✅ Implemented |
 | State similarity 接入 StateGraph / Explorer / Novelty | ✅ Implemented |
 | Frontier planner（reset + replay known path） | ✅ Implemented |
-| GhostPolicy v1.2（局部评分 + 全局 frontier；LLM 门控） | ✅ Implemented |
+| GhostPolicy v1.2/v1.3（局部评分 + 交互级 frontier + progressive payload） | ✅ Implemented |
+| WorkflowBFS（非 AI、交互级 BFS 基线） | ✅ Implemented |
 | 三层 Oracle + BugFingerprint + 三态 replay + ddmin | ✅ Implemented |
 | CLI + JSON/HTML 报告 | ✅ Implemented |
-| WebBench v0.2 + DeepBench v0.3 可追溯实验 | ✅ Implemented |
+| WebBench v0.2 + DeepBench v0.3 / v0.3.1 可追溯实验 | ✅ Implemented |
 | 真实 LLM 实验 | ⏭ skipped（无 GHOSTQA_MODEL_* 凭据） |
 | Dashboard | ⏳ Planned (v0.4) |
 | Android 扩展 | ⏳ Planned (v0.4+) |
@@ -77,6 +78,12 @@ python -m ghostqa run --url ... --policy ghost --llm ...
   - Monkey@40 × 10 seeds：0.121±0.059。
   - 真实 LLM：skipped（无凭据）。MockLLM 数据不是真实大模型表现。
   - 详细表与负结果分析见 `experiments/published/deepbench-v0.3/summary.md`。
+- **DeepBench v0.3.1**（同一冻结 app `5355abd`，算法 `45e5669`）：`experiments/published/deepbench-v0.3.1/`
+  - 改的是 **action budgeting**（字段=1 个 opportunity、progressive payload、WorkflowBFS），不是 benchmark。
+  - WorkflowBFS@40 Deep-BDR=0.111（确认 D6），`input_share=0`，`max_workflow_depth=4`。
+  - Ghost-noFrontier@40 Deep-BDR=0.111；**Ghost-full（带 relocate）BDR=0**，restore_ratio 最高 0.23。
+  - DFS@120 BDR=0.429 Deep-BDR=0.111。BFS 仍未在 120 内确认 D6。
+  - 不要把这些数字读成“Ghost 已解决深 workflow”。relocate 仍是负贡献。
 
 ## 架构
 
@@ -84,7 +91,7 @@ python -m ghostqa run --url ... --policy ghost --llm ...
 ghostqa/
 ├── state/        # 两层状态 / 签名 / 相似度 / StateGraph
 ├── executor/     # Executor / Sim / Playwright / nav history
-├── exploration/  # Explorer / 策略 / FrontierPlanner / GhostPolicy v1.2
+├── exploration/  # Explorer / PayloadPolicy / FrontierPlanner v1.1 / WorkflowBFS
 ├── oracle/       # 三层 Oracle / BugFingerprint / 规格断言 DSL
 ├── replay/       # 三态重放验证器
 ├── minimizer/    # ddmin 可执行最小复现

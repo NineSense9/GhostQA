@@ -1,6 +1,11 @@
 # GhostQA 技术交接文档
 
 > 原 v0.2 交接（审计基线 `9c6c0a0`，文档提交 `94f5db1`）仍保留于下文，作为历史。
+> **v0.3.1 更新**：Exploration Repair。DeepBench freeze 仍是 `5355abd`。算法 HEAD 见 git。
+> Graph 分类是 exact `state_id` / same cluster / new cluster。`state_similarity()` 的 Jaccard 与 aHash **没有**完整进入 graph classification。
+
+**v0.3.1 实测（不可粉饰）**：WorkflowBFS 与 Ghost-noFrontier 能在 budget 40 确认 D6（Deep-BDR=0.111）。Ghost-full 带 opportunity-cost relocate 的 BDR=0。Frontier relocate 仍是负贡献。见 `experiments/published/deepbench-v0.3.1/summary.md`。
+
 > **v0.3 更新（2026-09-19）**：Algorithm Proof 已落地。代码与实验以当前 git 为准。
 
 ## v0.3 现状（覆盖交接时的 PARTIAL 清单）
