@@ -13,13 +13,19 @@ class UIElement:
     text: str           # visible text, truncated
     kind: str = "click"  # click | input
     enabled: bool = True
+    input_type: str = ""      # html type: text/password/number/...
+    placeholder: str = ""
+    name: str = ""
+    aria_label: str = ""
 
     def to_dict(self) -> dict:
         return asdict(self)
 
     @staticmethod
     def from_dict(d: dict) -> "UIElement":
-        return UIElement(**d)
+        known = {"eid", "role", "text", "kind", "enabled",
+                 "input_type", "placeholder", "name", "aria_label"}
+        return UIElement(**{k: v for k, v in d.items() if k in known})
 
 
 @dataclass

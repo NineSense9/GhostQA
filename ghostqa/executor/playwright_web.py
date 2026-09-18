@@ -67,7 +67,11 @@ _EXTRACT_JS = """
     seen.add(key);
     out.push({role, text, kind, testid, css: cssPath(e),
               value: kind === 'input' ? (e.value || '') : undefined,
-              index: idx});
+              index: idx,
+              input_type: type,
+              placeholder: e.getAttribute('placeholder') || '',
+              name: e.getAttribute('name') || '',
+              aria_label: e.getAttribute('aria-label') || ''});
   });
   const obs = {};
   document.querySelectorAll('[data-obs]').forEach((e) => {
@@ -219,8 +223,13 @@ class PlaywrightWebExecutor(Executor):
             else:
                 eid = hashlib.sha1(
                     f"{e['role']}|{e['text']}|{e['index']}".encode()).hexdigest()[:10]
-            elements.append(UIElement(eid=eid, role=e["role"], text=e["text"],
-                                      kind=e["kind"], enabled=True))
+            elements.append(UIElement(
+                eid=eid, role=e["role"], text=e["text"],
+                kind=e["kind"], enabled=True,
+                input_type=e.get("input_type") or "",
+                placeholder=e.get("placeholder") or "",
+                name=e.get("name") or "",
+                aria_label=e.get("aria_label") or ""))
             self._descriptors[eid] = {"testid": testid, "role": e["role"],
                                       "text": e["text"], "css": e["css"]}
         obs = dict(data["obs"])

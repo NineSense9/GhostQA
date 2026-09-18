@@ -62,7 +62,11 @@ class SimExecutor(Executor):
         elements = tuple(
             UIElement(eid=e["eid"], role=e.get("role", "button"),
                       text=e.get("text", ""), kind=e.get("kind", "click"),
-                      enabled=e.get("enabled", True))
+                      enabled=e.get("enabled", True),
+                      input_type=e.get("input_type", ""),
+                      placeholder=e.get("placeholder", ""),
+                      name=e.get("name", ""),
+                      aria_label=e.get("aria_label", ""))
             for e in pdef.get("elements", [])
         )
         return GUIState(
