@@ -85,11 +85,14 @@ class Finding:
     step_index: int
     evidence: dict = field(default_factory=dict)
 
+    def fingerprint(self) -> str:
+        """Canonical BugFingerprint (see ghostqa.oracle.fingerprint)."""
+        from ..oracle.fingerprint import fingerprint
+        return fingerprint(self)
+
     def bug_key(self) -> str:
-        """Dedup key: same kind + same location/assertion = same bug."""
-        loc = self.evidence.get("assert_id") or self.evidence.get("eid") or \
-              self.evidence.get("url") or self.evidence.get("page") or ""
-        return f"{self.kind}|{loc}"
+        """Deprecated alias kept for backward compatibility."""
+        return self.fingerprint()
 
     def to_dict(self) -> dict:
         return asdict(self)

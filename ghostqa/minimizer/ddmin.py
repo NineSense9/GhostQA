@@ -54,14 +54,13 @@ def ddmin(actions, test) -> list:
 
 
 def minimize_reproduction(executor_factory, actions, finding, oracle) -> list:
-    """Full pipeline: predicate from finding, then ddmin."""
-    from ..replay.validator import make_bug_test
+    """Full pipeline: tri-state fingerprint predicate, then ddmin.
 
-    match = {}
-    if "assert_id" in finding.evidence:
-        match["assert_id"] = finding.evidence["assert_id"]
-    elif "eid" in finding.evidence:
-        match["eid"] = finding.evidence["eid"]
+    The returned sequence is guaranteed executable end-to-end from a clean
+    reset (ddmin only keeps candidates whose predicate is PASS).
+    """
+    from ..replay.validator import make_bug_test, PASS
+
     prefix = actions[: finding.step_index + 1]
-    test = make_bug_test(executor_factory, finding.kind, oracle, match)
-    return ddmin(prefix, test)
+    tri = make_bug_test(executor_factory, finding.fingerprint(), oracle)
+    return ddmin(prefix, lambda seq: tri(seq) == PASS)

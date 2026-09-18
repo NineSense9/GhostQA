@@ -13,7 +13,10 @@ def shop_factory():
 
 def crash_finding(step_index):
     return Finding(kind="crash", severity="high", description="pay crash",
-                   step_index=step_index, evidence={"action": "click[btn_pay]"})
+                   step_index=step_index,
+                   evidence={"action": "click[btn_pay]", "page": "checkout",
+                             "page_url": "sim://sim-shop/checkout",
+                             "url": "sim://sim-shop/checkout"})
 
 
 # Path with redundant detours, then the crash:
@@ -80,7 +83,8 @@ def test_semantic_bug_reproduces_and_minimizes():
     path = [Action("click", "nav_products"), Action("back"),
             Action("click", "nav_cart"), Action("click", "btn_remove")]
     f = Finding(kind="semantic", severity="high", description="stale total",
-                step_index=3, evidence={"assert_id": "cart_total_consistent"})
+                step_index=3, evidence={"assert_id": "cart_total_consistent",
+                                        "url": "sim://sim-shop/cart"})
     vr = validate_candidate(shop_factory, path, f, oracle)
     assert vr.confirmed
     minimal = minimize_reproduction(shop_factory, path, f, oracle)

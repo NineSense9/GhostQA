@@ -158,16 +158,16 @@ def make_sim_shop() -> tuple:
     ]
 
     manifest = [
-        {"id": "BUG-01", "kind": "crash", "desc": "结算页点击立即支付导致崩溃",
-         "match": {}},
+        {"id": "BUG-01", "kind": "crash", "desc": "购物车为空时点击立即支付导致崩溃",
+         "match": {"page": "checkout"}},
         {"id": "BUG-02", "kind": "semantic", "desc": "删除商品后总价未更新",
          "match": {"assert_id": "cart_total_consistent"}},
         {"id": "BUG-03", "kind": "dead_action", "desc": "收藏按钮点击无响应",
          "match": {"eid": "btn_fav"}},
         {"id": "BUG-04", "kind": "nav_loop", "desc": "帮助中心↔更多帮助死循环",
-         "match": {}},
+         "match": {"cycle_urls": ["sim://sim-shop/help", "sim://sim-shop/help2"]}},
         {"id": "BUG-05", "kind": "js_error", "desc": "搜索框超长输入触发 JS 错误",
-         "match": {}},
+         "match": {"error": "Uncaught RangeError: Maximum call stack size exceeded"}},
         {"id": "BUG-06", "kind": "semantic", "desc": "注册表单空用户名也提示成功",
          "match": {"assert_id": "register_requires_username"}},
         {"id": "BUG-07", "kind": "semantic", "desc": "库存可被扣为负数",
@@ -227,7 +227,8 @@ def make_sim_todo() -> tuple:
                     "right": {"obs": "real_count"}}},
     ]
     manifest = [
-        {"id": "BUG-T1", "kind": "crash", "desc": "清空全部导致崩溃", "match": {}},
+        {"id": "BUG-T1", "kind": "crash", "desc": "清空全部导致崩溃",
+         "match": {"page": "list"}},
         {"id": "BUG-T2", "kind": "semantic", "desc": "删除待办后计数未更新",
          "match": {"assert_id": "todo_count_consistent"}},
         {"id": "BUG-T3", "kind": "dead_action", "desc": "置顶按钮无响应",

@@ -46,8 +46,10 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
     state.meta["sig"] = sig
     graph.add_state(sig, state.url, state.title, brief=_state_brief(state))
     history_sigs = [sig]
+    sig_url_map = {sig: state.url}
     recent_action_keys: list = []
-    seen_bug_keys = set()
+    seen_fingerprints = set()
+    entered_new_state = True                 # the initial state is novel by definition
     t0 = time.time()
 
     for step_idx in range(budget):
@@ -67,7 +69,7 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
             "spec_brief": spec_brief,
             "recent_action_keys": recent_action_keys[-10:],
             "cycle_detected": cycle_detected,
-            "is_new_state": graph.is_new_state(sig),
+            "entered_new_state": entered_new_state,   # True iff we just arrived somewhere unknown
             "history_sigs": history_sigs,
         }
         action = policy.select(graph, state, actions, ctx)
@@ -77,15 +79,18 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
         exec_result = executor.execute(action)
         new_state = exec_result.state if not exec_result.crashed else None
         new_sig = state_signature(new_state) if new_state else "CRASHED"
+        # record destination novelty BEFORE it is added to the graph
+        dst_is_new = new_state is not None and graph.is_new_state(new_sig)
 
         findings = oracle.inspect(state, action, exec_result, new_state, {
             "step_index": step_idx,
             "history_sigs": history_sigs,
             "ground_truth": executor.ground_truth() if not exec_result.crashed else {},
+            "sig_url_map": sig_url_map,
         })
         for f in findings:
-            if f.bug_key() not in seen_bug_keys:
-                seen_bug_keys.add(f.bug_key())
+            if f.fingerprint() not in seen_fingerprints:
+                seen_fingerprints.add(f.fingerprint())
                 result.candidates.append(f)
             if f.kind in ("dead_action", "nav_loop"):
                 graph.flag_node(sig, "had_l2_finding")
@@ -104,12 +109,16 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
             sig = state_signature(state)
             state.meta["sig"] = sig
             history_sigs = [sig]
+            sig_url_map = {sig: state.url}
+            entered_new_state = False
             continue
 
         state = new_state
         sig = new_sig
         state.meta["sig"] = sig
         history_sigs.append(sig)
+        sig_url_map[sig] = state.url
+        entered_new_state = dst_is_new
 
     result.wall_seconds = time.time() - t0
     if llm is not None:

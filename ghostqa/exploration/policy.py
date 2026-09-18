@@ -181,7 +181,7 @@ class GhostPolicy(Policy):
         trigger = (
             step % int(self.w["slow_path_interval"]) == 0
             or ctx.get("cycle_detected", False)
-            or ctx.get("is_new_state", False)
+            or ctx.get("entered_new_state", False)
             or (len(ranked) >= 2 and
                 abs(program_scores[ranked[0].key()] - program_scores[ranked[1].key()])
                 < self.w["slow_path_epsilon"])

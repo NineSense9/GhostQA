@@ -23,15 +23,34 @@ from benchmark.sim_apps import APPS
 
 
 def match_manifest(candidates, manifest) -> set:
-    """Map findings to seeded bug ids."""
+    """Map findings to seeded bug ids. Every manifest entry must carry
+    discriminating match keys so one finding can only hit its own bug."""
+    _check_manifest_discriminative(manifest)
     found = set()
     for f in candidates:
         for bug in manifest:
             if f.kind != bug["kind"]:
                 continue
-            if all(f.evidence.get(k) == v for k, v in bug["match"].items()):
+            if bug["match"] and all(f.evidence.get(k) == v
+                                    for k, v in bug["match"].items()):
                 found.add(bug["id"])
     return found
+
+
+def _check_manifest_discriminative(manifest):
+    seen = {}
+    for bug in manifest:
+        key = (bug["kind"], tuple(sorted(bug["match"].items())))
+        if key in seen:
+            raise ValueError(
+                f"manifest entries {seen[key]} and {bug['id']} are indistinguishable "
+                f"(same kind+match) - add discriminating match keys")
+        seen[key] = bug["id"]
+    for bug in manifest:
+        if not bug["match"]:
+            import warnings
+            warnings.warn(f"manifest {bug['id']} has empty match - "
+                          f"any {bug['kind']} finding will count as this bug")
 
 
 def run_one(app_name: str, make_app, policy, budget: int, validate: bool = True) -> dict:
@@ -48,7 +67,7 @@ def run_one(app_name: str, make_app, policy, budget: int, validate: bool = True)
     if validate:
         for f in result.candidates:
             ids = {b["id"] for b in manifest
-                   if b["kind"] == f.kind
+                   if b["kind"] == f.kind and b["match"]
                    and all(f.evidence.get(k) == v for k, v in b["match"].items())}
             if not ids:
                 continue
@@ -77,7 +96,7 @@ def run_one(app_name: str, make_app, policy, budget: int, validate: bool = True)
         "repeat_actions": result.repeat_actions,
         "llm_calls": result.llm_calls,
         "pseudo_tokens": result.pseudo_tokens,
-        "min_repro_lengths": {b.finding.bug_key(): len(b.reproduction)
+        "min_repro_lengths": {b.finding.fingerprint(): len(b.reproduction)
                               for b in confirmed_bugs},
         "wall_seconds": round(result.wall_seconds, 2),
     }

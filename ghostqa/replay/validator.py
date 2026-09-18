@@ -1,66 +1,97 @@
-"""Replay validator: a candidate bug is only reported if it reproduces."""
+"""Replay validation: confirm candidate bugs by re-executing the trace
+in a fresh environment.
+
+Predicate is tri-state:
+    PASS    -> bug with the SAME BugFingerprint reproduced
+    FAIL    -> sequence executed fully but bug did not reproduce
+    INVALID -> sequence itself is not executable end-to-end
+               (missing element / unsupported action / premature crash)
+
+A candidate is Confirmed only on PASS. Matching uses BugFingerprint
+(finding.fingerprint()), never bare `kind`.
+"""
 from __future__ import annotations
 
 from dataclasses import dataclass
 
 from ..oracle.engine import OracleEngine
+from ..state.models import Finding
 from ..state.signature import state_signature
+
+PASS, FAIL, INVALID = "PASS", "FAIL", "INVALID"
 
 
 @dataclass
 class ValidationResult:
     confirmed: bool
     attempts: int
-    reproduced_kind: str = ""
-    note: str = ""
+    reproduced_finding: Finding = None
+    detail: str = ""
 
 
-def make_bug_test(executor_factory, kind: str, oracle: OracleEngine,
-                  match: dict = None):
-    """Build a ddmin predicate: replay the action sequence from scratch and
-    return True iff a finding of `kind` (optionally matching evidence) occurs."""
-    match = match or {}
+def _replay(executor_factory, actions, oracle: OracleEngine):
+    """Execute actions on a fresh executor.
 
-    def test(actions) -> bool:
-        executor = executor_factory()
-        state = executor.reset()
-        hist = [state_signature(state)]
-        for i, action in enumerate(actions):
-            result = executor.execute(action)
-            new_state = result.state if not result.crashed else None
-            findings = oracle.inspect(state, action, result, new_state, {
-                "step_index": i,
-                "history_sigs": hist,
-                "ground_truth": executor.ground_truth() if not result.crashed else {},
-            })
-            for f in findings:
-                if f.kind != kind:
-                    continue
-                if all(f.evidence.get(k) == v for k, v in match.items()):
-                    return True
-            if result.crashed:
-                return kind == "crash"
-            state = new_state
-            hist.append(state_signature(state))
-        return False
+    Returns (status, findings):
+      status: "OK" fully executed | "CRASHED" mid-way | "INVALID" not executable
+    """
+    executor = executor_factory()
+    oracle = oracle or OracleEngine()
+    state = executor.reset()
+    hist = [state_signature(state)]
+    sig_url = {hist[0]: state.url}
+    all_findings: list = []
+    for i, action in enumerate(actions):
+        result = executor.execute(action)
+        if not result.ok:
+            return INVALID, all_findings
+        new_state = result.state if not result.crashed else None
+        findings = oracle.inspect(state, action, result, new_state, {
+            "step_index": i, "history_sigs": hist,
+            "ground_truth": executor.ground_truth() if not result.crashed else {},
+            "sig_url_map": sig_url,
+        })
+        all_findings.extend(findings)
+        if result.crashed:
+            return "CRASHED", all_findings
+        state = new_state
+        sig = state_signature(state)
+        hist.append(sig)
+        sig_url[sig] = state.url
+    return "OK", all_findings
 
+
+def make_bug_test(executor_factory, target_fingerprint: str, oracle: OracleEngine):
+    """Build a tri-state predicate for ddmin.
+
+    test(actions) -> "PASS" | "FAIL" | "INVALID"
+    """
+    def test(actions) -> str:
+        status, findings = _replay(executor_factory, actions, oracle)
+        if status == INVALID:
+            return INVALID
+        for f in findings:
+            if f.fingerprint() == target_fingerprint:
+                return PASS
+        return FAIL
     return test
 
 
-def validate_candidate(executor_factory, actions, finding,
-                       oracle: OracleEngine, retries: int = 3) -> ValidationResult:
-    """Replay the trace up to (and including) the finding step; the same kind of
-    finding must reproduce."""
+def validate_candidate(executor_factory, actions: list, finding: Finding,
+                       oracle: OracleEngine, retries: int = 2) -> ValidationResult:
+    """Replay actions[:finding.step_index+1]; confirm only on fingerprint PASS."""
     prefix = actions[: finding.step_index + 1]
-    match = {}
-    if "assert_id" in finding.evidence:
-        match["assert_id"] = finding.evidence["assert_id"]
-    elif "eid" in finding.evidence:
-        match["eid"] = finding.evidence["eid"]
-    test = make_bug_test(executor_factory, finding.kind, oracle, match)
-    for attempt in range(1, retries + 1):
-        if test(prefix):
-            return ValidationResult(confirmed=True, attempts=attempt,
-                                    reproduced_kind=finding.kind)
-    return ValidationResult(confirmed=False, attempts=retries,
-                            note="finding did not reproduce on replay (flaky/false positive)")
+    target = finding.fingerprint()
+    attempts = 0
+    for _ in range(1 + retries):
+        attempts += 1
+        status, findings = _replay(executor_factory, prefix, oracle)
+        if status == INVALID:
+            return ValidationResult(confirmed=False, attempts=attempts,
+                                    detail="replay sequence invalid")
+        for f in findings:
+            if f.fingerprint() == target:
+                return ValidationResult(confirmed=True, attempts=attempts,
+                                        reproduced_finding=f)
+    return ValidationResult(confirmed=False, attempts=attempts,
+                            detail="not reproduced after retries")

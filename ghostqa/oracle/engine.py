@@ -32,6 +32,7 @@ class OracleEngine:
                 step_index=step,
                 evidence={"action": action.brief(),
                           "page": prev.meta.get("page") if prev else None,
+                          "page_url": prev.url if prev else None,
                           "url": prev.url if prev else None}))
             return findings  # crashed: nothing more to inspect
 
@@ -77,11 +78,14 @@ class OracleEngine:
         if len(hist) >= 4:
             a, b, c, d = hist[-4:]
             if a == c and b == d and a != b:
+                cycle_urls = sorted({ctx.get("sig_url_map", {}).get(a, ""),
+                                     ctx.get("sig_url_map", {}).get(b, "")})
                 findings.append(Finding(
                     kind="nav_loop", severity="medium",
                     description="检测到导航死循环（A→B→A→B），可能无法退出当前页面组",
                     step_index=step,
-                    evidence={"cycle": [a, b], "url": new_state.url}))
+                    evidence={"cycle": [a, b], "cycle_urls": cycle_urls,
+                              "url": new_state.url}))
 
         # ---- L3: semantic assertions ----
         gt = ctx.get("ground_truth", {})
