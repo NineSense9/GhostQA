@@ -22,7 +22,8 @@ import time
 from .agent.gateway import MockLLM, NullLLM, OpenAICompatibleGateway
 from .exploration.explorer import run_exploration
 from .exploration.policy import (RandomPolicy, DFSPolicy, BFSPolicy,
-                                 LLMNaivePolicy, GhostPolicy)
+                                 LLMNaivePolicy, GhostPolicy,
+                                 WorkflowBFSPolicy)
 from .minimizer.ddmin import minimize_reproduction
 from .oracle.engine import OracleEngine
 from .oracle.spec import load_spec, format_spec_brief
@@ -30,7 +31,8 @@ from .replay.validator import validate_candidate
 from .report.generator import build_report, write_report
 from .state.models import ConfirmedBug
 
-POLICIES = ["ghost", "ghost-nollm", "monkey", "dfs", "bfs", "llm-naive"]
+POLICIES = ["ghost", "ghost-nollm", "monkey", "dfs", "bfs", "llm-naive",
+            "workflow-bfs"]
 
 
 def _make_llm(args):
@@ -57,6 +59,8 @@ def _make_policy(name: str, llm, seed: int):
         return LLMNaivePolicy(llm or MockLLM())
     if name == "ghost-nollm":
         return GhostPolicy(llm=None)
+    if name == "workflow-bfs":
+        return WorkflowBFSPolicy()
     return GhostPolicy(llm=llm) if llm else GhostPolicy(llm=None)
 
 

@@ -16,6 +16,10 @@ from ..state.signature import state_id, cluster_id, variant_key, state_signature
 from ..state.similarity import classify_against_graph, IDENTICAL, SIMILAR, NEW
 from ..executor.base import available_actions
 from ..oracle.engine import OracleEngine
+from .interaction import (
+    diagnose_action_space, opportunities, is_progress_action, workflow_stage,
+)
+
 
 
 @dataclass
@@ -33,9 +37,33 @@ class RunResult:
     relocate_count: int = 0
     restore_failures: int = 0
     similarity_counts: dict = field(default_factory=dict)
+    restore_actions: int = 0
+    input_actions_executed: int = 0
+    progress_actions: int = 0
+    unique_inputs_touched: int = 0
+    max_workflow_depth: int = 0
+    raw_action_count_mean: float = 0.0
+    interaction_opportunity_mean: float = 0.0
+    action_space_trace: list = field(default_factory=list)
 
     def actions(self):
         return [s.action for s in self.steps]
+
+    @property
+    def productive_actions(self) -> int:
+        return max(0, self.actions_executed - self.restore_actions)
+
+    @property
+    def restore_ratio(self) -> float:
+        if not self.actions_executed:
+            return 0.0
+        return round(self.restore_actions / self.actions_executed, 3)
+
+    @property
+    def input_action_share(self) -> float:
+        if not self.actions_executed:
+            return 0.0
+        return round(self.input_actions_executed / self.actions_executed, 3)
 
 
 def _state_brief(state) -> str:
@@ -49,6 +77,14 @@ def _id_fns(state_model: str):
     if state_model == "structural":
         return state_signature, state_signature, lambda s: "none"
     return state_id, cluster_id, variant_key
+
+
+def _candidates(state, policy, sig, can_back, input_vocab, ctx) -> tuple:
+    diag = diagnose_action_space(state, can_back, input_vocab)
+    pp = getattr(policy, "payload_policy", None)
+    if pp is not None and getattr(policy, "progressive", False):
+        return pp.actions_for(state, sig, can_back, ctx), diag
+    return available_actions(state, can_back=can_back, input_vocab=input_vocab), diag
 
 
 def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
@@ -77,15 +113,32 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
     pending_restore: list = []
     restore_target = ""
     t0 = time.time()
+    inputs_touched: set = set()
+    diag_raw_total = 0
+    diag_opp_total = 0
+    diag_n = 0
+    pp = getattr(policy, "payload_policy", None)
 
     for step_idx in range(budget):
         if len(executor.ground_truth().get("__halt__", [])):
             break
         can_back = True
-        actions = available_actions(state, can_back=can_back, input_vocab=input_vocab)
+        enum_ctx = {
+            "sig": sig, "step_index": step_idx, "budget": budget,
+            "page_progressed": bool(pp and sig in getattr(pp, "progress_pages", ())),
+            "no_better_frontier": False,
+        }
+        actions, diag = _candidates(state, policy, sig, can_back, input_vocab, enum_ctx)
+        result.action_space_trace.append(diag)
+        diag_raw_total += diag["total_actions"]
+        diag_opp_total += diag["unique_interaction_targets"]
+        diag_n += 1
         if not actions and not pending_restore:
             break
         graph.record_observed(sig, [a.key() for a in actions])
+        graph.record_opportunities(sig, opportunities(state, can_back))
+        result.max_workflow_depth = max(result.max_workflow_depth,
+                                        workflow_stage(state.url))
 
         if not pending_restore:
             relocate = getattr(policy, "maybe_relocate", None)
@@ -104,9 +157,10 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
                     pending_restore = list(path)
                     restore_target = target if pending_restore else ""
                     result.relocate_count += 1
-                    actions = available_actions(state, can_back=True,
-                                                input_vocab=input_vocab)
+                    actions, diag = _candidates(
+                        state, policy, sig, True, input_vocab, enum_ctx)
                     graph.record_observed(sig, [a.key() for a in actions])
+                    graph.record_opportunities(sig, opportunities(state, True))
                 else:
                     graph.mark_restore_failure(target)
                     result.restore_failures += 1
@@ -187,6 +241,18 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
                                  findings=findings))
         result.actions_executed += 1
         recent_action_keys.append(action.key())
+        if restore_step:
+            result.restore_actions += 1
+        if action.type == "input":
+            result.input_actions_executed += 1
+            if action.target_eid:
+                inputs_touched.add(action.target_eid)
+            if pp is not None:
+                pp.mark(sig, action.target_eid or "", action.text or "")
+        if is_progress_action(action, state):
+            result.progress_actions += 1
+            if pp is not None:
+                pp.mark_progress(sig)
 
         if exec_result.crashed:
             pending_restore = []
@@ -213,9 +279,15 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
         sig_url_map[sig] = state.url
         entered_new_state = relation == NEW
         entered_new_variant = relation == SIMILAR
+        result.max_workflow_depth = max(result.max_workflow_depth,
+                                        workflow_stage(state.url))
 
     result.wall_seconds = time.time() - t0
     result.similarity_counts = dict(graph.similarity_counts)
+    result.unique_inputs_touched = len(inputs_touched)
+    if diag_n:
+        result.raw_action_count_mean = round(diag_raw_total / diag_n, 2)
+        result.interaction_opportunity_mean = round(diag_opp_total / diag_n, 2)
     if llm is not None:
         result.llm_calls = getattr(llm, "calls", 0)
         result.pseudo_tokens = getattr(llm, "pseudo_tokens", 0)

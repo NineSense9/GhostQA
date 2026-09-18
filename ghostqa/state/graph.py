@@ -22,6 +22,7 @@ class StateNode:
     cluster_id: str = ""
     variant_key: str = ""
     observed_actions: set = field(default_factory=set)
+    observed_opps: dict = field(default_factory=dict)  # interaction key -> meta
     restore_failures: int = 0
     relation: str = NEW          # how this node first related to the graph
 
@@ -35,6 +36,7 @@ class StateNode:
             "cluster_id": self.cluster_id,
             "variant_key": self.variant_key,
             "observed_actions": sorted(self.observed_actions),
+            "observed_opps": self.observed_opps,
             "restore_failures": self.restore_failures,
             "relation": self.relation,
         }
@@ -110,6 +112,16 @@ class StateGraph:
         if node is None:
             return
         node.observed_actions.update(action_keys)
+
+    def record_opportunities(self, sig: str, opps: list):
+        node = self.nodes.get(sig)
+        if node is None:
+            return
+        for o in opps:
+            node.observed_opps[o.key()] = {
+                "kind": o.kind, "progress": bool(o.progress),
+                "field_type": getattr(o, "field_type", "unknown"),
+            }
 
     def is_new_state(self, sig: str) -> bool:
         return sig not in self.nodes

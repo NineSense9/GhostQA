@@ -182,3 +182,14 @@ def test_manifest_not_in_page_source(web):
     assert "BUG-D9" not in html
     assert "data-bug-id" not in html
     assert "bugs.manifest" not in html
+
+
+def test_workflow_bfs_reaches_dashboard_or_wizard(web):
+    """Reachability, not bug-discovery. No manifest is consulted."""
+    from ghostqa.exploration.explorer import run_exploration
+    from ghostqa.exploration.policy import WorkflowBFSPolicy
+    result = run_exploration(web, WorkflowBFSPolicy(), budget=30)
+    urls = " ".join(n.url for n in result.graph.nodes.values())
+    assert result.max_workflow_depth >= 2 or "dashboard" in urls or "wizard" in urls, (
+        f"WorkflowBFS did not leave the lobby; depth={result.max_workflow_depth} urls={urls}"
+    )

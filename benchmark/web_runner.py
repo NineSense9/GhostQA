@@ -20,7 +20,8 @@ import time
 from ghostqa.agent.gateway import MockLLM
 from ghostqa.exploration.explorer import run_exploration
 from ghostqa.exploration.policy import (RandomPolicy, DFSPolicy, BFSPolicy,
-                                        LLMNaivePolicy, GhostPolicy)
+                                        LLMNaivePolicy, GhostPolicy,
+                                        WorkflowBFSPolicy)
 from ghostqa.minimizer.ddmin import minimize_reproduction
 from ghostqa.oracle.engine import OracleEngine
 from ghostqa.oracle.spec import load_spec, format_spec_brief
@@ -61,6 +62,11 @@ def make_policy(name: str, seed: int):
         return GhostPolicy(llm=MockLLM(), use_frontier=False)
     if name == "ghost-nosemantic":
         return GhostPolicy(llm=MockLLM(), use_frontier=True, use_semantic_state=False)
+    if name == "workflow-bfs":
+        return WorkflowBFSPolicy()
+    if name == "ghost-oldinput":
+        return GhostPolicy(llm=MockLLM(), use_frontier=True, progressive=False,
+                           relocate_mode="exhaustion")
     raise ValueError(name)
 
 
@@ -159,6 +165,17 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
         "llm_calls": result.llm_calls,
         "tokens": result.pseudo_tokens,
         "wall_seconds": round(time.time() - t0, 1),
+        "restore_actions": result.restore_actions,
+        "restore_ratio": result.restore_ratio,
+        "productive_actions": result.productive_actions,
+        "input_actions_executed": result.input_actions_executed,
+        "input_action_share": result.input_action_share,
+        "unique_inputs_touched": result.unique_inputs_touched,
+        "progress_actions": result.progress_actions,
+        "max_workflow_depth": result.max_workflow_depth,
+        "raw_action_count_mean": result.raw_action_count_mean,
+        "interaction_opportunity_mean": result.interaction_opportunity_mean,
+        "first_step_by_bug": first_step,
     }
 
 

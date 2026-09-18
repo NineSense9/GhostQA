@@ -17,6 +17,10 @@ import random
 from ..state.models import Action
 from ..agent.gateway import NullLLM
 from .planner import FrontierPlanner
+from .payload import PayloadPolicy, class_of_value, first_wave
+from .interaction import (
+    classify_field, is_progress_action, form_progress,
+)
 
 RISK_KEYWORDS = ["支付", "删除", "提交", "结算", "清空", "注册", "购买",
                  "pay", "delete", "submit", "clear", "checkout", "buy"]
@@ -103,25 +107,36 @@ ACTION_COST = {"click": 0.05, "input": 0.10, "back": 0.02, "wait": 0.01, "naviga
 
 
 class GhostPolicy(Policy):
-    """GhostQA Exploration Policy v1.2: local scoring + global frontier."""
+    """GhostQA Exploration Policy v1.3 (product v0.3.1): progressive payloads,
+    workflow progression, interaction-level frontier, opportunity-cost relocate.
+    """
     name = "ghost"
 
     def __init__(self, llm=None, weights: dict = None,
-                 use_frontier: bool = True, use_semantic_state: bool = True):
+                 use_frontier: bool = True, use_semantic_state: bool = True,
+                 progressive: bool = True, relocate_mode: str = "opportunity"):
         self.llm = llm or NullLLM()
         self.w = dict(DEFAULT_WEIGHTS)
+        self.w.setdefault("w7_progress", 0.55)
         if weights:
             self.w.update(weights)
-        self._semantic_cache: dict = {}      # exact state_id -> {action_key: score}
+        self._semantic_cache: dict = {}
         self.use_llm = llm is not None
         self.use_frontier = use_frontier
         self.use_semantic_state = use_semantic_state
+        self.progressive = progressive
+        self.relocate_mode = relocate_mode   # opportunity | exhaustion
+        self.payload_policy = PayloadPolicy() if progressive else None
         self.planner = FrontierPlanner() if use_frontier else None
         self._last_relocate_step = -999
+        self._last_relocate_sig = ""
 
     def reset(self):
         self._semantic_cache = {}
         self._last_relocate_step = -999
+        self._last_relocate_sig = ""
+        if self.payload_policy is not None:
+            self.payload_policy = PayloadPolicy()
 
     # ---- program-computed terms ----
     def _novelty(self, graph, sig: str, action: Action) -> float:
@@ -153,14 +168,28 @@ class GhostPolicy(Policy):
         recent = ctx.get("recent_action_keys", [])
         return recent.count(action.key()) * 0.2
 
+    def _is_deferred_fuzz(self, action, state) -> bool:
+        if action.type != "input" or self.payload_policy is None:
+            return False
+        el = next((e for e in state.elements if e.eid == action.target_eid), None)
+        field = classify_field(el) if el is not None else "unknown"
+        return class_of_value(action.text or "") not in first_wave(field)
+
     def _program_score(self, graph, state, action, ctx) -> float:
         sig = ctx["sig"]
-        score = (self.w["w1_novelty"] * self._novelty(graph, sig, action)
+        novelty = self._novelty(graph, sig, action)
+        if self._is_deferred_fuzz(action, state):
+            novelty = min(novelty, 0.2)
+        score = (self.w["w1_novelty"] * novelty
                  + self.w["w2_ucb"] * self._ucb(graph, sig, action)
                  + self.w["w4_risk"] * self._risk(graph, state, action)
                  - self.w["w5_repetition"] * self._repetition(action, ctx)
                  - self.w["w6_cost"] * ACTION_COST.get(action.type, 0.05))
-        # Backtracking is for exhausted nodes; untried on-page actions win.
+        if is_progress_action(action, state):
+            score += self.w.get("w7_progress", 0.55)
+            fp = ctx.get("form_progress") or {}
+            if fp.get("ready") and action.type == "click":
+                score += 0.35
         if action.type == "back":
             keys = [a.key() for a in ctx.get("candidate_actions", [])] or None
             if keys is None:
@@ -197,28 +226,32 @@ class GhostPolicy(Policy):
         return reasons
 
     def maybe_relocate(self, graph, state, actions, ctx):
-        """Return a frontier sig to restore, or None to stay here.
-
-        Relocate when the current page is locally exhausted, or a distant
-        frontier scores clearly higher than the best local program score.
-        """
+        """Opportunity-cost relocate: jump only if frontier_net beats local."""
         if not self.use_frontier or self.planner is None:
             return None
         step = ctx.get("step_index", 0)
-        if step < 8:
-            return None
-        if step - self._last_relocate_step < 8:
+        if step < 6:
             return None
         sig = ctx["sig"]
-        keys = [a.key() for a in actions]
-        local_untried = [k for k in graph.untried_actions(sig, keys)
-                         if not k.startswith("back:")]
-        # Stay on a page that still has untried work. Relocate is a jump
-        # out of an exhausted node, not a pre-emption of local exploration.
-        if local_untried:
-            return None
         remaining = ctx.get("budget", 10**9) - step
-        target = self.planner.select(graph, sig, remaining_budget=remaining)
+        ctx_local = dict(ctx)
+        ctx_local["candidate_actions"] = actions
+        local_best = -1.0
+        for a in actions:
+            if a.type == "back":
+                continue
+            local_best = max(local_best, self._program_score(graph, state, a, ctx_local))
+        if self.relocate_mode == "exhaustion":
+            keys = [a.key() for a in actions]
+            local_untried = [k for k in graph.untried_actions(sig, keys)
+                             if not k.startswith("back:")]
+            if local_untried:
+                return None
+            if step - self._last_relocate_step < 8:
+                return None
+        target = self.planner.select(
+            graph, sig, remaining_budget=remaining,
+            payload_policy=self.payload_policy)
         if target is None or target.sig == sig:
             return None
         path = graph.shortest_path(graph.start_sig, target.sig)
@@ -226,7 +259,19 @@ class GhostPolicy(Policy):
             return None
         if len(path) >= remaining:
             return None
+        restore_cost = 0.25 * len(path)
+        frontier_net = target.score - restore_cost
+        threshold = 0.35
+        if frontier_net <= local_best + threshold:
+            return None
+        # Hysteresis: tiny improvements after a recent hop are ignored.
+        if (step - self._last_relocate_step < 4
+                and frontier_net - local_best < 0.8):
+            return None
+        if target.sig == self._last_relocate_sig and step - self._last_relocate_step < 6:
+            return None
         self._last_relocate_step = step
+        self._last_relocate_sig = target.sig
         ctx["last_relocate"] = {
             "from": sig, "to": target.sig, "score": round(target.score, 3),
             "path_len": target.path_len, "reasons": target.reasons,
@@ -248,6 +293,9 @@ class GhostPolicy(Policy):
     def select(self, graph, state, actions, ctx) -> Action:
         ctx = dict(ctx)
         ctx["candidate_actions"] = actions
+        if self.payload_policy is not None:
+            ctx["form_progress"] = form_progress(
+                state, self.payload_policy.tried_fields(ctx["sig"]))
         program_scores = {a.key(): self._program_score(graph, state, a, ctx)
                           for a in actions}
         ranked = sorted(actions, key=lambda a: -program_scores[a.key()])
@@ -270,3 +318,43 @@ class GhostPolicy(Policy):
             "program_top": ranked[0].brief(),
         }
         return best
+
+
+class WorkflowBFSPolicy(Policy):
+    """Fair non-AI baseline: interaction-level BFS with progressive payloads.
+
+    One input field is one opportunity. First-wave payload then submit/next,
+    deferred fuzz last. Does not read bug manifests.
+    """
+    name = "workflow_bfs"
+
+    def __init__(self):
+        self.payload_policy = PayloadPolicy()
+        self.progressive = True
+        self.llm = None
+
+    def reset(self):
+        self.payload_policy = PayloadPolicy()
+
+    def select(self, graph, state, actions, ctx):
+        keys = [a.key() for a in actions]
+        untried = set(graph.untried_actions(ctx["sig"], keys))
+
+        def bucket(a):
+            if a.key() not in untried:
+                return 9
+            if is_progress_action(a, state):
+                return 0
+            if a.type == "click":
+                return 1
+            if a.type == "input":
+                el = next((e for e in state.elements if e.eid == a.target_eid), None)
+                field = classify_field(el) if el else "unknown"
+                if class_of_value(a.text or "") in first_wave(field):
+                    return 2
+                return 4
+            if a.type == "back":
+                return 5
+            return 3
+
+        return min(actions, key=lambda a: (bucket(a), keys.index(a.key())))
