@@ -1,10 +1,10 @@
-"""WebBench: real-browser benchmark of exploration policies against BuggyShop.
+"""WebBench: real-browser benchmark of exploration policies.
 
-Layer B of GhostBench. Starts BuggyShop locally, runs each policy x seed,
-validates+minimizes findings, and aggregates mean/std/min/max.
-
-    python -m benchmark.web_runner --budget 40 --seeds 1,2 \
+    python -m benchmark.web_runner --app buggy-shop --budget 40 --seeds 1,2 \
         --out experiments/published/webbench-v0.2
+
+    python -m benchmark.web_runner --app buggy-flow --budgets 20,40,80 \
+        --seeds 1,2,3 --skip-minimize --out experiments/published/deepbench-v0.3
 """
 from __future__ import annotations
 
@@ -23,13 +23,17 @@ from ghostqa.exploration.policy import (RandomPolicy, DFSPolicy, BFSPolicy,
                                         LLMNaivePolicy, GhostPolicy)
 from ghostqa.minimizer.ddmin import minimize_reproduction
 from ghostqa.oracle.engine import OracleEngine
-from ghostqa.oracle.spec import load_spec
+from ghostqa.oracle.spec import load_spec, format_spec_brief
 from ghostqa.replay.validator import validate_candidate
 from ghostqa.state.models import ConfirmedBug
 from benchmark.runner import evidence_matches
 
-APP_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
-                       "apps", "buggy-shop")
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+APPS = {
+    "buggy-shop": os.path.join(ROOT, "apps", "buggy-shop"),
+    "buggy-flow": os.path.join(ROOT, "apps", "buggy-flow"),
+}
+DEEP_DEPTH = 4
 
 
 def _free_port() -> int:
@@ -50,10 +54,32 @@ def make_policy(name: str, seed: int):
     if name == "llm-naive":
         return LLMNaivePolicy(MockLLM())
     if name == "ghost-nollm":
-        return GhostPolicy(llm=None)
+        return GhostPolicy(llm=None, use_frontier=True)
     if name == "ghost-full":
-        return GhostPolicy(llm=MockLLM())
+        return GhostPolicy(llm=MockLLM(), use_frontier=True)
+    if name == "ghost-nofrontier":
+        return GhostPolicy(llm=MockLLM(), use_frontier=False)
+    if name == "ghost-nosemantic":
+        return GhostPolicy(llm=MockLLM(), use_frontier=True, use_semantic_state=False)
     raise ValueError(name)
+
+
+def _state_model(policy_name: str) -> str:
+    return "structural" if policy_name == "ghost-nosemantic" else "semantic"
+
+
+def _auc(first_steps: list, budget: int, n_bugs: int) -> float:
+    """Area under (actions → confirmed bugs) curve, normalised by budget * n_bugs."""
+    if not n_bugs or not budget:
+        return 0.0
+    hits = sorted(t for t in first_steps if t is not None)
+    found, area, i = 0, 0.0, 0
+    for t in range(budget):
+        while i < len(hits) and hits[i] <= t:
+            found += 1
+            i += 1
+        area += found
+    return round(area / (budget * n_bugs), 3)
 
 
 def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
@@ -61,12 +87,13 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
     from ghostqa.executor.playwright_web import PlaywrightWebExecutor
 
     oracle = OracleEngine(spec)
-    spec_brief = "; ".join(a["id"] for a in spec)
+    spec_brief = format_spec_brief(spec)
     web = PlaywrightWebExecutor(base_url, headless=True, shared=shared)
     policy = make_policy(policy_name, seed)
     t0 = time.time()
     result = run_exploration(web, policy, budget, oracle=oracle,
-                             spec_brief=spec_brief)
+                             spec_brief=spec_brief,
+                             state_model=_state_model(policy_name))
 
     found_ids = set()
     for f in result.candidates:
@@ -76,6 +103,7 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
 
     factory = lambda: PlaywrightWebExecutor(base_url, headless=True, shared=shared)
     confirmed_ids, replay_ok, replay_total, min_ratios = set(), 0, 0, []
+    first_step = {}
     for f in result.candidates:
         ids = {b["id"] for b in manifest
                if f.kind == b["kind"] and evidence_matches(f.evidence, b["match"])}
@@ -87,22 +115,44 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
             continue
         replay_ok += 1
         confirmed_ids |= ids
+        for bid in ids:
+            first_step[bid] = min(first_step.get(bid, f.step_index), f.step_index)
         if not skip_minimize:
             repro = minimize_reproduction(factory, result.actions(), f, oracle)
             if f.step_index + 1 > 0 and repro:
                 min_ratios.append(len(repro) / (f.step_index + 1))
     web.close()
 
+    deep = [b for b in manifest if b.get("trigger_depth", 0) >= DEEP_DEPTH]
+    deep_ids = {b["id"] for b in deep}
+    confirmed_deep = confirmed_ids & deep_ids
     first_bug = next((s.index for s in result.steps if s.findings), None)
+    t2deep = min((first_step[i] for i in confirmed_deep), default=None)
+    by_depth = {}
+    for b in manifest:
+        d = str(b.get("trigger_depth", "?"))
+        by_depth.setdefault(d, {"total": 0, "confirmed": 0})
+        by_depth[d]["total"] += 1
+        if b["id"] in confirmed_ids:
+            by_depth[d]["confirmed"] += 1
     return {
         "policy": policy_name, "seed": seed, "budget": budget,
         "actions": result.actions_executed,
         "states": len(result.graph.nodes),
+        "clusters": result.graph.cluster_count(),
+        "variants": result.graph.variant_count(),
+        "relocate_count": result.relocate_count,
+        "restore_failures": result.restore_failures,
+        "similarity": dict(result.graph.similarity_counts),
         "candidates": len(result.candidates),
         "bugs_found": sorted(found_ids),
         "confirmed_bugs": sorted(confirmed_ids),
         "bug_discovery_rate": round(len(confirmed_ids) / len(manifest), 3),
+        "deep_bug_discovery_rate": round(len(confirmed_deep) / len(deep), 3) if deep else None,
+        "discovery_auc": _auc(list(first_step.values()), budget, len(manifest)),
         "time_to_first_bug": first_bug,
+        "time_to_first_deep_bug": t2deep,
+        "bugs_by_depth": by_depth,
         "repeat_rate": round(result.repeat_actions / max(1, result.actions_executed), 3),
         "replay_success_rate": round(replay_ok / replay_total, 3) if replay_total else None,
         "min_repro_ratio": round(statistics.mean(min_ratios), 3) if min_ratios else None,
@@ -119,16 +169,25 @@ def aggregate(rows: list) -> list:
     out = []
     for policy, rs in by_policy.items():
         rates = [r["bug_discovery_rate"] for r in rs]
+        deeps = [r["deep_bug_discovery_rate"] for r in rs
+                 if r.get("deep_bug_discovery_rate") is not None]
+        aucs = [r.get("discovery_auc", 0) for r in rs]
         t2b = [r["time_to_first_bug"] for r in rs
                if r["time_to_first_bug"] is not None]
+        budgets = sorted({r["budget"] for r in rs})
         out.append({
             "policy": policy,
             "runs": len(rs),
+            "budgets": budgets,
             "bugs_mean": round(statistics.mean(rates), 3),
             "bugs_std": round(statistics.stdev(rates), 3) if len(rates) > 1 else 0.0,
             "bugs_min": min(rates), "bugs_max": max(rates),
+            "deep_mean": round(statistics.mean(deeps), 3) if deeps else None,
+            "auc_mean": round(statistics.mean(aucs), 3) if aucs else None,
             "t2bug_mean": round(statistics.mean(t2b), 1) if t2b else None,
             "states_mean": round(statistics.mean(r["states"] for r in rs), 1),
+            "clusters_mean": round(statistics.mean(r.get("clusters", 0) for r in rs), 1),
+            "relocate_mean": round(statistics.mean(r.get("relocate_count", 0) for r in rs), 2),
             "repeat_rate_mean": round(statistics.mean(r["repeat_rate"] for r in rs), 3),
             "llm_calls_mean": round(statistics.mean(r["llm_calls"] for r in rs), 1),
             "wall_mean_s": round(statistics.mean(r["wall_seconds"] for r in rs), 1),
@@ -138,7 +197,10 @@ def aggregate(rows: list) -> list:
 
 def main():
     ap = argparse.ArgumentParser()
+    ap.add_argument("--app", default="buggy-shop", choices=sorted(APPS))
     ap.add_argument("--budget", type=int, default=40)
+    ap.add_argument("--budgets", type=str, default="",
+                    help="comma-separated budgets; overrides --budget")
     ap.add_argument("--seeds", type=str, default="1,2")
     ap.add_argument("--policies", type=str,
                     default="monkey,dfs,bfs,ghost-nollm,ghost-full")
@@ -146,16 +208,18 @@ def main():
     ap.add_argument("--out", required=True)
     args = ap.parse_args()
 
-    spec = load_spec(os.path.join(APP_DIR, "spec.json"))
-    with open(os.path.join(APP_DIR, "bugs.manifest.json"), encoding="utf-8") as f:
+    app_dir = APPS[args.app]
+    spec = load_spec(os.path.join(app_dir, "spec.json"))
+    with open(os.path.join(app_dir, "bugs.manifest.json"), encoding="utf-8") as f:
         manifest = json.load(f)["bugs"]
     seeds = [int(s) for s in args.seeds.split(",")]
     policies = args.policies.split(",")
+    budgets = [int(x) for x in args.budgets.split(",") if x.strip()] or [args.budget]
     os.makedirs(args.out, exist_ok=True)
 
     port = _free_port()
     server = subprocess.Popen(
-        [sys.executable, os.path.join(APP_DIR, "server.py"), str(port)],
+        [sys.executable, os.path.join(app_dir, "server.py"), str(port)],
         stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     base_url = f"http://127.0.0.1:{port}"
     time.sleep(0.8)
@@ -168,16 +232,21 @@ def main():
     rows = []
     try:
         for policy in policies:
-            for seed in seeds:
-                row = run_one(base_url, shared, policy, seed, args.budget,
-                              spec, manifest, args.skip_minimize)
-                rows.append(row)
-                print(f"[{policy:11s} seed={seed}] "
-                      f"bugs={row['bug_discovery_rate']:.2f} "
-                      f"confirmed={len(row['confirmed_bugs'])} states={row['states']} "
-                      f"cand={row['candidates']} t2bug={row['time_to_first_bug']} "
-                      f"llm={row['llm_calls']} wall={row['wall_seconds']}s",
-                      flush=True)
+            for budget in budgets:
+                for seed in seeds:
+                    row = run_one(base_url, shared, policy, seed, budget,
+                                  spec, manifest, args.skip_minimize)
+                    rows.append(row)
+                    print(f"[{policy:16s} bud={budget} seed={seed}] "
+                          f"bdr={row['bug_discovery_rate']:.2f} "
+                          f"deep={row['deep_bug_discovery_rate']} "
+                          f"auc={row['discovery_auc']} "
+                          f"confirmed={len(row['confirmed_bugs'])} "
+                          f"states={row['states']}/{row['clusters']}c "
+                          f"reloc={row['relocate_count']} "
+                          f"t2bug={row['time_to_first_bug']} "
+                          f"llm={row['llm_calls']} wall={row['wall_seconds']}s",
+                          flush=True)
     finally:
         browser.close()
         pw.stop()

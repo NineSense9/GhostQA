@@ -1,10 +1,13 @@
-"""Exploration policies: baselines (Random/DFS/BFS/LLM-naive) + GhostPolicy v1.
+"""Exploration policies: baselines (Random/DFS/BFS/LLM-naive) + GhostPolicy v1.2.
 
-GhostPolicy scoring:
+GhostPolicy scoring (local):
     Score(s,a) = w1*Novelty + w2*UCB + w3*Semantics(LLM, slow-path) + w4*Risk
                  - w5*Repetition - w6*Cost
-Program terms computed locally every step (fast path, zero model calls);
-LLM semantic term only on slow-path triggers, cached per state signature.
+Global (v1.2): FrontierPlanner may request reset+replay to a non-current node.
+
+Program terms run every step; LLM only on gated slow-path.
+Cache key is the exact state_id (cluster+variant), never the structural
+signature alone.
 """
 from __future__ import annotations
 
@@ -13,6 +16,7 @@ import random
 
 from ..state.models import Action
 from ..agent.gateway import NullLLM
+from .planner import FrontierPlanner
 
 RISK_KEYWORDS = ["支付", "删除", "提交", "结算", "清空", "注册", "购买",
                  "pay", "delete", "submit", "clear", "checkout", "buy"]
@@ -99,19 +103,25 @@ ACTION_COST = {"click": 0.05, "input": 0.10, "back": 0.02, "wait": 0.01, "naviga
 
 
 class GhostPolicy(Policy):
-    """GhostQA Exploration Policy v1: value-guided state-space exploration."""
+    """GhostQA Exploration Policy v1.2: local scoring + global frontier."""
     name = "ghost"
 
-    def __init__(self, llm=None, weights: dict = None):
+    def __init__(self, llm=None, weights: dict = None,
+                 use_frontier: bool = True, use_semantic_state: bool = True):
         self.llm = llm or NullLLM()
         self.w = dict(DEFAULT_WEIGHTS)
         if weights:
             self.w.update(weights)
-        self._semantic_cache: dict = {}      # state sig -> {action_key: score}
+        self._semantic_cache: dict = {}      # exact state_id -> {action_key: score}
         self.use_llm = llm is not None
+        self.use_frontier = use_frontier
+        self.use_semantic_state = use_semantic_state
+        self.planner = FrontierPlanner() if use_frontier else None
+        self._last_relocate_step = -999
 
     def reset(self):
         self._semantic_cache = {}
+        self._last_relocate_step = -999
 
     # ---- program-computed terms ----
     def _novelty(self, graph, sig: str, action: Action) -> float:
@@ -145,11 +155,21 @@ class GhostPolicy(Policy):
 
     def _program_score(self, graph, state, action, ctx) -> float:
         sig = ctx["sig"]
-        return (self.w["w1_novelty"] * self._novelty(graph, sig, action)
-                + self.w["w2_ucb"] * self._ucb(graph, sig, action)
-                + self.w["w4_risk"] * self._risk(graph, state, action)
-                - self.w["w5_repetition"] * self._repetition(action, ctx)
-                - self.w["w6_cost"] * ACTION_COST.get(action.type, 0.05))
+        score = (self.w["w1_novelty"] * self._novelty(graph, sig, action)
+                 + self.w["w2_ucb"] * self._ucb(graph, sig, action)
+                 + self.w["w4_risk"] * self._risk(graph, state, action)
+                 - self.w["w5_repetition"] * self._repetition(action, ctx)
+                 - self.w["w6_cost"] * ACTION_COST.get(action.type, 0.05))
+        # Backtracking is for exhausted nodes; untried on-page actions win.
+        if action.type == "back":
+            keys = [a.key() for a in ctx.get("candidate_actions", [])] or None
+            if keys is None:
+                score -= 0.35
+            else:
+                untried = graph.untried_actions(sig, keys)
+                if any(not k.startswith("back:") for k in untried):
+                    score -= 0.35
+        return score
 
     # ---- v1.1 gates: LLM is consulted only when it adds information ----
     def _gate_reasons(self, program_scores, ranked, ctx) -> list:
@@ -158,8 +178,8 @@ class GhostPolicy(Policy):
                 program_scores[ranked[0].key()] - program_scores[ranked[1].key()]
         ) < self.w["slow_path_epsilon"]:
             reasons.append("uncertainty")          # UncertaintyGate
-        if ctx.get("entered_new_state", False):
-            reasons.append("novel_state")          # NovelStateGate
+        if ctx.get("entered_new_state", False) or ctx.get("entered_new_variant", False):
+            reasons.append("novel_state")          # NovelStateGate (cluster or variant)
         if ctx.get("cycle_detected", False):
             reasons.append("stuck")                # StuckGate
         spec_brief = ctx.get("spec_brief", "")
@@ -168,15 +188,54 @@ class GhostPolicy(Policy):
                     + " ".join(a.brief() for a in ranked[:3])).lower()
             if any(kw in text for kw in
                    ("cart", "total", "stock", "register", "login", "购物车",
-                    "总价", "库存", "注册", "登录", "结算", "支付")):
+                    "总价", "库存", "注册", "登录", "结算", "支付",
+                    "归档", "权限", "成员", "项目", "任务", "优惠", "账单",
+                    "archive", "permission", "member", "project", "task")):
                 reasons.append("spec_relevance")   # SpecRelevanceGate
         if ctx.get("step_index", 0) % int(self.w["slow_path_interval"]) == 0:
             reasons.append("interval")             # long backstop
         return reasons
 
+    def maybe_relocate(self, graph, state, actions, ctx):
+        """Return a frontier sig to restore, or None to stay here.
+
+        Relocate when the current page is locally exhausted, or a distant
+        frontier scores clearly higher than the best local program score.
+        """
+        if not self.use_frontier or self.planner is None:
+            return None
+        step = ctx.get("step_index", 0)
+        if step < 8:
+            return None
+        if step - self._last_relocate_step < 8:
+            return None
+        sig = ctx["sig"]
+        keys = [a.key() for a in actions]
+        local_untried = [k for k in graph.untried_actions(sig, keys)
+                         if not k.startswith("back:")]
+        # Stay on a page that still has untried work. Relocate is a jump
+        # out of an exhausted node, not a pre-emption of local exploration.
+        if local_untried:
+            return None
+        remaining = ctx.get("budget", 10**9) - step
+        target = self.planner.select(graph, sig, remaining_budget=remaining)
+        if target is None or target.sig == sig:
+            return None
+        path = graph.shortest_path(graph.start_sig, target.sig)
+        if path is None:
+            return None
+        if len(path) >= remaining:
+            return None
+        self._last_relocate_step = step
+        ctx["last_relocate"] = {
+            "from": sig, "to": target.sig, "score": round(target.score, 3),
+            "path_len": target.path_len, "reasons": target.reasons,
+        }
+        return target.sig
+
     def _semantic_scores(self, graph, state, topk_actions, ctx) -> dict:
         """Score ONLY the top-k candidates; other actions are unaffected."""
-        sig = ctx["sig"]
+        sig = ctx["sig"]          # exact state_id (cluster:variant)
         if sig in self._semantic_cache:
             return self._semantic_cache[sig]
         briefs = [a.brief() for a in topk_actions]
@@ -187,6 +246,8 @@ class GhostPolicy(Policy):
         return scores
 
     def select(self, graph, state, actions, ctx) -> Action:
+        ctx = dict(ctx)
+        ctx["candidate_actions"] = actions
         program_scores = {a.key(): self._program_score(graph, state, a, ctx)
                           for a in actions}
         ranked = sorted(actions, key=lambda a: -program_scores[a.key()])

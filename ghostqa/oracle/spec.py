@@ -40,6 +40,21 @@ DEFAULT_REGISTRY.register("cart_total",
 DEFAULT_REGISTRY.register("cart_count", lambda gt: len(gt.get("cart", [])))
 
 
+def format_spec_brief(spec: list, max_chars: int = 800) -> str:
+    """Compact spec context for the LLM: id + desc + when, not the full AST."""
+    parts = []
+    for a in spec or []:
+        when = a.get("when", {})
+        if isinstance(when, dict):
+            when_s = ",".join(f"{k}={v}" for k, v in when.items())
+        else:
+            when_s = str(when)
+        desc = a.get("desc") or a.get("description") or ""
+        parts.append(f"{a.get('id', '?')}: {desc} [{when_s}]")
+    text = " | ".join(parts)
+    return text[:max_chars]
+
+
 def load_spec(path: str) -> list:
     """Accepts either a JSON list of assertions or {"assertions": [...]}."""
     with open(path, "r", encoding="utf-8") as f:

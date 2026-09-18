@@ -21,8 +21,12 @@ class ModelGateway:
 
 
 HIGH_VALUE_KEYWORDS = ["购物车", "结算", "支付", "删除", "提交", "清空", "注册", "购买",
-                       "cart", "checkout", "pay", "delete", "submit", "clear", "buy"]
-LOW_VALUE_KEYWORDS = ["帮助", "关于", "help", "about"]
+                       "归档", "权限", "成员", "项目", "任务", "优惠", "账单", "导出",
+                       "创建", "登录", "访客", "演示登录",
+                       "cart", "checkout", "pay", "delete", "submit", "clear", "buy",
+                       "archive", "permission", "member", "project", "task"]
+LOW_VALUE_KEYWORDS = ["帮助", "关于", "文档", "设置", "历史", "报表", "日志", "指南",
+                      "help", "about", "docs", "settings", "history", "report"]
 
 
 class MockLLM(ModelGateway):

@@ -17,6 +17,7 @@ from ghostqa.exploration.policy import (RandomPolicy, DFSPolicy, BFSPolicy,
                                         LLMNaivePolicy, GhostPolicy)
 from ghostqa.minimizer.ddmin import minimize_reproduction
 from ghostqa.oracle.engine import OracleEngine
+from ghostqa.oracle.spec import format_spec_brief
 from ghostqa.replay.validator import validate_candidate
 from ghostqa.state.models import ConfirmedBug
 from benchmark.sim_apps import APPS
@@ -50,7 +51,7 @@ def match_manifest(candidates, manifest) -> set:
 def _check_manifest_discriminative(manifest):
     seen = {}
     for bug in manifest:
-        key = (bug["kind"], tuple(sorted(bug["match"].items())))
+        key = (bug["kind"], json.dumps(bug["match"], sort_keys=True, default=str))
         if key in seen:
             raise ValueError(
                 f"manifest entries {seen[key]} and {bug['id']} are indistinguishable "
@@ -67,7 +68,7 @@ def run_one(app_name: str, make_app, policy, budget: int, validate: bool = True)
     app, spec, manifest = make_app()
     factory = lambda: SimExecutor(make_app()[0])
     oracle = OracleEngine(spec)
-    spec_brief = "; ".join(a["id"] for a in spec)
+    spec_brief = format_spec_brief(spec)
 
     executor = SimExecutor(app)
     result = run_exploration(executor, policy, budget, oracle=oracle, spec_brief=spec_brief)

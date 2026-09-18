@@ -100,3 +100,15 @@ def test_no_false_positive_on_clean_flow():
     oracle = OracleEngine(spec)
     fs = run_actions(ex, [Action("click", "nav_cart")], oracle)
     assert not [f for f in fs if f.kind == "semantic"]
+
+
+def test_spec_brief_includes_desc_and_when():
+    from ghostqa.oracle.spec import format_spec_brief
+    spec = [{"id": "cart_total_consistent",
+             "desc": "购物车显示总价应与列表商品金额之和一致",
+             "when": {"url_contains": "/cart"}}]
+    brief = format_spec_brief(spec)
+    assert "cart_total_consistent" in brief
+    assert "购物车显示总价" in brief
+    assert "url_contains=/cart" in brief
+    assert len(brief) < 800

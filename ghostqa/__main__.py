@@ -25,7 +25,7 @@ from .exploration.policy import (RandomPolicy, DFSPolicy, BFSPolicy,
                                  LLMNaivePolicy, GhostPolicy)
 from .minimizer.ddmin import minimize_reproduction
 from .oracle.engine import OracleEngine
-from .oracle.spec import load_spec
+from .oracle.spec import load_spec, format_spec_brief
 from .replay.validator import validate_candidate
 from .report.generator import build_report, write_report
 from .state.models import ConfirmedBug
@@ -67,7 +67,7 @@ def cmd_run(args) -> int:
     shots = os.path.join(args.out, "screenshots")
     spec = load_spec(args.spec) if args.spec else []
     oracle = OracleEngine(spec)
-    spec_brief = "; ".join(a["id"] for a in spec)
+    spec_brief = format_spec_brief(spec)
     llm = _make_llm(args)
     policy = _make_policy(args.policy, llm, args.seed)
 

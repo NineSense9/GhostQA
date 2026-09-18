@@ -237,7 +237,89 @@ def make_sim_todo() -> tuple:
     return app, spec, manifest
 
 
+# ---------------------------------------------------------------- sim-deep (frontier / depth)
+def _deep_obs(internal: dict, page: str) -> dict:
+    obs = {"phase": internal.get("phase", "start"), "depth": page}
+    if page == "s5":
+        obs["ready_to_crash"] = "1"
+    return obs
+
+
+def make_sim_deep() -> tuple:
+    """Deep chain + distractor bush. Bug sits at the end of the main chain.
+
+    Home branching: three distractor entries then the valuable '进入主流程'.
+    BFS walks distractors first. Frontier restore should jump back to the
+    unused main-chain action instead of only backing up one level.
+    """
+    def leaf(url, title, nxt=None):
+        els = []
+        if nxt:
+            els.append({"eid": f"next_{nxt}", "role": "link", "text": "下一页",
+                        "effect": {"op": "goto", "to": nxt}})
+        return {"url": url, "title": title, "elements": els}
+
+    pages = {
+        "home": {
+            "url": "/home", "title": "首页",
+            "elements": [
+                {"eid": "nav_help", "role": "link", "text": "帮助",
+                 "effect": {"op": "goto", "to": "h1"}},
+                {"eid": "nav_about", "role": "link", "text": "关于",
+                 "effect": {"op": "goto", "to": "a1"}},
+                {"eid": "nav_docs", "role": "link", "text": "文档",
+                 "effect": {"op": "goto", "to": "d1"}},
+                {"eid": "nav_main", "role": "link", "text": "进入主流程",
+                 "effect": {"op": "goto", "to": "s1"}},
+            ],
+        },
+        "h1": leaf("/help/1", "帮助1", "h2"),
+        "h2": leaf("/help/2", "帮助2", "h3"),
+        "h3": leaf("/help/3", "帮助3", "h4"),
+        "h4": leaf("/help/4", "帮助4"),
+        "a1": leaf("/about/1", "关于1", "a2"),
+        "a2": leaf("/about/2", "关于2"),
+        "d1": leaf("/docs/1", "文档1", "d2"),
+        "d2": leaf("/docs/2", "文档2"),
+        "s1": {
+            "url": "/flow/1", "title": "流程1",
+            "elements": [{"eid": "next_s2", "role": "button", "text": "继续流程",
+                          "effect": {"op": "goto", "to": "s2"}}],
+        },
+        "s2": {
+            "url": "/flow/2", "title": "流程2",
+            "elements": [{"eid": "next_s3", "role": "button", "text": "继续流程",
+                          "effect": {"op": "goto", "to": "s3"}}],
+        },
+        "s3": {
+            "url": "/flow/3", "title": "流程3",
+            "elements": [{"eid": "next_s4", "role": "button", "text": "继续流程",
+                          "effect": {"op": "goto", "to": "s4"}}],
+        },
+        "s4": {
+            "url": "/flow/4", "title": "流程4",
+            "elements": [{"eid": "next_s5", "role": "button", "text": "提交支付",
+                          "effect": {"op": "goto", "to": "s5"}}],
+        },
+        "s5": {
+            "url": "/flow/5", "title": "流程5",
+            "elements": [{"eid": "btn_boom", "role": "button", "text": "确认支付",
+                          "effect": {"op": "crash"}}],
+        },
+    }
+    app = SimApp("sim-deep", "home", pages, {"phase": "start"}, _deep_obs)
+    spec = []
+    manifest = [
+        {"id": "BUG-DEEP-1", "kind": "crash", "severity": "high",
+         "desc": "主流程末端支付崩溃（depth 6）",
+         "match": {"page": "s5"},
+         "trigger_depth": 6},
+    ]
+    return app, spec, manifest
+
+
 APPS = {
     "sim-shop": make_sim_shop,
     "sim-todo": make_sim_todo,
+    "sim-deep": make_sim_deep,
 }
