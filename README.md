@@ -4,23 +4,24 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.2（Real-Web Proof）
+## 当前状态：v0.3（Algorithm Proof）
 
 | 能力 | 状态 |
 |---|---|
-| SimBench 算法实验层（2 个模拟 App / 10 个埋入 bug） | ✅ Implemented |
-| Playwright 真实浏览器执行器（观察/动作/稳定元素定位） | ✅ Implemented |
-| BuggyShop 确定性测试环境（11 页 / 10 个埋入 bug / manifest+spec） | ✅ Implemented |
-| 三层 Oracle（L1 硬异常 / L2 结构异常+幂等过滤 / L3 规格语义断言） | ✅ Implemented |
-| BugFingerprint 统一身份 + 三态重放验证（PASS/FAIL/INVALID） | ✅ Implemented |
-| ddmin 可执行最小复现（真实浏览器内验证） | ✅ Implemented |
-| 5 种策略基线（Monkey/DFS/BFS/LLM-naive/GhostPolicy） | ✅ Implemented |
-| GhostPolicy v1.1（门控 LLM 调用：Uncertainty/NovelState/Stuck/SpecRelevance） | ✅ Implemented |
-| 真实 LLM Gateway（OpenAI 兼容，超时/重试/缓存/降级/token统计） | ✅ Implemented |
-| CLI 端到端命令 + JSON/HTML 报告 | ✅ Implemented |
-| WebBench 基线实验（5 策略 × 多种子，mean±std） | ✅ Implemented |
-| Dashboard | ⏳ Planned (v0.3) |
-| Android 扩展 | ⏳ Planned (v0.3+) |
+| SimBench 算法实验层（3 个模拟 App） | ✅ Implemented |
+| Playwright 真实浏览器执行器 | ✅ Implemented |
+| BuggyShop 浅层 benchmark（11 页 / 10 bugs） | ✅ Implemented |
+| BuggyFlow / DeepBench 深层 benchmark（16 页 / 14+2 holdout bugs，freeze `5355abd`） | ✅ Implemented |
+| 两层状态模型（structural cluster + data-obs semantic variant） | ✅ Implemented |
+| State similarity 接入 StateGraph / Explorer / Novelty | ✅ Implemented |
+| Frontier planner（reset + replay known path） | ✅ Implemented |
+| GhostPolicy v1.2（局部评分 + 全局 frontier；LLM 门控） | ✅ Implemented |
+| 三层 Oracle + BugFingerprint + 三态 replay + ddmin | ✅ Implemented |
+| CLI + JSON/HTML 报告 | ✅ Implemented |
+| WebBench v0.2 + DeepBench v0.3 可追溯实验 | ✅ Implemented |
+| 真实 LLM 实验 | ⏭ skipped（无 GHOSTQA_MODEL_* 凭据） |
+| Dashboard | ⏳ Planned (v0.4) |
+| Android 扩展 | ⏳ Planned (v0.4+) |
 
 ## 快速开始
 
@@ -31,8 +32,8 @@ python -m venv .venv && .venv/Scripts/activate        # Windows
 pip install -e ".[dev]"
 playwright install chromium
 
-pytest -m "not integration"      # 41 项单元测试（Sim，无需浏览器）
-pytest -m integration            # 9 项集成测试（真实 Chromium + BuggyShop）
+pytest -m "not integration"      # unit tests（Sim / 状态模型 / planner，无需浏览器）
+pytest -m integration            # Chromium + BuggyShop + BuggyFlow
 ```
 
 ## 一条命令跑完整测试
@@ -65,27 +66,35 @@ python -m ghostqa run --url ... --policy ghost --llm ...
 
 所有 README 数字可追溯至 `experiments/published/` 下的 run。
 
-- **首次基线实验（SimBench，v0.1）**：`experiments/runs/2026-09-18-v0.1-first/metrics.json`（本地）
-- **WebBench v0.2（真实浏览器，5 策略 × 2 种子）**：`experiments/published/webbench-v0.2/`
-  - 结论摘要见 `experiments/published/webbench-v0.2/summary.md`
-  - 诚实要点：小型扁平应用上 BFS 与 Ghost-full 打平（0.30）；Ghost 在 time-to-first-bug 上最快（第 1 步）；Ghost-noLLM 仅 0.10——负结果已记录并分析。
+- **SimBench v0.1**（本地）：`experiments/runs/2026-09-18-v0.1-first/metrics.json`
+- **WebBench v0.2**（BuggyShop，浅层）：`experiments/published/webbench-v0.2/`
+  - BFS = Ghost-full = 0.30；Ghost T2Bug=1 最快；Ghost-noLLM=0.10。浅层空间里 BFS 与 Ghost 打平。
+- **DeepBench v0.3**（BuggyFlow，深层，freeze `5355abd`）：`experiments/published/deepbench-v0.3/`
+  - 61 unique runs。**Deep-BDR = 0**（所有策略，budget ≤ 120 都没有确认 trigger_depth≥4 的 bug）。
+  - 浅层天花板 5/14=0.357（D1–D4, D8）。DFS@40 与 BFS@80 达到该天花板。
+  - **Ghost-full / Ghost-noLLM = 0.071**（只确认 D4），**输给 BFS/DFS**。
+  - 消融：Ghost-noFrontier@40 = 0.214，@120 = 0.357 —— **当前 Frontier relocate 是负贡献**。
+  - Monkey@40 × 10 seeds：0.121±0.059。
+  - 真实 LLM：skipped（无凭据）。MockLLM 数据不是真实大模型表现。
+  - 详细表与负结果分析见 `experiments/published/deepbench-v0.3/summary.md`。
 
 ## 架构
 
 ```
 ghostqa/
-├── state/        # 状态模型 / 签名 / 相似度 / StateGraph
-├── executor/     # Executor 抽象 / SimExecutor / PlaywrightWebExecutor
-├── exploration/  # Explorer 主循环 / 5 种策略（含 GhostPolicy v1.1）
+├── state/        # 两层状态 / 签名 / 相似度 / StateGraph
+├── executor/     # Executor / Sim / Playwright / nav history
+├── exploration/  # Explorer / 策略 / FrontierPlanner / GhostPolicy v1.2
 ├── oracle/       # 三层 Oracle / BugFingerprint / 规格断言 DSL
 ├── replay/       # 三态重放验证器
 ├── minimizer/    # ddmin 可执行最小复现
-├── agent/        # ModelGateway：Mock / Null / OpenAI 兼容（降级回退）
+├── agent/        # ModelGateway：Mock / Null / OpenAI 兼容
 └── report/       # JSON + HTML 报告
-apps/buggy-shop/  # 确定性测试环境（server + 11 页 + spec + manifest）
-benchmark/        # SimBench (runner.py) + WebBench (web_runner.py)
+apps/buggy-shop/  # 浅层 benchmark
+apps/buggy-flow/  # DeepBench（冻结）
+benchmark/        # SimBench + WebBench（--app buggy-shop|buggy-flow）
 experiments/      # published/ 可引用证据；runs/ 本地大文件(gitignore)
-docs/             # PROJECT_PLAN / TECH_SURVEY / TRUTH_AUDIT
+docs/             # PROJECT_PLAN / TECH_SURVEY / TRUTH_AUDIT / FAILURE_CORPUS / HANDOFF
 ```
 
 ## 工程原则

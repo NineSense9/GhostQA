@@ -8,6 +8,8 @@ benchmark. BuggyShop remains the shallow benchmark.
 - 2 holdout bugs in `holdout.manifest.json` (do not tune on these)
 - Spec in `spec.json` (oracle; no bug ids)
 
+Freeze commit: `5355abd444eb4a4e99242c7629a1363c38e52a2a`
+
 ## Freeze rule
 
 After the freeze commit, do **not** change bug triggers, depths, branch

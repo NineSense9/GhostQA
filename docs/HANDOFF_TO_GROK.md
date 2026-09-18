@@ -1,6 +1,31 @@
-# GhostQA 技术交接文档（→ Grok 4.6）
+# GhostQA 技术交接文档
 
-> **这是新 Agent 接管 GhostQA 的第一份必读文件。**
+> 原 v0.2 交接（审计基线 `9c6c0a0`，文档提交 `94f5db1`）仍保留于下文，作为历史。
+> **v0.3 更新（2026-09-19）**：Algorithm Proof 已落地。代码与实验以当前 git 为准。
+
+## v0.3 现状（覆盖交接时的 PARTIAL 清单）
+
+已修复 / 已实现：
+
+- Navigation history：只在真实 URL 变化时入栈（`ghostqa/executor/nav.py`）
+- 两层状态：`cluster_id` + `variant_key` → `state_id`；similarity 进入 Graph/Explorer
+- FrontierPlanner + reset/replay；GhostPolicy v1.2
+- DeepBench = BuggyFlow，freeze SHA `5355abd`
+- spec_brief = id + desc + when；LLM cache key = 精确 state_id
+
+**实验结果（不可粉饰）**：DeepBench 上 Ghost-full **没有**赢 BFS/DFS。Deep-BDR 全员为 0（budget≤120）。Frontier relocate 消融为负贡献（Ghost-noFrontier 更好）。详见 `experiments/published/deepbench-v0.3/summary.md`。
+
+P0-2 里“Time-to-Deep-Bug 应显著优于 BFS”是 **research hypothesis**，不是工程验收门。假设未成立。
+
+v0.4 不要做 Dashboard 直到先处理：input vocab 基数、relocate 与表单未试动作的冲突、以及冻结 DeepBench 上的重跑。
+
+真实 LLM：`real LLM experiment skipped: credentials unavailable`。
+
+---
+
+# GhostQA 技术交接文档（v0.2 → Grok 4.6，历史）
+
+> **这是 v0.2 交接原文。**
 > 编写时间：2026-09-19 · 编写时 HEAD：`9c6c0a0`（v0.2，已推送 main）
 > 编写原则：代码是最终事实来源。本文所有状态判断都在编写时重新用代码验证过。
 
