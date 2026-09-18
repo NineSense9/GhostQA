@@ -101,6 +101,30 @@ def test_click_navigation(web):
     assert r.ok and "products.html" in r.state.url
 
 
+def test_nav_stack_records_real_navigation(web):
+    web.reset()
+    web.execute(Action("click", _find_eid(web, "商品列表")))
+    assert "products.html" in web.page.url
+    r = web.execute(Action("back"))
+    assert r.ok and "index.html" in r.state.url
+
+
+def test_nav_stack_ignores_same_page_click(web):
+    """Favorite is a same-page no-op; Back must not treat it as a navigation."""
+    web.reset()
+    web.execute(Action("click", _find_eid(web, "商品列表")))
+    web.execute(Action("click", "item_apple"))
+    assert "detail.html" in web.page.url
+    stack_before = list(web._nav_stack)
+    r = web.execute(Action("click", "btn_fav"))
+    assert r.ok
+    assert "detail.html" in r.state.url
+    assert web._nav_stack == stack_before, "same-page click must not push Back stack"
+    r = web.execute(Action("back"))
+    assert "products.html" in r.state.url, (
+        f"Back after same-page click should leave detail, got {r.state.url}")
+
+
 def _find_eid(web, text: str) -> str:
     if not hasattr(web, "_descriptors"):
         web.observe()

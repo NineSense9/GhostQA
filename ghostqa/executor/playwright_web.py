@@ -21,6 +21,7 @@ from typing import Optional
 
 from ..state.models import GUIState, Action, UIElement
 from .base import Executor, ExecResult
+from .nav import should_record_navigation
 
 MAX_ELEMENTS = 80
 SETTLE_MS = 450
@@ -265,7 +266,6 @@ class PlaywrightWebExecutor(Executor):
                 return ExecResult(ok=False, state=self.observe(),
                                   message=f"element {action.target_eid} not found")
             if action.type == "click":
-                self._nav_stack.append(url_before)
                 loc.scroll_into_view_if_needed(timeout=3000)
                 loc.click(timeout=5000)
             elif action.type == "input":
@@ -293,8 +293,11 @@ class PlaywrightWebExecutor(Executor):
         js_errors, http_errors = self._drain_errors()
         mut_after = self.page.evaluate("window.__gqMutCount || 0")
         events = []
-        if navigated or self.page.url != url_before:
+        url_after = self.page.url
+        if navigated or url_after != url_before:
             events.append("navigated")
+        if should_record_navigation(url_before, url_after, action.type):
+            self._nav_stack.append(url_before)
         if self._network_count > net_before:
             events.append("network")
         if mut_after > mut_before:
