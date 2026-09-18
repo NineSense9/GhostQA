@@ -22,8 +22,8 @@ from .interaction import (
     classify_field, is_progress_action, form_progress,
 )
 
-RISK_KEYWORDS = ["支付", "删除", "提交", "结算", "清空", "注册", "购买",
-                 "pay", "delete", "submit", "clear", "checkout", "buy"]
+RISK_KEYWORDS = ["支付", "删除", "提交", "结算", "清空", "注册", "购买", "登录",
+                 "pay", "delete", "submit", "clear", "checkout", "buy", "login"]
 
 
 class Policy:
