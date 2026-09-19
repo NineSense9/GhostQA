@@ -7,6 +7,7 @@
 
 const API = '';
 const POLL_MS = 1200;
+const STALE_MS = 45000;   // no events + no status change this long => stalled
 
 const S = {
   runId: null,
@@ -22,6 +23,9 @@ const S = {
   graphSig: '',
   firstLayout: true,
   startSig: '',
+  staleRun: false,
+  runStartedAt: 0,
+  lastEventAt: 0,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -146,6 +150,12 @@ function appendEvents(list) {
   els.logCount.textContent = String(S.events.length);
   els.log.scrollTop = els.log.scrollHeight;
   els.steps.textContent = String(S.events.length);
+  S.lastEventAt = Date.now();
+  // Live telemetry derived from the stream, so the console reports progress
+  // while a run is in flight instead of waiting for the final summary.
+  els.tActions.textContent = String(S.events.length);
+  const bugsSeen = steps.reduce((n, e) => n + (e.findings || []).length, 0);
+  if (bugsSeen) els.cands.textContent = String(bugsSeen);
 }
 
 function escapeHtml(s) {
@@ -487,9 +497,25 @@ async function tick() {
   S.status = st.status;
   els.status.textContent = STATUS_TEXT[st.status] || st.status;
   setPill(els.vpPill, st.status);
-  els.btnRun.disabled = (st.status === 'running' || st.status === 'validating');
-  els.btnRunTxt.textContent = els.btnRun.disabled ? '探索进行中…' : '启动探索';
-  els.cands.textContent = String((st.candidates || []).length);
+  // The button is disabled only while *this* run is active. A stale run left
+  // behind by a crash must never lock the operator out of starting a new one.
+  const active = (st.status === 'running' || st.status === 'validating');
+  els.btnRun.disabled = active && !S.staleRun;
+  els.btnRunTxt.textContent = (active && !S.staleRun) ? '探索进行中…' : '启动探索';
+  if (active && S.runStartedAt && Date.now() - S.runStartedAt > STALE_MS
+      && S.lastEventAt && Date.now() - S.lastEventAt > STALE_MS) {
+    S.staleRun = true;   // no new events for a long while: treat as stalled
+    els.btnRun.disabled = false;
+    els.btnRunTxt.textContent = '重新启动';
+  }
+  // LLM call count is only known at the end of a run; show a placeholder
+  // rather than a misleading zero while it is still working.
+  if (st.status === 'running' || st.status === 'validating') {
+    els.llm.textContent = '…';
+  }
+  if (st.candidates && st.candidates.length) {
+    els.cands.textContent = String(st.candidates.length);
+  }
 
   // Events (incremental).
   try {
@@ -506,7 +532,8 @@ async function tick() {
   // Bugs (only meaningful once validation finished, but cheap to poll).
   try { renderBugs(await getJSON(`/api/runs/${S.runId}/bugs`)); } catch (_) {}
 
-  // Summary / telemetry.
+  // Summary / telemetry. Only available once the run finishes; while it is
+  // in flight the stream-derived counters above carry the display.
   if (st.summary && Object.keys(st.summary).length) {
     const m = st.summary;
     els.tActions.textContent = String(m.actions ?? 0);
@@ -515,6 +542,7 @@ async function tick() {
     els.tWall.textContent = (m.wall_seconds ?? 0) + 's';
     els.llm.textContent = String(m.llm_calls ?? 0);
     els.bugs.textContent = String(m.confirmed ?? 0);
+    els.cands.textContent = String(m.candidates ?? 0);
     if (m.similarity_counts) renderMix(m.similarity_counts);
   }
 
@@ -557,6 +585,7 @@ els.form.addEventListener('submit', async (e) => {
   // Reset the console to a clean slate for the new run.
   S.events = []; S.seenSeq = -1; S.lastShot = ''; S.activeRow = null;
   S.graphSig = ''; S.firstLayout = true; S.startSig = '';
+  S.staleRun = false; S.runStartedAt = Date.now(); S.lastEventAt = Date.now();
   els.log.innerHTML = '<p class="empty">正在初始化探索器…</p>';
   els.logCount.textContent = '0';
   els.steps.textContent = '0';
@@ -617,6 +646,8 @@ els.form.addEventListener('submit', async (e) => {
     const last = runs[0];
     if (['running', 'validating', 'done'].indexOf(last.status) === -1) return;
     S.runId = last.id;
+    S.runStartedAt = (last.created || 0) * 1000;
+    S.lastEventAt = Date.now();
     setConn(true, '已连接');
     startPolling();
   } catch (_) { /* nothing to restore */ }
