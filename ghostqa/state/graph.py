@@ -25,6 +25,7 @@ class StateNode:
     observed_opps: dict = field(default_factory=dict)  # interaction key -> meta
     restore_failures: int = 0
     relation: str = NEW          # how this node first related to the graph
+    screenshot: str = ""         # path to the first screenshot of this state
 
     def to_dict(self):
         return {
@@ -39,6 +40,7 @@ class StateNode:
             "observed_opps": self.observed_opps,
             "restore_failures": self.restore_failures,
             "relation": self.relation,
+            "screenshot": self.screenshot,
         }
 
 
@@ -89,12 +91,16 @@ class StateGraph:
                        action: Action = None,
                        src_cluster: str = "", src_variant: str = "",
                        dst_cluster: str = "", dst_variant: str = "",
-                       dst_relation: str = "") -> StateEdge:
+                       dst_relation: str = "",
+                       dst_screenshot: str = "") -> StateEdge:
         self.add_state(src_sig, url, title,
                        cluster_id=src_cluster, variant_key=src_variant)
         self.add_state(dst_sig, dst_url, dst_title,
                        cluster_id=dst_cluster, variant_key=dst_variant,
                        relation=dst_relation)
+        # remember the first screenshot seen for a state (presentation only)
+        if dst_screenshot and not self.nodes[dst_sig].screenshot:
+            self.nodes[dst_sig].screenshot = dst_screenshot
         self.nodes[src_sig].visits += 1
         self.nodes[src_sig].tried_actions.add(action_key)
         key = (src_sig, action_key)

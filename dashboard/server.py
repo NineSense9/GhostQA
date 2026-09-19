@@ -66,12 +66,18 @@ class RunHandle:
         self.bugs: list = []
         self.candidates: list = []
         self.report_html = ""
+        self.shot_index: dict = {}       # basename -> abs path, for /shot/{name}
 
     def emit(self, ev: dict):
+        """Consume one step event produced by run_exploration(on_step=...)."""
+        ev = dict(ev)
         ev["seq"] = len(self.event_log)
         self.event_log.append(ev)
-        if ev.get("new_state") and ev["new_state"].get("screenshot"):
-            self.latest_shot = ev["new_state"]["screenshot"]
+        for side in ("src", "dst"):
+            shot = (ev.get(side) or {}).get("screenshot")
+            if shot:
+                self.shot_index[os.path.basename(shot)] = shot
+                self.latest_shot = shot
 
 
 def _do_run(handle: RunHandle):
@@ -196,18 +202,39 @@ def run_status(run_id: str):
 @app.get("/api/runs/{run_id}/events")
 def run_events(run_id: str, after: int = -1):
     h = _get(run_id)
-    return {"status": h.status,
-            "events": h.event_log[after + 1:] if after >= -1 else h.event_log}
+    events = h.event_log[after + 1:] if after >= -1 else h.event_log
+    return {"status": h.status, "events": [_public_event(run_id, e) for e in events]}
+
+
+def _public_event(run_id: str, ev: dict) -> dict:
+    """Rewrite absolute screenshot paths into servable URLs."""
+    ev = dict(ev)
+    for side in ("src", "dst"):
+        d = dict(ev.get(side) or {})
+        shot = d.get("screenshot")
+        d["screenshot"] = (f"/api/runs/{run_id}/shot/{os.path.basename(shot)}"
+                           if shot else "")
+        ev[side] = d
+    return ev
 
 
 @app.get("/api/runs/{run_id}/graph")
 def run_graph(run_id: str):
     h = _get(run_id)
     path = os.path.join(_run_dir(run_id), "graph.json")
+    data = None
     if os.path.exists(path):
         with open(path, encoding="utf-8") as f:
-            return json.load(f)
-    return h.graph
+            data = json.load(f)
+    else:
+        data = h.graph
+    for node in data.get("nodes", []):
+        shot = node.get("screenshot")
+        node["screenshot"] = (f"/api/runs/{run_id}/shot/{os.path.basename(shot)}"
+                              if shot else "")
+    for edge in data.get("edges", []):
+        edge.pop("screenshot", None)
+    return data
 
 
 @app.get("/api/runs/{run_id}/bugs")
@@ -225,10 +252,23 @@ def run_report(run_id: str):
 
 @app.get("/api/runs/{run_id}/shot")
 def run_shot(run_id: str):
+    """Latest screenshot of this run."""
     h = _get(run_id)
     if h.latest_shot and os.path.exists(h.latest_shot):
         return FileResponse(h.latest_shot)
     raise HTTPException(404, "no screenshot yet")
+
+
+@app.get("/api/runs/{run_id}/shot/{name}")
+def run_shot_named(run_id: str, name: str):
+    """Serve one screenshot by basename (path-traversal safe)."""
+    h = _get(run_id)
+    if os.path.basename(name) != name or not name.endswith(".png"):
+        raise HTTPException(400, "bad name")
+    path = h.shot_index.get(name) or os.path.join(_run_dir(run_id), "screenshots", name)
+    if not os.path.isfile(path):
+        raise HTTPException(404, "screenshot not found")
+    return FileResponse(path, media_type="image/png")
 
 
 @app.get("/api/benchmarks")

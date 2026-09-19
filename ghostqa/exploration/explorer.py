@@ -22,6 +22,57 @@ from .interaction import (
 
 
 
+def _build_step_event(step, graph, state, new_state, relation, exec_result,
+                      budget_used: int, episode_id: int,
+                      restore_step: bool = False) -> dict:
+    """Serialize one executed step into a UI-friendly event dict.
+
+    Pure observability: reads state only, never mutates the run. Consumed by
+    the dashboard via the `on_step` hook.
+    """
+    src = graph.nodes.get(step.state_sig_before) if graph else None
+    dst = graph.nodes.get(step.state_sig_after) if graph else None
+    meta = dict(new_state.meta) if new_state and getattr(new_state, "meta", None) else {}
+    return {
+        "type": "step",
+        "index": step.index,
+        "episode_id": episode_id,
+        "budget_used": budget_used,
+        "restore": restore_step,
+        "action": step.action.to_dict(),
+        "relation": relation,
+        "findings": [f.to_dict() for f in step.findings],
+        "src": {
+            "sig": step.state_sig_before,
+            "url": src.url if src else (state.url if state else ""),
+            "title": src.title if src else (state.title if state else ""),
+            "brief": (src.brief if src else "")[:400],
+            "cluster_id": src.cluster_id if src else "",
+            "visits": src.visits if src else 1,
+            "screenshot": src.screenshot if src else "",
+        },
+        "dst": {
+            "sig": step.state_sig_after,
+            "url": dst.url if dst else (new_state.url if new_state else ""),
+            "title": dst.title if dst else (new_state.title if new_state else ""),
+            "brief": (dst.brief if dst else "")[:400],
+            "cluster_id": dst.cluster_id if dst else "",
+            "visits": dst.visits if dst else 1,
+            "is_new": bool(dst and dst.visits <= 1),
+            "screenshot": (dst.screenshot if dst else "") or meta.get("screenshot", ""),
+        },
+        "crashed": bool(exec_result.crashed) if exec_result else False,
+        "js_errors": list(exec_result.js_errors) if exec_result else [],
+        "http_errors": list(exec_result.http_errors) if exec_result else [],
+        "events": list(exec_result.events) if exec_result else [],
+        "elapsed_ms": meta.get("elapsed_ms", 0),
+        "graph_stats": {
+            "nodes": len(graph.nodes) if graph else 0,
+            "edges": len(graph.edges) if graph else 0,
+        },
+    }
+
+
 @dataclass
 class RunResult:
     app: str
@@ -296,6 +347,8 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
             dst_cluster=cluster_fn(new_state) if new_state else "",
             dst_variant=variant_fn(new_state) if new_state else "",
             dst_relation=relation if dst_is_new else IDENTICAL,
+            dst_screenshot=(new_state.meta.get("screenshot", "")
+                            if new_state and getattr(new_state, "meta", None) else ""),
         )
         result.steps.append(Step(index=step_idx, state_sig_before=sig,
                                  action=action, state_sig_after=new_sig,
@@ -304,7 +357,11 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
         recent_action_keys.append(action.key())
         if on_step is not None:
             try:
-                on_step(result.steps[-1], graph, result.actions_executed)
+                on_step(_build_step_event(
+                    step=result.steps[-1], graph=graph,
+                    state=state, new_state=new_state, relation=relation,
+                    exec_result=exec_result, budget_used=result.actions_executed,
+                    episode_id=episode_id, restore_step=restore_step))
             except Exception:
                 pass  # observability must never break exploration
         if restore_step:
