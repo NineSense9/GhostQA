@@ -77,3 +77,20 @@ Progressive payloads help **when relocate is off**. Relocate is the remaining fa
 - WorkflowBFS does not resume deferred fuzz after reaching project.
 - Jaccard/aHash still not used in graph classification (doc-only).
 - Semantic variant is still “all obs minus volatile heuristic”.
+
+# Erratum
+
+v0.3.1 relocation runs used a flattened multi-episode action trace during replay validation.
+
+Explorer resets caused by frontier relocation / crash recovery were not represented in the replay sequence.
+
+Therefore confirmed-BDR and replay-success results for reset-heavy policies, especially Ghost-full / Ghost-noLLM, are confounded.
+
+The action-space / reachability observations remain valid:
+
+- `max_workflow_depth`, state graph, `input_share`, `restore_ratio` come from live exploration, not replay.
+- WorkflowBFS reaches project; Ghost-noFrontier reaches project; Ghost-full reaches depth 3.
+
+`Ghost-full BDR=0` in the table above must not be read as “Ghost-full found nothing”. It found candidates (D4/D8); replay discarded them because the trace crossed a reset.
+
+Confirmed-BDR interpretation is superseded by v0.3.2 (`experiments/published/deepbench-v0.3.2/`). Raw `metrics.json` in this directory is unchanged.

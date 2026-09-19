@@ -69,7 +69,7 @@ python -m ghostqa run --url ... --policy ghost --llm ...
 
 - **SimBench v0.1**（本地）：`experiments/runs/2026-09-18-v0.1-first/metrics.json`
 - **WebBench v0.2**（BuggyShop，浅层）：`experiments/published/webbench-v0.2/`
-  - BFS = Ghost-full = 0.30；Ghost T2Bug=1 最快；Ghost-noLLM=0.10。浅层空间里 BFS 与 Ghost 打平。
+  - BFS = Ghost-full = 0.30；Ghost TTF=1 最快（当时字段名叫 T2Bug，语义是 first finding）；Ghost-noLLM=0.10。浅层空间里 BFS 与 Ghost 打平。
 - **DeepBench v0.3**（BuggyFlow，深层，freeze `5355abd`）：`experiments/published/deepbench-v0.3/`
   - 61 unique runs。**Deep-BDR = 0**（所有策略，budget ≤ 120 都没有确认 trigger_depth≥4 的 bug）。
   - 浅层天花板 5/14=0.357（D1–D4, D8）。DFS@40 与 BFS@80 达到该天花板。
@@ -81,14 +81,14 @@ python -m ghostqa run --url ... --policy ghost --llm ...
 - **DeepBench v0.3.1**（同一冻结 app `5355abd`，算法 `45e5669`）：`experiments/published/deepbench-v0.3.1/`
   - 改的是 **action budgeting**（字段=1 个 opportunity、progressive payload、WorkflowBFS），不是 benchmark。
   - WorkflowBFS@40 Deep-BDR=0.111（确认 D6），`input_share=0`，`max_workflow_depth=4`。
-  - Ghost-noFrontier@40 Deep-BDR=0.111；**Ghost-full（带 relocate）BDR=0**，restore_ratio 最高 0.23。
+  - Ghost-noFrontier@40 Deep-BDR=0.111；**Ghost-full（带 relocate）confirmed-BDR=0**（见 erratum），restore_ratio 最高 0.23。
   - DFS@120 BDR=0.429 Deep-BDR=0.111。BFS 仍未在 120 内确认 D6。
-  - 不要把这些数字读成“Ghost 已解决深 workflow”。relocate 仍是负贡献。
+  - 不要把这些数字读成“Ghost 已解决深 workflow”。reachability 仍有效；confirmed-BDR 被 v0.3.2 supersede。
 - **DeepBench v0.3.2**（同一 freeze `5355abd`，replay 修复 `b00de1f`）：`experiments/published/deepbench-v0.3.2/`
-  - v0.3.1 里 Ghost-full `confirmed=0` / `replay_success=0` 是 **跨 episode 拍平轨迹** 的测量错误，不是 frontier 突然修好。
-  - 纠正后 Ghost-full replay=1.0，BDR@40=0.071（D4），@80=0.143（D4,D8）。
+  - v0.3.2 fixed episode-aware replay correctness. Previously measured confirmed-BDR was understated because replay ignored reset boundaries. **Not** “Frontier algorithm improved.”
+  - 纠正后 Ghost-full replay=1.0，BDR@40=0.071（D4），@80=0.143（D4,D8）。Ghost-full 仍未赢 DFS/BFS。
   - Ghost-noLLM@120 BDR=0.357 Deep-BDR=0.111（含 D6）。DFS@120 仍最高 0.429。
-  - 旧字段 `time_to_first_bug` = 首次 finding，不是首次 confirmed bug。
+  - 延迟字段：TTF = first finding；TTCB = first confirmed bug；TTDCB = first deep confirmed bug。旧 `time_to_first_bug` 是 TTF 的 deprecated alias。
 
 ## 架构
 

@@ -5,7 +5,7 @@
 > **v0.3.1 更新**：Exploration Repair。DeepBench freeze 仍是 `5355abd`。算法 HEAD 见 git。
 > Graph 分类是 exact `state_id` / same cluster / new cluster。`state_similarity()` 的 Jaccard 与 aHash **没有**完整进入 graph classification。
 
-**v0.3.1 实测（不可粉饰）**：WorkflowBFS 与 Ghost-noFrontier 能在 budget 40 确认 D6（Deep-BDR=0.111）。Ghost-full 带 opportunity-cost relocate 的 BDR=0。Frontier relocate 仍是负贡献。见 `experiments/published/deepbench-v0.3.1/summary.md`。
+**v0.3.1 实测（不可粉饰）**：WorkflowBFS 与 Ghost-noFrontier 能在 budget 40 到达 project 并确认 D6（Deep-BDR=0.111）。Ghost-full 带 opportunity-cost relocate 的 **confirmed-BDR=0 已被 v0.3.2 erratum supersede**（reset-blind replay）。reachability / restore_ratio 仍有效。见 `experiments/published/deepbench-v0.3.1/summary.md` 尾部 Erratum。
 
 > **v0.3 更新（2026-09-19）**：Algorithm Proof 已落地。代码与实验以当前 git 为准。
 
