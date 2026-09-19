@@ -22,5 +22,7 @@ Not a database — a working log. Add a row when a failure is confirmed.
 | risk keyword tunnel vision | 注册 scored above 登录; relocate after adding 登录 still empty BDR | **unresolved** for Ghost-full; Ghost-noFrontier finds D6 |
 | reset-blind replay | Multi-episode exploration flattened reset boundaries, causing relocated findings to replay from the wrong history | **fixed** v0.3.2 |
 | inventory-sum relocate | Remote pending opportunities summed linearly and compared to one local action; path cost charged in planner and again in policy | **characterized** v0.3.3; default off |
+| post-reach plateau | After reaching project workflow, first-wave-only policy never resumes deferred probes | **partial** v0.3.4 `ghost-deferred` resumes; Deep-BDR still 0.111 |
+| exploit hub sink | Non-progress clicks on dashboard/settings consume budget before wizard | **characterized** v0.3.4; full postreach regresses D6 |
 
 Add new rows; do not delete negative results.

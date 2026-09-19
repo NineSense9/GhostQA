@@ -103,6 +103,12 @@ python -m ghostqa run --url ... --policy ghost --llm ...
   - Shadow Frontier 在 step 6 就会建议 hop；NoFrontier 在同一步确认 D6。推荐本身是错的，不只是 restore 贵。
   - Marginal：1 次 hop、productive=1、wasted=0，BDR 与 NoFrontier 相同（D4/D6/D8）。Momentum/Lease：0 hop。
   - **默认应关闭 reset+replay Frontier。** 不是 “Frontier 理论不成立”，而是当前预算下 inventory-sum + 全局 reset 不划算。
+- **DeepBench v0.3.4**（同一 freeze `5355abd`，post-reach）：`experiments/published/deepbench-v0.3.4/`
+  - 产品 `ghost` / `ghost-nollm` = NoFrontier。问的是到达深状态后会不会测。
+  - P0 到达 depth=4 且确认 D6，但 deferred=0（会走、不深挖）。
+  - `ghost-deferred`@120 BDR=0.429 与 DFS 打平，Deep-BDR 仍 0.111（D6 保留），deferred=19。
+  - Full postreach/exploit：deep interactions ↑ 但 **D6 消失、depth 4→2/3**。不能当默认。
+  - D5/D7/D9–D14 仍未到达。下一瓶颈更像 sequence/semantic，不是再堆 payload。
 
 ## 架构
 

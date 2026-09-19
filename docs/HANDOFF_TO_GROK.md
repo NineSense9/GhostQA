@@ -1,6 +1,7 @@
 # GhostQA 技术交接文档
 
 > 原 v0.2 交接（审计基线 `9c6c0a0`，文档提交 `94f5db1`）仍保留于下文，作为历史。
+> **v0.3.4 更新**：Post-reach exploration。产品 Ghost 默认 NoFrontier。`ghost-deferred`@120 与 DFS BDR 打平且保留 D6；full exploit/postreach 会丢 D6。Freeze `5355abd`。
 > **v0.3.3 更新**：Frontier relocation study。inventory-sum + 双计 path cost 导致 over-jump；Shadow 证明 step 6 的 hop 会打断 D6。默认应关闭 reset+replay。Freeze 仍是 `5355abd`。产品 v0.4 preview 未改。
 > **v0.3.2 更新**：Episode-aware replay。`RunResult.reproduction_actions(finding)` 只返回当前 reset episode。v0.3.1 Ghost-full confirmed-BDR=0 被证明是测量错误。DeepBench freeze 仍是 `5355abd`。
 > **v0.3.1 更新**：Exploration Repair。DeepBench freeze 仍是 `5355abd`。算法 HEAD 见 git。
