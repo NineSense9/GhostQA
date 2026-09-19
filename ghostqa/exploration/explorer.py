@@ -139,7 +139,10 @@ def _candidates(state, policy, sig, can_back, input_vocab, ctx) -> tuple:
 
 def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
                     input_vocab=None, spec_brief: str = "",
-                    state_model: str = "semantic") -> RunResult:
+                    state_model: str = "semantic", on_step=None) -> RunResult:
+    """on_step: optional callback invoked after each executed step as
+    on_step(step, graph, budget_used) — pure observability hook used by the
+    dashboard; does not affect exploration semantics."""
     oracle = oracle or OracleEngine()
     id_fn, cluster_fn, variant_fn = _id_fns(state_model)
     result = RunResult(app=executor.observe().app, policy=policy.name,
@@ -299,6 +302,11 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
                                  findings=findings, episode_id=episode_id))
         result.actions_executed += 1
         recent_action_keys.append(action.key())
+        if on_step is not None:
+            try:
+                on_step(result.steps[-1], graph, result.actions_executed)
+            except Exception:
+                pass  # observability must never break exploration
         if restore_step:
             result.restore_actions += 1
         if action.type == "input":
