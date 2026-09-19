@@ -97,6 +97,12 @@ python -m ghostqa run --url ... --policy ghost --llm ...
   - 纠正后 Ghost-full replay=1.0，BDR@40=0.071（D4），@80=0.143（D4,D8）。Ghost-full 仍未赢 DFS/BFS。
   - Ghost-noLLM@120 BDR=0.357 Deep-BDR=0.111（含 D6）。DFS@120 仍最高 0.429。
   - 延迟字段：TTF = first finding；TTCB = first confirmed bug；TTDCB = first deep confirmed bug。旧 `time_to_first_bug` 是 TTF 的 deprecated alias。
+- **DeepBench v0.3.3**（同一 freeze `5355abd`，relocation study）：`experiments/published/deepbench-v0.3.3/`
+  - 问的是 **reset+replay 值不值得付钱**，不是再调权重。产品版本仍是 v0.4 preview。
+  - v0.3.2 Ghost-noLLM opportunity-cost Frontier：@40 wasted_relocate=0.429、chains=3、错过 D6；@120 BDR=0.357（含后来的 D1–D3 与 D6）。
+  - Shadow Frontier 在 step 6 就会建议 hop；NoFrontier 在同一步确认 D6。推荐本身是错的，不只是 restore 贵。
+  - Marginal：1 次 hop、productive=1、wasted=0，BDR 与 NoFrontier 相同（D4/D6/D8）。Momentum/Lease：0 hop。
+  - **默认应关闭 reset+replay Frontier。** 不是 “Frontier 理论不成立”，而是当前预算下 inventory-sum + 全局 reset 不划算。
 
 ## 架构
 

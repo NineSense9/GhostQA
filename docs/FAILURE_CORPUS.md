@@ -21,5 +21,6 @@ Not a database — a working log. Add a row when a failure is confirmed.
 | restore budget waste | Ghost-full restore_ratio 0.08–0.33, BDR=0 | **unresolved** — opportunity-cost relocate still over-jumps |
 | risk keyword tunnel vision | 注册 scored above 登录; relocate after adding 登录 still empty BDR | **unresolved** for Ghost-full; Ghost-noFrontier finds D6 |
 | reset-blind replay | Multi-episode exploration flattened reset boundaries, causing relocated findings to replay from the wrong history | **fixed** v0.3.2 |
+| inventory-sum relocate | Remote pending opportunities summed linearly and compared to one local action; path cost charged in planner and again in policy | **characterized** v0.3.3; default off |
 
 Add new rows; do not delete negative results.
