@@ -32,7 +32,7 @@ from .replay.validator import validate_candidate
 from .report.generator import build_report, write_report
 
 POLICIES = ["ghost", "ghost-nollm", "monkey", "dfs", "bfs", "llm-naive",
-            "workflow-bfs"]
+            "workflow-bfs", "ghost-frontier-r0", "ghost-frontier-marginal"]
 
 
 def _make_llm(args):
@@ -58,10 +58,24 @@ def _make_policy(name: str, llm, seed: int):
     if name == "llm-naive":
         return LLMNaivePolicy(llm or MockLLM())
     if name == "ghost-nollm":
-        return GhostPolicy(llm=None)
+        return GhostPolicy(llm=None, use_frontier=False)
+    if name == "ghost-frontier-r0":
+        return GhostPolicy(llm=llm, use_frontier=True,
+                           relocate_mode="opportunity")
+    if name == "ghost-frontier-marginal":
+        return GhostPolicy(llm=llm, use_frontier=True,
+                           relocate_mode="marginal")
+    if name == "ghost-nollm-shadow":
+        return GhostPolicy(llm=None, use_frontier=True, relocate_mode="shadow")
+    if name == "ghost-nollm-momentum":
+        return GhostPolicy(llm=None, use_frontier=True, relocate_mode="momentum")
+    if name == "ghost-nollm-lease":
+        return GhostPolicy(llm=None, use_frontier=True, relocate_mode="lease")
     if name == "workflow-bfs":
         return WorkflowBFSPolicy()
-    return GhostPolicy(llm=llm) if llm else GhostPolicy(llm=None)
+    # Product Ghost: local policy, Frontier OFF (v0.3.3 conclusion).
+    return GhostPolicy(llm=llm, use_frontier=False) if llm else GhostPolicy(
+        llm=None, use_frontier=False)
 
 
 def cmd_run(args) -> int:

@@ -57,9 +57,17 @@ def make_policy(name: str, seed: int):
     if name == "llm-naive":
         return LLMNaivePolicy(MockLLM())
     if name == "ghost-nollm":
-        return GhostPolicy(llm=None, use_frontier=True)
+        # Product-aligned v0.3.4 default: NoFrontier.
+        return GhostPolicy(llm=None, use_frontier=False)
     if name == "ghost-nollm-nofrontier":
         return GhostPolicy(llm=None, use_frontier=False)
+    if name == "ghost-frontier-r0":
+        # Historical v0.3.2 / v0.3.3 R0 (explicit, not the constructor default).
+        return GhostPolicy(llm=None, use_frontier=True,
+                           relocate_mode="opportunity")
+    if name == "ghost-frontier-marginal":
+        return GhostPolicy(llm=None, use_frontier=True,
+                           relocate_mode="marginal")
     if name == "ghost-nollm-shadow":
         return GhostPolicy(llm=None, use_frontier=True, relocate_mode="shadow")
     if name == "ghost-nollm-marginal":

@@ -118,7 +118,7 @@ class GhostPolicy(Policy):
     name = "ghost"
 
     def __init__(self, llm=None, weights: dict = None,
-                 use_frontier: bool = True, use_semantic_state: bool = True,
+                 use_frontier: bool = False, use_semantic_state: bool = True,
                  progressive: bool = True, relocate_mode: str = "opportunity"):
         self.llm = llm or NullLLM()
         self.w = dict(DEFAULT_WEIGHTS)

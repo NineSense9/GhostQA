@@ -46,7 +46,8 @@ def test_shortest_path_replay_actions_are_executable():
 
 def test_ghost_frontier_finds_deep_crash():
     app, spec, manifest = make_sim_deep()
-    ghost = run_exploration(SimExecutor(app), GhostPolicy(NullLLM()), budget=40,
+    ghost = run_exploration(SimExecutor(app),
+                            GhostPolicy(NullLLM(), use_frontier=True), budget=40,
                             oracle=OracleEngine(spec))
     bfs = run_exploration(SimExecutor(make_sim_deep()[0]), BFSPolicy(), budget=40,
                           oracle=OracleEngine(spec))

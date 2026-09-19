@@ -1,7 +1,10 @@
 """Dashboard presentation-layer helpers. Does not start a server."""
 import os
 
-from dashboard.server import _public_event, STATIC_DIR
+from dashboard.server import (
+    _public_event, STATIC_DIR, shot_basename, is_safe_shot_name,
+)
+from ghostqa.exploration.policy import GhostPolicy
 from ghostqa.exploration.explorer import RunResult
 from ghostqa.state.models import Action, Finding, Step
 
@@ -14,6 +17,23 @@ def test_public_event_rewrites_screenshot_to_servable_url():
     assert ev["src"]["screenshot"] == "/api/runs/abc123/shot/shot-1.png"
     assert ev["dst"]["screenshot"] == "/api/runs/abc123/shot/shot-2.png"
     assert ev["src"]["url"] == "/a"
+
+
+def test_shot_basename_is_os_agnostic():
+    assert shot_basename(r"C:\tmp\shot-1.png") == "shot-1.png"
+    assert shot_basename("C:/foo/bar.png") == "bar.png"
+    assert shot_basename("/foo/bar.png") == "bar.png"
+    assert shot_basename("bar.png") == "bar.png"
+    assert shot_basename("") == ""
+
+
+def test_shot_name_rejects_traversal():
+    assert is_safe_shot_name("shot-1.png")
+    assert not is_safe_shot_name("../shot-1.png")
+    assert not is_safe_shot_name("a/shot-1.png")
+    assert not is_safe_shot_name("a\\shot-1.png")
+    assert not is_safe_shot_name("shot-1.jpg")
+    assert not is_safe_shot_name("")
 
 
 def test_hidden_css_beats_display_block():
@@ -42,3 +62,8 @@ def test_dashboard_confirmed_uses_episode_local_length():
     assert bug.original_global_step == 2
     assert bug.source_episode_id == 1
     assert finding.step_index + 1 == 3  # the old dashboard bug
+
+
+def test_product_ghost_default_has_frontier_off():
+    assert GhostPolicy().use_frontier is False
+    assert GhostPolicy(use_frontier=True).use_frontier is True

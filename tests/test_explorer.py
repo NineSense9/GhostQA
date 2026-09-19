@@ -21,8 +21,9 @@ def test_explorer_ghost_finds_crash():
 def test_explorer_ghost_finds_multiple_bug_kinds_on_shop():
     app, spec, manifest = make_sim_shop()
     ex = SimExecutor(app)
-    result = run_exploration(ex, GhostPolicy(MockLLM()), budget=80,
-                             oracle=OracleEngine(spec))
+    result = run_exploration(
+        ex, GhostPolicy(MockLLM(), use_frontier=True), budget=80,
+        oracle=OracleEngine(spec))
     kinds = {f.kind for f in result.candidates}
     assert len(kinds) >= 3, f"expected >=3 kinds, got {kinds}"
     assert result.actions_executed > 0

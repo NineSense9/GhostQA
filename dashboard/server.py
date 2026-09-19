@@ -100,7 +100,7 @@ class RunHandle:
         for side in ("src", "dst"):
             shot = (ev.get(side) or {}).get("screenshot")
             if shot:
-                self.shot_index[os.path.basename(shot)] = shot
+                self.shot_index[shot_basename(shot)] = shot
                 self.latest_shot = shot
         try:
             with open(os.path.join(_run_dir(self.id), "events.jsonl"), "a",
@@ -323,13 +323,31 @@ def run_events(run_id: str, after: int = -1):
     return {"status": h.status, "events": [_public_event(run_id, e) for e in events]}
 
 
+def shot_basename(path: str) -> str:
+    """OS-agnostic basename. Windows paths must work on Linux CI."""
+    if not path:
+        return ""
+    return str(path).replace("\\", "/").rsplit("/", 1)[-1]
+
+
+def is_safe_shot_name(name: str) -> bool:
+    """Reject path traversal in /shot/{name} on every OS."""
+    if not name or not name.endswith(".png"):
+        return False
+    if "/" in name or "\\" in name or ".." in name:
+        return False
+    if shot_basename(name) != name:
+        return False
+    return True
+
+
 def _public_event(run_id: str, ev: dict) -> dict:
     """Rewrite absolute screenshot paths into servable URLs."""
     ev = dict(ev)
     for side in ("src", "dst"):
         d = dict(ev.get(side) or {})
         shot = d.get("screenshot")
-        d["screenshot"] = (f"/api/runs/{run_id}/shot/{os.path.basename(shot)}"
+        d["screenshot"] = (f"/api/runs/{run_id}/shot/{shot_basename(shot)}"
                            if shot else "")
         ev[side] = d
     return ev
@@ -347,7 +365,7 @@ def run_graph(run_id: str):
         data = h.graph
     for node in data.get("nodes", []):
         shot = node.get("screenshot")
-        node["screenshot"] = (f"/api/runs/{run_id}/shot/{os.path.basename(shot)}"
+        node["screenshot"] = (f"/api/runs/{run_id}/shot/{shot_basename(shot)}"
                               if shot else "")
     for edge in data.get("edges", []):
         edge.pop("screenshot", None)
@@ -380,7 +398,7 @@ def run_shot(run_id: str):
 def run_shot_named(run_id: str, name: str):
     """Serve one screenshot by basename (path-traversal safe)."""
     h = _get(run_id)
-    if os.path.basename(name) != name or not name.endswith(".png"):
+    if not is_safe_shot_name(name):
         raise HTTPException(400, "bad name")
     path = h.shot_index.get(name) or os.path.join(_run_dir(run_id), "screenshots", name)
     if not os.path.isfile(path):
