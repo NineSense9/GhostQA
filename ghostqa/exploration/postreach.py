@@ -90,6 +90,11 @@ class StateExplorationLedger:
             r.cluster_id = node.cluster_id or cluster_id
 
     def should_exploit(self, sig: str, graph, mode: str) -> bool:
+        """Enter exploit only after workflow progress into a deeper state.
+
+        Lobby/help NEW pages must not start fuzzing. graph_depth is the
+        agent's own shortest path from start, never a manifest depth.
+        """
         if mode == "off":
             return False
         r = self.rec(sig)
@@ -97,17 +102,9 @@ class StateExplorationLedger:
             return False
         if r.exploit_this_visit >= EXPLOIT_BUDGET:
             return False
-        if r.arrived_via_progress:
+        if r.arrived_via_progress and r.graph_depth >= 1:
             return True
-        if r.graph_depth >= 2:
-            return True
-        if r.visits >= 2:
-            return True
-        recent = self.recent_new[-3:]
-        if recent and not any(recent):
-            return True
-        node = graph.nodes.get(sig) if graph else None
-        if node and r.visits <= 1 and node.relation == NEW:
+        if r.graph_depth >= 3:
             return True
         return False
 
@@ -187,8 +184,10 @@ class PostReachController:
                     self.last_label = "escape"
                     return a, "escape"
 
+        fp = form_progress(state, set())
         first_in = self._first_wave_input(actions, state, untried)
-        if first_in is not None:
+        # Fill first-wave only on pages that look like a form (have a commit).
+        if first_in is not None and fp.get("submit_candidates"):
             self.last_label = "progress"
             return first_in, "progress"
 
@@ -204,10 +203,13 @@ class PostReachController:
                     self.pending_from_sig = sig
                 self.last_label = "exploit"
                 return deferred, "exploit"
-            ordinary = self._ordinary_click(actions, state, untried)
-            if ordinary is not None:
-                self.last_label = "exploit"
-                return ordinary, "exploit"
+            # Ordinary non-progress clicks only in already-deep states so
+            # hub pages (login/dashboard) still take progress.
+            if rec.graph_depth >= 3:
+                ordinary = self._ordinary_click(actions, state, untried)
+                if ordinary is not None:
+                    self.last_label = "exploit"
+                    return ordinary, "exploit"
 
         if exploit and self.mode == "deferred":
             deferred = self._deferred_input(actions, state, untried)

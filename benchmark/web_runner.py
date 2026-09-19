@@ -346,6 +346,9 @@ def main():
                           f"ep={row['episode_count']} "
                           f"replay={row['replay_pass']}/{row['replay_fail']}/{row['replay_invalid']} "
                           f"TTF={row['ttf']} TTCB={row['ttcb']} "
+                          f"depth={row.get('max_workflow_depth')} "
+                          f"def={row.get('deferred_payloads_executed')} "
+                          f"exp={row.get('exploit_actions')} "
                           f"llm={row['llm_calls']} wall={row['wall_seconds']}s",
                           flush=True)
     finally:
