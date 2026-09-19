@@ -1,0 +1,29 @@
+{
+  "app": "buggy-flow",
+  "benchmark_freeze_sha": "5355abd444eb4a4e99242c7629a1363c38e52a2a",
+  "algorithm_head": "50f9285",
+  "measurement": "v0.3.3 Frontier Relocation Study",
+  "product": "v0.4 preview (unchanged)",
+  "budgets": [
+    40,
+    80,
+    120
+  ],
+  "trials": [
+    1,
+    2,
+    3
+  ],
+  "trial_note": "Ghost-noLLM is deterministic; 1/2/3 are repeated trials, not stochastic seeds.",
+  "policies": [
+    "ghost-nollm-nofrontier",
+    "ghost-nollm",
+    "ghost-nollm-shadow",
+    "ghost-nollm-marginal",
+    "ghost-nollm-momentum",
+    "ghost-nollm-lease"
+  ],
+  "holdout": "unscored",
+  "real_llm": "skipped",
+  "note": "Primary experiment is NoLLM. Local GhostPolicy weights frozen from v0.3.2."
+}
