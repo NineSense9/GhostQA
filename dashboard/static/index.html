@@ -1,292 +1,248 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 <head>
-<meta charset="utf-8">
-<title>GhostQA Dashboard</title>
-<style>
-:root {
-  --bg: #f6f7f9; --panel: #ffffff; --line: #e4e7ec; --ink: #1d2433;
-  --dim: #667085; --accent: #5b5bd6; --ok: #12805c; --warn: #b54708; --bad: #d92d20;
-}
-* { box-sizing: border-box; }
-body { margin: 0; font-family: system-ui, "Microsoft YaHei", sans-serif;
-       background: var(--bg); color: var(--ink); }
-header { display: flex; align-items: center; gap: 1rem; padding: .6rem 1.2rem;
-         background: var(--panel); border-bottom: 1px solid var(--line); }
-header h1 { font-size: 1.05rem; margin: 0; }
-header .tag { font-size: .7rem; background: #eef; color: var(--accent);
-              border-radius: 999px; padding: .1rem .6rem; }
-main { display: grid; grid-template-columns: 300px 1fr; gap: .8rem; padding: .8rem; }
-.panel { background: var(--panel); border: 1px solid var(--line);
-         border-radius: 10px; padding: .8rem; }
-.panel h2 { font-size: .82rem; margin: 0 0 .6rem; color: var(--dim);
-            text-transform: uppercase; letter-spacing: .05em; }
-label { font-size: .75rem; color: var(--dim); display: block; margin-top: .45rem; }
-input, select { width: 100%; padding: .35rem .5rem; border: 1px solid var(--line);
-                border-radius: 6px; font-size: .82rem; background: #fff; }
-button { margin-top: .7rem; width: 100%; padding: .45rem; border: 0; border-radius: 6px;
-         background: var(--accent); color: #fff; font-size: .85rem; cursor: pointer; }
-button:disabled { opacity: .5; cursor: default; }
-#runlist { margin-top: .8rem; font-size: .78rem; }
-.run-item { padding: .35rem .4rem; border-radius: 6px; cursor: pointer; }
-.run-item:hover { background: #f0f1ff; }
-.run-item.active { background: #e8e9ff; }
-.grid3 { display: grid; grid-template-columns: 1.1fr 1fr 1.2fr; gap: .8rem; }
-#shot { width: 100%; border-radius: 6px; border: 1px solid var(--line);
-        background: #222; min-height: 200px; object-fit: contain; }
-#graph { width: 100%; height: 430px; border: 1px solid var(--line);
-         border-radius: 6px; background: #fcfcfd; }
-#decision { font-size: .8rem; line-height: 1.55; min-height: 120px; white-space: pre-wrap; }
-.kv { display: flex; gap: .6rem; flex-wrap: wrap; font-size: .78rem; margin-top: .5rem; }
-.kv span { background: #f2f4f7; border-radius: 6px; padding: .15rem .55rem; }
-.badge { display: inline-block; padding: .05rem .5rem; border-radius: 999px;
-         font-size: .68rem; color: #fff; }
-.high { background: var(--bad); } .medium { background: var(--warn); } .low { background: #6b8afd; }
-.bug-card { border: 1px solid var(--line); border-radius: 8px; padding: .55rem .7rem;
-            margin: .5rem 0; font-size: .8rem; }
-.bug-card .path { font-size: .72rem; color: var(--dim); margin-top: .3rem; }
-table { border-collapse: collapse; width: 100%; font-size: .78rem; }
-th, td { border: 1px solid var(--line); padding: .3rem .55rem; text-align: left; }
-th { background: #f2f4f7; }
-.hidden { display: none; }
-.status-dot { display: inline-block; width: 8px; height: 8px; border-radius: 50%; margin-right: .3rem; }
-.st-running { background: var(--warn); } .st-validating { background: #6b8afd; }
-.st-done { background: var(--ok); } .st-error { background: var(--bad); }
-.bar-wrap { background:#f2f4f7; border-radius:4px; height:14px; width:160px; display:inline-block; vertical-align:middle }
-.bar { background:var(--accent); height:14px; border-radius:4px }
-</style>
-</head>
-<body>
-<header>
-  <h1>GhostQA Dashboard</h1><span class="tag">v0.4 preview · presentation layer only</span>
-  <span id="clock" style="margin-left:auto;font-size:.75rem;color:var(--dim)"></span>
-</header>
-<main>
-  <div>
-    <div class="panel">
-      <h2>启动测试</h2>
-      <label>被测 URL</label>
-      <input id="url" value="http://127.0.0.1:3939">
-      <label>策略</label>
-      <select id="policy">
-        <option value="ghost">ghost (GhostPolicy)</option>
-        <option value="ghost-nollm">ghost-nollm (消融)</option>
-        <option value="monkey">monkey</option>
-        <option value="dfs">dfs</option>
-        <option value="bfs">bfs</option>
-        <option value="llm-naive">llm-naive</option>
-      </select>
-      <label>预算（动作数）</label>
-      <input id="budget" type="number" value="40">
-      <label>规格文件（spec）</label>
-      <input id="spec" value="apps/buggy-shop/spec.json">
-      <label><input id="mock_llm" type="checkbox" checked style="width:auto"> 使用 MockLLM（无语义为 noLLM）</label>
-      <button id="start">开始探索</button>
-    </div>
-    <div class="panel">
-      <h2>运行列表</h2>
-      <div id="runlist">（暂无）</div>
-    </div>
-    <div class="panel">
-      <h2>Published Benchmarks</h2>
-      <div id="bench">加载中…</div>
-    </div>
-  </div>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>GhostQA · 探索控制台</title>
+<meta name="description" content="GhostQA 自主 GUI 探索器的实时监控台：画面流、状态图生长与缺陷确认。">
 
-  <div>
-    <div class="grid3">
-      <div class="panel"><h2>实时画面</h2>
-        <img id="shot" alt="waiting for first screenshot…">
-        <div class="kv" id="loc"></div>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=Noto+Sans+SC:wght@400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/static/styles/tokens.css">
+<link rel="stylesheet" href="/static/styles/base.css">
+<link rel="stylesheet" href="/static/styles/components.css">
+</head>
+<body class="atmosphere scanlines">
+
+<div class="shell">
+
+  <!-- ============================ HEADER ============================== -->
+  <header class="topbar" data-enter style="--enter-i:0">
+    <div class="brand">
+      <span class="brand-mark">Ghost<em>QA</em></span>
+      <span class="brand-ver">v0.4</span>
+    </div>
+
+    <div class="topbar-sep" aria-hidden="true"></div>
+
+    <div class="readouts" role="status" aria-live="polite">
+      <div class="readout">
+        <span class="readout-k">状态</span>
+        <span class="readout-v" id="r-status">空闲</span>
       </div>
-      <div class="panel"><h2>决策摘要</h2>
-        <div id="decision">等待第一个决策…</div>
-        <div class="kv" id="stats"></div>
+      <div class="readout">
+        <span class="readout-k">步数</span>
+        <span class="readout-v is-accent" id="r-steps">0</span>
       </div>
-      <div class="panel"><h2>State Graph（实时生长）</h2>
-        <div id="graph"></div>
+      <div class="readout">
+        <span class="readout-k">状态节点</span>
+        <span class="readout-v is-accent" id="r-states">0</span>
+      </div>
+      <div class="readout">
+        <span class="readout-k">候选</span>
+        <span class="readout-v" id="r-cands">0</span>
+      </div>
+      <div class="readout">
+        <span class="readout-k">已确认</span>
+        <span class="readout-v is-alert" id="r-bugs">0</span>
+      </div>
+      <div class="readout">
+        <span class="readout-k">LLM 调用</span>
+        <span class="readout-v" id="r-llm">0</span>
       </div>
     </div>
-    <div class="panel" style="margin-top:.8rem">
-      <h2>缺陷（候选 → 重放确认）</h2>
-      <div id="bugs">尚无发现。</div>
-      <div id="report-link" class="hidden" style="margin-top:.5rem">
-        <a id="report-a" href="#" target="_blank">打开完整 HTML 报告 →</a>
-      </div>
+
+    <div class="topbar-right">
+      <span class="conn" id="conn"><span class="live-dot" id="conn-dot"></span><span id="conn-txt">未连接</span></span>
+      <a class="btn btn-ghost" id="report-link" href="#" target="_blank" rel="noopener" hidden>打开报告</a>
     </div>
-  </div>
-</main>
+  </header>
+
+  <!-- ============================ CONSOLE ============================== -->
+  <main class="console">
+
+    <!-- ---- Left column: the live viewport owns the optical centre ----- -->
+    <div class="col">
+
+      <!-- Live browser viewport -->
+      <section class="panel viewport-panel brackets" aria-labelledby="h-viewport"
+               data-enter style="--enter-i:1">
+        <div class="panel-head">
+          <h2 class="label" id="h-viewport">实时画面</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="status-pill" id="vp-pill">待启动</span>
+        </div>
+
+        <div class="viewport" id="viewport">
+          <div class="viewport-empty" id="viewport-empty">
+            <h3>尚未开始探索</h3>
+            <p>在右侧配置目标应用与预算，启动后此处将逐帧显示探索器看到的页面。</p>
+          </div>
+          <img id="shot" alt="探索器当前所见页面截图" hidden>
+        </div>
+
+        <div class="action-strip">
+          <span class="action-verb" id="a-verb">—</span>
+          <span class="action-target" id="a-target">等待首个动作</span>
+          <span class="action-arrow" aria-hidden="true">→</span>
+          <span class="action-url" id="a-url"></span>
+        </div>
+      </section>
+
+      <!-- State graph -->
+      <section class="panel graph-panel" aria-labelledby="h-graph"
+               data-enter style="--enter-i:2">
+        <div class="panel-head">
+          <h2 class="label" id="h-graph">状态图</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="readout-k" id="graph-count">0 节点 / 0 边</span>
+        </div>
+        <div id="graph" role="img" aria-label="探索过程中构建的状态转移图"></div>
+        <div class="graph-legend">
+          <span class="key"><i style="background:var(--sim-new)"></i>新状态 NEW</span>
+          <span class="key"><i style="background:var(--sim-similar)"></i>相似 SIMILAR</span>
+          <span class="key"><i style="background:var(--sim-identical)"></i>相同 IDENTICAL</span>
+          <span class="key"><i style="background:var(--alert)"></i>发现缺陷</span>
+        </div>
+      </section>
+
+      <!-- Decision log: lives on the left, in the information flow with the
+           viewport and graph, so it always has room to breathe. -->
+      <section class="card log-panel" aria-labelledby="h-log" data-enter style="--enter-i:3">
+        <div class="card-head">
+          <h2 class="label" id="h-log">决策日志</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="status-pill" id="log-count">0</span>
+        </div>
+        <div class="log" id="log" role="log" aria-live="polite">
+          <p class="empty">等待探索开始…</p>
+        </div>
+      </section>
+    </div>
+
+    <!-- ---- Right column: telemetry + controls + evidence -------------- -->
+    <div class="col col-right">
+
+      <!-- Controls -->
+      <section class="card" aria-labelledby="h-run" data-enter style="--enter-i:1">
+        <div class="card-head">
+          <h2 class="label" id="h-run">启动探索</h2>
+          <span class="rule" aria-hidden="true"></span>
+        </div>
+        <form class="form" id="run-form">
+          <div class="field">
+            <label for="f-url">目标地址</label>
+            <input id="f-url" name="url" type="url" required
+                   value="http://127.0.0.1:3939" placeholder="http://127.0.0.1:3939">
+          </div>
+
+          <div class="field">
+            <label for="f-spec">规格文件</label>
+            <input id="f-spec" name="spec" type="text"
+                   value="apps/buggy-shop/spec.json" placeholder="apps/buggy-shop/spec.json">
+          </div>
+
+          <div class="row-2">
+            <div class="field">
+              <label for="f-policy">策略</label>
+              <select id="f-policy" name="policy">
+                <option value="ghost" selected>ghost</option>
+                <option value="ghost-nollm">ghost-nollm</option>
+                <option value="llm-naive">llm-naive</option>
+                <option value="bfs">bfs</option>
+                <option value="dfs">dfs</option>
+                <option value="monkey">monkey</option>
+                <option value="workflow-bfs">workflow-bfs</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="f-budget">预算（步）</label>
+              <input id="f-budget" name="budget" type="number" min="1" max="400" value="40">
+            </div>
+          </div>
+
+          <label class="check">
+            <input id="f-mock" type="checkbox">
+            <span class="check-box" aria-hidden="true"></span>
+            <span class="check-label">使用 Mock LLM（离线，不消耗额度）</span>
+          </label>
+
+          <button class="btn btn-primary" id="btn-run" type="submit">
+            <span id="btn-run-txt">启动探索</span>
+          </button>
+        </form>
+      </section>
+
+      <!-- Telemetry -->
+      <section class="card" aria-labelledby="h-tele" data-enter style="--enter-i:3">
+        <div class="card-head">
+          <h2 class="label" id="h-tele">遥测</h2>
+          <span class="rule" aria-hidden="true"></span>
+        </div>
+        <div class="stat-grid">
+          <div class="stat is-accent">
+            <span class="stat-k">动作</span><span class="stat-v" id="t-actions">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-k">节点</span><span class="stat-v" id="t-nodes">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-k">边</span><span class="stat-v" id="t-edges">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-k">重定位</span><span class="stat-v" id="t-relocate">0</span>
+          </div>
+          <div class="stat">
+            <span class="stat-k">耗时</span><span class="stat-v" id="t-wall">0s</span>
+          </div>
+          <div class="stat is-alert">
+            <span class="stat-k">缺陷</span><span class="stat-v" id="t-bugs">0</span>
+          </div>
+        </div>
+        <div class="mix">
+          <div class="mix-bar" id="mix-bar" aria-hidden="true">
+            <span id="mix-new"       style="background:var(--sim-new);width:0"></span>
+            <span id="mix-similar"   style="background:var(--sim-similar);width:0"></span>
+            <span id="mix-identical" style="background:var(--sim-identical);width:0"></span>
+          </div>
+          <div class="mix-rows">
+            <span class="mix-row"><i style="width:8px;height:8px;border-radius:50%;background:var(--sim-new);display:block"></i>NEW<b id="m-new">0</b></span>
+            <span class="mix-row"><i style="width:8px;height:8px;border-radius:50%;background:var(--sim-similar);display:block"></i>SIMILAR<b id="m-similar">0</b></span>
+            <span class="mix-row"><i style="width:8px;height:8px;border-radius:50%;background:var(--sim-identical);display:block"></i>IDENTICAL<b id="m-identical">0</b></span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Confirmed bugs -->
+      <section class="card" aria-labelledby="h-bugs" data-enter style="--enter-i:4">
+        <div class="card-head">
+          <h2 class="label" id="h-bugs">已确认缺陷</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="status-pill" id="bug-count">0</span>
+        </div>
+        <div class="bugs" id="bugs">
+          <p class="empty">尚无已确认缺陷。<br>运行结束后，通过复现校验与 ddmin 最小化的问题会出现在这里。</p>
+        </div>
+      </section>
+
+      <!-- Published benchmark evidence -->
+      <section class="card" aria-labelledby="h-bench" data-enter style="--enter-i:5">
+        <div class="card-head">
+          <h2 class="label" id="h-bench">已发布基准</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="status-pill" id="bench-count">0</span>
+        </div>
+        <div class="bugs" id="bench">
+          <p class="empty">暂无已发布指标。</p>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
 
 <script src="/static/vendor/cytoscape.min.js"></script>
-<script>
-let currentRun = null, lastSeq = -1, cy = null, pollTimer = null;
-
-const $ = (id) => document.getElementById(id);
-setInterval(() => { $("clock").textContent = new Date().toLocaleTimeString(); }, 1000);
-
-function initGraph() {
-  if (cy) return;
-  cy = cytoscape({
-    container: $("graph"),
-    style: [
-      { selector: "node", style: {
-          "label": "data(label)", "font-size": 8, "text-wrap": "wrap",
-          "text-max-width": 90, "background-color": "#8b8bf0", "color": "#333",
-          "text-valign": "bottom", "width": 18, "height": 18 } },
-      { selector: "node.new", style: { "background-color": "#5b5bd6" } },
-      { selector: "node.bug", style: { "background-color": "#d92d20" } },
-      { selector: "edge", style: { "width": 1, "line-color": "#c3c7d0",
-          "target-arrow-shape": "triangle", "target-arrow-color": "#c3c7d0",
-          "arrow-scale": 0.7, "curve-style": "bezier" } },
-    ],
-    layout: { name: "cose", animate: false, nodeRepulsion: 8000 },
-  });
-}
-
-function shortSig(sig) { return (sig || "").slice(0, 6); }
-function nodeLabel(ev) {
-  const s = ev.new_state;
-  if (!s) return "CRASH";
-  const t = (s.title || s.url || "?").replace(/\s+/g, " ").slice(0, 16);
-  return t;
-}
-
-async function startRun() {
-  const body = {
-    url: $("url").value, policy: $("policy").value,
-    budget: parseInt($("budget").value || "40"),
-    spec: $("spec").value, mock_llm: $("mock_llm").checked,
-  };
-  $("start").disabled = true;
-  const r = await fetch("/api/runs", { method: "POST",
-    headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
-  const j = await r.json();
-  $("start").disabled = false;
-  selectRun(j.run_id);
-  refreshRunList();
-}
-
-async function selectRun(id) {
-  currentRun = id; lastSeq = -1;
-  if (cy) { cy.elements().remove(); }
-  $("bugs").textContent = "尚无发现。";
-  $("report-link").classList.add("hidden");
-  if (pollTimer) clearInterval(pollTimer);
-  pollTimer = setInterval(poll, 900);
-  poll();
-}
-
-async function poll() {
-  if (!currentRun) return;
-  const r = await fetch(`/api/runs/${currentRun}/events?after=${lastSeq}`);
-  const j = await r.json();
-  for (const ev of j.events) handleEvent(ev);
-  if (j.status === "done" || j.status === "error") {
-    clearInterval(pollTimer);
-    if (j.status === "done") loadBugs();
-  }
-  refreshRunList();
-}
-
-function handleEvent(ev) {
-  lastSeq = ev.seq;
-  if (ev.type === "run_done") { showSummary(ev.summary); return; }
-  if (ev.type === "run_error") { $("decision").textContent = "错误：\n" + ev.error; return; }
-
-  initGraph();
-  const sig = ev.new_state ? ev.new_state.sig : "CRASH-" + ev.prev_sig.slice(0,6);
-  if (cy.getElementById(sig).length === 0) {
-    cy.add({ data: { id: sig, label: nodeLabel(ev) },
-             classes: ev.findings.length ? "bug" : "new" });
-  }
-  if (ev.new_state && cy.getElementById(ev.prev_sig).length &&
-      cy.getElementById(sig).length && ev.prev_sig !== sig) {
-    const eid = ev.prev_sig + "->" + sig + ":" + ev.action.type + (ev.action.target_eid||"");
-    if (cy.getElementById(eid).length === 0)
-      cy.add({ data: { id: eid, source: ev.prev_sig, target: sig } });
-  }
-  cy.layout({ name: "cose", animate: false, nodeRepulsion: 8000 }).run();
-
-  $("shot").src = `/api/runs/${currentRun}/shot?t=${Date.now()}`;
-  $("loc").innerHTML = ev.new_state
-    ? `<span>step ${ev.step_index}</span><span>ep ${ev.episode_id}</span>
-       <span>${ev.new_state.title || ""}</span><span>${(ev.new_state.url||"").split("/").pop()}</span>`
-    : `<span>step ${ev.step_index}</span><span>CRASHED → 重启</span>`;
-  $("stats").innerHTML = `<span>states ${ev.graph_stats.states}</span><span>edges ${ev.graph_stats.edges}</span>` +
-    (ev.findings.length ? `<span style="background:#fde8e8;color:#d92d20">发现 ${ev.findings.length} 个异常</span>` : "");
-
-  let d = `步骤 ${ev.step_index} · ${ev.action.brief || (ev.action.type + "[" + (ev.action.target_eid||"") + "]")}`;
-  if (ev.restore_step) d += "  (restore 路径回放)";
-  if (ev.relation) d += `\n关系: ${ev.relation}`;
-  if (ev.decision) {
-    d += `\n触发: ${(ev.decision.trigger||[]).join(",")}`;
-    if (ev.decision.candidates)
-      d += `\n候选: ` + Object.entries(ev.decision.candidates)
-          .map(([k,v]) => `${k}=${v}`).join("  ");
-    d += `\n选择: ${ev.decision.chosen || ""}`;
-  }
-  for (const f of ev.findings) d += `\n⚠ [${f.kind}/${f.severity}] ${f.description}`;
-  $("decision").textContent = d;
-}
-
-async function loadBugs() {
-  const r = await fetch(`/api/runs/${currentRun}/bugs`);
-  const bugs = await r.json();
-  if (!bugs.length) { $("bugs").textContent = "运行结束：无确认缺陷（候选可能未通过重放）。"; return; }
-  $("bugs").innerHTML = bugs.map((b, i) => `
-    <div class="bug-card">
-      <b>#${i+1}</b> <span class="badge ${b.finding.severity}">${b.finding.severity}</span>
-      <code>${b.finding.kind}</code> ${b.finding.description}
-      <div class="path">原始 ${b.original_length} 步 → 最小复现 ${b.reproduction.length} 步：
-        ${b.reproduction.map(a => `${a.type}[${a.target_eid||""}]`).join(" → ")}</div>
-    </div>`).join("");
-  $("report-link").classList.remove("hidden");
-  $("report-a").href = `/api/runs/${currentRun}/report.html`;
-}
-
-function showSummary(s) {
-  $("stats").innerHTML = Object.entries(s).map(([k,v]) =>
-    `<span>${k}: ${typeof v === "object" ? JSON.stringify(v) : v}</span>`).join("");
-}
-
-async function refreshRunList() {
-  const r = await fetch("/api/runs");
-  const runs = await r.json();
-  if (!runs.length) { $("runlist").textContent = "（暂无）"; return; }
-  $("runlist").innerHTML = runs.map(h => `
-    <div class="run-item ${h.id === currentRun ? "active" : ""}" onclick="selectRun('${h.id}')">
-      <span class="status-dot st-${h.status}"></span>${h.id} · ${h.cfg.policy || "?"} · ${h.status}
-      ${h.summary && h.summary.confirmed !== undefined ? " · bugs:" + h.summary.confirmed : ""}
-    </div>`).join("");
-}
-
-async function loadBench() {
-  const r = await fetch("/api/benchmarks");
-  const data = await r.json();
-  if (!data.length) { $("bench").textContent = "无 published 数据"; return; }
-  const latest = data[data.length - 1];
-  let html = `<div style="font-size:.72rem;color:var(--dim)">${latest.name}</div>`;
-  const agg = latest.metrics.aggregate;
-  if (agg && agg.length) {
-    html += "<table><tr><th>策略</th><th>BDR</th><th></th></tr>" + agg.map(a => `
-      <tr><td>${a.policy}</td><td>${a.bugs_mean}</td>
-      <td><span class="bar-wrap"><span class="bar" style="width:${Math.round(a.bugs_mean*160)}px"></span></span></td></tr>`).join("") + "</table>";
-  } else {
-    const runs = latest.metrics.runs || [];
-    const by = {};
-    for (const x of runs) { (by[x.policy] = by[x.policy] || []).push(x.bug_discovery_rate); }
-    html += "<table><tr><th>策略</th><th>BDR</th><th></th></tr>" + Object.entries(by).map(([p, arr]) => {
-      const m = arr.reduce((a,b)=>a+b,0)/arr.length;
-      return `<tr><td>${p}</td><td>${m.toFixed(2)}</td>
-        <td><span class="bar-wrap"><span class="bar" style="width:${Math.round(m*160)}px"></span></span></td></tr>`;
-    }).join("") + "</table>";
-  }
-  html += `<div style="font-size:.68rem;color:var(--dim);margin-top:.4rem">共 ${data.length} 个 published 数据集</div>`;
-  $("bench").innerHTML = html;
-}
-
-$("start").onclick = startRun;
-loadBench(); refreshRunList();
-</script>
+<script src="/static/scripts/main.js"></script>
 </body>
 </html>

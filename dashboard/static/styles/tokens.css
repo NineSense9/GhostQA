@@ -1,0 +1,96 @@
+/* ============================================================================
+   GhostQA Dashboard — Design Tokens
+   Direction: Industrial / utilitarian monitoring console.
+   Dark-first, near-black base, cold-cyan dominant surface accent, and a single
+   amber accent reserved exclusively for confirmed defects and primary actions.
+   ========================================================================== */
+
+:root {
+  /* --- Surfaces: near-black, never pure #000 (softer on long viewing) ----- */
+  --bg: #0a0b0d;
+  --bg-deep: #060708;
+  --surface: #111317;
+  --surface-2: #171a1f;
+  --surface-3: #1e222883;
+  --surface-raised: #1c2027;
+
+  /* --- Text: warm-neutral light greys, measured for >=4.5:1 on --surface -- */
+  --text: #e8ebef;
+  --text-strong: #f7f9fb;
+  --muted: #9aa3af;   /* 7.2:1 on --bg, 5.6:1 on --surface */
+
+  /* --- Hairlines: sub-pixel borders are the signature of this direction --- */
+  --line: rgba(232, 235, 239, 0.09);
+  --line-strong: rgba(232, 235, 239, 0.17);
+
+  /* --- Dominant accent: cold cyan (system / machine) --------------------- */
+  --accent: #3ddad7;
+  --accent-dim: rgba(61, 218, 215, 0.13);
+  --accent-mid: rgba(61, 218, 215, 0.34);
+
+  /* --- Single sharp accent: amber, ONLY for confirmed defects + CTA ------ */
+  --alert: #ffb347;
+  --alert-dim: rgba(255, 179, 71, 0.13);
+
+  /* --- Semantic status hues (industrial consoles never rely on one hue) -- */
+  --ok: #4ade80;
+  --ok-dim: rgba(74, 222, 128, 0.12);
+  --warn: #ffb347;
+  --danger: #ff6b6b;
+  --danger-dim: rgba(255, 107, 107, 0.13);
+
+  /* --- Similarity classification hues (mirrors explorer semantics) ------- */
+  --sim-new: #3ddad7;
+  --sim-similar: #a78bfa;
+  --sim-identical: #6b7280;
+
+  /* --- Type scale: 1.25 modular, defined once, never hand-written -------- */
+  --font-display: "Chakra Petch", "Noto Sans SC", sans-serif;
+  --font-body: "IBM Plex Sans", "Noto Sans SC", sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  --fs-xs: 0.6875rem;   /* 11px — labels, meta */
+  --fs-sm: 0.78rem;     /* 12.5px — dense data */
+  --fs-base: 0.875rem;  /* 14px — body */
+  --fs-md: 1rem;
+  --fs-lg: 1.25rem;
+  --fs-xl: 1.6rem;
+  --fs-2xl: 2.1rem;
+  --fs-3xl: 2.9rem;
+
+  /* --- Spacing gradient (4 / 8 / 16 / 24 / 40 / 64) ---------------------- */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 16px;
+  --sp-4: 24px;
+  --sp-5: 40px;
+  --sp-6: 64px;
+
+  /* --- Radii: this direction stays tight; consoles are not bubbly -------- */
+  --r-xs: 2px;
+  --r-sm: 4px;
+  --r-md: 6px;
+
+  /* --- Elevation: shadows carry the background's cool cast, not pure black */
+  --sh-1: 0 2px 6px rgba(0, 0, 0, 0.34);
+  --sh-2: 0 8px 24px rgba(0, 0, 0, 0.44);
+  --sh-3: 0 24px 60px rgba(0, 0, 0, 0.56);
+  --glow-accent: 0 0 0 1px var(--accent-mid), 0 0 22px rgba(61, 218, 215, 0.16);
+
+  /* --- Motion ------------------------------------------------------------ */
+  --dur-fast: 150ms;
+  --dur-base: 320ms;
+  --dur-slow: 640ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+  --header-h: 52px;
+}
+
+/* Reduced motion: kill all decorative movement, keep the console usable. */
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 1ms;
+    --dur-base: 1ms;
+    --dur-slow: 1ms;
+  }
+}
