@@ -31,6 +31,12 @@ p { margin: 0; }
 button, input, select, textarea { font: inherit; color: inherit; }
 a { color: var(--accent); text-decoration: none; }
 
+/* Class rules such as `.btn { display: inline-flex }` and `.viewport img
+   { display: block }` are more specific than the UA `[hidden]` stylesheet.
+   Without this, idle-state hidden controls still paint (broken screenshot
+   icon, "打开报告" with nowhere to go). */
+[hidden] { display: none !important; }
+
 /* --- Numeric data always tabular, so columns refuse to jitter ------------- */
 .num, .stat-value, td, .mono {
   font-family: var(--font-mono);

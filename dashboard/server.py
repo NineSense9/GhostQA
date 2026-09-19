@@ -30,7 +30,7 @@ import traceback
 import uuid
 
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import FileResponse, HTMLResponse
+from fastapi.responses import FileResponse, HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -49,6 +49,30 @@ RUNS_LOCK = threading.Lock()
 
 def _run_dir(run_id: str) -> str:
     return os.path.join(RUNS_DIR, run_id)
+
+
+def _write_json(path: str, obj) -> None:
+    with open(path, "w", encoding="utf-8") as f:
+        json.dump(obj, f, ensure_ascii=False, indent=2)
+
+
+def _read_json(path: str, default=None):
+    if not os.path.isfile(path):
+        return default
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _index_shots(handle: "RunHandle", run_dir: str) -> None:
+    shots = os.path.join(run_dir, "screenshots")
+    if not os.path.isdir(shots):
+        return
+    for name in sorted(os.listdir(shots)):
+        if not name.endswith(".png"):
+            continue
+        path = os.path.join(shots, name)
+        handle.shot_index[name] = path
+        handle.latest_shot = path
 
 
 class RunHandle:
@@ -78,6 +102,12 @@ class RunHandle:
             if shot:
                 self.shot_index[os.path.basename(shot)] = shot
                 self.latest_shot = shot
+        try:
+            with open(os.path.join(_run_dir(self.id), "events.jsonl"), "a",
+                      encoding="utf-8") as f:
+                f.write(json.dumps(ev, ensure_ascii=False) + "\n")
+        except OSError:
+            pass
 
 
 def _do_run(handle: RunHandle):
@@ -90,12 +120,16 @@ def _do_run(handle: RunHandle):
     from ghostqa.oracle.spec import load_spec
     from ghostqa.replay.validator import validate_candidate
     from ghostqa.report.generator import build_report, write_report
-    from ghostqa.state.models import ConfirmedBug
 
     cfg = handle.cfg
     run_dir = _run_dir(handle.id)
     os.makedirs(run_dir, exist_ok=True)
     shots = os.path.join(run_dir, "screenshots")
+    os.makedirs(shots, exist_ok=True)
+    _write_json(os.path.join(run_dir, "meta.json"), {
+        "cfg": cfg, "created": handle.created, "status": "running"})
+    # Truncate so emit() can append incrementally.
+    open(os.path.join(run_dir, "events.jsonl"), "w", encoding="utf-8").close()
     spec = load_spec(cfg["spec"]) if cfg.get("spec") else []
     oracle = OracleEngine(spec)
     spec_brief = "; ".join(f"{a['id']}: {a.get('desc', '')}" for a in spec)
@@ -111,7 +145,7 @@ def _do_run(handle: RunHandle):
         result = run_exploration(web, policy, int(cfg.get("budget", 60)),
                                  oracle=oracle, spec_brief=spec_brief,
                                  on_step=handle.emit)
-        handle.candidates = [f.to_dict() for f in result.candidates]
+        handle.candidates = [result.finding_artifact(f) for f in result.candidates]
         result.graph.save(os.path.join(run_dir, "graph.json"))
         handle.graph = result.graph.to_dict()
         with open(os.path.join(run_dir, "events.jsonl"), "w", encoding="utf-8") as f:
@@ -119,19 +153,19 @@ def _do_run(handle: RunHandle):
                 f.write(json.dumps(ev, ensure_ascii=False) + "\n")
 
         handle.status = "validating"
+        _write_json(os.path.join(run_dir, "meta.json"), {
+            "cfg": cfg, "created": handle.created, "status": "validating"})
         shared = web.share_handle()
         factory = lambda: PlaywrightWebExecutor(cfg["url"], headless=True,
                                                 shared=shared)
         confirmed = []
         for finding in result.candidates:
-            vr = validate_candidate(factory, result.reproduction_actions(finding),
-                                    finding, oracle)
+            repro_actions = result.reproduction_actions(finding)
+            vr = validate_candidate(factory, repro_actions, finding, oracle)
             if not vr.confirmed:
                 continue
-            repro = minimize_reproduction(factory, result.reproduction_actions(finding),
-                                          finding, oracle)
-            confirmed.append(ConfirmedBug(finding=finding, reproduction=repro,
-                                          original_length=finding.step_index + 1))
+            repro = minimize_reproduction(factory, repro_actions, finding, oracle)
+            confirmed.append(result.make_confirmed(finding, repro))
         handle.bugs = [b.to_dict() for b in confirmed]
 
         report = build_report(result, confirmed, cfg)
@@ -149,13 +183,96 @@ def _do_run(handle: RunHandle):
             "similarity_counts": getattr(result, "similarity_counts", {}),
         }
         handle.status = "done"
+        _write_json(os.path.join(run_dir, "meta.json"), {
+            "cfg": cfg, "created": handle.created, "status": "done",
+            "summary": handle.summary})
+        _write_json(os.path.join(run_dir, "bugs.json"), handle.bugs)
+        _write_json(os.path.join(run_dir, "candidates.json"), handle.candidates)
         handle.emit({"type": "run_done", "summary": handle.summary})
     except Exception:
         handle.status = "error"
         handle.error = traceback.format_exc(limit=5)
+        _write_json(os.path.join(run_dir, "meta.json"), {
+            "cfg": cfg, "created": handle.created, "status": "error",
+            "error": handle.error})
         handle.emit({"type": "run_error", "error": handle.error})
     finally:
         web.close()
+
+
+def _hydrate_runs() -> None:
+    """Reload completed runs from dashboard_runs/ so a refresh keeps history."""
+    if not os.path.isdir(RUNS_DIR):
+        return
+    for name in os.listdir(RUNS_DIR):
+        run_dir = os.path.join(RUNS_DIR, name)
+        if not os.path.isdir(run_dir):
+            continue
+        try:
+            meta = _read_json(os.path.join(run_dir, "meta.json"), {}) or {}
+            report = _read_json(os.path.join(run_dir, "report.json"), {}) or {}
+        except Exception:
+            continue
+        if not meta and not report:
+            continue
+        try:
+            cfg = meta.get("cfg") or report.get("config") or {}
+            handle = RunHandle(name, cfg)
+            handle.created = float(meta.get("created") or os.path.getmtime(run_dir))
+            handle.status = meta.get("status") or ("done" if report else "error")
+            if handle.status == "running":
+                handle.status = "error"
+                handle.error = "interrupted (server restarted)"
+            handle.summary = meta.get("summary") or {}
+            if not handle.summary and report.get("summary"):
+                s = report["summary"]
+                handle.summary = {
+                    "actions": s.get("actions_executed", 0),
+                    "states": s.get("states_discovered", 0),
+                    "candidates": s.get("candidate_findings", 0),
+                    "confirmed": s.get("confirmed_bugs", 0),
+                    "llm_calls": s.get("llm_calls", 0),
+                    "wall_seconds": s.get("wall_seconds", 0),
+                }
+            handle.bugs = _read_json(os.path.join(run_dir, "bugs.json"),
+                                     report.get("bugs") or []) or []
+            handle.candidates = _read_json(
+                os.path.join(run_dir, "candidates.json"), []) or []
+            events_path = os.path.join(run_dir, "events.jsonl")
+            if os.path.isfile(events_path):
+                with open(events_path, encoding="utf-8") as f:
+                    for line in f:
+                        line = line.strip()
+                        if not line:
+                            continue
+                        try:
+                            handle.event_log.append(json.loads(line))
+                        except json.JSONDecodeError:
+                            continue
+            handle.graph = _read_json(os.path.join(run_dir, "graph.json"),
+                                      {"nodes": [], "edges": []}) or {
+                "nodes": [], "edges": []}
+            report_html = os.path.join(run_dir, "report.html")
+            if os.path.isfile(report_html):
+                handle.report_html = report_html
+            _index_shots(handle, run_dir)
+            RUNS[name] = handle
+        except Exception:
+            continue
+
+
+_hydrate_runs()
+
+
+@app.get("/favicon.ico")
+def favicon():
+    svg = (
+        "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>"
+        "<rect width='32' height='32' rx='4' fill='#0a0b0d'/>"
+        "<text x='16' y='22' text-anchor='middle' font-size='16' "
+        "font-family='monospace' fill='#3ddad7'>G</text></svg>"
+    )
+    return Response(content=svg, media_type="image/svg+xml")
 
 
 @app.get("/", response_class=HTMLResponse)

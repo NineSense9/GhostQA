@@ -596,9 +596,11 @@ els.form.addEventListener('submit', async (e) => {
   els.tActions.textContent = '0';
   els.tWall.textContent = '0s';
   els.tRelocate.textContent = '0';
+  els.shot.removeAttribute("src");
   els.shot.hidden = true;
   els.vpEmpty.hidden = false;
   els.reportLink.hidden = true;
+  els.reportLink.removeAttribute("href");
   els.verb.textContent = '—';
   els.target.textContent = '等待首个动作';
   els.url.textContent = '';
@@ -621,6 +623,7 @@ els.form.addEventListener('submit', async (e) => {
     if (!res.ok) throw new Error('HTTP ' + res.status);
     const data = await res.json();
     S.runId = data.run_id;
+    try { sessionStorage.setItem('ghostqa-run', S.runId); } catch (_) {}
     startPolling();
   } catch (err) {
     els.btnRun.disabled = false;
@@ -640,13 +643,12 @@ els.form.addEventListener('submit', async (e) => {
   try { renderBenchmarks(await getJSON('/api/benchmarks')); } catch (_) {}
 
   try {
-    const runs = await getJSON('/api/runs');
-    if (!runs.length) return;
-    runs.sort((a, b) => (b.created || 0) - (a.created || 0));
-    const last = runs[0];
-    if (['running', 'validating', 'done'].indexOf(last.status) === -1) return;
-    S.runId = last.id;
-    S.runStartedAt = (last.created || 0) * 1000;
+    const saved = sessionStorage.getItem('ghostqa-run');
+    if (!saved) return;
+    const st = await getJSON('/api/runs/' + saved);
+    if (!st || !st.id) return;
+    S.runId = st.id;
+    S.runStartedAt = Date.now();
     S.lastEventAt = Date.now();
     setConn(true, '已连接');
     startPolling();

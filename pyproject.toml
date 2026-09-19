@@ -4,11 +4,13 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ghostqa"
-version = "0.3.2"
+version = "0.4.0"
 description = "AI-driven autonomous exploratory software testing system"
 requires-python = ">=3.11"
 dependencies = [
     "playwright>=1.40",
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.27",
 ]
 
 [project.optional-dependencies]
@@ -18,7 +20,10 @@ dev = [
 ]
 
 [tool.setuptools.packages.find]
-include = ["ghostqa*", "benchmark*"]
+include = ["ghostqa*", "benchmark*", "dashboard*"]
+
+[tool.setuptools.package-data]
+dashboard = ["static/**/*"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

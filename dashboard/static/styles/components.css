@@ -646,9 +646,33 @@
 @media (max-width: 720px) {
   body { overflow: auto; }
   .shell { height: auto; min-height: 100vh; }
-  .topbar { flex-wrap: wrap; height: auto; padding: var(--sp-2) var(--sp-3); gap: var(--sp-2); }
-  .readouts { flex-wrap: wrap; gap: var(--sp-3); margin-left: 0; width: 100%; }
-  .topbar-right { margin-left: 0; width: 100%; }
+  .topbar {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      "brand right"
+      "readouts readouts";
+    align-items: center;
+    height: auto;
+    padding: var(--sp-2) var(--sp-3);
+    gap: var(--sp-2) var(--sp-3);
+  }
+  .brand { grid-area: brand; }
+  .topbar-sep { display: none; }
+  .readouts {
+    grid-area: readouts;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--sp-2) var(--sp-3);
+    margin-left: 0;
+    width: 100%;
+  }
+  .topbar-right {
+    grid-area: right;
+    margin-left: 0;
+    width: auto;
+    justify-self: end;
+  }
   .console { padding: var(--sp-2); gap: var(--sp-2); }
   .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .viewport { min-height: 240px; }

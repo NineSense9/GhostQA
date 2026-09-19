@@ -4,7 +4,7 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.3.2（Episode-Aware Replay Correctness）
+## 当前状态：v0.4 preview（Dashboard）· 算法层仍是 v0.3.2
 
 | 能力 | 状态 |
 |---|---|
@@ -19,10 +19,10 @@
 | WorkflowBFS（非 AI、交互级 BFS 基线） | ✅ Implemented |
 | 三层 Oracle + BugFingerprint + 三态 replay + ddmin | ✅ Implemented |
 | CLI + JSON/HTML 报告 | ✅ Implemented |
-| WebBench v0.2 + DeepBench v0.3 / v0.3.1 可追溯实验 | ✅ Implemented |
-| 真实 LLM 实验 | ⏭ skipped（无 GHOSTQA_MODEL_* 凭据） |
-| Dashboard | ⏳ Planned (v0.4) |
-| Android 扩展 | ⏳ Planned (v0.4+) |
+| WebBench v0.2 + DeepBench v0.3 / v0.3.1 / v0.3.2 可追溯实验 | ✅ Implemented |
+| 真实 LLM 实验 | ⏭ skipped（无 GHOSTQA_MODEL_* 凭据；Dashboard 可接真实 LLM） |
+| Dashboard（FastAPI 实时控制台） | ✅ v0.4 preview |
+| Android 扩展 | ⏳ Planned |
 
 ## 快速开始
 
@@ -52,6 +52,14 @@ python -m ghostqa run \
   --out runs/demo
 
 # 3. 查看报告 runs/demo/report.html
+```
+
+实时控制台（v0.4 preview，展示层，不改探索算法）：
+
+```bash
+python apps/buggy-shop/server.py 3939
+python -m dashboard.server --port 8787
+# 浏览器打开 http://127.0.0.1:8787/
 ```
 
 使用真实 LLM（可选，模型不可用时自动降级为 no-LLM 策略）：
@@ -102,6 +110,7 @@ ghostqa/
 ├── minimizer/    # ddmin 可执行最小复现
 ├── agent/        # ModelGateway：Mock / Null / OpenAI 兼容
 └── report/       # JSON + HTML 报告
+dashboard/        # v0.4 preview 实时控制台（FastAPI + 单页）
 apps/buggy-shop/  # 浅层 benchmark
 apps/buggy-flow/  # DeepBench（冻结）
 benchmark/        # SimBench + WebBench（--app buggy-shop|buggy-flow）
