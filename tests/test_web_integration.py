@@ -215,10 +215,9 @@ def test_vertical_slice_end_to_end(web, buggy_shop, tmp_path):
     for f in result.candidates:
         vr = validate_candidate(factory, result.reproduction_actions(f), f, oracle)
         if vr.confirmed:
-            repro = minimize_reproduction(factory, result.reproduction_actions(f), f, oracle)
-            from ghostqa.state.models import ConfirmedBug
-            confirmed.append(ConfirmedBug(finding=f, reproduction=repro,
-                                          original_length=f.step_index + 1))
+            repro_actions = result.reproduction_actions(f)
+            repro = minimize_reproduction(factory, repro_actions, f, oracle)
+            confirmed.append(result.make_confirmed(f, repro))
     assert len(confirmed) >= 1, "no bug survived replay validation"
 
     report = build_report(result, confirmed, {"budget": 45, "policy": "ghost"})
