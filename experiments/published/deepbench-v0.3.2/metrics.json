@@ -1,0 +1,6804 @@
+{
+  "runs": [
+    {
+      "policy": "monkey",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 13,
+      "clusters": 11,
+      "variants": 13,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 11
+      },
+      "candidates": 8,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.148,
+      "time_to_first_finding": 4,
+      "time_to_first_confirmed_bug": 4,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 4,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 2
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.2,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 49.4,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 7,
+      "input_action_share": 0.175,
+      "unique_inputs_touched": 1,
+      "progress_actions": 10,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 7.22,
+      "interaction_opportunity_mean": 5.22,
+      "first_step_by_bug": {
+        "BUG-D4": 4,
+        "BUG-D1": 13,
+        "BUG-D2": 20
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 12,
+      "clusters": 12,
+      "variants": 12,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 0,
+        "new": 12
+      },
+      "candidates": 3,
+      "bugs_found": [
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.071,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.014,
+      "time_to_first_finding": 19,
+      "time_to_first_confirmed_bug": 32,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 19,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.325,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 42.6,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 12,
+      "input_action_share": 0.3,
+      "unique_inputs_touched": 2,
+      "progress_actions": 6,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 6.8,
+      "interaction_opportunity_mean": 4.67,
+      "first_step_by_bug": {
+        "BUG-D8": 32
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 3,
+      "budget": 40,
+      "actions": 40,
+      "states": 15,
+      "clusters": 12,
+      "variants": 15,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 3,
+        "new": 12
+      },
+      "candidates": 7,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.12,
+      "time_to_first_finding": 3,
+      "time_to_first_confirmed_bug": 5,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 3,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 1
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.1,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 34.0,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 8,
+      "input_action_share": 0.2,
+      "unique_inputs_touched": 2,
+      "progress_actions": 8,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 8.12,
+      "interaction_opportunity_mean": 6.12,
+      "first_step_by_bug": {
+        "BUG-D4": 5,
+        "BUG-D1": 8
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 1,
+      "budget": 80,
+      "actions": 80,
+      "states": 21,
+      "clusters": 17,
+      "variants": 21,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 4,
+        "new": 17
+      },
+      "candidates": 14,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.181,
+      "time_to_first_finding": 4,
+      "time_to_first_confirmed_bug": 4,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 4,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 2
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.237,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 71.1,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 14,
+      "input_action_share": 0.175,
+      "unique_inputs_touched": 2,
+      "progress_actions": 15,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 7.53,
+      "interaction_opportunity_mean": 5.84,
+      "first_step_by_bug": {
+        "BUG-D4": 4,
+        "BUG-D1": 13,
+        "BUG-D2": 20
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 2,
+      "budget": 80,
+      "actions": 80,
+      "states": 19,
+      "clusters": 17,
+      "variants": 19,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 17
+      },
+      "candidates": 11,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D3",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D3",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.083,
+      "time_to_first_finding": 19,
+      "time_to_first_confirmed_bug": 32,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 19,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 2
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.35,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 130.7,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 17,
+      "input_action_share": 0.212,
+      "unique_inputs_touched": 2,
+      "progress_actions": 9,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 6.4,
+      "interaction_opportunity_mean": 4.9,
+      "first_step_by_bug": {
+        "BUG-D8": 32,
+        "BUG-D3": 56,
+        "BUG-D1": 59
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 3,
+      "budget": 80,
+      "actions": 80,
+      "states": 18,
+      "clusters": 15,
+      "variants": 18,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 3,
+        "new": 15
+      },
+      "candidates": 13,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.199,
+      "time_to_first_finding": 3,
+      "time_to_first_confirmed_bug": 5,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 3,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.25,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 152.1,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 8,
+      "input_action_share": 0.1,
+      "unique_inputs_touched": 2,
+      "progress_actions": 8,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 6.83,
+      "interaction_opportunity_mean": 5.83,
+      "first_step_by_bug": {
+        "BUG-D4": 5,
+        "BUG-D1": 8,
+        "BUG-D2": 41,
+        "BUG-D3": 55,
+        "BUG-D8": 68
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 1,
+      "budget": 120,
+      "actions": 120,
+      "states": 22,
+      "clusters": 18,
+      "variants": 22,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 4,
+        "new": 18
+      },
+      "candidates": 18,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.224,
+      "time_to_first_finding": 4,
+      "time_to_first_confirmed_bug": 4,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 4,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.258,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 199.1,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 14,
+      "input_action_share": 0.117,
+      "unique_inputs_touched": 2,
+      "progress_actions": 18,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 7.21,
+      "interaction_opportunity_mean": 5.96,
+      "first_step_by_bug": {
+        "BUG-D4": 4,
+        "BUG-D1": 13,
+        "BUG-D2": 20,
+        "BUG-D8": 82,
+        "BUG-D3": 104
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 2,
+      "budget": 120,
+      "actions": 120,
+      "states": 21,
+      "clusters": 19,
+      "variants": 21,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 19
+      },
+      "candidates": 14,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.286,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.145,
+      "time_to_first_finding": 19,
+      "time_to_first_confirmed_bug": 32,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 19,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.292,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 203.5,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 25,
+      "input_action_share": 0.208,
+      "unique_inputs_touched": 2,
+      "progress_actions": 16,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 6.88,
+      "interaction_opportunity_mean": 5.29,
+      "first_step_by_bug": {
+        "BUG-D8": 32,
+        "BUG-D3": 56,
+        "BUG-D1": 59,
+        "BUG-D2": 90
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 3,
+      "budget": 120,
+      "actions": 120,
+      "states": 20,
+      "clusters": 17,
+      "variants": 20,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 3,
+        "new": 17
+      },
+      "candidates": 15,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.252,
+      "time_to_first_finding": 3,
+      "time_to_first_confirmed_bug": 5,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 3,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.258,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 238.5,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 13,
+      "input_action_share": 0.108,
+      "unique_inputs_touched": 2,
+      "progress_actions": 11,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 6.85,
+      "interaction_opportunity_mean": 5.85,
+      "first_step_by_bug": {
+        "BUG-D4": 5,
+        "BUG-D1": 8,
+        "BUG-D2": 41,
+        "BUG-D3": 55,
+        "BUG-D8": 68
+      }
+    },
+    {
+      "policy": "dfs",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 15,
+      "clusters": 14,
+      "variants": 15,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 14
+      },
+      "candidates": 14,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.214,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 5,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.325,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 78.4,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 9,
+      "input_action_share": 0.225,
+      "unique_inputs_touched": 1,
+      "progress_actions": 7,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 7.35,
+      "interaction_opportunity_mean": 5.47,
+      "first_step_by_bug": {
+        "BUG-D3": 5,
+        "BUG-D2": 12,
+        "BUG-D1": 16,
+        "BUG-D8": 22,
+        "BUG-D4": 25
+      }
+    },
+    {
+      "policy": "dfs",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 15,
+      "clusters": 14,
+      "variants": 15,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 14
+      },
+      "candidates": 14,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.214,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 5,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.325,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 78.3,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 9,
+      "input_action_share": 0.225,
+      "unique_inputs_touched": 1,
+      "progress_actions": 7,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 7.35,
+      "interaction_opportunity_mean": 5.47,
+      "first_step_by_bug": {
+        "BUG-D3": 5,
+        "BUG-D2": 12,
+        "BUG-D1": 16,
+        "BUG-D8": 22,
+        "BUG-D4": 25
+      }
+    },
+    {
+      "policy": "dfs",
+      "seed": 3,
+      "budget": 40,
+      "actions": 40,
+      "states": 15,
+      "clusters": 14,
+      "variants": 15,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 14
+      },
+      "candidates": 14,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.214,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 5,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.325,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 78.5,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 9,
+      "input_action_share": 0.225,
+      "unique_inputs_touched": 1,
+      "progress_actions": 7,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 7.35,
+      "interaction_opportunity_mean": 5.47,
+      "first_step_by_bug": {
+        "BUG-D3": 5,
+        "BUG-D2": 12,
+        "BUG-D1": 16,
+        "BUG-D8": 22,
+        "BUG-D4": 25
+      }
+    },
+    {
+      "policy": "dfs",
+      "seed": 1,
+      "budget": 80,
+      "actions": 80,
+      "states": 19,
+      "clusters": 17,
+      "variants": 19,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 17
+      },
+      "candidates": 18,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.286,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 5,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.375,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 98.9,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 37,
+      "input_action_share": 0.463,
+      "unique_inputs_touched": 2,
+      "progress_actions": 14,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 8.01,
+      "interaction_opportunity_mean": 5.01,
+      "first_step_by_bug": {
+        "BUG-D3": 5,
+        "BUG-D2": 12,
+        "BUG-D1": 16,
+        "BUG-D8": 22,
+        "BUG-D4": 25
+      }
+    },
+    {
+      "policy": "dfs",
+      "seed": 2,
+      "budget": 80,
+      "actions": 80,
+      "states": 19,
+      "clusters": 17,
+      "variants": 19,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 17
+      },
+      "candidates": 18,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.286,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 5,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.375,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 99.2,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 37,
+      "input_action_share": 0.463,
+      "unique_inputs_touched": 2,
+      "progress_actions": 14,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 8.01,
+      "interaction_opportunity_mean": 5.01,
+      "first_step_by_bug": {
+        "BUG-D3": 5,
+        "BUG-D2": 12,
+        "BUG-D1": 16,
+        "BUG-D8": 22,
+        "BUG-D4": 25
+      }
+    },
+    {
+      "policy": "dfs",
+      "seed": 3,
+      "budget": 80,
+      "actions": 80,
+      "states": 19,
+      "clusters": 17,
+      "variants": 19,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 17
+      },
+      "candidates": 18,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.286,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 5,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.375,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 99.0,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 37,
+      "input_action_share": 0.463,
+      "unique_inputs_touched": 2,
+      "progress_actions": 14,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 8.01,
+      "interaction_opportunity_mean": 5.01,
+      "first_step_by_bug": {
+        "BUG-D3": 5,
+        "BUG-D2": 12,
+        "BUG-D1": 16,
+        "BUG-D8": 22,
+        "BUG-D4": 25
+      }
+    },
+    {
+      "policy": "dfs",
+      "seed": 1,
+      "budget": 120,
+      "actions": 120,
+      "states": 40,
+      "clusters": 21,
+      "variants": 40,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 19,
+        "new": 21
+      },
+      "candidates": 20,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.429,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.331,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 5,
+      "time_to_first_deep_confirmed_bug": 84,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 84,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.533,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 169.1,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 37,
+      "input_action_share": 0.308,
+      "unique_inputs_touched": 2,
+      "progress_actions": 19,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 8.52,
+      "interaction_opportunity_mean": 6.47,
+      "first_step_by_bug": {
+        "BUG-D3": 5,
+        "BUG-D2": 12,
+        "BUG-D1": 16,
+        "BUG-D8": 22,
+        "BUG-D4": 25,
+        "BUG-D6": 84
+      }
+    },
+    {
+      "policy": "dfs",
+      "seed": 2,
+      "budget": 120,
+      "actions": 120,
+      "states": 40,
+      "clusters": 21,
+      "variants": 40,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 19,
+        "new": 21
+      },
+      "candidates": 20,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.429,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.331,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 5,
+      "time_to_first_deep_confirmed_bug": 84,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 84,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.533,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 169.4,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 37,
+      "input_action_share": 0.308,
+      "unique_inputs_touched": 2,
+      "progress_actions": 19,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 8.52,
+      "interaction_opportunity_mean": 6.47,
+      "first_step_by_bug": {
+        "BUG-D3": 5,
+        "BUG-D2": 12,
+        "BUG-D1": 16,
+        "BUG-D8": 22,
+        "BUG-D4": 25,
+        "BUG-D6": 84
+      }
+    },
+    {
+      "policy": "dfs",
+      "seed": 3,
+      "budget": 120,
+      "actions": 120,
+      "states": 40,
+      "clusters": 21,
+      "variants": 40,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 19,
+        "new": 21
+      },
+      "candidates": 20,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.429,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.331,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 5,
+      "time_to_first_deep_confirmed_bug": 84,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 84,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.533,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 169.5,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 37,
+      "input_action_share": 0.308,
+      "unique_inputs_touched": 2,
+      "progress_actions": 19,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 8.52,
+      "interaction_opportunity_mean": 6.47,
+      "first_step_by_bug": {
+        "BUG-D3": 5,
+        "BUG-D2": 12,
+        "BUG-D1": 16,
+        "BUG-D8": 22,
+        "BUG-D4": 25,
+        "BUG-D6": 84
+      }
+    },
+    {
+      "policy": "bfs",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 11,
+      "clusters": 11,
+      "variants": 11,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 0,
+        "new": 11
+      },
+      "candidates": 13,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.286,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.145,
+      "time_to_first_finding": 8,
+      "time_to_first_confirmed_bug": 8,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 8,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.325,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 76.4,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 2,
+      "input_action_share": 0.05,
+      "unique_inputs_touched": 1,
+      "progress_actions": 2,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 6.75,
+      "interaction_opportunity_mean": 6.12,
+      "first_step_by_bug": {
+        "BUG-D8": 8,
+        "BUG-D2": 15,
+        "BUG-D3": 22,
+        "BUG-D1": 34
+      }
+    },
+    {
+      "policy": "bfs",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 11,
+      "clusters": 11,
+      "variants": 11,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 0,
+        "new": 11
+      },
+      "candidates": 13,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.286,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.145,
+      "time_to_first_finding": 8,
+      "time_to_first_confirmed_bug": 8,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 8,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.325,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 76.2,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 2,
+      "input_action_share": 0.05,
+      "unique_inputs_touched": 1,
+      "progress_actions": 2,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 6.75,
+      "interaction_opportunity_mean": 6.12,
+      "first_step_by_bug": {
+        "BUG-D8": 8,
+        "BUG-D2": 15,
+        "BUG-D3": 22,
+        "BUG-D1": 34
+      }
+    },
+    {
+      "policy": "bfs",
+      "seed": 3,
+      "budget": 40,
+      "actions": 40,
+      "states": 11,
+      "clusters": 11,
+      "variants": 11,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 0,
+        "new": 11
+      },
+      "candidates": 13,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.286,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.145,
+      "time_to_first_finding": 8,
+      "time_to_first_confirmed_bug": 8,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 8,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.325,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 76.5,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 2,
+      "input_action_share": 0.05,
+      "unique_inputs_touched": 1,
+      "progress_actions": 2,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 6.75,
+      "interaction_opportunity_mean": 6.12,
+      "first_step_by_bug": {
+        "BUG-D8": 8,
+        "BUG-D2": 15,
+        "BUG-D3": 22,
+        "BUG-D1": 34
+      }
+    },
+    {
+      "policy": "bfs",
+      "seed": 1,
+      "budget": 80,
+      "actions": 80,
+      "states": 22,
+      "clusters": 21,
+      "variants": 22,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 21
+      },
+      "candidates": 14,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.239,
+      "time_to_first_finding": 8,
+      "time_to_first_confirmed_bug": 8,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 8,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.45,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 128.9,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 12,
+      "input_action_share": 0.15,
+      "unique_inputs_touched": 2,
+      "progress_actions": 4,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 7.38,
+      "interaction_opportunity_mean": 5.62,
+      "first_step_by_bug": {
+        "BUG-D8": 8,
+        "BUG-D2": 15,
+        "BUG-D3": 22,
+        "BUG-D1": 34,
+        "BUG-D4": 53
+      }
+    },
+    {
+      "policy": "bfs",
+      "seed": 2,
+      "budget": 80,
+      "actions": 80,
+      "states": 22,
+      "clusters": 21,
+      "variants": 22,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 21
+      },
+      "candidates": 14,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.239,
+      "time_to_first_finding": 8,
+      "time_to_first_confirmed_bug": 8,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 8,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.45,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 129.1,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 12,
+      "input_action_share": 0.15,
+      "unique_inputs_touched": 2,
+      "progress_actions": 4,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 7.38,
+      "interaction_opportunity_mean": 5.62,
+      "first_step_by_bug": {
+        "BUG-D8": 8,
+        "BUG-D2": 15,
+        "BUG-D3": 22,
+        "BUG-D1": 34,
+        "BUG-D4": 53
+      }
+    },
+    {
+      "policy": "bfs",
+      "seed": 3,
+      "budget": 80,
+      "actions": 80,
+      "states": 22,
+      "clusters": 21,
+      "variants": 22,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 21
+      },
+      "candidates": 14,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.239,
+      "time_to_first_finding": 8,
+      "time_to_first_confirmed_bug": 8,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 8,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.45,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 128.8,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 12,
+      "input_action_share": 0.15,
+      "unique_inputs_touched": 2,
+      "progress_actions": 4,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 7.38,
+      "interaction_opportunity_mean": 5.62,
+      "first_step_by_bug": {
+        "BUG-D8": 8,
+        "BUG-D2": 15,
+        "BUG-D3": 22,
+        "BUG-D1": 34,
+        "BUG-D4": 53
+      }
+    },
+    {
+      "policy": "bfs",
+      "seed": 1,
+      "budget": 120,
+      "actions": 120,
+      "states": 31,
+      "clusters": 29,
+      "variants": 31,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 29
+      },
+      "candidates": 20,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.279,
+      "time_to_first_finding": 8,
+      "time_to_first_confirmed_bug": 8,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 8,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.442,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 151.1,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 18,
+      "input_action_share": 0.15,
+      "unique_inputs_touched": 3,
+      "progress_actions": 10,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 7.42,
+      "interaction_opportunity_mean": 5.63,
+      "first_step_by_bug": {
+        "BUG-D8": 8,
+        "BUG-D2": 15,
+        "BUG-D3": 22,
+        "BUG-D1": 34,
+        "BUG-D4": 53
+      }
+    },
+    {
+      "policy": "bfs",
+      "seed": 2,
+      "budget": 120,
+      "actions": 120,
+      "states": 31,
+      "clusters": 29,
+      "variants": 31,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 29
+      },
+      "candidates": 20,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.279,
+      "time_to_first_finding": 8,
+      "time_to_first_confirmed_bug": 8,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 8,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.442,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 151.2,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 18,
+      "input_action_share": 0.15,
+      "unique_inputs_touched": 3,
+      "progress_actions": 10,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 7.42,
+      "interaction_opportunity_mean": 5.63,
+      "first_step_by_bug": {
+        "BUG-D8": 8,
+        "BUG-D2": 15,
+        "BUG-D3": 22,
+        "BUG-D1": 34,
+        "BUG-D4": 53
+      }
+    },
+    {
+      "policy": "bfs",
+      "seed": 3,
+      "budget": 120,
+      "actions": 120,
+      "states": 31,
+      "clusters": 29,
+      "variants": 31,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 29
+      },
+      "candidates": 20,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.279,
+      "time_to_first_finding": 8,
+      "time_to_first_confirmed_bug": 8,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 8,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.442,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 150.9,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 18,
+      "input_action_share": 0.15,
+      "unique_inputs_touched": 3,
+      "progress_actions": 10,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 7.42,
+      "interaction_opportunity_mean": 5.63,
+      "first_step_by_bug": {
+        "BUG-D8": 8,
+        "BUG-D2": 15,
+        "BUG-D3": 22,
+        "BUG-D1": 34,
+        "BUG-D4": 53
+      }
+    },
+    {
+      "policy": "workflow-bfs",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 18,
+      "clusters": 13,
+      "variants": 18,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 5,
+        "new": 13
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.102,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.3,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 69.7,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 16,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 5.92,
+      "interaction_opportunity_mean": 5.05,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 25,
+        "BUG-D8": 32
+      }
+    },
+    {
+      "policy": "workflow-bfs",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 18,
+      "clusters": 13,
+      "variants": 18,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 5,
+        "new": 13
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.102,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.3,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 69.5,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 16,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 5.92,
+      "interaction_opportunity_mean": 5.05,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 25,
+        "BUG-D8": 32
+      }
+    },
+    {
+      "policy": "workflow-bfs",
+      "seed": 3,
+      "budget": 40,
+      "actions": 40,
+      "states": 18,
+      "clusters": 13,
+      "variants": 18,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 5,
+        "new": 13
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.102,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.3,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 69.4,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 16,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 5.92,
+      "interaction_opportunity_mean": 5.05,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 25,
+        "BUG-D8": 32
+      }
+    },
+    {
+      "policy": "workflow-bfs",
+      "seed": 1,
+      "budget": 80,
+      "actions": 80,
+      "states": 18,
+      "clusters": 13,
+      "variants": 18,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 5,
+        "new": 13
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.158,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.65,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 94.5,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 16,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 3.96,
+      "interaction_opportunity_mean": 3.52,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 25,
+        "BUG-D8": 32
+      }
+    },
+    {
+      "policy": "workflow-bfs",
+      "seed": 2,
+      "budget": 80,
+      "actions": 80,
+      "states": 18,
+      "clusters": 13,
+      "variants": 18,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 5,
+        "new": 13
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.158,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.65,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 91.5,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 16,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 3.96,
+      "interaction_opportunity_mean": 3.52,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 25,
+        "BUG-D8": 32
+      }
+    },
+    {
+      "policy": "workflow-bfs",
+      "seed": 3,
+      "budget": 80,
+      "actions": 80,
+      "states": 18,
+      "clusters": 13,
+      "variants": 18,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 5,
+        "new": 13
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.158,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.65,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 91.4,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 16,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 3.96,
+      "interaction_opportunity_mean": 3.52,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 25,
+        "BUG-D8": 32
+      }
+    },
+    {
+      "policy": "workflow-bfs",
+      "seed": 1,
+      "budget": 120,
+      "actions": 120,
+      "states": 18,
+      "clusters": 13,
+      "variants": 18,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 5,
+        "new": 13
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.177,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.767,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 115.6,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 16,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 3.31,
+      "interaction_opportunity_mean": 3.02,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 25,
+        "BUG-D8": 32
+      }
+    },
+    {
+      "policy": "workflow-bfs",
+      "seed": 2,
+      "budget": 120,
+      "actions": 120,
+      "states": 18,
+      "clusters": 13,
+      "variants": 18,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 5,
+        "new": 13
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.177,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.767,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 115.5,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 16,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 3.31,
+      "interaction_opportunity_mean": 3.02,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 25,
+        "BUG-D8": 32
+      }
+    },
+    {
+      "policy": "workflow-bfs",
+      "seed": 3,
+      "budget": 120,
+      "actions": 120,
+      "states": 18,
+      "clusters": 13,
+      "variants": 18,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 5,
+        "new": 13
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.177,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.767,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 115.5,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 16,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 3.31,
+      "interaction_opportunity_mean": 3.02,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 25,
+        "BUG-D8": 32
+      }
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 16,
+      "clusters": 14,
+      "variants": 16,
+      "relocate_count": 7,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 14
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D2",
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D2",
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.07,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 14,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 1
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.15,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 36.9,
+      "restore_actions": 13,
+      "restore_ratio": 0.325,
+      "productive_actions": 27,
+      "input_actions_executed": 4,
+      "input_action_share": 0.1,
+      "unique_inputs_touched": 1,
+      "progress_actions": 23,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 7.58,
+      "interaction_opportunity_mean": 5.33,
+      "first_step_by_bug": {
+        "BUG-D4": 14,
+        "BUG-D2": 27
+      }
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 16,
+      "clusters": 14,
+      "variants": 16,
+      "relocate_count": 7,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 14
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D2",
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D2",
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.07,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 14,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 1
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.15,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 37.0,
+      "restore_actions": 13,
+      "restore_ratio": 0.325,
+      "productive_actions": 27,
+      "input_actions_executed": 4,
+      "input_action_share": 0.1,
+      "unique_inputs_touched": 1,
+      "progress_actions": 23,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 7.58,
+      "interaction_opportunity_mean": 5.33,
+      "first_step_by_bug": {
+        "BUG-D4": 14,
+        "BUG-D2": 27
+      }
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 3,
+      "budget": 40,
+      "actions": 40,
+      "states": 16,
+      "clusters": 14,
+      "variants": 16,
+      "relocate_count": 7,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 14
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D2",
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D2",
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.07,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 14,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 1
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.15,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 37.0,
+      "restore_actions": 13,
+      "restore_ratio": 0.325,
+      "productive_actions": 27,
+      "input_actions_executed": 4,
+      "input_action_share": 0.1,
+      "unique_inputs_touched": 1,
+      "progress_actions": 23,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 7.58,
+      "interaction_opportunity_mean": 5.33,
+      "first_step_by_bug": {
+        "BUG-D4": 14,
+        "BUG-D2": 27
+      }
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 1,
+      "budget": 80,
+      "actions": 80,
+      "states": 19,
+      "clusters": 16,
+      "variants": 19,
+      "relocate_count": 12,
+      "restore_failures": 2,
+      "similarity": {
+        "identical": 0,
+        "similar": 3,
+        "new": 16
+      },
+      "candidates": 14,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.286,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.162,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 14,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.138,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 72.1,
+      "restore_actions": 22,
+      "restore_ratio": 0.275,
+      "productive_actions": 58,
+      "input_actions_executed": 8,
+      "input_action_share": 0.1,
+      "unique_inputs_touched": 2,
+      "progress_actions": 39,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 7.89,
+      "interaction_opportunity_mean": 5.76,
+      "first_step_by_bug": {
+        "BUG-D4": 14,
+        "BUG-D2": 27,
+        "BUG-D3": 44,
+        "BUG-D1": 54
+      }
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 2,
+      "budget": 80,
+      "actions": 80,
+      "states": 19,
+      "clusters": 16,
+      "variants": 19,
+      "relocate_count": 12,
+      "restore_failures": 2,
+      "similarity": {
+        "identical": 0,
+        "similar": 3,
+        "new": 16
+      },
+      "candidates": 14,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.286,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.162,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 14,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.138,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 72.2,
+      "restore_actions": 22,
+      "restore_ratio": 0.275,
+      "productive_actions": 58,
+      "input_actions_executed": 8,
+      "input_action_share": 0.1,
+      "unique_inputs_touched": 2,
+      "progress_actions": 39,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 7.89,
+      "interaction_opportunity_mean": 5.76,
+      "first_step_by_bug": {
+        "BUG-D4": 14,
+        "BUG-D2": 27,
+        "BUG-D3": 44,
+        "BUG-D1": 54
+      }
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 3,
+      "budget": 80,
+      "actions": 80,
+      "states": 19,
+      "clusters": 16,
+      "variants": 19,
+      "relocate_count": 12,
+      "restore_failures": 2,
+      "similarity": {
+        "identical": 0,
+        "similar": 3,
+        "new": 16
+      },
+      "candidates": 14,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.286,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.162,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 14,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.138,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 72.3,
+      "restore_actions": 22,
+      "restore_ratio": 0.275,
+      "productive_actions": 58,
+      "input_actions_executed": 8,
+      "input_action_share": 0.1,
+      "unique_inputs_touched": 2,
+      "progress_actions": 39,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 7.89,
+      "interaction_opportunity_mean": 5.76,
+      "first_step_by_bug": {
+        "BUG-D4": 14,
+        "BUG-D2": 27,
+        "BUG-D3": 44,
+        "BUG-D1": 54
+      }
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 1,
+      "budget": 120,
+      "actions": 120,
+      "states": 23,
+      "clusters": 20,
+      "variants": 23,
+      "relocate_count": 13,
+      "restore_failures": 3,
+      "similarity": {
+        "identical": 0,
+        "similar": 3,
+        "new": 20
+      },
+      "candidates": 17,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.207,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 14,
+      "time_to_first_deep_confirmed_bug": 113,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 113,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.167,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 108.3,
+      "restore_actions": 23,
+      "restore_ratio": 0.192,
+      "productive_actions": 97,
+      "input_actions_executed": 15,
+      "input_action_share": 0.125,
+      "unique_inputs_touched": 3,
+      "progress_actions": 61,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 7.83,
+      "interaction_opportunity_mean": 5.58,
+      "first_step_by_bug": {
+        "BUG-D4": 14,
+        "BUG-D2": 27,
+        "BUG-D3": 44,
+        "BUG-D1": 54,
+        "BUG-D6": 113
+      }
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 2,
+      "budget": 120,
+      "actions": 120,
+      "states": 23,
+      "clusters": 20,
+      "variants": 23,
+      "relocate_count": 13,
+      "restore_failures": 3,
+      "similarity": {
+        "identical": 0,
+        "similar": 3,
+        "new": 20
+      },
+      "candidates": 17,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.207,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 14,
+      "time_to_first_deep_confirmed_bug": 113,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 113,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.167,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 108.4,
+      "restore_actions": 23,
+      "restore_ratio": 0.192,
+      "productive_actions": 97,
+      "input_actions_executed": 15,
+      "input_action_share": 0.125,
+      "unique_inputs_touched": 3,
+      "progress_actions": 61,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 7.83,
+      "interaction_opportunity_mean": 5.58,
+      "first_step_by_bug": {
+        "BUG-D4": 14,
+        "BUG-D2": 27,
+        "BUG-D3": 44,
+        "BUG-D1": 54,
+        "BUG-D6": 113
+      }
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 3,
+      "budget": 120,
+      "actions": 120,
+      "states": 23,
+      "clusters": 20,
+      "variants": 23,
+      "relocate_count": 13,
+      "restore_failures": 3,
+      "similarity": {
+        "identical": 0,
+        "similar": 3,
+        "new": 20
+      },
+      "candidates": 17,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3",
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "bug_discovery_rate": 0.357,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.207,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 14,
+      "time_to_first_deep_confirmed_bug": 113,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 113,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.167,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 108.1,
+      "restore_actions": 23,
+      "restore_ratio": 0.192,
+      "productive_actions": 97,
+      "input_actions_executed": 15,
+      "input_action_share": 0.125,
+      "unique_inputs_touched": 3,
+      "progress_actions": 61,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 7.83,
+      "interaction_opportunity_mean": 5.58,
+      "first_step_by_bug": {
+        "BUG-D4": 14,
+        "BUG-D2": 27,
+        "BUG-D3": 44,
+        "BUG-D1": 54,
+        "BUG-D6": 113
+      }
+    },
+    {
+      "policy": "ghost-full",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 12,
+      "clusters": 10,
+      "variants": 12,
+      "relocate_count": 6,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 10
+      },
+      "candidates": 4,
+      "bugs_found": [
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.071,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.036,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 20,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.125,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 10,
+      "tokens": 1961,
+      "wall_seconds": 31.8,
+      "restore_actions": 9,
+      "restore_ratio": 0.225,
+      "productive_actions": 31,
+      "input_actions_executed": 7,
+      "input_action_share": 0.175,
+      "unique_inputs_touched": 3,
+      "progress_actions": 29,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 8.07,
+      "interaction_opportunity_mean": 5.2,
+      "first_step_by_bug": {
+        "BUG-D4": 20
+      }
+    },
+    {
+      "policy": "ghost-full",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 12,
+      "clusters": 10,
+      "variants": 12,
+      "relocate_count": 6,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 10
+      },
+      "candidates": 4,
+      "bugs_found": [
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.071,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.036,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 20,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.125,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 10,
+      "tokens": 1961,
+      "wall_seconds": 31.8,
+      "restore_actions": 9,
+      "restore_ratio": 0.225,
+      "productive_actions": 31,
+      "input_actions_executed": 7,
+      "input_action_share": 0.175,
+      "unique_inputs_touched": 3,
+      "progress_actions": 29,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 8.07,
+      "interaction_opportunity_mean": 5.2,
+      "first_step_by_bug": {
+        "BUG-D4": 20
+      }
+    },
+    {
+      "policy": "ghost-full",
+      "seed": 3,
+      "budget": 40,
+      "actions": 40,
+      "states": 12,
+      "clusters": 10,
+      "variants": 12,
+      "relocate_count": 6,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 10
+      },
+      "candidates": 4,
+      "bugs_found": [
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.071,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.036,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 20,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.125,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 10,
+      "tokens": 1961,
+      "wall_seconds": 31.9,
+      "restore_actions": 9,
+      "restore_ratio": 0.225,
+      "productive_actions": 31,
+      "input_actions_executed": 7,
+      "input_action_share": 0.175,
+      "unique_inputs_touched": 3,
+      "progress_actions": 29,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 8.07,
+      "interaction_opportunity_mean": 5.2,
+      "first_step_by_bug": {
+        "BUG-D4": 20
+      }
+    },
+    {
+      "policy": "ghost-full",
+      "seed": 1,
+      "budget": 80,
+      "actions": 80,
+      "states": 14,
+      "clusters": 12,
+      "variants": 14,
+      "relocate_count": 7,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 12
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.072,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 20,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.15,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 13,
+      "tokens": 2492,
+      "wall_seconds": 60.2,
+      "restore_actions": 9,
+      "restore_ratio": 0.113,
+      "productive_actions": 71,
+      "input_actions_executed": 11,
+      "input_action_share": 0.138,
+      "unique_inputs_touched": 3,
+      "progress_actions": 46,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 7.16,
+      "interaction_opportunity_mean": 4.72,
+      "first_step_by_bug": {
+        "BUG-D4": 20,
+        "BUG-D8": 59
+      }
+    },
+    {
+      "policy": "ghost-full",
+      "seed": 2,
+      "budget": 80,
+      "actions": 80,
+      "states": 14,
+      "clusters": 12,
+      "variants": 14,
+      "relocate_count": 7,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 12
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.072,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 20,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.15,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 13,
+      "tokens": 2492,
+      "wall_seconds": 60.2,
+      "restore_actions": 9,
+      "restore_ratio": 0.113,
+      "productive_actions": 71,
+      "input_actions_executed": 11,
+      "input_action_share": 0.138,
+      "unique_inputs_touched": 3,
+      "progress_actions": 46,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 7.16,
+      "interaction_opportunity_mean": 4.72,
+      "first_step_by_bug": {
+        "BUG-D4": 20,
+        "BUG-D8": 59
+      }
+    },
+    {
+      "policy": "ghost-full",
+      "seed": 3,
+      "budget": 80,
+      "actions": 80,
+      "states": 14,
+      "clusters": 12,
+      "variants": 14,
+      "relocate_count": 7,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 12
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.072,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 20,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.15,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 13,
+      "tokens": 2492,
+      "wall_seconds": 60.0,
+      "restore_actions": 9,
+      "restore_ratio": 0.113,
+      "productive_actions": 71,
+      "input_actions_executed": 11,
+      "input_action_share": 0.138,
+      "unique_inputs_touched": 3,
+      "progress_actions": 46,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 7.16,
+      "interaction_opportunity_mean": 4.72,
+      "first_step_by_bug": {
+        "BUG-D4": 20,
+        "BUG-D8": 59
+      }
+    },
+    {
+      "policy": "ghost-full",
+      "seed": 1,
+      "budget": 120,
+      "actions": 120,
+      "states": 14,
+      "clusters": 12,
+      "variants": 14,
+      "relocate_count": 7,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 12
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.096,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 20,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.283,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 13,
+      "tokens": 2492,
+      "wall_seconds": 81.7,
+      "restore_actions": 9,
+      "restore_ratio": 0.075,
+      "productive_actions": 111,
+      "input_actions_executed": 11,
+      "input_action_share": 0.092,
+      "unique_inputs_touched": 3,
+      "progress_actions": 46,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 5.44,
+      "interaction_opportunity_mean": 3.82,
+      "first_step_by_bug": {
+        "BUG-D4": 20,
+        "BUG-D8": 59
+      }
+    },
+    {
+      "policy": "ghost-full",
+      "seed": 2,
+      "budget": 120,
+      "actions": 120,
+      "states": 14,
+      "clusters": 12,
+      "variants": 14,
+      "relocate_count": 7,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 12
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.096,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 20,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.283,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 13,
+      "tokens": 2492,
+      "wall_seconds": 82.1,
+      "restore_actions": 9,
+      "restore_ratio": 0.075,
+      "productive_actions": 111,
+      "input_actions_executed": 11,
+      "input_action_share": 0.092,
+      "unique_inputs_touched": 3,
+      "progress_actions": 46,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 5.44,
+      "interaction_opportunity_mean": 3.82,
+      "first_step_by_bug": {
+        "BUG-D4": 20,
+        "BUG-D8": 59
+      }
+    },
+    {
+      "policy": "ghost-full",
+      "seed": 3,
+      "budget": 120,
+      "actions": 120,
+      "states": 14,
+      "clusters": 12,
+      "variants": 14,
+      "relocate_count": 7,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 12
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.096,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 20,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.283,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 13,
+      "tokens": 2492,
+      "wall_seconds": 81.8,
+      "restore_actions": 9,
+      "restore_ratio": 0.075,
+      "productive_actions": 111,
+      "input_actions_executed": 11,
+      "input_action_share": 0.092,
+      "unique_inputs_touched": 3,
+      "progress_actions": 46,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 5.44,
+      "interaction_opportunity_mean": 3.82,
+      "first_step_by_bug": {
+        "BUG-D4": 20,
+        "BUG-D8": 59
+      }
+    },
+    {
+      "policy": "ghost-nofrontier",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 13,
+      "clusters": 11,
+      "variants": 13,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 11
+      },
+      "candidates": 7,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.104,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.125,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 13,
+      "tokens": 2556,
+      "wall_seconds": 39.9,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 7,
+      "input_action_share": 0.175,
+      "unique_inputs_touched": 3,
+      "progress_actions": 24,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 7.72,
+      "interaction_opportunity_mean": 5.22,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 16
+      }
+    },
+    {
+      "policy": "ghost-nofrontier",
+      "seed": 2,
+      "budget": 40,
+      "actions": 40,
+      "states": 13,
+      "clusters": 11,
+      "variants": 13,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 11
+      },
+      "candidates": 7,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.104,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.125,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 13,
+      "tokens": 2556,
+      "wall_seconds": 39.9,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 7,
+      "input_action_share": 0.175,
+      "unique_inputs_touched": 3,
+      "progress_actions": 24,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 7.72,
+      "interaction_opportunity_mean": 5.22,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 16
+      }
+    },
+    {
+      "policy": "ghost-nofrontier",
+      "seed": 3,
+      "budget": 40,
+      "actions": 40,
+      "states": 13,
+      "clusters": 11,
+      "variants": 13,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 11
+      },
+      "candidates": 7,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.104,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.125,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 13,
+      "tokens": 2556,
+      "wall_seconds": 39.9,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 7,
+      "input_action_share": 0.175,
+      "unique_inputs_touched": 3,
+      "progress_actions": 24,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 7.72,
+      "interaction_opportunity_mean": 5.22,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 16
+      }
+    },
+    {
+      "policy": "ghost-nofrontier",
+      "seed": 1,
+      "budget": 80,
+      "actions": 80,
+      "states": 15,
+      "clusters": 13,
+      "variants": 15,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 13
+      },
+      "candidates": 8,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.145,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.237,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 15,
+      "tokens": 2896,
+      "wall_seconds": 95.0,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 7,
+      "input_action_share": 0.087,
+      "unique_inputs_touched": 3,
+      "progress_actions": 33,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 5.74,
+      "interaction_opportunity_mean": 4.17,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 16,
+        "BUG-D8": 56
+      }
+    },
+    {
+      "policy": "ghost-nofrontier",
+      "seed": 2,
+      "budget": 80,
+      "actions": 80,
+      "states": 15,
+      "clusters": 13,
+      "variants": 15,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 13
+      },
+      "candidates": 8,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.145,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.237,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 15,
+      "tokens": 2896,
+      "wall_seconds": 95.1,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 7,
+      "input_action_share": 0.087,
+      "unique_inputs_touched": 3,
+      "progress_actions": 33,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 5.74,
+      "interaction_opportunity_mean": 4.17,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 16,
+        "BUG-D8": 56
+      }
+    },
+    {
+      "policy": "ghost-nofrontier",
+      "seed": 3,
+      "budget": 80,
+      "actions": 80,
+      "states": 15,
+      "clusters": 13,
+      "variants": 15,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 13
+      },
+      "candidates": 8,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.145,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.237,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 15,
+      "tokens": 2896,
+      "wall_seconds": 95.0,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 7,
+      "input_action_share": 0.087,
+      "unique_inputs_touched": 3,
+      "progress_actions": 33,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 5.74,
+      "interaction_opportunity_mean": 4.17,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 16,
+        "BUG-D8": 56
+      }
+    },
+    {
+      "policy": "ghost-nofrontier",
+      "seed": 1,
+      "budget": 120,
+      "actions": 120,
+      "states": 15,
+      "clusters": 13,
+      "variants": 15,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 13
+      },
+      "candidates": 8,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.168,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.342,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 15,
+      "tokens": 2896,
+      "wall_seconds": 116.9,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 7,
+      "input_action_share": 0.058,
+      "unique_inputs_touched": 3,
+      "progress_actions": 33,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 4.49,
+      "interaction_opportunity_mean": 3.45,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 16,
+        "BUG-D8": 56
+      }
+    },
+    {
+      "policy": "ghost-nofrontier",
+      "seed": 2,
+      "budget": 120,
+      "actions": 120,
+      "states": 15,
+      "clusters": 13,
+      "variants": 15,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 13
+      },
+      "candidates": 8,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.168,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.342,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 15,
+      "tokens": 2896,
+      "wall_seconds": 116.9,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 7,
+      "input_action_share": 0.058,
+      "unique_inputs_touched": 3,
+      "progress_actions": 33,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 4.49,
+      "interaction_opportunity_mean": 3.45,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 16,
+        "BUG-D8": 56
+      }
+    },
+    {
+      "policy": "ghost-nofrontier",
+      "seed": 3,
+      "budget": 120,
+      "actions": 120,
+      "states": 15,
+      "clusters": 13,
+      "variants": 15,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 13
+      },
+      "candidates": 8,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.168,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.342,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 15,
+      "tokens": 2896,
+      "wall_seconds": 117.2,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 7,
+      "input_action_share": 0.058,
+      "unique_inputs_touched": 3,
+      "progress_actions": 33,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 4.49,
+      "interaction_opportunity_mean": 3.45,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 16,
+        "BUG-D8": 56
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 4,
+      "budget": 40,
+      "actions": 40,
+      "states": 12,
+      "clusters": 10,
+      "variants": 12,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 10
+      },
+      "candidates": 7,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.105,
+      "time_to_first_finding": 6,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 6,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.35,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 37.6,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 6,
+      "input_action_share": 0.15,
+      "unique_inputs_touched": 1,
+      "progress_actions": 2,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 4.83,
+      "interaction_opportunity_mean": 3.83,
+      "first_step_by_bug": {
+        "BUG-D4": 6,
+        "BUG-D8": 15
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 5,
+      "budget": 40,
+      "actions": 40,
+      "states": 17,
+      "clusters": 13,
+      "variants": 17,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 4,
+        "new": 13
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D3"
+      ],
+      "confirmed_bugs": [
+        "BUG-D3"
+      ],
+      "bug_discovery_rate": 0.071,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.068,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 2,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 1
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 0
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.275,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 25.0,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 19,
+      "input_action_share": 0.475,
+      "unique_inputs_touched": 2,
+      "progress_actions": 6,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 8.38,
+      "interaction_opportunity_mean": 5.25,
+      "first_step_by_bug": {
+        "BUG-D3": 2
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 6,
+      "budget": 40,
+      "actions": 40,
+      "states": 12,
+      "clusters": 12,
+      "variants": 12,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 0,
+        "new": 12
+      },
+      "candidates": 5,
+      "bugs_found": [
+        "BUG-D2"
+      ],
+      "confirmed_bugs": [
+        "BUG-D2"
+      ],
+      "bug_discovery_rate": 0.071,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.07,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 1,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 1
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 0
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.175,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 24.6,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 15,
+      "input_action_share": 0.375,
+      "unique_inputs_touched": 1,
+      "progress_actions": 8,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 8.5,
+      "interaction_opportunity_mean": 6.0,
+      "first_step_by_bug": {
+        "BUG-D2": 1
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 7,
+      "budget": 40,
+      "actions": 40,
+      "states": 3,
+      "clusters": 3,
+      "variants": 3,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 0,
+        "new": 3
+      },
+      "candidates": 1,
+      "bugs_found": [
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.071,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.064,
+      "time_to_first_finding": 4,
+      "time_to_first_confirmed_bug": 4,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 4,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.5,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 27.7,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 0,
+      "max_workflow_depth": 0,
+      "raw_action_count_mean": 2.1,
+      "interaction_opportunity_mean": 2.1,
+      "first_step_by_bug": {
+        "BUG-D8": 4
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 8,
+      "budget": 40,
+      "actions": 40,
+      "states": 17,
+      "clusters": 15,
+      "variants": 17,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 2,
+        "new": 15
+      },
+      "candidates": 4,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D4"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D4"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.048,
+      "time_to_first_finding": 14,
+      "time_to_first_confirmed_bug": 23,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 14,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 1
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 1
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.15,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 54.0,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 15,
+      "input_action_share": 0.375,
+      "unique_inputs_touched": 2,
+      "progress_actions": 11,
+      "max_workflow_depth": 2,
+      "raw_action_count_mean": 8.03,
+      "interaction_opportunity_mean": 4.78,
+      "first_step_by_bug": {
+        "BUG-D4": 23,
+        "BUG-D1": 30
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 9,
+      "budget": 40,
+      "actions": 40,
+      "states": 9,
+      "clusters": 9,
+      "variants": 9,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 0,
+        "new": 9
+      },
+      "candidates": 6,
+      "bugs_found": [
+        "BUG-D2"
+      ],
+      "confirmed_bugs": [
+        "BUG-D2"
+      ],
+      "bug_discovery_rate": 0.071,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.054,
+      "time_to_first_finding": 10,
+      "time_to_first_confirmed_bug": 10,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 10,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 1
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 0
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.3,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 30.2,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 1,
+      "input_action_share": 0.025,
+      "unique_inputs_touched": 1,
+      "progress_actions": 1,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 7.2,
+      "interaction_opportunity_mean": 6.95,
+      "first_step_by_bug": {
+        "BUG-D2": 10
+      }
+    },
+    {
+      "policy": "monkey",
+      "seed": 10,
+      "budget": 40,
+      "actions": 40,
+      "states": 16,
+      "clusters": 15,
+      "variants": 16,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 15
+      },
+      "candidates": 9,
+      "bugs_found": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3"
+      ],
+      "confirmed_bugs": [
+        "BUG-D1",
+        "BUG-D2",
+        "BUG-D3"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.157,
+      "time_to_first_finding": 3,
+      "time_to_first_confirmed_bug": 3,
+      "time_to_first_deep_confirmed_bug": null,
+      "time_to_first_bug": 3,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 3
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 0
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.175,
+      "replay_success_rate": 1.0,
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 46.1,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 8,
+      "input_action_share": 0.2,
+      "unique_inputs_touched": 2,
+      "progress_actions": 6,
+      "max_workflow_depth": 1,
+      "raw_action_count_mean": 8.25,
+      "interaction_opportunity_mean": 6.5,
+      "first_step_by_bug": {
+        "BUG-D1": 3,
+        "BUG-D3": 14,
+        "BUG-D2": 15
+      }
+    }
+  ],
+  "aggregate": [
+    {
+      "policy": "monkey",
+      "runs": 16,
+      "budgets": [
+        40,
+        80,
+        120
+      ],
+      "bugs_mean": 0.187,
+      "bugs_std": 0.107,
+      "bugs_min": 0.071,
+      "bugs_max": 0.357,
+      "deep_mean": 0.0,
+      "auc_mean": 0.121,
+      "t2bug_mean": 7.3,
+      "states_mean": 15.4,
+      "clusters_mean": 13.4,
+      "relocate_mean": 0,
+      "repeat_rate_mean": 0.262,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 85.4
+    },
+    {
+      "policy": "dfs",
+      "runs": 9,
+      "budgets": [
+        40,
+        80,
+        120
+      ],
+      "bugs_mean": 0.381,
+      "bugs_std": 0.036,
+      "bugs_min": 0.357,
+      "bugs_max": 0.429,
+      "deep_mean": 0.037,
+      "auc_mean": 0.277,
+      "t2bug_mean": 1,
+      "states_mean": 24.7,
+      "clusters_mean": 17.3,
+      "relocate_mean": 0,
+      "repeat_rate_mean": 0.411,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 115.6
+    },
+    {
+      "policy": "bfs",
+      "runs": 9,
+      "budgets": [
+        40,
+        80,
+        120
+      ],
+      "bugs_mean": 0.333,
+      "bugs_std": 0.036,
+      "bugs_min": 0.286,
+      "bugs_max": 0.357,
+      "deep_mean": 0.0,
+      "auc_mean": 0.221,
+      "t2bug_mean": 8,
+      "states_mean": 21.3,
+      "clusters_mean": 20.3,
+      "relocate_mean": 0,
+      "repeat_rate_mean": 0.406,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 118.8
+    },
+    {
+      "policy": "workflow-bfs",
+      "runs": 9,
+      "budgets": [
+        40,
+        80,
+        120
+      ],
+      "bugs_mean": 0.214,
+      "bugs_std": 0.0,
+      "bugs_min": 0.214,
+      "bugs_max": 0.214,
+      "deep_mean": 0.111,
+      "auc_mean": 0.146,
+      "t2bug_mean": 1,
+      "states_mean": 18,
+      "clusters_mean": 13,
+      "relocate_mean": 0,
+      "repeat_rate_mean": 0.572,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 92.5
+    },
+    {
+      "policy": "ghost-nollm",
+      "runs": 9,
+      "budgets": [
+        40,
+        80,
+        120
+      ],
+      "bugs_mean": 0.262,
+      "bugs_std": 0.094,
+      "bugs_min": 0.143,
+      "bugs_max": 0.357,
+      "deep_mean": 0.037,
+      "auc_mean": 0.146,
+      "t2bug_mean": 1,
+      "states_mean": 19.3,
+      "clusters_mean": 16.7,
+      "relocate_mean": 10.67,
+      "repeat_rate_mean": 0.152,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 72.5
+    },
+    {
+      "policy": "ghost-full",
+      "runs": 9,
+      "budgets": [
+        40,
+        80,
+        120
+      ],
+      "bugs_mean": 0.119,
+      "bugs_std": 0.036,
+      "bugs_min": 0.071,
+      "bugs_max": 0.143,
+      "deep_mean": 0.0,
+      "auc_mean": 0.068,
+      "t2bug_mean": 1,
+      "states_mean": 13.3,
+      "clusters_mean": 11.3,
+      "relocate_mean": 6.67,
+      "repeat_rate_mean": 0.186,
+      "llm_calls_mean": 12,
+      "wall_mean_s": 57.9
+    },
+    {
+      "policy": "ghost-nofrontier",
+      "runs": 9,
+      "budgets": [
+        40,
+        80,
+        120
+      ],
+      "bugs_mean": 0.19,
+      "bugs_std": 0.036,
+      "bugs_min": 0.143,
+      "bugs_max": 0.214,
+      "deep_mean": 0.111,
+      "auc_mean": 0.139,
+      "t2bug_mean": 1,
+      "states_mean": 14.3,
+      "clusters_mean": 12.3,
+      "relocate_mean": 0,
+      "repeat_rate_mean": 0.235,
+      "llm_calls_mean": 14.3,
+      "wall_mean_s": 84.0
+    }
+  ],
+  "n_runs": 70
+}

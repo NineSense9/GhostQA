@@ -1,0 +1,16 @@
+{
+  "app": "buggy-flow",
+  "benchmark_freeze_sha": "5355abd444eb4a4e99242c7629a1363c38e52a2a",
+  "algorithm_head": "b00de1f",
+  "measurement": "episode-aware replay (v0.3.2)",
+  "budgets": [40, 80, 120],
+  "seeds_deterministic": [1, 2, 3],
+  "seeds_monkey_budget40": [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  "policies": [
+    "monkey", "dfs", "bfs", "workflow-bfs",
+    "ghost-nollm", "ghost-full", "ghost-nofrontier"
+  ],
+  "skip_minimize": true,
+  "real_llm": "skipped: credentials unavailable",
+  "note": "Corrected measurement only. DeepBench layout frozen. GhostPolicy weights unchanged from v0.3.1."
+}

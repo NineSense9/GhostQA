@@ -4,7 +4,7 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.3.1（Exploration Repair）
+## 当前状态：v0.3.2（Episode-Aware Replay Correctness）
 
 | 能力 | 状态 |
 |---|---|
@@ -84,6 +84,11 @@ python -m ghostqa run --url ... --policy ghost --llm ...
   - Ghost-noFrontier@40 Deep-BDR=0.111；**Ghost-full（带 relocate）BDR=0**，restore_ratio 最高 0.23。
   - DFS@120 BDR=0.429 Deep-BDR=0.111。BFS 仍未在 120 内确认 D6。
   - 不要把这些数字读成“Ghost 已解决深 workflow”。relocate 仍是负贡献。
+- **DeepBench v0.3.2**（同一 freeze `5355abd`，replay 修复 `b00de1f`）：`experiments/published/deepbench-v0.3.2/`
+  - v0.3.1 里 Ghost-full `confirmed=0` / `replay_success=0` 是 **跨 episode 拍平轨迹** 的测量错误，不是 frontier 突然修好。
+  - 纠正后 Ghost-full replay=1.0，BDR@40=0.071（D4），@80=0.143（D4,D8）。
+  - Ghost-noLLM@120 BDR=0.357 Deep-BDR=0.111（含 D6）。DFS@120 仍最高 0.429。
+  - 旧字段 `time_to_first_bug` = 首次 finding，不是首次 confirmed bug。
 
 ## 架构
 

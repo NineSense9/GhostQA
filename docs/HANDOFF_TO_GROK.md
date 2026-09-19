@@ -1,6 +1,7 @@
 # GhostQA 技术交接文档
 
 > 原 v0.2 交接（审计基线 `9c6c0a0`，文档提交 `94f5db1`）仍保留于下文，作为历史。
+> **v0.3.2 更新**：Episode-aware replay。`RunResult.reproduction_actions(finding)` 只返回当前 reset episode。v0.3.1 Ghost-full confirmed-BDR=0 被证明是测量错误。DeepBench freeze 仍是 `5355abd`。
 > **v0.3.1 更新**：Exploration Repair。DeepBench freeze 仍是 `5355abd`。算法 HEAD 见 git。
 > Graph 分类是 exact `state_id` / same cluster / new cluster。`state_similarity()` 的 Jaccard 与 aHash **没有**完整进入 graph classification。
 

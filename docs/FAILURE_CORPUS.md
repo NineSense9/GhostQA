@@ -20,5 +20,6 @@ Not a database — a working log. Add a row when a failure is confirmed.
 | frontier payload cardinality bias | `score += len(raw_pending_actions)` | **mitigated** v1.1 interaction counts |
 | restore budget waste | Ghost-full restore_ratio 0.08–0.33, BDR=0 | **unresolved** — opportunity-cost relocate still over-jumps |
 | risk keyword tunnel vision | 注册 scored above 登录; relocate after adding 登录 still empty BDR | **unresolved** for Ghost-full; Ghost-noFrontier finds D6 |
+| reset-blind replay | Flattened multi-episode `result.actions()` replayed after one reset | **fixed** v0.3.2 episode-local `reproduction_actions` |
 
 Add new rows; do not delete negative results.
