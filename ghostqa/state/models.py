@@ -112,10 +112,12 @@ class Step:
     action: Action
     state_sig_after: str
     findings: list = field(default_factory=list)   # list[Finding]
+    episode_id: int = 0
 
     def to_dict(self) -> dict:
         return {
             "index": self.index,
+            "episode_id": self.episode_id,
             "state_sig_before": self.state_sig_before,
             "action": self.action.to_dict(),
             "state_sig_after": self.state_sig_after,

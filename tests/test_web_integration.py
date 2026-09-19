@@ -187,8 +187,9 @@ def test_replay_invalid_when_element_missing(web, buggy_shop):
     oracle = OracleEngine()
     shared = web.share_handle()
     factory = lambda: PlaywrightWebExecutor(buggy_shop, headless=True, shared=shared)
-    status, _ = _replay(factory, [Action("click", "nonexistent_eid")], oracle)
+    status, _findings, diag = _replay(factory, [Action("click", "nonexistent_eid")], oracle)
     assert status == INVALID
+    assert diag.get("failed_action_index") == 0
 
 
 def test_vertical_slice_end_to_end(web, buggy_shop, tmp_path):
@@ -212,9 +213,9 @@ def test_vertical_slice_end_to_end(web, buggy_shop, tmp_path):
     factory = lambda: PlaywrightWebExecutor(buggy_shop, headless=True, shared=shared)
     confirmed, kept_executors = [], []
     for f in result.candidates:
-        vr = validate_candidate(factory, result.actions(), f, oracle)
+        vr = validate_candidate(factory, result.reproduction_actions(f), f, oracle)
         if vr.confirmed:
-            repro = minimize_reproduction(factory, result.actions(), f, oracle)
+            repro = minimize_reproduction(factory, result.reproduction_actions(f), f, oracle)
             from ghostqa.state.models import ConfirmedBug
             confirmed.append(ConfirmedBug(finding=f, reproduction=repro,
                                           original_length=f.step_index + 1))

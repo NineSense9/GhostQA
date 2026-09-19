@@ -45,9 +45,40 @@ class RunResult:
     raw_action_count_mean: float = 0.0
     interaction_opportunity_mean: float = 0.0
     action_space_trace: list = field(default_factory=list)
+    reset_events: list = field(default_factory=list)
 
     def actions(self):
+        """Flattened global action list. Do not use for replay.
+
+        Replay/ddmin must call reproduction_actions(finding) so episode
+        boundaries (reset / relocate / crash recovery) are respected.
+        """
         return [s.action for s in self.steps]
+
+    def step_for_finding(self, finding):
+        for s in self.steps:
+            if s.index == finding.step_index:
+                return s
+        fp = finding.fingerprint()
+        for s in self.steps:
+            for f in s.findings:
+                if f.fingerprint() == fp:
+                    return s
+        return None
+
+    def reproduction_actions(self, finding):
+        """Episode-local prefix from the last reset through the finding.
+
+        Relocate restore-path actions are included when they belong to the
+        same episode. Prior episodes are not.
+        """
+        step = self.step_for_finding(finding)
+        if step is None:
+            return []
+        return [s.action for s in self.steps
+                if s.episode_id == step.episode_id and s.index <= step.index]
+
+    episode_prefix_for_finding = reproduction_actions
 
     @property
     def productive_actions(self) -> int:
@@ -112,6 +143,9 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
     entered_new_variant = False
     pending_restore: list = []
     restore_target = ""
+    episode_id = 0
+    result.reset_events.append(
+        {"before_step": 0, "reason": "initial", "episode_id": 0})
     t0 = time.time()
     inputs_touched: set = set()
     diag_raw_total = 0
@@ -150,6 +184,11 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
                 path = graph.shortest_path(graph.start_sig, target)
                 if path is not None:
                     state = executor.reset()
+                    episode_id += 1
+                    result.reset_events.append({
+                        "before_step": step_idx, "reason": "relocate",
+                        "episode_id": episode_id,
+                    })
                     sig = id_fn(state)
                     state.meta["sig"] = sig
                     history_sigs = [sig]
@@ -238,7 +277,7 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
         )
         result.steps.append(Step(index=step_idx, state_sig_before=sig,
                                  action=action, state_sig_after=new_sig,
-                                 findings=findings))
+                                 findings=findings, episode_id=episode_id))
         result.actions_executed += 1
         recent_action_keys.append(action.key())
         if restore_step:
@@ -258,6 +297,11 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
             pending_restore = []
             restore_target = ""
             state = executor.reset()
+            episode_id += 1
+            result.reset_events.append({
+                "before_step": step_idx + 1, "reason": "crash_recovery",
+                "episode_id": episode_id,
+            })
             sig = id_fn(state)
             state.meta["sig"] = sig
             history_sigs = [sig]

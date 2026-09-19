@@ -99,12 +99,13 @@ def cmd_run(args) -> int:
         factory = lambda: PlaywrightWebExecutor(args.url, headless=True,
                                                 shared=shared)
         for finding in result.candidates:
-            vr = validate_candidate(factory, result.actions(), finding, oracle)
+            repro_actions = result.reproduction_actions(finding)
+            vr = validate_candidate(factory, repro_actions, finding, oracle)
             if not vr.confirmed:
                 continue
-            repro = minimize_reproduction(factory, result.actions(), finding, oracle)
+            repro = minimize_reproduction(factory, repro_actions, finding, oracle)
             confirmed.append(ConfirmedBug(finding=finding, reproduction=repro,
-                                          original_length=finding.step_index + 1))
+                                          original_length=len(repro_actions)))
     web.close()
 
     with open(os.path.join(args.out, "confirmed_bugs.json"), "w", encoding="utf-8") as f:

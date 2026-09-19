@@ -56,11 +56,14 @@ def ddmin(actions, test) -> list:
 def minimize_reproduction(executor_factory, actions, finding, oracle) -> list:
     """Full pipeline: tri-state fingerprint predicate, then ddmin.
 
+    `actions` must already be the episode-local reproduction prefix
+    (RunResult.reproduction_actions). This function does not slice by
+    finding.step_index.
+
     The returned sequence is guaranteed executable end-to-end from a clean
     reset (ddmin only keeps candidates whose predicate is PASS).
     """
     from ..replay.validator import make_bug_test, PASS
 
-    prefix = actions[: finding.step_index + 1]
     tri = make_bug_test(executor_factory, finding.fingerprint(), oracle)
-    return ddmin(prefix, lambda seq: tri(seq) == PASS)
+    return ddmin(list(actions), lambda seq: tri(seq) == PASS)

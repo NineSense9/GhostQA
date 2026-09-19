@@ -82,13 +82,14 @@ def run_one(app_name: str, make_app, policy, budget: int, validate: bool = True)
                    and evidence_matches(f.evidence, b["match"])}
             if not ids:
                 continue
-            vr = validate_candidate(factory, result.actions(), f, oracle)
+            repro_actions = result.reproduction_actions(f)
+            vr = validate_candidate(factory, repro_actions, f, oracle)
             if not vr.confirmed:
                 continue
-            repro = minimize_reproduction(factory, result.actions(), f, oracle)
+            repro = minimize_reproduction(factory, repro_actions, f, oracle)
             confirmed_bugs.append(ConfirmedBug(
                 finding=f, reproduction=repro,
-                original_length=f.step_index + 1))
+                original_length=len(repro_actions)))
             confirmed_ids |= ids
 
     first_bug_step = next((s.index for s in result.steps if s.findings), None)

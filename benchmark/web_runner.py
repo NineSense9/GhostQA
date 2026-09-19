@@ -116,7 +116,8 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
         if not ids:
             continue
         replay_total += 1
-        vr = validate_candidate(factory, result.actions(), f, oracle)
+        repro_actions = result.reproduction_actions(f)
+        vr = validate_candidate(factory, repro_actions, f, oracle)
         if not vr.confirmed:
             continue
         replay_ok += 1
@@ -124,15 +125,16 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
         for bid in ids:
             first_step[bid] = min(first_step.get(bid, f.step_index), f.step_index)
         if not skip_minimize:
-            repro = minimize_reproduction(factory, result.actions(), f, oracle)
-            if f.step_index + 1 > 0 and repro:
-                min_ratios.append(len(repro) / (f.step_index + 1))
+            repro = minimize_reproduction(factory, repro_actions, f, oracle)
+            if repro_actions and repro:
+                min_ratios.append(len(repro) / len(repro_actions))
     web.close()
 
     deep = [b for b in manifest if b.get("trigger_depth", 0) >= DEEP_DEPTH]
     deep_ids = {b["id"] for b in deep}
     confirmed_deep = confirmed_ids & deep_ids
-    first_bug = next((s.index for s in result.steps if s.findings), None)
+    time_to_first_finding = next((s.index for s in result.steps if s.findings), None)
+    time_to_first_confirmed_bug = min(first_step.values()) if first_step else None
     t2deep = min((first_step[i] for i in confirmed_deep), default=None)
     by_depth = {}
     for b in manifest:
@@ -156,7 +158,10 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
         "bug_discovery_rate": round(len(confirmed_ids) / len(manifest), 3),
         "deep_bug_discovery_rate": round(len(confirmed_deep) / len(deep), 3) if deep else None,
         "discovery_auc": _auc(list(first_step.values()), budget, len(manifest)),
-        "time_to_first_bug": first_bug,
+        "time_to_first_finding": time_to_first_finding,
+        "time_to_first_confirmed_bug": time_to_first_confirmed_bug,
+        "time_to_first_deep_confirmed_bug": t2deep,
+        "time_to_first_bug": time_to_first_finding,  # deprecated alias
         "time_to_first_deep_bug": t2deep,
         "bugs_by_depth": by_depth,
         "repeat_rate": round(result.repeat_actions / max(1, result.actions_executed), 3),
