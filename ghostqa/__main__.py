@@ -21,6 +21,7 @@ import time
 
 from .agent.gateway import MockLLM, NullLLM, OpenAICompatibleGateway
 from .exploration.explorer import run_exploration
+from .exploration.metrics import classify_validation, episode_stats
 from .exploration.policy import (RandomPolicy, DFSPolicy, BFSPolicy,
                                  LLMNaivePolicy, GhostPolicy,
                                  WorkflowBFSPolicy)
@@ -29,7 +30,6 @@ from .oracle.engine import OracleEngine
 from .oracle.spec import load_spec, format_spec_brief
 from .replay.validator import validate_candidate
 from .report.generator import build_report, write_report
-from .state.models import ConfirmedBug
 
 POLICIES = ["ghost", "ghost-nollm", "monkey", "dfs", "bfs", "llm-naive",
             "workflow-bfs"]
@@ -86,26 +86,34 @@ def cmd_run(args) -> int:
 
     findings_path = os.path.join(args.out, "findings.json")
     with open(findings_path, "w", encoding="utf-8") as f:
-        json.dump([x.to_dict() for x in result.candidates], f,
+        json.dump([result.finding_artifact(x) for x in result.candidates], f,
                   ensure_ascii=False, indent=2)
     result.graph.save(os.path.join(args.out, "graph.json"))
     with open(os.path.join(args.out, "trace.jsonl"), "w", encoding="utf-8") as f:
         for s in result.steps:
             f.write(json.dumps(s.to_dict(), ensure_ascii=False) + "\n")
+    with open(os.path.join(args.out, "reset_events.json"), "w", encoding="utf-8") as f:
+        json.dump(result.reset_events, f, ensure_ascii=False, indent=2)
 
     confirmed = []
+    replay_attempted = replay_pass = replay_fail = replay_invalid = 0
     if not args.no_validate:
         shared = web.share_handle()
         factory = lambda: PlaywrightWebExecutor(args.url, headless=True,
                                                 shared=shared)
         for finding in result.candidates:
+            replay_attempted += 1
             repro_actions = result.reproduction_actions(finding)
             vr = validate_candidate(factory, repro_actions, finding, oracle)
-            if not vr.confirmed:
-                continue
-            repro = minimize_reproduction(factory, repro_actions, finding, oracle)
-            confirmed.append(ConfirmedBug(finding=finding, reproduction=repro,
-                                          original_length=len(repro_actions)))
+            bucket = classify_validation(vr)
+            if bucket == "pass":
+                replay_pass += 1
+                repro = minimize_reproduction(factory, repro_actions, finding, oracle)
+                confirmed.append(result.make_confirmed(finding, repro))
+            elif bucket == "invalid":
+                replay_invalid += 1
+            else:
+                replay_fail += 1
     web.close()
 
     with open(os.path.join(args.out, "confirmed_bugs.json"), "w", encoding="utf-8") as f:
@@ -116,6 +124,7 @@ def cmd_run(args) -> int:
     report = build_report(result, confirmed, config)
     write_report(report, os.path.join(args.out, "report.json"),
                  os.path.join(args.out, "report.html"))
+    ep = episode_stats(result)
     metrics = {
         "config": config,
         "wall_seconds": round(time.time() - t0, 2),
@@ -124,7 +133,17 @@ def cmd_run(args) -> int:
         "states": len(result.graph.nodes),
         "edges": len(result.graph.edges),
         "candidates": len(result.candidates),
+        "candidate_count": len(result.candidates),
+        "matched_candidate_count": len(result.candidates),
         "confirmed": len(confirmed),
+        "confirmed_bug_count": len(confirmed),
+        "replay_attempted": replay_attempted,
+        "replay_pass": replay_pass,
+        "replay_fail": replay_fail,
+        "replay_invalid": replay_invalid,
+        "replay_success_rate": (
+            round(replay_pass / replay_attempted, 3) if replay_attempted else None),
+        **ep,
         "llm_calls": result.llm_calls,
         "tokens": result.pseudo_tokens,
         "min_repro_lengths": {b.finding.fingerprint(): len(b.reproduction)

@@ -132,6 +132,9 @@ class ConfirmedBug:
     reproduction: list           # list[Action] minimal reproduction sequence
     original_length: int
     confirmed: bool = True
+    source_episode_id: Optional[int] = None
+    original_global_step: Optional[int] = None
+    episode_local_reproduction_length: Optional[int] = None
 
     def to_dict(self) -> dict:
         return {
@@ -139,4 +142,10 @@ class ConfirmedBug:
             "reproduction": [a.to_dict() for a in self.reproduction],
             "original_length": self.original_length,
             "confirmed": self.confirmed,
+            "source_episode_id": self.source_episode_id,
+            "original_global_step": self.original_global_step,
+            "episode_local_reproduction_length": (
+                self.episode_local_reproduction_length
+                if self.episode_local_reproduction_length is not None
+                else self.original_length),
         }

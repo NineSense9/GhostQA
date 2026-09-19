@@ -10,7 +10,7 @@ from __future__ import annotations
 import time
 from dataclasses import dataclass, field
 
-from ..state.models import Step, Finding
+from ..state.models import Step, Finding, ConfirmedBug
 from ..state.graph import StateGraph
 from ..state.signature import state_id, cluster_id, variant_key, state_signature
 from ..state.similarity import classify_against_graph, IDENTICAL, SIMILAR, NEW
@@ -79,6 +79,25 @@ class RunResult:
                 if s.episode_id == step.episode_id and s.index <= step.index]
 
     episode_prefix_for_finding = reproduction_actions
+
+    def finding_artifact(self, finding) -> dict:
+        """Serialize a finding with derived episode_id (Finding is unchanged)."""
+        from .metrics import finding_artifact
+        return finding_artifact(self, finding)
+
+    def make_confirmed(self, finding, reproduction, original_length=None):
+        """ConfirmedBug with episode provenance for artifacts."""
+        prefix = self.reproduction_actions(finding)
+        n = original_length if original_length is not None else len(prefix)
+        step = self.step_for_finding(finding)
+        return ConfirmedBug(
+            finding=finding,
+            reproduction=reproduction,
+            original_length=n,
+            source_episode_id=None if step is None else step.episode_id,
+            original_global_step=finding.step_index,
+            episode_local_reproduction_length=n,
+        )
 
     @property
     def productive_actions(self) -> int:

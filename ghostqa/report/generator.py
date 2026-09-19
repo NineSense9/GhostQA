@@ -46,8 +46,8 @@ code{{background:#f0f0f0;padding:.05rem .3rem;border-radius:4px;font-size:.82rem
 
 _BUG_TMPL = """<div class="card">
 <b>#{idx}</b> <span class="badge {sev}">{sev}</span> <code>{kind}</code>　{desc}<br>
-<table><tr><th>原始路径长度</th><th>最小复现长度</th><th>验证状态</th></tr>
-<tr><td>{orig}</td><td>{mini}</td><td>已重放确认</td></tr></table>
+<table><tr><th>原始路径长度</th><th>最小复现长度</th><th>episode</th><th>global step</th><th>验证状态</th></tr>
+<tr><td>{orig}</td><td>{mini}</td><td>{epid}</td><td>{gstep}</td><td>已重放确认</td></tr></table>
 <div class="path"><b>最小复现路径</b>：{path}</div>
 </div>"""
 
@@ -62,7 +62,9 @@ def render_html(report: dict) -> str:
         bugs_html += _BUG_TMPL.format(
             idx=i, sev=f["severity"], kind=f["kind"],
             desc=html.escape(f["description"]),
-            orig=b["original_length"], mini=len(b["reproduction"]), path=path)
+            orig=b["original_length"], mini=len(b["reproduction"]), path=path,
+            epid=b.get("source_episode_id", ""),
+            gstep=b.get("original_global_step", f.get("step_index", "")))
     if not bugs_html:
         bugs_html = '<div class="card">未发现已确认缺陷。</div>'
     s = report["summary"]

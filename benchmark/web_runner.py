@@ -19,6 +19,9 @@ import time
 
 from ghostqa.agent.gateway import MockLLM
 from ghostqa.exploration.explorer import run_exploration
+from ghostqa.exploration.metrics import (
+    classify_validation, episode_stats, latency_metrics,
+)
 from ghostqa.exploration.policy import (RandomPolicy, DFSPolicy, BFSPolicy,
                                         LLMNaivePolicy, GhostPolicy,
                                         WorkflowBFSPolicy)
@@ -26,7 +29,6 @@ from ghostqa.minimizer.ddmin import minimize_reproduction
 from ghostqa.oracle.engine import OracleEngine
 from ghostqa.oracle.spec import load_spec, format_spec_brief
 from ghostqa.replay.validator import validate_candidate
-from ghostqa.state.models import ConfirmedBug
 from benchmark.runner import evidence_matches
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -108,34 +110,48 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
                 found_ids.add(bug["id"])
 
     factory = lambda: PlaywrightWebExecutor(base_url, headless=True, shared=shared)
-    confirmed_ids, replay_ok, replay_total, min_ratios = set(), 0, 0, []
+    confirmed_ids, min_ratios = set(), []
     first_step = {}
+    candidate_episode_ids = []
+    candidates_after_reset = 0
+    confirmed_after_reset = 0
+    matched_candidate_count = 0
+    replay_attempted = replay_pass = replay_fail = replay_invalid = 0
     for f in result.candidates:
+        step = result.step_for_finding(f)
+        eid = 0 if step is None else step.episode_id
+        candidate_episode_ids.append(eid)
+        if eid > 0:
+            candidates_after_reset += 1
         ids = {b["id"] for b in manifest
                if f.kind == b["kind"] and evidence_matches(f.evidence, b["match"])}
         if not ids:
             continue
-        replay_total += 1
+        matched_candidate_count += 1
+        replay_attempted += 1
         repro_actions = result.reproduction_actions(f)
         vr = validate_candidate(factory, repro_actions, f, oracle)
-        if not vr.confirmed:
-            continue
-        replay_ok += 1
-        confirmed_ids |= ids
-        for bid in ids:
-            first_step[bid] = min(first_step.get(bid, f.step_index), f.step_index)
-        if not skip_minimize:
-            repro = minimize_reproduction(factory, repro_actions, f, oracle)
-            if repro_actions and repro:
-                min_ratios.append(len(repro) / len(repro_actions))
+        bucket = classify_validation(vr)
+        if bucket == "pass":
+            replay_pass += 1
+            confirmed_ids |= ids
+            if eid > 0:
+                confirmed_after_reset += 1
+            for bid in ids:
+                first_step[bid] = min(first_step.get(bid, f.step_index), f.step_index)
+            if not skip_minimize:
+                repro = minimize_reproduction(factory, repro_actions, f, oracle)
+                if repro_actions and repro:
+                    min_ratios.append(len(repro) / len(repro_actions))
+        elif bucket == "invalid":
+            replay_invalid += 1
+        else:
+            replay_fail += 1
     web.close()
 
     deep = [b for b in manifest if b.get("trigger_depth", 0) >= DEEP_DEPTH]
     deep_ids = {b["id"] for b in deep}
     confirmed_deep = confirmed_ids & deep_ids
-    time_to_first_finding = next((s.index for s in result.steps if s.findings), None)
-    time_to_first_confirmed_bug = min(first_step.values()) if first_step else None
-    t2deep = min((first_step[i] for i in confirmed_deep), default=None)
     by_depth = {}
     for b in manifest:
         d = str(b.get("trigger_depth", "?"))
@@ -143,6 +159,8 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
         by_depth[d]["total"] += 1
         if b["id"] in confirmed_ids:
             by_depth[d]["confirmed"] += 1
+    lat = latency_metrics(result, first_step, confirmed_deep)
+    ep = episode_stats(result)
     return {
         "policy": policy_name, "seed": seed, "budget": budget,
         "actions": result.actions_executed,
@@ -153,19 +171,28 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
         "restore_failures": result.restore_failures,
         "similarity": dict(result.graph.similarity_counts),
         "candidates": len(result.candidates),
+        "candidate_count": len(result.candidates),
+        "matched_candidate_count": matched_candidate_count,
+        "confirmed_bug_count": len(confirmed_ids),
         "bugs_found": sorted(found_ids),
         "confirmed_bugs": sorted(confirmed_ids),
         "bug_discovery_rate": round(len(confirmed_ids) / len(manifest), 3),
         "deep_bug_discovery_rate": round(len(confirmed_deep) / len(deep), 3) if deep else None,
         "discovery_auc": _auc(list(first_step.values()), budget, len(manifest)),
-        "time_to_first_finding": time_to_first_finding,
-        "time_to_first_confirmed_bug": time_to_first_confirmed_bug,
-        "time_to_first_deep_confirmed_bug": t2deep,
-        "time_to_first_bug": time_to_first_finding,  # deprecated alias
-        "time_to_first_deep_bug": t2deep,
+        **lat,
         "bugs_by_depth": by_depth,
         "repeat_rate": round(result.repeat_actions / max(1, result.actions_executed), 3),
-        "replay_success_rate": round(replay_ok / replay_total, 3) if replay_total else None,
+        "replay_attempted": replay_attempted,
+        "replay_pass": replay_pass,
+        "replay_fail": replay_fail,
+        "replay_invalid": replay_invalid,
+        "replay_success_rate": (
+            round(replay_pass / replay_attempted, 3) if replay_attempted else None),
+        "candidates_after_reset": candidates_after_reset,
+        "confirmed_after_reset": confirmed_after_reset,
+        "candidate_episode_ids": candidate_episode_ids,
+        **ep,
+        "reset_events": list(result.reset_events),
         "min_repro_ratio": round(statistics.mean(min_ratios), 3) if min_ratios else None,
         "llm_calls": result.llm_calls,
         "tokens": result.pseudo_tokens,
@@ -194,8 +221,9 @@ def aggregate(rows: list) -> list:
         deeps = [r["deep_bug_discovery_rate"] for r in rs
                  if r.get("deep_bug_discovery_rate") is not None]
         aucs = [r.get("discovery_auc", 0) for r in rs]
-        t2b = [r["time_to_first_bug"] for r in rs
-               if r["time_to_first_bug"] is not None]
+        ttf = [r["ttf"] for r in rs if r.get("ttf") is not None]
+        ttcb = [r["ttcb"] for r in rs if r.get("ttcb") is not None]
+        ttdcb = [r["ttdcb"] for r in rs if r.get("ttdcb") is not None]
         budgets = sorted({r["budget"] for r in rs})
         out.append({
             "policy": policy,
@@ -206,7 +234,17 @@ def aggregate(rows: list) -> list:
             "bugs_min": min(rates), "bugs_max": max(rates),
             "deep_mean": round(statistics.mean(deeps), 3) if deeps else None,
             "auc_mean": round(statistics.mean(aucs), 3) if aucs else None,
-            "t2bug_mean": round(statistics.mean(t2b), 1) if t2b else None,
+            "ttf_mean": round(statistics.mean(ttf), 1) if ttf else None,
+            "ttcb_mean": round(statistics.mean(ttcb), 1) if ttcb else None,
+            "ttdcb_mean": round(statistics.mean(ttdcb), 1) if ttdcb else None,
+            "t2bug_mean": round(statistics.mean(ttf), 1) if ttf else None,  # deprecated TTF
+            "replay_pass_sum": sum(r.get("replay_pass", 0) for r in rs),
+            "replay_fail_sum": sum(r.get("replay_fail", 0) for r in rs),
+            "replay_invalid_sum": sum(r.get("replay_invalid", 0) for r in rs),
+            "episode_count_mean": round(
+                statistics.mean(r.get("episode_count", 0) for r in rs), 2),
+            "relocate_episode_mean": round(
+                statistics.mean(r.get("relocate_episode_count", 0) for r in rs), 2),
             "states_mean": round(statistics.mean(r["states"] for r in rs), 1),
             "clusters_mean": round(statistics.mean(r.get("clusters", 0) for r in rs), 1),
             "relocate_mean": round(statistics.mean(r.get("relocate_count", 0) for r in rs), 2),
@@ -266,7 +304,9 @@ def main():
                           f"confirmed={len(row['confirmed_bugs'])} "
                           f"states={row['states']}/{row['clusters']}c "
                           f"reloc={row['relocate_count']} "
-                          f"t2bug={row['time_to_first_bug']} "
+                          f"ep={row['episode_count']} "
+                          f"replay={row['replay_pass']}/{row['replay_fail']}/{row['replay_invalid']} "
+                          f"TTF={row['ttf']} TTCB={row['ttcb']} "
                           f"llm={row['llm_calls']} wall={row['wall_seconds']}s",
                           flush=True)
     finally:
@@ -283,8 +323,9 @@ def main():
     print("\n== aggregate (confirmed bug discovery rate) ==")
     for a in agg:
         print(f"{a['policy']:11s} mean={a['bugs_mean']:.3f}±{a['bugs_std']:.3f} "
-              f"[{a['bugs_min']},{a['bugs_max']}] t2bug={a['t2bug_mean']} "
-              f"states={a['states_mean']} llm={a['llm_calls_mean']}")
+              f"[{a['bugs_min']},{a['bugs_max']}] TTF={a['ttf_mean']} "
+              f"TTCB={a['ttcb_mean']} states={a['states_mean']} "
+              f"llm={a['llm_calls_mean']}")
     print(f"\nmetrics -> {os.path.join(args.out, 'metrics.json')}")
 
 

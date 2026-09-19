@@ -13,13 +13,15 @@ import time
 from ghostqa.agent.gateway import MockLLM
 from ghostqa.executor.sim import SimExecutor
 from ghostqa.exploration.explorer import run_exploration
+from ghostqa.exploration.metrics import (
+    classify_validation, episode_stats, latency_metrics,
+)
 from ghostqa.exploration.policy import (RandomPolicy, DFSPolicy, BFSPolicy,
                                         LLMNaivePolicy, GhostPolicy)
 from ghostqa.minimizer.ddmin import minimize_reproduction
 from ghostqa.oracle.engine import OracleEngine
 from ghostqa.oracle.spec import format_spec_brief
 from ghostqa.replay.validator import validate_candidate
-from ghostqa.state.models import ConfirmedBug
 from benchmark.sim_apps import APPS
 
 
@@ -75,6 +77,8 @@ def run_one(app_name: str, make_app, policy, budget: int, validate: bool = True)
 
     found_ids = match_manifest(result.candidates, manifest)
     confirmed_bugs, confirmed_ids = [], set()
+    first_step = {}
+    replay_attempted = replay_pass = replay_fail = replay_invalid = 0
     if validate:
         for f in result.candidates:
             ids = {b["id"] for b in manifest
@@ -82,17 +86,24 @@ def run_one(app_name: str, make_app, policy, budget: int, validate: bool = True)
                    and evidence_matches(f.evidence, b["match"])}
             if not ids:
                 continue
+            replay_attempted += 1
             repro_actions = result.reproduction_actions(f)
             vr = validate_candidate(factory, repro_actions, f, oracle)
-            if not vr.confirmed:
+            bucket = classify_validation(vr)
+            if bucket != "pass":
+                if bucket == "invalid":
+                    replay_invalid += 1
+                else:
+                    replay_fail += 1
                 continue
+            replay_pass += 1
             repro = minimize_reproduction(factory, repro_actions, f, oracle)
-            confirmed_bugs.append(ConfirmedBug(
-                finding=f, reproduction=repro,
-                original_length=len(repro_actions)))
+            confirmed_bugs.append(result.make_confirmed(f, repro))
             confirmed_ids |= ids
+            for bid in ids:
+                first_step[bid] = min(first_step.get(bid, f.step_index), f.step_index)
 
-    first_bug_step = next((s.index for s in result.steps if s.findings), None)
+    lat = latency_metrics(result, first_step)
     return {
         "app": app_name,
         "policy": policy.name,
@@ -101,10 +112,17 @@ def run_one(app_name: str, make_app, policy, budget: int, validate: bool = True)
         "states": len(result.graph.nodes),
         "edges": len(result.graph.edges),
         "candidates": len(result.candidates),
+        "candidate_count": len(result.candidates),
         "bugs_found": sorted(found_ids),
         "bug_discovery_rate": round(len(found_ids) / len(manifest), 3),
         "confirmed_bugs": sorted(confirmed_ids),
-        "time_to_first_bug": first_bug_step,
+        "confirmed_bug_count": len(confirmed_ids),
+        "replay_attempted": replay_attempted,
+        "replay_pass": replay_pass,
+        "replay_fail": replay_fail,
+        "replay_invalid": replay_invalid,
+        **lat,
+        **episode_stats(result),
         "repeat_actions": result.repeat_actions,
         "llm_calls": result.llm_calls,
         "pseudo_tokens": result.pseudo_tokens,
@@ -146,7 +164,7 @@ def main():
             print(f"[{app_name:9s}] {row['policy']:10s} "
                   f"bugs={row['bug_discovery_rate']:.2f} states={row['states']:3d} "
                   f"cand={row['candidates']:2d} confirmed={len(row['confirmed_bugs']):2d} "
-                  f"llm={row['llm_calls']:3d} t2bug={row['time_to_first_bug']}")
+                  f"llm={row['llm_calls']:3d} TTF={row['ttf']} TTCB={row['ttcb']}")
 
     metrics_path = os.path.join(out_dir, "metrics.json")
     with open(metrics_path, "w", encoding="utf-8") as f:
