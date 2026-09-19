@@ -97,6 +97,8 @@ class RunResult:
     interaction_opportunity_mean: float = 0.0
     action_space_trace: list = field(default_factory=list)
     reset_events: list = field(default_factory=list)
+    relocation_decisions: list = field(default_factory=list)
+    relocation_metrics: dict = field(default_factory=dict)
 
     def actions(self):
         """Flattened global action list. Do not use for replay.
@@ -256,6 +258,13 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
             if target and target != sig:
                 path = graph.shortest_path(graph.start_sig, target)
                 if path is not None:
+                    ledger = getattr(policy, "relocation_ledger", None)
+                    from_cluster = cluster_fn(state) if state else ""
+                    if ledger is not None:
+                        ledger.note_chain_relocate()
+                        ledger.mark_executed(len(path), from_cluster)
+                        if getattr(policy, "relocate_mode", "") == "lease":
+                            ledger.grant_lease()
                     state = executor.reset()
                     episode_id += 1
                     result.reset_events.append({
@@ -366,6 +375,11 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
                 pass  # observability must never break exploration
         if restore_step:
             result.restore_actions += 1
+            ledger = getattr(policy, "relocation_ledger", None)
+            if ledger is not None:
+                ledger.on_restore_step(
+                    ok=bool(exec_result.ok and not exec_result.crashed),
+                    last=not pending_restore)
         if action.type == "input":
             result.input_actions_executed += 1
             if action.target_eid:
@@ -376,6 +390,22 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
             result.progress_actions += 1
             if pp is not None:
                 pp.mark_progress(sig)
+
+        ledger = getattr(policy, "relocation_ledger", None)
+        if ledger is not None and not restore_step and not exec_result.crashed:
+            dst_cluster = cluster_fn(new_state) if new_state else ""
+            new_cluster = bool(
+                dst_cluster
+                and sum(1 for n in graph.nodes.values()
+                        if n.cluster_id == dst_cluster) <= 1)
+            ledger.on_productive_step(
+                relation=relation if new_state else "",
+                new_cluster=new_cluster,
+                had_finding=bool(findings),
+                cluster_id=dst_cluster,
+                returned_to_prev=(dst_cluster == getattr(ledger, "_from_cluster", "")
+                                  and bool(dst_cluster)),
+            )
 
         if exec_result.crashed:
             pending_restore = []
@@ -412,6 +442,11 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
 
     result.wall_seconds = time.time() - t0
     result.similarity_counts = dict(graph.similarity_counts)
+    ledger = getattr(policy, "relocation_ledger", None)
+    if ledger is not None:
+        ledger.close_open()
+        result.relocation_decisions = list(ledger.decisions)
+        result.relocation_metrics = ledger.metrics()
     result.unique_inputs_touched = len(inputs_touched)
     if diag_n:
         result.raw_action_count_mean = round(diag_raw_total / diag_n, 2)

@@ -94,6 +94,10 @@ def cmd_run(args) -> int:
             f.write(json.dumps(s.to_dict(), ensure_ascii=False) + "\n")
     with open(os.path.join(args.out, "reset_events.json"), "w", encoding="utf-8") as f:
         json.dump(result.reset_events, f, ensure_ascii=False, indent=2)
+    with open(os.path.join(args.out, "relocation_trace.jsonl"), "w",
+              encoding="utf-8") as f:
+        for rec in result.relocation_decisions:
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
     confirmed = []
     replay_attempted = replay_pass = replay_fail = replay_invalid = 0

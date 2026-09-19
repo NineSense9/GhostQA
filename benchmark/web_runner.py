@@ -58,6 +58,16 @@ def make_policy(name: str, seed: int):
         return LLMNaivePolicy(MockLLM())
     if name == "ghost-nollm":
         return GhostPolicy(llm=None, use_frontier=True)
+    if name == "ghost-nollm-nofrontier":
+        return GhostPolicy(llm=None, use_frontier=False)
+    if name == "ghost-nollm-shadow":
+        return GhostPolicy(llm=None, use_frontier=True, relocate_mode="shadow")
+    if name == "ghost-nollm-marginal":
+        return GhostPolicy(llm=None, use_frontier=True, relocate_mode="marginal")
+    if name == "ghost-nollm-momentum":
+        return GhostPolicy(llm=None, use_frontier=True, relocate_mode="momentum")
+    if name == "ghost-nollm-lease":
+        return GhostPolicy(llm=None, use_frontier=True, relocate_mode="lease")
     if name == "ghost-full":
         return GhostPolicy(llm=MockLLM(), use_frontier=True)
     if name == "ghost-nofrontier":
@@ -91,7 +101,7 @@ def _auc(first_steps: list, budget: int, n_bugs: int) -> float:
 
 
 def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
-            spec, manifest, skip_minimize: bool) -> dict:
+            spec, manifest, skip_minimize: bool, trace_dir: str = "") -> dict:
     from ghostqa.executor.playwright_web import PlaywrightWebExecutor
 
     oracle = OracleEngine(spec)
@@ -161,7 +171,7 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
             by_depth[d]["confirmed"] += 1
     lat = latency_metrics(result, first_step, confirmed_deep)
     ep = episode_stats(result)
-    return {
+    row = {
         "policy": policy_name, "seed": seed, "budget": budget,
         "actions": result.actions_executed,
         "states": len(result.graph.nodes),
@@ -208,7 +218,16 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
         "raw_action_count_mean": result.raw_action_count_mean,
         "interaction_opportunity_mean": result.interaction_opportunity_mean,
         "first_step_by_bug": first_step,
+        **(result.relocation_metrics or {}),
     }
+    if trace_dir:
+        os.makedirs(trace_dir, exist_ok=True)
+        tpath = os.path.join(
+            trace_dir, f"{policy_name}_b{budget}_s{seed}.jsonl")
+        with open(tpath, "w", encoding="utf-8") as tf:
+            for rec in result.relocation_decisions:
+                tf.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    return row
 
 
 def aggregate(rows: list) -> list:
@@ -295,7 +314,8 @@ def main():
             for budget in budgets:
                 for seed in seeds:
                     row = run_one(base_url, shared, policy, seed, budget,
-                                  spec, manifest, args.skip_minimize)
+                                  spec, manifest, args.skip_minimize,
+                                  trace_dir=os.path.join(args.out, "relocation_traces"))
                     rows.append(row)
                     print(f"[{policy:16s} bud={budget} seed={seed}] "
                           f"bdr={row['bug_discovery_rate']:.2f} "
@@ -304,6 +324,8 @@ def main():
                           f"confirmed={len(row['confirmed_bugs'])} "
                           f"states={row['states']}/{row['clusters']}c "
                           f"reloc={row['relocate_count']} "
+                          f"prod={row.get('productive_relocate_rate')} "
+                          f"waste={row.get('wasted_relocate_rate')} "
                           f"ep={row['episode_count']} "
                           f"replay={row['replay_pass']}/{row['replay_fail']}/{row['replay_invalid']} "
                           f"TTF={row['ttf']} TTCB={row['ttcb']} "

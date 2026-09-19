@@ -22,6 +22,10 @@ class FrontierTarget:
     n_progress: int = 0
     n_inputs: int = 0
     n_deferred: int = 0
+    n_clicks: int = 0
+    gross_score: float = 0.0
+    restore_cost: float = 0.0
+    best_interaction: float = 0.0
 
 
 DEFAULT_FRONTIER_WEIGHTS = {
@@ -111,30 +115,41 @@ class FrontierPlanner:
                              if n.cluster_id == node.cluster_id)
         reasons = [f"prog={c['progress']}", f"in={c['inputs']}",
                    f"click={c['clicks']}", f"defer={c['deferred']}"]
-        score = (self.w["progress"] * c["progress"]
-                 + self.w["nav_click"] * c["clicks"]
-                 + self.w["input_field"] * c["inputs"]
-                 + self.w["deferred_fuzz"] * c["deferred"])
+        inventory = (self.w["progress"] * c["progress"]
+                     + self.w["nav_click"] * c["clicks"]
+                     + self.w["input_field"] * c["inputs"]
+                     + self.w["deferred_fuzz"] * c["deferred"])
+        gross = inventory
         if cluster_visits <= 1:
-            score += self.w["cluster_novelty"]
+            gross += self.w["cluster_novelty"]
             reasons.append("novel_cluster")
         if "had_l2_finding" in node.flags:
-            score += self.w["risk_flag"]
+            gross += self.w["risk_flag"]
             reasons.append("l2_flag")
-        restore_cost = self.w["path_cost"] * path_len
-        score -= restore_cost
+        rc = self.w["path_cost"] * path_len
+        # `score` stays the v0.3.2 net (inventory minus path cost) so R0
+        # and existing tests do not change. Callers that want a single
+        # restore charge should use gross_score - restore_cost.
+        score = gross - rc
         score -= self.w["visits"] * node.visits
         score -= self.w["restore_fail"] * node.restore_failures
         if node.relation == NEW:
             reasons.append("new_structure")
-        if restore_cost:
-            reasons.append(f"restore_cost={restore_cost:.2f}")
+        if rc:
+            reasons.append(f"restore_cost={rc:.2f}")
         n_pending = c["progress"] + c["clicks"] + c["inputs"] + c["deferred"]
         return FrontierTarget(
             sig=sig, score=score, untried=n_pending, path_len=path_len,
             cluster_id=node.cluster_id, reasons=reasons,
             n_progress=c["progress"], n_inputs=c["inputs"],
-            n_deferred=c["deferred"],
+            n_deferred=c["deferred"], n_clicks=c["clicks"],
+            gross_score=round(gross, 4), restore_cost=round(rc, 4),
+            best_interaction=max(
+                self.w["progress"] if c["progress"] else 0.0,
+                self.w["nav_click"] if c["clicks"] else 0.0,
+                self.w["input_field"] if c["inputs"] else 0.0,
+                self.w["deferred_fuzz"] if c["deferred"] else 0.0,
+            ),
         )
 
     def discover(self, graph, current_sig: str, payload_policy=None) -> list:

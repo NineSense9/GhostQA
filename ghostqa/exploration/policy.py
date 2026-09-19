@@ -21,6 +21,11 @@ from .payload import PayloadPolicy, class_of_value, first_wave
 from .interaction import (
     classify_field, is_progress_action, form_progress,
 )
+from .relocate import (
+    RelocationLedger, opportunity_kind, opportunity_value, restore_cost,
+    breadth_bonus, local_action_values, momentum_penalty, explain,
+    RESERVE_DEFAULT, LEASE_K_DEFAULT,
+)
 
 RISK_KEYWORDS = ["支付", "删除", "提交", "结算", "清空", "注册", "购买", "登录",
                  "pay", "delete", "submit", "clear", "checkout", "buy", "login"]
@@ -125,16 +130,18 @@ class GhostPolicy(Policy):
         self.use_frontier = use_frontier
         self.use_semantic_state = use_semantic_state
         self.progressive = progressive
-        self.relocate_mode = relocate_mode   # opportunity | exhaustion
+        self.relocate_mode = relocate_mode   # opportunity | exhaustion | shadow | marginal | momentum | lease
         self.payload_policy = PayloadPolicy() if progressive else None
         self.planner = FrontierPlanner() if use_frontier else None
         self._last_relocate_step = -999
         self._last_relocate_sig = ""
+        self.relocation_ledger = RelocationLedger()
 
     def reset(self):
         self._semantic_cache = {}
         self._last_relocate_step = -999
         self._last_relocate_sig = ""
+        self.relocation_ledger = RelocationLedger()
         if self.payload_policy is not None:
             self.payload_policy = PayloadPolicy()
 
@@ -226,57 +233,165 @@ class GhostPolicy(Policy):
         return reasons
 
     def maybe_relocate(self, graph, state, actions, ctx):
-        """Opportunity-cost relocate: jump only if frontier_net beats local."""
+        """Decide whether to reset+replay. Always records a decision when armed."""
         if not self.use_frontier or self.planner is None:
             return None
-        step = ctx.get("step_index", 0)
-        if step < 6:
+        rec, target_sig = self._evaluate_relocate(graph, state, actions, ctx)
+        self.relocation_ledger.record(rec)
+        if rec["decision"] != "relocate":
             return None
+        if self.relocate_mode == "shadow":
+            rec["executed"] = False
+            self.relocation_ledger.mark_shadow_window()
+            return None
+        return target_sig
+
+    def _evaluate_relocate(self, graph, state, actions, ctx):
+        step = ctx.get("step_index", 0)
         sig = ctx["sig"]
         remaining = ctx.get("budget", 10**9) - step
+        mode = self.relocate_mode
+        mom = 0.0
+        if mode in ("momentum", "lease"):
+            mom = momentum_penalty(self.relocation_ledger.recent_new_states)
+        threshold = 0.35 + mom
         ctx_local = dict(ctx)
         ctx_local["candidate_actions"] = actions
-        local_best = -1.0
+
+        local_rows = local_action_values(actions, state)
+        local_best_kind = local_rows[0][0] if local_rows else -1.0
+        local_best_prog = -1.0
+        second_prog = -1.0
+        best_action_brief = ""
         for a in actions:
             if a.type == "back":
                 continue
-            local_best = max(local_best, self._program_score(graph, state, a, ctx_local))
-        if self.relocate_mode == "exhaustion":
-            keys = [a.key() for a in actions]
-            local_untried = [k for k in graph.untried_actions(sig, keys)
-                             if not k.startswith("back:")]
-            if local_untried:
-                return None
+            s = self._program_score(graph, state, a, ctx_local)
+            if s > local_best_prog:
+                second_prog = local_best_prog
+                local_best_prog = s
+                best_action_brief = a.brief()
+            elif s > second_prog:
+                second_prog = s
+        keys = [a.key() for a in actions]
+        untried = [k for k in graph.untried_actions(sig, keys)
+                   if not k.startswith("back:")]
+        local_block = {
+            "best_action": best_action_brief,
+            "best_score": round(local_best_prog, 4),
+            "best_opportunity": round(local_best_kind, 4),
+            "second_score": round(second_prog, 4),
+            "untried_count": len(untried),
+            "recent_new_states": int(sum(self.relocation_ledger.recent_new_states[-3:])),
+        }
+
+        def _stay(reason, frontier=None, extra=""):
+            rc = (frontier or {}).get("restore_cost", 0.0)
+            net = (frontier or {}).get("net_score", 0.0)
+            return {
+                "step": step, "current_sig": sig, "mode": mode,
+                "local": local_block, "frontier": frontier,
+                "threshold": threshold, "decision": "stay", "reason": reason,
+                "explain": explain("stay", local_best_prog, net, rc, extra or reason),
+                "executed": False,
+            }, None
+
+        if step < 6:
+            return _stay("warmup")
+        if mode == "exhaustion":
+            if untried:
+                return _stay("local_untried")
             if step - self._last_relocate_step < 8:
-                return None
+                return _stay("exhaustion_cooldown")
+
+        if mode == "lease" and self.relocation_ledger.lease_blocks():
+            return _stay("lease")
+
         target = self.planner.select(
             graph, sig, remaining_budget=remaining,
             payload_policy=self.payload_policy)
         if target is None or target.sig == sig:
-            return None
+            return _stay("no_target")
         path = graph.shortest_path(graph.start_sig, target.sig)
         if path is None:
-            return None
-        if len(path) >= remaining:
-            return None
-        restore_cost = 0.25 * len(path)
-        frontier_net = target.score - restore_cost
-        threshold = 0.35
-        if frontier_net <= local_best + threshold:
-            return None
-        # Hysteresis: tiny improvements after a recent hop are ignored.
-        if (step - self._last_relocate_step < 4
-                and frontier_net - local_best < 0.8):
-            return None
-        if target.sig == self._last_relocate_sig and step - self._last_relocate_step < 6:
-            return None
+            return _stay("no_path")
+        path_len = len(path)
+        node = graph.nodes.get(target.sig)
+        fails = getattr(node, "restore_failures", 0) if node else 0
+        planner_rc = target.restore_cost
+        policy_rc = 0.25 * path_len
+        # v0.3.2 R0: target.score already subtracted planner path_cost, then
+        # policy subtracts 0.25 * path_len again.
+        r0_net = target.score - policy_rc
+        unified_rc = restore_cost(path_len, fails)
+        counts_pending = (target.n_progress + target.n_clicks
+                          + target.n_inputs + target.n_deferred)
+        state_bonus = 0.0
+        if node and sum(n.visits for n in graph.nodes.values()
+                        if n.cluster_id == node.cluster_id) <= 1:
+            state_bonus += 0.4
+        marginal_gross = (target.best_interaction + state_bonus
+                          + breadth_bonus(counts_pending))
+        marginal_net = marginal_gross - unified_rc
+
+        use_marginal = mode in ("marginal", "momentum", "lease")
+        local_cmp = local_best_kind if use_marginal else local_best_prog
+        remote_cmp = marginal_net if use_marginal else r0_net
+        rc_cmp = unified_rc if use_marginal else policy_rc
+
+        frontier = {
+            "target_sig": target.sig,
+            "gross_score": round(target.gross_score, 4),
+            "planner_score": round(target.score, 4),
+            "planner_restore_cost": round(planner_rc, 4),
+            "policy_restore_cost": round(policy_rc, 4),
+            "restore_cost": round(rc_cmp, 4),
+            "net_score": round(remote_cmp, 4),
+            "r0_net": round(r0_net, 4),
+            "marginal_net": round(marginal_net, 4),
+            "path_len": path_len,
+            "progress": target.n_progress,
+            "clicks": target.n_clicks,
+            "inputs": target.n_inputs,
+            "deferred": target.n_deferred,
+            "best_interaction": round(target.best_interaction, 4),
+            "state_bonus": round(state_bonus, 4),
+            "breadth_bonus": round(breadth_bonus(counts_pending), 4),
+            "reasons": list(target.reasons),
+        }
+
+        if path_len >= remaining:
+            return _stay("path_exceeds_budget", frontier)
+        if use_marginal and remaining < path_len + RESERVE_DEFAULT:
+            return _stay("reserve", frontier, extra=f"reserve={RESERVE_DEFAULT}")
+        if remote_cmp <= local_cmp + threshold:
+            return _stay("local_better", frontier,
+                         extra=f"threshold={threshold:.2f} momentum={mom:.2f}")
+        if not use_marginal:
+            if (step - self._last_relocate_step < 4
+                    and remote_cmp - local_cmp < 0.8):
+                return _stay("hysteresis", frontier)
+            if (target.sig == self._last_relocate_sig
+                    and step - self._last_relocate_step < 6):
+                return _stay("same_target", frontier)
+
         self._last_relocate_step = step
         self._last_relocate_sig = target.sig
         ctx["last_relocate"] = {
             "from": sig, "to": target.sig, "score": round(target.score, 3),
             "path_len": target.path_len, "reasons": target.reasons,
         }
-        return target.sig
+        rec = {
+            "step": step, "current_sig": sig, "mode": mode,
+            "local": local_block, "frontier": frontier,
+            "threshold": threshold, "decision": "relocate",
+            "reason": "shadow" if mode == "shadow" else "net_beats_local",
+            "explain": explain(
+                "relocate", local_cmp, remote_cmp, rc_cmp,
+                extra=f"momentum={mom:.2f} threshold={threshold:.2f}"),
+            "executed": False,
+        }
+        return rec, target.sig
 
     def _semantic_scores(self, graph, state, topk_actions, ctx) -> dict:
         """Score ONLY the top-k candidates; other actions are unaffected."""
