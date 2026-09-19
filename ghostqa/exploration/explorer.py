@@ -99,6 +99,7 @@ class RunResult:
     reset_events: list = field(default_factory=list)
     relocation_decisions: list = field(default_factory=list)
     relocation_metrics: dict = field(default_factory=dict)
+    postreach_metrics: dict = field(default_factory=dict)
 
     def actions(self):
         """Flattened global action list. Do not use for replay.
@@ -232,11 +233,14 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
         if len(executor.ground_truth().get("__halt__", [])):
             break
         can_back = True
+        pr = getattr(policy, "postreach", None)
         enum_ctx = {
             "sig": sig, "step_index": step_idx, "budget": budget,
             "page_progressed": bool(pp and sig in getattr(pp, "progress_pages", ())),
-            "no_better_frontier": False,
+            "no_better_frontier": bool(pr is not None and pr.enabled()),
         }
+        if pr is not None:
+            enum_ctx.update(pr.enum_flags(sig, graph))
         actions, diag = _candidates(state, policy, sig, can_back, input_vocab, enum_ctx)
         result.action_space_trace.append(diag)
         diag_raw_total += diag["total_actions"]
@@ -361,7 +365,8 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
         )
         result.steps.append(Step(index=step_idx, state_sig_before=sig,
                                  action=action, state_sig_after=new_sig,
-                                 findings=findings, episode_id=episode_id))
+                                 findings=findings, episode_id=episode_id,
+                                 decision_mode=ctx.get("decision_mode", "")))
         result.actions_executed += 1
         recent_action_keys.append(action.key())
         if on_step is not None:
@@ -390,6 +395,23 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
             result.progress_actions += 1
             if pp is not None:
                 pp.mark_progress(sig)
+                if new_state is not None:
+                    pp.mark_progress(new_sig)
+
+        pr = getattr(policy, "postreach", None)
+        if pr is not None and not restore_step:
+            via = is_progress_action(action, state)
+            pr.ledger.arrive(
+                sig, graph, step_idx, via_progress=False,
+                cluster_id=cluster_fn(state) if state else "",
+                arrival_type=action.type)
+            if new_state is not None and new_sig not in ("CRASHED", "", sig):
+                pr.ledger.arrive(
+                    new_sig, graph, step_idx, via_progress=via,
+                    cluster_id=cluster_fn(new_state),
+                    arrival_type=action.type)
+            pr.after(sig, action, relation if new_state else "",
+                     findings, new_sig, bool(exec_result.crashed), state=state)
 
         ledger = getattr(policy, "relocation_ledger", None)
         if ledger is not None and not restore_step and not exec_result.crashed:
@@ -447,6 +469,9 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
         ledger.close_open()
         result.relocation_decisions = list(ledger.decisions)
         result.relocation_metrics = ledger.metrics()
+    pr = getattr(policy, "postreach", None)
+    if pr is not None:
+        result.postreach_metrics = pr.ledger.snapshot()
     result.unique_inputs_touched = len(inputs_touched)
     if diag_n:
         result.raw_action_count_mean = round(diag_raw_total / diag_n, 2)

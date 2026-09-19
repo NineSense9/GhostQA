@@ -61,6 +61,14 @@ def make_policy(name: str, seed: int):
         return GhostPolicy(llm=None, use_frontier=False)
     if name == "ghost-nollm-nofrontier":
         return GhostPolicy(llm=None, use_frontier=False)
+    if name == "ghost-deferred":
+        return GhostPolicy(llm=None, use_frontier=False, postreach_mode="deferred")
+    if name == "ghost-exploit":
+        return GhostPolicy(llm=None, use_frontier=False, postreach_mode="exploit")
+    if name == "ghost-postreach":
+        return GhostPolicy(llm=None, use_frontier=False, postreach_mode="postreach")
+    if name == "workflow-bfs-postreach":
+        return WorkflowBFSPolicy(postreach_mode="postreach")
     if name == "ghost-frontier-r0":
         # Historical v0.3.2 / v0.3.3 R0 (explicit, not the constructor default).
         return GhostPolicy(llm=None, use_frontier=True,
@@ -227,6 +235,7 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
         "interaction_opportunity_mean": result.interaction_opportunity_mean,
         "first_step_by_bug": first_step,
         **(result.relocation_metrics or {}),
+        **(result.postreach_metrics or {}),
     }
     if trace_dir:
         os.makedirs(trace_dir, exist_ok=True)

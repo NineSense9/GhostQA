@@ -42,8 +42,17 @@ def first_wave(field_type: str) -> list:
 
 
 def deferred_wave(field_type: str) -> list:
+    """Generic widening order by field type. Never reads bug ids."""
     first = set(first_wave(field_type))
-    return [c for c in ALL_CLASSES if c not in first]
+    order = {
+        "number": ["NEGATIVE", "LARGE_NUMERIC", "EMPTY", "BOUNDARY_LONG"],
+        "search": ["BOUNDARY_LONG", "SCRIPT_SPECIAL", "EMPTY"],
+        "email": ["SCRIPT_SPECIAL", "BOUNDARY_LONG", "NEGATIVE"],
+        "username": ["BOUNDARY_LONG", "SCRIPT_SPECIAL", "NEGATIVE"],
+        "password": ["BOUNDARY_LONG", "SCRIPT_SPECIAL"],
+        "text": ["BOUNDARY_LONG", "SCRIPT_SPECIAL", "LARGE_NUMERIC", "NEGATIVE"],
+    }.get(field_type, ["BOUNDARY_LONG", "SCRIPT_SPECIAL", "LARGE_NUMERIC", "NEGATIVE"])
+    return [c for c in order if c not in first]
 
 
 class PayloadPolicy:
@@ -70,8 +79,11 @@ class PayloadPolicy:
         first = [c for c in first_wave(field) if c not in done]
         if first:
             return first
-        if self._may_defer(ctx):
-            return [c for c in deferred_wave(field) if c not in done]
+        if ctx.get("exploit_deferred") or self._may_defer(ctx):
+            leftover = [c for c in deferred_wave(field) if c not in done]
+            if ctx.get("exploit_deferred"):
+                return leftover[:1]
+            return leftover
         return []
 
     def remaining_deferred(self, el, sig: str) -> list:

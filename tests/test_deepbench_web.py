@@ -193,3 +193,22 @@ def test_workflow_bfs_reaches_dashboard_or_wizard(web):
     assert result.max_workflow_depth >= 2 or "dashboard" in urls or "wizard" in urls, (
         f"WorkflowBFS did not leave the lobby; depth={result.max_workflow_depth} urls={urls}"
     )
+
+
+def test_postreach_progress_exploit_progress_loop(web):
+    """Behaviour, not D5: reach a post-login state, probe, continue."""
+    from ghostqa.exploration.explorer import run_exploration
+    from ghostqa.exploration.policy import GhostPolicy
+    from ghostqa.agent.gateway import NullLLM
+    result = run_exploration(
+        web, GhostPolicy(NullLLM(), use_frontier=False, postreach_mode="postreach"),
+        budget=40)
+    urls = " ".join(n.url for n in result.graph.nodes.values())
+    modes = [s.decision_mode for s in result.steps]
+    assert result.max_workflow_depth >= 2 or "dashboard" in urls or "login" in urls
+    assert any(m == "exploit" or m == "probe_commit" for m in modes) or (
+        result.postreach_metrics.get("exploit_actions", 0) >= 1
+        or result.postreach_metrics.get("deferred_payloads_executed", 0) >= 1
+    ), f"no post-reach probe; modes={set(modes)} metrics={result.postreach_metrics}"
+    assert result.actions_executed > 5
+    assert any(m == "progress" for m in modes) or result.progress_actions >= 1

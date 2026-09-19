@@ -32,7 +32,8 @@ from .replay.validator import validate_candidate
 from .report.generator import build_report, write_report
 
 POLICIES = ["ghost", "ghost-nollm", "monkey", "dfs", "bfs", "llm-naive",
-            "workflow-bfs", "ghost-frontier-r0", "ghost-frontier-marginal"]
+            "workflow-bfs", "ghost-frontier-r0", "ghost-frontier-marginal",
+            "ghost-deferred", "ghost-exploit", "ghost-postreach"]
 
 
 def _make_llm(args):
@@ -59,6 +60,12 @@ def _make_policy(name: str, llm, seed: int):
         return LLMNaivePolicy(llm or MockLLM())
     if name == "ghost-nollm":
         return GhostPolicy(llm=None, use_frontier=False)
+    if name == "ghost-deferred":
+        return GhostPolicy(llm=None, use_frontier=False, postreach_mode="deferred")
+    if name == "ghost-exploit":
+        return GhostPolicy(llm=None, use_frontier=False, postreach_mode="exploit")
+    if name == "ghost-postreach":
+        return GhostPolicy(llm=None, use_frontier=False, postreach_mode="postreach")
     if name == "ghost-frontier-r0":
         return GhostPolicy(llm=llm, use_frontier=True,
                            relocate_mode="opportunity")

@@ -26,6 +26,7 @@ from .relocate import (
     breadth_bonus, local_action_values, momentum_penalty, explain,
     RESERVE_DEFAULT, LEASE_K_DEFAULT,
 )
+from .postreach import PostReachController
 
 RISK_KEYWORDS = ["支付", "删除", "提交", "结算", "清空", "注册", "购买", "登录",
                  "pay", "delete", "submit", "clear", "checkout", "buy", "login"]
@@ -119,7 +120,8 @@ class GhostPolicy(Policy):
 
     def __init__(self, llm=None, weights: dict = None,
                  use_frontier: bool = False, use_semantic_state: bool = True,
-                 progressive: bool = True, relocate_mode: str = "opportunity"):
+                 progressive: bool = True, relocate_mode: str = "opportunity",
+                 postreach_mode: str = "off"):
         self.llm = llm or NullLLM()
         self.w = dict(DEFAULT_WEIGHTS)
         self.w.setdefault("w7_progress", 0.55)
@@ -136,6 +138,10 @@ class GhostPolicy(Policy):
         self._last_relocate_step = -999
         self._last_relocate_sig = ""
         self.relocation_ledger = RelocationLedger()
+        self.postreach_mode = postreach_mode
+        self.postreach = (PostReachController(postreach_mode)
+                          if postreach_mode and postreach_mode != "off"
+                          else None)
 
     def reset(self):
         self._semantic_cache = {}
@@ -144,6 +150,8 @@ class GhostPolicy(Policy):
         self.relocation_ledger = RelocationLedger()
         if self.payload_policy is not None:
             self.payload_policy = PayloadPolicy()
+        if self.postreach is not None:
+            self.postreach.reset()
 
     # ---- program-computed terms ----
     def _novelty(self, graph, sig: str, action: Action) -> float:
@@ -408,6 +416,11 @@ class GhostPolicy(Policy):
     def select(self, graph, state, actions, ctx) -> Action:
         ctx = dict(ctx)
         ctx["candidate_actions"] = actions
+        if self.postreach is not None and self.postreach.enabled():
+            action, label = self.postreach.pick(actions, state, graph, ctx)
+            ctx["decision_mode"] = label
+            ctx["last_decision"] = {"mode": label, "chosen": action.brief()}
+            return action
         if self.payload_policy is not None:
             ctx["form_progress"] = form_progress(
                 state, self.payload_policy.tried_fields(ctx["sig"]))
@@ -443,15 +456,25 @@ class WorkflowBFSPolicy(Policy):
     """
     name = "workflow_bfs"
 
-    def __init__(self):
+    def __init__(self, postreach_mode: str = "off"):
         self.payload_policy = PayloadPolicy()
         self.progressive = True
         self.llm = None
+        self.postreach_mode = postreach_mode
+        self.postreach = (PostReachController(postreach_mode)
+                          if postreach_mode and postreach_mode != "off"
+                          else None)
 
     def reset(self):
         self.payload_policy = PayloadPolicy()
+        if self.postreach is not None:
+            self.postreach.reset()
 
     def select(self, graph, state, actions, ctx):
+        if self.postreach is not None and self.postreach.enabled():
+            action, label = self.postreach.pick(actions, state, graph, ctx)
+            ctx["decision_mode"] = label
+            return action
         keys = [a.key() for a in actions]
         untried = set(graph.untried_actions(ctx["sig"], keys))
 
