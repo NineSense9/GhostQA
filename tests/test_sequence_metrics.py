@@ -4,12 +4,15 @@ from ghostqa.executor.sim import SimExecutor
 from ghostqa.exploration.explorer import run_exploration
 from ghostqa.exploration.policy import GhostPolicy
 from ghostqa.exploration.sequence import (
-    SequenceController, canonical_sequence_metrics, is_hub, branch_key,
+    SequenceController, canonical_sequence_metrics,
 )
 from ghostqa.oracle.engine import OracleEngine
 from ghostqa.state.graph import StateGraph
-from ghostqa.state.models import Action, GUIState, UIElement
-from tests.test_sequence import _seq_app, _hub_state, _el
+from ghostqa.state.models import Action, GUIState
+try:
+    from helpers import make_hub_state, make_seq_app, make_seq_el
+except ImportError:  # python -m pytest adds repo root, not tests/
+    from tests.helpers import make_hub_state, make_seq_app, make_seq_el
 
 
 def test_two_variants_one_canonical_hub():
@@ -17,7 +20,7 @@ def test_two_variants_one_canonical_hub():
     g = StateGraph()
     g.add_state("h:a", "/hub", "Hub", cluster_id="hub", variant_key="a")
     g.add_state("h:b", "/hub", "Hub", cluster_id="hub", variant_key="b")
-    hub = _hub_state()
+    hub = make_hub_state()
     ctrl.after("h:a", Action("click", "go_a"), hub, hub, "new", [], "x", False, g, 1)
     ctrl.after("h:b", Action("click", "go_b"), hub, hub, "new", [], "y", False, g, 2)
     m = canonical_sequence_metrics(ctrl.events)
@@ -30,7 +33,7 @@ def test_same_branch_across_variants_is_one_unique():
     g = StateGraph()
     g.add_state("h:a", "/hub", "Hub", cluster_id="hub")
     g.add_state("h:b", "/hub", "Hub", cluster_id="hub")
-    hub = _hub_state()
+    hub = make_hub_state()
     a = Action("click", "go_a")
     ctrl.after("h:a", a, hub, hub, "new", [], "x", False, g, 1)
     ctrl.after("h:b", a, hub, hub, "new", [], "y", False, g, 2)
@@ -45,9 +48,9 @@ def test_return_completes_one_instance_once():
     g = StateGraph()
     g.add_state("h", "/hub", "Hub", cluster_id="hub")
     g.add_state("a", "/a", "A", cluster_id="a")
-    hub = _hub_state()
+    hub = make_hub_state()
     leaf = GUIState(app="t", url="/a", title="A",
-                    elements=(_el("x", "x"),), obs={})
+                    elements=(make_seq_el("x", "x"),), obs={})
     ctrl.after("h", Action("click", "go_a"), hub, leaf, "new", [], "a", False, g, 1)
     ctrl.ledger.returning = True
     ctrl.last_label = "return_hub"
@@ -64,7 +67,7 @@ def test_budget_end_is_open_not_completed():
     ctrl = SequenceController("sequence")
     g = StateGraph()
     g.add_state("h", "/hub", "Hub", cluster_id="hub")
-    hub = _hub_state()
+    hub = make_hub_state()
     ctrl.after("h", Action("click", "go_a"), hub, hub, "new", [], "a", False, g, 1)
     ctrl.close_open(step=40, sig="a", cluster="a")
     m = canonical_sequence_metrics(ctrl.events)
@@ -75,7 +78,7 @@ def test_budget_end_is_open_not_completed():
 def test_canonical_metrics_do_not_change_action_trace():
     def _keys():
         r = run_exploration(
-            SimExecutor(_seq_app()),
+            SimExecutor(make_seq_app()),
             GhostPolicy(NullLLM(), use_frontier=False, sequence_mode="sequence"),
             budget=16, oracle=OracleEngine())
         return [s.action.key() for s in r.steps], r.sequence_metrics
