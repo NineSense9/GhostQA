@@ -1,0 +1,2121 @@
+{
+  "runs": [
+    {
+      "policy": "ghost-nollm",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 13,
+      "clusters": 12,
+      "variants": 13,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 12
+      },
+      "candidates": 6,
+      "candidate_count": 6,
+      "matched_candidate_count": 3,
+      "confirmed_bug_count": 3,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.139,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "ttf": 1,
+      "ttcb": 6,
+      "ttdcb": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.3,
+      "replay_attempted": 3,
+      "replay_pass": 3,
+      "replay_fail": 0,
+      "replay_invalid": 0,
+      "replay_success_rate": 1.0,
+      "candidates_after_reset": 0,
+      "confirmed_after_reset": 0,
+      "candidate_episode_ids": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "episode_count": 1,
+      "reset_count": 1,
+      "relocate_episode_count": 0,
+      "crash_recovery_episode_count": 0,
+      "max_episode_length": 40,
+      "mean_episode_length": 40.0,
+      "reset_events": [
+        {
+          "before_step": 0,
+          "reason": "initial",
+          "episode_id": 0
+        }
+      ],
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 53.7,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 4,
+      "input_action_share": 0.1,
+      "unique_inputs_touched": 2,
+      "progress_actions": 14,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 5.3,
+      "interaction_opportunity_mean": 3.8,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 11,
+        "BUG-D8": 25
+      },
+      "relocate_recommendations": 0,
+      "shadow_recommendations": 0,
+      "stay_count": 0,
+      "productive_relocate_count": 0,
+      "wasted_relocate_count": 0,
+      "productive_relocate_rate": null,
+      "wasted_relocate_rate": null,
+      "relocate_chain_count": 0,
+      "mean_restore_path_len": null,
+      "median_restore_path_len": null,
+      "actions_to_first_post_relocate_novelty": null,
+      "actions_to_first_post_relocate_finding": null,
+      "relocate_without_novelty_count": 0
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 1,
+      "budget": 80,
+      "actions": 80,
+      "states": 13,
+      "clusters": 12,
+      "variants": 13,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 12
+      },
+      "candidates": 6,
+      "candidate_count": 6,
+      "matched_candidate_count": 3,
+      "confirmed_bug_count": 3,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.177,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "ttf": 1,
+      "ttcb": 6,
+      "ttdcb": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.425,
+      "replay_attempted": 3,
+      "replay_pass": 3,
+      "replay_fail": 0,
+      "replay_invalid": 0,
+      "replay_success_rate": 1.0,
+      "candidates_after_reset": 0,
+      "confirmed_after_reset": 0,
+      "candidate_episode_ids": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "episode_count": 1,
+      "reset_count": 1,
+      "relocate_episode_count": 0,
+      "crash_recovery_episode_count": 0,
+      "max_episode_length": 80,
+      "mean_episode_length": 80.0,
+      "reset_events": [
+        {
+          "before_step": 0,
+          "reason": "initial",
+          "episode_id": 0
+        }
+      ],
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 75.8,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 4,
+      "input_action_share": 0.05,
+      "unique_inputs_touched": 2,
+      "progress_actions": 14,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 3.65,
+      "interaction_opportunity_mean": 2.9,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 11,
+        "BUG-D8": 25
+      },
+      "relocate_recommendations": 0,
+      "shadow_recommendations": 0,
+      "stay_count": 0,
+      "productive_relocate_count": 0,
+      "wasted_relocate_count": 0,
+      "productive_relocate_rate": null,
+      "wasted_relocate_rate": null,
+      "relocate_chain_count": 0,
+      "mean_restore_path_len": null,
+      "median_restore_path_len": null,
+      "actions_to_first_post_relocate_novelty": null,
+      "actions_to_first_post_relocate_finding": null,
+      "relocate_without_novelty_count": 0
+    },
+    {
+      "policy": "ghost-nollm",
+      "seed": 1,
+      "budget": 120,
+      "actions": 120,
+      "states": 13,
+      "clusters": 12,
+      "variants": 13,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 12
+      },
+      "candidates": 6,
+      "candidate_count": 6,
+      "matched_candidate_count": 3,
+      "confirmed_bug_count": 3,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D6",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.214,
+      "deep_bug_discovery_rate": 0.111,
+      "discovery_auc": 0.189,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 6,
+      "time_to_first_deep_confirmed_bug": 6,
+      "ttf": 1,
+      "ttcb": 6,
+      "ttdcb": 6,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 6,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.458,
+      "replay_attempted": 3,
+      "replay_pass": 3,
+      "replay_fail": 0,
+      "replay_invalid": 0,
+      "replay_success_rate": 1.0,
+      "candidates_after_reset": 0,
+      "confirmed_after_reset": 0,
+      "candidate_episode_ids": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "episode_count": 1,
+      "reset_count": 1,
+      "relocate_episode_count": 0,
+      "crash_recovery_episode_count": 0,
+      "max_episode_length": 120,
+      "mean_episode_length": 120.0,
+      "reset_events": [
+        {
+          "before_step": 0,
+          "reason": "initial",
+          "episode_id": 0
+        }
+      ],
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 97.9,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 4,
+      "input_action_share": 0.033,
+      "unique_inputs_touched": 2,
+      "progress_actions": 14,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 3.1,
+      "interaction_opportunity_mean": 2.6,
+      "first_step_by_bug": {
+        "BUG-D6": 6,
+        "BUG-D4": 11,
+        "BUG-D8": 25
+      },
+      "relocate_recommendations": 0,
+      "shadow_recommendations": 0,
+      "stay_count": 0,
+      "productive_relocate_count": 0,
+      "wasted_relocate_count": 0,
+      "productive_relocate_rate": null,
+      "wasted_relocate_rate": null,
+      "relocate_chain_count": 0,
+      "mean_restore_path_len": null,
+      "median_restore_path_len": null,
+      "actions_to_first_post_relocate_novelty": null,
+      "actions_to_first_post_relocate_finding": null,
+      "relocate_without_novelty_count": 0
+    },
+    {
+      "policy": "ghost-branch",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 11,
+      "clusters": 10,
+      "variants": 11,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 10
+      },
+      "candidates": 5,
+      "candidate_count": 5,
+      "matched_candidate_count": 2,
+      "confirmed_bug_count": 2,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.086,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 9,
+      "time_to_first_deep_confirmed_bug": null,
+      "ttf": 1,
+      "ttcb": 9,
+      "ttdcb": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.3,
+      "replay_attempted": 2,
+      "replay_pass": 2,
+      "replay_fail": 0,
+      "replay_invalid": 0,
+      "replay_success_rate": 1.0,
+      "candidates_after_reset": 0,
+      "confirmed_after_reset": 0,
+      "candidate_episode_ids": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "episode_count": 1,
+      "reset_count": 1,
+      "relocate_episode_count": 0,
+      "crash_recovery_episode_count": 0,
+      "max_episode_length": 40,
+      "mean_episode_length": 40.0,
+      "reset_events": [
+        {
+          "before_step": 0,
+          "reason": "initial",
+          "episode_id": 0
+        }
+      ],
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 45.2,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 4,
+      "input_action_share": 0.1,
+      "unique_inputs_touched": 2,
+      "progress_actions": 12,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 5.08,
+      "interaction_opportunity_mean": 3.58,
+      "first_step_by_bug": {
+        "BUG-D4": 9,
+        "BUG-D8": 23
+      },
+      "relocate_recommendations": 0,
+      "shadow_recommendations": 0,
+      "stay_count": 0,
+      "productive_relocate_count": 0,
+      "wasted_relocate_count": 0,
+      "productive_relocate_rate": null,
+      "wasted_relocate_rate": null,
+      "relocate_chain_count": 0,
+      "mean_restore_path_len": null,
+      "median_restore_path_len": null,
+      "actions_to_first_post_relocate_novelty": null,
+      "actions_to_first_post_relocate_finding": null,
+      "relocate_without_novelty_count": 0,
+      "hub_count": 1,
+      "hub_variant_count": 1,
+      "branches_discovered": 1,
+      "branches_started": 1,
+      "branches_completed": 0,
+      "branch_coverage": 0.0,
+      "unique_branch_targets": 3,
+      "branch_repeats": 0,
+      "mean_actions_per_branch": 35.0,
+      "mutation_count": 0,
+      "followup_actions": 0,
+      "sequences_started": 1,
+      "sequences_completed": 0,
+      "return_attempts": 0,
+      "return_success": 0,
+      "mean_sequence_len": 1.0,
+      "max_sequence_len": 1,
+      "canonical_hub_count": 1,
+      "hub_variant_inflation": 1.0,
+      "unique_branches_discovered": 1,
+      "unique_branches_started": 1,
+      "unique_branches_completed": 0,
+      "canonical_branch_coverage": 0.0,
+      "branch_start_events": 1,
+      "branch_attempts_total": 1,
+      "branch_revisit_attempts": 0,
+      "branch_attempts_per_unique_branch": 1.0,
+      "repeated_branch_attempt_rate": 0.0,
+      "sequence_instances_started": 1,
+      "sequence_instances_returned": 0,
+      "sequence_found_finding": 0,
+      "sequence_crashed": 0,
+      "sequence_horizon_expired": 0,
+      "sequence_budget_ended": 1,
+      "sequence_lost_parent": 0,
+      "sequence_instances_open_at_budget_end": 1,
+      "sequence_instance_completion_rate": 0.0,
+      "return_attempt_events": 0,
+      "return_success_rate": 0.0
+    },
+    {
+      "policy": "ghost-branch",
+      "seed": 1,
+      "budget": 80,
+      "actions": 80,
+      "states": 11,
+      "clusters": 10,
+      "variants": 11,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 10
+      },
+      "candidates": 5,
+      "candidate_count": 5,
+      "matched_candidate_count": 2,
+      "confirmed_bug_count": 2,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.114,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 9,
+      "time_to_first_deep_confirmed_bug": null,
+      "ttf": 1,
+      "ttcb": 9,
+      "ttdcb": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.425,
+      "replay_attempted": 2,
+      "replay_pass": 2,
+      "replay_fail": 0,
+      "replay_invalid": 0,
+      "replay_success_rate": 1.0,
+      "candidates_after_reset": 0,
+      "confirmed_after_reset": 0,
+      "candidate_episode_ids": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "episode_count": 1,
+      "reset_count": 1,
+      "relocate_episode_count": 0,
+      "crash_recovery_episode_count": 0,
+      "max_episode_length": 80,
+      "mean_episode_length": 80.0,
+      "reset_events": [
+        {
+          "before_step": 0,
+          "reason": "initial",
+          "episode_id": 0
+        }
+      ],
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 67.6,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 4,
+      "input_action_share": 0.05,
+      "unique_inputs_touched": 2,
+      "progress_actions": 12,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 3.54,
+      "interaction_opportunity_mean": 2.79,
+      "first_step_by_bug": {
+        "BUG-D4": 9,
+        "BUG-D8": 23
+      },
+      "relocate_recommendations": 0,
+      "shadow_recommendations": 0,
+      "stay_count": 0,
+      "productive_relocate_count": 0,
+      "wasted_relocate_count": 0,
+      "productive_relocate_rate": null,
+      "wasted_relocate_rate": null,
+      "relocate_chain_count": 0,
+      "mean_restore_path_len": null,
+      "median_restore_path_len": null,
+      "actions_to_first_post_relocate_novelty": null,
+      "actions_to_first_post_relocate_finding": null,
+      "relocate_without_novelty_count": 0,
+      "hub_count": 1,
+      "hub_variant_count": 1,
+      "branches_discovered": 1,
+      "branches_started": 1,
+      "branches_completed": 0,
+      "branch_coverage": 0.0,
+      "unique_branch_targets": 3,
+      "branch_repeats": 0,
+      "mean_actions_per_branch": 75.0,
+      "mutation_count": 0,
+      "followup_actions": 0,
+      "sequences_started": 1,
+      "sequences_completed": 0,
+      "return_attempts": 0,
+      "return_success": 0,
+      "mean_sequence_len": 1.0,
+      "max_sequence_len": 1,
+      "canonical_hub_count": 1,
+      "hub_variant_inflation": 1.0,
+      "unique_branches_discovered": 1,
+      "unique_branches_started": 1,
+      "unique_branches_completed": 0,
+      "canonical_branch_coverage": 0.0,
+      "branch_start_events": 1,
+      "branch_attempts_total": 1,
+      "branch_revisit_attempts": 0,
+      "branch_attempts_per_unique_branch": 1.0,
+      "repeated_branch_attempt_rate": 0.0,
+      "sequence_instances_started": 1,
+      "sequence_instances_returned": 0,
+      "sequence_found_finding": 0,
+      "sequence_crashed": 0,
+      "sequence_horizon_expired": 0,
+      "sequence_budget_ended": 1,
+      "sequence_lost_parent": 0,
+      "sequence_instances_open_at_budget_end": 1,
+      "sequence_instance_completion_rate": 0.0,
+      "return_attempt_events": 0,
+      "return_success_rate": 0.0
+    },
+    {
+      "policy": "ghost-branch",
+      "seed": 1,
+      "budget": 120,
+      "actions": 120,
+      "states": 11,
+      "clusters": 10,
+      "variants": 11,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 10
+      },
+      "candidates": 5,
+      "candidate_count": 5,
+      "matched_candidate_count": 2,
+      "confirmed_bug_count": 2,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.124,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 9,
+      "time_to_first_deep_confirmed_bug": null,
+      "ttf": 1,
+      "ttcb": 9,
+      "ttdcb": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.467,
+      "replay_attempted": 2,
+      "replay_pass": 2,
+      "replay_fail": 0,
+      "replay_invalid": 0,
+      "replay_success_rate": 1.0,
+      "candidates_after_reset": 0,
+      "confirmed_after_reset": 0,
+      "candidate_episode_ids": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "episode_count": 1,
+      "reset_count": 1,
+      "relocate_episode_count": 0,
+      "crash_recovery_episode_count": 0,
+      "max_episode_length": 120,
+      "mean_episode_length": 120.0,
+      "reset_events": [
+        {
+          "before_step": 0,
+          "reason": "initial",
+          "episode_id": 0
+        }
+      ],
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 89.7,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 4,
+      "input_action_share": 0.033,
+      "unique_inputs_touched": 2,
+      "progress_actions": 12,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 3.02,
+      "interaction_opportunity_mean": 2.52,
+      "first_step_by_bug": {
+        "BUG-D4": 9,
+        "BUG-D8": 23
+      },
+      "relocate_recommendations": 0,
+      "shadow_recommendations": 0,
+      "stay_count": 0,
+      "productive_relocate_count": 0,
+      "wasted_relocate_count": 0,
+      "productive_relocate_rate": null,
+      "wasted_relocate_rate": null,
+      "relocate_chain_count": 0,
+      "mean_restore_path_len": null,
+      "median_restore_path_len": null,
+      "actions_to_first_post_relocate_novelty": null,
+      "actions_to_first_post_relocate_finding": null,
+      "relocate_without_novelty_count": 0,
+      "hub_count": 1,
+      "hub_variant_count": 1,
+      "branches_discovered": 1,
+      "branches_started": 1,
+      "branches_completed": 0,
+      "branch_coverage": 0.0,
+      "unique_branch_targets": 3,
+      "branch_repeats": 0,
+      "mean_actions_per_branch": 115.0,
+      "mutation_count": 0,
+      "followup_actions": 0,
+      "sequences_started": 1,
+      "sequences_completed": 0,
+      "return_attempts": 0,
+      "return_success": 0,
+      "mean_sequence_len": 1.0,
+      "max_sequence_len": 1,
+      "canonical_hub_count": 1,
+      "hub_variant_inflation": 1.0,
+      "unique_branches_discovered": 1,
+      "unique_branches_started": 1,
+      "unique_branches_completed": 0,
+      "canonical_branch_coverage": 0.0,
+      "branch_start_events": 1,
+      "branch_attempts_total": 1,
+      "branch_revisit_attempts": 0,
+      "branch_attempts_per_unique_branch": 1.0,
+      "repeated_branch_attempt_rate": 0.0,
+      "sequence_instances_started": 1,
+      "sequence_instances_returned": 0,
+      "sequence_found_finding": 0,
+      "sequence_crashed": 0,
+      "sequence_horizon_expired": 0,
+      "sequence_budget_ended": 1,
+      "sequence_lost_parent": 0,
+      "sequence_instances_open_at_budget_end": 1,
+      "sequence_instance_completion_rate": 0.0,
+      "return_attempt_events": 0,
+      "return_success_rate": 0.0
+    },
+    {
+      "policy": "ghost-followup",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 11,
+      "clusters": 10,
+      "variants": 11,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 10
+      },
+      "candidates": 5,
+      "candidate_count": 5,
+      "matched_candidate_count": 2,
+      "confirmed_bug_count": 2,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.086,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 9,
+      "time_to_first_deep_confirmed_bug": null,
+      "ttf": 1,
+      "ttcb": 9,
+      "ttdcb": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.375,
+      "replay_attempted": 2,
+      "replay_pass": 2,
+      "replay_fail": 0,
+      "replay_invalid": 0,
+      "replay_success_rate": 1.0,
+      "candidates_after_reset": 0,
+      "confirmed_after_reset": 0,
+      "candidate_episode_ids": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "episode_count": 1,
+      "reset_count": 1,
+      "relocate_episode_count": 0,
+      "crash_recovery_episode_count": 0,
+      "max_episode_length": 40,
+      "mean_episode_length": 40.0,
+      "reset_events": [
+        {
+          "before_step": 0,
+          "reason": "initial",
+          "episode_id": 0
+        }
+      ],
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 45.5,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 4,
+      "input_action_share": 0.1,
+      "unique_inputs_touched": 2,
+      "progress_actions": 12,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 5.08,
+      "interaction_opportunity_mean": 3.58,
+      "first_step_by_bug": {
+        "BUG-D4": 9,
+        "BUG-D8": 23
+      },
+      "relocate_recommendations": 0,
+      "shadow_recommendations": 0,
+      "stay_count": 0,
+      "productive_relocate_count": 0,
+      "wasted_relocate_count": 0,
+      "productive_relocate_rate": null,
+      "wasted_relocate_rate": null,
+      "relocate_chain_count": 0,
+      "mean_restore_path_len": null,
+      "median_restore_path_len": null,
+      "actions_to_first_post_relocate_novelty": null,
+      "actions_to_first_post_relocate_finding": null,
+      "relocate_without_novelty_count": 0,
+      "hub_count": 1,
+      "hub_variant_count": 1,
+      "branches_discovered": 1,
+      "branches_started": 1,
+      "branches_completed": 0,
+      "branch_coverage": 0.0,
+      "unique_branch_targets": 3,
+      "branch_repeats": 0,
+      "mean_actions_per_branch": 35.0,
+      "mutation_count": 35,
+      "followup_actions": 0,
+      "sequences_started": 1,
+      "sequences_completed": 0,
+      "return_attempts": 0,
+      "return_success": 0,
+      "mean_sequence_len": 1.0,
+      "max_sequence_len": 1,
+      "canonical_hub_count": 1,
+      "hub_variant_inflation": 1.0,
+      "unique_branches_discovered": 1,
+      "unique_branches_started": 1,
+      "unique_branches_completed": 0,
+      "canonical_branch_coverage": 0.0,
+      "branch_start_events": 1,
+      "branch_attempts_total": 1,
+      "branch_revisit_attempts": 0,
+      "branch_attempts_per_unique_branch": 1.0,
+      "repeated_branch_attempt_rate": 0.0,
+      "sequence_instances_started": 1,
+      "sequence_instances_returned": 0,
+      "sequence_found_finding": 0,
+      "sequence_crashed": 0,
+      "sequence_horizon_expired": 0,
+      "sequence_budget_ended": 1,
+      "sequence_lost_parent": 0,
+      "sequence_instances_open_at_budget_end": 1,
+      "sequence_instance_completion_rate": 0.0,
+      "return_attempt_events": 0,
+      "return_success_rate": 0.0
+    },
+    {
+      "policy": "ghost-followup",
+      "seed": 1,
+      "budget": 80,
+      "actions": 80,
+      "states": 11,
+      "clusters": 10,
+      "variants": 11,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 10
+      },
+      "candidates": 5,
+      "candidate_count": 5,
+      "matched_candidate_count": 2,
+      "confirmed_bug_count": 2,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.114,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 9,
+      "time_to_first_deep_confirmed_bug": null,
+      "ttf": 1,
+      "ttcb": 9,
+      "ttdcb": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.55,
+      "replay_attempted": 2,
+      "replay_pass": 2,
+      "replay_fail": 0,
+      "replay_invalid": 0,
+      "replay_success_rate": 1.0,
+      "candidates_after_reset": 0,
+      "confirmed_after_reset": 0,
+      "candidate_episode_ids": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "episode_count": 1,
+      "reset_count": 1,
+      "relocate_episode_count": 0,
+      "crash_recovery_episode_count": 0,
+      "max_episode_length": 80,
+      "mean_episode_length": 80.0,
+      "reset_events": [
+        {
+          "before_step": 0,
+          "reason": "initial",
+          "episode_id": 0
+        }
+      ],
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 68.5,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 4,
+      "input_action_share": 0.05,
+      "unique_inputs_touched": 2,
+      "progress_actions": 12,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 3.54,
+      "interaction_opportunity_mean": 2.79,
+      "first_step_by_bug": {
+        "BUG-D4": 9,
+        "BUG-D8": 23
+      },
+      "relocate_recommendations": 0,
+      "shadow_recommendations": 0,
+      "stay_count": 0,
+      "productive_relocate_count": 0,
+      "wasted_relocate_count": 0,
+      "productive_relocate_rate": null,
+      "wasted_relocate_rate": null,
+      "relocate_chain_count": 0,
+      "mean_restore_path_len": null,
+      "median_restore_path_len": null,
+      "actions_to_first_post_relocate_novelty": null,
+      "actions_to_first_post_relocate_finding": null,
+      "relocate_without_novelty_count": 0,
+      "hub_count": 1,
+      "hub_variant_count": 1,
+      "branches_discovered": 1,
+      "branches_started": 1,
+      "branches_completed": 0,
+      "branch_coverage": 0.0,
+      "unique_branch_targets": 3,
+      "branch_repeats": 0,
+      "mean_actions_per_branch": 75.0,
+      "mutation_count": 75,
+      "followup_actions": 0,
+      "sequences_started": 1,
+      "sequences_completed": 0,
+      "return_attempts": 0,
+      "return_success": 0,
+      "mean_sequence_len": 1.0,
+      "max_sequence_len": 1,
+      "canonical_hub_count": 1,
+      "hub_variant_inflation": 1.0,
+      "unique_branches_discovered": 1,
+      "unique_branches_started": 1,
+      "unique_branches_completed": 0,
+      "canonical_branch_coverage": 0.0,
+      "branch_start_events": 1,
+      "branch_attempts_total": 1,
+      "branch_revisit_attempts": 0,
+      "branch_attempts_per_unique_branch": 1.0,
+      "repeated_branch_attempt_rate": 0.0,
+      "sequence_instances_started": 1,
+      "sequence_instances_returned": 0,
+      "sequence_found_finding": 0,
+      "sequence_crashed": 0,
+      "sequence_horizon_expired": 0,
+      "sequence_budget_ended": 1,
+      "sequence_lost_parent": 0,
+      "sequence_instances_open_at_budget_end": 1,
+      "sequence_instance_completion_rate": 0.0,
+      "return_attempt_events": 0,
+      "return_success_rate": 0.0
+    },
+    {
+      "policy": "ghost-followup",
+      "seed": 1,
+      "budget": 120,
+      "actions": 120,
+      "states": 11,
+      "clusters": 10,
+      "variants": 11,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 1,
+        "new": 10
+      },
+      "candidates": 5,
+      "candidate_count": 5,
+      "matched_candidate_count": 2,
+      "confirmed_bug_count": 2,
+      "bugs_found": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "confirmed_bugs": [
+        "BUG-D4",
+        "BUG-D8"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.0,
+      "discovery_auc": 0.124,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 9,
+      "time_to_first_deep_confirmed_bug": null,
+      "ttf": 1,
+      "ttcb": 9,
+      "ttdcb": null,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": null,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 2
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.617,
+      "replay_attempted": 2,
+      "replay_pass": 2,
+      "replay_fail": 0,
+      "replay_invalid": 0,
+      "replay_success_rate": 1.0,
+      "candidates_after_reset": 0,
+      "confirmed_after_reset": 0,
+      "candidate_episode_ids": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "episode_count": 1,
+      "reset_count": 1,
+      "relocate_episode_count": 0,
+      "crash_recovery_episode_count": 0,
+      "max_episode_length": 120,
+      "mean_episode_length": 120.0,
+      "reset_events": [
+        {
+          "before_step": 0,
+          "reason": "initial",
+          "episode_id": 0
+        }
+      ],
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 92.0,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 4,
+      "input_action_share": 0.033,
+      "unique_inputs_touched": 2,
+      "progress_actions": 12,
+      "max_workflow_depth": 3,
+      "raw_action_count_mean": 3.02,
+      "interaction_opportunity_mean": 2.52,
+      "first_step_by_bug": {
+        "BUG-D4": 9,
+        "BUG-D8": 23
+      },
+      "relocate_recommendations": 0,
+      "shadow_recommendations": 0,
+      "stay_count": 0,
+      "productive_relocate_count": 0,
+      "wasted_relocate_count": 0,
+      "productive_relocate_rate": null,
+      "wasted_relocate_rate": null,
+      "relocate_chain_count": 0,
+      "mean_restore_path_len": null,
+      "median_restore_path_len": null,
+      "actions_to_first_post_relocate_novelty": null,
+      "actions_to_first_post_relocate_finding": null,
+      "relocate_without_novelty_count": 0,
+      "hub_count": 1,
+      "hub_variant_count": 1,
+      "branches_discovered": 1,
+      "branches_started": 1,
+      "branches_completed": 0,
+      "branch_coverage": 0.0,
+      "unique_branch_targets": 3,
+      "branch_repeats": 0,
+      "mean_actions_per_branch": 115.0,
+      "mutation_count": 115,
+      "followup_actions": 0,
+      "sequences_started": 1,
+      "sequences_completed": 0,
+      "return_attempts": 0,
+      "return_success": 0,
+      "mean_sequence_len": 1.0,
+      "max_sequence_len": 1,
+      "canonical_hub_count": 1,
+      "hub_variant_inflation": 1.0,
+      "unique_branches_discovered": 1,
+      "unique_branches_started": 1,
+      "unique_branches_completed": 0,
+      "canonical_branch_coverage": 0.0,
+      "branch_start_events": 1,
+      "branch_attempts_total": 1,
+      "branch_revisit_attempts": 0,
+      "branch_attempts_per_unique_branch": 1.0,
+      "repeated_branch_attempt_rate": 0.0,
+      "sequence_instances_started": 1,
+      "sequence_instances_returned": 0,
+      "sequence_found_finding": 0,
+      "sequence_crashed": 0,
+      "sequence_horizon_expired": 0,
+      "sequence_budget_ended": 1,
+      "sequence_lost_parent": 0,
+      "sequence_instances_open_at_budget_end": 1,
+      "sequence_instance_completion_rate": 0.0,
+      "return_attempt_events": 0,
+      "return_success_rate": 0.0
+    },
+    {
+      "policy": "ghost-sequence",
+      "seed": 1,
+      "budget": 40,
+      "actions": 40,
+      "states": 20,
+      "clusters": 8,
+      "variants": 20,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 12,
+        "new": 8
+      },
+      "candidates": 5,
+      "candidate_count": 5,
+      "matched_candidate_count": 2,
+      "confirmed_bug_count": 2,
+      "bugs_found": [
+        "BUG-D12",
+        "BUG-D6"
+      ],
+      "confirmed_bugs": [
+        "BUG-D12",
+        "BUG-D6"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.222,
+      "discovery_auc": 0.071,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 14,
+      "time_to_first_deep_confirmed_bug": 14,
+      "ttf": 1,
+      "ttcb": 14,
+      "ttdcb": 14,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 14,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 0
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 1
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.35,
+      "replay_attempted": 2,
+      "replay_pass": 2,
+      "replay_fail": 0,
+      "replay_invalid": 0,
+      "replay_success_rate": 1.0,
+      "candidates_after_reset": 0,
+      "confirmed_after_reset": 0,
+      "candidate_episode_ids": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "episode_count": 1,
+      "reset_count": 1,
+      "relocate_episode_count": 0,
+      "crash_recovery_episode_count": 0,
+      "max_episode_length": 40,
+      "mean_episode_length": 40.0,
+      "reset_events": [
+        {
+          "before_step": 0,
+          "reason": "initial",
+          "episode_id": 0
+        }
+      ],
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 50.4,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 40,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 9,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 6.3,
+      "interaction_opportunity_mean": 5.67,
+      "first_step_by_bug": {
+        "BUG-D6": 14,
+        "BUG-D12": 26
+      },
+      "relocate_recommendations": 0,
+      "shadow_recommendations": 0,
+      "stay_count": 0,
+      "productive_relocate_count": 0,
+      "wasted_relocate_count": 0,
+      "productive_relocate_rate": null,
+      "wasted_relocate_rate": null,
+      "relocate_chain_count": 0,
+      "mean_restore_path_len": null,
+      "median_restore_path_len": null,
+      "actions_to_first_post_relocate_novelty": null,
+      "actions_to_first_post_relocate_finding": null,
+      "relocate_without_novelty_count": 0,
+      "hub_count": 14,
+      "hub_variant_count": 14,
+      "branches_discovered": 8,
+      "branches_started": 8,
+      "branches_completed": 2,
+      "branch_coverage": 0.25,
+      "unique_branch_targets": 15,
+      "branch_repeats": 0,
+      "mean_actions_per_branch": 0.048,
+      "mutation_count": 36,
+      "followup_actions": 12,
+      "sequences_started": 21,
+      "sequences_completed": 10,
+      "return_attempts": 24,
+      "return_success": 10,
+      "mean_sequence_len": 1.0,
+      "max_sequence_len": 1,
+      "canonical_hub_count": 3,
+      "hub_variant_inflation": 4.667,
+      "unique_branches_discovered": 8,
+      "unique_branches_started": 8,
+      "unique_branches_completed": 2,
+      "canonical_branch_coverage": 0.25,
+      "branch_start_events": 21,
+      "branch_attempts_total": 21,
+      "branch_revisit_attempts": 13,
+      "branch_attempts_per_unique_branch": 2.625,
+      "repeated_branch_attempt_rate": 0.619,
+      "sequence_instances_started": 21,
+      "sequence_instances_returned": 2,
+      "sequence_found_finding": 8,
+      "sequence_crashed": 0,
+      "sequence_horizon_expired": 0,
+      "sequence_budget_ended": 0,
+      "sequence_lost_parent": 11,
+      "sequence_instances_open_at_budget_end": 0,
+      "sequence_instance_completion_rate": 0.095,
+      "return_attempt_events": 8,
+      "return_success_rate": 0.154
+    },
+    {
+      "policy": "ghost-sequence",
+      "seed": 1,
+      "budget": 80,
+      "actions": 80,
+      "states": 41,
+      "clusters": 8,
+      "variants": 41,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 33,
+        "new": 8
+      },
+      "candidates": 5,
+      "candidate_count": 5,
+      "matched_candidate_count": 2,
+      "confirmed_bug_count": 2,
+      "bugs_found": [
+        "BUG-D12",
+        "BUG-D6"
+      ],
+      "confirmed_bugs": [
+        "BUG-D12",
+        "BUG-D6"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.222,
+      "discovery_auc": 0.107,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 14,
+      "time_to_first_deep_confirmed_bug": 14,
+      "ttf": 1,
+      "ttcb": 14,
+      "ttdcb": 14,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 14,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 0
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 1
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.438,
+      "replay_attempted": 2,
+      "replay_pass": 2,
+      "replay_fail": 0,
+      "replay_invalid": 0,
+      "replay_success_rate": 1.0,
+      "candidates_after_reset": 0,
+      "confirmed_after_reset": 0,
+      "candidate_episode_ids": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "episode_count": 1,
+      "reset_count": 1,
+      "relocate_episode_count": 0,
+      "crash_recovery_episode_count": 0,
+      "max_episode_length": 80,
+      "mean_episode_length": 80.0,
+      "reset_events": [
+        {
+          "before_step": 0,
+          "reason": "initial",
+          "episode_id": 0
+        }
+      ],
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 74.0,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 80,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 9,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 5.9,
+      "interaction_opportunity_mean": 5.59,
+      "first_step_by_bug": {
+        "BUG-D6": 14,
+        "BUG-D12": 26
+      },
+      "relocate_recommendations": 0,
+      "shadow_recommendations": 0,
+      "stay_count": 0,
+      "productive_relocate_count": 0,
+      "wasted_relocate_count": 0,
+      "productive_relocate_rate": null,
+      "wasted_relocate_rate": null,
+      "relocate_chain_count": 0,
+      "mean_restore_path_len": null,
+      "median_restore_path_len": null,
+      "actions_to_first_post_relocate_novelty": null,
+      "actions_to_first_post_relocate_finding": null,
+      "relocate_without_novelty_count": 0,
+      "hub_count": 34,
+      "hub_variant_count": 34,
+      "branches_discovered": 8,
+      "branches_started": 8,
+      "branches_completed": 2,
+      "branch_coverage": 0.25,
+      "unique_branch_targets": 15,
+      "branch_repeats": 0,
+      "mean_actions_per_branch": 0.019,
+      "mutation_count": 72,
+      "followup_actions": 22,
+      "sequences_started": 53,
+      "sequences_completed": 24,
+      "return_attempts": 46,
+      "return_success": 24,
+      "mean_sequence_len": 1.0,
+      "max_sequence_len": 1,
+      "canonical_hub_count": 3,
+      "hub_variant_inflation": 11.333,
+      "unique_branches_discovered": 8,
+      "unique_branches_started": 8,
+      "unique_branches_completed": 2,
+      "canonical_branch_coverage": 0.25,
+      "branch_start_events": 53,
+      "branch_attempts_total": 53,
+      "branch_revisit_attempts": 45,
+      "branch_attempts_per_unique_branch": 6.625,
+      "repeated_branch_attempt_rate": 0.849,
+      "sequence_instances_started": 53,
+      "sequence_instances_returned": 2,
+      "sequence_found_finding": 22,
+      "sequence_crashed": 0,
+      "sequence_horizon_expired": 0,
+      "sequence_budget_ended": 1,
+      "sequence_lost_parent": 28,
+      "sequence_instances_open_at_budget_end": 1,
+      "sequence_instance_completion_rate": 0.038,
+      "return_attempt_events": 16,
+      "return_success_rate": 0.065
+    },
+    {
+      "policy": "ghost-sequence",
+      "seed": 1,
+      "budget": 120,
+      "actions": 120,
+      "states": 63,
+      "clusters": 8,
+      "variants": 63,
+      "relocate_count": 0,
+      "restore_failures": 0,
+      "similarity": {
+        "identical": 0,
+        "similar": 55,
+        "new": 8
+      },
+      "candidates": 5,
+      "candidate_count": 5,
+      "matched_candidate_count": 2,
+      "confirmed_bug_count": 2,
+      "bugs_found": [
+        "BUG-D12",
+        "BUG-D6"
+      ],
+      "confirmed_bugs": [
+        "BUG-D12",
+        "BUG-D6"
+      ],
+      "bug_discovery_rate": 0.143,
+      "deep_bug_discovery_rate": 0.222,
+      "discovery_auc": 0.119,
+      "time_to_first_finding": 1,
+      "time_to_first_confirmed_bug": 14,
+      "time_to_first_deep_confirmed_bug": 14,
+      "ttf": 1,
+      "ttcb": 14,
+      "ttdcb": 14,
+      "time_to_first_bug": 1,
+      "time_to_first_deep_bug": 14,
+      "bugs_by_depth": {
+        "2": {
+          "total": 3,
+          "confirmed": 0
+        },
+        "3": {
+          "total": 2,
+          "confirmed": 0
+        },
+        "4": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "6": {
+          "total": 1,
+          "confirmed": 1
+        },
+        "7": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "12": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "10": {
+          "total": 1,
+          "confirmed": 0
+        },
+        "9": {
+          "total": 3,
+          "confirmed": 1
+        },
+        "8": {
+          "total": 1,
+          "confirmed": 0
+        }
+      },
+      "repeat_rate": 0.483,
+      "replay_attempted": 2,
+      "replay_pass": 2,
+      "replay_fail": 0,
+      "replay_invalid": 0,
+      "replay_success_rate": 1.0,
+      "candidates_after_reset": 0,
+      "confirmed_after_reset": 0,
+      "candidate_episode_ids": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "episode_count": 1,
+      "reset_count": 1,
+      "relocate_episode_count": 0,
+      "crash_recovery_episode_count": 0,
+      "max_episode_length": 120,
+      "mean_episode_length": 120.0,
+      "reset_events": [
+        {
+          "before_step": 0,
+          "reason": "initial",
+          "episode_id": 0
+        }
+      ],
+      "min_repro_ratio": null,
+      "llm_calls": 0,
+      "tokens": 0,
+      "wall_seconds": 97.9,
+      "restore_actions": 0,
+      "restore_ratio": 0.0,
+      "productive_actions": 120,
+      "input_actions_executed": 0,
+      "input_action_share": 0.0,
+      "unique_inputs_touched": 0,
+      "progress_actions": 9,
+      "max_workflow_depth": 4,
+      "raw_action_count_mean": 5.72,
+      "interaction_opportunity_mean": 5.52,
+      "first_step_by_bug": {
+        "BUG-D6": 14,
+        "BUG-D12": 26
+      },
+      "relocate_recommendations": 0,
+      "shadow_recommendations": 0,
+      "stay_count": 0,
+      "productive_relocate_count": 0,
+      "wasted_relocate_count": 0,
+      "productive_relocate_rate": null,
+      "wasted_relocate_rate": null,
+      "relocate_chain_count": 0,
+      "mean_restore_path_len": null,
+      "median_restore_path_len": null,
+      "actions_to_first_post_relocate_novelty": null,
+      "actions_to_first_post_relocate_finding": null,
+      "relocate_without_novelty_count": 0,
+      "hub_count": 57,
+      "hub_variant_count": 57,
+      "branches_discovered": 8,
+      "branches_started": 8,
+      "branches_completed": 2,
+      "branch_coverage": 0.25,
+      "unique_branch_targets": 15,
+      "branch_repeats": 0,
+      "mean_actions_per_branch": 0.011,
+      "mutation_count": 108,
+      "followup_actions": 33,
+      "sequences_started": 87,
+      "sequences_completed": 39,
+      "return_attempts": 67,
+      "return_success": 39,
+      "mean_sequence_len": 1.0,
+      "max_sequence_len": 1,
+      "canonical_hub_count": 3,
+      "hub_variant_inflation": 19.0,
+      "unique_branches_discovered": 8,
+      "unique_branches_started": 8,
+      "unique_branches_completed": 2,
+      "canonical_branch_coverage": 0.25,
+      "branch_start_events": 87,
+      "branch_attempts_total": 87,
+      "branch_revisit_attempts": 79,
+      "branch_attempts_per_unique_branch": 10.875,
+      "repeated_branch_attempt_rate": 0.908,
+      "sequence_instances_started": 87,
+      "sequence_instances_returned": 2,
+      "sequence_found_finding": 37,
+      "sequence_crashed": 0,
+      "sequence_horizon_expired": 0,
+      "sequence_budget_ended": 1,
+      "sequence_lost_parent": 47,
+      "sequence_instances_open_at_budget_end": 1,
+      "sequence_instance_completion_rate": 0.023,
+      "return_attempt_events": 22,
+      "return_success_rate": 0.04
+    }
+  ],
+  "aggregate": [
+    {
+      "policy": "ghost-nollm",
+      "runs": 3,
+      "budgets": [
+        40,
+        80,
+        120
+      ],
+      "bugs_mean": 0.214,
+      "bugs_std": 0.0,
+      "bugs_min": 0.214,
+      "bugs_max": 0.214,
+      "deep_mean": 0.111,
+      "auc_mean": 0.168,
+      "ttf_mean": 1,
+      "ttcb_mean": 6,
+      "ttdcb_mean": 6,
+      "t2bug_mean": 1,
+      "replay_pass_sum": 9,
+      "replay_fail_sum": 0,
+      "replay_invalid_sum": 0,
+      "episode_count_mean": 1,
+      "relocate_episode_mean": 0,
+      "states_mean": 13,
+      "clusters_mean": 12,
+      "relocate_mean": 0,
+      "repeat_rate_mean": 0.394,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 75.8
+    },
+    {
+      "policy": "ghost-branch",
+      "runs": 3,
+      "budgets": [
+        40,
+        80,
+        120
+      ],
+      "bugs_mean": 0.143,
+      "bugs_std": 0.0,
+      "bugs_min": 0.143,
+      "bugs_max": 0.143,
+      "deep_mean": 0.0,
+      "auc_mean": 0.108,
+      "ttf_mean": 1,
+      "ttcb_mean": 9,
+      "ttdcb_mean": null,
+      "t2bug_mean": 1,
+      "replay_pass_sum": 6,
+      "replay_fail_sum": 0,
+      "replay_invalid_sum": 0,
+      "episode_count_mean": 1,
+      "relocate_episode_mean": 0,
+      "states_mean": 11,
+      "clusters_mean": 10,
+      "relocate_mean": 0,
+      "repeat_rate_mean": 0.397,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 67.5
+    },
+    {
+      "policy": "ghost-followup",
+      "runs": 3,
+      "budgets": [
+        40,
+        80,
+        120
+      ],
+      "bugs_mean": 0.143,
+      "bugs_std": 0.0,
+      "bugs_min": 0.143,
+      "bugs_max": 0.143,
+      "deep_mean": 0.0,
+      "auc_mean": 0.108,
+      "ttf_mean": 1,
+      "ttcb_mean": 9,
+      "ttdcb_mean": null,
+      "t2bug_mean": 1,
+      "replay_pass_sum": 6,
+      "replay_fail_sum": 0,
+      "replay_invalid_sum": 0,
+      "episode_count_mean": 1,
+      "relocate_episode_mean": 0,
+      "states_mean": 11,
+      "clusters_mean": 10,
+      "relocate_mean": 0,
+      "repeat_rate_mean": 0.514,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 68.7
+    },
+    {
+      "policy": "ghost-sequence",
+      "runs": 3,
+      "budgets": [
+        40,
+        80,
+        120
+      ],
+      "bugs_mean": 0.143,
+      "bugs_std": 0.0,
+      "bugs_min": 0.143,
+      "bugs_max": 0.143,
+      "deep_mean": 0.222,
+      "auc_mean": 0.099,
+      "ttf_mean": 1,
+      "ttcb_mean": 14,
+      "ttdcb_mean": 14,
+      "t2bug_mean": 1,
+      "replay_pass_sum": 6,
+      "replay_fail_sum": 0,
+      "replay_invalid_sum": 0,
+      "episode_count_mean": 1,
+      "relocate_episode_mean": 0,
+      "states_mean": 41.3,
+      "clusters_mean": 8,
+      "relocate_mean": 0,
+      "repeat_rate_mean": 0.424,
+      "llm_calls_mean": 0,
+      "wall_mean_s": 74.1
+    }
+  ]
+}

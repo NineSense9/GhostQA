@@ -1,0 +1,14 @@
+{
+  "app": "buggy-flow",
+  "benchmark_freeze_sha": "5355abd444eb4a4e99242c7629a1363c38e52a2a",
+  "algorithm_head": "090466d",
+  "product": "v0.4 preview",
+  "measurement": "v0.3.5.1 Sequence Measurement Correctness",
+  "budgets": [40, 80, 120],
+  "trials": [1],
+  "trial_note": "n=1 deterministic. Behavior must match v0.3.5 confirmed bugs.",
+  "policies": ["ghost-nollm", "ghost-branch", "ghost-followup", "ghost-sequence"],
+  "holdout": "unscored",
+  "real_llm": "skipped",
+  "note": "No SequenceController behavior change. Canonical metrics are post-hoc from append-only events. DFS/BFS/WorkflowBFS not rerun."
+}
