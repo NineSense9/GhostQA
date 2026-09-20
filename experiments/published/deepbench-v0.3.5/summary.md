@@ -106,3 +106,17 @@ Yes: remaining DeepBench gaps are **short-horizon sequences on a hub**, not “h
 - Do not default S3 yet (loses D4/D8, noisy hub_count).
 
 No Jaccard/aHash this round. No Real LLM. No Dashboard redesign.
+
+# Sequence Metric Erratum
+
+v0.3.5 `hub_count` and runtime sequence counters were inflated by exact-state semantic variants.
+
+Branch identity was cluster-level (`cluster:click:eid`), while hub records were exact-sig keyed.
+
+Confirmed bug outcomes, BDR, Deep-BDR, TTCB and TTDCB are unaffected. D6 and D12 stand.
+
+Canonical sequence metrics are corrected in v0.3.5.1 (`experiments/published/deepbench-v0.3.5.1/`).
+
+**Still valid:** confirmed_bugs, BDR, Deep-BDR, TTF, TTCB, TTDCB, action trace, D6, D12, unique `branch_key` unions (`branches_started=8`).
+
+**Superseded:** `hub_count` (57 @120), `sequences_started` (87), `sequences_completed` (39), `return_success` (39), `mean_sequence_len`. `return_attempts` was also double-counted (returning-loop + `return_hub` label).

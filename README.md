@@ -114,6 +114,9 @@ python -m ghostqa run --url ... --policy ghost --llm ...
   - `ghost-sequence`@40 确认 **D6 + D12**，Deep-BDR=0.222（此前 Deep-BDR 天花板是 0.111）。
   - S1/S2 无 commitment 会丢 D6。S3 保 D6 但丢掉 D4/D8，BDR=0.143。
   - DFS@120 仍是最高 BDR（0.429）。sequence 是 experimental，不是新默认。
+- **DeepBench v0.3.5.1**（同一 freeze，measurement only）：`experiments/published/deepbench-v0.3.5.1/`
+  - 行为未改：ghost-sequence 仍是 D6+D12，BDR=0.143，Deep-BDR=0.222，TTCB=14。
+  - `hub_count=57` 是 exact-sig 变体计数；**canonical_hub_count=3**。87 次 sequence instance ≠ 87 条 unique branch。
 
 ## 架构
 
