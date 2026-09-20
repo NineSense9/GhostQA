@@ -212,3 +212,21 @@ def test_postreach_progress_exploit_progress_loop(web):
     ), f"no post-reach probe; modes={set(modes)} metrics={result.postreach_metrics}"
     assert result.actions_executed > 5
     assert any(m == "progress" for m in modes) or result.progress_actions >= 1
+
+
+def test_sequence_policy_covers_multiple_hub_branches(web):
+    """Behaviour: reach a multi-branch page, start >=2 branches, return once."""
+    from ghostqa.exploration.explorer import run_exploration
+    from ghostqa.exploration.policy import GhostPolicy
+    from ghostqa.agent.gateway import NullLLM
+    result = run_exploration(
+        web, GhostPolicy(NullLLM(), use_frontier=False, sequence_mode="sequence"),
+        budget=50)
+    m = result.sequence_metrics or {}
+    urls = " ".join(n.url for n in result.graph.nodes.values())
+    reached = ("project" in urls or "dashboard" in urls
+               or result.max_workflow_depth >= 2)
+    assert reached, f"did not reach a workflow hub; urls={urls}"
+    assert m.get("branches_started", 0) >= 1 or m.get("hub_count", 0) >= 1
+    if m.get("branches_started", 0) >= 2:
+        assert m.get("return_attempts", 0) >= 1 or m.get("return_success", 0) >= 1

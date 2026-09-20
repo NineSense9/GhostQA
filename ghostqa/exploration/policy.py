@@ -27,6 +27,7 @@ from .relocate import (
     RESERVE_DEFAULT, LEASE_K_DEFAULT,
 )
 from .postreach import PostReachController
+from .sequence import SequenceController
 
 RISK_KEYWORDS = ["支付", "删除", "提交", "结算", "清空", "注册", "购买", "登录",
                  "pay", "delete", "submit", "clear", "checkout", "buy", "login"]
@@ -121,7 +122,8 @@ class GhostPolicy(Policy):
     def __init__(self, llm=None, weights: dict = None,
                  use_frontier: bool = False, use_semantic_state: bool = True,
                  progressive: bool = True, relocate_mode: str = "opportunity",
-                 postreach_mode: str = "off"):
+                 postreach_mode: str = "off",
+                 sequence_mode: str = "off"):
         self.llm = llm or NullLLM()
         self.w = dict(DEFAULT_WEIGHTS)
         self.w.setdefault("w7_progress", 0.55)
@@ -142,6 +144,10 @@ class GhostPolicy(Policy):
         self.postreach = (PostReachController(postreach_mode)
                           if postreach_mode and postreach_mode != "off"
                           else None)
+        self.sequence_mode = sequence_mode
+        self.sequence = (SequenceController(sequence_mode)
+                         if sequence_mode and sequence_mode != "off"
+                         else None)
 
     def reset(self):
         self._semantic_cache = {}
@@ -152,6 +158,8 @@ class GhostPolicy(Policy):
             self.payload_policy = PayloadPolicy()
         if self.postreach is not None:
             self.postreach.reset()
+        if self.sequence is not None:
+            self.sequence.reset()
 
     # ---- program-computed terms ----
     def _novelty(self, graph, sig: str, action: Action) -> float:
@@ -421,16 +429,30 @@ class GhostPolicy(Policy):
             ctx["decision_mode"] = label
             ctx["last_decision"] = {"mode": label, "chosen": action.brief()}
             return action
+        seq = self.sequence
+        if seq is not None and seq.enabled():
+            ov = seq.pick_override(actions, state, graph, ctx)
+            if ov is not None:
+                label = seq.last_label
+                ctx["decision_mode"] = label
+                ctx["last_decision"] = {"mode": label, "chosen": ov.brief()}
+                return ov
         if self.payload_policy is not None:
             ctx["form_progress"] = form_progress(
                 state, self.payload_policy.tried_fields(ctx["sig"]))
         program_scores = {a.key(): self._program_score(graph, state, a, ctx)
                           for a in actions}
+        if seq is not None and seq.enabled():
+            for a in actions:
+                program_scores[a.key()] += seq.score_bonus(a, state, graph, ctx)
         ranked = sorted(actions, key=lambda a: -program_scores[a.key()])
 
         reasons = self._gate_reasons(program_scores, ranked, ctx) \
             if self.use_llm else []
         if not reasons:
+            ctx["decision_mode"] = (
+                seq.label_for(ranked[0], state) if seq is not None and seq.enabled()
+                else "normal")
             return ranked[0]
 
         topk = ranked[: int(self.w["slow_path_topk"])]

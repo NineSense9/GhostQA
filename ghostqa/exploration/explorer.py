@@ -100,6 +100,7 @@ class RunResult:
     relocation_decisions: list = field(default_factory=list)
     relocation_metrics: dict = field(default_factory=dict)
     postreach_metrics: dict = field(default_factory=dict)
+    sequence_metrics: dict = field(default_factory=dict)
 
     def actions(self):
         """Flattened global action list. Do not use for replay.
@@ -398,6 +399,11 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
                 if new_state is not None:
                     pp.mark_progress(new_sig)
 
+        seqc = getattr(policy, "sequence", None)
+        if seqc is not None and not restore_step:
+            seqc.after(sig, action, state, new_state, relation, findings,
+                       new_sig, bool(exec_result.crashed), graph, step_idx)
+
         pr = getattr(policy, "postreach", None)
         if pr is not None and not restore_step:
             via = is_progress_action(action, state)
@@ -472,6 +478,9 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
     pr = getattr(policy, "postreach", None)
     if pr is not None:
         result.postreach_metrics = pr.ledger.snapshot()
+    seqc = getattr(policy, "sequence", None)
+    if seqc is not None:
+        result.sequence_metrics = seqc.ledger.metrics()
     result.unique_inputs_touched = len(inputs_touched)
     if diag_n:
         result.raw_action_count_mean = round(diag_raw_total / diag_n, 2)

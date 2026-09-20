@@ -67,6 +67,12 @@ def make_policy(name: str, seed: int):
         return GhostPolicy(llm=None, use_frontier=False, postreach_mode="exploit")
     if name == "ghost-postreach":
         return GhostPolicy(llm=None, use_frontier=False, postreach_mode="postreach")
+    if name == "ghost-branch":
+        return GhostPolicy(llm=None, use_frontier=False, sequence_mode="branch")
+    if name == "ghost-followup":
+        return GhostPolicy(llm=None, use_frontier=False, sequence_mode="followup")
+    if name == "ghost-sequence":
+        return GhostPolicy(llm=None, use_frontier=False, sequence_mode="sequence")
     if name == "workflow-bfs-postreach":
         return WorkflowBFSPolicy(postreach_mode="postreach")
     if name == "ghost-frontier-r0":
@@ -236,6 +242,7 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
         "first_step_by_bug": first_step,
         **(result.relocation_metrics or {}),
         **(result.postreach_metrics or {}),
+        **(result.sequence_metrics or {}),
     }
     if trace_dir:
         os.makedirs(trace_dir, exist_ok=True)
@@ -349,6 +356,8 @@ def main():
                           f"depth={row.get('max_workflow_depth')} "
                           f"def={row.get('deferred_payloads_executed')} "
                           f"exp={row.get('exploit_actions')} "
+                          f"hubs={row.get('hub_count')} "
+                          f"br={row.get('branches_started')} "
                           f"llm={row['llm_calls']} wall={row['wall_seconds']}s",
                           flush=True)
     finally:

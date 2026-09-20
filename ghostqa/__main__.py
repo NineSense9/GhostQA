@@ -66,6 +66,12 @@ def _make_policy(name: str, llm, seed: int):
         return GhostPolicy(llm=None, use_frontier=False, postreach_mode="exploit")
     if name == "ghost-postreach":
         return GhostPolicy(llm=None, use_frontier=False, postreach_mode="postreach")
+    if name == "ghost-branch":
+        return GhostPolicy(llm=None, use_frontier=False, sequence_mode="branch")
+    if name == "ghost-followup":
+        return GhostPolicy(llm=None, use_frontier=False, sequence_mode="followup")
+    if name == "ghost-sequence":
+        return GhostPolicy(llm=None, use_frontier=False, sequence_mode="sequence")
     if name == "ghost-frontier-r0":
         return GhostPolicy(llm=llm, use_frontier=True,
                            relocate_mode="opportunity")
