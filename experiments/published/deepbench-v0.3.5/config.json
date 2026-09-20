@@ -1,0 +1,25 @@
+{
+  "app": "buggy-flow",
+  "benchmark_freeze_sha": "5355abd444eb4a4e99242c7629a1363c38e52a2a",
+  "algorithm_head": "a863553",
+  "product": "v0.4 preview",
+  "measurement": "v0.3.5 Sequence-Aware Branch Exploration",
+  "budgets": [40, 80, 120],
+  "trials": [1],
+  "trial_note": "n=1 deterministic. Not random seeds.",
+  "policies": [
+    "dfs", "bfs", "workflow-bfs",
+    "ghost-nollm", "ghost-deferred",
+    "ghost-branch", "ghost-followup", "ghost-sequence"
+  ],
+  "holdout": "unscored",
+  "real_llm": "skipped",
+  "params": {
+    "HUB_MIN_BRANCHES": 3,
+    "BRANCH_HORIZON": 3,
+    "W_BRANCH_NOVELTY": 0.55,
+    "W_FOLLOWUP": 0.75,
+    "RETURN_BONUS": 0.65
+  },
+  "note": "No reset+replay. Sequence is natural navigation only. Product Ghost remains NoFrontier."
+}

@@ -109,6 +109,11 @@ python -m ghostqa run --url ... --policy ghost --llm ...
   - `ghost-deferred`@120 BDR=0.429 与 DFS 打平，Deep-BDR 仍 0.111（D6 保留），deferred=19。
   - Full postreach/exploit：deep interactions ↑ 但 **D6 消失、depth 4→2/3**。不能当默认。
   - D5/D7/D9–D14 仍未到达。下一瓶颈更像 sequence/semantic，不是再堆 payload。
+- **DeepBench v0.3.5**（同一 freeze `5355abd`，sequence/branch）：`experiments/published/deepbench-v0.3.5/`
+  - 产品 Ghost 仍是 NoFrontier。本轮加 hub 检测、branch commitment、mutation follow-up、return-to-hub（不 reset）。
+  - `ghost-sequence`@40 确认 **D6 + D12**，Deep-BDR=0.222（此前 Deep-BDR 天花板是 0.111）。
+  - S1/S2 无 commitment 会丢 D6。S3 保 D6 但丢掉 D4/D8，BDR=0.143。
+  - DFS@120 仍是最高 BDR（0.429）。sequence 是 experimental，不是新默认。
 
 ## 架构
 
