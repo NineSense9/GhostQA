@@ -1,0 +1,75 @@
+{
+  "name": "v0.3.9 return-cycle guard",
+  "executed": false,
+  "candidate": "ghost-structural-return-guard",
+  "controller": "ReturnCycleGuardSequenceController",
+  "baseline": "ghost-structural-memory",
+  "cycle_key": "new_sig",
+  "cycle_rule": "During an unresolved return phase, arriving at an exact destination signature already seen in that phase (parent not matched) is a return cycle. First exact repeat triggers escape. No N, no cluster-only trigger, no app hardcode.",
+  "escape_semantics": "Abandon active branch: returning=false, active_branch empty, parent cleared, commitment_left=0. Do not _complete_branch. Do not increment return_success / completed_total. Do not add to returned/completed. Event return_cycle_escape; optional sequence_terminal outcome return_cycle_abandoned if instance still open.",
+  "product_default": "NoFrontier, sequence_mode=off. Unchanged.",
+  "contamination": {
+    "buggy_shop": "inspected mechanism-development case, not clean holdout",
+    "deepbench": "historical regression only, not generalization",
+    "h1_h2": "excluded; already inspected; not evaluation targets"
+  },
+  "policies": {
+    "shop": ["ghost-structural-memory", "ghost-structural-return-guard"],
+    "deepbench": ["ghost-structural-memory", "ghost-structural-return-guard"]
+  },
+  "shop": {
+    "app": "buggy-shop",
+    "budgets": [120],
+    "trials": [1],
+    "independent_trial": false
+  },
+  "deepbench": {
+    "app": "buggy-flow",
+    "manifest": "bugs.manifest.json",
+    "app_freeze": "5355abd444eb4a4e99242c7629a1363c38e52a2a",
+    "budgets": [40, 80, 120],
+    "trials": [1]
+  },
+  "excluded": {
+    "policies": ["ghost-contextual", "ghost-contextual-crossview"],
+    "holdout": true,
+    "h1_h2_headline": true,
+    "real_llm": true,
+    "extra_budgets": true,
+    "threshold_ablation": true
+  },
+  "outcomes": {
+    "A": {
+      "label": "Mechanism repaired, regression-safe",
+      "shop": {
+        "require_escape": true,
+        "require_post_escape_novel_state": true,
+        "escaped_branch_not_returned": true,
+        "known_lock_resolved": true
+      },
+      "deepbench120": {
+        "require_D6": true,
+        "require_D12": true,
+        "min_depth": 4,
+        "no_lost_historical_c1": ["D6", "D7", "D11", "D12", "D13", "D14"]
+      }
+    },
+    "B": {
+      "label": "Mechanism repaired, but regression/tradeoff",
+      "when": "escape works but A shop novelty or DeepBench regression gates fail"
+    },
+    "C": {
+      "label": "Mechanism not repaired",
+      "when": "no escape, lock persists, false return success, crash, or exact-repeat not implemented"
+    }
+  },
+  "stop_rules": {
+    "no_algorithm_change_after_freeze": true,
+    "no_threshold_N": true,
+    "no_nested_hub_guard": true,
+    "no_shape_gate": true,
+    "no_h1_h2_tuning": true,
+    "product_default_unchanged": true,
+    "no_generalization_claim": true
+  }
+}
