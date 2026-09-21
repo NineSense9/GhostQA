@@ -1,4787 +1,957 @@
 {
-  "static_shop": {
-    "n_pages": 11,
-    "mean_fanout": 1.818,
-    "max_fanout": 6,
-    "mean_shortest_path_depth": 1.364,
-    "max_shortest_path_depth": 3,
-    "shallow_leaf_pages": [
-      "profile.html",
-      "promo.html",
-      "register.html"
-    ],
-    "page_depths": {
-      "index.html": 0,
-      "products.html": 1,
-      "cart.html": 1,
-      "register.html": 1,
-      "login.html": 1,
-      "profile.html": 1,
-      "promo.html": 1,
-      "detail.html": 2,
-      "help.html": 2,
-      "checkout.html": 2,
-      "help2.html": 3
+  "descriptors": {
+    "runtime_observed": {
+      "bfs": {
+        "n_states": {
+          "provenance": "runtime_observed",
+          "value": 41
+        },
+        "n_urls": {
+          "provenance": "runtime_observed",
+          "value": 11
+        },
+        "pages": {
+          "provenance": "runtime_observed",
+          "value": [
+            "cart.html",
+            "checkout.html",
+            "detail.html",
+            "help.html",
+            "help2.html",
+            "index.html",
+            "login.html",
+            "products.html",
+            "profile.html",
+            "promo.html",
+            "register.html"
+          ]
+        }
+      },
+      "ghost-deferred": {
+        "n_states": {
+          "provenance": "runtime_observed",
+          "value": 34
+        },
+        "n_urls": {
+          "provenance": "runtime_observed",
+          "value": 11
+        },
+        "pages": {
+          "provenance": "runtime_observed",
+          "value": [
+            "cart.html",
+            "checkout.html",
+            "detail.html",
+            "help.html",
+            "help2.html",
+            "index.html",
+            "login.html",
+            "products.html",
+            "profile.html",
+            "promo.html",
+            "register.html"
+          ]
+        }
+      },
+      "ghost-sequence": {
+        "n_states": {
+          "provenance": "runtime_observed",
+          "value": 6
+        },
+        "n_urls": {
+          "provenance": "runtime_observed",
+          "value": 4
+        },
+        "pages": {
+          "provenance": "runtime_observed",
+          "value": [
+            "cart.html",
+            "detail.html",
+            "index.html",
+            "products.html"
+          ]
+        }
+      },
+      "ghost-structural-memory": {
+        "n_states": {
+          "provenance": "runtime_observed",
+          "value": 6
+        },
+        "n_urls": {
+          "provenance": "runtime_observed",
+          "value": 4
+        },
+        "pages": {
+          "provenance": "runtime_observed",
+          "value": [
+            "cart.html",
+            "detail.html",
+            "index.html",
+            "products.html"
+          ]
+        }
+      }
     },
-    "home_is_hub": true,
+    "source_modeled": {
+      "home_is_hub": {
+        "provenance": "source_modeled",
+        "value": true
+      },
+      "max_shortest_path_depth": {
+        "provenance": "source_modeled",
+        "value": 3
+      },
+      "mean_shortest_path_depth": {
+        "provenance": "source_modeled",
+        "value": 1.364
+      },
+      "pages": {
+        "provenance": "source_modeled",
+        "value": {
+          "cart.html": [
+            "checkout.html",
+            "index.html"
+          ],
+          "checkout.html": [
+            "cart.html"
+          ],
+          "detail.html": [
+            "cart.html",
+            "products.html"
+          ],
+          "help.html": [
+            "help2.html"
+          ],
+          "help2.html": [
+            "help.html"
+          ],
+          "index.html": [
+            "products.html",
+            "cart.html",
+            "register.html",
+            "login.html",
+            "profile.html",
+            "promo.html"
+          ],
+          "login.html": [
+            "profile.html",
+            "index.html"
+          ],
+          "products.html": [
+            "detail.html",
+            "help.html",
+            "index.html"
+          ],
+          "profile.html": [
+            "index.html"
+          ],
+          "promo.html": [],
+          "register.html": [
+            "index.html"
+          ]
+        }
+      }
+    },
+    "trace_derived": {
+      "ghost-sequence": {
+        "branch_start_events": {
+          "provenance": "trace_derived",
+          "value": 2
+        },
+        "return_attempt_events": {
+          "provenance": "trace_derived",
+          "value": 116
+        },
+        "successful_return_to_parent_events": {
+          "provenance": "trace_derived",
+          "value": 0
+        }
+      },
+      "ghost-structural-memory": {
+        "branch_start_events": {
+          "provenance": "trace_derived",
+          "value": 2
+        },
+        "return_attempt_events": {
+          "provenance": "trace_derived",
+          "value": 116
+        },
+        "successful_return_to_parent_events": {
+          "provenance": "trace_derived",
+          "value": 0
+        }
+      }
+    }
+  },
+  "diagnostic_rerun": true,
+  "flow": {
+    "bfs": {
+      "billing_entry_steps": [],
+      "changelog_visits": 5,
+      "first_action": "nav_login",
+      "h1_confirm_step": 28,
+      "h2_finding": false,
+      "n_states": 31,
+      "n_steps": 120,
+      "observed_seq": {
+        "branch_start_events": 0,
+        "event_types": {},
+        "return_attempt_events": 0,
+        "sequence_terminal_outcomes": {
+          "budget_end": 0,
+          "crash": 0,
+          "finding": 0,
+          "lost_parent": 0,
+          "returned": 0
+        },
+        "successful_return_to_parent_events": 0
+      },
+      "pages": [
+        "about.html",
+        "changelog.html",
+        "dashboard.html",
+        "docs.html",
+        "help.html",
+        "history.html",
+        "index.html",
+        "login.html",
+        "register.html",
+        "reports.html",
+        "settings.html",
+        "wizard.html"
+      ],
+      "policy": "bfs",
+      "qty_actions": [],
+      "settings_visits": 24
+    },
+    "dfs": {
+      "billing_entry_steps": [],
+      "changelog_visits": 3,
+      "first_action": "nav_settings",
+      "h1_confirm_step": 8,
+      "h2_finding": false,
+      "n_states": 40,
+      "n_steps": 120,
+      "observed_seq": {
+        "branch_start_events": 0,
+        "event_types": {},
+        "return_attempt_events": 0,
+        "sequence_terminal_outcomes": {
+          "budget_end": 0,
+          "crash": 0,
+          "finding": 0,
+          "lost_parent": 0,
+          "returned": 0
+        },
+        "successful_return_to_parent_events": 0
+      },
+      "pages": [
+        "about.html",
+        "changelog.html",
+        "dashboard.html",
+        "docs.html",
+        "help.html",
+        "history.html",
+        "index.html",
+        "login.html",
+        "project.html",
+        "register.html",
+        "reports.html",
+        "settings.html",
+        "wizard.html"
+      ],
+      "policy": "dfs",
+      "qty_actions": [],
+      "settings_visits": 14
+    },
+    "ghost-deferred": {
+      "billing_entry_steps": [
+        45
+      ],
+      "changelog_visits": 5,
+      "first_action": "nav_login",
+      "h1_confirm_step": 93,
+      "h2_finding": false,
+      "n_states": 38,
+      "n_steps": 120,
+      "observed_seq": {
+        "branch_start_events": 0,
+        "event_types": {},
+        "return_attempt_events": 0,
+        "sequence_terminal_outcomes": {
+          "budget_end": 0,
+          "crash": 0,
+          "finding": 0,
+          "lost_parent": 0,
+          "returned": 0
+        },
+        "successful_return_to_parent_events": 0
+      },
+      "pages": [
+        "about.html",
+        "billing.html",
+        "changelog.html",
+        "dashboard.html",
+        "docs.html",
+        "help.html",
+        "history.html",
+        "index.html",
+        "login.html",
+        "members.html",
+        "project.html",
+        "register.html",
+        "reports.html",
+        "settings.html",
+        "tasks.html",
+        "wizard.html"
+      ],
+      "policy": "ghost-deferred",
+      "qty_actions": [],
+      "settings_visits": 20
+    },
+    "ghost-sequence": {
+      "billing_entry_steps": [],
+      "changelog_visits": 0,
+      "first_action": "nav_login",
+      "h1_confirm_step": null,
+      "h2_finding": false,
+      "n_states": 63,
+      "n_steps": 120,
+      "observed_seq": {
+        "branch_start_events": 87,
+        "event_types": {
+          "branch_discovered": 87,
+          "branch_start": 87,
+          "followup": 33,
+          "hub_seen": 104,
+          "mutation": 108,
+          "return_attempt": 22,
+          "sequence_action": 105,
+          "sequence_horizon_reached": 2,
+          "sequence_terminal": 87
+        },
+        "return_attempt_events": 22,
+        "sequence_terminal_outcomes": {
+          "budget_end": 1,
+          "crash": 0,
+          "finding": 37,
+          "lost_parent": 47,
+          "returned": 2
+        },
+        "successful_return_to_parent_events": 2
+      },
+      "pages": [
+        "dashboard.html",
+        "index.html",
+        "login.html",
+        "members.html",
+        "project.html",
+        "wizard.html"
+      ],
+      "policy": "ghost-sequence",
+      "qty_actions": [],
+      "settings_visits": 0
+    },
+    "ghost-structural-memory": {
+      "billing_entry_steps": [
+        32,
+        53,
+        87,
+        97
+      ],
+      "changelog_visits": 0,
+      "first_action": "nav_login",
+      "h1_confirm_step": null,
+      "h2_finding": false,
+      "n_states": 28,
+      "n_steps": 120,
+      "observed_seq": {
+        "branch_start_events": 53,
+        "event_types": {
+          "branch_discovered": 53,
+          "branch_start": 53,
+          "followup": 51,
+          "hub_seen": 63,
+          "mutation": 103,
+          "return_attempt": 32,
+          "sequence_action": 102,
+          "sequence_horizon_reached": 11,
+          "sequence_terminal": 53
+        },
+        "return_attempt_events": 32,
+        "sequence_terminal_outcomes": {
+          "budget_end": 0,
+          "crash": 0,
+          "finding": 29,
+          "lost_parent": 13,
+          "returned": 11
+        },
+        "successful_return_to_parent_events": 11
+      },
+      "pages": [
+        "billing.html",
+        "dashboard.html",
+        "index.html",
+        "login.html",
+        "members.html",
+        "project.html",
+        "tasks.html",
+        "wizard.html"
+      ],
+      "policy": "ghost-structural-memory",
+      "qty_actions": [
+        [
+          33,
+          "up"
+        ],
+        [
+          34,
+          "down"
+        ],
+        [
+          35,
+          "up"
+        ],
+        [
+          54,
+          "up"
+        ],
+        [
+          55,
+          "down"
+        ],
+        [
+          56,
+          "up"
+        ],
+        [
+          88,
+          "up"
+        ],
+        [
+          89,
+          "down"
+        ],
+        [
+          90,
+          "up"
+        ],
+        [
+          98,
+          "down"
+        ]
+      ],
+      "settings_visits": 0
+    }
+  },
+  "h1_h2": {
+    "h1": {
+      "interpretation": {
+        "claim_boundary": "this run / this route, not all shallow bugs",
+        "failure_class": "reach_failure",
+        "immediate_mechanism": "step-0 action ranking/classification sends C0/C1 to login; settings/changelog unvisited in this run"
+      },
+      "observed": {
+        "bfs": {
+          "changelog_visits": 5,
+          "confirm_step": 28,
+          "confirmed": true,
+          "first_action": "nav_login",
+          "settings_visits": 24
+        },
+        "dfs": {
+          "changelog_visits": 3,
+          "confirm_step": 8,
+          "confirmed": true,
+          "first_action": "nav_settings",
+          "settings_visits": 14
+        },
+        "ghost_deferred": {
+          "changelog_visits": 5,
+          "confirm_step": 93,
+          "confirmed": true,
+          "first_action": "nav_login",
+          "settings_visits": 20
+        },
+        "ghost_sequence": {
+          "changelog_visits": 0,
+          "confirm_step": null,
+          "confirmed": false,
+          "first_action": "nav_login",
+          "settings_visits": 0
+        },
+        "ghost_structural_memory": {
+          "changelog_visits": 0,
+          "confirm_step": null,
+          "confirmed": false,
+          "first_action": "nav_login",
+          "settings_visits": 0
+        },
+        "path": [
+          "index.html",
+          "settings.html",
+          "changelog.html",
+          "btn_changelog_detail"
+        ]
+      }
+    },
+    "h2": {
+      "interpretation": {
+        "c1": "reached_billing_qty_sequence_never_below_zero",
+        "dfs_bfs_c0": "reach_failure",
+        "failure_class": "global_miss_policy_specific",
+        "ghost_deferred": "reached_billing_no_qty_down",
+        "oracle_blind": false
+      },
+      "observed": {
+        "bfs": {
+          "billing_entry_steps": [],
+          "h2_finding": false,
+          "qty_actions": [],
+          "reached_billing": false
+        },
+        "dfs": {
+          "billing_entry_steps": [],
+          "h2_finding": false,
+          "qty_actions": [],
+          "reached_billing": false
+        },
+        "ghost_deferred": {
+          "billing_entry_steps": [
+            45
+          ],
+          "h2_finding": false,
+          "qty_actions": [],
+          "reached_billing": true
+        },
+        "ghost_sequence": {
+          "billing_entry_steps": [],
+          "h2_finding": false,
+          "qty_actions": [],
+          "reached_billing": false
+        },
+        "ghost_structural_memory": {
+          "billing_entry_steps": [
+            32,
+            53,
+            87,
+            97
+          ],
+          "h2_finding": false,
+          "qty_actions": [
+            [
+              33,
+              "up"
+            ],
+            [
+              34,
+              "down"
+            ],
+            [
+              35,
+              "up"
+            ],
+            [
+              54,
+              "up"
+            ],
+            [
+              55,
+              "down"
+            ],
+            [
+              56,
+              "up"
+            ],
+            [
+              88,
+              "up"
+            ],
+            [
+              89,
+              "down"
+            ],
+            [
+              90,
+              "up"
+            ],
+            [
+              98,
+              "down"
+            ]
+          ],
+          "reached_billing": true
+        }
+      }
+    }
+  },
+  "independent_trial": false,
+  "round": "v0.3.8",
+  "shop": {
+    "bfs": {
+      "descriptors": {
+        "branch_start_events": 0,
+        "hub_seen_events": 0,
+        "max_reached_depth": 5,
+        "mean_observed_fanout": 2.463,
+        "mean_reached_depth": 2.317,
+        "n_clusters": 26,
+        "n_states": 41,
+        "n_urls": 11,
+        "return_to_hub_events": 0,
+        "return_to_hub_reuse_ratio": null,
+        "semantic_variant_churn": 3.727,
+        "unique_branches_started": 0,
+        "urls": [
+          "http://127.0.0.1:29285/cart.html",
+          "http://127.0.0.1:29285/checkout.html",
+          "http://127.0.0.1:29285/detail.html",
+          "http://127.0.0.1:29285/help.html",
+          "http://127.0.0.1:29285/help2.html",
+          "http://127.0.0.1:29285/index.html",
+          "http://127.0.0.1:29285/login.html",
+          "http://127.0.0.1:29285/products.html",
+          "http://127.0.0.1:29285/profile.html",
+          "http://127.0.0.1:29285/promo.html",
+          "http://127.0.0.1:29285/register.html"
+        ]
+      },
+      "n_states": 41,
+      "n_steps": 120,
+      "n_urls": 11,
+      "observed": {
+        "branch_start_events": 0,
+        "event_types": {},
+        "return_attempt_events": 0,
+        "sequence_terminal_outcomes": {
+          "budget_end": 0,
+          "crash": 0,
+          "finding": 0,
+          "lost_parent": 0,
+          "returned": 0
+        },
+        "successful_return_to_parent_events": 0
+      },
+      "pages": [
+        "cart.html",
+        "checkout.html",
+        "detail.html",
+        "help.html",
+        "help2.html",
+        "index.html",
+        "login.html",
+        "products.html",
+        "profile.html",
+        "promo.html",
+        "register.html"
+      ],
+      "policy": "bfs"
+    },
+    "ghost-deferred": {
+      "descriptors": {
+        "branch_start_events": 0,
+        "hub_seen_events": 0,
+        "max_reached_depth": 5,
+        "mean_observed_fanout": 3.206,
+        "mean_reached_depth": 2.235,
+        "n_clusters": 22,
+        "n_states": 34,
+        "n_urls": 11,
+        "return_to_hub_events": 0,
+        "return_to_hub_reuse_ratio": null,
+        "semantic_variant_churn": 3.091,
+        "unique_branches_started": 0,
+        "urls": [
+          "http://127.0.0.1:29285/cart.html",
+          "http://127.0.0.1:29285/checkout.html",
+          "http://127.0.0.1:29285/detail.html",
+          "http://127.0.0.1:29285/help.html",
+          "http://127.0.0.1:29285/help2.html",
+          "http://127.0.0.1:29285/index.html",
+          "http://127.0.0.1:29285/login.html",
+          "http://127.0.0.1:29285/products.html",
+          "http://127.0.0.1:29285/profile.html",
+          "http://127.0.0.1:29285/promo.html",
+          "http://127.0.0.1:29285/register.html"
+        ]
+      },
+      "n_states": 34,
+      "n_steps": 120,
+      "n_urls": 11,
+      "observed": {
+        "branch_start_events": 0,
+        "event_types": {},
+        "return_attempt_events": 0,
+        "sequence_terminal_outcomes": {
+          "budget_end": 0,
+          "crash": 0,
+          "finding": 0,
+          "lost_parent": 0,
+          "returned": 0
+        },
+        "successful_return_to_parent_events": 0
+      },
+      "pages": [
+        "cart.html",
+        "checkout.html",
+        "detail.html",
+        "help.html",
+        "help2.html",
+        "index.html",
+        "login.html",
+        "products.html",
+        "profile.html",
+        "promo.html",
+        "register.html"
+      ],
+      "policy": "ghost-deferred"
+    },
+    "ghost-sequence": {
+      "descriptors": {
+        "branch_start_events": 2,
+        "hub_seen_events": 60,
+        "max_reached_depth": 4,
+        "mean_observed_fanout": 1.167,
+        "mean_reached_depth": 1.833,
+        "n_clusters": 4,
+        "n_states": 6,
+        "n_urls": 4,
+        "return_to_hub_events": 0,
+        "return_to_hub_reuse_ratio": 0.0,
+        "semantic_variant_churn": 1.5,
+        "unique_branches_started": 2,
+        "urls": [
+          "http://127.0.0.1:29285/cart.html",
+          "http://127.0.0.1:29285/detail.html",
+          "http://127.0.0.1:29285/index.html",
+          "http://127.0.0.1:29285/products.html"
+        ]
+      },
+      "n_states": 6,
+      "n_steps": 120,
+      "n_urls": 4,
+      "observed": {
+        "branch_start_events": 2,
+        "event_types": {
+          "branch_discovered": 2,
+          "branch_start": 2,
+          "followup": 3,
+          "hub_seen": 60,
+          "mutation": 120,
+          "return_attempt": 116,
+          "sequence_action": 4,
+          "sequence_terminal": 2
+        },
+        "return_attempt_events": 116,
+        "sequence_terminal_outcomes": {
+          "budget_end": 0,
+          "crash": 0,
+          "finding": 1,
+          "lost_parent": 1,
+          "returned": 0
+        },
+        "successful_return_to_parent_events": 0
+      },
+      "pages": [
+        "cart.html",
+        "detail.html",
+        "index.html",
+        "products.html"
+      ],
+      "policy": "ghost-sequence"
+    },
+    "ghost-structural-memory": {
+      "descriptors": {
+        "branch_start_events": 2,
+        "hub_seen_events": 60,
+        "max_reached_depth": 4,
+        "mean_observed_fanout": 1.167,
+        "mean_reached_depth": 1.833,
+        "n_clusters": 4,
+        "n_states": 6,
+        "n_urls": 4,
+        "return_to_hub_events": 0,
+        "return_to_hub_reuse_ratio": 0.0,
+        "semantic_variant_churn": 1.5,
+        "unique_branches_started": 2,
+        "urls": [
+          "http://127.0.0.1:29285/cart.html",
+          "http://127.0.0.1:29285/detail.html",
+          "http://127.0.0.1:29285/index.html",
+          "http://127.0.0.1:29285/products.html"
+        ]
+      },
+      "n_states": 6,
+      "n_steps": 120,
+      "n_urls": 4,
+      "observed": {
+        "branch_start_events": 2,
+        "event_types": {
+          "branch_discovered": 2,
+          "branch_start": 2,
+          "followup": 3,
+          "hub_seen": 60,
+          "mutation": 120,
+          "return_attempt": 116,
+          "sequence_action": 4,
+          "sequence_terminal": 2
+        },
+        "return_attempt_events": 116,
+        "sequence_terminal_outcomes": {
+          "budget_end": 0,
+          "crash": 0,
+          "finding": 1,
+          "lost_parent": 1,
+          "returned": 0
+        },
+        "successful_return_to_parent_events": 0
+      },
+      "pages": [
+        "cart.html",
+        "detail.html",
+        "index.html",
+        "products.html"
+      ],
+      "policy": "ghost-structural-memory"
+    }
+  },
+  "shop_collapse": {
+    "interpretation": {
+      "fingerprint_note": "No evidence that fingerprint/semantic-variant explosion is the primary cause; the persistent return loop is sufficient to explain the six-state coverage lock.",
+      "fingerprint_primary_cause": false,
+      "primary_failure_class": "return_to_parent_mismatch_after_nested_hub",
+      "structural_memory_added_cause": false
+    },
+    "observed": {
+      "bfs": {
+        "n_states": 41,
+        "n_urls": 11,
+        "pages": [
+          "cart.html",
+          "checkout.html",
+          "detail.html",
+          "help.html",
+          "help2.html",
+          "index.html",
+          "login.html",
+          "products.html",
+          "profile.html",
+          "promo.html",
+          "register.html"
+        ]
+      },
+      "ghost-deferred": {
+        "n_states": 34,
+        "n_urls": 11,
+        "pages": [
+          "cart.html",
+          "checkout.html",
+          "detail.html",
+          "help.html",
+          "help2.html",
+          "index.html",
+          "login.html",
+          "products.html",
+          "profile.html",
+          "promo.html",
+          "register.html"
+        ]
+      },
+      "ghost-sequence": {
+        "branch_start_events": 2,
+        "event_types": {
+          "branch_discovered": 2,
+          "branch_start": 2,
+          "followup": 3,
+          "hub_seen": 60,
+          "mutation": 120,
+          "return_attempt": 116,
+          "sequence_action": 4,
+          "sequence_terminal": 2
+        },
+        "n_states": 6,
+        "n_urls": 4,
+        "pages": [
+          "cart.html",
+          "detail.html",
+          "index.html",
+          "products.html"
+        ],
+        "return_attempt_events": 116,
+        "sequence_terminal_outcomes": {
+          "budget_end": 0,
+          "crash": 0,
+          "finding": 1,
+          "lost_parent": 1,
+          "returned": 0
+        },
+        "successful_return_to_parent_events": 0
+      },
+      "ghost-structural-memory": {
+        "branch_start_events": 2,
+        "event_types": {
+          "branch_discovered": 2,
+          "branch_start": 2,
+          "followup": 3,
+          "hub_seen": 60,
+          "mutation": 120,
+          "return_attempt": 116,
+          "sequence_action": 4,
+          "sequence_terminal": 2
+        },
+        "n_states": 6,
+        "n_urls": 4,
+        "pages": [
+          "cart.html",
+          "detail.html",
+          "index.html",
+          "products.html"
+        ],
+        "return_attempt_events": 116,
+        "sequence_terminal_outcomes": {
+          "budget_end": 0,
+          "crash": 0,
+          "finding": 1,
+          "lost_parent": 1,
+          "returned": 0
+        },
+        "successful_return_to_parent_events": 0
+      },
+      "old_field_source": "misassigned_branch_start_count",
+      "old_return_success_events": 2
+    }
+  },
+  "static_shop": {
     "home_branch_eids": [
       "products",
       "cart",
       "profile",
       "promo",
       "search_btn"
+    ],
+    "home_is_hub": true,
+    "max_fanout": 6,
+    "max_shortest_path_depth": 3,
+    "mean_fanout": 1.818,
+    "mean_shortest_path_depth": 1.364,
+    "n_pages": 11,
+    "page_depths": {
+      "cart.html": 1,
+      "checkout.html": 2,
+      "detail.html": 2,
+      "help.html": 2,
+      "help2.html": 3,
+      "index.html": 0,
+      "login.html": 1,
+      "products.html": 1,
+      "profile.html": 1,
+      "promo.html": 1,
+      "register.html": 1
+    },
+    "shallow_leaf_pages": [
+      "profile.html",
+      "promo.html",
+      "register.html"
     ]
-  },
-  "static_flow": {
-    "h1_path": [
-      "index.html",
-      "settings.html",
-      "changelog.html",
-      "btn_changelog_detail"
-    ],
-    "h2_path": [
-      "login.html",
-      "dashboard.html",
-      "project.html",
-      "billing.html",
-      "btn_qty_down",
-      "btn_qty_down"
-    ],
-    "h2_initial_qty": 1,
-    "h2_clicks_to_violate": 2
-  },
-  "shop": {
-    "bfs": {
-      "stem": "bfs_b120_s1",
-      "n_steps": 120,
-      "n_states": 41,
-      "urls": [
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/checkout.html",
-        "http://127.0.0.1:29285/detail.html",
-        "http://127.0.0.1:29285/help.html",
-        "http://127.0.0.1:29285/help2.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/login.html",
-        "http://127.0.0.1:29285/products.html",
-        "http://127.0.0.1:29285/profile.html",
-        "http://127.0.0.1:29285/promo.html",
-        "http://127.0.0.1:29285/register.html"
-      ],
-      "url_order": [
-        "http://127.0.0.1:29285/products.html",
-        "http://127.0.0.1:29285/detail.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/checkout.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/checkout.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/register.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/login.html",
-        "http://127.0.0.1:29285/profile.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/profile.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/promo.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/products.html"
-      ],
-      "decision_modes": {
-        "normal": 120
-      },
-      "first_hub_step": null,
-      "first_hub_n_branch": null,
-      "descriptors": {
-        "n_states": 41,
-        "n_clusters": 26,
-        "n_urls": 11,
-        "semantic_variant_churn": 3.727,
-        "mean_observed_fanout": 2.463,
-        "mean_reached_depth": 2.317,
-        "max_reached_depth": 5,
-        "hub_seen_events": 0,
-        "unique_branches_started": 0,
-        "branch_start_events": 0,
-        "return_to_hub_events": 0,
-        "return_to_hub_reuse_ratio": null,
-        "urls": [
-          "http://127.0.0.1:29285/cart.html",
-          "http://127.0.0.1:29285/checkout.html",
-          "http://127.0.0.1:29285/detail.html",
-          "http://127.0.0.1:29285/help.html",
-          "http://127.0.0.1:29285/help2.html",
-          "http://127.0.0.1:29285/index.html",
-          "http://127.0.0.1:29285/login.html",
-          "http://127.0.0.1:29285/products.html",
-          "http://127.0.0.1:29285/profile.html",
-          "http://127.0.0.1:29285/promo.html",
-          "http://127.0.0.1:29285/register.html"
-        ]
-      },
-      "prefix40": [
-        {
-          "i": 0,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/products.html",
-          "eid": "ecb45cffcb",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 1,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/products.html",
-          "dst": "http://127.0.0.1:29285/detail.html",
-          "eid": "item_apple",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 2,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/detail.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": "btn_add",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 3,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": "btn_remove",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "cart_total_consistent",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 4,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": "btn_remove",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "cart_total_consistent",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 5,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": "btn_remove",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "dead_action",
-              "assert_id": null,
-              "error": null
-            },
-            {
-              "kind": "semantic",
-              "assert_id": "cart_total_consistent",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 6,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/checkout.html",
-          "eid": "btn_checkout",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 7,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/checkout.html",
-          "dst": "http://127.0.0.1:29285/checkout.html",
-          "eid": "btn_pay",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "js_error",
-              "assert_id": null,
-              "error": "Cannot read properties of null (reading 'total')"
-            },
-            {
-              "kind": "dead_action",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 8,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/checkout.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": "96eed3e1f6",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 9,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": "btn_remove",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "dead_action",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 10,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/checkout.html",
-          "eid": "btn_checkout",
-          "text": null,
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 11,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/checkout.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 12,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 13,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": "c5d9b3625b",
-          "text": null,
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 14,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 15,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "252de9b8e3",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 16,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 17,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "测试输入",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 18,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 19,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "xxxxxxxxxxxxxxxxxxxxxxxxx",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 20,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 21,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "<script>alert(1)</script>",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 22,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 23,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "999999",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 24,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 25,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "-1",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 26,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 27,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "btn_reg",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 28,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 29,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "测试输入",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 30,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 31,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "xxxxxxxxxxxxxxxxxxxxxxxxx",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 32,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 33,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "<script>alert(1)</script>",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 34,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 35,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "999999",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 36,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 37,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "-1",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 38,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 39,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "btn_reg",
-          "text": null,
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "dead_action",
-              "assert_id": null,
-              "error": null
-            },
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        }
-      ],
-      "sequence_event_types": {}
-    },
-    "ghost-deferred": {
-      "stem": "ghost-deferred_b120_s1",
-      "n_steps": 120,
-      "n_states": 34,
-      "urls": [
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/checkout.html",
-        "http://127.0.0.1:29285/detail.html",
-        "http://127.0.0.1:29285/help.html",
-        "http://127.0.0.1:29285/help2.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/login.html",
-        "http://127.0.0.1:29285/products.html",
-        "http://127.0.0.1:29285/profile.html",
-        "http://127.0.0.1:29285/promo.html",
-        "http://127.0.0.1:29285/register.html"
-      ],
-      "url_order": [
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/register.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/register.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/register.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/login.html",
-        "http://127.0.0.1:29285/profile.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/products.html",
-        "http://127.0.0.1:29285/detail.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/checkout.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/checkout.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/checkout.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/checkout.html"
-      ],
-      "decision_modes": {
-        "normal": 120
-      },
-      "first_hub_step": null,
-      "first_hub_n_branch": null,
-      "descriptors": {
-        "n_states": 34,
-        "n_clusters": 22,
-        "n_urls": 11,
-        "semantic_variant_churn": 3.091,
-        "mean_observed_fanout": 3.206,
-        "mean_reached_depth": 2.235,
-        "max_reached_depth": 5,
-        "hub_seen_events": 0,
-        "unique_branches_started": 0,
-        "branch_start_events": 0,
-        "return_to_hub_events": 0,
-        "return_to_hub_reuse_ratio": null,
-        "urls": [
-          "http://127.0.0.1:29285/cart.html",
-          "http://127.0.0.1:29285/checkout.html",
-          "http://127.0.0.1:29285/detail.html",
-          "http://127.0.0.1:29285/help.html",
-          "http://127.0.0.1:29285/help2.html",
-          "http://127.0.0.1:29285/index.html",
-          "http://127.0.0.1:29285/login.html",
-          "http://127.0.0.1:29285/products.html",
-          "http://127.0.0.1:29285/profile.html",
-          "http://127.0.0.1:29285/promo.html",
-          "http://127.0.0.1:29285/register.html"
-        ]
-      },
-      "prefix40": [
-        {
-          "i": 0,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "search_box",
-          "text": "测试输入",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 1,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "search_box",
-          "text": "测试输入",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 2,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "search_box",
-          "text": "xxxxxxxxxxxxxxxxxxxxxxxxx",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 3,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "search_box",
-          "text": "测试输入",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 4,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "252de9b8e3",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 5,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "测试输入",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 6,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "测试输入",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 7,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 8,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 9,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "xxxxxxxxxxxxxxxxxxxxxxxxx",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 10,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "测试输入",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 11,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "xxxxxxxxxxxxxxxxxxxxxxxxx",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 12,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 13,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "<script>alert(1)</script>",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 14,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "测试输入",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 15,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "<script>alert(1)</script>",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 16,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 17,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "-1",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 18,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "测试输入",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 19,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "-1",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 20,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 21,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "btn_reg",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 22,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "测试输入",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 23,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "测试输入",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 24,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 25,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 26,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "xxxxxxxxxxxxxxxxxxxxxxxxx",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 27,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "测试输入",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 28,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "xxxxxxxxxxxxxxxxxxxxxxxxx",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 29,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 30,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "<script>alert(1)</script>",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 31,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "测试输入",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 32,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "<script>alert(1)</script>",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 33,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 34,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "-1",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 35,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "测试输入",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 36,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "-1",
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        },
-        {
-          "i": 37,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "reg_user",
-          "text": "",
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 38,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/register.html",
-          "eid": "btn_reg",
-          "text": null,
-          "new": false,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": [
-            {
-              "kind": "dead_action",
-              "assert_id": null,
-              "error": null
-            },
-            {
-              "kind": "semantic",
-              "assert_id": "register_requires_username",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 39,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/register.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": true,
-          "label": null,
-          "commit": null,
-          "returning": null,
-          "branch": null,
-          "findings": []
-        }
-      ],
-      "sequence_event_types": {}
-    },
-    "ghost-sequence": {
-      "stem": "ghost-sequence_b120_s1",
-      "n_steps": 120,
-      "n_states": 6,
-      "urls": [
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/detail.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/products.html"
-      ],
-      "url_order": [
-        "http://127.0.0.1:29285/products.html",
-        "http://127.0.0.1:29285/detail.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html"
-      ],
-      "decision_modes": {
-        "normal": 120
-      },
-      "first_hub_step": 0,
-      "first_hub_n_branch": 5,
-      "descriptors": {
-        "n_states": 6,
-        "n_clusters": 4,
-        "n_urls": 4,
-        "semantic_variant_churn": 1.5,
-        "mean_observed_fanout": 1.167,
-        "mean_reached_depth": 1.833,
-        "max_reached_depth": 4,
-        "hub_seen_events": 60,
-        "unique_branches_started": 2,
-        "branch_start_events": 2,
-        "return_to_hub_events": 0,
-        "return_to_hub_reuse_ratio": 0.0,
-        "urls": [
-          "http://127.0.0.1:29285/cart.html",
-          "http://127.0.0.1:29285/detail.html",
-          "http://127.0.0.1:29285/index.html",
-          "http://127.0.0.1:29285/products.html"
-        ]
-      },
-      "prefix40": [
-        {
-          "i": 0,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/products.html",
-          "eid": "ecb45cffcb",
-          "text": null,
-          "new": true,
-          "label": "branch",
-          "commit": 0,
-          "returning": false,
-          "branch": "",
-          "findings": []
-        },
-        {
-          "i": 1,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/products.html",
-          "dst": "http://127.0.0.1:29285/detail.html",
-          "eid": "item_apple",
-          "text": null,
-          "new": true,
-          "label": "sequence_followup",
-          "commit": 2,
-          "returning": false,
-          "branch": "43e212ff080d49e7:click:ecb45cffcb",
-          "findings": []
-        },
-        {
-          "i": 2,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/detail.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": "btn_add",
-          "text": null,
-          "new": true,
-          "label": "sequence_followup",
-          "commit": 1,
-          "returning": false,
-          "branch": "43e212ff080d49e7:click:ecb45cffcb",
-          "findings": []
-        },
-        {
-          "i": 3,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": "btn_remove",
-          "text": null,
-          "new": true,
-          "label": "sequence_followup",
-          "commit": 2,
-          "returning": false,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "cart_total_consistent",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 4,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": true,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": []
-        },
-        {
-          "i": 5,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": true,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": []
-        },
-        {
-          "i": 6,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": []
-        },
-        {
-          "i": 7,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": true,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": []
-        },
-        {
-          "i": 8,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 9,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 10,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 11,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 12,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 13,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 14,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 15,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 16,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 17,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 18,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 19,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 20,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 21,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 22,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 23,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 24,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 25,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 26,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 27,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 28,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 29,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 30,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 31,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 32,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 33,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 34,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 35,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 36,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 37,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 38,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 39,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        }
-      ],
-      "sequence_event_types": {
-        "hub_seen": 60,
-        "branch_discovered": 2,
-        "branch_start": 2,
-        "sequence_action": 4,
-        "mutation": 120,
-        "followup": 3,
-        "sequence_terminal": 2,
-        "return_attempt": 116
-      }
-    },
-    "ghost-structural-memory": {
-      "stem": "ghost-structural-memory_b120_s1",
-      "n_steps": 120,
-      "n_states": 6,
-      "urls": [
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/detail.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/products.html"
-      ],
-      "url_order": [
-        "http://127.0.0.1:29285/products.html",
-        "http://127.0.0.1:29285/detail.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html",
-        "http://127.0.0.1:29285/cart.html",
-        "http://127.0.0.1:29285/index.html"
-      ],
-      "decision_modes": {
-        "normal": 120
-      },
-      "first_hub_step": 0,
-      "first_hub_n_branch": 5,
-      "descriptors": {
-        "n_states": 6,
-        "n_clusters": 4,
-        "n_urls": 4,
-        "semantic_variant_churn": 1.5,
-        "mean_observed_fanout": 1.167,
-        "mean_reached_depth": 1.833,
-        "max_reached_depth": 4,
-        "hub_seen_events": 60,
-        "unique_branches_started": 2,
-        "branch_start_events": 2,
-        "return_to_hub_events": 0,
-        "return_to_hub_reuse_ratio": 0.0,
-        "urls": [
-          "http://127.0.0.1:29285/cart.html",
-          "http://127.0.0.1:29285/detail.html",
-          "http://127.0.0.1:29285/index.html",
-          "http://127.0.0.1:29285/products.html"
-        ]
-      },
-      "prefix40": [
-        {
-          "i": 0,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/products.html",
-          "eid": "ecb45cffcb",
-          "text": null,
-          "new": true,
-          "label": "branch",
-          "commit": 0,
-          "returning": false,
-          "branch": "",
-          "findings": []
-        },
-        {
-          "i": 1,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/products.html",
-          "dst": "http://127.0.0.1:29285/detail.html",
-          "eid": "item_apple",
-          "text": null,
-          "new": true,
-          "label": "sequence_followup",
-          "commit": 2,
-          "returning": false,
-          "branch": "43e212ff080d49e7:click:ecb45cffcb",
-          "findings": []
-        },
-        {
-          "i": 2,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/detail.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": "btn_add",
-          "text": null,
-          "new": true,
-          "label": "sequence_followup",
-          "commit": 1,
-          "returning": false,
-          "branch": "43e212ff080d49e7:click:ecb45cffcb",
-          "findings": []
-        },
-        {
-          "i": 3,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": "btn_remove",
-          "text": null,
-          "new": true,
-          "label": "sequence_followup",
-          "commit": 2,
-          "returning": false,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "cart_total_consistent",
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 4,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": true,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": []
-        },
-        {
-          "i": 5,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": true,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": []
-        },
-        {
-          "i": 6,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": []
-        },
-        {
-          "i": 7,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": true,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": []
-        },
-        {
-          "i": 8,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 9,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 10,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 11,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 12,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 13,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 14,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 15,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 16,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 17,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 18,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 19,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 20,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 21,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 22,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 23,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 24,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 25,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 26,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 27,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 28,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 29,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 30,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 31,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 32,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 33,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 34,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 35,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 36,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 37,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 38,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/cart.html",
-          "dst": "http://127.0.0.1:29285/index.html",
-          "eid": "35e5d04282",
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        },
-        {
-          "i": 39,
-          "mode": "",
-          "src": "http://127.0.0.1:29285/index.html",
-          "dst": "http://127.0.0.1:29285/cart.html",
-          "eid": null,
-          "text": null,
-          "new": false,
-          "label": "return_hub",
-          "commit": 0,
-          "returning": true,
-          "branch": "dff35a098ea38c76:click:btn_add",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ]
-        }
-      ],
-      "sequence_event_types": {
-        "hub_seen": 60,
-        "branch_discovered": 2,
-        "branch_start": 2,
-        "sequence_action": 4,
-        "mutation": 120,
-        "followup": 3,
-        "sequence_terminal": 2,
-        "return_attempt": 116
-      }
-    }
-  },
-  "flow": {
-    "dfs": {
-      "descriptors": {
-        "n_states": 40,
-        "n_clusters": 21,
-        "n_urls": 13,
-        "semantic_variant_churn": 3.077,
-        "mean_observed_fanout": 2.95,
-        "mean_reached_depth": 7.7,
-        "max_reached_depth": 23,
-        "hub_seen_events": 0,
-        "unique_branches_started": 0,
-        "branch_start_events": 0,
-        "return_to_hub_events": 0,
-        "return_to_hub_reuse_ratio": null,
-        "urls": [
-          "http://127.0.0.1:48594/about.html",
-          "http://127.0.0.1:48594/changelog.html",
-          "http://127.0.0.1:48594/dashboard.html",
-          "http://127.0.0.1:48594/docs.html",
-          "http://127.0.0.1:48594/help.html",
-          "http://127.0.0.1:48594/history.html",
-          "http://127.0.0.1:48594/index.html",
-          "http://127.0.0.1:48594/login.html",
-          "http://127.0.0.1:48594/project.html",
-          "http://127.0.0.1:48594/register.html",
-          "http://127.0.0.1:48594/reports.html",
-          "http://127.0.0.1:48594/settings.html",
-          "http://127.0.0.1:48594/wizard.html"
-        ]
-      },
-      "h1": [
-        {
-          "index": 7,
-          "url": "http://127.0.0.1:48594/settings.html",
-          "eid": "nav_changelog",
-          "js": [],
-          "mode": ""
-        },
-        {
-          "index": 8,
-          "url": "http://127.0.0.1:48594/changelog.html",
-          "eid": "btn_changelog_detail",
-          "js": [
-            "changelog detail: not implemented"
-          ],
-          "mode": ""
-        },
-        {
-          "index": 8,
-          "confirmed_js": true,
-          "eid": "btn_changelog_detail",
-          "mode": ""
-        },
-        {
-          "index": 9,
-          "url": "http://127.0.0.1:48594/changelog.html",
-          "eid": "nav_settings",
-          "js": [],
-          "mode": ""
-        }
-      ],
-      "h2": [],
-      "n_steps": 120,
-      "urls": [
-        "http://127.0.0.1:48594/about.html",
-        "http://127.0.0.1:48594/changelog.html",
-        "http://127.0.0.1:48594/dashboard.html",
-        "http://127.0.0.1:48594/docs.html",
-        "http://127.0.0.1:48594/help.html",
-        "http://127.0.0.1:48594/history.html",
-        "http://127.0.0.1:48594/index.html",
-        "http://127.0.0.1:48594/login.html",
-        "http://127.0.0.1:48594/project.html",
-        "http://127.0.0.1:48594/register.html",
-        "http://127.0.0.1:48594/reports.html",
-        "http://127.0.0.1:48594/settings.html",
-        "http://127.0.0.1:48594/wizard.html"
-      ],
-      "prefix25": [
-        {
-          "i": 0,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "nav_settings",
-          "js": []
-        },
-        {
-          "i": 1,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "btn_语言-EN",
-          "js": []
-        },
-        {
-          "i": 2,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "btn_语言-中文",
-          "js": []
-        },
-        {
-          "i": 3,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "btn_主题-深色",
-          "js": []
-        },
-        {
-          "i": 4,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "btn_主题-浅色",
-          "js": []
-        },
-        {
-          "i": 5,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "btn_save_settings",
-          "js": []
-        },
-        {
-          "i": 6,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "btn_toggle_notify",
-          "js": []
-        },
-        {
-          "i": 7,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/changelog.html",
-          "eid": "nav_changelog",
-          "js": []
-        },
-        {
-          "i": 8,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/changelog.html",
-          "dst": "http://127.0.0.1:48594/changelog.html",
-          "eid": "btn_changelog_detail",
-          "js": [
-            "changelog detail: not implemented"
-          ]
-        },
-        {
-          "i": 9,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/changelog.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "nav_settings",
-          "js": []
-        },
-        {
-          "i": 10,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/history.html",
-          "eid": "nav_history",
-          "js": []
-        },
-        {
-          "i": 11,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/history.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "nav_settings",
-          "js": []
-        },
-        {
-          "i": 12,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/reports.html",
-          "eid": "nav_reports",
-          "js": []
-        },
-        {
-          "i": 13,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/reports.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 14,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": "nav_home",
-          "js": []
-        },
-        {
-          "i": 15,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/about.html",
-          "eid": "nav_about",
-          "js": []
-        },
-        {
-          "i": 16,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/about.html",
-          "dst": "http://127.0.0.1:48594/about.html",
-          "eid": "btn_version",
-          "js": [
-            "version info: undefined is not a function"
-          ]
-        },
-        {
-          "i": 17,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/about.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": "nav_home",
-          "js": []
-        },
-        {
-          "i": 18,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/help.html",
-          "eid": "nav_help",
-          "js": []
-        },
-        {
-          "i": 19,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/help.html",
-          "dst": "http://127.0.0.1:48594/docs.html",
-          "eid": "btn_more_docs",
-          "js": []
-        },
-        {
-          "i": 20,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/docs.html",
-          "dst": "http://127.0.0.1:48594/help.html",
-          "eid": "btn_more_help",
-          "js": []
-        },
-        {
-          "i": 21,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/help.html",
-          "dst": "http://127.0.0.1:48594/docs.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 22,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/docs.html",
-          "dst": "http://127.0.0.1:48594/help.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 23,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/help.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 24,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/register.html",
-          "eid": "nav_register",
-          "js": []
-        }
-      ]
-    },
-    "bfs": {
-      "descriptors": {
-        "n_states": 31,
-        "n_clusters": 29,
-        "n_urls": 12,
-        "semantic_variant_churn": 2.583,
-        "mean_observed_fanout": 2.871,
-        "mean_reached_depth": 2.3,
-        "max_reached_depth": 5,
-        "hub_seen_events": 0,
-        "unique_branches_started": 0,
-        "branch_start_events": 0,
-        "return_to_hub_events": 0,
-        "return_to_hub_reuse_ratio": null,
-        "urls": [
-          "http://127.0.0.1:48594/about.html",
-          "http://127.0.0.1:48594/changelog.html",
-          "http://127.0.0.1:48594/dashboard.html",
-          "http://127.0.0.1:48594/docs.html",
-          "http://127.0.0.1:48594/help.html",
-          "http://127.0.0.1:48594/history.html",
-          "http://127.0.0.1:48594/index.html",
-          "http://127.0.0.1:48594/login.html",
-          "http://127.0.0.1:48594/register.html",
-          "http://127.0.0.1:48594/reports.html",
-          "http://127.0.0.1:48594/settings.html",
-          "http://127.0.0.1:48594/wizard.html"
-        ]
-      },
-      "h1": [
-        {
-          "index": 19,
-          "url": "http://127.0.0.1:48594/settings.html",
-          "eid": "nav_changelog",
-          "js": [],
-          "mode": ""
-        },
-        {
-          "index": 20,
-          "url": "http://127.0.0.1:48594/changelog.html",
-          "eid": "nav_settings",
-          "js": [],
-          "mode": ""
-        },
-        {
-          "index": 27,
-          "url": "http://127.0.0.1:48594/settings.html",
-          "eid": "",
-          "js": [],
-          "mode": ""
-        },
-        {
-          "index": 28,
-          "url": "http://127.0.0.1:48594/changelog.html",
-          "eid": "btn_changelog_detail",
-          "js": [
-            "changelog detail: not implemented"
-          ],
-          "mode": ""
-        },
-        {
-          "index": 28,
-          "confirmed_js": true,
-          "eid": "btn_changelog_detail",
-          "mode": ""
-        },
-        {
-          "index": 29,
-          "url": "http://127.0.0.1:48594/changelog.html",
-          "eid": "",
-          "js": [],
-          "mode": ""
-        }
-      ],
-      "h2": [],
-      "n_steps": 120,
-      "urls": [
-        "http://127.0.0.1:48594/about.html",
-        "http://127.0.0.1:48594/changelog.html",
-        "http://127.0.0.1:48594/dashboard.html",
-        "http://127.0.0.1:48594/docs.html",
-        "http://127.0.0.1:48594/help.html",
-        "http://127.0.0.1:48594/history.html",
-        "http://127.0.0.1:48594/index.html",
-        "http://127.0.0.1:48594/login.html",
-        "http://127.0.0.1:48594/register.html",
-        "http://127.0.0.1:48594/reports.html",
-        "http://127.0.0.1:48594/settings.html",
-        "http://127.0.0.1:48594/wizard.html"
-      ],
-      "prefix25": [
-        {
-          "i": 0,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "nav_login",
-          "js": []
-        },
-        {
-          "i": 1,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": "nav_home",
-          "js": []
-        },
-        {
-          "i": 2,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/register.html",
-          "eid": "nav_register",
-          "js": []
-        },
-        {
-          "i": 3,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/register.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": "nav_home",
-          "js": []
-        },
-        {
-          "i": 4,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/help.html",
-          "eid": "nav_help",
-          "js": []
-        },
-        {
-          "i": 5,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/help.html",
-          "dst": "http://127.0.0.1:48594/docs.html",
-          "eid": "btn_more_docs",
-          "js": []
-        },
-        {
-          "i": 6,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/docs.html",
-          "dst": "http://127.0.0.1:48594/help.html",
-          "eid": "btn_more_help",
-          "js": []
-        },
-        {
-          "i": 7,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/help.html",
-          "dst": "http://127.0.0.1:48594/docs.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 8,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/docs.html",
-          "dst": "http://127.0.0.1:48594/help.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 9,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/help.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 10,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/about.html",
-          "eid": "nav_about",
-          "js": []
-        },
-        {
-          "i": 11,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/about.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": "nav_home",
-          "js": []
-        },
-        {
-          "i": 12,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "nav_settings",
-          "js": []
-        },
-        {
-          "i": 13,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": "nav_home",
-          "js": []
-        },
-        {
-          "i": 14,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 15,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/reports.html",
-          "eid": "nav_reports",
-          "js": []
-        },
-        {
-          "i": 16,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/reports.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 17,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/history.html",
-          "eid": "nav_history",
-          "js": []
-        },
-        {
-          "i": 18,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/history.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "nav_settings",
-          "js": []
-        },
-        {
-          "i": 19,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/changelog.html",
-          "eid": "nav_changelog",
-          "js": []
-        },
-        {
-          "i": 20,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/changelog.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "nav_settings",
-          "js": []
-        },
-        {
-          "i": 21,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "btn_toggle_notify",
-          "js": []
-        },
-        {
-          "i": 22,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "btn_save_settings",
-          "js": []
-        },
-        {
-          "i": 23,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "btn_主题-浅色",
-          "js": []
-        },
-        {
-          "i": 24,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/settings.html",
-          "dst": "http://127.0.0.1:48594/settings.html",
-          "eid": "btn_主题-深色",
-          "js": []
-        }
-      ]
-    },
-    "ghost-deferred": {
-      "descriptors": {
-        "n_states": 38,
-        "n_clusters": 29,
-        "n_urls": 16,
-        "semantic_variant_churn": 2.375,
-        "mean_observed_fanout": 3.0,
-        "mean_reached_depth": 3.632,
-        "max_reached_depth": 9,
-        "hub_seen_events": 0,
-        "unique_branches_started": 0,
-        "branch_start_events": 0,
-        "return_to_hub_events": 0,
-        "return_to_hub_reuse_ratio": null,
-        "urls": [
-          "http://127.0.0.1:48594/about.html",
-          "http://127.0.0.1:48594/billing.html",
-          "http://127.0.0.1:48594/changelog.html",
-          "http://127.0.0.1:48594/dashboard.html",
-          "http://127.0.0.1:48594/docs.html",
-          "http://127.0.0.1:48594/help.html",
-          "http://127.0.0.1:48594/history.html",
-          "http://127.0.0.1:48594/index.html",
-          "http://127.0.0.1:48594/login.html",
-          "http://127.0.0.1:48594/members.html",
-          "http://127.0.0.1:48594/project.html",
-          "http://127.0.0.1:48594/register.html",
-          "http://127.0.0.1:48594/reports.html",
-          "http://127.0.0.1:48594/settings.html",
-          "http://127.0.0.1:48594/tasks.html",
-          "http://127.0.0.1:48594/wizard.html"
-        ]
-      },
-      "h1": [
-        {
-          "index": 84,
-          "url": "http://127.0.0.1:48594/settings.html",
-          "eid": "nav_changelog",
-          "js": [],
-          "mode": ""
-        },
-        {
-          "index": 85,
-          "url": "http://127.0.0.1:48594/changelog.html",
-          "eid": "nav_settings",
-          "js": [],
-          "mode": ""
-        },
-        {
-          "index": 92,
-          "url": "http://127.0.0.1:48594/settings.html",
-          "eid": "",
-          "js": [],
-          "mode": ""
-        },
-        {
-          "index": 93,
-          "url": "http://127.0.0.1:48594/changelog.html",
-          "eid": "btn_changelog_detail",
-          "js": [
-            "changelog detail: not implemented"
-          ],
-          "mode": ""
-        },
-        {
-          "index": 93,
-          "confirmed_js": true,
-          "eid": "btn_changelog_detail",
-          "mode": ""
-        },
-        {
-          "index": 94,
-          "url": "http://127.0.0.1:48594/changelog.html",
-          "eid": "",
-          "js": [],
-          "mode": ""
-        }
-      ],
-      "h2": [
-        {
-          "index": 45,
-          "url": "http://127.0.0.1:48594/project.html",
-          "eid": "btn_billing",
-          "findings": [],
-          "mode": ""
-        },
-        {
-          "index": 46,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "nav_project",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "project_name_required",
-              "error": null
-            }
-          ],
-          "mode": ""
-        }
-      ],
-      "n_steps": 120,
-      "urls": [
-        "http://127.0.0.1:48594/about.html",
-        "http://127.0.0.1:48594/billing.html",
-        "http://127.0.0.1:48594/changelog.html",
-        "http://127.0.0.1:48594/dashboard.html",
-        "http://127.0.0.1:48594/docs.html",
-        "http://127.0.0.1:48594/help.html",
-        "http://127.0.0.1:48594/history.html",
-        "http://127.0.0.1:48594/index.html",
-        "http://127.0.0.1:48594/login.html",
-        "http://127.0.0.1:48594/members.html",
-        "http://127.0.0.1:48594/project.html",
-        "http://127.0.0.1:48594/register.html",
-        "http://127.0.0.1:48594/reports.html",
-        "http://127.0.0.1:48594/settings.html",
-        "http://127.0.0.1:48594/tasks.html",
-        "http://127.0.0.1:48594/wizard.html"
-      ],
-      "prefix25": [
-        {
-          "i": 0,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "nav_login",
-          "js": []
-        },
-        {
-          "i": 1,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "login_user",
-          "js": []
-        },
-        {
-          "i": 2,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "login_user",
-          "js": []
-        },
-        {
-          "i": 3,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "login_user",
-          "js": []
-        },
-        {
-          "i": 4,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "login_user",
-          "js": []
-        },
-        {
-          "i": 5,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "login_user",
-          "js": []
-        },
-        {
-          "i": 6,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "login_user",
-          "js": []
-        },
-        {
-          "i": 7,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "btn_login",
-          "js": []
-        },
-        {
-          "i": 8,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/dashboard.html",
-          "eid": "btn_demo_login",
-          "js": []
-        },
-        {
-          "i": 9,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/dashboard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "btn_new_project",
-          "js": []
-        },
-        {
-          "i": 10,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 11,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 12,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 13,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 14,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 15,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 16,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 17,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 18,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 19,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 20,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 21,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 22,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 23,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        },
-        {
-          "i": 24,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "proj_name",
-          "js": []
-        }
-      ]
-    },
-    "ghost-sequence": {
-      "descriptors": {
-        "n_states": 63,
-        "n_clusters": 8,
-        "n_urls": 6,
-        "semantic_variant_churn": 10.5,
-        "mean_observed_fanout": 1.73,
-        "mean_reached_depth": 15.317,
-        "max_reached_depth": 31,
-        "hub_seen_events": 104,
-        "unique_branches_started": 8,
-        "branch_start_events": 87,
-        "return_to_hub_events": 2,
-        "return_to_hub_reuse_ratio": 0.023,
-        "urls": [
-          "http://127.0.0.1:48594/dashboard.html",
-          "http://127.0.0.1:48594/index.html",
-          "http://127.0.0.1:48594/login.html",
-          "http://127.0.0.1:48594/members.html",
-          "http://127.0.0.1:48594/project.html",
-          "http://127.0.0.1:48594/wizard.html"
-        ]
-      },
-      "h1": [],
-      "h2": [],
-      "n_steps": 120,
-      "urls": [
-        "http://127.0.0.1:48594/dashboard.html",
-        "http://127.0.0.1:48594/index.html",
-        "http://127.0.0.1:48594/login.html",
-        "http://127.0.0.1:48594/members.html",
-        "http://127.0.0.1:48594/project.html",
-        "http://127.0.0.1:48594/wizard.html"
-      ],
-      "prefix25": [
-        {
-          "i": 0,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "nav_login",
-          "js": []
-        },
-        {
-          "i": 1,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "btn_login",
-          "js": []
-        },
-        {
-          "i": 2,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/dashboard.html",
-          "eid": "btn_demo_login",
-          "js": []
-        },
-        {
-          "i": 3,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/dashboard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "btn_new_project",
-          "js": []
-        },
-        {
-          "i": 4,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "btn_wiz_next",
-          "js": []
-        },
-        {
-          "i": 5,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/dashboard.html",
-          "eid": "nav_dash",
-          "js": []
-        },
-        {
-          "i": 6,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/dashboard.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": "nav_home",
-          "js": []
-        },
-        {
-          "i": 7,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "nav_login",
-          "js": []
-        },
-        {
-          "i": 8,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 9,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/dashboard.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 10,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/dashboard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 11,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "btn_type_internal",
-          "js": []
-        },
-        {
-          "i": 12,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "btn_type_client",
-          "js": []
-        },
-        {
-          "i": 13,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "btn_wiz_next",
-          "js": []
-        },
-        {
-          "i": 14,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/project.html",
-          "eid": "btn_wiz_confirm",
-          "js": []
-        },
-        {
-          "i": 15,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/project.html",
-          "dst": "http://127.0.0.1:48594/dashboard.html",
-          "eid": "nav_dash",
-          "js": []
-        },
-        {
-          "i": 16,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/dashboard.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": "nav_home",
-          "js": []
-        },
-        {
-          "i": 17,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "nav_login",
-          "js": []
-        },
-        {
-          "i": 18,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 19,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/dashboard.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 20,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/dashboard.html",
-          "dst": "http://127.0.0.1:48594/project.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 21,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/project.html",
-          "dst": "http://127.0.0.1:48594/members.html",
-          "eid": "btn_members",
-          "js": []
-        },
-        {
-          "i": 22,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/members.html",
-          "dst": "http://127.0.0.1:48594/members.html",
-          "eid": "btn_add_alice",
-          "js": []
-        },
-        {
-          "i": 23,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/members.html",
-          "dst": "http://127.0.0.1:48594/members.html",
-          "eid": "btn_add_alice",
-          "js": []
-        },
-        {
-          "i": 24,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/members.html",
-          "dst": "http://127.0.0.1:48594/members.html",
-          "eid": "btn_add_alice",
-          "js": []
-        }
-      ]
-    },
-    "ghost-structural-memory": {
-      "descriptors": {
-        "n_states": 28,
-        "n_clusters": 10,
-        "n_urls": 8,
-        "semantic_variant_churn": 3.5,
-        "mean_observed_fanout": 2.464,
-        "mean_reached_depth": 5.071,
-        "max_reached_depth": 9,
-        "hub_seen_events": 63,
-        "unique_branches_started": 19,
-        "branch_start_events": 53,
-        "return_to_hub_events": 11,
-        "return_to_hub_reuse_ratio": 0.208,
-        "urls": [
-          "http://127.0.0.1:48594/billing.html",
-          "http://127.0.0.1:48594/dashboard.html",
-          "http://127.0.0.1:48594/index.html",
-          "http://127.0.0.1:48594/login.html",
-          "http://127.0.0.1:48594/members.html",
-          "http://127.0.0.1:48594/project.html",
-          "http://127.0.0.1:48594/tasks.html",
-          "http://127.0.0.1:48594/wizard.html"
-        ]
-      },
-      "h1": [],
-      "h2": [
-        {
-          "index": 32,
-          "url": "http://127.0.0.1:48594/project.html",
-          "eid": "btn_billing",
-          "findings": [],
-          "mode": ""
-        },
-        {
-          "index": 33,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_qty_up",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "coupon_price_consistent",
-              "error": null
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 34,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_qty_down",
-          "findings": [],
-          "mode": ""
-        },
-        {
-          "index": 35,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_qty_up",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "coupon_price_consistent",
-              "error": null
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 36,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_coupon",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 37,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_export",
-          "findings": [
-            {
-              "kind": "js_error",
-              "assert_id": null,
-              "error": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
-            },
-            {
-              "kind": "http_error",
-              "assert_id": null,
-              "error": "POST http://127.0.0.1:48594/api/export -> 500"
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 38,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "nav_project",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "project_name_required",
-              "error": null
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 53,
-          "url": "http://127.0.0.1:48594/project.html",
-          "eid": "btn_billing",
-          "findings": [],
-          "mode": ""
-        },
-        {
-          "index": 54,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_qty_up",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "coupon_price_consistent",
-              "error": null
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 55,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_qty_down",
-          "findings": [],
-          "mode": ""
-        },
-        {
-          "index": 56,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_qty_up",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "coupon_price_consistent",
-              "error": null
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 57,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_coupon",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 58,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_export",
-          "findings": [
-            {
-              "kind": "js_error",
-              "assert_id": null,
-              "error": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
-            },
-            {
-              "kind": "http_error",
-              "assert_id": null,
-              "error": "POST http://127.0.0.1:48594/api/export -> 500"
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 59,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "nav_project",
-          "findings": [],
-          "mode": ""
-        },
-        {
-          "index": 87,
-          "url": "http://127.0.0.1:48594/project.html",
-          "eid": "btn_billing",
-          "findings": [],
-          "mode": ""
-        },
-        {
-          "index": 88,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_qty_up",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "coupon_price_consistent",
-              "error": null
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 89,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_qty_down",
-          "findings": [],
-          "mode": ""
-        },
-        {
-          "index": 90,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_qty_up",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "coupon_price_consistent",
-              "error": null
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 91,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_coupon",
-          "findings": [
-            {
-              "kind": "nav_loop",
-              "assert_id": null,
-              "error": null
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 92,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_export",
-          "findings": [
-            {
-              "kind": "js_error",
-              "assert_id": null,
-              "error": "Failed to load resource: the server responded with a status of 500 (Internal Server Error)"
-            },
-            {
-              "kind": "http_error",
-              "assert_id": null,
-              "error": "POST http://127.0.0.1:48594/api/export -> 500"
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 93,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "nav_project",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "project_name_required",
-              "error": null
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 97,
-          "url": "http://127.0.0.1:48594/project.html",
-          "eid": "",
-          "findings": [],
-          "mode": ""
-        },
-        {
-          "index": 98,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "btn_qty_down",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "coupon_price_consistent",
-              "error": null
-            }
-          ],
-          "mode": ""
-        },
-        {
-          "index": 99,
-          "url": "http://127.0.0.1:48594/billing.html",
-          "eid": "nav_project",
-          "findings": [
-            {
-              "kind": "semantic",
-              "assert_id": "project_name_required",
-              "error": null
-            }
-          ],
-          "mode": ""
-        }
-      ],
-      "n_steps": 120,
-      "urls": [
-        "http://127.0.0.1:48594/billing.html",
-        "http://127.0.0.1:48594/dashboard.html",
-        "http://127.0.0.1:48594/index.html",
-        "http://127.0.0.1:48594/login.html",
-        "http://127.0.0.1:48594/members.html",
-        "http://127.0.0.1:48594/project.html",
-        "http://127.0.0.1:48594/tasks.html",
-        "http://127.0.0.1:48594/wizard.html"
-      ],
-      "prefix25": [
-        {
-          "i": 0,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "nav_login",
-          "js": []
-        },
-        {
-          "i": 1,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "btn_login",
-          "js": []
-        },
-        {
-          "i": 2,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/dashboard.html",
-          "eid": "btn_demo_login",
-          "js": []
-        },
-        {
-          "i": 3,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/dashboard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "btn_new_project",
-          "js": []
-        },
-        {
-          "i": 4,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "btn_wiz_next",
-          "js": []
-        },
-        {
-          "i": 5,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/dashboard.html",
-          "eid": "nav_dash",
-          "js": []
-        },
-        {
-          "i": 6,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/dashboard.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": "nav_home",
-          "js": []
-        },
-        {
-          "i": 7,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "nav_login",
-          "js": []
-        },
-        {
-          "i": 8,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 9,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/dashboard.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 10,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/dashboard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 11,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "btn_type_internal",
-          "js": []
-        },
-        {
-          "i": 12,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "btn_type_client",
-          "js": []
-        },
-        {
-          "i": 13,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/wizard.html",
-          "eid": "btn_wiz_next",
-          "js": []
-        },
-        {
-          "i": 14,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/wizard.html",
-          "dst": "http://127.0.0.1:48594/project.html",
-          "eid": "btn_wiz_confirm",
-          "js": []
-        },
-        {
-          "i": 15,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/project.html",
-          "dst": "http://127.0.0.1:48594/dashboard.html",
-          "eid": "nav_dash",
-          "js": []
-        },
-        {
-          "i": 16,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/dashboard.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": "nav_home",
-          "js": []
-        },
-        {
-          "i": 17,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/login.html",
-          "eid": "nav_login",
-          "js": []
-        },
-        {
-          "i": 18,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/login.html",
-          "dst": "http://127.0.0.1:48594/index.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 19,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/index.html",
-          "dst": "http://127.0.0.1:48594/dashboard.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 20,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/dashboard.html",
-          "dst": "http://127.0.0.1:48594/project.html",
-          "eid": null,
-          "js": []
-        },
-        {
-          "i": 21,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/project.html",
-          "dst": "http://127.0.0.1:48594/members.html",
-          "eid": "btn_members",
-          "js": []
-        },
-        {
-          "i": 22,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/members.html",
-          "dst": "http://127.0.0.1:48594/members.html",
-          "eid": "btn_add_alice",
-          "js": []
-        },
-        {
-          "i": 23,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/members.html",
-          "dst": "http://127.0.0.1:48594/members.html",
-          "eid": "btn_add_alice",
-          "js": []
-        },
-        {
-          "i": 24,
-          "mode": "",
-          "src": "http://127.0.0.1:48594/members.html",
-          "dst": "http://127.0.0.1:48594/members.html",
-          "eid": "btn_add_alice",
-          "js": []
-        }
-      ]
-    }
   }
 }

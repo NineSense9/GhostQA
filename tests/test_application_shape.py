@@ -5,8 +5,10 @@ from ghostqa.oracle.spec import load_spec
 from ghostqa.state.models import Action, GUIState
 from benchmark.algorithm_freeze import DEFAULT_FREEZE, verify_freeze
 from benchmark.application_shape import (
-    STATIC_FLOW, flow_billing_state, flow_changelog_state, flow_home_state,
-    flow_settings_state, graph_descriptors, label_text, page_depths,
+    H2_CLICKS_TO_VIOLATE, H2_INITIAL_QTY, SOURCE_MODELED_SHOP_PAGES,
+    SHOP_DETAIL_LABELS, SHOP_HOME_LABELS, flow_billing_state,
+    flow_changelog_state, flow_home_state, flow_settings_state,
+    graph_descriptors, html_string_literals, label_text, page_depths,
     shop_detail_state, shop_home_state, static_shop_descriptors,
 )
 from benchmark.web_runner import make_policy
@@ -64,8 +66,8 @@ def test_changelog_and_settings_are_distractors_not_branches():
 
 
 def test_h2_requires_two_qty_downs_from_default():
-    assert STATIC_FLOW["h2_initial_qty"] == 1
-    assert STATIC_FLOW["h2_clicks_to_violate"] == 2
+    assert H2_INITIAL_QTY == 1
+    assert H2_CLICKS_TO_VIOLATE == 2
     spec = load_spec("apps/buggy-flow/spec.json")
     oracle = OracleEngine(spec)
     before = flow_billing_state("0")
@@ -120,7 +122,6 @@ def test_structural_policy_construction_unchanged():
 
 
 def test_page_depths_shop_promo_is_shallow():
-    from benchmark.application_shape import STATIC_SHOP
-    d = page_depths(STATIC_SHOP["pages"], "index.html")
+    d = page_depths(SOURCE_MODELED_SHOP_PAGES, "index.html")
     assert d["promo.html"] == 1
     assert d["help.html"] == 2

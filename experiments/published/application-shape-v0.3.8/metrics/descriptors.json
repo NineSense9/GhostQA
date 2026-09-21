@@ -1,461 +1,183 @@
 {
-  "static_shop": {
-    "n_pages": 11,
-    "mean_fanout": 1.818,
-    "max_fanout": 6,
-    "mean_shortest_path_depth": 1.364,
-    "max_shortest_path_depth": 3,
-    "shallow_leaf_pages": [
-      "profile.html",
-      "promo.html",
-      "register.html"
-    ],
-    "page_depths": {
-      "index.html": 0,
-      "products.html": 1,
-      "cart.html": 1,
-      "register.html": 1,
-      "login.html": 1,
-      "profile.html": 1,
-      "promo.html": 1,
-      "detail.html": 2,
-      "help.html": 2,
-      "checkout.html": 2,
-      "help2.html": 3
-    },
-    "home_is_hub": true,
-    "home_branch_eids": [
-      "products",
-      "cart",
-      "profile",
-      "promo",
-      "search_btn"
-    ]
-  },
-  "static_flow": {
-    "h1_path": [
-      "index.html",
-      "settings.html",
-      "changelog.html",
-      "btn_changelog_detail"
-    ],
-    "h2_path": [
-      "login.html",
-      "dashboard.html",
-      "project.html",
-      "billing.html",
-      "btn_qty_down",
-      "btn_qty_down"
-    ],
-    "h2_initial_qty": 1,
-    "h2_clicks_to_violate": 2
-  },
-  "observed": {
-    "shop": {
-      "bfs": {
-        "n_states": 41,
-        "n_urls": 11,
-        "urls": [
-          "http://127.0.0.1:29285/cart.html",
-          "http://127.0.0.1:29285/checkout.html",
-          "http://127.0.0.1:29285/detail.html",
-          "http://127.0.0.1:29285/help.html",
-          "http://127.0.0.1:29285/help2.html",
-          "http://127.0.0.1:29285/index.html",
-          "http://127.0.0.1:29285/login.html",
-          "http://127.0.0.1:29285/products.html",
-          "http://127.0.0.1:29285/profile.html",
-          "http://127.0.0.1:29285/promo.html",
-          "http://127.0.0.1:29285/register.html"
-        ],
-        "descriptors": {
-          "n_states": 41,
-          "n_clusters": 26,
-          "n_urls": 11,
-          "semantic_variant_churn": 3.727,
-          "mean_observed_fanout": 2.463,
-          "mean_reached_depth": 2.317,
-          "max_reached_depth": 5,
-          "hub_seen_events": 0,
-          "unique_branches_started": 0,
-          "branch_start_events": 0,
-          "return_to_hub_events": 0,
-          "return_to_hub_reuse_ratio": null,
-          "urls": [
-            "http://127.0.0.1:29285/cart.html",
-            "http://127.0.0.1:29285/checkout.html",
-            "http://127.0.0.1:29285/detail.html",
-            "http://127.0.0.1:29285/help.html",
-            "http://127.0.0.1:29285/help2.html",
-            "http://127.0.0.1:29285/index.html",
-            "http://127.0.0.1:29285/login.html",
-            "http://127.0.0.1:29285/products.html",
-            "http://127.0.0.1:29285/profile.html",
-            "http://127.0.0.1:29285/promo.html",
-            "http://127.0.0.1:29285/register.html"
-          ]
-        },
-        "sequence_event_types": {},
-        "first_hub_step": null,
-        "first_hub_n_branch": null
+  "runtime_observed": {
+    "bfs": {
+      "n_states": {
+        "provenance": "runtime_observed",
+        "value": 41
       },
-      "ghost-deferred": {
-        "n_states": 34,
-        "n_urls": 11,
-        "urls": [
-          "http://127.0.0.1:29285/cart.html",
-          "http://127.0.0.1:29285/checkout.html",
-          "http://127.0.0.1:29285/detail.html",
-          "http://127.0.0.1:29285/help.html",
-          "http://127.0.0.1:29285/help2.html",
-          "http://127.0.0.1:29285/index.html",
-          "http://127.0.0.1:29285/login.html",
-          "http://127.0.0.1:29285/products.html",
-          "http://127.0.0.1:29285/profile.html",
-          "http://127.0.0.1:29285/promo.html",
-          "http://127.0.0.1:29285/register.html"
-        ],
-        "descriptors": {
-          "n_states": 34,
-          "n_clusters": 22,
-          "n_urls": 11,
-          "semantic_variant_churn": 3.091,
-          "mean_observed_fanout": 3.206,
-          "mean_reached_depth": 2.235,
-          "max_reached_depth": 5,
-          "hub_seen_events": 0,
-          "unique_branches_started": 0,
-          "branch_start_events": 0,
-          "return_to_hub_events": 0,
-          "return_to_hub_reuse_ratio": null,
-          "urls": [
-            "http://127.0.0.1:29285/cart.html",
-            "http://127.0.0.1:29285/checkout.html",
-            "http://127.0.0.1:29285/detail.html",
-            "http://127.0.0.1:29285/help.html",
-            "http://127.0.0.1:29285/help2.html",
-            "http://127.0.0.1:29285/index.html",
-            "http://127.0.0.1:29285/login.html",
-            "http://127.0.0.1:29285/products.html",
-            "http://127.0.0.1:29285/profile.html",
-            "http://127.0.0.1:29285/promo.html",
-            "http://127.0.0.1:29285/register.html"
-          ]
-        },
-        "sequence_event_types": {},
-        "first_hub_step": null,
-        "first_hub_n_branch": null
+      "n_urls": {
+        "provenance": "runtime_observed",
+        "value": 11
       },
-      "ghost-sequence": {
-        "n_states": 6,
-        "n_urls": 4,
-        "urls": [
-          "http://127.0.0.1:29285/cart.html",
-          "http://127.0.0.1:29285/detail.html",
-          "http://127.0.0.1:29285/index.html",
-          "http://127.0.0.1:29285/products.html"
-        ],
-        "descriptors": {
-          "n_states": 6,
-          "n_clusters": 4,
-          "n_urls": 4,
-          "semantic_variant_churn": 1.5,
-          "mean_observed_fanout": 1.167,
-          "mean_reached_depth": 1.833,
-          "max_reached_depth": 4,
-          "hub_seen_events": 60,
-          "unique_branches_started": 2,
-          "branch_start_events": 2,
-          "return_to_hub_events": 0,
-          "return_to_hub_reuse_ratio": 0.0,
-          "urls": [
-            "http://127.0.0.1:29285/cart.html",
-            "http://127.0.0.1:29285/detail.html",
-            "http://127.0.0.1:29285/index.html",
-            "http://127.0.0.1:29285/products.html"
-          ]
-        },
-        "sequence_event_types": {
-          "hub_seen": 60,
-          "branch_discovered": 2,
-          "branch_start": 2,
-          "sequence_action": 4,
-          "mutation": 120,
-          "followup": 3,
-          "sequence_terminal": 2,
-          "return_attempt": 116
-        },
-        "first_hub_step": 0,
-        "first_hub_n_branch": 5
-      },
-      "ghost-structural-memory": {
-        "n_states": 6,
-        "n_urls": 4,
-        "urls": [
-          "http://127.0.0.1:29285/cart.html",
-          "http://127.0.0.1:29285/detail.html",
-          "http://127.0.0.1:29285/index.html",
-          "http://127.0.0.1:29285/products.html"
-        ],
-        "descriptors": {
-          "n_states": 6,
-          "n_clusters": 4,
-          "n_urls": 4,
-          "semantic_variant_churn": 1.5,
-          "mean_observed_fanout": 1.167,
-          "mean_reached_depth": 1.833,
-          "max_reached_depth": 4,
-          "hub_seen_events": 60,
-          "unique_branches_started": 2,
-          "branch_start_events": 2,
-          "return_to_hub_events": 0,
-          "return_to_hub_reuse_ratio": 0.0,
-          "urls": [
-            "http://127.0.0.1:29285/cart.html",
-            "http://127.0.0.1:29285/detail.html",
-            "http://127.0.0.1:29285/index.html",
-            "http://127.0.0.1:29285/products.html"
-          ]
-        },
-        "sequence_event_types": {
-          "hub_seen": 60,
-          "branch_discovered": 2,
-          "branch_start": 2,
-          "sequence_action": 4,
-          "mutation": 120,
-          "followup": 3,
-          "sequence_terminal": 2,
-          "return_attempt": 116
-        },
-        "first_hub_step": 0,
-        "first_hub_n_branch": 5
+      "pages": {
+        "provenance": "runtime_observed",
+        "value": [
+          "cart.html",
+          "checkout.html",
+          "detail.html",
+          "help.html",
+          "help2.html",
+          "index.html",
+          "login.html",
+          "products.html",
+          "profile.html",
+          "promo.html",
+          "register.html"
+        ]
       }
     },
-    "flow": {
-      "dfs": {
-        "urls": [
-          "http://127.0.0.1:48594/about.html",
-          "http://127.0.0.1:48594/changelog.html",
-          "http://127.0.0.1:48594/dashboard.html",
-          "http://127.0.0.1:48594/docs.html",
-          "http://127.0.0.1:48594/help.html",
-          "http://127.0.0.1:48594/history.html",
-          "http://127.0.0.1:48594/index.html",
-          "http://127.0.0.1:48594/login.html",
-          "http://127.0.0.1:48594/project.html",
-          "http://127.0.0.1:48594/register.html",
-          "http://127.0.0.1:48594/reports.html",
-          "http://127.0.0.1:48594/settings.html",
-          "http://127.0.0.1:48594/wizard.html"
-        ],
-        "n_steps": 120,
-        "descriptors": {
-          "n_states": 40,
-          "n_clusters": 21,
-          "n_urls": 13,
-          "semantic_variant_churn": 3.077,
-          "mean_observed_fanout": 2.95,
-          "mean_reached_depth": 7.7,
-          "max_reached_depth": 23,
-          "hub_seen_events": 0,
-          "unique_branches_started": 0,
-          "branch_start_events": 0,
-          "return_to_hub_events": 0,
-          "return_to_hub_reuse_ratio": null,
-          "urls": [
-            "http://127.0.0.1:48594/about.html",
-            "http://127.0.0.1:48594/changelog.html",
-            "http://127.0.0.1:48594/dashboard.html",
-            "http://127.0.0.1:48594/docs.html",
-            "http://127.0.0.1:48594/help.html",
-            "http://127.0.0.1:48594/history.html",
-            "http://127.0.0.1:48594/index.html",
-            "http://127.0.0.1:48594/login.html",
-            "http://127.0.0.1:48594/project.html",
-            "http://127.0.0.1:48594/register.html",
-            "http://127.0.0.1:48594/reports.html",
-            "http://127.0.0.1:48594/settings.html",
-            "http://127.0.0.1:48594/wizard.html"
-          ]
-        },
-        "h1_n": 4,
-        "h2_n": 0
+    "ghost-deferred": {
+      "n_states": {
+        "provenance": "runtime_observed",
+        "value": 34
       },
-      "bfs": {
-        "urls": [
-          "http://127.0.0.1:48594/about.html",
-          "http://127.0.0.1:48594/changelog.html",
-          "http://127.0.0.1:48594/dashboard.html",
-          "http://127.0.0.1:48594/docs.html",
-          "http://127.0.0.1:48594/help.html",
-          "http://127.0.0.1:48594/history.html",
-          "http://127.0.0.1:48594/index.html",
-          "http://127.0.0.1:48594/login.html",
-          "http://127.0.0.1:48594/register.html",
-          "http://127.0.0.1:48594/reports.html",
-          "http://127.0.0.1:48594/settings.html",
-          "http://127.0.0.1:48594/wizard.html"
-        ],
-        "n_steps": 120,
-        "descriptors": {
-          "n_states": 31,
-          "n_clusters": 29,
-          "n_urls": 12,
-          "semantic_variant_churn": 2.583,
-          "mean_observed_fanout": 2.871,
-          "mean_reached_depth": 2.3,
-          "max_reached_depth": 5,
-          "hub_seen_events": 0,
-          "unique_branches_started": 0,
-          "branch_start_events": 0,
-          "return_to_hub_events": 0,
-          "return_to_hub_reuse_ratio": null,
-          "urls": [
-            "http://127.0.0.1:48594/about.html",
-            "http://127.0.0.1:48594/changelog.html",
-            "http://127.0.0.1:48594/dashboard.html",
-            "http://127.0.0.1:48594/docs.html",
-            "http://127.0.0.1:48594/help.html",
-            "http://127.0.0.1:48594/history.html",
-            "http://127.0.0.1:48594/index.html",
-            "http://127.0.0.1:48594/login.html",
-            "http://127.0.0.1:48594/register.html",
-            "http://127.0.0.1:48594/reports.html",
-            "http://127.0.0.1:48594/settings.html",
-            "http://127.0.0.1:48594/wizard.html"
-          ]
-        },
-        "h1_n": 6,
-        "h2_n": 0
+      "n_urls": {
+        "provenance": "runtime_observed",
+        "value": 11
       },
-      "ghost-deferred": {
-        "urls": [
-          "http://127.0.0.1:48594/about.html",
-          "http://127.0.0.1:48594/billing.html",
-          "http://127.0.0.1:48594/changelog.html",
-          "http://127.0.0.1:48594/dashboard.html",
-          "http://127.0.0.1:48594/docs.html",
-          "http://127.0.0.1:48594/help.html",
-          "http://127.0.0.1:48594/history.html",
-          "http://127.0.0.1:48594/index.html",
-          "http://127.0.0.1:48594/login.html",
-          "http://127.0.0.1:48594/members.html",
-          "http://127.0.0.1:48594/project.html",
-          "http://127.0.0.1:48594/register.html",
-          "http://127.0.0.1:48594/reports.html",
-          "http://127.0.0.1:48594/settings.html",
-          "http://127.0.0.1:48594/tasks.html",
-          "http://127.0.0.1:48594/wizard.html"
-        ],
-        "n_steps": 120,
-        "descriptors": {
-          "n_states": 38,
-          "n_clusters": 29,
-          "n_urls": 16,
-          "semantic_variant_churn": 2.375,
-          "mean_observed_fanout": 3.0,
-          "mean_reached_depth": 3.632,
-          "max_reached_depth": 9,
-          "hub_seen_events": 0,
-          "unique_branches_started": 0,
-          "branch_start_events": 0,
-          "return_to_hub_events": 0,
-          "return_to_hub_reuse_ratio": null,
-          "urls": [
-            "http://127.0.0.1:48594/about.html",
-            "http://127.0.0.1:48594/billing.html",
-            "http://127.0.0.1:48594/changelog.html",
-            "http://127.0.0.1:48594/dashboard.html",
-            "http://127.0.0.1:48594/docs.html",
-            "http://127.0.0.1:48594/help.html",
-            "http://127.0.0.1:48594/history.html",
-            "http://127.0.0.1:48594/index.html",
-            "http://127.0.0.1:48594/login.html",
-            "http://127.0.0.1:48594/members.html",
-            "http://127.0.0.1:48594/project.html",
-            "http://127.0.0.1:48594/register.html",
-            "http://127.0.0.1:48594/reports.html",
-            "http://127.0.0.1:48594/settings.html",
-            "http://127.0.0.1:48594/tasks.html",
-            "http://127.0.0.1:48594/wizard.html"
-          ]
-        },
-        "h1_n": 6,
-        "h2_n": 2
+      "pages": {
+        "provenance": "runtime_observed",
+        "value": [
+          "cart.html",
+          "checkout.html",
+          "detail.html",
+          "help.html",
+          "help2.html",
+          "index.html",
+          "login.html",
+          "products.html",
+          "profile.html",
+          "promo.html",
+          "register.html"
+        ]
+      }
+    },
+    "ghost-sequence": {
+      "n_states": {
+        "provenance": "runtime_observed",
+        "value": 6
       },
-      "ghost-sequence": {
-        "urls": [
-          "http://127.0.0.1:48594/dashboard.html",
-          "http://127.0.0.1:48594/index.html",
-          "http://127.0.0.1:48594/login.html",
-          "http://127.0.0.1:48594/members.html",
-          "http://127.0.0.1:48594/project.html",
-          "http://127.0.0.1:48594/wizard.html"
-        ],
-        "n_steps": 120,
-        "descriptors": {
-          "n_states": 63,
-          "n_clusters": 8,
-          "n_urls": 6,
-          "semantic_variant_churn": 10.5,
-          "mean_observed_fanout": 1.73,
-          "mean_reached_depth": 15.317,
-          "max_reached_depth": 31,
-          "hub_seen_events": 104,
-          "unique_branches_started": 8,
-          "branch_start_events": 87,
-          "return_to_hub_events": 2,
-          "return_to_hub_reuse_ratio": 0.023,
-          "urls": [
-            "http://127.0.0.1:48594/dashboard.html",
-            "http://127.0.0.1:48594/index.html",
-            "http://127.0.0.1:48594/login.html",
-            "http://127.0.0.1:48594/members.html",
-            "http://127.0.0.1:48594/project.html",
-            "http://127.0.0.1:48594/wizard.html"
-          ]
-        },
-        "h1_n": 0,
-        "h2_n": 0
+      "n_urls": {
+        "provenance": "runtime_observed",
+        "value": 4
       },
-      "ghost-structural-memory": {
-        "urls": [
-          "http://127.0.0.1:48594/billing.html",
-          "http://127.0.0.1:48594/dashboard.html",
-          "http://127.0.0.1:48594/index.html",
-          "http://127.0.0.1:48594/login.html",
-          "http://127.0.0.1:48594/members.html",
-          "http://127.0.0.1:48594/project.html",
-          "http://127.0.0.1:48594/tasks.html",
-          "http://127.0.0.1:48594/wizard.html"
+      "pages": {
+        "provenance": "runtime_observed",
+        "value": [
+          "cart.html",
+          "detail.html",
+          "index.html",
+          "products.html"
+        ]
+      }
+    },
+    "ghost-structural-memory": {
+      "n_states": {
+        "provenance": "runtime_observed",
+        "value": 6
+      },
+      "n_urls": {
+        "provenance": "runtime_observed",
+        "value": 4
+      },
+      "pages": {
+        "provenance": "runtime_observed",
+        "value": [
+          "cart.html",
+          "detail.html",
+          "index.html",
+          "products.html"
+        ]
+      }
+    }
+  },
+  "source_modeled": {
+    "home_is_hub": {
+      "provenance": "source_modeled",
+      "value": true
+    },
+    "max_shortest_path_depth": {
+      "provenance": "source_modeled",
+      "value": 3
+    },
+    "mean_shortest_path_depth": {
+      "provenance": "source_modeled",
+      "value": 1.364
+    },
+    "pages": {
+      "provenance": "source_modeled",
+      "value": {
+        "cart.html": [
+          "checkout.html",
+          "index.html"
         ],
-        "n_steps": 120,
-        "descriptors": {
-          "n_states": 28,
-          "n_clusters": 10,
-          "n_urls": 8,
-          "semantic_variant_churn": 3.5,
-          "mean_observed_fanout": 2.464,
-          "mean_reached_depth": 5.071,
-          "max_reached_depth": 9,
-          "hub_seen_events": 63,
-          "unique_branches_started": 19,
-          "branch_start_events": 53,
-          "return_to_hub_events": 11,
-          "return_to_hub_reuse_ratio": 0.208,
-          "urls": [
-            "http://127.0.0.1:48594/billing.html",
-            "http://127.0.0.1:48594/dashboard.html",
-            "http://127.0.0.1:48594/index.html",
-            "http://127.0.0.1:48594/login.html",
-            "http://127.0.0.1:48594/members.html",
-            "http://127.0.0.1:48594/project.html",
-            "http://127.0.0.1:48594/tasks.html",
-            "http://127.0.0.1:48594/wizard.html"
-          ]
-        },
-        "h1_n": 0,
-        "h2_n": 24
+        "checkout.html": [
+          "cart.html"
+        ],
+        "detail.html": [
+          "cart.html",
+          "products.html"
+        ],
+        "help.html": [
+          "help2.html"
+        ],
+        "help2.html": [
+          "help.html"
+        ],
+        "index.html": [
+          "products.html",
+          "cart.html",
+          "register.html",
+          "login.html",
+          "profile.html",
+          "promo.html"
+        ],
+        "login.html": [
+          "profile.html",
+          "index.html"
+        ],
+        "products.html": [
+          "detail.html",
+          "help.html",
+          "index.html"
+        ],
+        "profile.html": [
+          "index.html"
+        ],
+        "promo.html": [],
+        "register.html": [
+          "index.html"
+        ]
+      }
+    }
+  },
+  "trace_derived": {
+    "ghost-sequence": {
+      "branch_start_events": {
+        "provenance": "trace_derived",
+        "value": 2
+      },
+      "return_attempt_events": {
+        "provenance": "trace_derived",
+        "value": 116
+      },
+      "successful_return_to_parent_events": {
+        "provenance": "trace_derived",
+        "value": 0
+      }
+    },
+    "ghost-structural-memory": {
+      "branch_start_events": {
+        "provenance": "trace_derived",
+        "value": 2
+      },
+      "return_attempt_events": {
+        "provenance": "trace_derived",
+        "value": 116
+      },
+      "successful_return_to_parent_events": {
+        "provenance": "trace_derived",
+        "value": 0
       }
     }
   }

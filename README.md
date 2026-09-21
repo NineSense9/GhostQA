@@ -127,9 +127,10 @@ python -m ghostqa run --url ... --policy ghost --llm ...
   - Holdout H1/H2：C1 **0/2**；DFS/BFS **1/2**（仅 H1）。H2 无人确认。
   - BuggyShop：C1=C0=**1/10**（W5），6 states；BFS@120 **7/10**。结论：**C. DeepBench-specific research result**。产品默认不改。
 - **v0.3.8 application-shape**（不调参）：`experiments/published/application-shape-v0.3.8/`
-  - BuggyShop 6 states = 嵌套 hub 后 `returning` 锁死 index↔cart（116 return_attempt）。
-  - H1：step 0 DFS 进 settings，C0/C1 进 login（distractor `设置`/`日志`）。
-  - H2：全局失败；C1 到了 billing 但 up/down/up，从未连续两次 qty_down。
+  - BuggyShop 6 states = 嵌套 hub 后 `returning` 锁死 index↔cart（116 return_attempt，**returned terminal=0**）。
+  - H1：step 0 DFS 进 settings，C0/C1 进 login（本 run 的 distractor 分类）。
+  - H2：全局失败；C1 billing entries 32/53/87/97，qty 从未落到负数。
+  - Clean-clone：`python -m benchmark.application_shape_reproduce --root experiments/published/application-shape-v0.3.8 --verify`
 
 ## 架构
 

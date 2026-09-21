@@ -11,8 +11,7 @@ import os
 from collections import Counter
 
 from benchmark.application_shape import (
-    STATIC_FLOW, STATIC_SHOP, first_hub_event, graph_descriptors,
-    label_text, static_shop_descriptors, url_of,
+    graph_descriptors, static_shop_descriptors,
 )
 
 
@@ -139,7 +138,6 @@ def main():
     args = ap.parse_args()
     report = {
         "static_shop": static_shop_descriptors(),
-        "static_flow": STATIC_FLOW,
         "shop": {},
         "flow": {},
     }

@@ -5,6 +5,7 @@ Does not feed descriptors into scoring.
 """
 from __future__ import annotations
 
+import re
 from collections import Counter, defaultdict, deque
 
 from ghostqa.exploration.interaction import (
@@ -104,43 +105,39 @@ def flow_billing_state(qty="1") -> GUIState:
         ), obs={"bill_qty": qty, "bill_price": "100", "bill_price_expected": "100"})
 
 
-STATIC_SHOP = {
-    "pages": {
-        "index.html": ["products.html", "cart.html", "register.html",
-                       "login.html", "profile.html", "promo.html"],
-        "products.html": ["detail.html", "help.html", "index.html"],
-        "detail.html": ["cart.html", "products.html"],
-        "cart.html": ["checkout.html", "index.html"],
-        "checkout.html": ["cart.html"],
-        "register.html": ["index.html"],
-        "login.html": ["profile.html", "index.html"],
-        "profile.html": ["index.html"],
-        "help.html": ["help2.html"],
-        "help2.html": ["help.html"],
-        "promo.html": [],
-    },
-    "bugs": {
-        "BUG-W1": {"page": "checkout.html", "depth": 2},
-        "BUG-W2": {"page": "checkout.html", "depth": 2},
-        "BUG-W3": {"page": "detail.html", "depth": 2},
-        "BUG-W4": {"page": "help.html", "depth": 2},
-        "BUG-W5": {"page": "cart.html", "depth": 1},
-        "BUG-W6": {"page": "register.html", "depth": 1},
-        "BUG-W7": {"page": "detail.html", "depth": 2},
-        "BUG-W8": {"page": "index.html", "depth": 0},
-        "BUG-W9": {"page": "promo.html", "depth": 1},
-        "BUG-W10": {"page": "profile.html", "depth": 1},
-    },
+# Declared from apps/buggy-shop/static/app.js (href / go("*.html") literals).
+# Not a runtime-measured graph. Tests check these strings exist in app.js.
+SOURCE_MODELED_SHOP_PAGES = {
+    "index.html": ["products.html", "cart.html", "register.html",
+                   "login.html", "profile.html", "promo.html"],
+    "products.html": ["detail.html", "help.html", "index.html"],
+    "detail.html": ["cart.html", "products.html"],
+    "cart.html": ["checkout.html", "index.html"],
+    "checkout.html": ["cart.html"],
+    "register.html": ["index.html"],
+    "login.html": ["profile.html", "index.html"],
+    "profile.html": ["index.html"],
+    "help.html": ["help2.html"],
+    "help2.html": ["help.html"],
+    "promo.html": [],
 }
 
-STATIC_FLOW = {
-    "h1_path": ["index.html", "settings.html", "changelog.html",
-                "btn_changelog_detail"],
-    "h2_path": ["login.html", "dashboard.html", "project.html",
-                "billing.html", "btn_qty_down", "btn_qty_down"],
-    "h2_initial_qty": 1,
-    "h2_clicks_to_violate": 2,
-}
+# Oracle unit-test constants (not a holdout-tuning input).
+H2_INITIAL_QTY = 1
+H2_CLICKS_TO_VIOLATE = 2
+
+SHOP_HOME_LABELS = (
+    "商品列表", "购物车", "注册", "登录", "个人中心", "活动专区", "搜索",
+)
+SHOP_DETAIL_LABELS = (
+    "加入购物车", "收藏", "立即购买", "返回列表",
+)
+
+
+def html_string_literals(path: str) -> set:
+    """Deterministic quoted-string harvest. Does not execute JS."""
+    text = open(path, encoding="utf-8").read()
+    return set(re.findall(r'["\']([^"\'\n]+)["\']', text))
 
 
 def page_depths(pages: dict, start: str) -> dict:
@@ -156,7 +153,7 @@ def page_depths(pages: dict, start: str) -> dict:
 
 
 def static_shop_descriptors() -> dict:
-    pages = STATIC_SHOP["pages"]
+    pages = SOURCE_MODELED_SHOP_PAGES
     depths = page_depths(pages, "index.html")
     fanouts = [len(v) for v in pages.values()]
     n = len(pages)

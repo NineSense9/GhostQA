@@ -1,32 +1,141 @@
 {
   "h1": {
-    "kind": "js_error",
-    "path": [
-      "index.html",
-      "settings.html",
-      "changelog.html",
-      "btn_changelog_detail"
-    ],
-    "dfs_first_action": "nav_settings",
-    "dfs_confirm_step": 8,
-    "c0_c1_first_action": "nav_login",
-    "c0_c1_settings_visits": 0,
-    "c0_c1_changelog_visits": 0,
-    "failure_class": "reach_failure + distractor_filter",
-    "distractor_keywords_hit": [
-      "设置 in 系统设置",
-      "日志 in 更新日志"
-    ]
+    "interpretation": {
+      "claim_boundary": "this run / this route, not all shallow bugs",
+      "failure_class": "reach_failure",
+      "immediate_mechanism": "step-0 action ranking/classification sends C0/C1 to login; settings/changelog unvisited in this run"
+    },
+    "observed": {
+      "bfs": {
+        "changelog_visits": 5,
+        "confirm_step": 28,
+        "confirmed": true,
+        "first_action": "nav_login",
+        "settings_visits": 24
+      },
+      "dfs": {
+        "changelog_visits": 3,
+        "confirm_step": 8,
+        "confirmed": true,
+        "first_action": "nav_settings",
+        "settings_visits": 14
+      },
+      "ghost_deferred": {
+        "changelog_visits": 5,
+        "confirm_step": 93,
+        "confirmed": true,
+        "first_action": "nav_login",
+        "settings_visits": 20
+      },
+      "ghost_sequence": {
+        "changelog_visits": 0,
+        "confirm_step": null,
+        "confirmed": false,
+        "first_action": "nav_login",
+        "settings_visits": 0
+      },
+      "ghost_structural_memory": {
+        "changelog_visits": 0,
+        "confirm_step": null,
+        "confirmed": false,
+        "first_action": "nav_login",
+        "settings_visits": 0
+      },
+      "path": [
+        "index.html",
+        "settings.html",
+        "changelog.html",
+        "btn_changelog_detail"
+      ]
+    }
   },
   "h2": {
-    "kind": "semantic bill_qty_non_negative",
-    "initial_qty": 1,
-    "clicks_to_violate": 2,
-    "dfs_bfs_c0_reached_billing": false,
-    "deferred_reached_billing": true,
-    "c1_reached_billing": true,
-    "c1_qty_pattern": "up, down, up (never two consecutive downs from 1)",
-    "c1_failure_class": "interaction_construction: reached billing, did not net two qty_down",
-    "global_failure": "not C1-specific; DFS/BFS never reached billing; C1 reached but wrong click order"
+    "interpretation": {
+      "c1": "reached_billing_qty_sequence_never_below_zero",
+      "dfs_bfs_c0": "reach_failure",
+      "failure_class": "global_miss_policy_specific",
+      "ghost_deferred": "reached_billing_no_qty_down",
+      "oracle_blind": false
+    },
+    "observed": {
+      "bfs": {
+        "billing_entry_steps": [],
+        "h2_finding": false,
+        "qty_actions": [],
+        "reached_billing": false
+      },
+      "dfs": {
+        "billing_entry_steps": [],
+        "h2_finding": false,
+        "qty_actions": [],
+        "reached_billing": false
+      },
+      "ghost_deferred": {
+        "billing_entry_steps": [
+          45
+        ],
+        "h2_finding": false,
+        "qty_actions": [],
+        "reached_billing": true
+      },
+      "ghost_sequence": {
+        "billing_entry_steps": [],
+        "h2_finding": false,
+        "qty_actions": [],
+        "reached_billing": false
+      },
+      "ghost_structural_memory": {
+        "billing_entry_steps": [
+          32,
+          53,
+          87,
+          97
+        ],
+        "h2_finding": false,
+        "qty_actions": [
+          [
+            33,
+            "up"
+          ],
+          [
+            34,
+            "down"
+          ],
+          [
+            35,
+            "up"
+          ],
+          [
+            54,
+            "up"
+          ],
+          [
+            55,
+            "down"
+          ],
+          [
+            56,
+            "up"
+          ],
+          [
+            88,
+            "up"
+          ],
+          [
+            89,
+            "down"
+          ],
+          [
+            90,
+            "up"
+          ],
+          [
+            98,
+            "down"
+          ]
+        ],
+        "reached_billing": true
+      }
+    }
   }
 }

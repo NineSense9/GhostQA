@@ -1,25 +1,50 @@
 {
-  "round": "v0.3.8 Application-Shape / State-Semantics Analysis",
-  "algorithm_freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json",
+  "round": "v0.3.8 Application-Shape / State-Semantics Analysis — evidence hardening",
   "source_head_at_start": "8ba2b2ebc10d0ae335e8cefa6655b82389569a5c",
+  "hardening_parent_head": "090366c76e28b0f149d72d8fb3ce933d7b9dafdc",
+  "final_hardening_head": "pending_commit",
+  "algorithm_freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json",
   "deepbench_app_freeze": "5355abd444eb4a4e99242c7629a1363c38e52a2a",
   "product_default": "NoFrontier, sequence_mode=off",
-  "v037_outcome": "C DeepBench-specific research result",
-  "diagnostic_rerun": true,
-  "not_an_independent_trial": true,
-  "v037_bdr_lock": {
-    "shop_c1": {"states": 6, "confirmed": ["BUG-W5"]},
-    "shop_bfs": {"states": 41, "confirmed": ["BUG-W1", "BUG-W2", "BUG-W3", "BUG-W5", "BUG-W6", "BUG-W7", "BUG-W9"]},
-    "flow_dfs": {"confirmed": ["BUG-H1"]},
-    "flow_c1": {"confirmed": []}
+  "policies": {
+    "shop": ["bfs", "ghost-deferred", "ghost-sequence", "ghost-structural-memory"],
+    "flow": ["dfs", "bfs", "ghost-deferred", "ghost-sequence", "ghost-structural-memory"]
   },
-  "frozen_files_unchanged": [
-    "ghostqa/exploration/policy.py",
-    "ghostqa/exploration/sequence.py",
-    "ghostqa/exploration/sequence_memory.py",
-    "ghostqa/exploration/interaction.py",
-    "ghostqa/exploration/payload.py"
+  "budget": 120,
+  "seed": 1,
+  "diagnostic_rerun": true,
+  "independent_trial": false,
+  "evidence_root": "experiments/published/application-shape-v0.3.8/evidence",
+  "evidence_manifest": "experiments/published/application-shape-v0.3.8/evidence-manifest.json",
+  "analysis_command": "python -m benchmark.application_shape_reproduce --root experiments/published/application-shape-v0.3.8 --verify",
+  "verify_command": "python -m benchmark.application_shape_reproduce --root experiments/published/application-shape-v0.3.8 --verify",
+  "expected_analysis_sha256": "95670192a10100639c865089fef6506580eadcc42c2b59695d5e082b7efe7f7e",
+  "curated_traces_dir": "experiments/published/application-shape-v0.3.8/traces",
+  "curated_traces_note": "subset of evidence/; hashes match canonical copies; reproduction reads evidence/ only",
+  "original_ignored_run_dirs": [
+    "experiments/runs/v038-diag-shop",
+    "experiments/runs/v038-diag-flow"
   ],
-  "observability_only_change": "explorer._build_step_event adds decision_mode; diagnostic_runner wraps sequence.after for snapshots",
-  "entry": "python -m benchmark.application_shape_analysis --shop-dir ... --flow-dir ... --out analysis.json"
+  "original_shop_metrics_zero_byte": true,
+  "zero_byte_cause": "diagnostic_runner main() opened metrics.json with mode 'w' then aggregate() raised KeyError('bug_discovery_rate') before json.dump; the open truncated the file to 0 bytes. Per-policy events/graph/sequence_events were already written.",
+  "rerun_performed": false,
+  "app_source": {
+    "apps/buggy-shop/static/app.js": {
+      "sha256": "d2bc3e224f293441e82b48be817c34a3037116d10835c690077eb57d494fe50b",
+      "git_blob": "c28b0863b5a6916ed6682d24a3428c26f6013b53"
+    },
+    "apps/buggy-flow/static/app.js": {
+      "sha256": "01f6500eb32c3e6966459ff3e8f06de70abcf8d539902279a83970d0d2f66772",
+      "git_blob": "ed59f57a0c94f7a89cd1448d17b285f692594e51"
+    },
+    "apps/buggy-flow/spec.json": {
+      "sha256": "cf97ab9972df967afabec91fae4fba7379aa19e1561fbddaf6b0b4b3626ae880",
+      "git_blob": "3d0ec70b6827ecd512adb4fa1ce0e29e5b79af42"
+    },
+    "apps/buggy-shop/spec.json": {
+      "sha256": "f364209975abfa2d39c7d665f953cace9c55b0d014e61801923c4b99ba6dede3",
+      "git_blob": "96ff5efd2436eb288bc15604cfcf15ad7f0fe276"
+    }
+  },
+  "source_head_at_run": "unknown"
 }

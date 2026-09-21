@@ -50,6 +50,33 @@ def _ledger_snap(seq) -> dict:
     }
 
 
+def wrap_sequence_after(seq, sink: list):
+    """Observability wrapper: call orig after() once, then snapshot.
+
+    Snapshot failures must not change controller state.
+    """
+    orig = seq.after
+
+    def after_hook(*a, **k):
+        orig(*a, **k)
+        try:
+            state = a[2] if len(a) > 2 else None
+            snap = _ledger_snap(seq)
+            snap["kind"] = "seq_after"
+            snap["step"] = a[9] if len(a) > 9 else k.get("step")
+            snap["is_hub"] = bool(state is not None and is_hub(state))
+            snap["n_branch_clicks"] = len(branch_clicks(state)) if state else 0
+            if seq.events:
+                snap["last_seq_event"] = seq.events[-1].get("event")
+                snap["last_seq_outcome"] = seq.events[-1].get("outcome")
+            sink.append(snap)
+        except Exception:
+            pass
+
+    seq.after = after_hook
+    return orig
+
+
 def run_diagnostic(base_url, shared, policy_name, seed, budget, spec,
                    manifest, out_dir) -> dict:
     from ghostqa.executor.playwright_web import PlaywrightWebExecutor
@@ -86,26 +113,8 @@ def run_diagnostic(base_url, shared, policy_name, seed, budget, spec,
         rec.update(_ledger_snap(seq))
         events.append(rec)
 
-    orig_after = seq.after if seq is not None else None
-
-    def after_hook(*a, **k):
-        orig_after(*a, **k)
-        try:
-            state = a[2] if len(a) > 2 else None
-            snap = _ledger_snap(seq)
-            snap["kind"] = "seq_after"
-            snap["step"] = a[9] if len(a) > 9 else k.get("step")
-            snap["is_hub"] = bool(state is not None and is_hub(state))
-            snap["n_branch_clicks"] = len(branch_clicks(state)) if state else 0
-            if seq.events:
-                snap["last_seq_event"] = seq.events[-1].get("event")
-                snap["last_seq_outcome"] = seq.events[-1].get("outcome")
-            events.append(snap)
-        except Exception:
-            pass
-
-    if orig_after is not None:
-        seq.after = after_hook
+    if seq is not None:
+        wrap_sequence_after(seq, events)
 
     t0 = time.time()
     result = run_exploration(

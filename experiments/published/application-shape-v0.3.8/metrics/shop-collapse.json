@@ -1,306 +1,106 @@
 {
-  "diagnostic_rerun": true,
-  "matches_v037_bdr": true,
-  "root_cause": "nested_hub_then_stuck_returning",
-  "home_is_hub": true,
-  "home_branch_count": 5,
-  "detail_is_nested_hub": true,
-  "first_hub_step": 0,
-  "branch0": "home -> products (branch pick_override)",
-  "branch1": "detail classified as hub -> start btn_add, lost_parent",
-  "stuck_from_step": 4,
-  "stuck_pattern": "index.html <-> cart.html via return_hub (返回首页) and browser back",
-  "return_attempt_events": 116,
-  "return_success_events": 2,
-  "unique_branches_started": 2,
-  "urls_reached": 4,
-  "urls_missed": [
-    "register.html",
-    "login.html",
-    "profile.html",
-    "promo.html",
-    "help.html",
-    "help2.html",
-    "checkout.html"
-  ],
-  "prefix40": [
-    {
-      "i": 0,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/index.html",
-      "dst": "http://127.0.0.1:29285/products.html",
-      "eid": "ecb45cffcb",
-      "text": null,
-      "new": true,
-      "label": "branch",
-      "commit": 0,
-      "returning": false,
-      "branch": "",
-      "findings": []
-    },
-    {
-      "i": 1,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/products.html",
-      "dst": "http://127.0.0.1:29285/detail.html",
-      "eid": "item_apple",
-      "text": null,
-      "new": true,
-      "label": "sequence_followup",
-      "commit": 2,
-      "returning": false,
-      "branch": "43e212ff080d49e7:click:ecb45cffcb",
-      "findings": []
-    },
-    {
-      "i": 2,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/detail.html",
-      "dst": "http://127.0.0.1:29285/cart.html",
-      "eid": "btn_add",
-      "text": null,
-      "new": true,
-      "label": "sequence_followup",
-      "commit": 1,
-      "returning": false,
-      "branch": "43e212ff080d49e7:click:ecb45cffcb",
-      "findings": []
-    },
-    {
-      "i": 3,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/cart.html",
-      "dst": "http://127.0.0.1:29285/cart.html",
-      "eid": "btn_remove",
-      "text": null,
-      "new": true,
-      "label": "sequence_followup",
-      "commit": 2,
-      "returning": false,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": [
-        {
-          "kind": "semantic",
-          "assert_id": "cart_total_consistent",
-          "error": null
-        }
+  "interpretation": {
+    "fingerprint_note": "No evidence that fingerprint/semantic-variant explosion is the primary cause; the persistent return loop is sufficient to explain the six-state coverage lock.",
+    "fingerprint_primary_cause": false,
+    "primary_failure_class": "return_to_parent_mismatch_after_nested_hub",
+    "structural_memory_added_cause": false
+  },
+  "observed": {
+    "bfs": {
+      "n_states": 41,
+      "n_urls": 11,
+      "pages": [
+        "cart.html",
+        "checkout.html",
+        "detail.html",
+        "help.html",
+        "help2.html",
+        "index.html",
+        "login.html",
+        "products.html",
+        "profile.html",
+        "promo.html",
+        "register.html"
       ]
     },
-    {
-      "i": 4,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/cart.html",
-      "dst": "http://127.0.0.1:29285/index.html",
-      "eid": "35e5d04282",
-      "text": null,
-      "new": true,
-      "label": "return_hub",
-      "commit": 0,
-      "returning": true,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": []
-    },
-    {
-      "i": 5,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/index.html",
-      "dst": "http://127.0.0.1:29285/cart.html",
-      "eid": null,
-      "text": null,
-      "new": true,
-      "label": "return_hub",
-      "commit": 0,
-      "returning": true,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": []
-    },
-    {
-      "i": 6,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/cart.html",
-      "dst": "http://127.0.0.1:29285/index.html",
-      "eid": "35e5d04282",
-      "text": null,
-      "new": false,
-      "label": "return_hub",
-      "commit": 0,
-      "returning": true,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": []
-    },
-    {
-      "i": 7,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/index.html",
-      "dst": "http://127.0.0.1:29285/cart.html",
-      "eid": null,
-      "text": null,
-      "new": true,
-      "label": "return_hub",
-      "commit": 0,
-      "returning": true,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": []
-    },
-    {
-      "i": 8,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/cart.html",
-      "dst": "http://127.0.0.1:29285/index.html",
-      "eid": "35e5d04282",
-      "text": null,
-      "new": false,
-      "label": "return_hub",
-      "commit": 0,
-      "returning": true,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": [
-        {
-          "kind": "nav_loop",
-          "assert_id": null,
-          "error": null
-        }
+    "ghost-deferred": {
+      "n_states": 34,
+      "n_urls": 11,
+      "pages": [
+        "cart.html",
+        "checkout.html",
+        "detail.html",
+        "help.html",
+        "help2.html",
+        "index.html",
+        "login.html",
+        "products.html",
+        "profile.html",
+        "promo.html",
+        "register.html"
       ]
     },
-    {
-      "i": 9,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/index.html",
-      "dst": "http://127.0.0.1:29285/cart.html",
-      "eid": null,
-      "text": null,
-      "new": false,
-      "label": "return_hub",
-      "commit": 0,
-      "returning": true,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": [
-        {
-          "kind": "nav_loop",
-          "assert_id": null,
-          "error": null
-        }
-      ]
+    "ghost-sequence": {
+      "branch_start_events": 2,
+      "event_types": {
+        "branch_discovered": 2,
+        "branch_start": 2,
+        "followup": 3,
+        "hub_seen": 60,
+        "mutation": 120,
+        "return_attempt": 116,
+        "sequence_action": 4,
+        "sequence_terminal": 2
+      },
+      "n_states": 6,
+      "n_urls": 4,
+      "pages": [
+        "cart.html",
+        "detail.html",
+        "index.html",
+        "products.html"
+      ],
+      "return_attempt_events": 116,
+      "sequence_terminal_outcomes": {
+        "budget_end": 0,
+        "crash": 0,
+        "finding": 1,
+        "lost_parent": 1,
+        "returned": 0
+      },
+      "successful_return_to_parent_events": 0
     },
-    {
-      "i": 10,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/cart.html",
-      "dst": "http://127.0.0.1:29285/index.html",
-      "eid": "35e5d04282",
-      "text": null,
-      "new": false,
-      "label": "return_hub",
-      "commit": 0,
-      "returning": true,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": [
-        {
-          "kind": "nav_loop",
-          "assert_id": null,
-          "error": null
-        }
-      ]
+    "ghost-structural-memory": {
+      "branch_start_events": 2,
+      "event_types": {
+        "branch_discovered": 2,
+        "branch_start": 2,
+        "followup": 3,
+        "hub_seen": 60,
+        "mutation": 120,
+        "return_attempt": 116,
+        "sequence_action": 4,
+        "sequence_terminal": 2
+      },
+      "n_states": 6,
+      "n_urls": 4,
+      "pages": [
+        "cart.html",
+        "detail.html",
+        "index.html",
+        "products.html"
+      ],
+      "return_attempt_events": 116,
+      "sequence_terminal_outcomes": {
+        "budget_end": 0,
+        "crash": 0,
+        "finding": 1,
+        "lost_parent": 1,
+        "returned": 0
+      },
+      "successful_return_to_parent_events": 0
     },
-    {
-      "i": 11,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/index.html",
-      "dst": "http://127.0.0.1:29285/cart.html",
-      "eid": null,
-      "text": null,
-      "new": false,
-      "label": "return_hub",
-      "commit": 0,
-      "returning": true,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": [
-        {
-          "kind": "nav_loop",
-          "assert_id": null,
-          "error": null
-        }
-      ]
-    },
-    {
-      "i": 12,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/cart.html",
-      "dst": "http://127.0.0.1:29285/index.html",
-      "eid": "35e5d04282",
-      "text": null,
-      "new": false,
-      "label": "return_hub",
-      "commit": 0,
-      "returning": true,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": [
-        {
-          "kind": "nav_loop",
-          "assert_id": null,
-          "error": null
-        }
-      ]
-    },
-    {
-      "i": 13,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/index.html",
-      "dst": "http://127.0.0.1:29285/cart.html",
-      "eid": null,
-      "text": null,
-      "new": false,
-      "label": "return_hub",
-      "commit": 0,
-      "returning": true,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": [
-        {
-          "kind": "nav_loop",
-          "assert_id": null,
-          "error": null
-        }
-      ]
-    },
-    {
-      "i": 14,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/cart.html",
-      "dst": "http://127.0.0.1:29285/index.html",
-      "eid": "35e5d04282",
-      "text": null,
-      "new": false,
-      "label": "return_hub",
-      "commit": 0,
-      "returning": true,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": [
-        {
-          "kind": "nav_loop",
-          "assert_id": null,
-          "error": null
-        }
-      ]
-    },
-    {
-      "i": 15,
-      "mode": "",
-      "src": "http://127.0.0.1:29285/index.html",
-      "dst": "http://127.0.0.1:29285/cart.html",
-      "eid": null,
-      "text": null,
-      "new": false,
-      "label": "return_hub",
-      "commit": 0,
-      "returning": true,
-      "branch": "dff35a098ea38c76:click:btn_add",
-      "findings": [
-        {
-          "kind": "nav_loop",
-          "assert_id": null,
-          "error": null
-        }
-      ]
-    }
-  ]
+    "old_field_source": "misassigned_branch_start_count",
+    "old_return_success_events": 2
+  }
 }
