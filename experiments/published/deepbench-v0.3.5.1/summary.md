@@ -49,6 +49,12 @@ Control `ghost-nollm`: no sequence events (metrics absent).
 
 Semantic variants inflate exact-sig workflow bookkeeping by **19×** at budget 120 (`57/3`). This is a measurement fact for v0.3.6, not a mandate to cluster-dedupe behavior (archived vs active Delete can both be worth testing).
 
+## Lifecycle Erratum (v0.3.5.1-r2)
+
+`mean_sequence_len` / `max_sequence_len` in this directory were stuck at 1 because instance length was not accumulated. Terminal “completed=2” counted only returns.
+
+Corrected in `experiments/published/deepbench-v0.3.5.1-r2/`: max length **6**; unique terminally tested branches **6** (`returned ∪ finding`). Confirmed D6+D12, BDR, Deep-BDR, TTCB unchanged.
+
 ## Next research question
 
 > How should workflow memory persist across structural hubs while remaining sensitive to semantic context?

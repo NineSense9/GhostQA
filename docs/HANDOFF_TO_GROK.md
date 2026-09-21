@@ -1,6 +1,7 @@
 # GhostQA 技术交接文档
 
 > 原 v0.2 交接（审计基线 `9c6c0a0`，文档提交 `94f5db1`）仍保留于下文，作为历史。
+> **v0.3.5.1-r2 更新**：sequence length 按 concrete `sequence_action` 计；horizon 不是 terminal。max len=6；terminally tested branches=6。行为仍 D6+D12。
 > **v0.3.5.1 更新**：Sequence metrics 纠偏。行为不变（仍 D6+D12）。`hub_count=57` 是 variant；canonical hub=3。下一问：跨 semantic variant 的 workflow memory。
 > **v0.3.5 更新**：Sequence-aware branches。`ghost-sequence` 首次确认 D12，Deep-BDR=0.222，D6 仍在。产品默认仍是 NoFrontier。Freeze `5355abd`。
 > **v0.3.4 更新**：Post-reach exploration。产品 Ghost 默认 NoFrontier。`ghost-deferred`@120 与 DFS BDR 打平且保留 D6；full exploit/postreach 会丢 D6。Freeze `5355abd`。

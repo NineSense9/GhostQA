@@ -117,6 +117,8 @@ python -m ghostqa run --url ... --policy ghost --llm ...
 - **DeepBench v0.3.5.1**（同一 freeze，measurement only）：`experiments/published/deepbench-v0.3.5.1/`
   - 行为未改：ghost-sequence 仍是 D6+D12，BDR=0.143，Deep-BDR=0.222，TTCB=14。
   - `hub_count=57` 是 exact-sig 变体计数；**canonical_hub_count=3**。87 次 sequence instance ≠ 87 条 unique branch。
+- **DeepBench v0.3.5.1-r2**（lifecycle 纠偏）：`experiments/published/deepbench-v0.3.5.1-r2/`
+  - `mean/max sequence_len` 不再恒为 1；max=6。`unique_branches_terminally_tested=6`（returned ∪ finding）。37 次 finding terminal ≠ 37 个 bug（unique fingerprints=4）。
 
 ## 架构
 
