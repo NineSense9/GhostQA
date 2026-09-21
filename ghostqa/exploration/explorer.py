@@ -36,6 +36,7 @@ def _build_step_event(step, graph, state, new_state, relation, exec_result,
     return {
         "type": "step",
         "index": step.index,
+        "decision_mode": getattr(step, "decision_mode", "") or "",
         "episode_id": episode_id,
         "budget_used": budget_used,
         "restore": restore_step,
