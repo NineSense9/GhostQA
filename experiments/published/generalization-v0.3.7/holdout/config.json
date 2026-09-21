@@ -1,0 +1,24 @@
+{
+  "protocol": "experiments/validation/v0.3.7/protocol.json",
+  "target": "holdout",
+  "app": "buggy-flow",
+  "manifest": "D:\\Software Contest\\AI2\\ghostqa\\apps\\buggy-flow\\holdout.manifest.json",
+  "policies": [
+    "dfs",
+    "bfs",
+    "ghost-nollm",
+    "ghost-deferred",
+    "ghost-sequence",
+    "ghost-structural-memory"
+  ],
+  "budgets": [
+    40,
+    80,
+    120
+  ],
+  "trials": [
+    1
+  ],
+  "rerun_for_repro": false,
+  "freeze": "D:\\Software Contest\\AI2\\ghostqa\\experiments\\frozen\\ghost-structural-v0.3.6\\freeze.json"
+}
