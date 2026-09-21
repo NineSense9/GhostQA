@@ -316,11 +316,23 @@ def main():
                     default="monkey,dfs,bfs,ghost-nollm,ghost-full")
     ap.add_argument("--skip-minimize", action="store_true")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--manifest", default="bugs.manifest.json",
+                    help="Judge-only bug list, relative to the app dir or absolute. "
+                         "Never passed into Policy/Explorer/Oracle.")
+    ap.add_argument("--freeze", default="",
+                    help="If set, abort when frozen algorithm file hashes mismatch.")
     args = ap.parse_args()
+
+    if args.freeze:
+        from benchmark.algorithm_freeze import assert_frozen
+        assert_frozen(args.freeze)
 
     app_dir = APPS[args.app]
     spec = load_spec(os.path.join(app_dir, "spec.json"))
-    with open(os.path.join(app_dir, "bugs.manifest.json"), encoding="utf-8") as f:
+    man_path = args.manifest
+    if not os.path.isabs(man_path):
+        man_path = os.path.join(app_dir, man_path)
+    with open(man_path, encoding="utf-8") as f:
         manifest = json.load(f)["bugs"]
     seeds = [int(s) for s in args.seeds.split(",")]
     policies = args.policies.split(",")
