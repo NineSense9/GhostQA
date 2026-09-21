@@ -1,0 +1,55 @@
+{
+  "algorithm_name": "ghost-structural-memory",
+  "product": "v0.4 preview",
+  "source_head": "117b16d2a8160fe4346ceca6edab860d508f7a43",
+  "deepbench_freeze": "5355abd444eb4a4e99242c7629a1363c38e52a2a",
+  "note": "Frozen for v0.3.7 generalization validation. Do not change these files to improve holdout or BuggyShop scores.",
+  "policy": {
+    "constructor": "GhostPolicy",
+    "llm": null,
+    "use_frontier": false,
+    "postreach_mode": "off",
+    "sequence_mode": "structural"
+  },
+  "constants": {
+    "HUB_MIN_BRANCHES": 3,
+    "BRANCH_HORIZON": 3,
+    "W_BRANCH_NOVELTY": 0.55,
+    "W_FOLLOWUP": 0.75,
+    "RETURN_BONUS": 0.65,
+    "MUTATION_TTL": 10,
+    "MAX_SEQUENCE_ACTIONS": 6,
+    "CONTEXT_RETEST_BUDGET": 1,
+    "CONTEXTUAL_NOVELTY_BONUS": 0.45,
+    "W_CONTEXT_RETEST": 0.40,
+    "MUTATION_REFRESH": 1,
+    "CROSS_VIEW_BONUS": 0.40
+  },
+  "files": {
+    "ghostqa/exploration/policy.py": {
+      "sha256": "660ee4521c9a83e9cf6d21f0f3d387e39d285162e4a52dec6201853ba20f9b4c",
+      "git_blob": "cca92c16bef965a4c9b9671735f12ace0d3c4b64",
+      "bytes": 21688
+    },
+    "ghostqa/exploration/sequence.py": {
+      "sha256": "59de06096e79eb3388e8f64d30e56cc05d2a6d6c53815487e8c639be58d18beb",
+      "git_blob": "f4e5347b71bd6ae906a298f917c2687bf0f8251c",
+      "bytes": 32747
+    },
+    "ghostqa/exploration/sequence_memory.py": {
+      "sha256": "fda4bf6e8715608f265b6c0bd6f1b96acb47e8c41f0fc100c8e77d8ffa33c1ea",
+      "git_blob": "2e61e95ccf283e5411e71b85f017568835f9c0f2",
+      "bytes": 8734
+    },
+    "ghostqa/exploration/interaction.py": {
+      "sha256": "9c7b1c4b33d2742374f069a7949eb3d6725c80d7255012f1297c0641d5dbb4fe",
+      "git_blob": "5b37b20e2d6f02960476c9cf3e86fa43a6cff485",
+      "bytes": 6460
+    },
+    "ghostqa/exploration/payload.py": {
+      "sha256": "504e10ed7a064d77dc2c75f045e08ef2837ed49fb09c62a3b1eaa5dbf0895b5e",
+      "git_blob": "729ede29e539395e81d992853a348c0be9763e12",
+      "bytes": 4863
+    }
+  }
+}
