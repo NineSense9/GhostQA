@@ -1,5 +1,5 @@
 /* ============================================================================
-   GhostQA Dashboard — frontend controller
+   GhostQA Dashboard — live exploration controller
    Polls the run API, streams screenshots, grows the state graph, renders the
    decision log and confirmed-bug evidence. No framework, no build step.
    ========================================================================== */
@@ -7,11 +7,15 @@
 
 const API = '';
 const POLL_MS = 1200;
-const STALE_MS = 45000;   // no events + no status change this long => stalled
+const STALE_MS = 45000;
+
+const REDUCE = window.matchMedia
+  ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  : false;
 
 const S = {
   runId: null,
-  events: [],           // all step events seen so far
+  events: [],
   seenSeq: -1,
   status: 'idle',
   lastShot: '',
@@ -26,6 +30,8 @@ const S = {
   staleRun: false,
   runStartedAt: 0,
   lastEventAt: 0,
+  logPinned: true,
+  lastGraph: null,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -38,13 +44,23 @@ const els = {
   graphCount: $('graph-count'),
   tActions: $('t-actions'), tNodes: $('t-nodes'), tEdges: $('t-edges'),
   tRelocate: $('t-relocate'), tWall: $('t-wall'), tBugs: $('t-bugs'),
+  tUrls: $('t-urls'),
   mixNew: $('mix-new'), mixSimilar: $('mix-similar'), mixIdentical: $('mix-identical'),
   mNew: $('m-new'), mSimilar: $('m-similar'), mIdentical: $('m-identical'),
   bugList: $('bugs'), bugCount: $('bug-count'),
-  bench: $('bench'), benchCount: $('bench-count'),
   log: $('log'), logCount: $('log-count'),
   form: $('run-form'), btnRun: $('btn-run'), btnRunTxt: $('btn-run-txt'),
   reportLink: $('report-link'),
+  liveBar: document.querySelector('.live-bar'),
+  liveComplete: $('live-complete'),
+  liveError: $('live-error'),
+  liveHint: $('live-hint'),
+  liveIntro: $('live-intro'),
+  graphEmpty: $('graph-empty'),
+  logLatest: $('log-latest'),
+  policyHint: $('policy-hint'),
+  policyResearch: $('policy-research'),
+  viewport: $('viewport'),
 };
 
 const STATUS_TEXT = {
@@ -52,11 +68,27 @@ const STATUS_TEXT = {
   done: '已完成', error: '出错',
 };
 
+const POLICY_HINT = {
+  ghost: '产品默认 · NoFrontier，sequence off',
+  'ghost-nollm': '不调用模型',
+  bfs: '广度优先',
+  dfs: '深度优先',
+  'workflow-bfs': '按 workflow 阶段推进',
+  'ghost-structural-memory': 'Structural hub memory',
+  'ghost-structural-return-guard': 'Structural memory + exact-repeat return-cycle escape.',
+};
+
+const RESEARCH_POLICIES = {
+  'ghost-structural-memory': true,
+  'ghost-structural-return-guard': true,
+};
+
 /* ------------------------------ helpers --------------------------------- */
 
 function setConn(live, text) {
+  if (!els.conn) return;
   els.conn.classList.toggle('is-live', !!live);
-  els.connTxt.textContent = text;
+  if (els.connTxt) els.connTxt.textContent = text;
 }
 
 function fmtAction(a) {
@@ -66,9 +98,48 @@ function fmtAction(a) {
   return [verb, String(detail).slice(0, 70)];
 }
 
+function shortPath(url) {
+  if (!url) return '';
+  try {
+    const u = new URL(url, 'http://local');
+    const p = u.pathname.replace(/\/+$/, '');
+    return p.split('/').pop() || p || u.host;
+  } catch (_) {
+    return String(url).replace(/^https?:\/\/[^/]+/, '');
+  }
+}
+
 function setPill(el, status) {
+  if (!el) return;
   el.className = 'status-pill is-' + status;
   el.textContent = STATUS_TEXT[status] || status;
+}
+
+function setRunButton(status, stale) {
+  if (!els.btnRun || !els.btnRunTxt) return;
+  const active = (status === 'running' || status === 'validating') && !stale;
+  els.btnRun.disabled = active;
+  if (status === 'running' && !stale) els.btnRunTxt.textContent = '探索中…';
+  else if (status === 'validating' && !stale) els.btnRunTxt.textContent = '正在重放验证…';
+  else if (status === 'done') els.btnRunTxt.textContent = '再跑一次';
+  else if (stale || status === 'error') els.btnRunTxt.textContent = '重新启动';
+  else els.btnRunTxt.textContent = '启动探索';
+}
+
+function setBarStatus(status) {
+  if (els.liveBar) els.liveBar.dataset.status = status || 'idle';
+  document.body.classList.toggle('is-running', status === 'running');
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, (c) => (
+    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
+  ));
+}
+
+function elapsedLabel() {
+  if (!S.runStartedAt) return '0s';
+  return Math.max(0, Math.round((Date.now() - S.runStartedAt) / 1000)) + 's';
 }
 
 /* ---------------------------- viewport ---------------------------------- */
@@ -81,17 +152,21 @@ function showShot(url, altText) {
     els.shot.src = url;
     els.shot.hidden = false;
     els.vpEmpty.hidden = true;
+    if (els.viewport) els.viewport.classList.add('has-shot');
+    els.shot.alt = altText || '探索器当前所见页面截图';
   };
-  img.onerror = () => { /* keep last good frame; transient during run */ };
-  img.alt = altText || '探索器当前所见页面截图';
+  img.onerror = () => { /* keep last good frame */ };
   img.src = url;
 }
 
 function updateActionStrip(ev) {
   const [verb, detail] = fmtAction(ev.action);
+  const fullUrl = (ev.dst && ev.dst.url) ? ev.dst.url : '';
   els.verb.textContent = verb;
   els.target.textContent = detail || '（无文本目标）';
-  els.url.textContent = (ev.dst && ev.dst.url ? ev.dst.url : '').replace(/^https?:\/\//, '');
+  els.target.title = detail || '';
+  els.url.textContent = fullUrl.replace(/^https?:\/\//, '');
+  els.url.title = fullUrl;
 }
 
 /* ------------------------------- log ------------------------------------ */
@@ -109,15 +184,23 @@ function tagFor(ev) {
 function renderLogRow(ev) {
   const [verb, detail] = fmtAction(ev.action);
   const [tag, cls] = tagFor(ev);
+  const src = shortPath(ev.src && ev.src.url);
+  const dst = shortPath(ev.dst && ev.dst.url);
+  const path = (src || dst) ? `${src || '—'} → ${dst || '—'}` : '';
+  const mode = ev.decision_mode || '';
   const row = document.createElement('div');
   row.className = 'log-row';
   row.dataset.seq = ev.seq;
   row.tabIndex = 0;
   row.setAttribute('role', 'button');
   row.innerHTML =
-    `<span class="log-i">${String(ev.index + 1).padStart(2, '0')}</span>` +
-    `<span class="log-txt">${escapeHtml(verb + ' ' + detail)}</span>` +
-    `<span class="log-tag ${cls}">${tag}</span>`;
+    `<span class="log-i">${String(ev.index + 1).padStart(3, '0')}</span>` +
+    `<span class="log-txt"><b>${escapeHtml(verb + ' ' + detail)}</b>` +
+    (path ? `<span class="log-path">${escapeHtml(path)}</span>` : '') +
+    `</span>` +
+    `<span class="log-tag ${cls}">${tag}` +
+    (mode ? `<span class="log-mode">${escapeHtml(mode)}</span>` : '') +
+    `</span>`;
   const activate = () => selectEvent(ev);
   row.addEventListener('click', activate);
   row.addEventListener('keydown', (e) => {
@@ -136,37 +219,25 @@ function selectEvent(ev) {
 }
 
 function appendEvents(list) {
-  // Only 'step' events belong in the decision log; run_done/run_error are
-  // terminal signals handled by the status polling path.
   const steps = list.filter((e) => e.type === 'step');
   if (!steps.length) return;
   if (S.events.length === 0) els.log.innerHTML = '';
   for (const ev of steps) {
     S.events.push(ev);
     els.log.appendChild(renderLogRow(ev));
-    // Auto-follow the newest frame while running.
     if (S.status === 'running' || S.status === 'validating') selectEvent(ev);
   }
   els.logCount.textContent = String(S.events.length);
-  els.log.scrollTop = els.log.scrollHeight;
+  if (S.logPinned) els.log.scrollTop = els.log.scrollHeight;
+  if (els.logLatest) els.logLatest.hidden = S.logPinned;
   els.steps.textContent = String(S.events.length);
   S.lastEventAt = Date.now();
-  // Live telemetry derived from the stream, so the console reports progress
-  // while a run is in flight instead of waiting for the final summary.
   els.tActions.textContent = String(S.events.length);
-  const bugsSeen = steps.reduce((n, e) => n + (e.findings || []).length, 0);
+  const bugsSeen = S.events.reduce((n, e) => n + (e.findings || []).length, 0);
   if (bugsSeen) els.cands.textContent = String(bugsSeen);
 }
 
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, (c) => (
-    { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]
-  ));
-}
-
 /* ------------------------------- graph ---------------------------------- */
-
-const REL_COLOR = { NEW: '#3ddad7', SIMILAR: '#a78bfa', IDENTICAL: '#6b7280' };
 
 function graphStyles() {
   return [
@@ -188,7 +259,7 @@ function graphStyles() {
         'text-wrap': 'ellipsis',
         'text-opacity': 1,
         'transition-property': 'background-color, border-color, width, height',
-        'transition-duration': 260,
+        'transition-duration': REDUCE ? 0 : 260,
     }},
     { selector: 'node[rel = "SIMILAR"]',   style: { 'border-color': '#a78bfa' }},
     { selector: 'node[rel = "IDENTICAL"]', style: { 'border-color': '#6b7280' }},
@@ -199,6 +270,10 @@ function graphStyles() {
         'font-weight': 600,
     }},
     { selector: 'node[?isNew]', style: { 'background-color': '#3ddad7' }},
+    { selector: 'node[?active]', style: {
+        'border-width': 3, 'border-color': '#ffb347',
+        'width': 32, 'height': 32,
+    }},
     { selector: 'edge', style: {
         'width': 1,
         'line-color': '#3a4250',
@@ -217,8 +292,10 @@ function graphStyles() {
 
 function initGraph() {
   if (S.cy) return;
+  const box = $('graph');
+  if (!box || box.offsetWidth < 8) return;
   S.cy = cytoscape({
-    container: $('graph'),
+    container: box,
     elements: [],
     style: graphStyles(),
     layout: { name: 'preset' },
@@ -226,7 +303,6 @@ function initGraph() {
     minZoom: 0.25,
     maxZoom: 3,
   });
-  // Simple force-directed settling, cheap enough to re-run on each refresh.
   S.cy.on('tap', 'node', (e) => {
     const sig = e.target.id();
     const found = [...S.events].reverse().find(
@@ -236,8 +312,12 @@ function initGraph() {
       updateActionStrip(found);
     }
   });
-  // Exposed for debugging and automated visual QA.
+  S.cy.on('dbltap', () => fitGraph());
   window.__cy = S.cy;
+}
+
+function fitGraph() {
+  if (S.cy) S.cy.fit(undefined, 48);
 }
 
 function graphSignature(payload) {
@@ -248,11 +328,17 @@ function graphSignature(payload) {
 }
 
 function syncGraph(payload) {
-  initGraph();
-  const cy = S.cy;
+  S.lastGraph = payload;
   const nodes = payload.nodes || [];
   const edges = payload.edges || [];
+  if (els.graphEmpty) els.graphEmpty.hidden = nodes.length > 0;
+  if (!nodes.length) return;
+  initGraph();
+  if (!S.cy) return;
+  const cy = S.cy;
   const known = new Set(cy.nodes().map((n) => n.id()));
+  const last = S.events.length ? S.events[S.events.length - 1] : null;
+  const activeSig = last && last.dst ? last.dst.sig : '';
 
   for (const n of nodes) {
     const data = {
@@ -261,6 +347,7 @@ function syncGraph(payload) {
       rel: n.relation || 'NEW',
       flagged: Array.isArray(n.flags) && n.flags.length > 0,
       isNew: (n.visits || 0) <= 1,
+      active: n.sig === activeSig,
       url: n.url || '',
     };
     const existing = cy.getElementById(n.sig);
@@ -286,17 +373,16 @@ function syncGraph(payload) {
   els.tNodes.textContent = String(nodes.length);
   els.tEdges.textContent = String(edges.length);
   els.states.textContent = String(nodes.length);
+  if (els.tUrls) {
+    const urls = new Set(nodes.map((n) => n.url).filter(Boolean));
+    els.tUrls.textContent = String(urls.size);
+  }
 
-  // Re-layout only when the topology actually changed — otherwise the graph
-  // would jitter on every poll and labels would never settle.
   const sig = graphSignature(payload);
   if (sig === S.graphSig) return;
   S.graphSig = sig;
   if (!S.startSig && nodes.length) S.startSig = nodes[0].sig;
 
-  // A BFS-depth layered layout is both deterministic and semantically right:
-  // distance from the start state maps to horizontal position, so growth of
-  // the exploration is legible without the jitter of a force simulation.
   const start = S.startSig;
   const depth = {};
   const adj = {};
@@ -321,8 +407,6 @@ function syncGraph(payload) {
       }
     }
   }
-  // Any node unreachable from the start (isolated or cyclic entry) gets its
-  // own depth so the layer stays clean instead of collapsing to zero.
   for (const n of cy.nodes()) {
     if (depth[n.id()] === undefined) depth[n.id()] = 0;
   }
@@ -342,12 +426,11 @@ function syncGraph(payload) {
   }
   cy.layout({
     name: 'preset', positions: (n) => positions[n.id()],
-    animate: cy.nodes().length > 1 && !S.firstLayout,
+    animate: cy.nodes().length > 1 && !S.firstLayout && !REDUCE,
     animationDuration: 380, animationEasing: 'ease-out',
     fit: true, padding: 48,
   }).run();
 
-  // Clamp zoom: never balloon a tiny graph, never shrink labels illegibly.
   const z = cy.zoom();
   if (z > 1.5) cy.zoom(1.5);
   else if (z < 0.78) cy.zoom(0.78);
@@ -370,7 +453,7 @@ function renderBugs(list) {
   els.bugList.innerHTML = '';
   if (!list.length) {
     els.bugList.innerHTML =
-      '<p class="empty">尚无已确认缺陷。<br>运行结束后，通过复现校验与 ddmin 最小化的问题会出现在这里。</p>';
+      '<p class="empty">还没有确认缺陷。<br>运行结束后，通过复现校验与 ddmin 的问题会出现在这里。</p>';
     return;
   }
   for (const b of list) {
@@ -380,15 +463,17 @@ function renderBugs(list) {
     const steps = (b.reproduction || [])
       .map((a) => `<li>${escapeHtml(fmtAction(a).join(' '))}</li>`).join('');
     const saved = (b.original_length || 0) - (b.reproduction || []).length;
+    const n = (b.reproduction || []).length;
     card.innerHTML =
       `<div class="bug-head" role="button" tabindex="0" aria-expanded="false">
          <span class="bug-kind">${escapeHtml(f.kind || 'defect')}</span>
+         <span class="bug-status">重放通过 · ${n} 步复现</span>
          <span class="bug-desc">${escapeHtml(f.description || '')}</span>
        </div>
        <div class="bug-body">
          <div class="repro-meta">
            <span>原始 <b>${b.original_length ?? '?'}</b> 步</span>
-           <span>最小化 <b>${(b.reproduction || []).length}</b> 步</span>
+           <span>最小化 <b>${n}</b> 步</span>
            <span>裁剪 <b>${saved > 0 ? saved : 0}</b> 步</span>
          </div>
          <ol class="repro-steps">${steps || '<li>（空复现序列）</li>'}</ol>
@@ -421,65 +506,35 @@ function renderMix(counts) {
   els.mIdentical.textContent = String(i);
 }
 
-/* ------------------------------ benchmarks ------------------------------ */
-
-function renderBenchmarks(list) {
-  els.benchCount.textContent = String(list.length);
-  els.bench.innerHTML = '';
-  if (!list.length) {
-    els.bench.innerHTML = '<p class="empty">暂无已发布指标。</p>';
-    return;
-  }
-  for (const b of list) {
-    const runs = (b.metrics && b.metrics.runs) || [];
-    // Aggregate per policy: mean budget used and mean bug-discovery rate.
-    const byPolicy = {};
-    for (const r of runs) {
-      const k = r.policy || '?';
-      const e = byPolicy[k] = byPolicy[k] || { n: 0, bdr: 0, deep: 0, budget: 0, bugs: 0 };
-      e.n += 1;
-      e.bdr += r.bug_discovery_rate || 0;
-      e.deep += r.deep_bug_discovery_rate || 0;
-      e.budget += r.budget || 0;
-      e.bugs += (r.confirmed_bugs || []).length;
-    }
-    const rows = Object.entries(byPolicy).map(([k, e]) => ({
-      policy: k,
-      bdr: e.bdr / e.n,
-      deep: e.deep / e.n,
-      budget: Math.round(e.budget / e.n),
-      bugs: (e.bugs / e.n).toFixed(1),
-    })).sort((a, c) => c.bdr - a.bdr);
-
-    const card = document.createElement('article');
-    card.className = 'bench';
-    const maxBdr = Math.max(0.0001, ...rows.map((r) => r.bdr));
-    card.innerHTML =
-      `<div class="bench-head">
-         <span class="bench-name">${escapeHtml(b.name)}</span>
-         <span class="bench-meta">${rows.length} 策略 · ${runs.length} 次运行</span>
-       </div>
-       <table class="bench-tbl">
-         <thead><tr><th>策略</th><th>BDR</th><th>Deep</th><th>预算</th><th>缺陷</th></tr></thead>
-         <tbody>${rows.map((r) => `
-           <tr>
-             <td class="bench-p">${escapeHtml(r.policy)}</td>
-             <td><span class="bar" style="width:${(r.bdr / maxBdr * 100).toFixed(0)}%"></span><b>${r.bdr.toFixed(3)}</b></td>
-             <td>${r.deep.toFixed(3)}</td>
-             <td>${r.budget}</td>
-             <td>${r.bugs}</td>
-           </tr>`).join('')}</tbody>
-       </table>`;
-    els.bench.appendChild(card);
-  }
-}
-
 /* ------------------------------- polling -------------------------------- */
 
 async function getJSON(path) {
   const res = await fetch(API + path, { cache: 'no-store' });
   if (!res.ok) throw new Error(`HTTP ${res.status} ${path}`);
   return res.json();
+}
+
+function showComplete(st) {
+  if (!els.liveComplete) return;
+  const m = st.summary || {};
+  const steps = m.actions ?? S.events.length;
+  const states = m.states ?? els.states.textContent;
+  const bugs = m.confirmed ?? S.bugs.length;
+  const report = st.status === 'done' && S.runId;
+  els.liveComplete.hidden = false;
+  els.liveComplete.textContent =
+    `${steps} 步 · ${states} 个状态 · ${bugs} 个已确认缺陷` +
+    (report ? ' · 报告已就绪' : '');
+}
+
+function showError(message, detail) {
+  if (!els.liveError) return;
+  els.liveError.hidden = false;
+  els.liveError.innerHTML =
+    `<p>${escapeHtml(message)}</p>` +
+    (detail
+      ? `<details><summary>详细错误</summary><pre>${escapeHtml(detail)}</pre></details>`
+      : '');
 }
 
 async function tick() {
@@ -497,27 +552,21 @@ async function tick() {
   S.status = st.status;
   els.status.textContent = STATUS_TEXT[st.status] || st.status;
   setPill(els.vpPill, st.status);
-  // The button is disabled only while *this* run is active. A stale run left
-  // behind by a crash must never lock the operator out of starting a new one.
+  setBarStatus(st.status);
   const active = (st.status === 'running' || st.status === 'validating');
-  els.btnRun.disabled = active && !S.staleRun;
-  els.btnRunTxt.textContent = (active && !S.staleRun) ? '探索进行中…' : '启动探索';
   if (active && S.runStartedAt && Date.now() - S.runStartedAt > STALE_MS
       && S.lastEventAt && Date.now() - S.lastEventAt > STALE_MS) {
-    S.staleRun = true;   // no new events for a long while: treat as stalled
-    els.btnRun.disabled = false;
-    els.btnRunTxt.textContent = '重新启动';
+    S.staleRun = true;
   }
-  // LLM call count is only known at the end of a run; show a placeholder
-  // rather than a misleading zero while it is still working.
-  if (st.status === 'running' || st.status === 'validating') {
-    els.llm.textContent = '…';
-  }
+  setRunButton(st.status, S.staleRun);
+  if (els.liveHint) els.liveHint.hidden = st.status !== 'idle' && !!S.runId;
+  if (els.liveIntro) els.liveIntro.hidden = st.status !== 'idle';
+  if (active) els.llm.textContent = '…';
   if (st.candidates && st.candidates.length) {
     els.cands.textContent = String(st.candidates.length);
   }
+  if (active) els.tWall.textContent = elapsedLabel();
 
-  // Events (incremental).
   try {
     const ev = await getJSON(`/api/runs/${S.runId}/events?after=${S.seenSeq}`);
     if (ev.events && ev.events.length) {
@@ -526,14 +575,9 @@ async function tick() {
     }
   } catch (_) { /* transient */ }
 
-  // Graph.
   try { syncGraph(await getJSON(`/api/runs/${S.runId}/graph`)); } catch (_) {}
-
-  // Bugs (only meaningful once validation finished, but cheap to poll).
   try { renderBugs(await getJSON(`/api/runs/${S.runId}/bugs`)); } catch (_) {}
 
-  // Summary / telemetry. Only available once the run finishes; while it is
-  // in flight the stream-derived counters above carry the display.
   if (st.summary && Object.keys(st.summary).length) {
     const m = st.summary;
     els.tActions.textContent = String(m.actions ?? 0);
@@ -549,14 +593,21 @@ async function tick() {
   if (st.status === 'done') {
     els.reportLink.href = `/api/runs/${S.runId}/report.html`;
     els.reportLink.hidden = false;
+    showComplete(st);
+    if (els.liveError) els.liveError.hidden = true;
     stopPolling();
     setConn(true, '已完成');
   } else if (st.status === 'error') {
     els.reportLink.hidden = true;
     stopPolling();
     setConn(false, '运行出错');
+    const raw = st.error || '';
+    const last = raw.split('\n').filter(Boolean).pop() || '未知错误';
+    showError(
+      '这次运行没有完成。可以重新启动；之前的报告文件不会被删除。',
+      raw);
     els.log.insertAdjacentHTML('beforeend',
-      `<p class="empty" style="color:var(--danger)">运行出错：${escapeHtml((st.error || '').split('\n').pop() || '未知错误')}</p>`);
+      `<p class="empty" style="color:var(--danger)">运行出错：${escapeHtml(last)}</p>`);
   }
 }
 
@@ -572,76 +623,154 @@ function stopPolling() {
 
 /* ------------------------------- start ---------------------------------- */
 
-els.form.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const payload = {
-    url: $('f-url').value.trim(),
-    spec: $('f-spec').value.trim(),
-    policy: $('f-policy').value,
-    budget: parseInt($('f-budget').value, 10) || 40,
-    mock_llm: $('f-mock').checked,
-  };
-
-  // Reset the console to a clean slate for the new run.
-  S.events = []; S.seenSeq = -1; S.lastShot = ''; S.activeRow = null;
-  S.graphSig = ''; S.firstLayout = true; S.startSig = '';
-  S.staleRun = false; S.runStartedAt = Date.now(); S.lastEventAt = Date.now();
-  els.log.innerHTML = '<p class="empty">正在初始化探索器…</p>';
-  els.logCount.textContent = '0';
-  els.steps.textContent = '0';
-  els.states.textContent = '0';
-  els.cands.textContent = '0';
-  els.bugs.textContent = '0';
-  els.llm.textContent = '0';
-  els.tActions.textContent = '0';
-  els.tWall.textContent = '0s';
-  els.tRelocate.textContent = '0';
-  els.shot.removeAttribute("src");
-  els.shot.hidden = true;
-  els.vpEmpty.hidden = false;
-  els.reportLink.hidden = true;
-  els.reportLink.removeAttribute("href");
-  els.verb.textContent = '—';
-  els.target.textContent = '等待首个动作';
-  els.url.textContent = '';
-  renderBugs([]);
-  if (S.cy) { S.cy.destroy(); S.cy = null; }
-  els.graphCount.textContent = '0 节点 / 0 边';
-
-  els.btnRun.disabled = true;
-  els.btnRunTxt.textContent = '正在启动…';
-  setConn(true, '连接中');
-  els.status.textContent = '启动中';
-  setPill(els.vpPill, 'running');
-
-  try {
-    const res = await fetch('/api/runs', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload),
-    });
-    if (!res.ok) throw new Error('HTTP ' + res.status);
-    const data = await res.json();
-    S.runId = data.run_id;
-    try { sessionStorage.setItem('ghostqa-run', S.runId); } catch (_) {}
-    startPolling();
-  } catch (err) {
-    els.btnRun.disabled = false;
-    els.btnRunTxt.textContent = '启动探索';
-    setConn(false, '启动失败');
-    els.status.textContent = '出错';
-    setPill(els.vpPill, 'error');
-    els.log.innerHTML =
-      `<p class="empty" style="color:var(--danger)">无法启动运行：${escapeHtml(err.message)}</p>`;
+function validateForm() {
+  const url = $('f-url').value.trim();
+  const budget = parseInt($('f-budget').value, 10);
+  let ok = true;
+  const errUrl = $('err-url');
+  const errBudget = $('err-budget');
+  if (errUrl) errUrl.textContent = '';
+  if (errBudget) errBudget.textContent = '';
+  if (!/^https?:\/\//i.test(url)) {
+    if (errUrl) errUrl.textContent = '请输入 http:// 或 https:// 地址';
+    ok = false;
   }
-});
+  if (!Number.isFinite(budget) || budget < 1 || budget > 400) {
+    if (errBudget) errBudget.textContent = '预算需要在 1–400 步之间';
+    ok = false;
+  }
+  return ok;
+}
 
-// Restore the most recent run if the page is reloaded mid-session.
+function updatePolicyHint() {
+  const name = $('f-policy').value;
+  if (els.policyHint) els.policyHint.textContent = POLICY_HINT[name] || '';
+  if (els.policyResearch) els.policyResearch.hidden = !RESEARCH_POLICIES[name];
+}
+
+if (els.form) {
+  els.form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validateForm()) return;
+    const payload = {
+      url: $('f-url').value.trim(),
+      spec: $('f-spec').value.trim(),
+      policy: $('f-policy').value,
+      budget: parseInt($('f-budget').value, 10) || 40,
+      mock_llm: $('f-mock').checked,
+    };
+
+    S.events = []; S.seenSeq = -1; S.lastShot = ''; S.activeRow = null;
+    S.graphSig = ''; S.firstLayout = true; S.startSig = '';
+    S.staleRun = false; S.runStartedAt = Date.now(); S.lastEventAt = Date.now();
+    S.logPinned = true;
+    els.log.innerHTML = '<p class="empty">正在初始化探索器…</p>';
+    els.logCount.textContent = '0';
+    els.steps.textContent = '0';
+    els.states.textContent = '0';
+    els.cands.textContent = '0';
+    els.bugs.textContent = '0';
+    els.llm.textContent = '0';
+    els.tActions.textContent = '0';
+    els.tWall.textContent = '0s';
+    els.tRelocate.textContent = '0';
+    if (els.tUrls) els.tUrls.textContent = '0';
+    els.shot.removeAttribute('src');
+    els.shot.hidden = true;
+    els.vpEmpty.hidden = false;
+    if (els.viewport) els.viewport.classList.remove('has-shot');
+    els.reportLink.hidden = true;
+    els.reportLink.removeAttribute('href');
+    els.verb.textContent = '—';
+    els.target.textContent = '等待首个动作';
+    els.url.textContent = '';
+    if (els.liveComplete) els.liveComplete.hidden = true;
+    if (els.liveError) els.liveError.hidden = true;
+    if (els.liveHint) els.liveHint.hidden = true;
+    if (els.graphEmpty) els.graphEmpty.hidden = false;
+    renderBugs([]);
+    if (S.cy) { S.cy.destroy(); S.cy = null; }
+    els.graphCount.textContent = '0 节点 / 0 边';
+
+    els.btnRun.disabled = true;
+    els.btnRunTxt.textContent = '正在启动…';
+    setConn(true, '连接中');
+    els.status.textContent = '启动中';
+    setPill(els.vpPill, 'running');
+    setBarStatus('running');
+
+    try {
+      const res = await fetch('/api/runs', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload),
+      });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      const data = await res.json();
+      S.runId = data.run_id;
+      try { sessionStorage.setItem('ghostqa-run', S.runId); } catch (_) {}
+      startPolling();
+    } catch (err) {
+      els.btnRun.disabled = false;
+      els.btnRunTxt.textContent = '启动探索';
+      setConn(false, '启动失败');
+      els.status.textContent = '出错';
+      setPill(els.vpPill, 'error');
+      setBarStatus('error');
+      showError('无法启动运行。确认目标地址可访问后再试。', err.message);
+      els.log.innerHTML =
+        `<p class="empty" style="color:var(--danger)">无法启动运行：${escapeHtml(err.message)}</p>`;
+    }
+  });
+}
+
+const presetBtn = $('btn-preset');
+if (presetBtn) {
+  presetBtn.addEventListener('click', () => {
+    $('f-url').value = 'http://127.0.0.1:3939';
+    $('f-spec').value = 'apps/buggy-shop/spec.json';
+    $('f-budget').value = '40';
+    $('f-policy').value = 'ghost-nollm';
+    $('f-mock').checked = true;
+    updatePolicyHint();
+  });
+}
+
+const policySel = $('f-policy');
+if (policySel) {
+  policySel.addEventListener('change', updatePolicyHint);
+  updatePolicyHint();
+}
+
+const fitBtn = $('graph-fit');
+if (fitBtn) fitBtn.addEventListener('click', fitGraph);
+
+if (els.log) {
+  els.log.addEventListener('scroll', () => {
+    const el = els.log;
+    S.logPinned = (el.scrollHeight - el.scrollTop - el.clientHeight) < 48;
+    if (els.logLatest) els.logLatest.hidden = S.logPinned;
+  });
+}
+if (els.logLatest) {
+  els.logLatest.addEventListener('click', () => {
+    S.logPinned = true;
+    els.log.scrollTop = els.log.scrollHeight;
+    els.logLatest.hidden = true;
+  });
+}
+
+window.GhostQA = window.GhostQA || {};
+window.GhostQA.onView = function onView(name) {
+  if (name === 'live') {
+    requestAnimationFrame(() => {
+      if (S.lastGraph) syncGraph(S.lastGraph);
+      else if (S.cy) { S.cy.resize(); fitGraph(); }
+    });
+  }
+};
+
 (async function restore() {
-  // Published benchmark evidence is static — load it once, independently of
-  // any live run.
-  try { renderBenchmarks(await getJSON('/api/benchmarks')); } catch (_) {}
-
   try {
     const saved = sessionStorage.getItem('ghostqa-run');
     if (!saved) return;

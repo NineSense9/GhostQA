@@ -15,7 +15,17 @@ body {
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow: hidden;              /* console shell owns the scroll, not the page */
+  overflow: hidden;              /* live console owns the scroll */
+}
+body.view-overview,
+body.view-evidence {
+  overflow: auto;
+  height: auto;
+  min-height: 100%;
+}
+body.view-live {
+  overflow: hidden;
+  height: 100%;
 }
 
 h1, h2, h3, h4 {
@@ -103,6 +113,17 @@ a { color: var(--accent); text-decoration: none; }
     transparent 1px,
     transparent 3px
   );
+}
+body.view-overview.scanlines::before,
+body.view-evidence.scanlines::before {
+  opacity: 0.12;
+}
+body.view-overview.atmosphere::after,
+body.view-evidence.atmosphere::after {
+  opacity: 0.025;
+}
+@media (max-width: 720px) {
+  .scanlines::before { opacity: 0 !important; }
 }
 
 /* --- Utility: hairline-bordered panel, the structural unit of this console - */

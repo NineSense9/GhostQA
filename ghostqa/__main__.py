@@ -74,6 +74,11 @@ def _make_policy(name: str, llm, seed: int):
         return GhostPolicy(llm=None, use_frontier=False, sequence_mode="sequence")
     if name == "ghost-structural-memory":
         return GhostPolicy(llm=None, use_frontier=False, sequence_mode="structural")
+    if name == "ghost-structural-return-guard":
+        # Dashboard/research exposure of the existing experimental class.
+        # Product `ghost` default is unchanged (NoFrontier, sequence off).
+        from .exploration.return_cycle_guard import ReturnCycleGuardGhostPolicy
+        return ReturnCycleGuardGhostPolicy(llm=None)
     if name == "ghost-contextual":
         return GhostPolicy(llm=None, use_frontier=False, sequence_mode="contextual")
     if name == "ghost-contextual-crossview":

@@ -54,13 +54,15 @@ python -m ghostqa run \
 # 3. 查看报告 runs/demo/report.html
 ```
 
-实时控制台（v0.4 preview，展示层，不改探索算法）：
+Dashboard（v0.4 preview，展示层，不改探索算法）：
 
 ```bash
 python apps/buggy-shop/server.py 3939
 python -m dashboard.server --port 8787
 # 浏览器打开 http://127.0.0.1:8787/
 ```
+
+三个视图：**总览**（默认，含 v0.3.9 return-cycle 对照）、**实时探索**（浏览器截图 / 状态图 / 决策日志）、**研究证据**（freeze / clean clone / 复现命令）。v0.3.9 / v0.3.8 数字来自 `GET /api/showcase`，读取已提交的 `experiments/published/` 产物，不在页面里写死研究结果。演示步骤见 `docs/DEMO.md`。
 
 使用真实 LLM（可选，模型不可用时自动降级为 no-LLM 策略）：
 
@@ -145,7 +147,7 @@ ghostqa/
 ├── minimizer/    # ddmin 可执行最小复现
 ├── agent/        # ModelGateway：Mock / Null / OpenAI 兼容
 └── report/       # JSON + HTML 报告
-dashboard/        # v0.4 preview 实时控制台（FastAPI + 单页）
+dashboard/        # v0.4 preview：总览 / 实时探索 / 研究证据（FastAPI + 单页）
 apps/buggy-shop/  # 浅层 benchmark
 apps/buggy-flow/  # DeepBench（冻结）
 benchmark/        # SimBench + WebBench（--app buggy-shop|buggy-flow）
@@ -163,6 +165,7 @@ Working > Fancy ｜ Measured > Claimed ｜ Verified > Generated ｜ Small Comple
 
 ## 文档
 
+- `docs/DEMO.md` — Dashboard 演示路径（总览 / 实时探索 / 研究证据）
 - `docs/PROJECT_PLAN.md` — 总体设计（产品定义/算法/架构/路线图）
 - `docs/TECH_SURVEY.md` — 学术与工业竞品调研（2026 诚实版）
 - `docs/TRUTH_AUDIT.md` — v0.1 文档-代码一致性审计
