@@ -1,6 +1,7 @@
 # GhostQA 技术交接文档
 
 > 原 v0.2 交接（审计基线 `9c6c0a0`，文档提交 `94f5db1`）仍保留于下文，作为历史。
+> **v0.3.8 更新**：application-shape 诊断。Shop 6-state = nested hub + return lock。H1 = step-0 distractor。H2 = 全局；C1 到 billing 但未连续 qty_down。算法未改。下一轮可做 gated sequence / return-lock breaker，不要用 holdout 调权。
 > **v0.3.7 更新**：算法冻结后做 holdout + BuggyShop。C1 holdout **0/2**，BuggyShop **1/10** 且 6 states。预注册结论 **C：DeepBench-specific**。产品默认不切。不要用 holdout 调参。
 > **v0.3.6 更新**：Structural hub memory（cluster-level）。C1 `ghost-structural-memory`@80–120 Deep-BDR=0.667（D6/D7/D11–D14），BDR=0.429 并列 DFS。C0 仍 D6+D12。产品默认不切。Freeze `5355abd`。
 > **v0.3.5.1-r2 更新**：sequence length 按 concrete `sequence_action` 计；horizon 不是 terminal。max len=6；terminally tested branches=6。行为仍 D6+D12。

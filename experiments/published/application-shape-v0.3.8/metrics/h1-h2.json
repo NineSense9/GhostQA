@@ -1,0 +1,32 @@
+{
+  "h1": {
+    "kind": "js_error",
+    "path": [
+      "index.html",
+      "settings.html",
+      "changelog.html",
+      "btn_changelog_detail"
+    ],
+    "dfs_first_action": "nav_settings",
+    "dfs_confirm_step": 8,
+    "c0_c1_first_action": "nav_login",
+    "c0_c1_settings_visits": 0,
+    "c0_c1_changelog_visits": 0,
+    "failure_class": "reach_failure + distractor_filter",
+    "distractor_keywords_hit": [
+      "设置 in 系统设置",
+      "日志 in 更新日志"
+    ]
+  },
+  "h2": {
+    "kind": "semantic bill_qty_non_negative",
+    "initial_qty": 1,
+    "clicks_to_violate": 2,
+    "dfs_bfs_c0_reached_billing": false,
+    "deferred_reached_billing": true,
+    "c1_reached_billing": true,
+    "c1_qty_pattern": "up, down, up (never two consecutive downs from 1)",
+    "c1_failure_class": "interaction_construction: reached billing, did not net two qty_down",
+    "global_failure": "not C1-specific; DFS/BFS never reached billing; C1 reached but wrong click order"
+  }
+}

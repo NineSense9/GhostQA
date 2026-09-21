@@ -1,0 +1,25 @@
+{
+  "round": "v0.3.8 Application-Shape / State-Semantics Analysis",
+  "algorithm_freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json",
+  "source_head_at_start": "8ba2b2ebc10d0ae335e8cefa6655b82389569a5c",
+  "deepbench_app_freeze": "5355abd444eb4a4e99242c7629a1363c38e52a2a",
+  "product_default": "NoFrontier, sequence_mode=off",
+  "v037_outcome": "C DeepBench-specific research result",
+  "diagnostic_rerun": true,
+  "not_an_independent_trial": true,
+  "v037_bdr_lock": {
+    "shop_c1": {"states": 6, "confirmed": ["BUG-W5"]},
+    "shop_bfs": {"states": 41, "confirmed": ["BUG-W1", "BUG-W2", "BUG-W3", "BUG-W5", "BUG-W6", "BUG-W7", "BUG-W9"]},
+    "flow_dfs": {"confirmed": ["BUG-H1"]},
+    "flow_c1": {"confirmed": []}
+  },
+  "frozen_files_unchanged": [
+    "ghostqa/exploration/policy.py",
+    "ghostqa/exploration/sequence.py",
+    "ghostqa/exploration/sequence_memory.py",
+    "ghostqa/exploration/interaction.py",
+    "ghostqa/exploration/payload.py"
+  ],
+  "observability_only_change": "explorer._build_step_event adds decision_mode; diagnostic_runner wraps sequence.after for snapshots",
+  "entry": "python -m benchmark.application_shape_analysis --shop-dir ... --flow-dir ... --out analysis.json"
+}
