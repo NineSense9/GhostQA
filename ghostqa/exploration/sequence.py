@@ -482,9 +482,7 @@ class SequenceController:
             for a in actions:
                 if is_return_action(a, state):
                     continue
-                if self._is_followup(a) or (
-                        self.mode in ("contextual", "contextual-crossview")
-                        and self._is_contextual_action(a, state)):
+                if self._is_followup(a):
                     self.last_label = "sequence_followup"
                     return a
         if self.mode in SEQUENCE_LIKE and self.ledger.commitment_left > 0:
