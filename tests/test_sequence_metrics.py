@@ -90,6 +90,103 @@ def test_canonical_metrics_do_not_change_action_trace():
     assert m1.get("hub_variant_count") is not None
 
 
+def test_sequence_length_counts_concrete_actions():
+    """Branch-start click is action #1; later actions increment length."""
+    ctrl = SequenceController("sequence")
+    g = StateGraph()
+    g.add_state("h", "/hub", "Hub", cluster_id="hub")
+    g.add_state("a", "/a", "A", cluster_id="a")
+    hub = make_hub_state()
+    leaf = GUIState(app="t", url="/a", title="A",
+                    elements=(make_seq_el("x", "x"),), obs={})
+    ctrl.after("h", Action("click", "go_a"), hub, leaf, "new", [], "a", False, g, 1)
+    ctrl.after("a", Action("click", "x"), leaf, leaf, "similar", [], "a", False, g, 2)
+    ctrl.after("a", Action("click", "x"), leaf, leaf, "similar", [], "a", False, g, 3)
+    actions = [e for e in ctrl.events if e["event"] == "sequence_action"]
+    assert len(actions) == 3
+    assert actions[0]["action_key"] == Action("click", "go_a").key()
+    m = canonical_sequence_metrics(ctrl.events)
+    assert m["mean_sequence_len"] == 3
+    assert m["max_sequence_len"] == 3
+    assert m["sequence_instances_started"] == 1
+
+
+def test_horizon_is_lifecycle_not_terminal():
+    ctrl = SequenceController("sequence")
+    g = StateGraph()
+    g.add_state("h", "/hub", "Hub", cluster_id="hub")
+    g.add_state("a", "/a", "A", cluster_id="a")
+    hub = make_hub_state()
+    leaf = GUIState(app="t", url="/a", title="A",
+                    elements=(make_seq_el("x", "x"),), obs={})
+    ctrl.after("h", Action("click", "go_a"), hub, leaf, "new", [], "a", False, g, 1)
+    ctrl.after("a", Action("click", "x"), leaf, leaf, "identical", [], "a", False, g, 2)
+    ctrl.after("a", Action("click", "x"), leaf, leaf, "identical", [], "a", False, g, 3)
+    terminals = [e for e in ctrl.events if e["event"] == "sequence_terminal"]
+    assert all(e.get("outcome") != "horizon" for e in terminals)
+    assert any(e["event"] == "sequence_horizon_reached" for e in ctrl.events)
+    m = canonical_sequence_metrics(ctrl.events)
+    assert m["sequence_horizon_reached"] >= 1
+    assert m.get("sequence_horizon_expired", 0) >= 1  # lifecycle alias, not a terminal
+    assert m["sequence_instances_returned"] == 0
+    assert m["sequence_budget_ended"] == 0
+    assert m["sequence_instances_ended_on_finding"] == 0
+
+
+def test_finding_is_instance_outcome_not_bug_count():
+    class _Cand:
+        def fingerprint(self):
+            return "cand-1"
+
+    ctrl = SequenceController("sequence")
+    g = StateGraph()
+    g.add_state("h", "/hub", "Hub", cluster_id="hub")
+    g.add_state("a", "/a", "A", cluster_id="a")
+    hub = make_hub_state()
+    leaf = GUIState(app="t", url="/a", title="A",
+                    elements=(make_seq_el("x", "x"),), obs={})
+    ctrl.after("h", Action("click", "go_a"), hub, leaf, "new", [], "a", False, g, 1)
+    ctrl.after("a", Action("click", "x"), leaf, leaf, "new", [_Cand()], "a", False, g, 2)
+    m = canonical_sequence_metrics(ctrl.events)
+    assert m["sequence_instances_ended_on_finding"] == 1
+    assert m["sequence_found_finding"] == 1  # deprecated alias
+    assert m["unique_branches_with_finding"] == 1
+    assert m["unique_branches_returned"] == 0
+    assert m["unique_branches_terminally_tested"] == 1
+    assert m["unique_candidate_fingerprints_during_sequence"] == 1
+    terminals = [e for e in ctrl.events if e["event"] == "sequence_terminal"]
+    assert len(terminals) == 1
+    assert terminals[0]["outcome"] == "finding"
+
+
+def test_terminals_are_mutually_exclusive():
+    ctrl = SequenceController("sequence")
+    g = StateGraph()
+    g.add_state("h", "/hub", "Hub", cluster_id="hub")
+    hub = make_hub_state()
+    ctrl.after("h", Action("click", "go_a"), hub, hub, "new", [], "a", False, g, 1)
+    ctrl.close_open(step=40, sig="a", cluster="a")
+    m = canonical_sequence_metrics(ctrl.events)
+    buckets = (
+        m["sequence_instances_returned"]
+        + m["sequence_instances_ended_on_finding"]
+        + m["sequence_crashed"]
+        + m["sequence_lost_parent"]
+        + m["sequence_budget_ended"]
+    )
+    assert buckets == m["sequence_instances_started"] == 1
+
+
+def test_sim_sequences_are_longer_than_one_action():
+    r = run_exploration(
+        SimExecutor(make_seq_app()),
+        GhostPolicy(NullLLM(), use_frontier=False, sequence_mode="sequence"),
+        budget=16, oracle=OracleEngine())
+    m = r.sequence_metrics
+    assert m["max_sequence_len"] > 1
+    assert m["mean_sequence_len"] > 1
+
+
 def test_policy_does_not_read_events():
     src = open(__import__("ghostqa.exploration.sequence", fromlist=["x"]).__file__,
                encoding="utf-8").read()

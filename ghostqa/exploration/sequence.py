@@ -169,29 +169,50 @@ class BranchLedger:
         }
 
 
+def _finding_fps(findings) -> list:
+    """Observability only. Findings are already passed into after()."""
+    out = []
+    for f in findings or []:
+        fn = getattr(f, "fingerprint", None)
+        if callable(fn):
+            try:
+                fp = fn()
+            except Exception:
+                fp = None
+        else:
+            fp = fn
+        if fp:
+            out.append(str(fp))
+    return out
+
+
 def canonical_sequence_metrics(events: list) -> dict:
     """Cluster-level hub / branch / instance metrics from append-only events.
 
-    Does not read BranchRec mutable state. Policy never calls this.
+    Sequence length is the count of sequence_action events per instance.
+    Horizon is a lifecycle event, not a terminal outcome.
+    Policy never calls this.
     """
     hub_variants = set()
     hub_clusters = set()
     discovered = set()
     started_keys = set()
-    completed_keys = set()
+    returned_keys = set()
+    finding_keys = set()
     start_events = 0
     return_attempt_events = 0
+    horizon_n = 0
     instances = {}
     followup_n = 0
     mutation_n = 0
-    lens = []
+    fingerprints = set()
 
     def _inst(eid):
         if not eid:
             return None
         rec = instances.get(eid)
         if rec is None:
-            rec = {"outcome": "open", "len": 0, "branch": "", "returned": False}
+            rec = {"outcome": "open", "actions": 0, "branch": ""}
             instances[eid] = rec
         return rec
 
@@ -214,43 +235,55 @@ def canonical_sequence_metrics(events: list) -> dict:
             if bk:
                 started_keys.add(bk)
             rec = _inst(iid)
-            if rec is not None:
+            if rec is not None and bk:
                 rec["branch"] = bk
-                rec["len"] = 1
+        elif ev == "sequence_action":
+            rec = _inst(iid)
+            if rec is not None:
+                rec["actions"] += 1
+                if bk:
+                    rec["branch"] = rec["branch"] or bk
         elif ev == "mutation":
             mutation_n += 1
         elif ev == "followup":
             followup_n += 1
         elif ev == "return_attempt":
             return_attempt_events += 1
+        elif ev in ("sequence_horizon_reached", "horizon"):
+            horizon_n += 1
         elif ev == "sequence_terminal":
             rec = _inst(iid)
-            if rec is not None:
-                rec["outcome"] = e.get("outcome") or "unknown"
-                rec["len"] = e.get("length") or rec["len"]
-                if rec["outcome"] == "returned" and bk:
-                    completed_keys.add(bk)
-                    rec["returned"] = True
-        if iid and ev not in ("hub_seen", "branch_discovered"):
-            rec = instances.get(iid)
-            if rec is not None and ev == "branch_start":
-                pass
-            elif rec is not None and ev not in ("sequence_terminal",):
-                rec["len"] = rec.get("len", 0) + (1 if ev in ("followup", "return_attempt") else 0)
+            outcome = e.get("outcome") or "unknown"
+            if rec is not None and rec["outcome"] == "open":
+                rec["outcome"] = outcome
+                if bk:
+                    rec["branch"] = rec["branch"] or bk
+            for fp in e.get("fingerprints") or []:
+                if fp:
+                    fingerprints.add(fp)
 
     outcomes = {}
+    lens = []
     for rec in instances.values():
         outcomes[rec["outcome"]] = outcomes.get(rec["outcome"], 0) + 1
-        if rec.get("len"):
-            lens.append(rec["len"])
+        lens.append(rec["actions"])
+        bk = rec.get("branch") or ""
+        if rec["outcome"] == "returned" and bk:
+            returned_keys.add(bk)
+        elif rec["outcome"] == "finding" and bk:
+            finding_keys.add(bk)
+
     n_hub_c = len(hub_clusters)
     n_hub_v = len(hub_variants)
     n_started_i = len(instances)
     n_returned = outcomes.get("returned", 0)
+    n_finding = outcomes.get("finding", 0)
     n_disc = len(discovered)
     n_started_u = len(started_keys)
-    n_completed_u = len(completed_keys)
-    requiring = n_started_i - outcomes.get("finding", 0) - outcomes.get("crash", 0)
+    n_returned_u = len(returned_keys)
+    n_finding_u = len(finding_keys)
+    n_terminal_u = len(returned_keys | finding_keys)
+    requiring = n_started_i - n_finding - outcomes.get("crash", 0)
     return {
         "hub_variant_count": n_hub_v,
         "canonical_hub_count": n_hub_c,
@@ -259,9 +292,12 @@ def canonical_sequence_metrics(events: list) -> dict:
             round(n_hub_v / n_hub_c, 3) if n_hub_c else None),
         "unique_branches_discovered": n_disc,
         "unique_branches_started": n_started_u,
-        "unique_branches_completed": n_completed_u,
+        "unique_branches_returned": n_returned_u,
+        "unique_branches_with_finding": n_finding_u,
+        "unique_branches_terminally_tested": n_terminal_u,
+        "unique_branches_completed": n_returned_u,  # deprecated: returned
         "canonical_branch_coverage": (
-            round(n_completed_u / n_disc, 3) if n_disc else None),
+            round(n_terminal_u / n_disc, 3) if n_disc else None),
         "branch_start_events": start_events,
         "branch_attempts_total": start_events,
         "branch_revisit_attempts": max(0, start_events - n_started_u),
@@ -272,27 +308,32 @@ def canonical_sequence_metrics(events: list) -> dict:
             if start_events else None),
         "sequence_instances_started": n_started_i,
         "sequence_instances_returned": n_returned,
-        "sequence_found_finding": outcomes.get("finding", 0),
+        "sequence_returned": n_returned,
+        "sequence_instances_ended_on_finding": n_finding,
+        "sequence_ended_on_finding": n_finding,
+        "sequence_found_finding": n_finding,  # deprecated alias
         "sequence_crashed": outcomes.get("crash", 0),
-        "sequence_horizon_expired": outcomes.get("horizon", 0),
+        "sequence_horizon_reached": horizon_n,
+        "sequence_horizon_expired": horizon_n,  # lifecycle, not a terminal
         "sequence_budget_ended": outcomes.get("budget_end", 0),
         "sequence_lost_parent": outcomes.get("lost_parent", 0),
-        "sequence_instances_open_at_budget_end": outcomes.get("open", 0) + outcomes.get("budget_end", 0),
+        "sequence_instances_open_at_budget_end": (
+            outcomes.get("open", 0) + outcomes.get("budget_end", 0)),
         "sequence_instance_completion_rate": (
             round(n_returned / n_started_i, 3) if n_started_i else None),
         "return_attempt_events": return_attempt_events,
         "return_success_rate": (
             round(n_returned / requiring, 3) if requiring else None),
+        "unique_candidate_fingerprints_during_sequence": len(fingerprints),
         "mutation_count": mutation_n,
         "followup_actions": followup_n,
         "mean_sequence_len": (
             round(sum(lens) / len(lens), 3) if lens else None),
         "max_sequence_len": max(lens) if lens else 0,
-        # unique coverage aliases used by summary tables
         "branches_discovered": n_disc,
         "branches_started": n_started_u,
-        "branches_completed": n_completed_u,
-        "branch_coverage": round(n_completed_u / n_disc, 3) if n_disc else None,
+        "branches_completed": n_returned_u,
+        "branch_coverage": round(n_terminal_u / n_disc, 3) if n_disc else None,
     }
 
 
@@ -450,6 +491,14 @@ class SequenceController:
                 self.ledger.commitment_left = BRANCH_HORIZON
             self.ledger.returning = False
 
+        if self._open_instance is not None:
+            self._emit(
+                "sequence_action", step, sig, cluster,
+                self._open_instance.get("branch", ""),
+                {"action_key": action.key() if action is not None else "",
+                 "decision_mode": self.last_label},
+            )
+
         if self.ledger.active_branch:
             self.ledger.branch_actions += 1
             self.ledger._seq_len += 1
@@ -494,10 +543,10 @@ class SequenceController:
                 self._emit("sequence_terminal", step, sig, cluster,
                            self._open_instance.get("branch", ""),
                            {"outcome": terminal_reason,
-                            "length": self._open_instance.get("len", 0)})
+                            "fingerprints": _finding_fps(findings)})
                 self._open_instance = None
             elif terminal_reason == "horizon":
-                self._emit("horizon", step, sig, cluster,
+                self._emit("sequence_horizon_reached", step, sig, cluster,
                            self.ledger.active_branch)
 
         if is_return_action(action, state) and self.ledger.returning:
