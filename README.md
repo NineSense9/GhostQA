@@ -119,6 +119,10 @@ python -m ghostqa run --url ... --policy ghost --llm ...
   - `hub_count=57` 是 exact-sig 变体计数；**canonical_hub_count=3**。87 次 sequence instance ≠ 87 条 unique branch。
 - **DeepBench v0.3.5.1-r2**（lifecycle 纠偏）：`experiments/published/deepbench-v0.3.5.1-r2/`
   - `mean/max sequence_len` 不再恒为 1；max=6。`unique_branches_terminally_tested=6`（returned ∪ finding）。37 次 finding terminal ≠ 37 个 bug（unique fingerprints=4）。
+- **DeepBench v0.3.6**（同一 freeze，contextual sequence memory）：`experiments/published/deepbench-v0.3.6/`
+  - `ghost-structural-memory`（C1）@80–120：BDR=0.429（并列 DFS/deferred），**Deep-BDR=0.667**，确认 D6/D7/D11–D14。D6+D12 仍在。
+  - C0 `ghost-sequence` 仍是 D6+D12；attempts/branch 10.9 → C1 2.8。
+  - C2 与 C1 同一 confirmed 集合；C3@40 丢掉 D7。产品默认仍是 NoFrontier、无 sequence。
 
 ## 架构
 

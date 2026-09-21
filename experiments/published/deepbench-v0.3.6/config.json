@@ -1,0 +1,21 @@
+{
+  "app": "buggy-flow",
+  "benchmark_freeze_sha": "5355abd444eb4a4e99242c7629a1363c38e52a2a",
+  "algorithm_head": "40434be",
+  "product": "v0.4 preview",
+  "study": "v0.3.6 Contextual Sequence Memory",
+  "budgets": [40, 80, 120],
+  "trials": [1],
+  "trial_note": "n=1 deterministic NoLLM. DFS/BFS/ghost-nollm/ghost-deferred reused from deepbench-v0.3.5 (those policies unchanged).",
+  "policies": [
+    "dfs", "bfs",
+    "ghost-nollm", "ghost-deferred",
+    "ghost-sequence",
+    "ghost-structural-memory",
+    "ghost-contextual",
+    "ghost-contextual-crossview"
+  ],
+  "holdout": "unscored",
+  "real_llm": "skipped",
+  "product_default": "Ghost = NoFrontier, sequence_mode off. C1/C2/C3 remain experimental."
+}
