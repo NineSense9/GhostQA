@@ -28,11 +28,14 @@ FREEZE_REL = os.path.join(
 
 
 def sha256_file(path: str) -> str:
-    h = hashlib.sha256()
+    """SHA256 of file bytes with newlines normalized to LF.
+
+    Git text files are LF in the object store; Windows working trees may be
+    CRLF. Reproduction must not depend on core.autocrlf.
+    """
     with open(path, "rb") as f:
-        for chunk in iter(lambda: f.read(65536), b""):
-            h.update(chunk)
-    return h.hexdigest()
+        data = f.read().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
+    return hashlib.sha256(data).hexdigest()
 
 
 def sha256_bytes(data: bytes) -> str:
