@@ -17,6 +17,7 @@ API:
     GET  /api/runs/{id}/report.html-> generated report (after run)
     GET  /api/runs/{id}/shot       -> latest browser screenshot (png)
     GET  /api/benchmarks           -> published benchmark metrics
+    GET  /api/showcase             -> presentation-safe research evidence
 """
 from __future__ import annotations
 
@@ -404,6 +405,13 @@ def run_shot_named(run_id: str, name: str):
     if not os.path.isfile(path):
         raise HTTPException(404, "screenshot not found")
     return FileResponse(path, media_type="image/png")
+
+
+@app.get("/api/showcase")
+def showcase():
+    """Committed research artifacts, curated for Overview / Evidence."""
+    from dashboard.showcase import build_showcase
+    return build_showcase()
 
 
 @app.get("/api/benchmarks")
