@@ -73,6 +73,13 @@ def make_policy(name: str, seed: int):
         return GhostPolicy(llm=None, use_frontier=False, sequence_mode="followup")
     if name == "ghost-sequence":
         return GhostPolicy(llm=None, use_frontier=False, sequence_mode="sequence")
+    if name == "ghost-structural-memory":
+        return GhostPolicy(llm=None, use_frontier=False, sequence_mode="structural")
+    if name == "ghost-contextual":
+        return GhostPolicy(llm=None, use_frontier=False, sequence_mode="contextual")
+    if name == "ghost-contextual-crossview":
+        return GhostPolicy(llm=None, use_frontier=False,
+                           sequence_mode="contextual-crossview")
     if name == "workflow-bfs-postreach":
         return WorkflowBFSPolicy(postreach_mode="postreach")
     if name == "ghost-frontier-r0":

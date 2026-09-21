@@ -1,13 +1,21 @@
-"""Short-horizon branch / sequence exploration (v0.3.5).
+"""Short-horizon branch / sequence exploration (v0.3.5 + v0.3.6 memory).
 
 Natural navigation only: no global restore-from-start. Does not read
 bug manifests. Replay still sees concrete Actions.
+
+v0.3.5 modes (frozen): off | branch | followup | sequence
+v0.3.6 modes (additive): structural | contextual | contextual-crossview
 """
 from __future__ import annotations
 
 from dataclasses import dataclass, field
 
 from .interaction import is_progress_action, DISTRACTOR_KEYWORDS
+from .sequence_memory import (
+    StructuralHubMemory, make_delta, CONTEXTUAL_NOVELTY_BONUS,
+    W_CONTEXT_RETEST, MUTATION_REFRESH, MAX_SEQUENCE_ACTIONS,
+    CROSS_VIEW_BONUS, PRODUCTIVE_WINDOW,
+)
 from ..state.models import Action
 from ..state.similarity import NEW, SIMILAR
 
@@ -18,6 +26,10 @@ W_FOLLOWUP = 0.75
 RETURN_BONUS = 0.65
 FOLLOWUP_HORIZON = 3
 MUTATION_TTL = 10
+
+SEQUENCE_LIKE = ("sequence", "structural", "contextual", "contextual-crossview")
+FOLLOWUP_LIKE = ("followup",) + SEQUENCE_LIKE
+CONTEXT_MODES = ("structural", "contextual", "contextual-crossview")
 
 RETURN_WORDS = ("返回", "return", "back", "previous", "parent", "上一级")
 
@@ -338,7 +350,7 @@ def canonical_sequence_metrics(events: list) -> dict:
 
 
 class SequenceController:
-    """modes: off | branch | followup | sequence"""
+    """modes: off | branch | followup | sequence | structural | contextual | contextual-crossview"""
 
     def __init__(self, mode: str = "off"):
         self.mode = mode
@@ -348,6 +360,26 @@ class SequenceController:
         self.events: list = []
         self._instance_n = 0
         self._open_instance = None  # {"id", "branch", "len"}
+        self.struct = StructuralHubMemory()
+        self.ctx_stats = self._empty_ctx_stats()
+        self._last_delta = None
+        self._tried_action_ctx: set = set()
+        self._pending_retest = None
+        self._local_ctx_id = "e0:init"
+
+    def _empty_ctx_stats(self) -> dict:
+        return {
+            "context_epochs_created": 0,
+            "meaningful_mutations": 0,
+            "contextual_branch_retests": 0,
+            "contextual_branch_retests_productive": 0,
+            "contextual_action_retests": 0,
+            "contextual_action_retests_productive": 0,
+            "mutation_refreshes": 0,
+            "cross_view_checks": 0,
+            "cross_view_checks_with_finding": 0,
+            "contextual_retest_no_effect": 0,
+        }
 
     def reset(self):
         self.ledger = BranchLedger()
@@ -356,6 +388,12 @@ class SequenceController:
         self.events = []
         self._instance_n = 0
         self._open_instance = None
+        self.struct = StructuralHubMemory()
+        self.ctx_stats = self._empty_ctx_stats()
+        self._last_delta = None
+        self._tried_action_ctx = set()
+        self._pending_retest = None
+        self._local_ctx_id = "e0:init"
 
     def _emit(self, event: str, step: int, sig: str, cluster: str,
               bkey: str = "", extra: dict = None):
@@ -389,6 +427,11 @@ class SequenceController:
         out = self.ledger.metrics()
         if self.events:
             out.update(canonical_sequence_metrics(self.events))
+        out.update(self.ctx_stats)
+        productive = self.ctx_stats["contextual_branch_retests_productive"]
+        total_rt = self.ctx_stats["contextual_branch_retests"]
+        out["productive_context_retest_rate"] = (
+            round(productive / total_rt, 3) if total_rt else None)
         return out
 
     def score_bonus(self, action, state, graph, ctx) -> float:
@@ -399,35 +442,52 @@ class SequenceController:
         cluster = (node.cluster_id if node else "") or sig.split(":")[0]
         bonus = 0.0
         if is_hub(state) and is_branch_click(action, state):
-            rec = self.ledger.hub(sig, cluster)
-            rec.discovered.add(branch_key(cluster, action))
             key = branch_key(cluster, action)
-            if key not in rec.started and key not in rec.completed:
-                bonus += W_BRANCH_NOVELTY
-        if self.mode in ("followup", "sequence") and self._is_followup(action):
+            if self.mode in CONTEXT_MODES:
+                hist = self.struct.hub(cluster).branches.get(key)
+                if hist is None or hist.attempts == 0:
+                    bonus += W_BRANCH_NOVELTY
+                elif (self.mode != "structural"
+                      and self.struct.retest_eligible(cluster, key, action, state)):
+                    bonus += W_CONTEXT_RETEST
+            else:
+                rec = self.ledger.hub(sig, cluster)
+                rec.discovered.add(key)
+                if key not in rec.started and key not in rec.completed:
+                    bonus += W_BRANCH_NOVELTY
+        if self.mode in FOLLOWUP_LIKE and self._is_followup(action):
             bonus += W_FOLLOWUP
+        if (self.mode in ("contextual", "contextual-crossview")
+                and self._is_contextual_action(action, state)):
+            bonus += CONTEXTUAL_NOVELTY_BONUS
         if self.ledger.returning and is_return_action(action, state):
             bonus += RETURN_BONUS
-        if (self.mode == "sequence" and self.ledger.commitment_left > 0
+        if (self.mode in SEQUENCE_LIKE and self.ledger.commitment_left > 0
                 and not is_return_action(action, state)):
             bonus += 0.25
+        if self.mode == "contextual-crossview":
+            bonus += self._cross_view_bonus(action, state, graph, sig)
         return bonus
 
     def pick_override(self, actions, state, graph, ctx):
         if not self.enabled() or not actions:
             return None
         sig = ctx.get("sig", "")
-        if self.mode == "sequence" and self.ledger.returning:
+        if self.mode in SEQUENCE_LIKE and self.ledger.returning:
             for a in actions:
                 if is_return_action(a, state):
                     self.last_label = "return_hub"
                     return a
-        if self.mode in ("followup", "sequence") and self.ledger.commitment_left > 0:
+        if self.mode in FOLLOWUP_LIKE and self.ledger.commitment_left > 0:
             for a in actions:
-                if self._is_followup(a) and not is_return_action(a, state):
+                if is_return_action(a, state):
+                    continue
+                if self._is_followup(a) or (
+                        self.mode in ("contextual", "contextual-crossview")
+                        and self._is_contextual_action(a, state)):
                     self.last_label = "sequence_followup"
                     return a
-        if self.mode == "sequence" and self.ledger.commitment_left > 0:
+        if self.mode in SEQUENCE_LIKE and self.ledger.commitment_left > 0:
             return None  # additive score keeps us in-branch
         if is_hub(state):
             node = graph.nodes.get(sig) if graph else None
@@ -435,16 +495,27 @@ class SequenceController:
             rec = self.ledger.hub(sig, cluster)
             rec.first_seen = rec.first_seen or ctx.get("step_index", 0)
             untried = []
+            retest = []
             for a in actions:
                 if not is_branch_click(a, state):
                     continue
                 key = branch_key(cluster, a)
                 rec.discovered.add(key)
-                if key not in rec.started and key not in rec.completed:
+                if self.mode in CONTEXT_MODES:
+                    hist = self.struct.hub(cluster).branches.get(key)
+                    if hist is None or hist.attempts == 0:
+                        untried.append(a)
+                    elif (self.mode != "structural"
+                          and self.struct.retest_eligible(cluster, key, a, state)):
+                        retest.append(a)
+                elif key not in rec.started and key not in rec.completed:
                     untried.append(a)
             if untried:
                 self.last_label = "branch"
                 return untried[0]
+            if retest:
+                self.last_label = "branch"
+                return retest[0]
         return None
 
     def after(self, sig, action, state, new_state, relation, findings,
@@ -487,9 +558,11 @@ class SequenceController:
             self.ledger.branch_new_states = 0
             self.ledger.branch_findings = 0
             self.ledger._seq_len = 1
-            if self.mode == "sequence":
+            if self.mode in SEQUENCE_LIKE:
                 self.ledger.commitment_left = BRANCH_HORIZON
             self.ledger.returning = False
+            if self.mode in CONTEXT_MODES:
+                self._on_struct_branch_start(cluster, sig, key, step)
 
         if self._open_instance is not None:
             self._emit(
@@ -510,7 +583,7 @@ class SequenceController:
         if relation in (NEW, SIMILAR):
             self.ledger.branch_new_states += 1
 
-        if self.mode in ("followup", "sequence"):
+        if self.mode in FOLLOWUP_LIKE:
             self._record_mutation(sig, action, state, new_state, relation, step)
 
         if self.last_label == "sequence_followup":
@@ -518,19 +591,24 @@ class SequenceController:
             self._emit("followup", step, sig, cluster,
                        self.ledger.active_branch)
 
+        if self.mode in CONTEXT_MODES:
+            self._update_context_memory(
+                sig, action, state, new_state, relation, findings,
+                new_sig, graph, step, cluster)
+
         expire = False
         terminal_reason = None
         if crashed:
             expire = True
             terminal_reason = "crash"
-        elif findings and self.mode == "sequence":
+        elif findings and self.mode in SEQUENCE_LIKE:
             expire = True
             terminal_reason = "finding"
-        if self.mode == "sequence" and self.ledger.commitment_left <= 0 and self.ledger.active_branch:
+        if self.mode in SEQUENCE_LIKE and self.ledger.commitment_left <= 0 and self.ledger.active_branch:
             expire = True
             if terminal_reason is None:
                 terminal_reason = "horizon"
-        if self.mode == "sequence" and relation not in (NEW, SIMILAR) and not findings:
+        if self.mode in SEQUENCE_LIKE and relation not in (NEW, SIMILAR) and not findings:
             if self.ledger.commitment_left <= 0:
                 expire = True
                 if terminal_reason is None:
@@ -622,6 +700,115 @@ class SequenceController:
             if eid and eid in m.new_eids:
                 return True
         return False
+
+    def _is_contextual_action(self, action, state=None) -> bool:
+        if action is None or self._last_delta is None:
+            return False
+        if not self._last_delta.meaningful():
+            return False
+        if not self.ledger.active_branch:
+            return False
+        if state is not None and is_hub(state) and is_branch_click(action, state):
+            return False
+        eid = action.target_eid or ""
+        if eid and eid in self._last_delta.new_eids:
+            return False
+        if (action.key(), self._local_ctx_id) in self._tried_action_ctx:
+            return False
+        return True
+
+    def _on_struct_branch_start(self, cluster, sig, key, step):
+        h = self.struct.hub(cluster)
+        hist = self.struct.branch(cluster, key)
+        if hist.attempts > 0 and self.mode != "structural":
+            h.epoch_retests += 1
+            self.ctx_stats["contextual_branch_retests"] += 1
+            self._pending_retest = {
+                "step": step, "kind": "branch", "left": PRODUCTIVE_WINDOW}
+        hist.attempts += 1
+        hist.last_test_step = step
+        hist.last_test_epoch = h.context_epoch
+        self.struct.note_variant(cluster, sig)
+
+    def _update_context_memory(self, sig, action, state, new_state, relation,
+                               findings, new_sig, graph, step, cluster):
+        dst_cluster = ""
+        if graph and new_sig in graph.nodes:
+            dst_cluster = graph.nodes[new_sig].cluster_id
+        elif new_sig:
+            dst_cluster = new_sig.split(":")[0]
+        parent_c = self.ledger.parent_hub_cluster or cluster
+        delta = make_delta(step, action, state, new_state, parent_c, dst_cluster)
+        business = bool(delta.changed_obs or (
+            (delta.source_cluster == delta.dest_cluster)
+            and (delta.new_eids or delta.removed_eids)))
+        if (self.mode in ("contextual", "contextual-crossview")
+                and self._is_contextual_action(action, state)):
+            self.ctx_stats["contextual_action_retests"] += 1
+            self._pending_retest = {
+                "step": step, "kind": "action", "left": PRODUCTIVE_WINDOW}
+        if business:
+            self._last_delta = delta
+            if self.struct.apply_delta(parent_c, delta):
+                self.ctx_stats["context_epochs_created"] += 1
+                self.ctx_stats["meaningful_mutations"] += 1
+                self._local_ctx_id = delta.context_id(
+                    self.struct.hub(parent_c).context_epoch)
+            if (self.mode in ("contextual", "contextual-crossview")
+                    and self.ledger.active_branch
+                    and not self.ledger.returning
+                    and self.ledger.branch_actions < MAX_SEQUENCE_ACTIONS
+                    and self.ledger.commitment_left <= 0):
+                self.ledger.commitment_left = MUTATION_REFRESH
+                self.ctx_stats["mutation_refreshes"] += 1
+                remain = MAX_SEQUENCE_ACTIONS - self.ledger.branch_actions
+                if self.ledger.commitment_left > remain:
+                    self.ledger.commitment_left = max(0, remain)
+        self.struct.note_variant(cluster, sig)
+        self.struct.note_facts(cluster, state)
+        if new_state is not None:
+            self.struct.note_facts(dst_cluster or cluster, new_state)
+        if self._open_instance is not None and action is not None:
+            self._tried_action_ctx.add((action.key(), self._local_ctx_id))
+        if self.mode == "contextual-crossview" and self.struct.cross_view_relevant(
+                dst_cluster, self._last_delta):
+            self.ctx_stats["cross_view_checks"] += 1
+            if findings:
+                self.ctx_stats["cross_view_checks_with_finding"] += 1
+        self._note_productive(relation, findings, business)
+        self.struct.tick_facts()
+
+    def _note_productive(self, relation, findings, business):
+        pending = self._pending_retest
+        if not pending:
+            return
+        pending["left"] -= 1
+        if findings or business or relation in (NEW, SIMILAR):
+            key = ("contextual_branch_retests_productive"
+                   if pending.get("kind") == "branch"
+                   else "contextual_action_retests_productive")
+            self.ctx_stats[key] += 1
+            self._pending_retest = None
+            return
+        if pending["left"] <= 0:
+            self.ctx_stats["contextual_retest_no_effect"] += 1
+            self._pending_retest = None
+
+    def _cross_view_bonus(self, action, state, graph, sig) -> float:
+        if action is None or graph is None:
+            return 0.0
+        edge = graph.edge(sig, action.key()) if hasattr(graph, "edge") else None
+        dst = ""
+        if edge is not None:
+            node = graph.nodes.get(edge.dst)
+            dst = node.cluster_id if node else ""
+        if not dst and is_return_action(action, state):
+            dst = self.ledger.parent_hub_cluster
+        if not dst:
+            return 0.0
+        if self.struct.cross_view_relevant(dst, self._last_delta):
+            return CROSS_VIEW_BONUS
+        return 0.0
 
     def label_for(self, action, state) -> str:
         if self.last_label in ("branch", "sequence_followup", "return_hub"):

@@ -72,6 +72,13 @@ def _make_policy(name: str, llm, seed: int):
         return GhostPolicy(llm=None, use_frontier=False, sequence_mode="followup")
     if name == "ghost-sequence":
         return GhostPolicy(llm=None, use_frontier=False, sequence_mode="sequence")
+    if name == "ghost-structural-memory":
+        return GhostPolicy(llm=None, use_frontier=False, sequence_mode="structural")
+    if name == "ghost-contextual":
+        return GhostPolicy(llm=None, use_frontier=False, sequence_mode="contextual")
+    if name == "ghost-contextual-crossview":
+        return GhostPolicy(llm=None, use_frontier=False,
+                           sequence_mode="contextual-crossview")
     if name == "ghost-frontier-r0":
         return GhostPolicy(llm=llm, use_frontier=True,
                            relocate_mode="opportunity")
