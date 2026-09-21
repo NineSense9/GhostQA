@@ -1,0 +1,61 @@
+{
+  "name": "v0.3.7 generalization validation",
+  "executed": false,
+  "algorithm_freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json",
+  "algorithm_name": "ghost-structural-memory",
+  "deepbench_app_freeze": "5355abd444eb4a4e99242c7629a1363c38e52a2a",
+  "policies": [
+    "dfs",
+    "bfs",
+    "ghost-nollm",
+    "ghost-deferred",
+    "ghost-sequence",
+    "ghost-structural-memory"
+  ],
+  "excluded_policies": [
+    "ghost-contextual",
+    "ghost-contextual-crossview"
+  ],
+  "budgets": [40, 80, 120],
+  "trials": [1],
+  "determinism": "n=1 NoLLM deterministic. A second pass may be labeled reproducibility rerun, not independent seeds.",
+  "v1_holdout": {
+    "app": "buggy-flow",
+    "manifest": "holdout.manifest.json",
+    "label": "requirements-known / manifest-hidden same-app holdout",
+    "not": "completely unseen application or fully blind bugs"
+  },
+  "v2_buggy_shop": {
+    "app": "buggy-shop",
+    "manifest": "bugs.manifest.json",
+    "label": "cross-app transfer / regression check",
+    "not": "new blind benchmark; BuggyShop was used in v0.2"
+  },
+  "metrics": [
+    "confirmed IDs",
+    "confirmed count / total",
+    "candidates",
+    "replay pass/fail/invalid",
+    "TTF",
+    "TTCB",
+    "states",
+    "clusters",
+    "variants",
+    "unique_branches_started",
+    "branch_start_events",
+    "branch_attempts_per_unique_branch"
+  ],
+  "stop_rules": {
+    "no_algorithm_change": true,
+    "no_extra_budgets": true,
+    "no_post_hoc_policies": true,
+    "no_portfolio": true,
+    "one_shot_holdout": true,
+    "product_default_unchanged": true
+  },
+  "preregistered_outcomes": [
+    "A. generalizing experimental algorithm",
+    "B. workflow-specialized experimental algorithm",
+    "C. DeepBench-specific research result"
+  ]
+}
