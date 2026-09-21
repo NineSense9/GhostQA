@@ -493,7 +493,6 @@ class SequenceController:
             rec = self.ledger.hub(sig, cluster)
             rec.first_seen = rec.first_seen or ctx.get("step_index", 0)
             untried = []
-            retest = []
             for a in actions:
                 if not is_branch_click(a, state):
                     continue
@@ -503,17 +502,13 @@ class SequenceController:
                     hist = self.struct.hub(cluster).branches.get(key)
                     if hist is None or hist.attempts == 0:
                         untried.append(a)
-                    elif (self.mode != "structural"
-                          and self.struct.retest_eligible(cluster, key, a, state)):
-                        retest.append(a)
                 elif key not in rec.started and key not in rec.completed:
                     untried.append(a)
             if untried:
                 self.last_label = "branch"
                 return untried[0]
-            if retest:
-                self.last_label = "branch"
-                return retest[0]
+            # Retest is additive via score_bonus. Hard-picking retest here
+            # traps the agent on a shallow hub and blocks progress actions.
         return None
 
     def after(self, sig, action, state, new_state, relation, findings,
