@@ -123,6 +123,9 @@ python -m ghostqa run --url ... --policy ghost --llm ...
   - `ghost-structural-memory`（C1）@80–120：BDR=0.429（并列 DFS/deferred），**Deep-BDR=0.667**，确认 D6/D7/D11–D14。D6+D12 仍在。
   - C0 `ghost-sequence` 仍是 D6+D12；attempts/branch 10.9 → C1 2.8。
   - C2 与 C1 同一 confirmed 集合；C3@40 丢掉 D7。产品默认仍是 NoFrontier、无 sequence。
+- **v0.3.7 generalization**（算法已冻结，不再调 DeepBench）：`experiments/published/generalization-v0.3.7/`
+  - Holdout H1/H2：C1 **0/2**；DFS/BFS **1/2**（仅 H1）。H2 无人确认。
+  - BuggyShop：C1=C0=**1/10**（W5），6 states；BFS@120 **7/10**。结论：**C. DeepBench-specific research result**。产品默认不改。
 
 ## 架构
 

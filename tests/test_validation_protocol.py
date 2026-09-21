@@ -6,14 +6,14 @@ import tempfile
 from benchmark.validation_runner import load_protocol
 
 
-def test_preregistered_protocol_is_not_yet_executed():
+def test_preregistered_protocol_policies_and_budgets():
     proto = load_protocol(os.path.join(
         "experiments", "validation", "v0.3.7", "protocol.json"))
-    assert proto["executed"] is False
     assert "ghost-structural-memory" in proto["policies"]
     assert "ghost-contextual" not in proto["policies"]
     assert proto["budgets"] == [40, 80, 120]
     assert proto["trials"] == [1]
+    # One-shot holdout flips executed to true; that is the protocol, not a reset.
 
 
 def test_holdout_refuses_second_primary_run(monkeypatch):
