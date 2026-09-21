@@ -131,6 +131,7 @@ python -m ghostqa run --url ... --policy ghost --llm ...
   - H1：step 0 DFS 进 settings，C0/C1 进 login（本 run 的 distractor 分类）。
   - H2：全局失败；C1 billing entries 32/53/87/97，qty 从未落到负数。
   - Clean-clone：`python -m benchmark.application_shape_reproduce --root experiments/published/application-shape-v0.3.8 --verify`
+- **v0.3.9 return-cycle guard**（experimental）：exact `new_sig` repeat during return → abandon, not complete. **Outcome A** on inspected BuggyShop lock + DeepBench regression (D6/D12 kept, 0 escapes). Product default unchanged. `experiments/published/return-cycle-guard-v0.3.9/`
 
 ## 架构
 

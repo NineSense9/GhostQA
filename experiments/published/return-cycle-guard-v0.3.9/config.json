@@ -1,0 +1,24 @@
+{
+  "round": "v0.3.9 Return-Cycle Guard",
+  "protocol": "experiments/validation/v0.3.9/protocol.json",
+  "protocol_commit": "aa1a91ca9e35e62e5009b2e0f01ea77875ae446d",
+  "candidate_freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+  "candidate_freeze_commit": "3619f20a2cba3666953a6db32d0d0fcd8a4c716b",
+  "historical_c1_freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json",
+  "deepbench_app_freeze": "5355abd444eb4a4e99242c7629a1363c38e52a2a",
+  "start_head": "bae32a6d698eb2ea9b44137ff12b18cf3f187a4d",
+  "product_default": "NoFrontier, sequence_mode=off",
+  "policies": ["ghost-structural-memory", "ghost-structural-return-guard"],
+  "shop_budget": 120,
+  "deepbench_budgets": [40, 80, 120],
+  "seed": 1,
+  "independent_trial": false,
+  "contamination": {
+    "buggy_shop": "inspected mechanism-development case",
+    "deepbench": "historical regression only",
+    "h1_h2": "excluded"
+  },
+  "verify_command": "python -m benchmark.return_cycle_guard_reproduce --root experiments/published/return-cycle-guard-v0.3.9 --verify",
+  "expected_metrics_sha256": "15069eca30a9862d370078182bd6f49280163513fd90ac57bbbdcb1fae7cf7b1",
+  "hash_normalization": "LF newlines"
+}

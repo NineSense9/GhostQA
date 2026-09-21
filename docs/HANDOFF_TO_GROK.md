@@ -1,6 +1,7 @@
 # GhostQA 技术交接文档
 
 > 原 v0.2 交接（审计基线 `9c6c0a0`，文档提交 `94f5db1`）仍保留于下文，作为历史。
+> **v0.3.9 更新**：Return-cycle guard（isolated module）。Outcome **A**：Shop lock 被 escape（4 events, 22 states/8 URLs），DeepBench @120 与 C1 相同（D6/D7/D11–D14, depth 4, 0 escapes）。产品默认不切。无泛化声明。`python -m benchmark.return_cycle_guard_reproduce --root experiments/published/return-cycle-guard-v0.3.9 --verify`
 > **v0.3.8 更新**：application-shape 诊断 + evidence hardening。Shop 6-state = nested hub + return lock（returned terminal=0，旧 return_success=2 实为 branch_start）。H1 = step-0 reach。H2 = 全局、非 oracle-blind。Clean-clone：`python -m benchmark.application_shape_reproduce --root experiments/published/application-shape-v0.3.8 --verify`。算法未改。
 > **v0.3.7 更新**：算法冻结后做 holdout + BuggyShop。C1 holdout **0/2**，BuggyShop **1/10** 且 6 states。预注册结论 **C：DeepBench-specific**。产品默认不切。不要用 holdout 调参。
 > **v0.3.6 更新**：Structural hub memory（cluster-level）。C1 `ghost-structural-memory`@80–120 Deep-BDR=0.667（D6/D7/D11–D14），BDR=0.429 并列 DFS。C0 仍 D6+D12。产品默认不切。Freeze `5355abd`。

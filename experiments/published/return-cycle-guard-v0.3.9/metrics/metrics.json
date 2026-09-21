@@ -1,0 +1,243 @@
+{
+  "derived": {
+    "gained_vs_baseline_120": [],
+    "historical_c1_120": [
+      "D6",
+      "D7",
+      "D11",
+      "D12",
+      "D13",
+      "D14"
+    ],
+    "lost_from_baseline_120": [],
+    "outcome": "A"
+  },
+  "interpretation": {
+    "generalization_claim": false,
+    "outcome_meaning": "Mechanism repaired, regression-safe",
+    "product_default_changed": false
+  },
+  "observed": {
+    "deepbench": [
+      {
+        "branch_attempts_per_unique_branch": 1.2,
+        "budget": 40,
+        "bug_discovery_rate": 0.286,
+        "confirmed_bugs": [
+          "BUG-D11",
+          "BUG-D12",
+          "BUG-D6",
+          "BUG-D7"
+        ],
+        "deep_bug_discovery_rate": 0.444,
+        "max_workflow_depth": 4,
+        "policy": "ghost-structural-memory",
+        "return_cycle_escape_events": null,
+        "sequence_instances_returned": 3,
+        "states": 20,
+        "ttcb": 14,
+        "unique_branches_started": 15
+      },
+      {
+        "branch_attempts_per_unique_branch": 1.947,
+        "budget": 80,
+        "bug_discovery_rate": 0.429,
+        "confirmed_bugs": [
+          "BUG-D11",
+          "BUG-D12",
+          "BUG-D13",
+          "BUG-D14",
+          "BUG-D6",
+          "BUG-D7"
+        ],
+        "deep_bug_discovery_rate": 0.667,
+        "max_workflow_depth": 4,
+        "policy": "ghost-structural-memory",
+        "return_cycle_escape_events": null,
+        "sequence_instances_returned": 6,
+        "states": 25,
+        "ttcb": 14,
+        "unique_branches_started": 19
+      },
+      {
+        "branch_attempts_per_unique_branch": 2.789,
+        "budget": 120,
+        "bug_discovery_rate": 0.429,
+        "confirmed_bugs": [
+          "BUG-D11",
+          "BUG-D12",
+          "BUG-D13",
+          "BUG-D14",
+          "BUG-D6",
+          "BUG-D7"
+        ],
+        "deep_bug_discovery_rate": 0.667,
+        "max_workflow_depth": 4,
+        "policy": "ghost-structural-memory",
+        "return_cycle_escape_events": null,
+        "sequence_instances_returned": 11,
+        "states": 28,
+        "ttcb": 14,
+        "unique_branches_started": 19
+      },
+      {
+        "branch_attempts_per_unique_branch": 1.2,
+        "budget": 40,
+        "bug_discovery_rate": 0.286,
+        "confirmed_bugs": [
+          "BUG-D11",
+          "BUG-D12",
+          "BUG-D6",
+          "BUG-D7"
+        ],
+        "deep_bug_discovery_rate": 0.444,
+        "max_workflow_depth": 4,
+        "policy": "ghost-structural-return-guard",
+        "return_cycle_escape_events": 0,
+        "sequence_instances_returned": 3,
+        "states": 20,
+        "ttcb": 14,
+        "unique_branches_started": 15
+      },
+      {
+        "branch_attempts_per_unique_branch": 1.947,
+        "budget": 80,
+        "bug_discovery_rate": 0.429,
+        "confirmed_bugs": [
+          "BUG-D11",
+          "BUG-D12",
+          "BUG-D13",
+          "BUG-D14",
+          "BUG-D6",
+          "BUG-D7"
+        ],
+        "deep_bug_discovery_rate": 0.667,
+        "max_workflow_depth": 4,
+        "policy": "ghost-structural-return-guard",
+        "return_cycle_escape_events": 0,
+        "sequence_instances_returned": 6,
+        "states": 25,
+        "ttcb": 14,
+        "unique_branches_started": 19
+      },
+      {
+        "branch_attempts_per_unique_branch": 2.789,
+        "budget": 120,
+        "bug_discovery_rate": 0.429,
+        "confirmed_bugs": [
+          "BUG-D11",
+          "BUG-D12",
+          "BUG-D13",
+          "BUG-D14",
+          "BUG-D6",
+          "BUG-D7"
+        ],
+        "deep_bug_discovery_rate": 0.667,
+        "max_workflow_depth": 4,
+        "policy": "ghost-structural-return-guard",
+        "return_cycle_escape_events": 0,
+        "sequence_instances_returned": 11,
+        "states": 28,
+        "ttcb": 14,
+        "unique_branches_started": 19
+      }
+    ],
+    "shop": {
+      "baseline": {
+        "branch_start_events": 2,
+        "confirmed_bugs": [
+          "BUG-W5"
+        ],
+        "escape_step": null,
+        "event_types": {
+          "branch_discovered": 2,
+          "branch_start": 2,
+          "followup": 3,
+          "hub_seen": 60,
+          "mutation": 120,
+          "return_attempt": 116,
+          "sequence_action": 4,
+          "sequence_terminal": 2
+        },
+        "finding": 1,
+        "first_post_escape_novel_state_step": null,
+        "first_post_escape_novel_url_step": null,
+        "lost_parent": 1,
+        "n_urls": 4,
+        "pages": [
+          "cart.html",
+          "detail.html",
+          "index.html",
+          "products.html"
+        ],
+        "parent_hub_cluster": null,
+        "parent_hub_sig": null,
+        "policy": "ghost-structural-memory",
+        "post_escape_new_state_count": 0,
+        "post_escape_new_url_count": 0,
+        "post_escape_new_urls": [],
+        "repeated_destination_sig": null,
+        "return_attempt_events": 116,
+        "return_cycle_abandoned": 0,
+        "return_cycle_escape_events": 0,
+        "returned": 0,
+        "states": 6,
+        "successful_return_to_parent_events": 0
+      },
+      "candidate": {
+        "branch_start_events": 11,
+        "confirmed_bugs": [
+          "BUG-W10",
+          "BUG-W5",
+          "BUG-W6",
+          "BUG-W9"
+        ],
+        "escape_step": 6,
+        "event_types": {
+          "branch_discovered": 11,
+          "branch_start": 11,
+          "followup": 13,
+          "hub_seen": 34,
+          "mutation": 99,
+          "return_attempt": 15,
+          "return_cycle_escape": 4,
+          "sequence_action": 20,
+          "sequence_terminal": 11
+        },
+        "finding": 7,
+        "first_post_escape_novel_state_step": 8,
+        "first_post_escape_novel_url_step": 10,
+        "lost_parent": 4,
+        "n_urls": 8,
+        "pages": [
+          "cart.html",
+          "detail.html",
+          "index.html",
+          "login.html",
+          "products.html",
+          "profile.html",
+          "promo.html",
+          "register.html"
+        ],
+        "parent_hub_cluster": "06b1ea2dc5ff9d30",
+        "parent_hub_sig": "06b1ea2dc5ff9d30:b4cd0adf942e",
+        "policy": "ghost-structural-return-guard",
+        "post_escape_new_state_count": 15,
+        "post_escape_new_url_count": 4,
+        "post_escape_new_urls": [
+          "login.html",
+          "profile.html",
+          "promo.html",
+          "register.html"
+        ],
+        "repeated_destination_sig": "e36ffed0bbfbcf81:none",
+        "return_attempt_events": 15,
+        "return_cycle_abandoned": 0,
+        "return_cycle_escape_events": 4,
+        "returned": 0,
+        "states": 22,
+        "successful_return_to_parent_events": 0
+      }
+    }
+  }
+}
