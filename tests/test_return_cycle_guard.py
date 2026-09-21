@@ -73,6 +73,12 @@ def test_v036_freeze_still_passes():
     assert verify_freeze(DEFAULT_FREEZE) == []
 
 
+def test_candidate_freeze_matches():
+    path = os.path.join(
+        "experiments", "frozen", "ghost-return-cycle-guard-v0.3.9", "freeze.json")
+    assert verify_freeze(path) == []
+
+
 def test_return_cycle_guard_escapes_on_first_exact_repeat():
     ctrl = ReturnCycleGuardSequenceController("structural")
     g, hub, leaf = _graph(), make_hub_state(), _leaf()

@@ -1,0 +1,34 @@
+{
+  "algorithm_name": "ghost-structural-return-guard",
+  "product": "v0.4 preview",
+  "source_head": "294a351f95fca608efc1e61a370841ad70e1c4b5",
+  "protocol_commit": "aa1a91ca9e35e62e5009b2e0f01ea77875ae446d",
+  "historical_c1_freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json",
+  "deepbench_freeze": "5355abd444eb4a4e99242c7629a1363c38e52a2a",
+  "policy": {
+    "constructor": "ReturnCycleGuardGhostPolicy",
+    "sequence_mode": "structural",
+    "use_frontier": false,
+    "cycle_key": "new_sig",
+    "no_threshold_N": true
+  },
+  "note": "Candidate freeze before empirical matrix. Do not change these files after first empirical result.",
+  "hash_normalization": "LF newlines",
+  "files": {
+    "ghostqa/exploration/return_cycle_guard.py": {
+      "sha256": "c0413ee0f312fdc449c968b754ca4b28598b6156c884a70b264357b7e136c317",
+      "git_blob": "639878d94b4fe439dd81a33246447bef98161f9e",
+      "bytes": 3938
+    },
+    "benchmark/web_runner.py": {
+      "sha256": "6e2398a4bacda0a52fd44313c7cac87fb14731fe32287165818eaebdb8776457",
+      "git_blob": "d9d51ea221965fbd1112e45ce1d42218f521c159",
+      "bytes": 18402
+    },
+    "experiments/validation/v0.3.9/protocol.json": {
+      "sha256": "08da4aa2f586a8617b955c025826275bb434f609a395fabd409b76b1a8e0aa7d",
+      "git_blob": "8e8bc17ad788b0627e493dfbbf45d29fef4d3b1e",
+      "bytes": 2875
+    }
+  }
+}
