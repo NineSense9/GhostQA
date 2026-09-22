@@ -1,0 +1,2103 @@
+[
+  {
+    "step": 0,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 0,
+    "event": "branch_discovered",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:ecb45cffcb",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 0,
+    "event": "branch_start",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 0,
+    "event": "sequence_action",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0001",
+    "action_key": "click:ecb45cffcb:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 0,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 1,
+    "event": "sequence_action",
+    "exact_sig": "91dcd57bfc3783fd:none",
+    "cluster_id": "91dcd57bfc3783fd",
+    "branch_key": "b6f1345749447128:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0001",
+    "action_key": "click:item_apple:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 1,
+    "event": "mutation",
+    "exact_sig": "91dcd57bfc3783fd:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 1,
+    "event": "followup",
+    "exact_sig": "91dcd57bfc3783fd:none",
+    "cluster_id": "91dcd57bfc3783fd",
+    "branch_key": "b6f1345749447128:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 2,
+    "event": "parent_frame_suspended",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "b6f1345749447128:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0001",
+    "stack_depth": 1,
+    "active_child_branch": "",
+    "parent_hub_sig": "b6f1345749447128:none",
+    "suspended_branch": "b6f1345749447128:click:ecb45cffcb",
+    "suspended_sequence_instance_id": "seq-0001",
+    "reason": "nested_hub_branch",
+    "commitment_left": 1
+  },
+  {
+    "step": 2,
+    "event": "hub_seen",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 2,
+    "event": "branch_discovered",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 2,
+    "event": "branch_start",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 2,
+    "event": "sequence_action",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:btn_add:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 2,
+    "event": "mutation",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 2,
+    "event": "followup",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 2,
+    "event": "nested_child_started",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0002",
+    "stack_depth": 1,
+    "active_child_branch": "1fb37c5aed055417:click:btn_add",
+    "parent_hub_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "suspended_branch": "b6f1345749447128:click:ecb45cffcb",
+    "suspended_sequence_instance_id": "seq-0001",
+    "reason": "historical_child_start",
+    "child_sequence_instance_id": "seq-0002",
+    "child_commitment_left": 2,
+    "suspended_commitment_left": 1
+  },
+  {
+    "step": 3,
+    "event": "sequence_action",
+    "exact_sig": "599358a2edd13e58:f0291c9b8cb1",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:btn_remove:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 3,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:f0291c9b8cb1",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 3,
+    "event": "followup",
+    "exact_sig": "599358a2edd13e58:f0291c9b8cb1",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 3,
+    "event": "sequence_terminal",
+    "exact_sig": "599358a2edd13e58:f0291c9b8cb1",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0002",
+    "outcome": "finding",
+    "fingerprints": [
+      "a8972ee80427fc86"
+    ]
+  },
+  {
+    "step": 4,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:2e1625a65b7e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 4,
+    "event": "return_attempt",
+    "exact_sig": "599358a2edd13e58:2e1625a65b7e",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 5,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 5,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 5,
+    "event": "return_attempt",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 6,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 6,
+    "event": "return_attempt",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 6,
+    "event": "return_cycle_escape",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null,
+    "repeated_destination_sig": "b6f1345749447128:none",
+    "parent_hub_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "parent_hub_cluster": "1fb37c5aed055417",
+    "active_branch": "1fb37c5aed055417:click:btn_add",
+    "return_phase_attempts": 3,
+    "outcome": "return_cycle_abandoned"
+  },
+  {
+    "step": 6,
+    "event": "nested_stack_unwind",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "b6f1345749447128:click:ecb45cffcb",
+    "sequence_instance_id": null,
+    "stack_depth": 0,
+    "active_child_branch": "1fb37c5aed055417:click:btn_add",
+    "parent_hub_sig": "b6f1345749447128:none",
+    "suspended_branch": "b6f1345749447128:click:ecb45cffcb",
+    "suspended_sequence_instance_id": "seq-0001",
+    "reason": "child_return_cycle_escape",
+    "stack_depth_before": 1,
+    "abandoned_frames": 1
+  },
+  {
+    "step": 6,
+    "event": "sequence_terminal",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "b6f1345749447128:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0001",
+    "outcome": "nested_descendant_abandoned",
+    "length": 1,
+    "reason": "child_return_cycle_escape"
+  },
+  {
+    "step": 6,
+    "event": "suspended_parent_terminal",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "b6f1345749447128:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0001",
+    "stack_depth": 0,
+    "active_child_branch": "1fb37c5aed055417:click:btn_add",
+    "parent_hub_sig": "b6f1345749447128:none",
+    "suspended_branch": "b6f1345749447128:click:ecb45cffcb",
+    "suspended_sequence_instance_id": "seq-0001",
+    "reason": "child_return_cycle_escape",
+    "outcome": "nested_descendant_abandoned"
+  },
+  {
+    "step": 7,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 7,
+    "event": "branch_discovered",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:c5d9b3625b",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 7,
+    "event": "branch_start",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:c5d9b3625b",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 7,
+    "event": "sequence_action",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:c5d9b3625b",
+    "sequence_instance_id": "seq-0003",
+    "action_key": "click:c5d9b3625b:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 7,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:c5d9b3625b",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 8,
+    "event": "sequence_action",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "b6f1345749447128:click:c5d9b3625b",
+    "sequence_instance_id": "seq-0003",
+    "action_key": "click:btn_remove:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 8,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:c5d9b3625b",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 8,
+    "event": "followup",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "b6f1345749447128:click:c5d9b3625b",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 8,
+    "event": "sequence_terminal",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "b6f1345749447128:click:c5d9b3625b",
+    "sequence_instance_id": "seq-0003",
+    "outcome": "finding",
+    "fingerprints": [
+      "3baa882f05c0a4d7",
+      "a8972ee80427fc86"
+    ]
+  },
+  {
+    "step": 9,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:2a8f3f535ea6",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:c5d9b3625b",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 9,
+    "event": "return_attempt",
+    "exact_sig": "599358a2edd13e58:2a8f3f535ea6",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "b6f1345749447128:click:c5d9b3625b",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 10,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 10,
+    "event": "branch_discovered",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:3ba7d816c4",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 10,
+    "event": "branch_start",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:3ba7d816c4",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 10,
+    "event": "sequence_action",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:3ba7d816c4",
+    "sequence_instance_id": "seq-0004",
+    "action_key": "click:3ba7d816c4:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 10,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:3ba7d816c4",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 10,
+    "event": "sequence_terminal",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:3ba7d816c4",
+    "sequence_instance_id": "seq-0004",
+    "outcome": "finding",
+    "fingerprints": [
+      "762f68123e1ec2cd"
+    ]
+  },
+  {
+    "step": 11,
+    "event": "mutation",
+    "exact_sig": "b9b0d60bb0445d48:373988469b42",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:3ba7d816c4",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 11,
+    "event": "return_attempt",
+    "exact_sig": "b9b0d60bb0445d48:373988469b42",
+    "cluster_id": "b9b0d60bb0445d48",
+    "branch_key": "b6f1345749447128:click:3ba7d816c4",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 12,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 12,
+    "event": "branch_discovered",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:be0ee545ca",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 12,
+    "event": "branch_start",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:be0ee545ca",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 12,
+    "event": "sequence_action",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:be0ee545ca",
+    "sequence_instance_id": "seq-0005",
+    "action_key": "click:be0ee545ca:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 12,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:be0ee545ca",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 12,
+    "event": "sequence_terminal",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:be0ee545ca",
+    "sequence_instance_id": "seq-0005",
+    "outcome": "finding",
+    "fingerprints": [
+      "93e11c2aa634b9bf"
+    ]
+  },
+  {
+    "step": 13,
+    "event": "mutation",
+    "exact_sig": "d0122bc8f8e62fe7:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:be0ee545ca",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 13,
+    "event": "return_attempt",
+    "exact_sig": "d0122bc8f8e62fe7:none",
+    "cluster_id": "d0122bc8f8e62fe7",
+    "branch_key": "b6f1345749447128:click:be0ee545ca",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 14,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 14,
+    "event": "branch_discovered",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:search_btn",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 14,
+    "event": "branch_start",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 14,
+    "event": "sequence_action",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:search_btn",
+    "sequence_instance_id": "seq-0006",
+    "action_key": "click:search_btn:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 14,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 15,
+    "event": "sequence_action",
+    "exact_sig": "91dcd57bfc3783fd:none",
+    "cluster_id": "91dcd57bfc3783fd",
+    "branch_key": "b6f1345749447128:click:search_btn",
+    "sequence_instance_id": "seq-0006",
+    "action_key": "click:item_apple:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 15,
+    "event": "mutation",
+    "exact_sig": "91dcd57bfc3783fd:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "b6f1345749447128:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 15,
+    "event": "followup",
+    "exact_sig": "91dcd57bfc3783fd:none",
+    "cluster_id": "91dcd57bfc3783fd",
+    "branch_key": "b6f1345749447128:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 16,
+    "event": "parent_frame_suspended",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "b6f1345749447128:click:search_btn",
+    "sequence_instance_id": "seq-0006",
+    "stack_depth": 1,
+    "active_child_branch": "",
+    "parent_hub_sig": "b6f1345749447128:none",
+    "suspended_branch": "b6f1345749447128:click:search_btn",
+    "suspended_sequence_instance_id": "seq-0006",
+    "reason": "nested_hub_branch",
+    "commitment_left": 1
+  },
+  {
+    "step": 16,
+    "event": "hub_seen",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 16,
+    "event": "branch_discovered",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 16,
+    "event": "branch_start",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 16,
+    "event": "sequence_action",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "click:btn_add:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 16,
+    "event": "mutation",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 16,
+    "event": "followup",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 16,
+    "event": "nested_child_started",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0007",
+    "stack_depth": 1,
+    "active_child_branch": "1fb37c5aed055417:click:btn_add",
+    "parent_hub_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "suspended_branch": "b6f1345749447128:click:search_btn",
+    "suspended_sequence_instance_id": "seq-0006",
+    "reason": "historical_child_start",
+    "child_sequence_instance_id": "seq-0007",
+    "child_commitment_left": 2,
+    "suspended_commitment_left": 1
+  },
+  {
+    "step": 17,
+    "event": "sequence_action",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "click:btn_remove:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 17,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 17,
+    "event": "followup",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 17,
+    "event": "sequence_terminal",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0007",
+    "outcome": "finding",
+    "fingerprints": [
+      "a8972ee80427fc86"
+    ]
+  },
+  {
+    "step": 18,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:2a8f3f535ea6",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 18,
+    "event": "return_attempt",
+    "exact_sig": "599358a2edd13e58:2a8f3f535ea6",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 19,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 19,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 19,
+    "event": "return_attempt",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 20,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 20,
+    "event": "return_attempt",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 20,
+    "event": "return_cycle_escape",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null,
+    "repeated_destination_sig": "b6f1345749447128:none",
+    "parent_hub_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "parent_hub_cluster": "1fb37c5aed055417",
+    "active_branch": "1fb37c5aed055417:click:btn_add",
+    "return_phase_attempts": 3,
+    "outcome": "return_cycle_abandoned"
+  },
+  {
+    "step": 20,
+    "event": "nested_stack_unwind",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "b6f1345749447128:click:search_btn",
+    "sequence_instance_id": null,
+    "stack_depth": 0,
+    "active_child_branch": "1fb37c5aed055417:click:btn_add",
+    "parent_hub_sig": "b6f1345749447128:none",
+    "suspended_branch": "b6f1345749447128:click:search_btn",
+    "suspended_sequence_instance_id": "seq-0006",
+    "reason": "child_return_cycle_escape",
+    "stack_depth_before": 1,
+    "abandoned_frames": 1
+  },
+  {
+    "step": 20,
+    "event": "sequence_terminal",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "b6f1345749447128:click:search_btn",
+    "sequence_instance_id": "seq-0006",
+    "outcome": "nested_descendant_abandoned",
+    "length": 1,
+    "reason": "child_return_cycle_escape"
+  },
+  {
+    "step": 20,
+    "event": "suspended_parent_terminal",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "b6f1345749447128:click:search_btn",
+    "sequence_instance_id": "seq-0006",
+    "stack_depth": 0,
+    "active_child_branch": "1fb37c5aed055417:click:btn_add",
+    "parent_hub_sig": "b6f1345749447128:none",
+    "suspended_branch": "b6f1345749447128:click:search_btn",
+    "suspended_sequence_instance_id": "seq-0006",
+    "reason": "child_return_cycle_escape",
+    "outcome": "nested_descendant_abandoned"
+  },
+  {
+    "step": 21,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 21,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 22,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:ee6a153af38a",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 24,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 26,
+    "event": "mutation",
+    "exact_sig": "0c3539ef755a674b:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 28,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 29,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 29,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 30,
+    "event": "mutation",
+    "exact_sig": "83061e30581debbc:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 31,
+    "event": "mutation",
+    "exact_sig": "b9b0d60bb0445d48:1b7f6dc9d163",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 32,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 32,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 33,
+    "event": "hub_seen",
+    "exact_sig": "3d569e63196efa6c:none",
+    "cluster_id": "3d569e63196efa6c",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 33,
+    "event": "branch_discovered",
+    "exact_sig": "3d569e63196efa6c:none",
+    "cluster_id": "3d569e63196efa6c",
+    "branch_key": "3d569e63196efa6c:click:ecb45cffcb",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 33,
+    "event": "branch_start",
+    "exact_sig": "3d569e63196efa6c:none",
+    "cluster_id": "3d569e63196efa6c",
+    "branch_key": "3d569e63196efa6c:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 33,
+    "event": "sequence_action",
+    "exact_sig": "3d569e63196efa6c:none",
+    "cluster_id": "3d569e63196efa6c",
+    "branch_key": "3d569e63196efa6c:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0008",
+    "action_key": "click:ecb45cffcb:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 33,
+    "event": "mutation",
+    "exact_sig": "3d569e63196efa6c:none",
+    "cluster_id": "3d569e63196efa6c",
+    "branch_key": "3d569e63196efa6c:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 34,
+    "event": "sequence_action",
+    "exact_sig": "91dcd57bfc3783fd:none",
+    "cluster_id": "91dcd57bfc3783fd",
+    "branch_key": "3d569e63196efa6c:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0008",
+    "action_key": "click:item_apple:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 34,
+    "event": "mutation",
+    "exact_sig": "91dcd57bfc3783fd:none",
+    "cluster_id": "3d569e63196efa6c",
+    "branch_key": "3d569e63196efa6c:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 34,
+    "event": "followup",
+    "exact_sig": "91dcd57bfc3783fd:none",
+    "cluster_id": "91dcd57bfc3783fd",
+    "branch_key": "3d569e63196efa6c:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 35,
+    "event": "parent_frame_suspended",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "3d569e63196efa6c:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0008",
+    "stack_depth": 1,
+    "active_child_branch": "",
+    "parent_hub_sig": "3d569e63196efa6c:none",
+    "suspended_branch": "3d569e63196efa6c:click:ecb45cffcb",
+    "suspended_sequence_instance_id": "seq-0008",
+    "reason": "nested_hub_branch",
+    "commitment_left": 1
+  },
+  {
+    "step": 35,
+    "event": "hub_seen",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 35,
+    "event": "branch_discovered",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 35,
+    "event": "branch_start",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 35,
+    "event": "sequence_action",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0009",
+    "action_key": "click:btn_add:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 35,
+    "event": "mutation",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 35,
+    "event": "followup",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 35,
+    "event": "nested_child_started",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0009",
+    "stack_depth": 1,
+    "active_child_branch": "1fb37c5aed055417:click:btn_add",
+    "parent_hub_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "suspended_branch": "3d569e63196efa6c:click:ecb45cffcb",
+    "suspended_sequence_instance_id": "seq-0008",
+    "reason": "historical_child_start",
+    "child_sequence_instance_id": "seq-0009",
+    "child_commitment_left": 2,
+    "suspended_commitment_left": 1
+  },
+  {
+    "step": 36,
+    "event": "sequence_action",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0009",
+    "action_key": "click:btn_remove:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 36,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 36,
+    "event": "followup",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 36,
+    "event": "sequence_terminal",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0009",
+    "outcome": "finding",
+    "fingerprints": [
+      "a8972ee80427fc86"
+    ]
+  },
+  {
+    "step": 37,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:2a8f3f535ea6",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 37,
+    "event": "return_attempt",
+    "exact_sig": "599358a2edd13e58:2a8f3f535ea6",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 38,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 38,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 38,
+    "event": "return_attempt",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 39,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 39,
+    "event": "return_attempt",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 39,
+    "event": "return_cycle_escape",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null,
+    "repeated_destination_sig": "b6f1345749447128:none",
+    "parent_hub_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "parent_hub_cluster": "1fb37c5aed055417",
+    "active_branch": "1fb37c5aed055417:click:btn_add",
+    "return_phase_attempts": 3,
+    "outcome": "return_cycle_abandoned"
+  },
+  {
+    "step": 39,
+    "event": "nested_stack_unwind",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "3d569e63196efa6c:click:ecb45cffcb",
+    "sequence_instance_id": null,
+    "stack_depth": 0,
+    "active_child_branch": "1fb37c5aed055417:click:btn_add",
+    "parent_hub_sig": "3d569e63196efa6c:none",
+    "suspended_branch": "3d569e63196efa6c:click:ecb45cffcb",
+    "suspended_sequence_instance_id": "seq-0008",
+    "reason": "child_return_cycle_escape",
+    "stack_depth_before": 1,
+    "abandoned_frames": 1
+  },
+  {
+    "step": 39,
+    "event": "sequence_terminal",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "3d569e63196efa6c:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0008",
+    "outcome": "nested_descendant_abandoned",
+    "length": 1,
+    "reason": "child_return_cycle_escape"
+  },
+  {
+    "step": 39,
+    "event": "suspended_parent_terminal",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "3d569e63196efa6c:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0008",
+    "stack_depth": 0,
+    "active_child_branch": "1fb37c5aed055417:click:btn_add",
+    "parent_hub_sig": "3d569e63196efa6c:none",
+    "suspended_branch": "3d569e63196efa6c:click:ecb45cffcb",
+    "suspended_sequence_instance_id": "seq-0008",
+    "reason": "child_return_cycle_escape",
+    "outcome": "nested_descendant_abandoned"
+  },
+  {
+    "step": 40,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 40,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 41,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:ee6a153af38a",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 42,
+    "event": "mutation",
+    "exact_sig": "0c3539ef755a674b:ee6a153af38a",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 46,
+    "event": "mutation",
+    "exact_sig": "0c3539ef755a674b:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 47,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 47,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 48,
+    "event": "mutation",
+    "exact_sig": "83061e30581debbc:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 49,
+    "event": "mutation",
+    "exact_sig": "3c04a7b3d94d26aa:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 50,
+    "event": "mutation",
+    "exact_sig": "b9b0d60bb0445d48:1b7f6dc9d163",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 52,
+    "event": "mutation",
+    "exact_sig": "83061e30581debbc:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 53,
+    "event": "mutation",
+    "exact_sig": "b9b0d60bb0445d48:1b7f6dc9d163",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 54,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 54,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 55,
+    "event": "hub_seen",
+    "exact_sig": "bdf9c9c91910339e:none",
+    "cluster_id": "bdf9c9c91910339e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 55,
+    "event": "branch_discovered",
+    "exact_sig": "bdf9c9c91910339e:none",
+    "cluster_id": "bdf9c9c91910339e",
+    "branch_key": "bdf9c9c91910339e:click:ecb45cffcb",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 55,
+    "event": "branch_start",
+    "exact_sig": "bdf9c9c91910339e:none",
+    "cluster_id": "bdf9c9c91910339e",
+    "branch_key": "bdf9c9c91910339e:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 55,
+    "event": "sequence_action",
+    "exact_sig": "bdf9c9c91910339e:none",
+    "cluster_id": "bdf9c9c91910339e",
+    "branch_key": "bdf9c9c91910339e:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "click:ecb45cffcb:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 55,
+    "event": "mutation",
+    "exact_sig": "bdf9c9c91910339e:none",
+    "cluster_id": "bdf9c9c91910339e",
+    "branch_key": "bdf9c9c91910339e:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 56,
+    "event": "sequence_action",
+    "exact_sig": "91dcd57bfc3783fd:none",
+    "cluster_id": "91dcd57bfc3783fd",
+    "branch_key": "bdf9c9c91910339e:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "click:item_apple:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 56,
+    "event": "mutation",
+    "exact_sig": "91dcd57bfc3783fd:none",
+    "cluster_id": "bdf9c9c91910339e",
+    "branch_key": "bdf9c9c91910339e:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 56,
+    "event": "followup",
+    "exact_sig": "91dcd57bfc3783fd:none",
+    "cluster_id": "91dcd57bfc3783fd",
+    "branch_key": "bdf9c9c91910339e:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 57,
+    "event": "parent_frame_suspended",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "bdf9c9c91910339e:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0010",
+    "stack_depth": 1,
+    "active_child_branch": "",
+    "parent_hub_sig": "bdf9c9c91910339e:none",
+    "suspended_branch": "bdf9c9c91910339e:click:ecb45cffcb",
+    "suspended_sequence_instance_id": "seq-0010",
+    "reason": "nested_hub_branch",
+    "commitment_left": 1
+  },
+  {
+    "step": 57,
+    "event": "hub_seen",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 57,
+    "event": "branch_discovered",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 57,
+    "event": "branch_start",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 57,
+    "event": "sequence_action",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "click:btn_add:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 57,
+    "event": "mutation",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 57,
+    "event": "followup",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 57,
+    "event": "nested_child_started",
+    "exact_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0011",
+    "stack_depth": 1,
+    "active_child_branch": "1fb37c5aed055417:click:btn_add",
+    "parent_hub_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "suspended_branch": "bdf9c9c91910339e:click:ecb45cffcb",
+    "suspended_sequence_instance_id": "seq-0010",
+    "reason": "historical_child_start",
+    "child_sequence_instance_id": "seq-0011",
+    "child_commitment_left": 2,
+    "suspended_commitment_left": 1
+  },
+  {
+    "step": 58,
+    "event": "sequence_action",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "click:btn_remove:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 58,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 58,
+    "event": "followup",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 58,
+    "event": "sequence_terminal",
+    "exact_sig": "599358a2edd13e58:c7750c344206",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": "seq-0011",
+    "outcome": "finding",
+    "fingerprints": [
+      "a8972ee80427fc86"
+    ]
+  },
+  {
+    "step": 59,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:2a8f3f535ea6",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 59,
+    "event": "return_attempt",
+    "exact_sig": "599358a2edd13e58:2a8f3f535ea6",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 60,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 60,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 60,
+    "event": "return_attempt",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 61,
+    "event": "mutation",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "1fb37c5aed055417",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 61,
+    "event": "return_attempt",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 61,
+    "event": "return_cycle_escape",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "1fb37c5aed055417:click:btn_add",
+    "sequence_instance_id": null,
+    "repeated_destination_sig": "b6f1345749447128:none",
+    "parent_hub_sig": "1fb37c5aed055417:b4cd0adf942e",
+    "parent_hub_cluster": "1fb37c5aed055417",
+    "active_branch": "1fb37c5aed055417:click:btn_add",
+    "return_phase_attempts": 3,
+    "outcome": "return_cycle_abandoned"
+  },
+  {
+    "step": 61,
+    "event": "nested_stack_unwind",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "bdf9c9c91910339e:click:ecb45cffcb",
+    "sequence_instance_id": null,
+    "stack_depth": 0,
+    "active_child_branch": "1fb37c5aed055417:click:btn_add",
+    "parent_hub_sig": "bdf9c9c91910339e:none",
+    "suspended_branch": "bdf9c9c91910339e:click:ecb45cffcb",
+    "suspended_sequence_instance_id": "seq-0010",
+    "reason": "child_return_cycle_escape",
+    "stack_depth_before": 1,
+    "abandoned_frames": 1
+  },
+  {
+    "step": 61,
+    "event": "sequence_terminal",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "bdf9c9c91910339e:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0010",
+    "outcome": "nested_descendant_abandoned",
+    "length": 1,
+    "reason": "child_return_cycle_escape"
+  },
+  {
+    "step": 61,
+    "event": "suspended_parent_terminal",
+    "exact_sig": "599358a2edd13e58:00e7c02fea44",
+    "cluster_id": "599358a2edd13e58",
+    "branch_key": "bdf9c9c91910339e:click:ecb45cffcb",
+    "sequence_instance_id": "seq-0010",
+    "stack_depth": 0,
+    "active_child_branch": "1fb37c5aed055417:click:btn_add",
+    "parent_hub_sig": "bdf9c9c91910339e:none",
+    "suspended_branch": "bdf9c9c91910339e:click:ecb45cffcb",
+    "suspended_sequence_instance_id": "seq-0010",
+    "reason": "child_return_cycle_escape",
+    "outcome": "nested_descendant_abandoned"
+  },
+  {
+    "step": 62,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 62,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 63,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:ee6a153af38a",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 66,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 68,
+    "event": "mutation",
+    "exact_sig": "3b513a1056a25de5:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 69,
+    "event": "mutation",
+    "exact_sig": "0c3539ef755a674b:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 71,
+    "event": "mutation",
+    "exact_sig": "c10dffbc12596e48:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 72,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 73,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 73,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 74,
+    "event": "mutation",
+    "exact_sig": "83061e30581debbc:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 75,
+    "event": "mutation",
+    "exact_sig": "b9b0d60bb0445d48:1b7f6dc9d163",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 76,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 76,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 77,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:ee6a153af38a",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 78,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 78,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 79,
+    "event": "mutation",
+    "exact_sig": "83061e30581debbc:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 80,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 80,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 81,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:ee6a153af38a",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 84,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 85,
+    "event": "mutation",
+    "exact_sig": "c10dffbc12596e48:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 86,
+    "event": "mutation",
+    "exact_sig": "0c3539ef755a674b:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 87,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 87,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 88,
+    "event": "mutation",
+    "exact_sig": "83061e30581debbc:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 89,
+    "event": "mutation",
+    "exact_sig": "b9b0d60bb0445d48:1b7f6dc9d163",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 90,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 90,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 92,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:ee6a153af38a",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 94,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 96,
+    "event": "mutation",
+    "exact_sig": "7f6a8939231770fb:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 97,
+    "event": "mutation",
+    "exact_sig": "0c3539ef755a674b:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 98,
+    "event": "mutation",
+    "exact_sig": "3b513a1056a25de5:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 99,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 99,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 100,
+    "event": "mutation",
+    "exact_sig": "83061e30581debbc:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 101,
+    "event": "mutation",
+    "exact_sig": "b9b0d60bb0445d48:1b7f6dc9d163",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 102,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 102,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 103,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:ee6a153af38a",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 109,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:3c73e645f8f2",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 110,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 110,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 111,
+    "event": "mutation",
+    "exact_sig": "83061e30581debbc:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 112,
+    "event": "mutation",
+    "exact_sig": "b9b0d60bb0445d48:1b7f6dc9d163",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 113,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 113,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 114,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:ee6a153af38a",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 115,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 115,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 116,
+    "event": "mutation",
+    "exact_sig": "83061e30581debbc:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 117,
+    "event": "mutation",
+    "exact_sig": "b9b0d60bb0445d48:1b7f6dc9d163",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 118,
+    "event": "hub_seen",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "b6f1345749447128",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 118,
+    "event": "mutation",
+    "exact_sig": "b6f1345749447128:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 119,
+    "event": "mutation",
+    "exact_sig": "e22118c5b5dd9372:ee6a153af38a",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  }
+]

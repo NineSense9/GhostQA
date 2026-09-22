@@ -4,9 +4,11 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.12
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.13
 
-产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.12 的 nested-hub candidate 是 Research-only，不是产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.13 的 suspended-parent stack 是 Research-only，不是产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+
+**v0.3.13 Outcome C — harmful / unsafe.** 嵌套分支会挂起外层 sequence 并启动真实 child sequence，而不是把 child 展平进外层 commitment。CRM @120 与 Ops @120 的 stack 仍然是 5 states / 5 URLs，push 深度跟预算一起长到 80 和 79，resume 为 0，没有 horizon / return。P1–P15、S1–S7 和 5800 条 return model 为 0 failures，terminal accounting violations 为 0。相对 v0.3.9 guard，BuggyDesk 找回了 K3/K6/K9/K10，但丢失了 K1/K2；DeepBench 确认了 D12，但丢失了 D7/D11/D13/D14；Wiki 丢失了 W2。BuggyShop 的 W5/W6/W9/W10 还在。这是已检查机制用例，不是 fresh validation。候选不晋升。`python -m benchmark.nested_stack_reproduce --root experiments/published/nested-stack-v0.3.13 --verify`
 
 **v0.3.12 Outcome C — harmful/regression.** 参数无关的 nested-hub preservation 让 CRM / Ops 的外层 sequence 不再在 commitment 窗口里被 `lost_parent` 打断，并进入 horizon / return。这两个目标是 v0.3.11 已分析机制用例，不是 fresh-generalization。N1–N12、S1–S7 和 5800 条 return model 为 0 failures。历史回归丢失了 BuggyDesk 的 BUG-K3 / BUG-K6 / BUG-K9 / BUG-K10 和 DeepBench 的 BUG-D12。候选不晋升。`python -m benchmark.nested_hub_reproduce --root experiments/published/nested-hub-parent-v0.3.12 --verify`
 
@@ -68,7 +70,7 @@ python -m dashboard.server --port 8787
 # 浏览器打开 http://127.0.0.1:8787/
 ```
 
-三个视图：**总览**（默认，含 v0.3.12 nested-hub Outcome C，并保留 v0.3.11 Outcome D 与历史 v0.3.10 / v0.3.9）、**实时探索**（浏览器截图 / 状态图 / 决策日志）、**研究证据**（freeze / clean clone / 复现命令）。研究数字来自 `GET /api/showcase`，读取已提交的 `experiments/published/` 产物，不在页面里写死研究结果。演示步骤见 `docs/DEMO.md`。
+三个视图：**总览**（默认，含 v0.3.13 suspended-parent Outcome C，并保留 v0.3.12 Outcome C、v0.3.11 Outcome D 与历史 v0.3.10 / v0.3.9）、**实时探索**（浏览器截图 / 状态图 / 决策日志）、**研究证据**（freeze / clean clone / 复现命令）。研究数字来自 `GET /api/showcase`，读取已提交的 `experiments/published/` 产物，不在页面里写死研究结果。演示步骤见 `docs/DEMO.md`。
 
 使用真实 LLM（可选，模型不可用时自动降级为 no-LLM 策略）：
 

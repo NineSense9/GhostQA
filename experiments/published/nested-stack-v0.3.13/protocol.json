@@ -1,0 +1,437 @@
+{
+  "name": "v0.3.13 suspended-parent nested sequence stack",
+  "version": "v0.3.13",
+  "date": "2026-09-23",
+  "starting_head": "23a5e3688433bfc532abc578ec919083368db604",
+  "regression_analysis_commit": "0fda87449b0a15eb740277993ec372ad48b0d535",
+  "regression_analysis": "experiments/validation/v0.3.13/regression-analysis.json",
+  "regression_analysis_sha256": "361963ca71bbe33fcb4ff3f30932fa045e09a5a4be1831fd392eac54644ff61e",
+  "executed": false,
+  "one_shot": true,
+  "one_shot_semantics": "After this protocol commit and the later candidate-freeze commit, run the 18-cell mechanism matrix once, then the preregistered regression cells once. Rerun only an exact cell that fails for infrastructure reasons. Do not change frame fields, unwind semantics, restoration, budgets, or targets after the first target evaluation.",
+  "research_question": "Can nested branch starts retain their normal child-sequence exploration semantics while the outer sequence is suspended rather than discarded?",
+  "question_kind": "mechanism-development",
+  "success_means": "Protocol integrity and reproducible evidence on inspected cases. Not a fresh-generalization claim.",
+  "not": [
+    "fresh generalization",
+    "universal",
+    "production-ready",
+    "product default change",
+    "reinterpretation of v0.3.12 Outcome C"
+  ],
+  "historical_outcomes_preserved": {
+    "v0.3.11": "D",
+    "v0.3.12": "C"
+  },
+  "inspected_mechanism_cases": [
+    {
+      "name": "buggy-crm",
+      "role": "frozen v0.3.11 target, mechanism-development case",
+      "freeze": "experiments/frozen/v0.3.11-multitarget/buggy-crm/freeze.json"
+    },
+    {
+      "name": "buggy-ops",
+      "role": "frozen v0.3.11 target, mechanism-development case",
+      "freeze": "experiments/frozen/v0.3.11-multitarget/buggy-ops/freeze.json"
+    }
+  ],
+  "historical_regression_cases": [
+    {
+      "name": "buggy-desk",
+      "budget": 120,
+      "reference": "experiments/published/fresh-transfer-v0.3.10/",
+      "reference_policy": "ghost-structural-return-guard",
+      "v0_3_12_lost": ["BUG-K3", "BUG-K6", "BUG-K9", "BUG-K10"]
+    },
+    {
+      "name": "deepbench",
+      "app": "buggy-flow",
+      "budget": 120,
+      "reference": "experiments/published/return-cycle-guard-v0.3.9/",
+      "reference_policy": "ghost-structural-return-guard",
+      "v0_3_12_lost": ["BUG-D12"]
+    },
+    {
+      "name": "buggy-wiki",
+      "budget": 120,
+      "reference": "experiments/published/multi-target-replication-v0.3.11/",
+      "reference_policy": "ghost-structural-return-guard",
+      "must_not_lose": ["BUG-W2"],
+      "v0_3_12_lost": []
+    },
+    {
+      "name": "buggy-shop",
+      "budget": 120,
+      "reference": "experiments/published/return-cycle-guard-v0.3.9/",
+      "reference_policy": "ghost-structural-return-guard",
+      "must_not_lose": ["BUG-W5", "BUG-W6", "BUG-W9", "BUG-W10"],
+      "v0_3_12_lost": []
+    }
+  ],
+  "v0_3_12_regression_lost": {
+    "buggy-desk": ["BUG-K10", "BUG-K3", "BUG-K6", "BUG-K9"],
+    "buggy-shop": [],
+    "deepbench": ["BUG-D12"],
+    "wiki": []
+  },
+  "frozen_historical_identities": {
+    "c1": {
+      "identity": "ghost-structural-memory",
+      "freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json"
+    },
+    "return_cycle_guard": {
+      "identity": "ghost-structural-return-guard",
+      "constructor": "ReturnCycleGuardGhostPolicy",
+      "freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+      "source": "ghostqa/exploration/return_cycle_guard.py"
+    },
+    "nested_flatten": {
+      "identity": "ghost-structural-nested-return-guard",
+      "constructor": "NestedHubReturnGuardGhostPolicy",
+      "freeze": "experiments/frozen/ghost-nested-hub-guard-v0.3.12/freeze.json",
+      "source": "ghostqa/exploration/nested_hub_guard.py",
+      "outcome": "C",
+      "replaced": false
+    }
+  },
+  "candidate": {
+    "identity": "ghost-structural-nested-stack-guard",
+    "constructors": [
+      "SuspendedParentSequenceController",
+      "NestedStackReturnGuardGhostPolicy"
+    ],
+    "policy_name": "ghost-structural-nested-stack-guard",
+    "source": "ghostqa/exploration/nested_stack_guard.py",
+    "freeze": "experiments/frozen/ghost-nested-stack-guard-v0.3.13/freeze.json",
+    "product_default": false,
+    "research_only": true,
+    "replaces_v0_3_12_identity": false,
+    "combines": [
+      "structural sequence behavior",
+      "v0.3.9 exact-repeat return-cycle guard semantics",
+      "LIFO suspended-parent frames"
+    ],
+    "no_threshold_N": true,
+    "no_max_depth": true,
+    "no_url_condition": true,
+    "no_app_specific_rule": true,
+    "no_is_hub_monkeypatch": true
+  },
+  "semantic_rule": {
+    "model": "call stack",
+    "when_all": [
+      "mode is sequence-like",
+      "current state is a hub",
+      "chosen action is a branch click",
+      "an outer sequence instance is open",
+      "ledger.active_branch is non-empty",
+      "ledger.returning is false",
+      "ledger.commitment_left > 0"
+    ],
+    "do": [
+      "snapshot the active sequence frame before the nested action is applied",
+      "push that frame on a LIFO stack",
+      "emit parent_frame_suspended",
+      "start the nested branch as a normal historical child sequence",
+      "give the child its own active_branch, the nested hub as parent, BRANCH_HORIZON commitment, a branch_start event, structural-memory attempt accounting, and a new sequence instance",
+      "emit nested_child_started",
+      "leave the nested click out of the outer commitment and the outer sequence_action count",
+      "restore the immediate outer frame only after the active child completes by the historical successful parent match"
+    ],
+    "do_not": [
+      "emit lost_parent for the suspended outer",
+      "flatten the child click into the outer sequence",
+      "decrement outer commitment for the child branch click",
+      "overwrite the outer frame permanently",
+      "use the v0.3.12 nested-followed-but-not-started ledger",
+      "assign sequence.is_hub at runtime",
+      "restore an outer frame when the child only emitted finding or crash",
+      "restore an outer frame after return_cycle_escape",
+      "count a resume as return_success, branch completion, or branch_start"
+    ]
+  },
+  "frame_fields": {
+    "class": "SuspendedParentFrame",
+    "sequence_local": {
+      "active_branch": "the branch key the suspended sequence was executing",
+      "parent_hub_sig": "exact signature the suspended sequence must return to",
+      "parent_hub_cluster": "cluster accepted as that parent",
+      "commitment_left": "remaining commitment before the child click; the child click does not decrement it",
+      "returning": "whether that frame was already in return phase; suspension requires this to be false",
+      "branch_actions": "action count local to that sequence; historical branch start resets it",
+      "branch_new_states": "new-state count local to that sequence",
+      "branch_findings": "finding count local to that sequence",
+      "_seq_len": "sequence length counter local to that sequence",
+      "_open_instance": "id, branch, and len of that sequence instance",
+      "_seen_failed_return_dests": "exact destinations already seen in that frame's unresolved return phase"
+    },
+    "global_not_snapshotted": {
+      "ledger.hubs": "discovered, started, completed, and returned sets are cross-sequence branch memory",
+      "aggregate counters": "started_total, completed_total, return_attempts, return_success, mutations, followup_actions, sequences_started, sequences_completed, seq_lens, repeats",
+      "StructuralHubMemory": "global structural attempt and context memory; a real child branch start records an attempt",
+      "ctx_stats": "aggregate context counters",
+      "_last_delta": "not cleared on historical branch start",
+      "_tried_action_ctx": "not cleared on historical branch start",
+      "_pending_retest": "contextual retest window, not sequence-scoped",
+      "_local_ctx_id": "updated by global context epochs",
+      "mutations": "TTL list is not cleared on branch start and follow-up matching ignores branch_id, so it stays global",
+      "_instance_n": "monotonic id allocator",
+      "events": "append-only log"
+    },
+    "mutation_decision": "Mutations stay global. Child follow-up during the child commitment therefore sees the same mutation list a v0.3.9 guard child would see after lost_parent. Resume does not rewind the list."
+  },
+  "restoration_rule": {
+    "when": "The active child's historical _complete_branch runs because the new signature matches the child's recorded parent signature or parent cluster.",
+    "accounting": "Child returned or prior finding/crash terminal, completed/returned branch accounting, and return_success increment happen exactly once on the historical path.",
+    "then": [
+      "pop exactly one frame",
+      "restore its sequence-local fields",
+      "emit parent_frame_resumed with resumed branch, resumed parent hub, remaining commitment, completed child branch, stack depth after pop, and resumed sequence instance id"
+    ],
+    "finding": "A finding terminal does not pop. The outer stays suspended until the child return obligation resolves.",
+    "crash": "A crash terminal does not pop. Later historical parent match may resume. Escape or budget end does not pretend the crash was a return."
+  },
+  "unwind_rule": {
+    "when": "The active child emits return_cycle_escape. The child did not return to its parent.",
+    "do": [
+      "keep the historical child escape accounting exactly once",
+      "emit nested_stack_unwind",
+      "emit sequence_terminal outcome=nested_descendant_abandoned for each still-open suspended instance",
+      "emit suspended_parent_terminal for those frames",
+      "clear the stack",
+      "continue with no active sequence"
+    ],
+    "forbidden_outcomes_for_abandoned_ancestors": [
+      "returned",
+      "completed",
+      "successful_return"
+    ],
+    "partial_restore": false
+  },
+  "budget_end_rule": {
+    "active_open_instance": "one budget_end terminal if still open",
+    "suspended_open_instances": "one budget_end terminal each",
+    "not_returned": true,
+    "publish": [
+      "active_frame_budget_end_count",
+      "suspended_frame_budget_end_count",
+      "stack_depth_at_budget_end"
+    ]
+  },
+  "reset_rule": "reset() clears the active controller, the return-cycle destination set, the suspended stack, and candidate counters. Stack depth is 0. No suspended parent resumes. No old destination set remains.",
+  "terminal_accounting": {
+    "rule": "Every sequence instance that emitted branch_start has exactly one sequence_terminal.",
+    "legal_outcomes": [
+      "returned",
+      "finding",
+      "crash",
+      "return_cycle_abandoned",
+      "nested_descendant_abandoned",
+      "budget_end",
+      "lost_parent"
+    ],
+    "lost_parent_scope": "lost_parent remains legal only when the suspension predicate is false. A commitment-window lost_parent is a failed repair, not an accounting violation by itself.",
+    "violation": "zero terminals, more than one terminal, or an outcome outside the legal set"
+  },
+  "trace_events": [
+    "parent_frame_suspended",
+    "nested_child_started",
+    "parent_frame_resumed",
+    "nested_stack_unwind",
+    "suspended_parent_terminal"
+  ],
+  "trace_event_fields": [
+    "step",
+    "stack_depth",
+    "active_child_branch",
+    "parent_hub_sig",
+    "suspended_branch",
+    "suspended_sequence_instance_id",
+    "reason"
+  ],
+  "candidate_metrics": [
+    "suspended_frame_push_events",
+    "suspended_frame_resume_events",
+    "suspended_frame_unwind_events",
+    "suspended_frames_abandoned",
+    "max_suspended_stack_depth",
+    "stack_depth_at_budget_end",
+    "child_sequence_start_events",
+    "child_return_resume_events",
+    "child_escape_unwind_events",
+    "outer_instances_resumed",
+    "outer_instances_abandoned",
+    "terminal_accounting_violations",
+    "active_frame_budget_end_count",
+    "suspended_frame_budget_end_count"
+  ],
+  "policies": {
+    "G": "ghost-structural-return-guard",
+    "F": "ghost-structural-nested-return-guard",
+    "S": "ghost-structural-nested-stack-guard"
+  },
+  "matrix": {
+    "apps": ["buggy-crm", "buggy-ops"],
+    "policies": [
+      "ghost-structural-return-guard",
+      "ghost-structural-nested-return-guard",
+      "ghost-structural-nested-stack-guard"
+    ],
+    "budgets": [40, 80, 120],
+    "seeds": [1],
+    "cells_total": 18,
+    "skip_minimize": true,
+    "purpose": "G shows historical preemption. F shows flattening. S tests the stack."
+  },
+  "regression_cells": {
+    "policies": ["ghost-structural-nested-stack-guard"],
+    "budget": 120,
+    "seed": 1,
+    "apps": ["buggy-desk", "buggy-flow", "buggy-wiki", "buggy-shop"],
+    "order_after_mechanism_matrix": ["buggy-desk", "buggy-flow", "buggy-wiki", "buggy-shop"]
+  },
+  "structural_repair_gate": {
+    "applies_to": ["buggy-crm", "buggy-ops"],
+    "budget": 120,
+    "all": [
+      "S emits at least one nested child stack event (parent_frame_suspended or nested_child_started)",
+      "S commitment-window lost_parent count is 0",
+      "S reaches at least one horizon or a finding, crash, or returned terminal",
+      "S reaches return phase or a child return resume",
+      "S states > G states OR S normalized URLs > G URLs"
+    ],
+    "not_required": "S coverage >= F coverage"
+  },
+  "safety_tests": {
+    "P1": "one-level suspend starts a real child and does not emit lost_parent",
+    "P2": "suspended outer commitment stays at the pre-child value; child commitment after its branch action is BRANCH_HORIZON - 1",
+    "P3": "child successful return pops one frame and restores the same outer instance and commitment without an extra outer completion",
+    "P4": "resumed outer can continue to its own horizon and return to its own parent",
+    "P5": "two nesting levels restore LIFO: grandchild return resumes child, child return resumes outer",
+    "P6": "one finding terminal; outer stays suspended until the child parent match",
+    "P7": "finding then cycle escape unwinds ancestors and does not resume or double-terminal",
+    "P8": "child return-cycle escape abandons the child and unwinds the stack with zero false returns",
+    "P9": "crash terminal alone does not restore the outer",
+    "P10": "budget end accounts for the active open instance and every suspended open instance once",
+    "P11": "reset clears the stack and return-cycle history",
+    "P12": "child branch start is a real structural attempt and is not later scored as untried",
+    "P13": "with no suspension, candidate events match the v0.3.9 guard",
+    "P14": "frame-local exact-destination sets do not contaminate each other",
+    "P15": "every started instance has exactly one legal terminal",
+    "S1_S7": "historical return-cycle safety suite, unchanged",
+    "N1_N12": "historical v0.3.12 candidate tests, unchanged and still about flattening",
+    "exhaustive": "bounded return model, at least 5800 traces, zero failures"
+  },
+  "outcome_module": "benchmark/nested_stack_analysis.py",
+  "outcome_function": "derive_v0313_outcome",
+  "outcome_gates": {
+    "priority": "C, then D, then B, else A",
+    "A": {
+      "label": "stack repair succeeds and removes v0.3.12 regressions",
+      "meaning": "nested-stack mechanism repairs inspected preemption and removes the observed flattening regressions on historical regression cases",
+      "not": ["fresh validation", "generalization proof"],
+      "all": [
+        "candidate freeze valid",
+        "historical freezes valid",
+        "P1-P15 pass",
+        "S1-S7 pass",
+        "bounded return model pass",
+        "terminal accounting violations = 0",
+        "CRM structural repair gate passes",
+        "Ops structural repair gate passes",
+        "BuggyDesk loses zero reference-guard confirmed bugs",
+        "DeepBench loses zero reference-guard confirmed bugs",
+        "Wiki loses zero reference-guard confirmed bugs",
+        "BuggyShop loses zero reference-guard confirmed bugs",
+        "no false returned or completed inflation",
+        "product default unchanged"
+      ]
+    },
+    "B": {
+      "label": "mechanism works but regression repair is incomplete",
+      "when": "Safety and terminal accounting pass, both CRM and Ops structural repair gates pass, and one or more reference-guard confirmed bugs remain lost, with every such loss inside the v0.3.12 regression-lost set and no harmful lifecycle violation."
+    },
+    "C": {
+      "label": "harmful / unsafe",
+      "any": [
+        "P-series failure",
+        "S-series failure",
+        "bounded return model failure",
+        "terminal accounting violation",
+        "false returned or completed",
+        "stack frame corruption",
+        "parent restoration without physical child return",
+        "a lost reference-guard bug outside the v0.3.12 regression-lost set",
+        "historical freeze violation",
+        "candidate freeze violation",
+        "app-specific logic",
+        "product default changed"
+      ]
+    },
+    "D": {
+      "label": "stack mechanism does not repair inspected preemption",
+      "when": "No harmful condition holds, and CRM or Ops fails the structural repair gate.",
+      "not": "Do not reinterpret D as A or B."
+    }
+  },
+  "product_default": {
+    "policy": "NoFrontier",
+    "sequence_mode": "off",
+    "unchanged": true,
+    "promotion_prohibited": true,
+    "outcome_A_promotes": false,
+    "next_round_if_A": "v0.3.14 fresh validation"
+  },
+  "prohibited_changes": [
+    "ghostqa/exploration/sequence.py",
+    "ghostqa/exploration/return_cycle_guard.py",
+    "ghostqa/exploration/nested_hub_guard.py",
+    "ghostqa/exploration/policy.py",
+    "ghostqa/exploration/sequence_memory.py",
+    "ghostqa/exploration/interaction.py",
+    "ghostqa/exploration/payload.py",
+    "apps/buggy-crm",
+    "apps/buggy-ops",
+    "apps/buggy-wiki",
+    "apps/buggy-desk",
+    "apps/buggy-shop",
+    "apps/buggy-flow",
+    "product default GhostPolicy"
+  ],
+  "prohibited_controller_inputs": [
+    "URL names",
+    "page titles",
+    "target_eid names",
+    "bug ids",
+    "app identity",
+    "manifest values",
+    "members",
+    "customer",
+    "CRM"
+  ],
+  "stop_rules": {
+    "no_semantic_change_after_freeze": true,
+    "no_retune_after_first_target_evaluation": true,
+    "publish_b_c_d": true,
+    "product_default_unchanged": true,
+    "no_generalization_claim": true
+  },
+  "git_phase_gates": {
+    "analysis": "experiment: record v0.3.13 nested-stack regression analysis",
+    "protocol": "experiment: preregister v0.3.13 suspended-parent protocol",
+    "freeze": "experiment: freeze v0.3.13 nested-stack candidate",
+    "before_mechanism_matrix_require": [
+      "protocol commit",
+      "candidate freeze commit"
+    ]
+  },
+  "published_root": "experiments/published/nested-stack-v0.3.13/",
+  "verify_command": "python -m benchmark.nested_stack_reproduce --root experiments/published/nested-stack-v0.3.13 --verify",
+  "evaluation_order": [
+    "CRM/Ops mechanism matrix",
+    "BuggyDesk regression",
+    "DeepBench regression",
+    "Wiki",
+    "BuggyShop"
+  ]
+}

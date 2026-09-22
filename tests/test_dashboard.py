@@ -101,12 +101,13 @@ def test_showcase_missing_artifacts_do_not_crash():
     from dashboard.showcase import build_showcase
     s = build_showcase(v039_root="/tmp/missing-v039", v038_root="/tmp/missing-v038",
                        v0310_root="/tmp/missing-v0310", v0311_root="/tmp/missing-v0311",
-                       v0312_root="/tmp/missing-v0312")
+                       v0312_root="/tmp/missing-v0312", v0313_root="/tmp/missing-v0313")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
     assert s["multi_target"]["available"] is False
     assert s["nested_hub"]["available"] is False
+    assert s["nested_stack"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -129,7 +130,15 @@ def test_showcase_endpoint_function_returns_payload():
     assert body["latest"]["product_default_changed"] is False
     mt = body.get("multi_target") or {}
     nh = body.get("nested_hub") or {}
-    if nh.get("available"):
+    ns = body.get("nested_stack") or {}
+    if ns.get("available"):
+        assert body["latest"]["round"] == "v0.3.13"
+        assert body["project"]["latest_research"] == "v0.3.13"
+        assert ns["product_default_changed"] is False
+        assert ns["outcome"] == "C"
+        assert ns.get("generalization_claim") is False
+        assert nh.get("outcome") == "C"
+    elif nh.get("available"):
         assert body["latest"]["round"] == "v0.3.12"
         assert body["project"]["latest_research"] == "v0.3.12"
         assert nh["product_default_changed"] is False
@@ -157,8 +166,22 @@ def test_showcase_reads_v0311_published_metrics():
     assert mt["outcome"] == "D"
     nh = s["nested_hub"]
     assert nh["available"] is True
-    assert s["latest"]["round"] == "v0.3.12"
-    assert s["project"]["latest_research"] == "v0.3.12"
+    ns = s["nested_stack"]
+    assert ns["available"] is True
+    assert s["latest"]["round"] == "v0.3.13"
+    assert s["project"]["latest_research"] == "v0.3.13"
+    assert ns["outcome"] == "C"
+    assert ns["product_default_changed"] is False
+    assert ns["generalization_claim"] is False
+    assert ns["crm_repair"] is False
+    assert ns["ops_repair"] is False
+    assert "BUG-K1" in (ns["lost"].get("buggy-desk") or [])
+    assert "BUG-W2" in (ns["lost"].get("wiki") or [])
+    crm = {t["name"]: t for t in ns["targets"]}["buggy-crm"]
+    assert crm["guard_states"] == 5
+    assert crm["stack_states"] == 5
+    assert crm["stack_pushes"] == 80
+    assert crm["stack_resumes"] == 0
     assert nh["outcome"] == "C"
     assert nh["product_default_changed"] is False
     assert nh["generalization_claim"] is False

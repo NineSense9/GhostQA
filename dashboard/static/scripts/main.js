@@ -80,12 +80,14 @@ const POLICY_HINT = {
   'ghost-structural-memory': 'Structural hub memory',
   'ghost-structural-return-guard': 'Structural memory + exact-repeat return-cycle escape.',
   'ghost-structural-nested-return-guard': 'Research only. Nested-hub preservation. v0.3.12 Outcome C, not the default.',
+  'ghost-structural-nested-stack-guard': 'Research only. Suspended-parent stack. v0.3.13 is not the default.',
 };
 
 const RESEARCH_POLICIES = {
   'ghost-structural-memory': true,
   'ghost-structural-return-guard': true,
   'ghost-structural-nested-return-guard': true,
+  'ghost-structural-nested-stack-guard': true,
 };
 
 /* ------------------------------ theme ----------------------------------- */
