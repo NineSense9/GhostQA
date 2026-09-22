@@ -1,0 +1,42 @@
+{
+  "algorithm_name": "ghost-structural-nested-stack-guard",
+  "round": "v0.3.13",
+  "product": "v0.4 preview",
+  "source_head": "9237ffd6640905d634473419b6b3edfaffe9fa82",
+  "protocol_commit": "9237ffd6640905d634473419b6b3edfaffe9fa82",
+  "historical_c1_freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json",
+  "historical_guard_freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+  "historical_flatten_freeze": "experiments/frozen/ghost-nested-hub-guard-v0.3.12/freeze.json",
+  "policy": {
+    "constructor": "NestedStackReturnGuardGhostPolicy",
+    "controller": "SuspendedParentSequenceController",
+    "policy_name": "ghost-structural-nested-stack-guard",
+    "sequence_mode": "structural",
+    "use_frontier": false,
+    "cycle_key": "new_sig",
+    "no_threshold_N": true,
+    "no_max_depth": true,
+    "parent_stack": true,
+    "product_default": false,
+    "replaces_v0_3_12_identity": false
+  },
+  "note": "Candidate freeze before the v0.3.13 mechanism matrix. Do not change these files after the first empirical result.",
+  "hash_normalization": "LF newlines",
+  "files": {
+    "ghostqa/exploration/nested_stack_guard.py": {
+      "sha256": "852bd4c039a9fca52b7052b912c26f289e2b42d1532f8fdbff47720bf80dbf08",
+      "git_blob": "cd026ef6a3a3dd4178ac7a687bec4ea8312ec238",
+      "bytes": 18758
+    },
+    "benchmark/nested_stack_analysis.py": {
+      "sha256": "e27f1e05b095d6c4927ef620252d475f59a0edc41db0b7b7815095789824172f",
+      "git_blob": "fcf482f0a203b6d5950ef29ff4e4edb57dbe2147",
+      "bytes": 9239
+    },
+    "experiments/validation/v0.3.13/protocol.json": {
+      "sha256": "eec42b91b17e6b257841ed69be02acbc7f195df4354058d5eb9585b0a92e3dbd",
+      "git_blob": "83adcf95fa8546b5c389ef0af735e7fd4eeaec26",
+      "bytes": 19079
+    }
+  }
+}

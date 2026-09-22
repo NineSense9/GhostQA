@@ -83,6 +83,10 @@ def _make_policy(name: str, llm, seed: int):
         # Research-only. Not the product default. v0.3.12 Outcome C.
         from .exploration.nested_hub_guard import NestedHubReturnGuardGhostPolicy
         return NestedHubReturnGuardGhostPolicy(llm=None)
+    if name == "ghost-structural-nested-stack-guard":
+        # Research-only. Not the product default. Does not replace v0.3.12.
+        from .exploration.nested_stack_guard import NestedStackReturnGuardGhostPolicy
+        return NestedStackReturnGuardGhostPolicy(llm=None)
     if name == "ghost-contextual":
         return GhostPolicy(llm=None, use_frontier=False, sequence_mode="contextual")
     if name == "ghost-contextual-crossview":
