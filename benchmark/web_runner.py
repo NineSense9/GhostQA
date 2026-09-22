@@ -36,6 +36,9 @@ APPS = {
     "buggy-shop": os.path.join(ROOT, "apps", "buggy-shop"),
     "buggy-flow": os.path.join(ROOT, "apps", "buggy-flow"),
     "buggy-desk": os.path.join(ROOT, "apps", "buggy-desk"),
+    "buggy-crm": os.path.join(ROOT, "apps", "buggy-crm"),
+    "buggy-wiki": os.path.join(ROOT, "apps", "buggy-wiki"),
+    "buggy-ops": os.path.join(ROOT, "apps", "buggy-ops"),
 }
 DEEP_DEPTH = 4
 

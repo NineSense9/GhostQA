@@ -1,0 +1,182 @@
+{
+  "app": "buggy-crm",
+  "note": "BENCHMARK JUDGE ONLY. GhostQA exploration/oracle must never read this file.",
+  "bugs": [
+    {
+      "id": "BUG-C1",
+      "category": "js error",
+      "severity": "medium",
+      "desc": "设置页测试同步抛出未捕获异常",
+      "kind": "js_error",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "crm sync handshake"
+      },
+      "min_reproduction": [
+        "index.html: nav_settings",
+        "settings.html: btn_test_sync"
+      ]
+    },
+    {
+      "id": "BUG-C2",
+      "category": "blank page",
+      "severity": "medium",
+      "desc": "管道页渲染后完全空白",
+      "kind": "blank",
+      "trigger_depth": 1,
+      "prerequisites": [],
+      "match": {
+        "url_contains": "/pipeline.html"
+      },
+      "min_reproduction": [
+        "index.html: nav_pipeline"
+      ]
+    },
+    {
+      "id": "BUG-C3",
+      "category": "dead action",
+      "severity": "medium",
+      "desc": "客户关注按钮点击无任何效果",
+      "kind": "dead_action",
+      "trigger_depth": 3,
+      "prerequisites": [],
+      "match": {
+        "eid": "btn_watch"
+      },
+      "min_reproduction": [
+        "index.html: nav_accounts",
+        "accounts.html: account_a1",
+        "account.html: btn_watch"
+      ]
+    },
+    {
+      "id": "BUG-C4",
+      "category": "navigation loop",
+      "severity": "medium",
+      "desc": "使用说明与现场手册互相链接，无法退出",
+      "kind": "nav_loop",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "cycle_urls_contains": "help.html"
+      },
+      "min_reproduction": [
+        "index.html: nav_help",
+        "help.html: btn_handbook",
+        "handbook.html: btn_help",
+        "help.html: btn_handbook",
+        "handbook.html: btn_help"
+      ]
+    },
+    {
+      "id": "BUG-C5",
+      "category": "form validation",
+      "severity": "high",
+      "desc": "标题为空时仍提示已创建",
+      "kind": "semantic",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "opp_title_required"
+      },
+      "min_reproduction": [
+        "index.html: nav_compose",
+        "compose.html: btn_create"
+      ]
+    },
+    {
+      "id": "BUG-C6",
+      "category": "state inconsistency",
+      "severity": "medium",
+      "desc": "下调预测后展示值未更新",
+      "kind": "semantic",
+      "trigger_depth": 3,
+      "prerequisites": [
+        "open-account"
+      ],
+      "match": {
+        "assert_id": "forecast_display_matches_remaining"
+      },
+      "min_reproduction": [
+        "index.html: nav_accounts",
+        "accounts.html: account_a1",
+        "account.html: btn_pause_forecast"
+      ]
+    },
+    {
+      "id": "BUG-C7",
+      "category": "boundary js error",
+      "severity": "medium",
+      "desc": "工作台搜索词超过 24 字抛出未捕获 RangeError",
+      "kind": "js_error",
+      "trigger_depth": 1,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "crm search query too long"
+      },
+      "min_reproduction": [
+        "index.html: search_box=25 chars",
+        "index.html: search_btn"
+      ]
+    },
+    {
+      "id": "BUG-C8",
+      "category": "http 5xx",
+      "severity": "high",
+      "desc": "导出请求 /api/export 始终返回 500",
+      "kind": "http_error",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "/api/export"
+      },
+      "min_reproduction": [
+        "index.html: nav_settings",
+        "settings.html: btn_export"
+      ]
+    },
+    {
+      "id": "BUG-C9",
+      "category": "sequence-dependent",
+      "severity": "high",
+      "desc": "关闭后再重开，状态仍显示已关闭",
+      "kind": "semantic",
+      "trigger_depth": 4,
+      "prerequisites": [
+        "open-account",
+        "close"
+      ],
+      "match": {
+        "assert_id": "reopen_clears_closed"
+      },
+      "min_reproduction": [
+        "index.html: nav_accounts",
+        "accounts.html: account_a1",
+        "account.html: btn_close",
+        "account.html: btn_reopen"
+      ]
+    },
+    {
+      "id": "BUG-C10",
+      "category": "cross-page consistency",
+      "severity": "high",
+      "desc": "内部备注在活动中显示为客户可见",
+      "kind": "semantic",
+      "trigger_depth": 5,
+      "prerequisites": [
+        "open-account",
+        "internal-note"
+      ],
+      "match": {
+        "assert_id": "internal_note_not_customer_visible"
+      },
+      "min_reproduction": [
+        "index.html: nav_accounts",
+        "accounts.html: account_a1",
+        "account.html: btn_internal_note",
+        "account.html: nav_activity"
+      ]
+    }
+  ]
+}

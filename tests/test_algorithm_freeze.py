@@ -64,6 +64,12 @@ def test_exploration_modules_do_not_read_manifests():
         assert "bugs.manifest.json" not in src, name
         assert "BUG-K" not in src, name
         assert "buggy-desk" not in src, name
+        assert "buggy-crm" not in src, name
+        assert "buggy-wiki" not in src, name
+        assert "buggy-ops" not in src, name
+        assert "BUG-C1" not in src, name
+        assert "BUG-W1" not in src, name
+        assert "BUG-O1" not in src, name
 
 
 def test_frozen_file_sha256_helper_is_stable():

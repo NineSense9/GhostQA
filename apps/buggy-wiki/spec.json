@@ -1,0 +1,81 @@
+{
+  "app": "buggy-wiki",
+  "note": "Specification-driven semantic oracle. Uses ONLY page-presented values (data-obs / input values) - never internal app state.",
+  "assertions": [
+    {
+      "id": "page_title_required",
+      "severity": "high",
+      "desc": "标题为空时不应提示已发布",
+      "when": {
+        "url_contains": "/editor"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "input_page_title"
+          },
+          "right": {
+            "const": ""
+          }
+        },
+        "then": {
+          "op": "not_contains",
+          "left": {
+            "obs": "form_msg"
+          },
+          "right": {
+            "const": "已发布"
+          }
+        }
+      }
+    },
+    {
+      "id": "display_rev_matches_restored",
+      "severity": "medium",
+      "desc": "修订页展示的修订号应与已恢复修订一致",
+      "when": {
+        "url_contains": "/revision.html"
+      },
+      "assert": {
+        "op": "eq",
+        "left": {
+          "obs": "display_rev"
+        },
+        "right": {
+          "obs": "restored_rev"
+        }
+      }
+    },
+    {
+      "id": "unpublish_clears_published",
+      "severity": "high",
+      "desc": "已取消发布的页面不应仍显示已发布",
+      "when": {
+        "url_contains": "/page.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "unpublish_flag"
+          },
+          "right": {
+            "const": "是"
+          }
+        },
+        "then": {
+          "op": "ne",
+          "left": {
+            "obs": "publish_state"
+          },
+          "right": {
+            "const": "已发布"
+          }
+        }
+      }
+    }
+  ]
+}

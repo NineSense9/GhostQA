@@ -1,0 +1,110 @@
+{
+  "app": "buggy-crm",
+  "note": "Specification-driven semantic oracle. Uses ONLY page-presented values (data-obs / input values) - never internal app state.",
+  "assertions": [
+    {
+      "id": "opp_title_required",
+      "severity": "high",
+      "desc": "标题为空时不应提示已创建",
+      "when": {
+        "url_contains": "/compose"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "input_opp_title"
+          },
+          "right": {
+            "const": ""
+          }
+        },
+        "then": {
+          "op": "not_contains",
+          "left": {
+            "obs": "form_msg"
+          },
+          "right": {
+            "const": "已创建"
+          }
+        }
+      }
+    },
+    {
+      "id": "forecast_display_matches_remaining",
+      "severity": "medium",
+      "desc": "客户页展示的预测应与剩余预测值一致",
+      "when": {
+        "url_contains": "/account.html"
+      },
+      "assert": {
+        "op": "eq",
+        "left": {
+          "obs": "forecast_display"
+        },
+        "right": {
+          "obs": "forecast_remaining"
+        }
+      }
+    },
+    {
+      "id": "reopen_clears_closed",
+      "severity": "high",
+      "desc": "已重开的客户不应仍显示为已关闭",
+      "when": {
+        "url_contains": "/account.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "reopen_state"
+          },
+          "right": {
+            "const": "是"
+          }
+        },
+        "then": {
+          "op": "ne",
+          "left": {
+            "obs": "account_status"
+          },
+          "right": {
+            "const": "已关闭"
+          }
+        }
+      }
+    },
+    {
+      "id": "internal_note_not_customer_visible",
+      "severity": "high",
+      "desc": "内部备注在活动中不应显示为客户可见",
+      "when": {
+        "url_contains": "/activity"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "note_kind"
+          },
+          "right": {
+            "const": "内部"
+          }
+        },
+        "then": {
+          "op": "eq",
+          "left": {
+            "obs": "note_visibility"
+          },
+          "right": {
+            "const": "内部"
+          }
+        }
+      }
+    }
+  ]
+}

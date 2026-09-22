@@ -1,0 +1,163 @@
+{
+  "app": "buggy-ops",
+  "note": "BENCHMARK JUDGE ONLY. GhostQA exploration/oracle must never read this file.",
+  "bugs": [
+    {
+      "id": "BUG-O1",
+      "category": "js error",
+      "severity": "medium",
+      "desc": "设置页测试呼叫抛出未捕获异常",
+      "kind": "js_error",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "ops pager handshake"
+      },
+      "min_reproduction": [
+        "index.html: nav_settings",
+        "settings.html: btn_test_pager"
+      ]
+    },
+    {
+      "id": "BUG-O2",
+      "category": "blank page",
+      "severity": "medium",
+      "desc": "团队页渲染后完全空白",
+      "kind": "blank",
+      "trigger_depth": 1,
+      "prerequisites": [],
+      "match": {
+        "url_contains": "/teams.html"
+      },
+      "min_reproduction": [
+        "index.html: nav_teams"
+      ]
+    },
+    {
+      "id": "BUG-O3",
+      "category": "dead action",
+      "severity": "medium",
+      "desc": "事件钉住按钮点击无任何效果",
+      "kind": "dead_action",
+      "trigger_depth": 4,
+      "prerequisites": [],
+      "match": {
+        "eid": "btn_pin"
+      },
+      "min_reproduction": [
+        "index.html: nav_services",
+        "services.html: service_svc1",
+        "service.html: nav_service_incidents",
+        "incidents.html: incident_i1",
+        "incident.html: btn_pin"
+      ]
+    },
+    {
+      "id": "BUG-O4",
+      "category": "navigation loop",
+      "severity": "medium",
+      "desc": "值班说明与应急手册互相链接，无法退出",
+      "kind": "nav_loop",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "cycle_urls_contains": "help.html"
+      },
+      "min_reproduction": [
+        "index.html: nav_help",
+        "help.html: btn_playbook",
+        "playbook.html: btn_help",
+        "help.html: btn_playbook",
+        "playbook.html: btn_help"
+      ]
+    },
+    {
+      "id": "BUG-O5",
+      "category": "form validation",
+      "severity": "high",
+      "desc": "标题为空时仍提示已创建",
+      "kind": "semantic",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "inc_title_required"
+      },
+      "min_reproduction": [
+        "index.html: nav_compose",
+        "compose.html: btn_create"
+      ]
+    },
+    {
+      "id": "BUG-O6",
+      "category": "state inconsistency",
+      "severity": "medium",
+      "desc": "静默告警后展示剩余时间未更新",
+      "kind": "semantic",
+      "trigger_depth": 3,
+      "prerequisites": [
+        "open-alert"
+      ],
+      "match": {
+        "assert_id": "silence_display_matches_remaining"
+      },
+      "min_reproduction": [
+        "index.html: nav_alerts",
+        "alerts.html: alert_al1",
+        "alert.html: btn_silence"
+      ]
+    },
+    {
+      "id": "BUG-O7",
+      "category": "boundary js error",
+      "severity": "medium",
+      "desc": "工作台搜索词超过 24 字抛出未捕获 RangeError",
+      "kind": "js_error",
+      "trigger_depth": 1,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "ops search query too long"
+      },
+      "min_reproduction": [
+        "index.html: search_box=25 chars",
+        "index.html: search_btn"
+      ]
+    },
+    {
+      "id": "BUG-O8",
+      "category": "http 5xx",
+      "severity": "high",
+      "desc": "寻呼请求 /api/page 始终返回 500",
+      "kind": "http_error",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "/api/page"
+      },
+      "min_reproduction": [
+        "index.html: nav_settings",
+        "settings.html: btn_page"
+      ]
+    },
+    {
+      "id": "BUG-O9",
+      "category": "sequence-dependent",
+      "severity": "high",
+      "desc": "确认后再重开，状态仍显示已关闭",
+      "kind": "semantic",
+      "trigger_depth": 4,
+      "prerequisites": [
+        "open-incident",
+        "ack"
+      ],
+      "match": {
+        "assert_id": "reopen_clears_closed"
+      },
+      "min_reproduction": [
+        "index.html: nav_incidents",
+        "incidents.html: incident_i1",
+        "incident.html: btn_ack",
+        "incident.html: btn_reopen"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "app": "buggy-crm",
+  "note": "Judge/authoring topology metadata. Not served to the browser. Policy/Explorer/Oracle must not read this file.",
+  "topology_family": "fanout_hub_nested_entity",
+  "seed": 1059087843,
+  "seed_hex": "3f2065e3",
+  "pages": [
+    "index.html",
+    "accounts.html",
+    "account.html",
+    "contacts.html",
+    "contact.html",
+    "opportunities.html",
+    "opportunity.html",
+    "activity.html",
+    "pipeline.html",
+    "team.html",
+    "settings.html",
+    "compose.html",
+    "help.html",
+    "handbook.html"
+  ],
+  "cycle_prone": "account related-entity clique",
+  "successful_return": "account.html nav_back_accounts -> accounts.html"
+}

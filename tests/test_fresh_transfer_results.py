@@ -69,12 +69,31 @@ def test_protocol_lock():
 
 
 def test_guard_escapes_match_detector():
+    """Every v0.3.10 guard escape maps to a detector opportunity by structured key."""
+    from benchmark.fresh_transfer_analysis import GUARD, PRIMARY_BUDGET, load_cell_files
+    from benchmark.fresh_transfer_analysis import detect_return_cycle_opportunities
+    from benchmark.return_cycle_accounting import match_escapes_to_opportunities
+
+    events, _graph, seq = load_cell_files(PUBLISHED_ROOT, GUARD, PRIMARY_BUDGET)
+    escapes = [e for e in seq if e.get("event") == "return_cycle_escape"]
+    opps = detect_return_cycle_opportunities(seq, events)
+    result = match_escapes_to_opportunities(escapes, opps)
+    assert result["ok"], result["unmatched_escapes"]
+    assert result["matched"] == result["escape_count"]
+    assert result["escape_count"] == result["opportunity_count"]
+    assert result["escape_count"] == len(escapes)
+    keys = result["escape_keys"]
+    assert len(keys) == len(escapes)
+    assert len({(k["step"], k["repeated_destination_sig"],
+                 k["parent_hub_sig"], k["branch"]) for k in keys}) == len(keys)
     bundle = derive_bundle(PUBLISHED_ROOT)
-    esc_steps = {e["step"] for e in bundle["guard_escapes"]}
-    opp_steps = {o["step"] for o in bundle["c1_opportunities"]} | {
-        e["step"] for e in bundle["guard_escapes"]}
-    assert esc_steps <= opp_steps or esc_steps == {
-        o["step"] for o in (
-            bundle.get("c1_opportunities") or [])
-    } or len(bundle["guard_escapes"]) == 7
     assert bundle["c1_120"]["c1_opportunity_count"] >= 1
+
+
+def test_v0310_escape_count_fallback_removed():
+    src = open(__file__, encoding="utf-8").read()
+    body = src.split("def test_guard_escapes_match_detector", 1)[1]
+    body = body.split("def test_", 1)[0]
+    assert " == 7" not in body
+    assert "or len(" not in body
+    assert "match_escapes_to_opportunities" in body

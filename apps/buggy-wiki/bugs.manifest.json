@@ -1,0 +1,162 @@
+{
+  "app": "buggy-wiki",
+  "note": "BENCHMARK JUDGE ONLY. GhostQA exploration/oracle must never read this file.",
+  "bugs": [
+    {
+      "id": "BUG-W1",
+      "category": "js error",
+      "severity": "medium",
+      "desc": "设置页测试插件抛出未捕获异常",
+      "kind": "js_error",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "wiki plugin handshake"
+      },
+      "min_reproduction": [
+        "index.html: nav_settings",
+        "settings.html: btn_test_plugin"
+      ]
+    },
+    {
+      "id": "BUG-W2",
+      "category": "blank page",
+      "severity": "medium",
+      "desc": "检索页渲染后完全空白",
+      "kind": "blank",
+      "trigger_depth": 1,
+      "prerequisites": [],
+      "match": {
+        "url_contains": "/search.html"
+      },
+      "min_reproduction": [
+        "index.html: nav_search"
+      ]
+    },
+    {
+      "id": "BUG-W3",
+      "category": "dead action",
+      "severity": "medium",
+      "desc": "页面关注按钮点击无任何效果",
+      "kind": "dead_action",
+      "trigger_depth": 3,
+      "prerequisites": [],
+      "match": {
+        "eid": "btn_watch"
+      },
+      "min_reproduction": [
+        "index.html: nav_pages",
+        "pages.html: wiki_page_p1",
+        "page.html: btn_watch"
+      ]
+    },
+    {
+      "id": "BUG-W4",
+      "category": "navigation loop",
+      "severity": "medium",
+      "desc": "快捷说明与快捷键互相链接，无法退出",
+      "kind": "nav_loop",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "cycle_urls_contains": "help.html"
+      },
+      "min_reproduction": [
+        "index.html: nav_help",
+        "help.html: btn_shortcuts",
+        "shortcuts.html: btn_help",
+        "help.html: btn_shortcuts",
+        "shortcuts.html: btn_help"
+      ]
+    },
+    {
+      "id": "BUG-W5",
+      "category": "form validation",
+      "severity": "high",
+      "desc": "标题为空时仍提示已发布",
+      "kind": "semantic",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "page_title_required"
+      },
+      "min_reproduction": [
+        "index.html: nav_editor",
+        "editor.html: btn_publish"
+      ]
+    },
+    {
+      "id": "BUG-W6",
+      "category": "state inconsistency",
+      "severity": "medium",
+      "desc": "恢复修订后展示修订号未更新",
+      "kind": "semantic",
+      "trigger_depth": 4,
+      "prerequisites": [
+        "open-page",
+        "history"
+      ],
+      "match": {
+        "assert_id": "display_rev_matches_restored"
+      },
+      "min_reproduction": [
+        "index.html: nav_pages",
+        "pages.html: wiki_page_p1",
+        "page.html: nav_history",
+        "history.html: rev_r1",
+        "revision.html: btn_restore_rev"
+      ]
+    },
+    {
+      "id": "BUG-W7",
+      "category": "boundary js error",
+      "severity": "medium",
+      "desc": "首页搜索词超过 24 字抛出未捕获 RangeError",
+      "kind": "js_error",
+      "trigger_depth": 1,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "wiki search query too long"
+      },
+      "min_reproduction": [
+        "index.html: search_box=25 chars",
+        "index.html: search_btn"
+      ]
+    },
+    {
+      "id": "BUG-W8",
+      "category": "http 5xx",
+      "severity": "high",
+      "desc": "远程预览 /api/preview 始终返回 500",
+      "kind": "http_error",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "/api/preview"
+      },
+      "min_reproduction": [
+        "index.html: nav_settings",
+        "settings.html: btn_api_preview"
+      ]
+    },
+    {
+      "id": "BUG-W9",
+      "category": "sequence-dependent",
+      "severity": "high",
+      "desc": "取消发布后仍显示已发布",
+      "kind": "semantic",
+      "trigger_depth": 4,
+      "prerequisites": [
+        "open-page"
+      ],
+      "match": {
+        "assert_id": "unpublish_clears_published"
+      },
+      "min_reproduction": [
+        "index.html: nav_pages",
+        "pages.html: wiki_page_p1",
+        "page.html: btn_unpublish"
+      ]
+    }
+  ]
+}

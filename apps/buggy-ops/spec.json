@@ -1,0 +1,81 @@
+{
+  "app": "buggy-ops",
+  "note": "Specification-driven semantic oracle. Uses ONLY page-presented values (data-obs / input values) - never internal app state.",
+  "assertions": [
+    {
+      "id": "inc_title_required",
+      "severity": "high",
+      "desc": "标题为空时不应提示已创建",
+      "when": {
+        "url_contains": "/compose"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "input_inc_title"
+          },
+          "right": {
+            "const": ""
+          }
+        },
+        "then": {
+          "op": "not_contains",
+          "left": {
+            "obs": "form_msg"
+          },
+          "right": {
+            "const": "已创建"
+          }
+        }
+      }
+    },
+    {
+      "id": "silence_display_matches_remaining",
+      "severity": "medium",
+      "desc": "告警页展示的剩余时间应与剩余值一致",
+      "when": {
+        "url_contains": "/alert.html"
+      },
+      "assert": {
+        "op": "eq",
+        "left": {
+          "obs": "silence_display"
+        },
+        "right": {
+          "obs": "silence_remaining"
+        }
+      }
+    },
+    {
+      "id": "reopen_clears_closed",
+      "severity": "high",
+      "desc": "已重开的事件不应仍显示为已关闭",
+      "when": {
+        "url_contains": "/incident.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "reopen_state"
+          },
+          "right": {
+            "const": "是"
+          }
+        },
+        "then": {
+          "op": "ne",
+          "left": {
+            "obs": "incident_status"
+          },
+          "right": {
+            "const": "已关闭"
+          }
+        }
+      }
+    }
+  ]
+}
