@@ -72,8 +72,6 @@ def test_product_ghost_default_has_frontier_off():
 def test_showcase_reads_v039_published_metrics():
     from dashboard.showcase import build_showcase
     s = build_showcase()
-    assert s["latest"]["round"] == "v0.3.9"
-    assert s["latest"]["outcome"] == "A"
     assert s["latest"]["product_default_changed"] is False
     rc = s["return_cycle"]
     assert rc["available"] is True
@@ -101,9 +99,11 @@ def test_showcase_reads_v038_shop_collapse():
 
 def test_showcase_missing_artifacts_do_not_crash():
     from dashboard.showcase import build_showcase
-    s = build_showcase(v039_root="/tmp/missing-v039", v038_root="/tmp/missing-v038")
+    s = build_showcase(v039_root="/tmp/missing-v039", v038_root="/tmp/missing-v038",
+                       v0310_root="/tmp/missing-v0310")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
+    assert s["fresh_transfer"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -118,10 +118,13 @@ def test_showcase_has_no_path_query():
 def test_showcase_endpoint_function_returns_payload():
     from dashboard.server import showcase
     body = showcase()
-    assert body["latest"]["round"] == "v0.3.9"
+    assert body["latest"]["round"] == "v0.3.10"
     assert body["latest"]["outcome"] == "A"
     assert body["return_cycle"]["baseline"]["states"] == 6
     assert body["return_cycle"]["candidate"]["cycle_escapes"] == 4
+    assert body["fresh_transfer"]["available"] is True
+    assert body["fresh_transfer"]["outcome"] == "A"
+    assert body["fresh_transfer"]["product_default_changed"] is False
 
 
 def test_showcase_evidence_file_counts():
@@ -131,6 +134,10 @@ def test_showcase_evidence_file_counts():
     assert s["return_cycle"]["reproduction"]["evidence_manifest_verified"] is True
     assert s["application_shape"]["reproduction"]["evidence_files"] == 27
     assert s["application_shape"]["reproduction"]["evidence_manifest_verified"] is True
+    assert s["fresh_transfer"]["reproduction"]["evidence_files"] >= 1
+    assert s["fresh_transfer"]["baseline"]["states"] == 6
+    assert s["fresh_transfer"]["candidate_run"]["cycle_escapes"] == 7
+    assert s["fresh_transfer"]["candidate_run"]["states"] == 35
 
 
 def test_index_has_three_views_and_live_ids():
@@ -138,7 +145,8 @@ def test_index_has_three_views_and_live_ids():
     for token in (
         'id="view-overview"', 'id="view-live"', 'id="view-evidence"',
         'id="run-form"', 'id="shot"', 'id="graph"', 'id="btn-run"',
-        'data-testid="return-cycle"', 'data-testid="live-viewport"',
+        'data-testid="return-cycle"', 'data-testid="fresh-transfer"',
+        'data-testid="live-viewport"',
         'id="theme-toggle"', 'data-testid="theme-toggle"',
     ):
         assert token in html

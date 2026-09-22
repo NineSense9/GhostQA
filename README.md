@@ -4,7 +4,9 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 算法层仍是 v0.3.2
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.10
+
+产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.10 的 return-cycle guard 是实验候选，不是产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
 
 | 能力 | 状态 |
 |---|---|
@@ -62,7 +64,7 @@ python -m dashboard.server --port 8787
 # 浏览器打开 http://127.0.0.1:8787/
 ```
 
-三个视图：**总览**（默认，含 v0.3.9 return-cycle 对照）、**实时探索**（浏览器截图 / 状态图 / 决策日志）、**研究证据**（freeze / clean clone / 复现命令）。v0.3.9 / v0.3.8 数字来自 `GET /api/showcase`，读取已提交的 `experiments/published/` 产物，不在页面里写死研究结果。演示步骤见 `docs/DEMO.md`。
+三个视图：**总览**（默认，含 v0.3.10 fresh-transfer 与 v0.3.9 return-cycle 对照）、**实时探索**（浏览器截图 / 状态图 / 决策日志）、**研究证据**（freeze / clean clone / 复现命令）。研究数字来自 `GET /api/showcase`，读取已提交的 `experiments/published/` 产物，不在页面里写死研究结果。演示步骤见 `docs/DEMO.md`。
 
 使用真实 LLM（可选，模型不可用时自动降级为 no-LLM 策略）：
 
@@ -134,6 +136,7 @@ python -m ghostqa run --url ... --policy ghost --llm ...
   - H2：全局失败；C1 billing entries 32/53/87/97，qty 从未落到负数。
   - Clean-clone：`python -m benchmark.application_shape_reproduce --root experiments/published/application-shape-v0.3.8 --verify`
 - **v0.3.9 return-cycle guard**（experimental）：exact `new_sig` repeat during return → abandon, not complete. **Outcome A** on inspected BuggyShop lock + DeepBench regression (D6/D12 kept, 0 escapes). Product default unchanged. `experiments/published/return-cycle-guard-v0.3.9/`
+- **v0.3.10 fresh transfer**（experimental, not default）：冻结 v0.3.9 guard 在新应用 BuggyDesk 上再次 escape（7 events，C1 6→35 states），S1–S7 安全套件通过，C1 未丢 bug。**Outcome A — one-target transfer, not generalization.** 产品默认不切。`python -m benchmark.fresh_transfer_reproduce --root experiments/published/fresh-transfer-v0.3.10 --verify`
 
 ## 架构
 
@@ -150,7 +153,8 @@ ghostqa/
 dashboard/        # v0.4 preview：总览 / 实时探索 / 研究证据（FastAPI + 单页）
 apps/buggy-shop/  # 浅层 benchmark
 apps/buggy-flow/  # DeepBench（冻结）
-benchmark/        # SimBench + WebBench（--app buggy-shop|buggy-flow）
+apps/buggy-desk/  # v0.3.10 fresh-transfer target（冻结）
+benchmark/        # SimBench + WebBench（--app buggy-shop|buggy-flow|buggy-desk）
 experiments/      # published/ 可引用证据；runs/ 本地大文件(gitignore)
 docs/             # PROJECT_PLAN / TECH_SURVEY / TRUTH_AUDIT / FAILURE_CORPUS / HANDOFF
 ```

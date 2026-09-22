@@ -1,0 +1,225 @@
+{
+  "name": "v0.3.10 fresh transfer",
+  "version": "v0.3.10",
+  "date": "2026-09-22",
+  "starting_head": "87c669f73a295ec7568a9a6f491c4ecb7a329188",
+  "executed": false,
+  "one_shot": true,
+  "one_shot_semantics": "Run the preregistered matrix once after protocol commit and fresh-target freeze commit. Rerun only exact cells that fail for infrastructure reasons. Do not change budgets, policies, seeds, or the app after seeing outcomes.",
+  "research_question": "Does the frozen v0.3.9 return-cycle guard transfer to a fresh application shape without introducing false escapes or return regressions?",
+  "success_means": "Protocol integrity and reproducible evidence, not necessarily Outcome A.",
+  "candidate": {
+    "identity": "ghost-structural-return-guard",
+    "constructor": "ReturnCycleGuardGhostPolicy",
+    "policy_name": "ghost-structural-return-guard",
+    "source": "ghostqa/exploration/return_cycle_guard.py",
+    "freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+    "cycle_key": "new_sig",
+    "cycle_rule": "During an unresolved return phase, arriving at an exact destination signature already seen in that phase (parent not matched) is a return cycle. First exact repeat triggers escape. No N, no cluster-only trigger, no app hardcode.",
+    "escape_semantics": "Abandon active branch: returning=false, active_branch empty, parent cleared, commitment_left=0. Do not _complete_branch. Do not increment return_success / completed_total. Do not add to returned/completed. Event return_cycle_escape; optional sequence_terminal outcome return_cycle_abandoned if instance still open."
+  },
+  "historical_c1": {
+    "identity": "ghost-structural-memory",
+    "constructor": "GhostPolicy",
+    "config": {"llm": null, "use_frontier": false, "sequence_mode": "structural"},
+    "freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json"
+  },
+  "product_default": {
+    "policy": "NoFrontier",
+    "sequence_mode": "off",
+    "unchanged": true,
+    "promotion_prohibited": true
+  },
+  "fresh_target": {
+    "name": "buggy-desk",
+    "path": "apps/buggy-desk/",
+    "freeze": "experiments/frozen/buggy-desk-v0.3.10/freeze.json",
+    "description": "Deterministic internal support/service-desk Web benchmark, distinct from BuggyShop and BuggyFlow."
+  },
+  "policies": {
+    "primary": ["ghost-structural-memory", "ghost-structural-return-guard"],
+    "context": ["ghost-nollm", "bfs", "dfs"],
+    "optional_preregistered": [],
+    "excluded": ["monkey", "ghost-sequence", "ghost-contextual", "ghost-contextual-crossview"]
+  },
+  "matrix": {
+    "app": "buggy-desk",
+    "policies": [
+      "ghost-structural-memory",
+      "ghost-structural-return-guard",
+      "ghost-nollm",
+      "bfs",
+      "dfs"
+    ],
+    "budgets": [40, 80, 120],
+    "primary_budget": 120,
+    "seeds": [1],
+    "seed_rationale": "All matrix policies are deterministic (GhostPolicy without LLM, BFS, DFS). No RandomPolicy/Monkey. Single seed is seed-invariant.",
+    "independent_trial": false,
+    "skip_minimize": true,
+    "dump_evidence": true
+  },
+  "metrics": [
+    "actions",
+    "states",
+    "clusters",
+    "variants",
+    "normalized_unique_urls",
+    "candidates",
+    "confirmed_bug_count",
+    "confirmed_bug_ids",
+    "BDR",
+    "Deep-BDR",
+    "discovery_auc",
+    "TTCB",
+    "TTDCB",
+    "replay_pass",
+    "replay_fail",
+    "replay_invalid",
+    "repeat_rate",
+    "wall_time",
+    "canonical_hub_count",
+    "unique_branches_discovered",
+    "unique_branches_started",
+    "branch_start_events",
+    "branch_attempts_per_unique_branch",
+    "return_attempt_events",
+    "sequence_instances_returned",
+    "sequence_lost_parent",
+    "mean_sequence_length",
+    "max_sequence_length"
+  ],
+  "guard_metrics": [
+    "return_cycle_escape_events",
+    "return_cycle_abandoned_branches",
+    "sequence_return_cycle_abandoned",
+    "first_escape_step",
+    "repeated_destination_sig",
+    "parent",
+    "branch_key",
+    "post_escape_novel_state_count",
+    "post_escape_novel_url_count",
+    "post_escape_novel_urls"
+  ],
+  "c1_cycle_detector": {
+    "purpose": "measurement only",
+    "affects_c1_decisions": false,
+    "rule": "An evaluable return-cycle opportunity exists when an unresolved return phase revisits the same exact destination signature before matching the recorded parent.",
+    "reports": ["opportunity_count", "step", "branch", "whether_return_later_succeeded"],
+    "consistency": "For guard, every escape should correspond to such an opportunity."
+  },
+  "safety_suite": {
+    "independent_from_buggydesk_bdr": true,
+    "scenarios": {
+      "S1": {"name": "direct successful return", "expected": "returned terminal, zero escape"},
+      "S2": {"name": "multi-step successful return", "expected": "successful return, zero escape"},
+      "S3": {"name": "same cluster, distinct exact variants", "expected": "zero escape solely because cluster repeats/similarity occurs"},
+      "S4": {"name": "exact self-loop", "expected": "exactly one escape, abandoned, not returned"},
+      "S5": {"name": "short A→B→A cycle", "expected": "escape on first exact repeated destination, branch abandoned, no return success"},
+      "S6": {"name": "history reset between branches", "expected": "cycle history from branch one must not poison branch two"},
+      "S7": {"name": "finding then cycle", "expected": "finding followed by cycle escape must not convert into successful return"}
+    }
+  },
+  "safety_metrics": [
+    "successful_return_scenarios_c1_guard",
+    "false_escapes_S1_S2_S3",
+    "expected_escapes_S4_S5",
+    "c1_confirmed_bugs_lost_by_guard",
+    "successful_return_branch_keys_lost_by_guard",
+    "escape_incorrectly_counted_returned_or_completed",
+    "historical_v039_safety_regressions"
+  ],
+  "contamination": {
+    "do_not_tune_on": [
+      "BuggyShop",
+      "DeepBench D1-D14",
+      "BuggyFlow holdout H1/H2",
+      "v0.3.8 traces",
+      "v0.3.9 traces",
+      "new fresh-app target results"
+    ],
+    "no_new_from_target_outcomes": [
+      "thresholds",
+      "weights",
+      "keywords",
+      "URL exceptions",
+      "parent heuristics",
+      "app-specific logic"
+    ],
+    "prefer_zero_changes_to": "ghostqa/exploration/return_cycle_guard.py",
+    "buggy_shop": "excluded from this round; historical inspected case only",
+    "deepbench": "historical regression only, not a tuning or generalization target",
+    "h1_h2": "excluded",
+    "fresh_target_results": "must not be used to change candidate behavior in this round"
+  },
+  "outcome_gates": {
+    "A": {
+      "label": "fresh transfer with safety",
+      "all": [
+        "Fresh target contains at least one evaluable return-cycle opportunity under primary budget 120.",
+        "Guard emits at least one valid return_cycle_escape on fresh target.",
+        "At least one escape is followed by novel state or novel URL absent from corresponding C1 evidence.",
+        "Guard @120 loses no C1 confirmed bug.",
+        "S1/S2/S3 produce zero escapes.",
+        "S4/S5 produce expected abandonment and zero successful-return inflation.",
+        "Historical DeepBench/v0.3.9 regression evidence still verifies.",
+        "Candidate/fresh-target freeze integrity passes."
+      ],
+      "interpretation": "one fresh application transfer under a frozen candidate",
+      "not": [
+        "universal generalization",
+        "guard beats BFS/DFS generally"
+      ]
+    },
+    "B": {
+      "label": "safe but no demonstrated transfer benefit",
+      "when": "Safety passes, no C1 bug loss, but no fresh escape, or escape produces no measurable post-escape novelty, or guard/C1 are effectively equivalent."
+    },
+    "C": {
+      "label": "harmful/regression",
+      "any": [
+        "S1/S2/S3 false escape",
+        "escape counted returned/completed",
+        "guard loses any C1 confirmed bug @120",
+        "clear branch-return safety regression",
+        "historical freeze/regression invariant fails because of this round"
+      ]
+    },
+    "D": {
+      "label": "inconclusive target",
+      "when": "Fresh target never produces an evaluable return-cycle opportunity under preregistered budget while safety otherwise passes.",
+      "stop": "Do not raise budget or redesign app after seeing D."
+    }
+  },
+  "stop_rules": {
+    "no_algorithm_change_after_target_eval": true,
+    "no_threshold_N": true,
+    "no_cluster_only_trigger": true,
+    "no_url_exclusions": true,
+    "no_page_name_hardcodes": true,
+    "no_buggydesk_keyword_exceptions": true,
+    "no_budget_raise_after_outcome": true,
+    "no_app_redesign_after_outcome": true,
+    "product_default_unchanged": true,
+    "no_generalization_claim": true,
+    "no_same_round_algorithm_fix_after_outcome": true
+  },
+  "git_phase_gates": {
+    "before_target_policy_run_require": [
+      "protocol commit",
+      "fresh target freeze commit"
+    ]
+  },
+  "authoring_bias_disclosure_required": [
+    "BuggyDesk was authored after v0.3.9 existed.",
+    "v0.3.9 candidate was frozen before target evaluation.",
+    "BuggyDesk was frozen before policy evaluation.",
+    "This is a fresh one-target cross-app transfer test, not an independently designed external benchmark and not universal generalization proof."
+  ],
+  "published_root": "experiments/published/fresh-transfer-v0.3.10/",
+  "verify_command": "python -m benchmark.fresh_transfer_reproduce --root experiments/published/fresh-transfer-v0.3.10 --verify",
+  "historical_verify": [
+    "python -m benchmark.return_cycle_guard_reproduce --root experiments/published/return-cycle-guard-v0.3.9 --verify",
+    "python -m benchmark.application_shape_reproduce --root experiments/published/application-shape-v0.3.8 --verify"
+  ]
+}

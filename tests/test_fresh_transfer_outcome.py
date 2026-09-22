@@ -2,6 +2,7 @@
 from benchmark.fresh_transfer_analysis import (
     derive_outcome, detect_return_cycle_opportunities, OUTCOME_MEANING,
 )
+from benchmark.return_cycle_safety import collect_safety_suite
 
 
 def _ok_safety():
@@ -95,6 +96,16 @@ def test_detector_flags_repeat_before_parent():
     assert len(opps) == 1
     assert opps[0]["repeated_destination_sig"] == "B"
     assert opps[0]["return_later_succeeded"] is False
+
+
+def test_safety_suite_all_pass():
+    suite = collect_safety_suite()
+    assert suite["all_pass"] is True
+    assert suite["s1_escapes"] == 0
+    assert suite["s2_escapes"] == 0
+    assert suite["s3_escapes"] == 0
+    assert suite["s4_escapes"] == 1
+    assert suite["s5_escapes"] == 1
 
 
 def test_detector_parent_match_is_not_opportunity():

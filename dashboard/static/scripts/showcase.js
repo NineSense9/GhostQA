@@ -108,13 +108,16 @@ function renderReturnCycle(rc) {
   if (title && b.states != null) {
     title.textContent = '打断 return loop 后，探索从 ' + b.states + ' 个状态继续向外走';
   }
-  setText('proof-round', rc.round || 'v0.3.9');
-  setText('proof-b-states', b.states);
-  setText('proof-g-states', g.states);
-  setText('proof-b-ret', b.return_attempts);
-  setText('proof-g-ret', g.return_attempts);
-  setText('proof-esc', g.cycle_escapes);
-  setText('proof-outcome', rc.outcome || 'A');
+  if (!window.GhostQA || !GhostQA.showcase || !GhostQA.showcase.fresh_transfer
+      || !GhostQA.showcase.fresh_transfer.available) {
+    setText('proof-round', rc.round || 'v0.3.9');
+    setText('proof-b-states', b.states);
+    setText('proof-g-states', g.states);
+    setText('proof-b-ret', b.return_attempts);
+    setText('proof-g-ret', g.return_attempts);
+    setText('proof-esc', g.cycle_escapes);
+    setText('proof-outcome', rc.outcome || 'A');
+  }
   const delta = gid('rc-delta');
   if (delta) {
     delta.innerHTML =
@@ -155,12 +158,92 @@ function yn(v) {
   return '—';
 }
 
+function renderFreshTransfer(ft) {
+  const sec = document.querySelector('[data-testid="fresh-transfer"]');
+  if (!ft || !ft.available) {
+    if (sec && !sec.querySelector('[data-unavailable]')) {
+      const note = document.createElement('p');
+      note.className = 'limit-note';
+      note.dataset.unavailable = '1';
+      note.textContent = '暂时无法读取已发布证据';
+      sec.appendChild(note);
+    }
+    return;
+  }
+  const b = ft.baseline || {};
+  const g = ft.candidate_run || {};
+  setText('ft-b-states', b.states);
+  setText('ft-b-urls', b.urls);
+  setText('ft-b-ret', b.return_attempts);
+  setText('ft-b-opp', b.opportunities);
+  setText('ft-g-states', g.states);
+  setText('ft-g-urls', g.urls);
+  setText('ft-g-ret', g.return_attempts);
+  setText('ft-g-esc', g.cycle_escapes);
+  const bugsEl = gid('ft-bugs');
+  if (bugsEl) {
+    const bits = [];
+    const bugs = shortBugs(g.confirmed);
+    if (bugs) bits.push('已确认 ' + bugs);
+    if (g.post_escape_new_states != null) {
+      bits.push('逃出后新状态 ' + g.post_escape_new_states + ' 个');
+    }
+    bits.push('BuggyDesk · 非广泛泛化');
+    bugsEl.textContent = bits.join(' · ');
+  }
+  const delta = gid('ft-delta');
+  if (delta) {
+    delta.innerHTML =
+      `<span>状态 <b>${escapeHtml(b.states)}</b> → <b>${escapeHtml(g.states)}</b></span>` +
+      `<span>URL <b>${escapeHtml(b.urls)}</b> → <b>${escapeHtml(g.urls)}</b></span>` +
+      `<span>return attempt <b>${escapeHtml(b.return_attempts)}</b> → <b>${escapeHtml(g.return_attempts)}</b></span>` +
+      `<span>cycle escape <b>${escapeHtml(g.cycle_escapes)}</b></span>`;
+  }
+  const oc = gid('ft-outcome');
+  if (oc) oc.textContent = ft.outcome ? ('Outcome ' + ft.outcome) : 'Outcome';
+  const om = gid('ft-outcome-mean');
+  if (om) {
+    om.textContent = (ft.outcome_meaning || '') +
+      '。冻结 guard 在新应用上再次触发；成功返回安全用例没有误触发。';
+  }
+  setText('proof-round', ft.round || 'v0.3.10');
+  setText('proof-b-states', b.states);
+  setText('proof-g-states', g.states);
+  setText('proof-b-ret', b.return_attempts);
+  setText('proof-g-ret', g.return_attempts);
+  setText('proof-esc', g.cycle_escapes);
+  setText('proof-outcome', ft.outcome || '—');
+}
+
 function renderEvidence(data) {
   const rc = (data && data.return_cycle) || {};
   const app = (data && data.application_shape) || {};
+  const ft = (data && data.fresh_transfer) || {};
+  const ev0310 = gid('ev-v0310');
   const ev039 = gid('ev-v039');
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
+
+  if (ev0310) {
+    if (!ft.available) {
+      ev0310.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = ft.reproduction || {};
+      ev0310.innerHTML = [
+        statusRow('轮次结果', ft.outcome ? ('Outcome ' + ft.outcome) : '—', ft.outcome === 'A'),
+        statusRow('目标 freeze', yn(r.target_freeze_verified), r.target_freeze_verified),
+        statusRow('候选 freeze', yn(r.candidate_freeze_verified), r.candidate_freeze_verified),
+        statusRow('证据清单', fileLabel(r.evidence_files, r.evidence_manifest_verified),
+          r.evidence_manifest_verified),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', ft.product_default_changed ? '已改' : '未改',
+          ft.product_default_changed === false),
+        hashRow('Metrics SHA256', r.metrics_sha256, r.metrics_sha256_short),
+      ].join('');
+    }
+  }
+  const cmd0310 = ft.command || (ft.reproduction && ft.reproduction.command) || '';
+  if (gid('ev-cmd-0310')) gid('ev-cmd-0310').textContent = cmd0310;
 
   if (ev039) {
     if (!rc.available) {
@@ -204,8 +287,8 @@ function renderEvidence(data) {
 
   if (rail) {
     const latest = (data && data.latest) || {};
-    const r = rc.reproduction || {};
-    if (!rc.available && !app.available) {
+    const r = (ft.reproduction || rc.reproduction || {});
+    if (!ft.available && !rc.available && !app.available) {
       rail.innerHTML = '<h2>当前研究</h2><p>暂时无法读取已发布证据</p>';
     } else {
       rail.innerHTML =
@@ -213,8 +296,8 @@ function renderEvidence(data) {
         `<p>机制轮次<br><b>${escapeHtml(latest.round || '—')} ${escapeHtml(latest.title || '')}</b></p>` +
         `<p>复现校验<br><b>${r.clean_clone_verified ? 'clean clone 已通过' : '—'}</b></p>` +
         `<p>产品默认<br><b>${latest.product_default_changed ? '已改' : '未改'}</b></p>` +
-        (rc.product_default
-          ? `<p>配置<br><b>${escapeHtml(rc.product_default)}</b></p>` : '');
+        ((ft.product_default || rc.product_default)
+          ? `<p>配置<br><b>${escapeHtml(ft.product_default || rc.product_default)}</b></p>` : '');
     }
   }
 }
@@ -275,6 +358,7 @@ async function loadShowcase() {
     const data = await res.json();
     GhostQA.showcase = data;
     renderReturnCycle(data.return_cycle);
+    renderFreshTransfer(data.fresh_transfer);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

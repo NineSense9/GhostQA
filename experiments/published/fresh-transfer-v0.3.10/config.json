@@ -1,0 +1,27 @@
+{
+  "budgets": [
+    40,
+    80,
+    120
+  ],
+  "candidate_freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+  "expected_metrics_sha256": "bcabdc7436cdf8e4edc465af918a31c19a80819b1c9e33101dcc3d7d710713db",
+  "fresh_target_freeze": "experiments/frozen/buggy-desk-v0.3.10/freeze.json",
+  "fresh_target_freeze_commit": "723b8a19cb62f097732e06cb359de4fe13f9efbe",
+  "hash_normalization": "LF newlines",
+  "historical_c1_freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json",
+  "policies": [
+    "ghost-structural-memory",
+    "ghost-structural-return-guard",
+    "ghost-nollm",
+    "bfs",
+    "dfs"
+  ],
+  "product_default": "NoFrontier, sequence_mode=off",
+  "protocol": "experiments/validation/v0.3.10/protocol.json",
+  "protocol_commit": "7beec83c7312f1395e8169e07d1534b8ca11ef8e",
+  "round": "v0.3.10 Fresh Transfer",
+  "seed": 1,
+  "seed_invariant": true,
+  "verify_command": "python -m benchmark.fresh_transfer_reproduce --root experiments/published/fresh-transfer-v0.3.10 --verify"
+}

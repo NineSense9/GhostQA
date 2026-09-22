@@ -12,6 +12,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 PUBLISHED = os.path.join(ROOT, "experiments", "published")
 V039 = os.path.join(PUBLISHED, "return-cycle-guard-v0.3.9")
 V038 = os.path.join(PUBLISHED, "application-shape-v0.3.8")
+V0310 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.10")
 
 
 def _load(path, default=None):
@@ -149,24 +150,117 @@ def _v038(root: str | None = None) -> dict:
     }
 
 
-def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None) -> dict:
+def _v0310(root: str | None = None) -> dict:
+    base = root or V0310
+    metrics = _load(os.path.join(base, "metrics", "metrics.json"))
+    repro = _load(os.path.join(base, "metrics", "reproduction.json"))
+    config = _load(os.path.join(base, "config.json"))
+    man = _load(os.path.join(base, "evidence-manifest.json"))
+    if not metrics:
+        return {"available": False}
+    derived = metrics.get("derived") or {}
+    interp = metrics.get("interpretation") or {}
+    c1 = metrics.get("c1_120") or {}
+    guard = metrics.get("guard_120") or {}
+    safety = metrics.get("safety") or {}
+    table = (metrics.get("observed") or {}).get("table_120") or []
+    n_files = len((man or {}).get("files") or [])
+    return {
+        "available": True,
+        "round": "v0.3.10",
+        "title": "Fresh Cross-App Transfer",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": interp.get("outcome_meaning") or derived.get("outcome_meaning"),
+        "target": "buggy-desk",
+        "candidate": "ghost-structural-return-guard",
+        "product_default_changed": bool(interp.get("product_default_changed")),
+        "generalization_claim": bool(interp.get("generalization_claim")),
+        "scope": interp.get("scope"),
+        "baseline": {
+            "states": c1.get("states"),
+            "urls": c1.get("normalized_unique_urls"),
+            "return_attempts": c1.get("return_attempt_events"),
+            "successful_return": c1.get("successful_return_to_parent_events"),
+            "opportunities": c1.get("c1_opportunity_count"),
+            "confirmed": c1.get("confirmed_bugs") or [],
+        },
+        "candidate_run": {
+            "states": guard.get("states"),
+            "urls": guard.get("normalized_unique_urls"),
+            "return_attempts": guard.get("return_attempt_events"),
+            "successful_return": guard.get("successful_return_to_parent_events"),
+            "cycle_escapes": guard.get("return_cycle_escape_events"),
+            "post_escape_new_states": guard.get("post_escape_novel_state_count"),
+            "post_escape_new_urls": guard.get("post_escape_novel_urls") or [],
+            "absent_from_c1_urls": guard.get("absent_from_c1_urls") or [],
+            "escape_step": guard.get("first_escape_step"),
+            "confirmed": guard.get("confirmed_bugs") or [],
+            "bdr": guard.get("bug_discovery_rate"),
+            "deep_bdr": guard.get("deep_bug_discovery_rate"),
+        },
+        "safety": {
+            "all_pass": bool(safety.get("all_pass")),
+            "s1_escapes": safety.get("s1_escapes"),
+            "s2_escapes": safety.get("s2_escapes"),
+            "s3_escapes": safety.get("s3_escapes"),
+            "s4_escapes": safety.get("s4_escapes"),
+            "s5_escapes": safety.get("s5_escapes"),
+        },
+        "table_120": table,
+        "lost_c1_confirmed": derived.get("lost_c1_confirmed") or [],
+        "reproduction": {
+            "clean_clone_verified": bool((repro or {}).get("clean_clone_verified")),
+            "match": bool((repro or {}).get("match")),
+            "command": (repro or {}).get("command") or (config or {}).get("verify_command"),
+            "metrics_sha256": (repro or {}).get("expected_metrics_sha256"),
+            "metrics_sha256_short": _short_hash(
+                (repro or {}).get("expected_metrics_sha256") or ""),
+            "evidence_files": n_files,
+            "candidate_freeze_verified": bool((repro or {}).get("candidate_freeze_verified")),
+            "historical_c1_freeze_verified": bool(
+                (repro or {}).get("historical_c1_freeze_verified")),
+            "target_freeze_verified": bool((repro or {}).get("target_freeze_verified")),
+            "evidence_manifest_verified": bool(
+                (repro or {}).get("evidence_manifest_verified")),
+        },
+        "product_default": (config or {}).get("product_default"),
+        "command": (config or {}).get("verify_command") or (
+            (repro or {}).get("command")),
+    }
+
+
+def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None,
+                   v0310_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
-    latest = {
-        "round": "v0.3.9",
-        "title": "Return-Cycle Guard",
-        "available": bool(v039.get("available")),
-        "outcome": v039.get("outcome") if v039.get("available") else None,
-        "product_default_changed": (
-            v039.get("product_default_changed") if v039.get("available") else None),
-    }
+    v0310 = _v0310(v0310_root)
+    if v0310.get("available"):
+        latest = {
+            "round": "v0.3.10",
+            "title": "Fresh Cross-App Transfer",
+            "available": True,
+            "outcome": v0310.get("outcome"),
+            "product_default_changed": v0310.get("product_default_changed"),
+        }
+        latest_research = "v0.3.10"
+    else:
+        latest = {
+            "round": "v0.3.9",
+            "title": "Return-Cycle Guard",
+            "available": bool(v039.get("available")),
+            "outcome": v039.get("outcome") if v039.get("available") else None,
+            "product_default_changed": (
+                v039.get("product_default_changed") if v039.get("available") else None),
+        }
+        latest_research = "v0.3.9"
     return {
         "project": {
             "name": "GhostQA",
             "product_preview": "v0.4 preview",
-            "latest_research": "v0.3.9",
+            "latest_research": latest_research,
         },
         "latest": latest,
+        "fresh_transfer": v0310,
         "return_cycle": v039,
         "application_shape": v038,
         "timeline": [
@@ -178,5 +272,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
              "kind": "application-shape analysis"},
             {"round": "v0.3.9", "title": "Return-Cycle Guard",
              "kind": "mechanism repair"},
+            {"round": "v0.3.10", "title": "Fresh Cross-App Transfer",
+             "kind": "one-target transfer"},
         ],
     }
