@@ -1,0 +1,346 @@
+{
+  "name": "v0.3.12 nested-hub parent preservation",
+  "version": "v0.3.12",
+  "date": "2026-09-22",
+  "starting_head": "ab7a11031fe9f3f0ad84aaa67a9e33dc9bef4d85",
+  "executed": false,
+  "one_shot": true,
+  "one_shot_semantics": "After this protocol commit and the later candidate-freeze commit, run the 18-cell mechanism matrix once. Rerun only an exact cell that fails for infrastructure reasons. Do not change the candidate, budgets, seeds, or CRM/Ops targets after seeing outcomes.",
+  "research_question": "Can a minimal parameter-free nested-hub preservation rule prevent active outer sequences from being prematurely terminated as lost_parent, allowing them to reach horizon/return without breaking the proven return-cycle safety behavior?",
+  "question_kind": "mechanism-repair",
+  "success_means": "Protocol integrity and reproducible evidence, not a fresh-generalization claim.",
+  "not": [
+    "fresh generalization",
+    "universal",
+    "production-ready",
+    "product default change"
+  ],
+  "inspected_mechanism_cases": [
+    {
+      "name": "buggy-crm",
+      "role": "frozen v0.3.11 target, now a mechanism-development case",
+      "freeze": "experiments/frozen/v0.3.11-multitarget/buggy-crm/freeze.json",
+      "historical_evidence": "experiments/published/multi-target-replication-v0.3.11/evidence/buggy-crm/"
+    },
+    {
+      "name": "buggy-ops",
+      "role": "frozen v0.3.11 target, now a mechanism-development case",
+      "freeze": "experiments/frozen/v0.3.11-multitarget/buggy-ops/freeze.json",
+      "historical_evidence": "experiments/published/multi-target-replication-v0.3.11/evidence/buggy-ops/"
+    }
+  ],
+  "historical_regression_cases": [
+    {
+      "name": "buggy-wiki",
+      "budget": 120,
+      "reference": "experiments/published/multi-target-replication-v0.3.11/",
+      "reference_policy": "ghost-structural-return-guard",
+      "must_not_lose_confirmed": true
+    },
+    {
+      "name": "buggy-desk",
+      "budget": 120,
+      "reference": "experiments/published/fresh-transfer-v0.3.10/",
+      "reference_policy": "ghost-structural-return-guard",
+      "must_not_lose_confirmed": true
+    },
+    {
+      "name": "buggy-shop",
+      "budget": 120,
+      "reference": "experiments/published/return-cycle-guard-v0.3.9/",
+      "reference_policy": "ghost-structural-return-guard",
+      "must_not_lose_confirmed": true
+    },
+    {
+      "name": "deepbench",
+      "app": "buggy-flow",
+      "budget": 120,
+      "reference": "experiments/published/return-cycle-guard-v0.3.9/",
+      "reference_policy": "ghost-structural-return-guard",
+      "must_not_lose_confirmed": true
+    }
+  ],
+  "frozen_historical_identities": {
+    "c1": {
+      "identity": "ghost-structural-memory",
+      "constructor": "GhostPolicy",
+      "config": {"llm": null, "use_frontier": false, "sequence_mode": "structural"},
+      "freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json"
+    },
+    "return_cycle_guard": {
+      "identity": "ghost-structural-return-guard",
+      "constructor": "ReturnCycleGuardGhostPolicy",
+      "freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+      "source": "ghostqa/exploration/return_cycle_guard.py"
+    }
+  },
+  "candidate": {
+    "identity": "ghost-structural-nested-return-guard",
+    "constructors": [
+      "NestedHubPreservingSequenceController",
+      "NestedHubReturnGuardGhostPolicy"
+    ],
+    "policy_name": "ghost-structural-nested-return-guard",
+    "source": "ghostqa/exploration/nested_hub_guard.py",
+    "freeze": "experiments/frozen/ghost-nested-hub-guard-v0.3.12/freeze.json",
+    "product_default": false,
+    "research_only": true,
+    "combines": [
+      "structural sequence behavior",
+      "v0.3.9 exact-repeat return-cycle guard semantics",
+      "one nested-hub preservation rule"
+    ],
+    "no_parent_stack": true,
+    "parameter_free": true,
+    "no_threshold_N": true,
+    "no_timeout": true,
+    "no_url_condition": true,
+    "no_cluster_only_trigger": true,
+    "no_app_specific_rule": true
+  },
+  "semantic_rule": {
+    "event": "nested_branch_followup",
+    "when_all": [
+      "mode is sequence-like",
+      "current state is a hub",
+      "chosen action is a branch click",
+      "an outer sequence instance is open",
+      "ledger.active_branch is non-empty",
+      "ledger.returning is false",
+      "ledger.commitment_left > 0"
+    ],
+    "do": [
+      "record the nested hub and nested branch discovery",
+      "record that the branch action was traversed",
+      "emit nested_branch_followup",
+      "preserve the outer sequence instance",
+      "preserve outer active_branch",
+      "preserve outer parent_hub_sig and parent_hub_cluster",
+      "count the action inside the outer sequence",
+      "decrement the existing commitment budget",
+      "continue normal relation, finding, crash, and horizon logic",
+      "keep v0.3.9 exact-signature return-cycle escape once return phase begins"
+    ],
+    "do_not": [
+      "emit sequence_terminal outcome=lost_parent for the outer instance",
+      "create a new sequence instance",
+      "emit branch_start for a new sequence instance",
+      "increment sequence_instances_started for the nested click",
+      "overwrite parent_hub_sig or parent_hub_cluster",
+      "reset commitment_left to BRANCH_HORIZON",
+      "reset returning",
+      "fabricate a successful return",
+      "mark the nested branch completed",
+      "count the follow-up as returned",
+      "count an escape as returned"
+    ],
+    "event_fields": [
+      "outer_branch",
+      "outer_parent_hub_sig",
+      "outer_parent_hub_cluster",
+      "nested_hub_sig",
+      "nested_hub_cluster",
+      "nested_branch_key",
+      "commitment_left_before",
+      "sequence_instance_id"
+    ],
+    "ledger_policy": "Discover the nested branch and mark it observed in candidate-only nested-followup accounting. Increment the structural attempt counter so the branch is not left looking never-tried. Do not add it to BranchRec.started and do not open a sequence instance.",
+    "candidate_metrics": [
+      "nested_branch_followup_events",
+      "unique_nested_branches_followed",
+      "nested_preemption_avoided_events"
+    ],
+    "avoided_preemption_relation": "Each nested_branch_followup is one avoided commitment-window lost_parent. The two counters increment together. Neither is a return success."
+  },
+  "return_cycle_guard_semantics": {
+    "unchanged": true,
+    "cycle_key": "new_sig",
+    "rule": "During an unresolved return phase, the first repeated exact destination signature before the recorded parent matches is a return cycle.",
+    "escape": "Abandon the return obligation. Do not count returned or completed."
+  },
+  "detector": {
+    "module": "benchmark/nested_hub_detector.py",
+    "affects_decisions": false,
+    "rule": "A nested-hub preemption is an open sequence terminated lost_parent at a hub branch click before that instance has emitted sequence_horizon_reached or return_attempt.",
+    "commitment_window": "The pre-after step ledger shows returning false and commitment_left > 0.",
+    "historical_expectation": "CRM and Ops guard evidence contain commitment-window preemptions and zero return phase. Wiki reaches horizon and return, with fewer preemptions than CRM or Ops. Counts are not hardcoded in the detector."
+  },
+  "outcome_module": "benchmark/nested_hub_analysis.py",
+  "product_default": {
+    "policy": "NoFrontier",
+    "sequence_mode": "off",
+    "unchanged": true,
+    "promotion_prohibited": true
+  },
+  "prohibited_changes": [
+    "ghostqa/exploration/sequence.py",
+    "ghostqa/exploration/return_cycle_guard.py",
+    "ghostqa/exploration/policy.py",
+    "ghostqa/exploration/sequence_memory.py",
+    "ghostqa/exploration/interaction.py",
+    "ghostqa/exploration/payload.py",
+    "apps/buggy-crm",
+    "apps/buggy-ops",
+    "apps/buggy-wiki",
+    "historical frozen controllers",
+    "product default GhostPolicy"
+  ],
+  "prohibited_inputs": [
+    "bug ids",
+    "bugs.manifest.json",
+    "topology manifest",
+    "known trigger paths",
+    "app-specific URL or page rules"
+  ],
+  "policies": {
+    "C1": "ghost-structural-memory",
+    "G": "ghost-structural-return-guard",
+    "N": "ghost-structural-nested-return-guard"
+  },
+  "matrix": {
+    "apps": ["buggy-crm", "buggy-ops"],
+    "policies": [
+      "ghost-structural-memory",
+      "ghost-structural-return-guard",
+      "ghost-structural-nested-return-guard"
+    ],
+    "budgets": [40, 80, 120],
+    "seeds": [1],
+    "cells_total": 18,
+    "skip_minimize": true,
+    "dump_evidence": true,
+    "baselines_excluded": ["bfs", "dfs", "monkey"],
+    "seed_rationale": "Deterministic policies. v0.3.11 already records BFS/DFS context. Do not change budgets after the outcome."
+  },
+  "primary_metrics": [
+    "states",
+    "clusters",
+    "variants",
+    "normalized_unique_urls",
+    "bug_discovery_rate",
+    "confirmed_bugs",
+    "branch_start_events",
+    "sequence_instances_started",
+    "sequence_lost_parent",
+    "sequence_horizon_reached",
+    "return_attempt_events",
+    "sequence_instances_returned",
+    "successful_return_to_parent_events",
+    "return_cycle_escape_events",
+    "nested_branch_followup_events",
+    "unique_nested_branches_followed",
+    "nested_preemption_avoided_events",
+    "repeat_rate",
+    "discovery_auc"
+  ],
+  "candidate_timeline_metrics": [
+    "first_nested_followup_step",
+    "first_horizon_step_after_followup",
+    "first_return_attempt_step",
+    "first_escape_step",
+    "first_novel_state_step_after_followup",
+    "first_novel_url_after_followup"
+  ],
+  "mechanism_repair": {
+    "all": [
+      "historical G evidence contains at least one detected nested-hub preemption",
+      "N emits nested_branch_followup for that mechanism class",
+      "N has zero commitment-window lost_parent terminals",
+      "N reaches sequence_horizon_reached or a finding/crash terminal after a preserved follow-up",
+      "N reaches return phase: return_attempt_events > 0 OR sequence_instances_returned > 0 OR return_cycle_escape_events > 0",
+      "N states > G states OR N normalized URLs > G URLs"
+    ],
+    "bug_discovery_not_required": true
+  },
+  "safety_tests": {
+    "N1": "nested branch click does not emit lost_parent; outer instance, branch, and parent remain; nested_branch_followup is emitted",
+    "N2": "commitment_left decreases by the normal step and is not reset to BRANCH_HORIZON",
+    "N3": "enough follow-up actions reach sequence_horizon_reached and returning becomes true",
+    "N4": "return still targets the original outer parent and counts exactly once",
+    "N5": "exact A-B-A repeat before the parent yields one escape and no returned/completed inflation",
+    "N6": "no open outer instance: branch_start matches the historical controller",
+    "N7": "commitment_left <= 0 or returning true: preservation does not invent a commitment; behavior matches the historical controller",
+    "N8": "finding during a nested follow-up emits one finding terminal; a later cycle escape is L2 with no second terminal",
+    "N9": "crash during a nested follow-up stays a single auditable crash terminal",
+    "N10": "the nested branch is visible in events and metrics and does not start an independent sequence",
+    "N11": "a repeated visit to the same nested hub does not reset parent or commitment",
+    "N12": "reset() clears candidate nested state",
+    "S1_S7": "existing direct return, multi-step return, same-cluster variants, self-loop, A-B-A, history reset, finding-then-cycle",
+    "exhaustive": "bounded return model, at least 5800 traces, zero failures, on the historical guard and on this candidate",
+    "differential": "traces with no commitment-window nested hub branch click match v0.3.9 guard behavior"
+  },
+  "outcome_gates": {
+    "A": {
+      "label": "mechanism repaired, regression-safe",
+      "all": [
+        "candidate freeze passes",
+        "historical freezes pass",
+        "N1-N12 pass",
+        "S1-S7 pass",
+        "exhaustive return-cycle model check has zero failures and at least 5800 traces",
+        "CRM demonstrates nested-hub mechanism repair",
+        "Ops demonstrates nested-hub mechanism repair",
+        "zero commitment-window lost_parent remains on the candidate",
+        "zero return-success or completed inflation",
+        "no confirmed bug loss versus the historical guard on Wiki, BuggyDesk, BuggyShop, and DeepBench",
+        "product default unchanged",
+        "no app-specific candidate logic",
+        "no parent corruption"
+      ],
+      "interpretation": "nested-hub preemption repaired on the two inspected mechanism cases, without historical regression",
+      "not": ["generalization proof", "production ready", "universal"]
+    },
+    "B": {
+      "label": "partial mechanism repair",
+      "when": "Safety and historical bug regression pass, but only one of CRM or Ops fully repairs, or both remove the commitment-window preemption and at least one still fails to reach return or expand."
+    },
+    "C": {
+      "label": "harmful/regression",
+      "any": [
+        "N-series failure",
+        "S1-S7 failure",
+        "exhaustive failure or fewer than 5800 traces",
+        "false returned or completed",
+        "parent corruption",
+        "confirmed bug loss on any regression case",
+        "historical freeze violation",
+        "candidate freeze violation",
+        "app-specific logic",
+        "product default changed"
+      ]
+    },
+    "D": {
+      "label": "no demonstrated effect / mechanism mismatch",
+      "when": "Safety holds, and either the detector cannot reproduce historical preemption on the mechanism cases, or the candidate does not eliminate the commitment-window preemption on either CRM or Ops.",
+      "not": "Do not reinterpret D as B or A."
+    },
+    "priority": "C, then D, then A, else B"
+  },
+  "stop_rules": {
+    "no_candidate_change_after_freeze": true,
+    "no_budget_change_after_outcome": true,
+    "no_crm_ops_edit": true,
+    "no_parent_stack_unless_impossible": true,
+    "no_generalization_claim": true,
+    "product_default_unchanged": true,
+    "publish_b_c_d": true
+  },
+  "git_phase_gates": {
+    "P0": "experiment: preregister v0.3.12 nested-hub repair",
+    "P1": "experiment: freeze v0.3.12 nested-hub guard candidate",
+    "P2": "one-shot mechanism evaluation and publication",
+    "P3": "clean-clone record",
+    "before_mechanism_matrix_require": [
+      "protocol commit",
+      "candidate freeze commit"
+    ]
+  },
+  "published_root": "experiments/published/nested-hub-parent-v0.3.12/",
+  "verify_command": "python -m benchmark.nested_hub_reproduce --root experiments/published/nested-hub-parent-v0.3.12 --verify",
+  "historical_verify": [
+    "python -m benchmark.application_shape_reproduce --root experiments/published/application-shape-v0.3.8 --verify",
+    "python -m benchmark.return_cycle_guard_reproduce --root experiments/published/return-cycle-guard-v0.3.9 --verify",
+    "python -m benchmark.fresh_transfer_reproduce --root experiments/published/fresh-transfer-v0.3.10 --verify",
+    "python -m benchmark.multi_target_reproduce --root experiments/published/multi-target-replication-v0.3.11 --verify"
+  ]
+}
