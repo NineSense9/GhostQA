@@ -1,0 +1,664 @@
+{
+  "buggy_desk": {
+    "alignment": "normalized URL path plus action type and target_eid; signatures differ across runs",
+    "budget": 120,
+    "candidate_only_urls": [
+      "/handbook.html",
+      "/help.html",
+      "/settings.html"
+    ],
+    "candidate_policy": "ghost-structural-nested-return-guard",
+    "child_commitment_reset_vs_outer_consumption": {
+      "branch_horizon": 3,
+      "explanation": "At the nested ticket-to-customer branch click, the v0.3.9 guard ends the outer sequence and starts a child sequence. The child commitment is set to BRANCH_HORIZON and then decremented by that same branch action, so the post-action commitment is BRANCH_HORIZON - 1 and the active branch changes. The v0.3.12 candidate keeps the outer branch, decrements the outer commitment through zero, and enters returning on that same click. The next decision is therefore an outer return instead of a child-local follow-up.",
+      "historical_child_commitment_after_branch_action": 2,
+      "reference_active_branch_after": "b7e2f6b56fbcfdda:click:nav_customer_c1",
+      "reference_active_branch_before": "3f1ac9d52dc6c659:click:nav_tickets",
+      "reference_child_commitment_reset": true,
+      "reference_commitment_after": 2,
+      "reference_commitment_before": 1,
+      "v0_3_12_active_branch_after": "0a16f06db1c0cfdf:click:nav_tickets",
+      "v0_3_12_active_branch_before": "0a16f06db1c0cfdf:click:nav_tickets",
+      "v0_3_12_commitment_after": 0,
+      "v0_3_12_commitment_before": 1,
+      "v0_3_12_outer_commitment_consumed": true
+    },
+    "commitment_state_at_divergence": {
+      "reference": {
+        "active_branch": "b7e2f6b56fbcfdda:click:nav_customer_c1",
+        "commitment_left": 2,
+        "last_label": "sequence_followup",
+        "returning": false
+      },
+      "v0_3_12": {
+        "active_branch": "0a16f06db1c0cfdf:click:nav_tickets",
+        "commitment_left": 0,
+        "last_label": "return_hub",
+        "returning": true
+      },
+      "when": "pre-action ledger on the first diverging step"
+    },
+    "first_divergence_step": 3,
+    "first_identical_prefix_length": 3,
+    "identical_prefix": [
+      {
+        "active_branch": "",
+        "commitment_left": 0,
+        "dst_url": "/tickets.html",
+        "index": 0,
+        "last_label": "branch",
+        "parent_hub_cluster": "",
+        "returning": false,
+        "src_url": "/index.html",
+        "target_eid": "nav_tickets",
+        "type": "click"
+      },
+      {
+        "active_branch": "3f1ac9d52dc6c659:click:nav_tickets",
+        "commitment_left": 2,
+        "dst_url": "/ticket.html?id=1001",
+        "index": 1,
+        "last_label": "sequence_followup",
+        "parent_hub_cluster": "3f1ac9d52dc6c659",
+        "returning": false,
+        "src_url": "/tickets.html",
+        "target_eid": "ticket_1001",
+        "type": "click"
+      },
+      {
+        "active_branch": "3f1ac9d52dc6c659:click:nav_tickets",
+        "commitment_left": 1,
+        "dst_url": "/customer.html?id=c1",
+        "index": 2,
+        "last_label": "sequence_followup",
+        "parent_hub_cluster": "3f1ac9d52dc6c659",
+        "returning": false,
+        "src_url": "/ticket.html?id=1001",
+        "target_eid": "nav_customer_c1",
+        "type": "click"
+      }
+    ],
+    "lost_bug_first_steps": [
+      {
+        "desc": "工单关注按钮点击无任何效果",
+        "id": "BUG-K3",
+        "kind": "dead_action",
+        "match": {
+          "eid": "btn_watch"
+        },
+        "min_reproduction": [
+          "index.html: nav_tickets",
+          "tickets.html: ticket_1001",
+          "ticket.html: btn_watch"
+        ],
+        "prerequisites": [],
+        "reference_first_match": {
+          "active_branch": "",
+          "commitment_left": 0,
+          "dst_url": "/ticket.html?id=1003",
+          "finding_assert_ids": [],
+          "index": 36,
+          "last_label": "branch",
+          "parent_hub_cluster": "",
+          "returning": false,
+          "src_url": "/ticket.html?id=1003",
+          "target_eid": "btn_watch",
+          "type": "click"
+        },
+        "trigger_depth": 3,
+        "v0_3_12_first_match": null
+      },
+      {
+        "desc": "暂停时限后剩余时限展示未更新",
+        "id": "BUG-K6",
+        "kind": "semantic",
+        "match": {
+          "assert_id": "sla_display_matches_remaining"
+        },
+        "min_reproduction": [
+          "index.html: nav_tickets",
+          "tickets.html: ticket_1001",
+          "ticket.html: btn_pause_sla"
+        ],
+        "prerequisites": [
+          "open-ticket"
+        ],
+        "reference_first_match": {
+          "active_branch": "",
+          "commitment_left": 0,
+          "dst_url": "/ticket.html?id=1003",
+          "finding_assert_ids": [
+            "sla_display_matches_remaining"
+          ],
+          "index": 37,
+          "last_label": "branch",
+          "parent_hub_cluster": "6830211c187cab9c",
+          "returning": false,
+          "src_url": "/ticket.html?id=1003",
+          "target_eid": "btn_pause_sla",
+          "type": "click"
+        },
+        "trigger_depth": 3,
+        "v0_3_12_first_match": null
+      },
+      {
+        "desc": "关闭后再重开，状态仍显示已关闭",
+        "id": "BUG-K9",
+        "kind": "semantic",
+        "match": {
+          "assert_id": "reopen_clears_closed"
+        },
+        "min_reproduction": [
+          "index.html: nav_tickets",
+          "tickets.html: ticket_1001",
+          "ticket.html: btn_close",
+          "ticket.html: btn_reopen"
+        ],
+        "prerequisites": [
+          "open-ticket",
+          "close"
+        ],
+        "reference_first_match": {
+          "active_branch": "",
+          "commitment_left": 0,
+          "dst_url": "/ticket.html?id=1003",
+          "finding_assert_ids": [
+            "reopen_clears_closed",
+            "sla_display_matches_remaining"
+          ],
+          "index": 39,
+          "last_label": "branch",
+          "parent_hub_cluster": "6830211c187cab9c",
+          "returning": false,
+          "src_url": "/ticket.html?id=1003",
+          "target_eid": "btn_reopen",
+          "type": "click"
+        },
+        "trigger_depth": 4,
+        "v0_3_12_first_match": null
+      },
+      {
+        "desc": "内部备注在客户动态中显示为客户可见",
+        "id": "BUG-K10",
+        "kind": "semantic",
+        "match": {
+          "assert_id": "internal_note_not_customer_visible"
+        },
+        "min_reproduction": [
+          "index.html: nav_tickets",
+          "tickets.html: ticket_1001",
+          "ticket.html: btn_internal_note",
+          "ticket.html: nav_customer_c1",
+          "customer.html: nav_activity"
+        ],
+        "prerequisites": [
+          "open-ticket",
+          "internal-note"
+        ],
+        "reference_first_match": {
+          "active_branch": "3f1ac9d52dc6c659:click:nav_customers",
+          "commitment_left": 1,
+          "dst_url": "/activity.html?id=c1",
+          "finding_assert_ids": [
+            "internal_note_not_customer_visible"
+          ],
+          "index": 57,
+          "last_label": "sequence_followup",
+          "parent_hub_cluster": "3f1ac9d52dc6c659",
+          "returning": false,
+          "src_url": "/customer.html?id=c1",
+          "target_eid": "nav_activity",
+          "type": "click"
+        },
+        "trigger_depth": 5,
+        "v0_3_12_first_match": null
+      }
+    ],
+    "nested_branch_action": {
+      "active_branch": "3f1ac9d52dc6c659:click:nav_tickets",
+      "commitment_left": 1,
+      "dst_url": "/customer.html?id=c1",
+      "index": 2,
+      "last_label": "sequence_followup",
+      "parent_hub_cluster": "3f1ac9d52dc6c659",
+      "returning": false,
+      "src_url": "/ticket.html?id=1001",
+      "target_eid": "nav_customer_c1",
+      "type": "click"
+    },
+    "nested_branch_step": 2,
+    "reference_action": {
+      "active_branch": "b7e2f6b56fbcfdda:click:nav_customer_c1",
+      "commitment_left": 2,
+      "dst_url": "/activity.html?id=c1",
+      "index": 3,
+      "last_label": "sequence_followup",
+      "parent_hub_cluster": "b7e2f6b56fbcfdda",
+      "returning": false,
+      "src_url": "/customer.html?id=c1",
+      "target_eid": "nav_activity",
+      "type": "click"
+    },
+    "reference_after_nested_branch": {
+      "active_branch": "b7e2f6b56fbcfdda:click:nav_customer_c1",
+      "commitment_left": 2,
+      "is_hub": true,
+      "last_label": "sequence_followup",
+      "last_seq_event": "followup",
+      "last_seq_outcome": null,
+      "n_branch_clicks": 8,
+      "parent_hub_cluster": "b7e2f6b56fbcfdda",
+      "returning": false
+    },
+    "reference_metrics": {
+      "confirmed_bugs": [
+        "BUG-K1",
+        "BUG-K10",
+        "BUG-K2",
+        "BUG-K3",
+        "BUG-K5",
+        "BUG-K6",
+        "BUG-K9"
+      ],
+      "normalized_unique_urls": 19,
+      "states": 35
+    },
+    "reference_only_urls": [
+      "/activity.html?id=c2",
+      "/article.html?id=a2",
+      "/article.html?id=a3",
+      "/customer.html?id=c2",
+      "/ticket.html?id=1002",
+      "/ticket.html?id=1003"
+    ],
+    "reference_policy": "ghost-structural-return-guard",
+    "reference_sequence_events_at_nested_step": [
+      {
+        "branch_key": "",
+        "commitment_left_before": null,
+        "event": "hub_seen",
+        "nested_branch_key": "",
+        "outcome": null,
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0001"
+      },
+      {
+        "branch_key": "b7e2f6b56fbcfdda:click:nav_customer_c1",
+        "commitment_left_before": null,
+        "event": "branch_discovered",
+        "nested_branch_key": "",
+        "outcome": null,
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0001"
+      },
+      {
+        "branch_key": "3f1ac9d52dc6c659:click:nav_tickets",
+        "commitment_left_before": null,
+        "event": "sequence_terminal",
+        "nested_branch_key": "",
+        "outcome": "lost_parent",
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0001"
+      },
+      {
+        "branch_key": "b7e2f6b56fbcfdda:click:nav_customer_c1",
+        "commitment_left_before": null,
+        "event": "branch_start",
+        "nested_branch_key": "",
+        "outcome": null,
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0002"
+      },
+      {
+        "branch_key": "b7e2f6b56fbcfdda:click:nav_customer_c1",
+        "commitment_left_before": null,
+        "event": "sequence_action",
+        "nested_branch_key": "",
+        "outcome": null,
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0002"
+      },
+      {
+        "branch_key": "b7e2f6b56fbcfdda:click:nav_customer_c1",
+        "commitment_left_before": null,
+        "event": "mutation",
+        "nested_branch_key": "",
+        "outcome": null,
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0002"
+      },
+      {
+        "branch_key": "b7e2f6b56fbcfdda:click:nav_customer_c1",
+        "commitment_left_before": null,
+        "event": "followup",
+        "nested_branch_key": "",
+        "outcome": null,
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0002"
+      }
+    ],
+    "seed": 1,
+    "shared_urls": [
+      "/activity.html?id=c1",
+      "/article.html?id=a1",
+      "/compose.html",
+      "/customer.html?id=c1",
+      "/customers.html",
+      "/index.html",
+      "/integrations.html",
+      "/kb.html",
+      "/profile.html",
+      "/reports.html",
+      "/team.html",
+      "/ticket.html?id=1001",
+      "/tickets.html"
+    ],
+    "sources": [
+      {
+        "bytes": 125029,
+        "path": "experiments/published/fresh-transfer-v0.3.10/evidence/buggy-desk/ghost-structural-return-guard_b120_s1.events.jsonl",
+        "sha256": "270b5dff7fc0fc8be2ac6bc616320fcce306130afe98f52fc032f2dc610edc25"
+      },
+      {
+        "bytes": 120727,
+        "path": "experiments/published/nested-hub-parent-v0.3.12/evidence/regression/buggy-desk/ghost-structural-nested-return-guard_b120_s1.events.jsonl",
+        "sha256": "352373cfe28298692b1f540f0394c79a7047a5ca3bbff221b85317823823cd2c"
+      },
+      {
+        "bytes": 105809,
+        "path": "experiments/published/fresh-transfer-v0.3.10/evidence/buggy-desk/ghost-structural-return-guard_b120_s1.sequence_events.json",
+        "sha256": "01a8c703ff334ea5f3bbed3e5df2b2af6d5a8d559147dc216e4ed2c8e29fee78"
+      },
+      {
+        "bytes": 58602,
+        "path": "experiments/published/nested-hub-parent-v0.3.12/evidence/regression/buggy-desk/ghost-structural-nested-return-guard_b120_s1.sequence_events.json",
+        "sha256": "6437fa96f9f563bf0e0466030babf17d05e645c01dcda4efa4ada6ad3a392c81"
+      },
+      {
+        "bytes": 67580,
+        "path": "experiments/published/fresh-transfer-v0.3.10/evidence/buggy-desk/metrics.json",
+        "sha256": "d415e8f131eb2affc2f650452886cfbae06af9057420eef50e36cb6302edbd96"
+      },
+      {
+        "bytes": 6109,
+        "path": "experiments/published/nested-hub-parent-v0.3.12/evidence/regression/buggy-desk/metrics.json",
+        "sha256": "a593d6a94363749b33e9bf13f259b567aa0d9615ede8ba411ec146e6dfae6ade"
+      },
+      {
+        "bytes": 3875,
+        "path": "apps/buggy-desk/bugs.manifest.json",
+        "sha256": "c59bebce25fa08ba9b63a62de36e0aec1bbd31193ee5bfc2363c1902935f4f9e"
+      }
+    ],
+    "v0_3_12_action": {
+      "active_branch": "0a16f06db1c0cfdf:click:nav_tickets",
+      "commitment_left": 0,
+      "dst_url": "/customers.html",
+      "index": 3,
+      "last_label": "return_hub",
+      "parent_hub_cluster": "0a16f06db1c0cfdf",
+      "returning": true,
+      "src_url": "/customer.html?id=c1",
+      "target_eid": "nav_back_customers",
+      "type": "click"
+    },
+    "v0_3_12_after_nested_branch": {
+      "active_branch": "0a16f06db1c0cfdf:click:nav_tickets",
+      "commitment_left": 0,
+      "is_hub": true,
+      "last_label": "sequence_followup",
+      "last_seq_event": "sequence_horizon_reached",
+      "last_seq_outcome": null,
+      "n_branch_clicks": 8,
+      "parent_hub_cluster": "0a16f06db1c0cfdf",
+      "returning": true
+    },
+    "v0_3_12_metrics": {
+      "confirmed_bugs": [
+        "BUG-K1",
+        "BUG-K2",
+        "BUG-K4",
+        "BUG-K5"
+      ],
+      "nested_branch_followup_events": 4,
+      "normalized_unique_urls": 16,
+      "sequence_lost_parent": 0,
+      "states": 23
+    },
+    "v0_3_12_sequence_events_at_nested_step": [
+      {
+        "branch_key": "",
+        "commitment_left_before": null,
+        "event": "hub_seen",
+        "nested_branch_key": "",
+        "outcome": null,
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0001"
+      },
+      {
+        "branch_key": "5fbc283ce7646394:click:nav_customer_c1",
+        "commitment_left_before": null,
+        "event": "branch_discovered",
+        "nested_branch_key": "",
+        "outcome": null,
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0001"
+      },
+      {
+        "branch_key": "0a16f06db1c0cfdf:click:nav_tickets",
+        "commitment_left_before": 1,
+        "event": "nested_branch_followup",
+        "nested_branch_key": "5fbc283ce7646394:click:nav_customer_c1",
+        "outcome": null,
+        "outer_branch": "0a16f06db1c0cfdf:click:nav_tickets",
+        "sequence_instance_id": "seq-0001"
+      },
+      {
+        "branch_key": "0a16f06db1c0cfdf:click:nav_tickets",
+        "commitment_left_before": null,
+        "event": "sequence_action",
+        "nested_branch_key": "",
+        "outcome": null,
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0001"
+      },
+      {
+        "branch_key": "0a16f06db1c0cfdf:click:nav_tickets",
+        "commitment_left_before": null,
+        "event": "mutation",
+        "nested_branch_key": "",
+        "outcome": null,
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0001"
+      },
+      {
+        "branch_key": "0a16f06db1c0cfdf:click:nav_tickets",
+        "commitment_left_before": null,
+        "event": "followup",
+        "nested_branch_key": "",
+        "outcome": null,
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0001"
+      },
+      {
+        "branch_key": "0a16f06db1c0cfdf:click:nav_tickets",
+        "commitment_left_before": null,
+        "event": "sequence_horizon_reached",
+        "nested_branch_key": "",
+        "outcome": null,
+        "outer_branch": "",
+        "sequence_instance_id": "seq-0001"
+      }
+    ]
+  },
+  "deepbench": {
+    "btn_add_alice_branch_start_count": 0,
+    "btn_members_branch_start_count": 4,
+    "budget": 120,
+    "bug_d12": {
+      "desc": "移除成员后计数未更新",
+      "id": "BUG-D12",
+      "kind": "semantic",
+      "match": {
+        "assert_id": "member_count_consistent"
+      },
+      "prerequisites": [
+        "login",
+        "project",
+        "add-member",
+        "remove"
+      ],
+      "reference_confirmed": true,
+      "trigger_depth": 9,
+      "v0_3_12_confirmed": false
+    },
+    "candidate_policy": "ghost-structural-nested-return-guard",
+    "followup_commitment_left_before": [
+      2,
+      1,
+      2,
+      1,
+      2,
+      1,
+      2,
+      1
+    ],
+    "followup_instance_ids": [
+      "seq-0005",
+      "seq-0014",
+      "seq-0021",
+      "seq-0032"
+    ],
+    "mechanism_consistency": {
+      "causal_proof": false,
+      "consistent_with_buggy_desk_flattening": true,
+      "statement": "The v0.3.12 candidate records btn_add_alice as nested_branch_followup while the open sequence remains the btn_members branch. Those clicks do not emit branch_start, and commitment_left_before on the outer instance decreases across the repeated follow-ups. That is the same flattening pattern as the BuggyDesk divergence: a child-local action consumes the outer commitment instead of opening a child sequence. D12's prerequisites are login, project, add-member, and remove. The members workflow is the kind of child-local multi-action path that needs its own commitment. This is mechanism consistency with the BuggyDesk regression, not a proof that flattening is the only reason D12 is absent from the candidate confirmed set."
+    },
+    "members_nested_followup_count": 8,
+    "members_nested_followups": [
+      {
+        "commitment_left_before": 2,
+        "nested_branch_key": "b41f066d05867a75:click:btn_add_alice",
+        "outer_branch": "5cefe340a6e7d4bf:click:btn_members",
+        "outer_parent_hub_cluster": "5cefe340a6e7d4bf",
+        "sequence_instance_id": "seq-0005",
+        "step": 22
+      },
+      {
+        "commitment_left_before": 1,
+        "nested_branch_key": "b41f066d05867a75:click:btn_add_alice",
+        "outer_branch": "5cefe340a6e7d4bf:click:btn_members",
+        "outer_parent_hub_cluster": "5cefe340a6e7d4bf",
+        "sequence_instance_id": "seq-0005",
+        "step": 23
+      },
+      {
+        "commitment_left_before": 2,
+        "nested_branch_key": "b41f066d05867a75:click:btn_add_alice",
+        "outer_branch": "5cefe340a6e7d4bf:click:btn_members",
+        "outer_parent_hub_cluster": "5cefe340a6e7d4bf",
+        "sequence_instance_id": "seq-0014",
+        "step": 41
+      },
+      {
+        "commitment_left_before": 1,
+        "nested_branch_key": "b41f066d05867a75:click:btn_add_alice",
+        "outer_branch": "5cefe340a6e7d4bf:click:btn_members",
+        "outer_parent_hub_cluster": "5cefe340a6e7d4bf",
+        "sequence_instance_id": "seq-0014",
+        "step": 42
+      },
+      {
+        "commitment_left_before": 2,
+        "nested_branch_key": "b41f066d05867a75:click:btn_add_alice",
+        "outer_branch": "5cefe340a6e7d4bf:click:btn_members",
+        "outer_parent_hub_cluster": "5cefe340a6e7d4bf",
+        "sequence_instance_id": "seq-0021",
+        "step": 72
+      },
+      {
+        "commitment_left_before": 1,
+        "nested_branch_key": "b41f066d05867a75:click:btn_add_alice",
+        "outer_branch": "5cefe340a6e7d4bf:click:btn_members",
+        "outer_parent_hub_cluster": "5cefe340a6e7d4bf",
+        "sequence_instance_id": "seq-0021",
+        "step": 73
+      },
+      {
+        "commitment_left_before": 2,
+        "nested_branch_key": "b41f066d05867a75:click:btn_add_alice",
+        "outer_branch": "5cefe340a6e7d4bf:click:btn_members",
+        "outer_parent_hub_cluster": "5cefe340a6e7d4bf",
+        "sequence_instance_id": "seq-0032",
+        "step": 109
+      },
+      {
+        "commitment_left_before": 1,
+        "nested_branch_key": "b41f066d05867a75:click:btn_add_alice",
+        "outer_branch": "5cefe340a6e7d4bf:click:btn_members",
+        "outer_parent_hub_cluster": "5cefe340a6e7d4bf",
+        "sequence_instance_id": "seq-0032",
+        "step": 110
+      }
+    ],
+    "reference_confirmed": [
+      "BUG-D11",
+      "BUG-D12",
+      "BUG-D13",
+      "BUG-D14",
+      "BUG-D6",
+      "BUG-D7"
+    ],
+    "reference_event_trace_published": false,
+    "reference_evidence_note": "experiments/published/return-cycle-guard-v0.3.9/evidence/deepbench contains metrics.json and does not contain the guard event trace. This section does not claim a step-aligned comparison with the guard.",
+    "reference_policy": "ghost-structural-return-guard",
+    "seed": 1,
+    "sources": [
+      {
+        "bytes": 126445,
+        "path": "experiments/published/nested-hub-parent-v0.3.12/evidence/regression/deepbench/ghost-structural-nested-return-guard_b120_s1.sequence_events.json",
+        "sha256": "d07be0c192f96ed1766604f8fced7d8ad274800d05b9f6ed67f8df2ca42d01b7"
+      },
+      {
+        "bytes": 125534,
+        "path": "experiments/published/nested-hub-parent-v0.3.12/evidence/regression/deepbench/ghost-structural-nested-return-guard_b120_s1.events.jsonl",
+        "sha256": "10fb977b6ac0805da68818ce6250ed4df0d43df2722110ff81a30d49ce46c1b8"
+      },
+      {
+        "bytes": 6320,
+        "path": "experiments/published/nested-hub-parent-v0.3.12/evidence/regression/deepbench/metrics.json",
+        "sha256": "29634548ca712d9c8987e23d7f5be14be026a369c79f66b96ce3594b4b7cb55c"
+      },
+      {
+        "bytes": 37528,
+        "path": "experiments/published/return-cycle-guard-v0.3.9/evidence/deepbench/metrics.json",
+        "sha256": "254513a8646bba1f52b2dc709e22d4a03892064aa9895fe316a4f37109f6595e"
+      },
+      {
+        "bytes": 4040,
+        "path": "apps/buggy-flow/bugs.manifest.json",
+        "sha256": "85ade93eef3b2eda3bdfc8c952d33d8ca9c8d82402d213727653ce9e14514a73"
+      }
+    ],
+    "v0_3_12_confirmed": [
+      "BUG-D11",
+      "BUG-D13",
+      "BUG-D14",
+      "BUG-D6",
+      "BUG-D7"
+    ]
+  },
+  "derived_by": "benchmark.nested_stack_regression.build_regression_analysis",
+  "kind": "regression-mechanism-analysis",
+  "mechanism_hypothesis": "Flattening a real child branch into the outer commitment changes child-local scheduling and causes premature outer return.",
+  "not": [
+    "proof that nested preservation is generally harmful",
+    "a fresh-generalization claim",
+    "a product-default change"
+  ],
+  "question": "Can nested branch starts keep normal child-sequence exploration while the outer sequence is suspended instead of discarded or flattened?",
+  "round": "v0.3.13",
+  "status": "before candidate implementation",
+  "v0_3_12_outcome_meaning": "harmful/regression",
+  "v0_3_12_outcome_preserved": "C"
+}
