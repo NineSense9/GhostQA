@@ -61,3 +61,7 @@ The published v0.3.9 deepbench directory has metrics and no event trace, so this
 ## What v0.3.13 asks
 
 Nested branch starts should keep ordinary child-sequence semantics. The outer frame is suspended and restored only after the child returns to its own parent. Flattening the child into the outer commitment, and discarding the outer frame, are the two behaviors this round is trying to replace.
+
+## Protocol
+
+`experiments/validation/v0.3.13/protocol.json` is preregistered with `executed: false`. The candidate identity is `ghost-structural-nested-stack-guard`. It does not replace the v0.3.12 flattening identity. The mechanism matrix is CRM and Ops, policies G/F/S, budgets 40/80/120, seed 1, 18 cells. Regression cells are BuggyDesk, DeepBench, Wiki, and BuggyShop at 120 for the stack candidate only. No target evaluation happens before the protocol commit and the later candidate-freeze commit. Product default stays NoFrontier with `sequence_mode=off`.
