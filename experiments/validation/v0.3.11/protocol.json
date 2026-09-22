@@ -1,0 +1,311 @@
+{
+  "name": "v0.3.11 preregistered multi-target replication",
+  "version": "v0.3.11",
+  "date": "2026-09-22",
+  "starting_head": "ae1d20c77d12ac3520a2f966f7b2363a483b73ac",
+  "executed": false,
+  "one_shot": true,
+  "one_shot_semantics": "Run the preregistered 27-cell matrix once after protocol commit (P0) and target-suite freeze commit (P1). Rerun only exact cells that fail for infrastructure reasons. Do not change budgets, policies, seeds, generator, or apps after seeing outcomes.",
+  "research_question": "Does the exact same frozen v0.3.9 return-cycle guard replicate across multiple preregistered fresh application shapes, while preserving successful-return safety and C1 findings?",
+  "success_means": "Protocol integrity and reproducible evidence, not necessarily Outcome A.",
+  "candidate": {
+    "identity": "ghost-structural-return-guard",
+    "constructor": "ReturnCycleGuardGhostPolicy",
+    "policy_name": "ghost-structural-return-guard",
+    "source": "ghostqa/exploration/return_cycle_guard.py",
+    "freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+    "cycle_key": "new_sig",
+    "cycle_rule": "During an unresolved return phase, arriving at an exact destination signature already seen in that phase (parent not matched) is a return cycle. First exact repeat triggers escape. No N, no cluster-only trigger, no app hardcode.",
+    "escape_semantics": "Abandon active branch: returning=false, active_branch empty, parent cleared, commitment_left=0. Do not _complete_branch. Do not increment return_success / completed_total. Do not add to returned/completed. Event return_cycle_escape; optional sequence_terminal outcome return_cycle_abandoned if instance still open (L1). If the instance already terminally ended, escape is L2 cleanup with no second sequence_terminal."
+  },
+  "historical_c1": {
+    "identity": "ghost-structural-memory",
+    "constructor": "GhostPolicy",
+    "config": {"llm": null, "use_frontier": false, "sequence_mode": "structural"},
+    "freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json"
+  },
+  "product_default": {
+    "policy": "NoFrontier",
+    "sequence_mode": "off",
+    "unchanged": true,
+    "promotion_prohibited": true
+  },
+  "seed_derivation": {
+    "rule": "seed(app_name) = first 8 hex digits of SHA256(\"ghostqa-v0.3.11:\" + app_name) interpreted as unsigned integer",
+    "prefix": "ghostqa-v0.3.11:",
+    "hex_digits": 8,
+    "encoding": "utf-8"
+  },
+  "targets": [
+    {
+      "id": "T1",
+      "name": "buggy-crm",
+      "path": "apps/buggy-crm/",
+      "freeze": "experiments/frozen/v0.3.11-multitarget/buggy-crm/freeze.json",
+      "topology_family": "fanout_hub_nested_entity",
+      "business_shape": ["accounts", "contacts", "opportunities", "notes", "activity", "pipeline/report"],
+      "seed_hex": "3f2065e3",
+      "seed": 1059087843,
+      "route_range": [10, 16],
+      "bug_range": [8, 10],
+      "emphasis": [
+        "fanout hub",
+        "nested entity detail",
+        "legitimate direct return",
+        "one cycle-prone nested route",
+        "form mutation"
+      ]
+    },
+    {
+      "id": "T2",
+      "name": "buggy-wiki",
+      "path": "apps/buggy-wiki/",
+      "freeze": "experiments/frozen/v0.3.11-multitarget/buggy-wiki/freeze.json",
+      "topology_family": "cross_linked_content_graph",
+      "business_shape": ["spaces", "pages", "revision history", "tags", "backlinks", "editor", "search/settings"],
+      "seed_hex": "befb469d",
+      "seed": 3204138653,
+      "route_range": [10, 16],
+      "bug_range": [8, 10],
+      "emphasis": [
+        "cross-linked content graph",
+        "several exact variants in same semantic cluster",
+        "multi-step successful return",
+        "cycle possible through backlinks/history",
+        "mutation/editor state"
+      ]
+    },
+    {
+      "id": "T3",
+      "name": "buggy-ops",
+      "path": "apps/buggy-ops/",
+      "freeze": "experiments/frozen/v0.3.11-multitarget/buggy-ops/freeze.json",
+      "topology_family": "deep_nested_multi_parent",
+      "business_shape": ["services", "incidents", "alerts", "runbooks", "deploy history", "teams", "dashboards/settings"],
+      "seed_hex": "fd7653f9",
+      "seed": 4252390393,
+      "route_range": [10, 16],
+      "bug_range": [8, 10],
+      "emphasis": [
+        "deeper nested workflows",
+        "cross-links",
+        "at least one cycle opportunity",
+        "multiple valid parents/near-parent pages",
+        "successful return requiring more than one intermediate state"
+      ]
+    }
+  ],
+  "generator": {
+    "module": "benchmark.multitarget_generator",
+    "cli": "python -m benchmark.multitarget_generator write",
+    "inputs": ["app identity", "fixed seed", "topology family config", "semantic labels/content vocabulary"],
+    "policy_feedback_forbidden": true,
+    "regeneration": "deterministic byte-for-byte or LF-normalized equivalent"
+  },
+  "policies": {
+    "primary": ["ghost-structural-memory", "ghost-structural-return-guard"],
+    "context": ["ghost-nollm", "bfs", "dfs"],
+    "optional_preregistered": [],
+    "excluded": ["monkey", "ghost-sequence", "ghost-contextual", "ghost-contextual-crossview"]
+  },
+  "matrix": {
+    "apps": ["buggy-crm", "buggy-wiki", "buggy-ops"],
+    "primary_policies": ["ghost-structural-memory", "ghost-structural-return-guard"],
+    "primary_budgets": [40, 80, 120],
+    "context_policies": ["ghost-nollm", "bfs", "dfs"],
+    "context_budget": 120,
+    "primary_budget": 120,
+    "seeds": [1],
+    "seed_rationale": "All matrix policies are deterministic (GhostPolicy without LLM, BFS, DFS). No RandomPolicy/Monkey. Single seed is seed-invariant. App generation seeds are separate and frozen in this protocol.",
+    "independent_trial": false,
+    "skip_minimize": true,
+    "dump_evidence": true,
+    "cells_per_app": 9,
+    "cells_total": 27
+  },
+  "metrics_budget_120": [
+    "states",
+    "clusters",
+    "variants",
+    "normalized_unique_urls",
+    "candidates",
+    "confirmed_bugs",
+    "BDR",
+    "Deep-BDR",
+    "discovery_auc",
+    "TTCB",
+    "TTDCB",
+    "replay_pass",
+    "replay_fail",
+    "replay_invalid",
+    "repeat_rate",
+    "return_attempts",
+    "successful_returns",
+    "branch_starts",
+    "sequence_lost_parent",
+    "cycle_opportunities",
+    "guard_escapes",
+    "lifecycle_L1",
+    "lifecycle_L2",
+    "post_first_escape_novel_states",
+    "post_first_escape_novel_urls",
+    "c1_bugs_lost_by_guard",
+    "c1_successful_return_branch_keys_lost_by_guard"
+  ],
+  "metrics_budget_40_80": [
+    "primary C1/guard metrics"
+  ],
+  "c1_cycle_detector": {
+    "purpose": "measurement only",
+    "affects_c1_decisions": false,
+    "rule": "An evaluable return-cycle opportunity exists when an unresolved return phase revisits the same exact destination signature before matching the recorded parent.",
+    "match_key": ["step", "repeated_destination_sig", "parent_hub_sig", "active_branch or branch_key"],
+    "consistency": "For every guard escape, the detector run on that guard evidence must yield a corresponding opportunity. Count equality alone is not enough. Duplicate steps compare as a multiset of structured keys."
+  },
+  "escape_lifecycle": {
+    "classes": {
+      "L1": "open-instance abandonment: instance still open; sequence_terminal outcome=return_cycle_abandoned; no returned terminal for that instance; no return_success inflation; return obligation cleared",
+      "L2": "already-terminal-return cleanup: instance already terminally ended (e.g. finding) with return obligation still active; escape allowed; no second sequence_terminal; no returned/completed inflation; prior terminal remains authoritative"
+    },
+    "every_escape_classified": true,
+    "v0310_regression": "7 escapes and 6 return_cycle_abandoned terminals are explained as 6 L1 + 1 L2"
+  },
+  "safety_suite": {
+    "independent_from_target_bdr": true,
+    "scenarios": {
+      "S1": {"name": "direct successful return", "expected": "returned terminal, zero escape"},
+      "S2": {"name": "multi-step successful return", "expected": "successful return, zero escape"},
+      "S3": {"name": "same cluster, distinct exact variants", "expected": "zero escape solely because cluster repeats/similarity occurs"},
+      "S4": {"name": "exact self-loop", "expected": "exactly one escape, abandoned, not returned"},
+      "S5": {"name": "short A→B→A cycle", "expected": "escape on first exact repeated destination, branch abandoned, no return success"},
+      "S6": {"name": "history reset between branches", "expected": "cycle history from branch one must not poison branch two"},
+      "S7": {"name": "finding then cycle", "expected": "finding followed by cycle escape must not convert into successful return"}
+    }
+  },
+  "exhaustive_model_check": {
+    "kind": "deterministic bounded enumeration, not a theorem prover",
+    "alphabet": ["P", "A", "B", "C"],
+    "trace_lengths": [1, 2, 3, 4, 5, 6],
+    "rules": ["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10"],
+    "zero_failures_required": true
+  },
+  "contamination": {
+    "do_not_tune_on": [
+      "BuggyShop",
+      "DeepBench D1-D14",
+      "BuggyFlow holdout H1/H2",
+      "BuggyDesk",
+      "v0.3.8 traces",
+      "v0.3.9 traces",
+      "v0.3.10 traces",
+      "new fresh-target results"
+    ],
+    "no_new_from_target_outcomes": [
+      "thresholds",
+      "weights",
+      "keywords",
+      "URL exceptions",
+      "parent heuristics",
+      "app-specific logic"
+    ],
+    "prefer_zero_changes_to": "ghostqa/exploration/return_cycle_guard.py",
+    "fresh_target_results": "must not be used to change candidate behavior in this round",
+    "no_policy_feedback_in_generator": true
+  },
+  "outcome_gates": {
+    "A": {
+      "label": "multi-target replication with safety",
+      "all": [
+        "exhaustive bounded safety checker has zero failures",
+        "S1–S7 still pass",
+        "every guard escape on every fresh target maps to a detector opportunity",
+        "lifecycle accounting has zero unclassified escapes",
+        "no escape produces return-success/completed inflation",
+        "guard loses zero C1 confirmed bugs on all three targets @120",
+        "guard loses zero C1 successful-return branch keys where comparison is meaningful",
+        "at least 2 of 3 fresh targets contain an evaluable C1 or guard return-cycle opportunity",
+        "at least 2 of 3 targets show a valid guard escape followed by measurable post-escape novelty absent from that target's C1",
+        "historical v0.3.8/v0.3.9/v0.3.10 reproductions remain valid",
+        "all freezes verify"
+      ],
+      "interpretation": "preregistered multi-target replication of the return-cycle mechanism",
+      "not": [
+        "universal generalization",
+        "production ready",
+        "broadly solved"
+      ]
+    },
+    "B": {
+      "label": "safe but mixed replication",
+      "when": "Safety/integrity all pass and no C1 bug/return regressions occur, but only one target demonstrates transfer benefit, OR replication evidence is mixed/equivalent."
+    },
+    "C": {
+      "label": "harmful/regression",
+      "any": [
+        "exhaustive safety failure",
+        "S1–S7 failure",
+        "detector/escape inconsistency that indicates mechanism-accounting failure",
+        "unclassified escape lifecycle",
+        "return-success inflation",
+        "any C1 confirmed bug lost on any target @120",
+        "meaningful successful-return branch regression",
+        "historical freeze/regression failure caused by this round"
+      ]
+    },
+    "D": {
+      "label": "inconclusive suite",
+      "when": "Fewer than 2 of 3 targets present evaluable return-cycle opportunities under preregistered budgets, safety passes, no C1 regression.",
+      "stop": "Do not raise budget after D."
+    }
+  },
+  "promotion_readiness": {
+    "computed": true,
+    "product_default_unchanged": true,
+    "labels": ["not_ready", "evidence_supports_productization_study"],
+    "evidence_supports_productization_study_requires": [
+      "Outcome A",
+      "v0.3.10 Outcome A remains valid",
+      "at least 2 v0.3.11 fresh targets replicate",
+      "no C1 losses across fresh targets",
+      "exhaustive safety zero failures",
+      "historical DeepBench remains regression-safe"
+    ]
+  },
+  "stop_rules": {
+    "no_algorithm_change_after_target_eval": true,
+    "no_threshold_N": true,
+    "no_cluster_only_trigger": true,
+    "no_url_exclusions": true,
+    "no_page_name_hardcodes": true,
+    "no_budget_raise_after_outcome": true,
+    "no_app_redesign_after_outcome": true,
+    "product_default_unchanged": true,
+    "no_generalization_claim": true,
+    "no_same_round_algorithm_fix_after_outcome": true,
+    "no_aggregate_hiding": true
+  },
+  "git_phase_gates": {
+    "P0": "experiment: preregister v0.3.11 multi-target replication",
+    "P1": "experiment: freeze v0.3.11 multi-target suite",
+    "P2": "one-shot evaluation and publication",
+    "P3": "clean-clone record",
+    "before_target_policy_run_require": [
+      "protocol commit",
+      "target-suite freeze commit"
+    ]
+  },
+  "authoring_bias_disclosure_required": [
+    "These targets are preregistered fresh targets, not independently designed external benchmarks.",
+    "The v0.3.9 candidate was frozen before this round.",
+    "Target identities, seeds, topology families, budgets, and bug-count ranges are preregistered before any policy evaluation.",
+    "Generator must not accept or reject topology based on policy score.",
+    "This is not universal generalization proof."
+  ],
+  "published_root": "experiments/published/multi-target-replication-v0.3.11/",
+  "verify_command": "python -m benchmark.multi_target_reproduce --root experiments/published/multi-target-replication-v0.3.11 --verify",
+  "historical_verify": [
+    "python -m benchmark.application_shape_reproduce --root experiments/published/application-shape-v0.3.8 --verify",
+    "python -m benchmark.return_cycle_guard_reproduce --root experiments/published/return-cycle-guard-v0.3.9 --verify",
+    "python -m benchmark.fresh_transfer_reproduce --root experiments/published/fresh-transfer-v0.3.10 --verify"
+  ]
+}
