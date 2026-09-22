@@ -55,8 +55,9 @@ Confirm:
 - both units `active` and `enabled`
 - port 3939 is loopback-only
 - port 8787 is reachable publicly
-- `/api/showcase` still reports v0.3.10 Outcome A on BuggyDesk, product default unchanged,
-  plus the historical v0.3.9 return-cycle numbers
+- `/api/showcase` reports v0.3.11 Outcome D (inconclusive suite; only buggy-wiki
+  evaluable), product default unchanged, plus historical v0.3.10 Outcome A on
+  BuggyDesk and v0.3.9 return-cycle numbers
 - public Overview, Evidence, Live, and a short Live run still work
 
 Never put passwords in git, systemd units, or command logs.

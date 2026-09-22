@@ -13,6 +13,7 @@ PUBLISHED = os.path.join(ROOT, "experiments", "published")
 V039 = os.path.join(PUBLISHED, "return-cycle-guard-v0.3.9")
 V038 = os.path.join(PUBLISHED, "application-shape-v0.3.8")
 V0310 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.10")
+V0311 = os.path.join(PUBLISHED, "multi-target-replication-v0.3.11")
 
 
 def _load(path, default=None):
@@ -229,12 +230,98 @@ def _v0310(root: str | None = None) -> dict:
     }
 
 
+def _v0311(root: str | None = None) -> dict:
+    base = root or V0311
+    metrics = _load(os.path.join(base, "metrics", "metrics.json"))
+    repro = _load(os.path.join(base, "metrics", "reproduction.json"))
+    config = _load(os.path.join(base, "config.json"))
+    man = _load(os.path.join(base, "evidence-manifest.json"))
+    per = _load(os.path.join(base, "metrics", "per-target.json"))
+    safety = _load(os.path.join(base, "metrics", "safety.json"))
+    if not metrics:
+        return {"available": False}
+    derived = metrics.get("derived") or {}
+    interp = metrics.get("interpretation") or {}
+    replication = metrics.get("replication") or []
+    n_files = len((man or {}).get("files") or [])
+    targets = []
+    for row in replication:
+        name = row.get("target")
+        cell = (per or {}).get(name) or {}
+        c1 = cell.get("c1_120") or {}
+        guard = cell.get("guard_120") or {}
+        life = cell.get("lifecycle") or {}
+        targets.append({
+            "name": name,
+            "c1_states": c1.get("states"),
+            "guard_states": guard.get("states"),
+            "c1_urls": c1.get("normalized_unique_urls"),
+            "guard_urls": guard.get("normalized_unique_urls"),
+            "opportunity": row.get("opportunity"),
+            "escape": row.get("escape"),
+            "novel_after_escape": row.get("novel_after_escape"),
+            "c1_bugs_lost": row.get("c1_bugs_lost") or [],
+            "transfer_demonstrated": bool(row.get("transfer_demonstrated")),
+            "L1": life.get("L1"),
+            "L2": life.get("L2"),
+            "unclassified": life.get("unclassified"),
+            "confirmed": guard.get("confirmed_bugs") or [],
+        })
+    exh = (safety or {}).get("exhaustive") or {}
+    return {
+        "available": True,
+        "round": "v0.3.11",
+        "title": "Preregistered Multi-Target Replication",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": interp.get("outcome_meaning") or derived.get("outcome_meaning"),
+        "promotion_readiness": derived.get("promotion_readiness"),
+        "product_default_changed": bool(
+            interp.get("product_default_changed", derived.get("product_default_changed"))),
+        "generalization_claim": bool(interp.get("generalization_claim")),
+        "scope": interp.get("scope"),
+        "targets": targets,
+        "evaluable_targets": derived.get("evaluable_targets"),
+        "transfer_targets": derived.get("transfer_targets"),
+        "exhaustive_traces": exh.get("traces_enumerated"),
+        "exhaustive_failures": exh.get("failures"),
+        "s1_s7_pass": bool((safety or {}).get("s1_s7_all_pass", (safety or {}).get("all_pass"))),
+        "reproduction": {
+            "clean_clone_verified": bool((repro or {}).get("clean_clone_verified")),
+            "match": bool((repro or {}).get("match")),
+            "command": (repro or {}).get("command") or (config or {}).get("verify_command"),
+            "metrics_sha256": (repro or {}).get("expected_metrics_sha256"),
+            "metrics_sha256_short": _short_hash((repro or {}).get("expected_metrics_sha256") or ""),
+            "evidence_files": n_files,
+            "candidate_freeze_verified": bool((repro or {}).get("candidate_freeze_verified")),
+            "historical_c1_freeze_verified": bool(
+                (repro or {}).get("historical_c1_freeze_verified")),
+            "target_freeze_verified": bool((repro or {}).get("target_freeze_verified")),
+            "generator_freeze_verified": bool((repro or {}).get("generator_freeze_verified")),
+            "evidence_manifest_verified": bool(
+                (repro or {}).get("evidence_manifest_verified")),
+        },
+        "product_default": (config or {}).get("product_default"),
+        "command": (config or {}).get("verify_command") or (
+            (repro or {}).get("command")),
+    }
+
+
 def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None,
-                   v0310_root: str | None = None) -> dict:
+                   v0310_root: str | None = None, v0311_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
-    if v0310.get("available"):
+    v0311 = _v0311(v0311_root)
+    if v0311.get("available"):
+        latest = {
+            "round": "v0.3.11",
+            "title": "Preregistered Multi-Target Replication",
+            "available": True,
+            "outcome": v0311.get("outcome"),
+            "product_default_changed": v0311.get("product_default_changed"),
+        }
+        latest_research = "v0.3.11"
+    elif v0310.get("available"):
         latest = {
             "round": "v0.3.10",
             "title": "Fresh Cross-App Transfer",
@@ -260,6 +347,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "multi_target": v0311,
         "fresh_transfer": v0310,
         "return_cycle": v039,
         "application_shape": v038,
@@ -274,5 +362,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
              "kind": "mechanism repair"},
             {"round": "v0.3.10", "title": "Fresh Cross-App Transfer",
              "kind": "one-target transfer"},
+            {"round": "v0.3.11", "title": "Preregistered Multi-Target Replication",
+             "kind": "multi-target replication"},
         ],
     }

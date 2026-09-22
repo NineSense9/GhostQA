@@ -1,0 +1,87 @@
+{
+  "all_pass": true,
+  "c1_controller_is_unguarded": true,
+  "exhaustive": {
+    "all_pass": true,
+    "failures": 0,
+    "named_failures": [],
+    "passed": 5813,
+    "traces_enumerated": 5800
+  },
+  "exhaustive_failures": 0,
+  "rows": [
+    {
+      "escapes": 0,
+      "expected": "returned terminal, zero escape",
+      "name": "direct successful return",
+      "observed": "escapes=0 returned=1",
+      "pass": true,
+      "returned": 1,
+      "scenario": "S1"
+    },
+    {
+      "escapes": 0,
+      "expected": "successful return, zero escape",
+      "name": "multi-step successful return",
+      "observed": "escapes=0 returned=1",
+      "pass": true,
+      "returned": 1,
+      "scenario": "S2"
+    },
+    {
+      "escapes": 0,
+      "expected": "zero escape solely because cluster repeats",
+      "name": "same cluster, distinct exact variants",
+      "observed": "escapes=0 returned=1",
+      "pass": true,
+      "returned": 1,
+      "scenario": "S3"
+    },
+    {
+      "escapes": 1,
+      "expected": "exactly one escape, abandoned, not returned",
+      "name": "exact self-loop",
+      "observed": "escapes=1 returned=0 inflation=0",
+      "pass": true,
+      "return_inflation": 0,
+      "returned": 0,
+      "scenario": "S4"
+    },
+    {
+      "escapes": 1,
+      "expected": "escape on first exact repeated destination; abandoned",
+      "name": "short A→B→A cycle",
+      "observed": "escapes=1 returned=0 inflation=0",
+      "pass": true,
+      "return_inflation": 0,
+      "returned": 0,
+      "scenario": "S5"
+    },
+    {
+      "escapes": 1,
+      "expected": "branch-one cycle history does not poison branch two",
+      "name": "history reset between branches",
+      "observed": "escapes=1 returned=1",
+      "pass": true,
+      "returned": 1,
+      "scenario": "S6"
+    },
+    {
+      "escapes": 1,
+      "expected": "finding + cycle escape is not counted returned",
+      "name": "finding then cycle",
+      "observed": "escapes=1 returned=0",
+      "pass": true,
+      "returned": 0,
+      "scenario": "S7"
+    }
+  ],
+  "s1_escapes": 0,
+  "s1_s7_all_pass": true,
+  "s2_escapes": 0,
+  "s3_escapes": 0,
+  "s4_escapes": 1,
+  "s4_returned_inflation": 0,
+  "s5_escapes": 1,
+  "s5_returned_inflation": 0
+}

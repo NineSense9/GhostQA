@@ -1,0 +1,25 @@
+{
+  "candidate_freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+  "expected_metrics_sha256": "36a29c71ff3a6d0fab0efdb655f212f249a7b86edb7f0eca403f8c39a4314112",
+  "expected_per_target_sha256": "ccc5465fb792b104bba3a4783534e60c8214b483bc0273c2f929cef53c3a9d19",
+  "families": {
+    "buggy-crm": "fanout_hub_nested_entity",
+    "buggy-ops": "deep_nested_multi_parent",
+    "buggy-wiki": "cross_linked_content_graph"
+  },
+  "hash_normalization": "LF newlines",
+  "historical_c1_freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json",
+  "product_default": "NoFrontier, sequence_mode=off",
+  "product_default_changed": false,
+  "protocol": "experiments/validation/v0.3.11/protocol.json",
+  "protocol_commit": "ca5e6b49ada7cafce56fe37b198d8ea7d2bb61a2",
+  "round": "v0.3.11 Multi-Target Replication",
+  "suite_freeze": "experiments/frozen/v0.3.11-multitarget/freeze.json",
+  "suite_freeze_commit": "fcfff7c396e8b6be816e7447d5be017843fce5af",
+  "targets": [
+    "buggy-crm",
+    "buggy-wiki",
+    "buggy-ops"
+  ],
+  "verify_command": "python -m benchmark.multi_target_reproduce --root experiments/published/multi-target-replication-v0.3.11 --verify"
+}

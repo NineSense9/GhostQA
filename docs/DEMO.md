@@ -15,9 +15,9 @@ it is stored as `ghostqa-theme` and kept on refresh.
 
 ## 2-minute walkthrough
 
-1. **总览** — default view. What GhostQA does, then the current research card (v0.3.10 BuggyDesk transfer: 6 → 35 states) and the historical v0.3.9 return-cycle repair. Numbers come from committed published artifacts, not hardcoded demo data. Primary button is **运行一次探索**.
+1. **总览** — default view. What GhostQA does, then the current research card (v0.3.11 Outcome D: only buggy-wiki is evaluable; crm/ops do not engage the return-cycle mechanism) plus historical v0.3.10 / v0.3.9. Numbers come from committed published artifacts, not hardcoded demo data. Primary button is **运行一次探索**.
 2. **实时探索** — click 载入 BuggyShop 示例 (fills URL / spec / budget / Ghost NoLLM; does not start). Click 启动探索. Watch the screenshot, state graph, and decision log. Theme can be switched while a run is in progress; the graph restyles with the page.
-3. **研究证据** — from 总览, **查看实验记录**. v0.3.10 / v0.3.9 Outcome A, freeze / clean-clone status, copyable reproduce commands. Product default remains unchanged.
+3. **研究证据** — from 总览, **查看实验记录**. v0.3.11 Outcome D plus v0.3.10 / v0.3.9 Outcome A, freeze / clean-clone status, copyable reproduce commands. Product default remains unchanged.
 
 ## Fallback if a live run fails
 

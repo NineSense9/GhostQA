@@ -158,6 +158,70 @@ function yn(v) {
   return '—';
 }
 
+function renderMultiTarget(mt) {
+  const sec = document.querySelector('[data-testid="multi-target"]');
+  if (!mt || !mt.available) {
+    if (sec && !sec.querySelector('[data-unavailable]')) {
+      const note = document.createElement('p');
+      note.className = 'limit-note';
+      note.dataset.unavailable = '1';
+      note.textContent = '暂时无法读取已发布证据';
+      sec.appendChild(note);
+    }
+    return;
+  }
+  const grid = gid('mt-grid');
+  if (grid) {
+    grid.innerHTML = (mt.targets || []).map((t) => {
+      const lost = (t.c1_bugs_lost || []).length === 0 ? 'C1 bugs lost 0' : ('lost ' + (t.c1_bugs_lost || []).join(','));
+      return `<article class="rc-card"><h3>${escapeHtml(t.name)}</h3>` +
+        `<dl class="rc-metrics">` +
+        `<div><dt>C1 states</dt><dd>${escapeHtml(t.c1_states)}</dd></div>` +
+        `<div><dt>guard states</dt><dd>${escapeHtml(t.guard_states)}</dd></div>` +
+        `<div><dt>opportunity</dt><dd>${escapeHtml(t.opportunity)}</dd></div>` +
+        `<div><dt>escapes</dt><dd>${escapeHtml(t.escape)}</dd></div>` +
+        `</dl><p class="rc-bugs">${escapeHtml(lost)} · L1/L2 ${escapeHtml(t.L1)}/${escapeHtml(t.L2)}</p></article>`;
+    }).join('');
+  }
+  const oc = gid('mt-outcome');
+  if (oc) oc.textContent = mt.outcome ? ('Outcome ' + mt.outcome) : 'Outcome';
+  const om = gid('mt-outcome-mean');
+  if (om) {
+    om.textContent = (mt.outcome_meaning || '') +
+      '。产品默认未改。不是广泛泛化。';
+  }
+  const delta = gid('mt-delta');
+  if (delta) {
+    delta.innerHTML =
+      `<span>evaluable <b>${escapeHtml(mt.evaluable_targets)}</b></span>` +
+      `<span>transfer <b>${escapeHtml(mt.transfer_targets)}</b></span>` +
+      `<span>exhaustive traces <b>${escapeHtml(mt.exhaustive_traces)}</b></span>` +
+      `<span>failures <b>${escapeHtml(mt.exhaustive_failures)}</b></span>`;
+  }
+  setText('proof-round', mt.round || 'v0.3.11');
+  setText('proof-outcome', mt.outcome || '—');
+  const l1 = gid('proof-metric-1');
+  if (l1) l1.textContent = 'evaluable → transfer';
+  setText('proof-b-states', mt.evaluable_targets);
+  setText('proof-g-states', mt.transfer_targets);
+  const l2 = gid('proof-metric-2');
+  if (l2) l2.textContent = 'exhaustive traces / failures';
+  setText('proof-b-ret', mt.exhaustive_traces);
+  setText('proof-g-ret', mt.exhaustive_failures);
+  const l3 = gid('proof-metric-3');
+  if (l3) l3.textContent = 'promotion-readiness';
+  setText('proof-esc', mt.promotion_readiness || 'not_ready');
+  const note = gid('proof-note');
+  if (note) {
+    note.textContent = '预注册 multi-target replication，不是广泛泛化证明。';
+  }
+  const tl = gid('tl-v0311');
+  if (tl && mt.outcome_meaning) {
+    tl.textContent = 'Outcome ' + mt.outcome + ' — ' + mt.outcome_meaning +
+      '。产品默认未改。';
+  }
+}
+
 function renderFreshTransfer(ft) {
   const sec = document.querySelector('[data-testid="fresh-transfer"]');
   if (!ft || !ft.available) {
@@ -219,10 +283,34 @@ function renderEvidence(data) {
   const rc = (data && data.return_cycle) || {};
   const app = (data && data.application_shape) || {};
   const ft = (data && data.fresh_transfer) || {};
+  const mt = (data && data.multi_target) || {};
+  const ev0311 = gid('ev-v0311');
   const ev0310 = gid('ev-v0310');
   const ev039 = gid('ev-v039');
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
+
+  if (ev0311) {
+    if (!mt.available) {
+      ev0311.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = mt.reproduction || {};
+      ev0311.innerHTML = [
+        statusRow('轮次结果', mt.outcome ? ('Outcome ' + mt.outcome) : '—', mt.outcome === 'A'),
+        statusRow('目标 freeze', yn(r.target_freeze_verified), r.target_freeze_verified),
+        statusRow('生成器 freeze', yn(r.generator_freeze_verified), r.generator_freeze_verified),
+        statusRow('候选 freeze', yn(r.candidate_freeze_verified), r.candidate_freeze_verified),
+        statusRow('证据清单', fileLabel(r.evidence_files, r.evidence_manifest_verified),
+          r.evidence_manifest_verified),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', mt.product_default_changed ? '已改' : '未改',
+          mt.product_default_changed === false),
+        hashRow('Metrics SHA256', r.metrics_sha256, r.metrics_sha256_short),
+      ].join('');
+    }
+  }
+  const cmd0311 = mt.command || (mt.reproduction && mt.reproduction.command) || '';
+  if (gid('ev-cmd-0311')) gid('ev-cmd-0311').textContent = cmd0311;
 
   if (ev0310) {
     if (!ft.available) {
@@ -287,8 +375,8 @@ function renderEvidence(data) {
 
   if (rail) {
     const latest = (data && data.latest) || {};
-    const r = (ft.reproduction || rc.reproduction || {});
-    if (!ft.available && !rc.available && !app.available) {
+    const r = (mt.reproduction || ft.reproduction || rc.reproduction || {});
+    if (!mt.available && !ft.available && !rc.available && !app.available) {
       rail.innerHTML = '<h2>当前研究</h2><p>暂时无法读取已发布证据</p>';
     } else {
       rail.innerHTML =
@@ -304,7 +392,10 @@ function renderEvidence(data) {
 
 function markUnavailable() {
   renderReturnCycle({ available: false });
-  renderEvidence({ return_cycle: { available: false }, application_shape: { available: false } });
+  renderFreshTransfer({ available: false });
+  renderMultiTarget({ available: false });
+  renderEvidence({ return_cycle: { available: false }, application_shape: { available: false },
+    fresh_transfer: { available: false }, multi_target: { available: false } });
 }
 
 async function copyText(text) {
@@ -359,6 +450,7 @@ async function loadShowcase() {
     GhostQA.showcase = data;
     renderReturnCycle(data.return_cycle);
     renderFreshTransfer(data.fresh_transfer);
+    renderMultiTarget(data.multi_target);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

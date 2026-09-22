@@ -4,9 +4,11 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.10
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.11
 
-产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.10 的 return-cycle guard 是实验候选，不是产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.11 的 return-cycle guard 仍是实验候选，不是产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+
+**v0.3.11 Outcome D — inconclusive suite.** 三个预注册 fresh target 里，只有 `buggy-wiki` 出现 evaluable return-cycle opportunity，并在 guard escape 后进入 C1 未见状态。`buggy-crm` 与 `buggy-ops` 的 C1/guard 均未进入 return phase，机制无法在这套预算下被广泛评估。安全检查通过，C1 confirmed bug 无丢失。不是广泛泛化。预算不追加。`python -m benchmark.multi_target_reproduce --root experiments/published/multi-target-replication-v0.3.11 --verify`
 
 | 能力 | 状态 |
 |---|---|
@@ -64,7 +66,7 @@ python -m dashboard.server --port 8787
 # 浏览器打开 http://127.0.0.1:8787/
 ```
 
-三个视图：**总览**（默认，含 v0.3.10 fresh-transfer 与 v0.3.9 return-cycle 对照）、**实时探索**（浏览器截图 / 状态图 / 决策日志）、**研究证据**（freeze / clean clone / 复现命令）。研究数字来自 `GET /api/showcase`，读取已提交的 `experiments/published/` 产物，不在页面里写死研究结果。演示步骤见 `docs/DEMO.md`。
+三个视图：**总览**（默认，含 v0.3.11 multi-target Outcome D 与历史 v0.3.10 / v0.3.9 对照）、**实时探索**（浏览器截图 / 状态图 / 决策日志）、**研究证据**（freeze / clean clone / 复现命令）。研究数字来自 `GET /api/showcase`，读取已提交的 `experiments/published/` 产物，不在页面里写死研究结果。演示步骤见 `docs/DEMO.md`。
 
 使用真实 LLM（可选，模型不可用时自动降级为 no-LLM 策略）：
 
@@ -137,6 +139,7 @@ python -m ghostqa run --url ... --policy ghost --llm ...
   - Clean-clone：`python -m benchmark.application_shape_reproduce --root experiments/published/application-shape-v0.3.8 --verify`
 - **v0.3.9 return-cycle guard**（experimental）：exact `new_sig` repeat during return → abandon, not complete. **Outcome A** on inspected BuggyShop lock + DeepBench regression (D6/D12 kept, 0 escapes). Product default unchanged. `experiments/published/return-cycle-guard-v0.3.9/`
 - **v0.3.10 fresh transfer**（experimental, not default）：冻结 v0.3.9 guard 在新应用 BuggyDesk 上再次 escape（7 events，C1 6→35 states），S1–S7 安全套件通过，C1 未丢 bug。**Outcome A — one-target transfer, not generalization.** 产品默认不切。`python -m benchmark.fresh_transfer_reproduce --root experiments/published/fresh-transfer-v0.3.10 --verify`
+- **v0.3.11 preregistered multi-target replication**（experimental, not default）：同一 frozen guard，三个预注册 fresh target。**Outcome D — inconclusive suite.** 仅 `buggy-wiki` 可评估并展示 transfer（C1 6→ guard 23 states，2 escapes，L1=2）；`buggy-crm` / `buggy-ops` 未进入 return phase。S1–S7 与 5800 exhaustive traces 0 failures。C1 bugs lost = []。产品默认不切。预算不追加。`python -m benchmark.multi_target_reproduce --root experiments/published/multi-target-replication-v0.3.11 --verify`
 
 ## 架构
 
@@ -154,7 +157,10 @@ dashboard/        # v0.4 preview：总览 / 实时探索 / 研究证据（FastAP
 apps/buggy-shop/  # 浅层 benchmark
 apps/buggy-flow/  # DeepBench（冻结）
 apps/buggy-desk/  # v0.3.10 fresh-transfer target（冻结）
-benchmark/        # SimBench + WebBench（--app buggy-shop|buggy-flow|buggy-desk）
+apps/buggy-crm/   # v0.3.11 preregistered fresh target T1（冻结）
+apps/buggy-wiki/  # v0.3.11 preregistered fresh target T2（冻结）
+apps/buggy-ops/   # v0.3.11 preregistered fresh target T3（冻结）
+benchmark/        # SimBench + WebBench + multi-target reproduce
 experiments/      # published/ 可引用证据；runs/ 本地大文件(gitignore)
 docs/             # PROJECT_PLAN / TECH_SURVEY / TRUTH_AUDIT / FAILURE_CORPUS / HANDOFF
 ```

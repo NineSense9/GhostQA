@@ -50,7 +50,7 @@
     <button type="button" class="view-tab" role="tab" aria-selected="false" aria-controls="view-evidence" data-view="evidence" id="tab-evidence">研究证据</button>
   </nav>
   <div class="topbar-right">
-    <span class="research-badge" id="research-badge">研究版本 · v0.3.10</span>
+    <span class="research-badge" id="research-badge">研究版本 · v0.3.11</span>
     <span class="conn" id="conn"><span class="live-dot" id="conn-dot"></span><span id="conn-txt">Dashboard</span></span>
     <button type="button" class="theme-toggle" id="theme-toggle" data-testid="theme-toggle" aria-pressed="false" aria-label="切换到深色主题" title="切换到深色">
       <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -81,12 +81,12 @@
       <aside class="hero-proof" aria-label="当前研究摘要">
         <p class="hero-proof-kicker">当前研究 <b id="proof-round">v0.3.10</b></p>
         <dl class="hero-proof-dl">
-          <div><dt>BuggyDesk 状态</dt><dd><span class="mono" id="proof-b-states">—</span> → <span class="mono" id="proof-g-states">—</span></dd></div>
-          <div><dt>return attempt</dt><dd><span class="mono" id="proof-b-ret">—</span> → <span class="mono" id="proof-g-ret">—</span></dd></div>
-          <div><dt>cycle escape</dt><dd class="mono" id="proof-esc">—</dd></div>
+          <div><dt id="proof-metric-1">BuggyDesk 状态</dt><dd><span class="mono" id="proof-b-states">—</span> → <span class="mono" id="proof-g-states">—</span></dd></div>
+          <div><dt id="proof-metric-2">return attempt</dt><dd><span class="mono" id="proof-b-ret">—</span> → <span class="mono" id="proof-g-ret">—</span></dd></div>
+          <div><dt id="proof-metric-3">cycle escape</dt><dd class="mono" id="proof-esc">—</dd></div>
           <div><dt>结果</dt><dd>Outcome <span id="proof-outcome">—</span> · 产品默认未改</dd></div>
         </dl>
-        <p class="hero-proof-note">一次 fresh cross-app transfer，不是广泛泛化证明。</p>
+        <p class="hero-proof-note" id="proof-note">一次 fresh cross-app transfer，不是广泛泛化证明。</p>
       </aside>
     </section>
 
@@ -202,6 +202,18 @@
       <p class="footnote" id="ft-scope">一次目标应用上的 transfer，不是 universal generalization。</p>
     </section>
 
+    <section class="rc-section" data-testid="multi-target" aria-labelledby="h-mt">
+      <p class="eyebrow">v0.3.11 · 已发布证据</p>
+      <h2 id="h-mt">冻结 guard 在三个预注册目标上的 replication</h2>
+      <p class="rc-lead" id="mt-lead">同一 frozen candidate，三个预注册 fresh target。不是外部独立基准，也不是广泛泛化。</p>
+      <p class="limit-note">产品默认仍是 NoFrontier / sequence_mode=off。本轮不晋升。</p>
+      <p class="delta" id="mt-delta"></p>
+      <div class="rc-grid" id="mt-grid"></div>
+      <p class="pill-row"><span class="pill pill-ok" id="mt-outcome">Outcome</span>
+        <span class="muted" id="mt-outcome-mean"></span></p>
+      <p class="footnote" id="mt-scope">preregistered multi-target replication。产品默认未改。</p>
+    </section>
+
     <section class="arch" aria-labelledby="h-arch">
       <p class="eyebrow">工作方式</p>
       <h2 id="h-arch">一次探索经过的步骤</h2>
@@ -219,13 +231,14 @@
 
     <section class="timeline" aria-labelledby="h-tl">
       <p class="eyebrow">研究记录</p>
-      <h2 id="h-tl">v0.3.6 → v0.3.10</h2>
+      <h2 id="h-tl">v0.3.6 → v0.3.11</h2>
       <ol class="tl">
         <li><details><summary>v0.3.6 · Structural Memory</summary><p>DeepBench 上，structural memory 把重复 branch 尝试压低，同时保住 D6/D12 并找到更多深 workflow 缺陷。Deep-BDR @120：0.667 · development benchmark</p></details></li>
         <li><details><summary>v0.3.7 · Frozen Transfer Check</summary><p>冻结算法后换到 BuggyShop，C1 只确认 1/10。这轮没有顺手调参，结论直接记为 DeepBench-specific。BuggyShop: 6 states · W5</p></details></li>
         <li><details><summary>v0.3.8 · Root Cause</summary><p>没有证据表明 fingerprint / semantic-variant explosion 是主要原因；持续的 return loop 已足够解释这次 coverage lock。C0/C1 都记录到 116 次 return attempt，successful return 为 0。</p></details></li>
         <li><details><summary>v0.3.9 · Return-Cycle Guard</summary><p>exact state 在同一 return phase 再次出现，就放弃这条 return obligation。6 → 22 states · DeepBench lost bugs = 0</p></details></li>
-        <li><details open><summary>v0.3.10 · Fresh Cross-App Transfer</summary><p>冻结 candidate 在 BuggyDesk 上再次 escape，并进入 C1 未覆盖状态。成功返回安全用例没有误触发。不是广泛泛化。</p></details></li>
+        <li><details><summary>v0.3.10 · Fresh Cross-App Transfer</summary><p>冻结 candidate 在 BuggyDesk 上再次 escape，并进入 C1 未覆盖状态。成功返回安全用例没有误触发。不是广泛泛化。</p></details></li>
+        <li><details open><summary>v0.3.11 · Preregistered Multi-Target Replication</summary><p id="tl-v0311">三个预注册 fresh target 上的 replication。数字来自已发布产物。</p></details></li>
       </ol>
     </section>
 
@@ -418,6 +431,14 @@
     </header>
     <div class="ev-layout">
       <div class="ev-grid">
+        <article class="ev-card" data-testid="evidence-v0311">
+          <p class="ev-kicker">来源轮次 · v0.3.11</p>
+          <h2>Multi-Target Replication</h2>
+          <p class="limit-note">预注册 fresh targets，不是外部独立基准</p>
+          <ul class="status-rows" id="ev-v0311"></ul>
+          <pre class="cmd" id="ev-cmd-0311"></pre>
+          <button type="button" class="btn btn-ghost" data-copy="ev-cmd-0311">复制命令</button>
+        </article>
         <article class="ev-card" data-testid="evidence-v0310">
           <p class="ev-kicker">来源轮次 · v0.3.10</p>
           <h2>Fresh Transfer</h2>

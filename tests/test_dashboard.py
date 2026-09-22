@@ -100,10 +100,11 @@ def test_showcase_reads_v038_shop_collapse():
 def test_showcase_missing_artifacts_do_not_crash():
     from dashboard.showcase import build_showcase
     s = build_showcase(v039_root="/tmp/missing-v039", v038_root="/tmp/missing-v038",
-                       v0310_root="/tmp/missing-v0310")
+                       v0310_root="/tmp/missing-v0310", v0311_root="/tmp/missing-v0311")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
+    assert s["multi_target"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -118,13 +119,47 @@ def test_showcase_has_no_path_query():
 def test_showcase_endpoint_function_returns_payload():
     from dashboard.server import showcase
     body = showcase()
-    assert body["latest"]["round"] == "v0.3.10"
-    assert body["latest"]["outcome"] == "A"
     assert body["return_cycle"]["baseline"]["states"] == 6
     assert body["return_cycle"]["candidate"]["cycle_escapes"] == 4
     assert body["fresh_transfer"]["available"] is True
     assert body["fresh_transfer"]["outcome"] == "A"
     assert body["fresh_transfer"]["product_default_changed"] is False
+    assert body["latest"]["product_default_changed"] is False
+    mt = body.get("multi_target") or {}
+    if mt.get("available"):
+        assert body["latest"]["round"] == "v0.3.11"
+        assert body["project"]["latest_research"] == "v0.3.11"
+        assert mt["product_default_changed"] is False
+        assert mt["outcome"] == "D"
+        assert mt.get("generalization_claim") is False
+        assert mt.get("promotion_readiness") == "not_ready"
+        assert mt.get("evaluable_targets") == 1
+        assert mt.get("transfer_targets") == 1
+    else:
+        assert body["latest"]["round"] == "v0.3.10"
+        assert body["latest"]["outcome"] == "A"
+
+
+def test_showcase_reads_v0311_published_metrics():
+    from dashboard.showcase import build_showcase
+    s = build_showcase()
+    mt = s["multi_target"]
+    assert mt["available"] is True
+    assert s["latest"]["round"] == "v0.3.11"
+    assert s["project"]["latest_research"] == "v0.3.11"
+    assert mt["outcome"] == "D"
+    assert mt["product_default_changed"] is False
+    assert mt["generalization_claim"] is False
+    assert mt["evaluable_targets"] == 1
+    assert mt["transfer_targets"] == 1
+    names = [t["name"] for t in mt["targets"]]
+    assert names == ["buggy-crm", "buggy-wiki", "buggy-ops"]
+    by = {t["name"]: t for t in mt["targets"]}
+    assert by["buggy-wiki"]["transfer_demonstrated"] is True
+    assert by["buggy-crm"]["transfer_demonstrated"] is False
+    assert by["buggy-ops"]["transfer_demonstrated"] is False
+    assert s["fresh_transfer"]["outcome"] == "A"
+    assert s["latest"]["product_default_changed"] is False
 
 
 def test_showcase_evidence_file_counts():
@@ -146,6 +181,8 @@ def test_index_has_three_views_and_live_ids():
         'id="view-overview"', 'id="view-live"', 'id="view-evidence"',
         'id="run-form"', 'id="shot"', 'id="graph"', 'id="btn-run"',
         'data-testid="return-cycle"', 'data-testid="fresh-transfer"',
+        'data-testid="multi-target"', 'data-testid="evidence-v0311"',
+        'id="proof-metric-1"', 'id="tl-v0311"',
         'data-testid="live-viewport"',
         'id="theme-toggle"', 'data-testid="theme-toggle"',
     ):
