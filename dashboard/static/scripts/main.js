@@ -13,6 +13,9 @@ const REDUCE = window.matchMedia
   ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
   : false;
 
+const THEME_KEY = 'ghostqa-theme';
+const THEME_COLOR = { light: '#f2efe8', dark: '#1c1d1f' };
+
 const S = {
   runId: null,
   events: [],
@@ -82,6 +85,51 @@ const RESEARCH_POLICIES = {
   'ghost-structural-memory': true,
   'ghost-structural-return-guard': true,
 };
+
+/* ------------------------------ theme ----------------------------------- */
+
+function readTheme() {
+  return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light';
+}
+
+function cssVar(name) {
+  return getComputedStyle(document.documentElement).getPropertyValue(name).trim();
+}
+
+function syncThemeToggle() {
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  const t = readTheme();
+  const next = t === 'dark' ? 'light' : 'dark';
+  btn.setAttribute('aria-label', next === 'light' ? '切换到浅色主题' : '切换到深色主题');
+  btn.setAttribute('title', next === 'light' ? '切换到浅色' : '切换到深色');
+  btn.setAttribute('aria-pressed', t === 'dark' ? 'true' : 'false');
+  btn.dataset.theme = t;
+}
+
+function applyGraphTheme() {
+  if (S.cy) {
+    S.cy.style().fromJson(graphStyles()).update();
+  }
+}
+
+function applyTheme(theme, persist) {
+  const t = theme === 'dark' ? 'dark' : 'light';
+  document.documentElement.setAttribute('data-theme', t);
+  document.documentElement.style.colorScheme = t;
+  const meta = document.querySelector('meta[name="theme-color"]');
+  if (meta) meta.setAttribute('content', THEME_COLOR[t]);
+  if (persist) {
+    try { localStorage.setItem(THEME_KEY, t); } catch (_) {}
+  }
+  syncThemeToggle();
+  applyGraphTheme();
+  document.dispatchEvent(new CustomEvent('ghostqa-themechange', { detail: { theme: t } }));
+}
+
+function toggleTheme() {
+  applyTheme(readTheme() === 'dark' ? 'light' : 'dark', true);
+}
 
 /* ------------------------------ helpers --------------------------------- */
 
@@ -240,53 +288,64 @@ function appendEvents(list) {
 /* ------------------------------- graph ---------------------------------- */
 
 function graphStyles() {
+  const c = (name, fallback) => cssVar(name) || fallback;
+  const node = c('--graph-node', '#ffffff');
+  const label = c('--graph-label', '#161513');
+  const edge = c('--graph-edge', '#b7b1a6');
+  const neu = c('--graph-new', '#0d6b66');
+  const similar = c('--graph-similar', '#3d5a80');
+  const identical = c('--graph-identical', '#6f6c64');
+  const flagged = c('--graph-flagged', '#9a4e0b');
+  const active = c('--graph-active', '#9a4e0b');
   return [
     { selector: 'node', style: {
-        'background-color': '#171a1f',
+        'background-color': node,
         'background-opacity': 1,
         'border-width': 2,
-        'border-color': '#3ddad7',
+        'border-color': neu,
         'width': 26, 'height': 26,
         'label': 'data(label)',
         'font-family': 'IBM Plex Mono, monospace',
         'font-size': 15,
         'font-weight': 500,
-        'color': '#e2e7ed',
+        'color': label,
         'text-valign': 'bottom',
         'text-halign': 'center',
         'text-margin-y': 7,
         'text-max-width': '150px',
         'text-wrap': 'ellipsis',
         'text-opacity': 1,
+        'shape': 'ellipse',
         'transition-property': 'background-color, border-color, width, height',
-        'transition-duration': REDUCE ? 0 : 260,
+        'transition-duration': REDUCE ? 0 : 200,
     }},
-    { selector: 'node[rel = "SIMILAR"]',   style: { 'border-color': '#a78bfa' }},
-    { selector: 'node[rel = "IDENTICAL"]', style: { 'border-color': '#6b7280' }},
+    { selector: 'node[rel = "SIMILAR"]',   style: { 'border-color': similar }},
+    { selector: 'node[rel = "IDENTICAL"]', style: { 'border-color': identical, 'border-style': 'dashed' }},
+    { selector: 'node[?isNew]', style: { 'background-color': neu, 'color': label }},
     { selector: 'node[?flagged]', style: {
-        'background-color': '#ffb347', 'border-color': '#ffb347',
-        'width': 36, 'height': 36, 'color': '#ffb347',
+        'background-color': flagged, 'border-color': flagged,
+        'width': 36, 'height': 36, 'color': flagged,
         'font-size': 17,
         'font-weight': 600,
+        'shape': 'diamond',
     }},
-    { selector: 'node[?isNew]', style: { 'background-color': '#3ddad7' }},
     { selector: 'node[?active]', style: {
-        'border-width': 3, 'border-color': '#ffb347',
+        'border-width': 3, 'border-color': active,
         'width': 32, 'height': 32,
     }},
     { selector: 'edge', style: {
         'width': 1,
-        'line-color': '#3a4250',
-        'target-arrow-color': '#3a4250',
+        'line-color': edge,
+        'target-arrow-color': edge,
         'target-arrow-shape': 'triangle',
         'arrow-scale': 0.6,
         'curve-style': 'bezier',
         'opacity': 0.85,
     }},
-    { selector: 'edge[rel = "NEW"]',       style: { 'line-color': '#3ddad7', 'target-arrow-color': '#3ddad7' }},
-    { selector: 'edge[rel = "SIMILAR"]',   style: { 'line-color': '#a78bfa', 'target-arrow-color': '#a78bfa' }},
-    { selector: 'edge[rel = "IDENTICAL"]', style: { 'line-color': '#6b7280', 'target-arrow-color': '#6b7280', 'line-style': 'dashed' }},
-    { selector: ':selected', style: { 'border-width': 2.5, 'border-color': '#ffb347' }},
+    { selector: 'edge[rel = "NEW"]',       style: { 'line-color': neu, 'target-arrow-color': neu }},
+    { selector: 'edge[rel = "SIMILAR"]',   style: { 'line-color': similar, 'target-arrow-color': similar }},
+    { selector: 'edge[rel = "IDENTICAL"]', style: { 'line-color': identical, 'target-arrow-color': identical, 'line-style': 'dashed' }},
+    { selector: ':selected', style: { 'border-width': 2.5, 'border-color': active }},
   ];
 }
 
@@ -761,6 +820,9 @@ if (els.logLatest) {
 }
 
 window.GhostQA = window.GhostQA || {};
+window.GhostQA.getTheme = readTheme;
+window.GhostQA.setTheme = function setTheme(t) { applyTheme(t, true); };
+window.GhostQA.toggleTheme = toggleTheme;
 window.GhostQA.onView = function onView(name) {
   if (name === 'live') {
     requestAnimationFrame(() => {
@@ -769,6 +831,12 @@ window.GhostQA.onView = function onView(name) {
     });
   }
 };
+
+const themeBtn = document.getElementById('theme-toggle');
+if (themeBtn) {
+  themeBtn.addEventListener('click', toggleTheme);
+}
+syncThemeToggle();
 
 (async function restore() {
   try {

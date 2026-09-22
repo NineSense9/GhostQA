@@ -269,9 +269,9 @@ _hydrate_runs()
 def favicon():
     svg = (
         "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'>"
-        "<rect width='32' height='32' rx='4' fill='#0a0b0d'/>"
+        "<rect width='32' height='32' rx='4' fill='#f2efe8'/>"
         "<text x='16' y='22' text-anchor='middle' font-size='16' "
-        "font-family='monospace' fill='#3ddad7'>G</text></svg>"
+        "font-family='monospace' fill='#0d6b66'>G</text></svg>"
     )
     return Response(content=svg, media_type="image/svg+xml")
 

@@ -1,10 +1,7 @@
 /* ============================================================================
-   Components: console shell, viewport, graph canvas, decision log, bug cards.
-   Layout is deliberately asymmetric: the live viewport owns the optical
-   centre-left and dominates at 1.6fr, the telemetry rail stays narrow.
+   Components: live console, viewport, graph, decision log, bug cards, forms.
+   Top bar / Overview / Evidence chrome lives in showcase.css.
    ========================================================================== */
-
-/* ============================== APP SHELL ================================= */
 
 .shell {
   position: relative;
@@ -14,52 +11,10 @@
   height: 100vh;
 }
 
-/* ------------------------------- Header ----------------------------------- */
-
-.topbar {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-4);
-  height: var(--header-h);
-  padding: 0 var(--sp-4);
-  background: linear-gradient(180deg, var(--surface) 0%, var(--bg) 100%);
-  border-bottom: 1px solid var(--line);
-  position: sticky;
-  top: 0;
-  z-index: 20;
-}
-
-.brand { display: flex; align-items: baseline; gap: var(--sp-2); }
-.brand-mark {
-  font-family: var(--font-display);
-  font-size: var(--fs-md);
-  font-weight: 700;
-  letter-spacing: -0.03em;
-  color: var(--text-strong);
-}
-.brand-mark em {
-  font-style: normal;
-  color: var(--accent);
-}
-.brand-ver {
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  color: var(--muted);
-  padding: 1px 5px;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--r-xs);
-}
-
-.topbar-sep { width: 1px; height: 20px; background: var(--line); }
-
-/* Readouts: label above value, dense, monospaced. */
-.readouts { display: flex; align-items: center; gap: var(--sp-4); margin-left: var(--sp-2); }
 .readout { display: flex; flex-direction: column; line-height: 1.15; }
 .readout-k {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.13em;
-  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-size: 11px;
   color: var(--muted);
 }
 .readout-v {
@@ -69,25 +24,7 @@
   font-variant-numeric: tabular-nums;
 }
 .readout-v.is-accent { color: var(--accent); }
-.readout-v.is-alert  { color: var(--alert); }
-
-.topbar-right { margin-left: auto; display: flex; align-items: center; gap: var(--sp-3); }
-
-.conn {
-  display: flex; align-items: center; gap: var(--sp-2);
-  font-family: var(--font-mono);
-  font-size: var(--fs-xs);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding: 5px 10px;
-  border: 1px solid var(--line);
-  border-radius: var(--r-sm);
-  background: var(--surface-2);
-}
-.conn.is-live { color: var(--accent); border-color: var(--accent-mid); }
-
-/* ------------------------------- Body grid -------------------------------- */
+.readout-v.is-alert  { color: var(--warning); }
 
 .console {
   display: grid;
@@ -99,22 +36,15 @@
 }
 
 .col { display: flex; flex-direction: column; gap: var(--sp-3); min-height: 0; min-width: 0; }
-/* Right rail: the control surface plus all evidence. It scrolls as a unit so
-   no card is ever squeezed below a readable height. */
 .col-right { overflow-y: auto; min-height: 0; padding-right: 3px; }
 
-/* ============================== VIEWPORT ================================== */
-
-/* Left column stacks three information panels: live viewport (dominant),
-   state graph, and decision log. Each flex-grows from its own basis so the
-   ratio holds on tall and short screens alike. */
 .viewport-panel { display: flex; flex-direction: column; min-height: 0; flex: 1.15 1 190px; }
 .graph-panel    { display: flex; flex-direction: column; min-height: 0; flex: 1.05 1 200px; }
 .log-panel      { display: flex; flex-direction: column; min-height: 0; flex: 0.85 1 145px; }
 
 .panel-head {
   display: flex; align-items: center; gap: var(--sp-3);
-  padding: 9px var(--sp-3);
+  padding: 8px var(--sp-3);
   border-bottom: 1px solid var(--line);
   background: var(--surface-2);
   border-radius: var(--r-md) var(--r-md) 0 0;
@@ -129,17 +59,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    linear-gradient(180deg, rgba(61, 218, 215, 0.035), transparent 30%),
-    radial-gradient(80% 60% at 50% 50%, #14181d 0%, var(--bg-deep) 100%);
+  background: var(--viewport-wash);
   overflow: hidden;
   flex: 1;
   min-height: 260px;
   padding: var(--sp-3);
 }
 
-/* The screenshot is a *viewport*, so it scales up to fill available height
-   while never distorting or overflowing horizontally. */
 .viewport img {
   width: auto;
   height: auto;
@@ -152,16 +78,15 @@
   image-rendering: -webkit-optimize-contrast;
 }
 
-/* Empty-state crosshair only. Never overlay a real app screenshot. */
 .viewport:not(.has-shot)::after {
   content: "";
   position: absolute;
   inset: 0;
   pointer-events: none;
   background:
-    linear-gradient(to right, transparent calc(50% - 0.5px), rgba(61, 218, 215, 0.16) 50%, transparent calc(50% + 0.5px)),
-    linear-gradient(to bottom, transparent calc(50% - 0.5px), rgba(61, 218, 215, 0.16) 50%, transparent calc(50% + 0.5px));
-  opacity: 0.35;
+    linear-gradient(to right, transparent calc(50% - 0.5px), var(--crosshair) 50%, transparent calc(50% + 0.5px)),
+    linear-gradient(to bottom, transparent calc(50% - 0.5px), var(--crosshair) 50%, transparent calc(50% + 0.5px));
+  opacity: 0.5;
 }
 
 .viewport-empty {
@@ -178,7 +103,6 @@
 }
 .viewport-empty p { font-size: var(--fs-sm); }
 
-/* Action caption strip under the viewport: what the agent just did. */
 .action-strip {
   display: flex;
   align-items: center;
@@ -188,12 +112,15 @@
   border-top: 1px solid var(--line);
   border-radius: 0 0 var(--r-md) var(--r-md);
   flex-shrink: 0;
-  min-height: 42px;
+  min-height: 44px;
+}
+body.is-running .action-strip {
+  border-top-color: var(--accent-mid);
 }
 .action-verb {
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
-  letter-spacing: 0.1em;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 3px 7px;
   border-radius: var(--r-xs);
@@ -222,8 +149,6 @@
   max-width: 42%;
 }
 
-/* ============================== GRAPH ===================================== */
-
 #graph { flex: 1; min-height: 150px; }
 
 .graph-legend {
@@ -234,11 +159,10 @@
   font-size: var(--fs-xs);
   color: var(--muted);
   flex-shrink: 0;
+  flex-wrap: wrap;
 }
 .key { display: flex; align-items: center; gap: 5px; }
-.key i { width: 8px; height: 8px; border-radius: 50%; display: block; }
-
-/* ============================ TELEMETRY RAIL ============================== */
+.key i { width: 8px; height: 8px; display: block; }
 
 .stat-grid {
   display: grid;
@@ -257,24 +181,21 @@
   gap: 2px;
 }
 .stat-k {
-  font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-family: var(--font-body);
+  font-size: 11px;
   color: var(--muted);
 }
 .stat-v {
   font-family: var(--font-mono);
-  font-size: var(--fs-xl);
+  font-size: var(--fs-lg);
   font-weight: 500;
   line-height: 1;
   color: var(--text-strong);
   font-variant-numeric: tabular-nums;
 }
 .stat.is-accent .stat-v { color: var(--accent); }
-.stat.is-alert  .stat-v { color: var(--alert); }
+.stat.is-alert  .stat-v { color: var(--warning); }
 
-/* Similarity mix: proportional bar, mirrors explorer's classification. */
 .mix { padding: var(--sp-3); }
 .mix-bar {
   display: flex;
@@ -294,9 +215,6 @@
 }
 .mix-row b { margin-left: auto; color: var(--text); font-weight: 500; }
 
-/* =========================== DECISION LOG ================================= */
-
-.log-panel { display: flex; flex-direction: column; min-height: 0; flex: 1; }
 .log {
   overflow-y: auto;
   padding: var(--sp-2);
@@ -320,7 +238,7 @@
 }
 .log-row:hover { background: var(--surface-2); }
 .log-row.is-active { background: var(--accent-dim); border-left-color: var(--accent); }
-.log-row.is-bug { border-left-color: var(--alert); }
+.log-row.is-bug { border-left-color: var(--warning); }
 
 .log-i {
   font-family: var(--font-mono);
@@ -338,26 +256,24 @@
 }
 .log-tag {
   font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.06em;
+  font-size: 10px;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 1px 5px;
   border-radius: var(--r-xs);
   border: 1px solid transparent;
 }
-.tag-new       { color: var(--sim-new);       background: rgba(61,218,215,.11); border-color: var(--accent-mid); }
-.tag-similar   { color: var(--sim-similar);   background: rgba(167,139,250,.11); border-color: rgba(167,139,250,.3); }
-.tag-identical { color: var(--sim-identical); background: rgba(107,114,128,.11); border-color: rgba(107,114,128,.3); }
-.tag-bug       { color: var(--alert);         background: var(--alert-dim);      border-color: rgba(255,179,71,.34); }
-.tag-crash     { color: var(--danger);        background: var(--danger-dim);     border-color: rgba(255,107,107,.34); }
-
-/* ============================== BUG CARDS ================================= */
+.tag-new       { color: var(--graph-new);       background: var(--sim-new-dim);       border-color: var(--accent-mid); }
+.tag-similar   { color: var(--graph-similar);   background: var(--sim-similar-dim);   border-color: var(--line-strong); }
+.tag-identical { color: var(--graph-identical); background: var(--sim-identical-dim); border-color: var(--line-strong); }
+.tag-bug       { color: var(--warning);         background: var(--alert-dim);         border-color: var(--line-strong); }
+.tag-crash     { color: var(--danger);          background: var(--danger-dim);        border-color: var(--line-strong); }
 
 .bugs { display: flex; flex-direction: column; gap: var(--sp-2); padding: var(--sp-2); }
 
 .bug {
   border: 1px solid var(--line);
-  border-left: 3px solid var(--alert);
+  border-left: 3px solid var(--warning);
   border-radius: var(--r-sm);
   background: var(--surface);
   overflow: hidden;
@@ -370,10 +286,10 @@
 }
 .bug-kind {
   font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.1em;
+  font-size: 10px;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--alert);
+  color: var(--warning);
   flex-shrink: 0;
 }
 .bug-desc {
@@ -387,7 +303,7 @@
   display: none;
   padding: var(--sp-3);
   border-top: 1px solid var(--line);
-  background: var(--bg-deep);
+  background: var(--bg-subtle);
 }
 .bug.is-open .bug-body { display: block; }
 
@@ -398,7 +314,7 @@
   color: var(--muted);
   margin-bottom: var(--sp-2);
 }
-.repro-meta b { color: var(--ok); font-weight: 500; }
+.repro-meta b { color: var(--success); font-weight: 500; }
 
 .repro-steps { list-style: none; margin: 0; padding: 0; counter-reset: rs; }
 .repro-steps li {
@@ -415,10 +331,8 @@
   content: counter(rs, decimal-leading-zero);
   position: absolute; left: 0; top: 5px;
   color: var(--accent);
-  font-size: 9.5px;
+  font-size: 10px;
 }
-
-/* ========================= BENCHMARK EVIDENCE ============================= */
 
 #bench { max-height: 260px; overflow-y: auto; gap: var(--sp-3); }
 
@@ -438,7 +352,7 @@
 .bench-meta {
   margin-left: auto;
   font-family: var(--font-mono);
-  font-size: 9.5px;
+  font-size: 11px;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -446,9 +360,7 @@
 .bench-tbl { width: 100%; border-collapse: collapse; }
 .bench-tbl th {
   font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 11px;
   color: var(--muted);
   text-align: right;
   font-weight: 400;
@@ -467,7 +379,6 @@
 .bench-tbl td:first-child { text-align: left; color: var(--text-strong); }
 .bench-p { font-weight: 500; }
 
-/* Inline proportional bar sits under the BDR number it explains. */
 .bench-tbl td .bar {
   display: block;
   height: 2px;
@@ -480,22 +391,18 @@
 }
 .bench-tbl td b { font-weight: 500; color: var(--accent); }
 
-/* ============================== FORMS ===================================== */
-
 .form { display: flex; flex-direction: column; gap: var(--sp-3); padding: var(--sp-3); }
 
 .field { display: flex; flex-direction: column; gap: 5px; }
 .field label {
-  font-family: var(--font-mono);
+  font-family: var(--font-body);
   font-size: var(--fs-xs);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
   color: var(--muted);
 }
 .field input, .field select {
   min-height: 44px;
   padding: 0 10px;
-  background: var(--bg-deep);
+  background: var(--bg-subtle);
   border: 1px solid var(--line-strong);
   border-radius: var(--r-sm);
   color: var(--text-strong);
@@ -510,12 +417,10 @@
   border-color: var(--accent);
   box-shadow: 0 0 0 3px var(--accent-dim);
 }
-.field input::placeholder { color: #5c6470; }
+.field input::placeholder { color: var(--placeholder); }
 
 .row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2); }
 
-/* Checkbox: native input kept visible-but-overlaid so it stays focusable and
-   clickable for assistive tech and automation, while the styled box renders. */
 .check {
   position: relative;
   display: flex; align-items: center; gap: var(--sp-2);
@@ -537,15 +442,15 @@
   width: 17px; height: 17px; flex-shrink: 0;
   border: 1px solid var(--line-strong);
   border-radius: var(--r-xs);
-  background: var(--bg-deep);
+  background: var(--bg-subtle);
   display: grid; place-items: center;
   transition: all var(--dur-fast) ease-out;
 }
 .check-box::after {
   content: "";
   width: 8px; height: 4px;
-  border-left: 2px solid var(--bg-deep);
-  border-bottom: 2px solid var(--bg-deep);
+  border-left: 2px solid var(--on-accent);
+  border-bottom: 2px solid var(--on-accent);
   transform: rotate(-45deg) scale(0);
   transition: transform var(--dur-fast) var(--ease-out);
 }
@@ -554,33 +459,36 @@
 .check input:focus-visible + .check-box { outline: 2px solid var(--accent); outline-offset: 2px; }
 .check-label { font-size: var(--fs-sm); color: var(--text); }
 
-/* Primary action: the ONLY element wearing a filled amber accent per screen. */
+a.btn, a.btn:hover { text-decoration: none; }
+
 .btn {
   min-height: 44px;
   padding: 0 var(--sp-4);
   border: 1px solid transparent;
   border-radius: var(--r-sm);
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-size: var(--fs-base);
   font-weight: 600;
-  letter-spacing: 0.01em;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: var(--sp-2);
+  touch-action: manipulation;
   transition: transform var(--dur-fast) var(--ease-out),
-              box-shadow var(--dur-base) var(--ease-out),
-              background var(--dur-fast) ease-out;
+              box-shadow var(--dur-fast) ease-out,
+              background var(--dur-fast) ease-out,
+              border-color var(--dur-fast) ease-out,
+              color var(--dur-fast) ease-out;
 }
 .btn-primary {
   background: var(--accent);
-  color: #04201f;
-  box-shadow: 0 0 0 1px var(--accent-mid);
+  color: var(--on-accent);
 }
 .btn-primary:hover:not(:disabled) {
+  background: var(--accent-hover);
   transform: translateY(-1px);
-  box-shadow: 0 6px 20px rgba(61, 218, 215, 0.3), 0 0 0 1px var(--accent);
+  box-shadow: var(--sh-1);
 }
 .btn-primary:active:not(:disabled) { transform: translateY(0); }
 .btn-primary:disabled {
@@ -594,7 +502,7 @@
   border-color: var(--line-strong);
   color: var(--text);
 }
-.btn-ghost:hover { border-color: var(--accent-mid); color: var(--accent); }
+.btn-ghost:hover { border-color: var(--accent-mid); color: var(--accent); text-decoration: none; }
 .btn-tiny {
   min-height: 28px;
   height: 28px;
@@ -614,7 +522,7 @@
   color: var(--muted);
   line-height: 1.45;
 }
-.field-hint.research-only { color: var(--warn); }
+.field-hint.research-only { color: var(--warning); }
 .field-error {
   margin: 0;
   font-size: var(--fs-xs);
@@ -623,17 +531,9 @@
 }
 .field-error:empty { min-height: 0; }
 
-/* ============================== MISC ====================================== */
-
 .card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); }
 .col-right > .card:not(.log-panel) { flex-shrink: 0; }
 
-/* The right rail can hold more than one screenful of evidence. Let it scroll
-   as a whole rather than compressing every card into illegibility. */
-.col-right { overflow-y: auto; }
-
-/* Bugs card: cap its height and scroll inside, so a long bug list cannot push
-   the benchmark evidence out of view. */
 #bugs { max-height: 190px; overflow-y: auto; }
 .card-head {
   display: flex; align-items: center; gap: var(--sp-3);
@@ -654,8 +554,8 @@
 
 .status-pill {
   font-family: var(--font-mono);
-  font-size: 9.5px;
-  letter-spacing: 0.1em;
+  font-size: 10px;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
   padding: 3px 7px;
   border-radius: var(--r-xs);
@@ -663,12 +563,10 @@
   color: var(--muted);
 }
 .status-pill.is-running { color: var(--accent); border-color: var(--accent-mid); background: var(--accent-dim); }
-.status-pill.is-validating { color: var(--warn); border-color: rgba(255,179,71,.4); background: var(--alert-dim); }
-.status-pill.is-done    { color: var(--ok); border-color: rgba(74,222,128,.34); background: var(--ok-dim); }
-.status-pill.is-error   { color: var(--danger); border-color: rgba(255,107,107,.34); background: var(--danger-dim); }
+.status-pill.is-validating { color: var(--warning); border-color: var(--line-strong); background: var(--alert-dim); }
+.status-pill.is-done    { color: var(--success); border-color: var(--line-strong); background: var(--ok-dim); }
+.status-pill.is-error   { color: var(--danger); border-color: var(--line-strong); background: var(--danger-dim); }
 .status-pill.is-idle    { color: var(--muted); }
-
-/* ============================ RESPONSIVE ================================== */
 
 @media (max-width: 1180px) {
   .console { grid-template-columns: 1fr; overflow-y: auto; }
@@ -679,30 +577,9 @@
 @media (max-width: 720px) {
   body.view-live { overflow: auto; height: auto; }
   .shell { height: auto; min-height: 100vh; }
-  .topbar {
-    display: flex;
-    flex-wrap: wrap;
-    height: auto;
-    padding: var(--sp-2) var(--sp-3);
-    gap: var(--sp-2) var(--sp-3);
-  }
-  .topbar-sep { display: none; }
-  .readouts {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--sp-2) var(--sp-3);
-    margin-left: 0;
-    width: 100%;
-  }
-  .topbar-right {
-    margin-left: auto;
-    width: auto;
-  }
   .console { padding: var(--sp-2); gap: var(--sp-2); }
   .stat-grid { grid-template-columns: repeat(2, 1fr); }
   .viewport { min-height: 240px; }
-
-  /* Flatten columns so mobile order can be: form, viewport, graph, bugs, log, telemetry. */
   .console { display: flex; flex-direction: column; }
   .col, .col-right { display: contents; }
   .viewport-panel { order: 2; flex: 0 0 auto; }

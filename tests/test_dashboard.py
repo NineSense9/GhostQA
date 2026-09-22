@@ -139,10 +139,55 @@ def test_index_has_three_views_and_live_ids():
         'id="view-overview"', 'id="view-live"', 'id="view-evidence"',
         'id="run-form"', 'id="shot"', 'id="graph"', 'id="btn-run"',
         'data-testid="return-cycle"', 'data-testid="live-viewport"',
+        'id="theme-toggle"', 'data-testid="theme-toggle"',
     ):
         assert token in html
     assert "view-overview" in html
-    assert "进入实时探索" in html
+    assert "运行一次探索" in html
+    assert "进入实时探索" not in html
+
+
+def test_theme_tokens_and_init_script():
+    html = open(os.path.join(STATIC_DIR, "index.html"), encoding="utf-8").read()
+    tokens = open(os.path.join(STATIC_DIR, "styles", "tokens.css"), encoding="utf-8").read()
+    js = open(os.path.join(STATIC_DIR, "scripts", "main.js"), encoding="utf-8").read()
+    assert "ghostqa-theme" in html
+    assert "prefers-color-scheme" in html
+    assert 'data-theme' in html
+    assert '[data-theme="light"]' in tokens
+    assert '[data-theme="dark"]' in tokens
+    assert "--graph-node" in tokens
+    assert "--graph-new" in tokens
+    assert "Chakra Petch" not in html
+    assert "Chakra Petch" not in tokens
+    assert "scanlines" not in html
+    assert "THEME_KEY" in js
+    assert "applyGraphTheme" in js
+    assert "#171a1f" not in js
+    assert "#3ddad7" not in js
+    assert "#a78bfa" not in js
+
+
+def test_copy_guardrails_and_v038_claim():
+    html = open(os.path.join(STATIC_DIR, "index.html"), encoding="utf-8").read()
+    js = (
+        open(os.path.join(STATIC_DIR, "scripts", "main.js"), encoding="utf-8").read()
+        + open(os.path.join(STATIC_DIR, "scripts", "showcase.js"), encoding="utf-8").read()
+    )
+    blob = html + "\n" + js
+    assert "没有证据表明 fingerprint" in html
+    assert "C0/C1 都记录到 116 次 return attempt" in html
+    assert "主要不是 fingerprint 爆炸" not in html
+    assert "我们不只" not in blob
+    assert "让测试代理自己走完整条路径" not in html
+    assert "协议、freeze、manifest、clean clone" not in html
+    for phrase in (
+        "赋能", "智能化", "革命", "下一代", "一站式", "全链路",
+        "领先", "强大", "精准", "高效", "AI-powered", "cutting-edge",
+        "重新定义", "一站式智能", "不仅",
+    ):
+        assert phrase not in blob
+    assert "BuggyShop 是机制分析用例" in html or "已分析用例" in html
 
 
 def test_showcase_assets_exist():

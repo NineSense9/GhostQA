@@ -1,64 +1,153 @@
 /* ============================================================================
    GhostQA Dashboard — Design Tokens
-   Direction: Industrial / utilitarian monitoring console.
-   Dark-first, near-black base, cold-cyan dominant surface accent, and a single
-   amber accent reserved exclusively for confirmed defects and primary actions.
+   Direction: technical editorial research workspace.
+   Light and dark are designed as a pair. Colors live here; components
+   consume semantic roles, not raw hex.
    ========================================================================== */
 
+:root,
+html[data-theme="light"] {
+  color-scheme: light;
+
+  --bg: #f2efe8;
+  --bg-subtle: #e8e4db;
+  --bg-deep: #ddd8cc;
+  --surface: #fbf9f4;
+  --surface-2: #f4f0e8;
+  --surface-3: rgba(45, 43, 39, 0.06);
+  --surface-raised: #ffffff;
+
+  --text: #2d2b27;
+  --text-strong: #161513;
+  --muted: #5a574f;
+
+  --line: rgba(40, 36, 30, 0.10);
+  --line-strong: rgba(40, 36, 30, 0.18);
+
+  --accent: #0d6b66;
+  --accent-hover: #0a5854;
+  --accent-dim: rgba(13, 107, 102, 0.10);
+  --accent-mid: rgba(13, 107, 102, 0.32);
+  --on-accent: #f7fffe;
+
+  --success: #216c45;
+  --ok: var(--success);
+  --ok-dim: rgba(33, 108, 69, 0.12);
+
+  --warning: #9a4e0b;
+  --warn: var(--warning);
+  --alert: var(--warning);
+  --alert-dim: rgba(154, 78, 11, 0.12);
+
+  --danger: #b42318;
+  --danger-dim: rgba(180, 35, 24, 0.12);
+
+  --graph-node: #ffffff;
+  --graph-label: #161513;
+  --graph-edge: #b7b1a6;
+  --graph-new: #0d6b66;
+  --graph-similar: #3d5a80;
+  --graph-identical: #6f6c64;
+  --graph-flagged: #9a4e0b;
+  --graph-active: #9a4e0b;
+  --sim-new: var(--graph-new);
+  --sim-similar: var(--graph-similar);
+  --sim-identical: var(--graph-identical);
+  --sim-new-dim: rgba(13, 107, 102, 0.12);
+  --sim-similar-dim: rgba(61, 90, 128, 0.12);
+  --sim-identical-dim: rgba(111, 108, 100, 0.12);
+
+  --placeholder: #7a766c;
+  --scrollbar-hover: #9a958a;
+  --theme-color: #f2efe8;
+  --crosshair: rgba(40, 36, 30, 0.12);
+  --viewport-wash: #ece8df;
+
+  --sh-1: 0 1px 2px rgba(40, 36, 28, 0.06);
+  --sh-2: 0 8px 24px rgba(40, 36, 28, 0.08);
+  --sh-3: 0 18px 40px rgba(40, 36, 28, 0.10);
+
+  --grain-opacity: 0;
+}
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  --bg: #1c1d1f;
+  --bg-subtle: #161718;
+  --bg-deep: #121314;
+  --surface: #242628;
+  --surface-2: #2c2e31;
+  --surface-3: rgba(246, 244, 239, 0.06);
+  --surface-raised: #33363a;
+
+  --text: #e8e6e1;
+  --text-strong: #f6f4ef;
+  --muted: #a09c94;
+
+  --line: rgba(246, 244, 239, 0.08);
+  --line-strong: rgba(246, 244, 239, 0.16);
+
+  --accent: #6ad0c8;
+  --accent-hover: #8adcd6;
+  --accent-dim: rgba(106, 208, 200, 0.12);
+  --accent-mid: rgba(106, 208, 200, 0.34);
+  --on-accent: #102422;
+
+  --success: #7dca9a;
+  --ok: var(--success);
+  --ok-dim: rgba(125, 202, 154, 0.14);
+
+  --warning: #e0a15a;
+  --warn: var(--warning);
+  --alert: var(--warning);
+  --alert-dim: rgba(224, 161, 90, 0.14);
+
+  --danger: #e07070;
+  --danger-dim: rgba(224, 112, 112, 0.14);
+
+  --graph-node: #2c2e31;
+  --graph-label: #e8e6e1;
+  --graph-edge: #4a4d52;
+  --graph-new: #6ad0c8;
+  --graph-similar: #8aa0c8;
+  --graph-identical: #8a8882;
+  --graph-flagged: #e0a15a;
+  --graph-active: #e0a15a;
+  --sim-new: var(--graph-new);
+  --sim-similar: var(--graph-similar);
+  --sim-identical: var(--graph-identical);
+  --sim-new-dim: rgba(106, 208, 200, 0.14);
+  --sim-similar-dim: rgba(138, 160, 200, 0.14);
+  --sim-identical-dim: rgba(138, 136, 130, 0.14);
+
+  --placeholder: #8a8680;
+  --scrollbar-hover: #6a6862;
+  --theme-color: #1c1d1f;
+  --crosshair: rgba(246, 244, 239, 0.10);
+  --viewport-wash: #18191b;
+
+  --sh-1: 0 1px 2px rgba(0, 0, 0, 0.28);
+  --sh-2: 0 8px 24px rgba(0, 0, 0, 0.36);
+  --sh-3: 0 18px 40px rgba(0, 0, 0, 0.44);
+
+  --grain-opacity: 0.03;
+}
+
 :root {
-  /* --- Surfaces: near-black, never pure #000 (softer on long viewing) ----- */
-  --bg: #0a0b0d;
-  --bg-deep: #060708;
-  --surface: #111317;
-  --surface-2: #171a1f;
-  --surface-3: #1e222883;
-  --surface-raised: #1c2027;
-
-  /* --- Text: warm-neutral light greys, measured for >=4.5:1 on --surface -- */
-  --text: #e8ebef;
-  --text-strong: #f7f9fb;
-  --muted: #9aa3af;   /* 7.2:1 on --bg, 5.6:1 on --surface */
-
-  /* --- Hairlines: sub-pixel borders are the signature of this direction --- */
-  --line: rgba(232, 235, 239, 0.09);
-  --line-strong: rgba(232, 235, 239, 0.17);
-
-  /* --- Dominant accent: cold cyan (system / machine) --------------------- */
-  --accent: #3ddad7;
-  --accent-dim: rgba(61, 218, 215, 0.13);
-  --accent-mid: rgba(61, 218, 215, 0.34);
-
-  /* --- Single sharp accent: amber, ONLY for confirmed defects + CTA ------ */
-  --alert: #ffb347;
-  --alert-dim: rgba(255, 179, 71, 0.13);
-
-  /* --- Semantic status hues (industrial consoles never rely on one hue) -- */
-  --ok: #4ade80;
-  --ok-dim: rgba(74, 222, 128, 0.12);
-  --warn: #ffb347;
-  --danger: #ff6b6b;
-  --danger-dim: rgba(255, 107, 107, 0.13);
-
-  /* --- Similarity classification hues (mirrors explorer semantics) ------- */
-  --sim-new: #3ddad7;
-  --sim-similar: #a78bfa;
-  --sim-identical: #6b7280;
-
-  /* --- Type scale: 1.25 modular, defined once, never hand-written -------- */
-  --font-display: "Chakra Petch", "Noto Sans SC", sans-serif;
+  --font-display: "IBM Plex Sans", "Noto Sans SC", sans-serif;
   --font-body: "IBM Plex Sans", "Noto Sans SC", sans-serif;
   --font-mono: "IBM Plex Mono", ui-monospace, monospace;
 
-  --fs-xs: 0.6875rem;   /* 11px — labels, meta */
-  --fs-sm: 0.78rem;     /* 12.5px — dense data */
-  --fs-base: 0.875rem;  /* 14px — body */
-  --fs-md: 1rem;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.8125rem;
+  --fs-base: 0.9375rem;
+  --fs-md: 1.0625rem;
   --fs-lg: 1.25rem;
-  --fs-xl: 1.6rem;
-  --fs-2xl: 2.1rem;
-  --fs-3xl: 2.9rem;
+  --fs-xl: 1.5rem;
+  --fs-2xl: 2rem;
+  --fs-3xl: 2.5rem;
 
-  /* --- Spacing gradient (4 / 8 / 16 / 24 / 40 / 64) ---------------------- */
   --sp-1: 4px;
   --sp-2: 8px;
   --sp-3: 16px;
@@ -66,27 +155,20 @@
   --sp-5: 40px;
   --sp-6: 64px;
 
-  /* --- Radii: this direction stays tight; consoles are not bubbly -------- */
-  --r-xs: 2px;
-  --r-sm: 4px;
-  --r-md: 6px;
+  --r-xs: 3px;
+  --r-sm: 6px;
+  --r-md: 8px;
 
-  /* --- Elevation: shadows carry the background's cool cast, not pure black */
-  --sh-1: 0 2px 6px rgba(0, 0, 0, 0.34);
-  --sh-2: 0 8px 24px rgba(0, 0, 0, 0.44);
-  --sh-3: 0 24px 60px rgba(0, 0, 0, 0.56);
-  --glow-accent: 0 0 0 1px var(--accent-mid), 0 0 22px rgba(61, 218, 215, 0.16);
-
-  /* --- Motion ------------------------------------------------------------ */
-  --dur-fast: 150ms;
-  --dur-base: 320ms;
-  --dur-slow: 640ms;
+  --dur-fast: 160ms;
+  --dur-base: 200ms;
+  --dur-slow: 280ms;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --header-h: 56px;
+  --header-h: 58px;
+  --measure: 42rem;
+  --page-w: 1180px;
 }
 
-/* Reduced motion: kill all decorative movement, keep the console usable. */
 @media (prefers-reduced-motion: reduce) {
   :root {
     --dur-fast: 1ms;

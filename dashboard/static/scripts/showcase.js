@@ -91,40 +91,54 @@ function renderReturnCycle(rc) {
   setText('rc-g-esc', g.cycle_escapes);
   const bugsEl = gid('rc-bugs');
   if (bugsEl) {
+    const bits = [];
     const bugs = shortBugs(g.confirmed);
-    bugsEl.textContent = bugs
-      ? ('已确认 ' + bugs + ' · 描述性结果，来自已分析的 BuggyShop')
-      : '';
+    if (bugs) bits.push('已确认 ' + bugs);
+    if (g.post_escape_new_states != null) {
+      bits.push('逃出后新状态 ' + g.post_escape_new_states + ' 个');
+    }
+    const urls = g.post_escape_new_urls || [];
+    if (urls.length) {
+      bits.push('新 URL ' + urls.map((u) => String(u).replace(/^https?:\/\/[^/]+/, '')).join(' · '));
+    }
+    bits.push('描述性结果，来自已分析的 BuggyShop');
+    bugsEl.textContent = bits.join(' · ');
   }
   const title = gid('h-rc');
-  if (title && b.return_attempts != null) {
-    title.textContent = '从 ' + b.return_attempts + ' 次无效返回，到重新开始探索';
+  if (title && b.states != null) {
+    title.textContent = '打断 return loop 后，探索从 ' + b.states + ' 个状态继续向外走';
   }
+  setText('proof-round', rc.round || 'v0.3.9');
+  setText('proof-b-states', b.states);
+  setText('proof-g-states', g.states);
+  setText('proof-b-ret', b.return_attempts);
+  setText('proof-g-ret', g.return_attempts);
+  setText('proof-esc', g.cycle_escapes);
+  setText('proof-outcome', rc.outcome || 'A');
   const delta = gid('rc-delta');
   if (delta) {
     delta.innerHTML =
-      `<span>States <b>${escapeHtml(b.states)}</b> → <b>${escapeHtml(g.states)}</b></span>` +
-      `<span>URLs <b>${escapeHtml(b.urls)}</b> → <b>${escapeHtml(g.urls)}</b></span>` +
-      `<span>Return tries <b>${escapeHtml(b.return_attempts)}</b> → <b>${escapeHtml(g.return_attempts)}</b></span>` +
-      `<span>False success <b>${escapeHtml(b.successful_return)}</b> → <b>${escapeHtml(g.successful_return)}</b></span>`;
+      `<span>状态 <b>${escapeHtml(b.states)}</b> → <b>${escapeHtml(g.states)}</b></span>` +
+      `<span>URL <b>${escapeHtml(b.urls)}</b> → <b>${escapeHtml(g.urls)}</b></span>` +
+      `<span>return attempt <b>${escapeHtml(b.return_attempts)}</b> → <b>${escapeHtml(g.return_attempts)}</b></span>` +
+      `<span>cycle escape <b>${escapeHtml(g.cycle_escapes)}</b></span>`;
   }
   const oc = gid('rc-outcome');
   if (oc) oc.textContent = rc.outcome ? ('Outcome ' + rc.outcome) : 'Outcome';
   const om = gid('rc-outcome-mean');
   if (om) {
-    om.textContent = '机制修复成功，历史 DeepBench 无回归';
+    om.textContent = 'Outcome A：机制修好，DeepBench @120 没有丢掉原来的 bug。BuggyShop 是已分析用例。';
   }
   const deep = gid('rc-deep');
   if (deep) {
     const ids = shortBugs(d.guard_confirmed || d.c1_confirmed);
     const lost = (d.lost_from_baseline || []).length;
-    const parts = ['DeepBench @120：'];
+    const parts = ['DeepBench @120 是历史回归检查。'];
     if (ids) parts.push('C1 和 guard 都确认 ' + ids + '。');
     if (d.guard_escapes != null) {
       parts.push('guard 在该历史 workflow 上触发 ' + d.guard_escapes + ' 次。');
     }
-    if (lost === 0) parts.push('lost bugs = 0。');
-    parts.push('historical regression check');
+    if (lost === 0) parts.push('lost_from_baseline 为空。');
     deep.textContent = parts.join(' ');
   }
 }
@@ -154,13 +168,13 @@ function renderEvidence(data) {
     } else {
       const r = rc.reproduction || {};
       ev039.innerHTML = [
-        statusRow('Outcome', rc.outcome || '—', rc.outcome === 'A'),
-        statusRow('Candidate freeze', yn(r.candidate_freeze_verified), r.candidate_freeze_verified),
-        statusRow('Historical C1 freeze', yn(r.historical_c1_freeze_verified), r.historical_c1_freeze_verified),
-        statusRow('Evidence manifest', fileLabel(r.evidence_files, r.evidence_manifest_verified),
+        statusRow('轮次结果', rc.outcome ? ('Outcome ' + rc.outcome) : '—', rc.outcome === 'A'),
+        statusRow('候选 freeze', yn(r.candidate_freeze_verified), r.candidate_freeze_verified),
+        statusRow('历史 C1 freeze', yn(r.historical_c1_freeze_verified), r.historical_c1_freeze_verified),
+        statusRow('证据清单', fileLabel(r.evidence_files, r.evidence_manifest_verified),
           r.evidence_manifest_verified),
-        statusRow('Clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
-        statusRow('Product default', rc.product_default_changed ? 'changed' : 'unchanged',
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', rc.product_default_changed ? '已改' : '未改',
           rc.product_default_changed === false),
         hashRow('Metrics SHA256', r.metrics_sha256, r.metrics_sha256_short),
       ].join('');
@@ -176,11 +190,11 @@ function renderEvidence(data) {
       const r = app.reproduction || {};
       const cause = app.root_cause || '—';
       ev038.innerHTML = [
-        statusRow('Evidence', fileLabel(r.evidence_files, r.evidence_manifest_verified),
+        statusRow('证据清单', fileLabel(r.evidence_files, r.evidence_manifest_verified),
           r.evidence_manifest_verified),
-        statusRow('Analysis hash', r.match ? 'Match' : '—', r.match),
-        statusRow('Clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
-        statusRow('Root cause', cause, 'warn'),
+        statusRow('分析哈希', r.match ? 'Match' : '—', r.match),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('根因记录', cause, 'warn'),
         hashRow('Analysis SHA256', r.analysis_sha256, r.analysis_sha256_short),
       ].join('');
     }
@@ -196,9 +210,9 @@ function renderEvidence(data) {
     } else {
       rail.innerHTML =
         `<h2>当前研究</h2>` +
-        `<p>Latest mechanism round<br><b>${escapeHtml(latest.round || '—')} ${escapeHtml(latest.title || '')}</b></p>` +
-        `<p>Reproduction<br><b>${r.clean_clone_verified ? 'clean clone verified' : '—'}</b></p>` +
-        `<p>Product default<br><b>${latest.product_default_changed ? 'changed' : 'unchanged'}</b></p>` +
+        `<p>机制轮次<br><b>${escapeHtml(latest.round || '—')} ${escapeHtml(latest.title || '')}</b></p>` +
+        `<p>复现校验<br><b>${r.clean_clone_verified ? 'clean clone 已通过' : '—'}</b></p>` +
+        `<p>产品默认<br><b>${latest.product_default_changed ? '已改' : '未改'}</b></p>` +
         (rc.product_default
           ? `<p>配置<br><b>${escapeHtml(rc.product_default)}</b></p>` : '');
     }
@@ -264,7 +278,7 @@ async function loadShowcase() {
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {
-      badge.textContent = 'Latest research · ' + data.latest.round;
+      badge.textContent = '研究版本 · ' + data.latest.round;
     }
   } catch (_) {
     markUnavailable();
