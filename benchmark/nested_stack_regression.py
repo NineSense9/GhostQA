@@ -5,6 +5,7 @@ Does not run exploration and does not choose actions.
 """
 from __future__ import annotations
 
+import hashlib
 import os
 
 from benchmark.algorithm_freeze import sha256_file
@@ -181,10 +182,12 @@ def _first_match(events: list, bug: dict) -> dict | None:
 
 def _source(rel: str) -> dict:
     path = _abs(rel)
+    with open(path, "rb") as handle:
+        data = handle.read().replace(b"\r\n", b"\n").replace(b"\r", b"\n")
     return {
         "path": rel.replace("\\", "/"),
-        "sha256": sha256_file(path),
-        "bytes": os.path.getsize(path),
+        "sha256": hashlib.sha256(data).hexdigest(),
+        "bytes": len(data),
     }
 
 

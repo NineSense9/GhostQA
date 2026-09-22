@@ -5,7 +5,7 @@
   "starting_head": "23a5e3688433bfc532abc578ec919083368db604",
   "regression_analysis_commit": "0fda87449b0a15eb740277993ec372ad48b0d535",
   "regression_analysis": "experiments/validation/v0.3.13/regression-analysis.json",
-  "regression_analysis_sha256": "361963ca71bbe33fcb4ff3f30932fa045e09a5a4be1831fd392eac54644ff61e",
+  "regression_analysis_sha256": "b1304b164d7b5a3ad1b6ce7b1b9fe7c5d67bad0063fcfaecfdb0c9a014ad4d58",
   "executed": false,
   "one_shot": true,
   "one_shot_semantics": "After this protocol commit and the later candidate-freeze commit, run the 18-cell mechanism matrix once, then the preregistered regression cells once. Rerun only an exact cell that fails for infrastructure reasons. Do not change frame fields, unwind semantics, restoration, budgets, or targets after the first target evaluation.",
@@ -41,7 +41,12 @@
       "budget": 120,
       "reference": "experiments/published/fresh-transfer-v0.3.10/",
       "reference_policy": "ghost-structural-return-guard",
-      "v0_3_12_lost": ["BUG-K3", "BUG-K6", "BUG-K9", "BUG-K10"]
+      "v0_3_12_lost": [
+        "BUG-K3",
+        "BUG-K6",
+        "BUG-K9",
+        "BUG-K10"
+      ]
     },
     {
       "name": "deepbench",
@@ -49,14 +54,18 @@
       "budget": 120,
       "reference": "experiments/published/return-cycle-guard-v0.3.9/",
       "reference_policy": "ghost-structural-return-guard",
-      "v0_3_12_lost": ["BUG-D12"]
+      "v0_3_12_lost": [
+        "BUG-D12"
+      ]
     },
     {
       "name": "buggy-wiki",
       "budget": 120,
       "reference": "experiments/published/multi-target-replication-v0.3.11/",
       "reference_policy": "ghost-structural-return-guard",
-      "must_not_lose": ["BUG-W2"],
+      "must_not_lose": [
+        "BUG-W2"
+      ],
       "v0_3_12_lost": []
     },
     {
@@ -64,14 +73,26 @@
       "budget": 120,
       "reference": "experiments/published/return-cycle-guard-v0.3.9/",
       "reference_policy": "ghost-structural-return-guard",
-      "must_not_lose": ["BUG-W5", "BUG-W6", "BUG-W9", "BUG-W10"],
+      "must_not_lose": [
+        "BUG-W5",
+        "BUG-W6",
+        "BUG-W9",
+        "BUG-W10"
+      ],
       "v0_3_12_lost": []
     }
   ],
   "v0_3_12_regression_lost": {
-    "buggy-desk": ["BUG-K10", "BUG-K3", "BUG-K6", "BUG-K9"],
+    "buggy-desk": [
+      "BUG-K10",
+      "BUG-K3",
+      "BUG-K6",
+      "BUG-K9"
+    ],
     "buggy-shop": [],
-    "deepbench": ["BUG-D12"],
+    "deepbench": [
+      "BUG-D12"
+    ],
     "wiki": []
   },
   "frozen_historical_identities": {
@@ -271,27 +292,51 @@
     "S": "ghost-structural-nested-stack-guard"
   },
   "matrix": {
-    "apps": ["buggy-crm", "buggy-ops"],
+    "apps": [
+      "buggy-crm",
+      "buggy-ops"
+    ],
     "policies": [
       "ghost-structural-return-guard",
       "ghost-structural-nested-return-guard",
       "ghost-structural-nested-stack-guard"
     ],
-    "budgets": [40, 80, 120],
-    "seeds": [1],
+    "budgets": [
+      40,
+      80,
+      120
+    ],
+    "seeds": [
+      1
+    ],
     "cells_total": 18,
     "skip_minimize": true,
     "purpose": "G shows historical preemption. F shows flattening. S tests the stack."
   },
   "regression_cells": {
-    "policies": ["ghost-structural-nested-stack-guard"],
+    "policies": [
+      "ghost-structural-nested-stack-guard"
+    ],
     "budget": 120,
     "seed": 1,
-    "apps": ["buggy-desk", "buggy-flow", "buggy-wiki", "buggy-shop"],
-    "order_after_mechanism_matrix": ["buggy-desk", "buggy-flow", "buggy-wiki", "buggy-shop"]
+    "apps": [
+      "buggy-desk",
+      "buggy-flow",
+      "buggy-wiki",
+      "buggy-shop"
+    ],
+    "order_after_mechanism_matrix": [
+      "buggy-desk",
+      "buggy-flow",
+      "buggy-wiki",
+      "buggy-shop"
+    ]
   },
   "structural_repair_gate": {
-    "applies_to": ["buggy-crm", "buggy-ops"],
+    "applies_to": [
+      "buggy-crm",
+      "buggy-ops"
+    ],
     "budget": 120,
     "all": [
       "S emits at least one nested child stack event (parent_frame_suspended or nested_child_started)",
@@ -329,7 +374,10 @@
     "A": {
       "label": "stack repair succeeds and removes v0.3.12 regressions",
       "meaning": "nested-stack mechanism repairs inspected preemption and removes the observed flattening regressions on historical regression cases",
-      "not": ["fresh validation", "generalization proof"],
+      "not": [
+        "fresh validation",
+        "generalization proof"
+      ],
       "all": [
         "candidate freeze valid",
         "historical freezes valid",
