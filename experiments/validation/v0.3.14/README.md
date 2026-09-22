@@ -57,3 +57,7 @@ The round is not promotable because:
 - guard-confirmed losses remain: BuggyDesk `BUG-K1` `BUG-K2`, DeepBench `BUG-D11` `BUG-D13` `BUG-D14` `BUG-D7`, Wiki `BUG-W2`
 
 Those losses are additional to the v0.3.12 loss set, so the v0.3.13 harmful gate stays true. The measurement erratum does not make the suspended-parent candidate safe or successful.
+
+## Protocol
+
+`experiments/validation/v0.3.14/protocol.json` is preregistered with `executed: false`. The candidate identity is `ghost-structural-horizon-handoff-guard`. It does not replace the v0.3.9, v0.3.12, or v0.3.13 identities. The new browser matrix is 10 candidate-only cells: CRM and Ops at 40, 80, and 120, plus BuggyDesk, DeepBench, Wiki, and BuggyShop at 120. Seed is 1. No target evaluation happens before this protocol commit and the later candidate-freeze commit. Product default stays NoFrontier with `sequence_mode=off`.

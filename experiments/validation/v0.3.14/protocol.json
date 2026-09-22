@@ -1,0 +1,418 @@
+{
+  "name": "v0.3.14 horizon handoff nested boundary",
+  "version": "v0.3.14",
+  "date": "2026-09-23",
+  "starting_head": "202abe12310f30e552fbff5317e593682f60a726",
+  "reaudit_commit": "f7f40864e3eceefae4bc02d1f7e270c07253cc0f",
+  "reaudit_artifact": "experiments/validation/v0.3.14/v0313-restore-reaudit.json",
+  "reaudit_sha256": "06934026a1a037f3f09203dbbef2411ac7c6d12936e431f49d54ab6ecc828c46",
+  "executed": false,
+  "one_shot": true,
+  "one_shot_semantics": "After this protocol commit and the later candidate-freeze commit, run the 10 preregistered candidate cells once. Rerun only an exact cell that fails for infrastructure reasons. Do not change the commitment boundary, witness rule, unwind rule, budgets, or targets after the first target evaluation.",
+  "research_question": "Can nested branches remain ordinary continuation while the current sequence still has more than one commitment slot, but become a real child sequence only when the branch would consume the final commitment slot?",
+  "question_kind": "mechanism-development",
+  "success_means": "Protocol integrity and reproducible evidence on inspected cases. Not a fresh-generalization claim.",
+  "not": [
+    "fresh generalization",
+    "universal",
+    "production-ready",
+    "product default change",
+    "reinterpretation of v0.3.11 Outcome D",
+    "reinterpretation of v0.3.12 Outcome C",
+    "reinterpretation of v0.3.13 Outcome C"
+  ],
+  "historical_outcomes_preserved": {
+    "v0.3.11": "D",
+    "v0.3.12": "C",
+    "v0.3.13": "C"
+  },
+  "v0313_measurement_erratum": {
+    "metric": "restore_without_child_return",
+    "publication_rewritten": false,
+    "corrected_residual_changes_outcome": false,
+    "counterfactual_with_restore_flag_false": "C",
+    "reason_outcome_unchanged": [
+      "crm_repair is false",
+      "ops_repair is false",
+      "BuggyDesk lost BUG-K1 and BUG-K2",
+      "DeepBench lost BUG-D11, BUG-D13, BUG-D14, and BUG-D7",
+      "Wiki lost BUG-W2"
+    ]
+  },
+  "frozen_historical_identities": {
+    "c1": {
+      "identity": "ghost-structural-memory",
+      "freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json"
+    },
+    "return_cycle_guard": {
+      "identity": "ghost-structural-return-guard",
+      "constructor": "ReturnCycleGuardGhostPolicy",
+      "freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+      "source": "ghostqa/exploration/return_cycle_guard.py"
+    },
+    "nested_flatten": {
+      "identity": "ghost-structural-nested-return-guard",
+      "constructor": "NestedHubReturnGuardGhostPolicy",
+      "freeze": "experiments/frozen/ghost-nested-hub-guard-v0.3.12/freeze.json",
+      "source": "ghostqa/exploration/nested_hub_guard.py",
+      "outcome": "C",
+      "replaced": false
+    },
+    "nested_stack": {
+      "identity": "ghost-structural-nested-stack-guard",
+      "constructor": "NestedStackReturnGuardGhostPolicy",
+      "freeze": "experiments/frozen/ghost-nested-stack-guard-v0.3.13/freeze.json",
+      "source": "ghostqa/exploration/nested_stack_guard.py",
+      "outcome": "C",
+      "replaced": false
+    }
+  },
+  "candidate": {
+    "identity": "ghost-structural-horizon-handoff-guard",
+    "constructors": [
+      "HorizonHandoffSequenceController",
+      "HorizonHandoffReturnGuardGhostPolicy"
+    ],
+    "policy_name": "ghost-structural-horizon-handoff-guard",
+    "source": "ghostqa/exploration/horizon_handoff_guard.py",
+    "freeze": "experiments/frozen/ghost-horizon-handoff-v0.3.14/freeze.json",
+    "product_default": false,
+    "research_only": true,
+    "replaces_historical_identities": false,
+    "branch_horizon_unchanged": 3,
+    "no_threshold_N": true,
+    "no_max_depth": true,
+    "no_url_condition": true,
+    "no_app_specific_rule": true,
+    "no_is_hub_monkeypatch": true,
+    "parameter_free": true
+  },
+  "continuation_condition": {
+    "when_all": [
+      "mode is structural or otherwise sequence-like",
+      "an active sequence exists",
+      "active_branch is non-empty",
+      "returning is false",
+      "current state is a hub",
+      "selected action is a branch click",
+      "commitment_left > 1"
+    ],
+    "do": [
+      "do not start a child sequence",
+      "do not terminate the outer sequence as lost_parent",
+      "keep the same sequence instance id and the same outer parent hub",
+      "discover the nested branch and record a structural attempt",
+      "do not emit branch_start and do not mark the branch started or returned",
+      "emit nested_continuation",
+      "execute the action as the current sequence action and decrement commitment by one",
+      "preserve historical mutation, follow-up, finding, and crash behavior"
+    ]
+  },
+  "handoff_condition": {
+    "when_all": [
+      "an active sequence exists",
+      "active_branch is non-empty",
+      "returning is false",
+      "current state is a hub",
+      "selected action is a branch click",
+      "commitment_left == 1"
+    ],
+    "do": [
+      "consume the outer final slot in that frame: branch_actions + 1, _seq_len + 1, stored commitment 0",
+      "do not emit an outer sequence_action, mutation, or finding for the same browser action",
+      "snapshot a deferred-horizon frame with resume_commitment 0, resume_returning true, deferred_horizon true",
+      "do not emit sequence_horizon_reached yet and do not physically restore the outer",
+      "start the nested branch as a real historical child with BRANCH_HORIZON, branch_start, and a new sequence instance",
+      "the browser action is the child's first sequence action",
+      "emit horizon_handoff_started",
+      "push a frame only for this final-slot handoff"
+    ],
+    "dual_lifecycle": "The outer frame records a consumed control-flow slot. The child records the actual sequence execution. Global browser actions, mutations, and findings are not double-counted."
+  },
+  "deferred_horizon": {
+    "at_handoff": "Do not activate the outer return policy while the browser is inside the child.",
+    "after_valid_witness": [
+      "restore the outer identity, parent, and counters",
+      "set commitment_left = 0 and returning = true",
+      "emit exactly one sequence_horizon_reached with reason horizon_handoff_resolved",
+      "do not count the restoration itself as an outer return attempt"
+    ]
+  },
+  "witness_definition": {
+    "not_sufficient": "ledger.return_success greater than the value before the call",
+    "frame_records": [
+      "suspended outer sequence instance id, branch, and parent signature/cluster",
+      "child sequence instance id and child branch",
+      "child parent exact signature and child parent cluster",
+      "handoff step",
+      "expected resume mode return",
+      "frame-local return-cycle history"
+    ],
+    "before_pop_all": [
+      "a top frame exists",
+      "the resolution belongs to that frame's child branch and child instance, including when finding or crash already cleared _open_instance",
+      "historical return_success increased for this child resolution",
+      "new_sig equals the recorded child parent signature or the destination cluster equals the recorded child parent cluster",
+      "no same-step return_cycle_escape",
+      "historical logic cleared the active child return obligation"
+    ],
+    "event": "child_parent_witness",
+    "witness_strength": ["exact", "cluster"],
+    "terminal_context": [
+      "returned",
+      "finding_same_step",
+      "crash_same_step",
+      "finding_prior",
+      "crash_prior",
+      "none"
+    ],
+    "same_step_finding_or_crash": "Valid when identity and the physical parent witness hold. Do not convert that terminal into returned and do not emit a second child terminal.",
+    "finding_without_parent": "Do not resume. The outer stays suspended until a later physical parent witness or an escape unwind.",
+    "wrong_child": "An unrelated instance, branch, or global return_success delta does not pop.",
+    "wrong_parent": "A destination that misses both the recorded exact signature and the recorded cluster does not pop.",
+    "cluster_scope": "Only the recorded child parent cluster. Not an arbitrary current hub cluster."
+  },
+  "unwind_rule": {
+    "when": "The active child emits return_cycle_escape before a parent witness.",
+    "event": "horizon_handoff_unwind",
+    "do": [
+      "keep the historical child escape accounting",
+      "do not resume the outer",
+      "emit an auditable terminal for each open suspended instance",
+      "clear the handoff stack",
+      "do not mark ancestors returned or completed"
+    ],
+    "partial_restore": false
+  },
+  "budget_end_rule": {
+    "active_open_instance": "accounted once",
+    "suspended_open_instances": "accounted once each",
+    "not_returned": true,
+    "publish": [
+      "handoff_stack_depth_at_budget_end",
+      "active_budget_end_count",
+      "suspended_budget_end_count"
+    ]
+  },
+  "reset_rule": "reset() clears the handoff stack, child-identity witness state, candidate counters, and return-cycle active-frame history.",
+  "stack_rule": "Frames are pushed only on final-slot handoff. Continuation never pushes. Recursion is allowed when a child later reaches its own final slot. There is no numeric depth cap. The browser budget is the bound.",
+  "safety_tests": {
+    "H1": "nested continuation at commitment 2 keeps the outer id, pushes nothing, and leaves commitment 1",
+    "H2": "continuation is discovered and structurally attempted without a new sequence instance or child branch_start",
+    "H3": "final-slot handoff consumes the outer slot, stores commitment 0, and starts a real child",
+    "H4": "child commitment is a fresh historical window and the stored outer commitment stays 0",
+    "H5": "exact child-parent witness pops one frame, restores returning with commitment 0, and emits one deferred horizon",
+    "H6": "cluster-variant destination is a valid cluster witness",
+    "H7": "same-step finding plus cluster witness resumes without a fake returned terminal",
+    "H8": "same-step crash plus parent witness resumes without converting crash to returned",
+    "H9": "finding without a parent witness does not resume",
+    "H10": "wrong parent does not witness or pop even if return_success changes",
+    "H11": "wrong child identity does not witness or pop",
+    "H12": "a global return_success delta alone does not pop",
+    "H13": "child exact-repeat escape unwinds the stack without returned or completed inflation",
+    "H14": "recursive handoff restores LIFO, child then outer, each into return phase",
+    "H15": "resumed outer targets its original parent, not the child parent",
+    "H16": "a hub chain longer than BRANCH_HORIZON continues while commitment > 1 and hands off only on the final slot",
+    "H17": "budget end accounts for every open instance once",
+    "H18": "reset leaves no frame or witness contamination",
+    "H19": "traces with no nested hub handoff match v0.3.9 guard behavior",
+    "H20": "every started sequence instance has exactly one legal terminal",
+    "model": "pure handoff model over C,H,P,V,X,F,E for lengths 1..5, raw traces 19607, invariant failures 0",
+    "S1_S7": "historical return-cycle safety suite, unchanged",
+    "exhaustive": "historical bounded return model, 5800 traces, zero failures",
+    "N1_N12": "historical v0.3.12 tests, unchanged",
+    "P1_P15": "historical v0.3.13 tests, unchanged"
+  },
+  "model_alphabet": ["C", "H", "P", "V", "X", "F", "E"],
+  "model_raw_traces": 19607,
+  "model_invariants": [
+    "C never increases stack depth",
+    "H increases depth by exactly 1",
+    "P or V pops at most one matching top frame",
+    "X or F never pops",
+    "E clears the stack without ancestor return-success inflation",
+    "stack depth is never negative",
+    "no resume without a witness",
+    "no frame is resolved twice",
+    "a resumed frame enters return phase with commitment 0",
+    "no false return-success inflation"
+  ],
+  "candidate_metrics": [
+    "nested_continuation_events",
+    "unique_nested_continuations",
+    "horizon_handoff_started_events",
+    "handoff_child_started_events",
+    "child_parent_witness_events",
+    "child_parent_exact_witness_events",
+    "child_parent_cluster_witness_events",
+    "same_step_terminal_witness_events",
+    "witness_rejection_events",
+    "parent_frame_resume_to_return_events",
+    "horizon_handoff_unwind_events",
+    "max_handoff_stack_depth",
+    "handoff_stack_depth_at_budget_end",
+    "handoff_frames_abandoned",
+    "deferred_horizon_events",
+    "resolved_deferred_horizon_events",
+    "witness_violations",
+    "terminal_accounting_violations"
+  ],
+  "trace_events": [
+    "nested_continuation",
+    "horizon_handoff_started",
+    "child_parent_witness",
+    "parent_frame_resume_to_return",
+    "horizon_handoff_unwind",
+    "sequence_horizon_reached"
+  ],
+  "policies": {
+    "G": "ghost-structural-return-guard",
+    "F": "ghost-structural-nested-return-guard",
+    "S": "ghost-structural-nested-stack-guard",
+    "H": "ghost-structural-horizon-handoff-guard"
+  },
+  "comparison_sources": {
+    "crm_ops_guard": "experiments/published/multi-target-replication-v0.3.11",
+    "crm_ops_flatten": "experiments/published/nested-hub-parent-v0.3.12",
+    "crm_ops_stack": "experiments/published/nested-stack-v0.3.13",
+    "buggy_desk_guard": "experiments/published/fresh-transfer-v0.3.10",
+    "buggy_desk_flatten": "experiments/published/nested-hub-parent-v0.3.12",
+    "buggy_desk_stack": "experiments/published/nested-stack-v0.3.13",
+    "deepbench_guard": "experiments/published/return-cycle-guard-v0.3.9",
+    "deepbench_flatten": "experiments/published/nested-hub-parent-v0.3.12",
+    "deepbench_stack": "experiments/published/nested-stack-v0.3.13",
+    "wiki_guard": "experiments/published/multi-target-replication-v0.3.11",
+    "shop_guard": "experiments/published/return-cycle-guard-v0.3.9",
+    "note": "Use committed historical evidence as controls. Do not silently substitute newly rerun controls."
+  },
+  "matrix": {
+    "candidate_only": true,
+    "seed": 1,
+    "skip_minimize": true,
+    "cells_total": 10,
+    "mechanism": [
+      {"app": "buggy-crm", "budgets": [40, 80, 120]},
+      {"app": "buggy-ops", "budgets": [40, 80, 120]}
+    ],
+    "regression": [
+      {"app": "buggy-desk", "run_app": "buggy-desk", "budget": 120},
+      {"app": "deepbench", "run_app": "buggy-flow", "budget": 120},
+      {"app": "wiki", "run_app": "buggy-wiki", "budget": 120},
+      {"app": "buggy-shop", "run_app": "buggy-shop", "budget": 120}
+    ]
+  },
+  "mechanism_repair_gate": {
+    "applies_to": ["buggy-crm", "buggy-ops"],
+    "budget": 120,
+    "baseline": "committed v0.3.11 guard collapse of 5 states and 5 normalized URLs",
+    "all": [
+      "candidate states > 5",
+      "candidate normalized URLs > 5",
+      "no commitment-window nested branch causes historical lost_parent preemption",
+      "nested_continuation_events > 0",
+      "horizon_handoff_started_events > 0",
+      "sequence_horizon_reached > 0",
+      "return_attempt_events > 0 OR sequence_instances_returned > 0 OR return_cycle_escape_events > 0",
+      "candidate does not show pushes > 0 and resumes/unwinds == 0 and max_depth == pushes and horizon == 0",
+      "witness_violations == 0"
+    ],
+    "not_required": "candidate state count beats v0.3.12 flattening"
+  },
+  "regression_gates": {
+    "buggy-desk": ["BUG-K1", "BUG-K2", "BUG-K3", "BUG-K5", "BUG-K6", "BUG-K9", "BUG-K10"],
+    "deepbench": ["BUG-D6", "BUG-D7", "BUG-D11", "BUG-D12", "BUG-D13", "BUG-D14"],
+    "wiki": ["BUG-W2"],
+    "buggy-shop": ["BUG-W5", "BUG-W6", "BUG-W9", "BUG-W10"],
+    "outcome_A_requires": "zero losses against these guard-confirmed sets",
+    "no_bug_specific_policy": true
+  },
+  "outcome_module": "benchmark/horizon_handoff_analysis.py",
+  "outcome_function": "derive_v0314_outcome",
+  "outcome_gates": {
+    "priority": "C, then D, then B, else A",
+    "C": {
+      "label": "unsafe / protocol-invalid",
+      "any": [
+        "candidate freeze mismatch",
+        "historical freeze mismatch",
+        "H-series failure",
+        "bounded handoff invariant failure",
+        "historical safety regression caused by edits",
+        "witness violation",
+        "terminal accounting violation",
+        "false returned or completed inflation",
+        "wrong-child or wrong-parent resume",
+        "app, URL, or bug-specific logic",
+        "product default changed",
+        "post-freeze semantic tuning"
+      ]
+    },
+    "D": {
+      "label": "safe but mechanism not repaired",
+      "when": "Safety passes, and CRM mechanism repair fails or Ops mechanism repair fails."
+    },
+    "B": {
+      "label": "mechanism repaired, regression mixed",
+      "when": "Safety passes, CRM repair passes, Ops repair passes, and at least one guard-confirmed bug is lost on BuggyDesk, DeepBench, Wiki, or BuggyShop."
+    },
+    "A": {
+      "label": "inspected mechanism repaired and regression-safe",
+      "all": [
+        "safety valid",
+        "CRM repair true",
+        "Ops repair true",
+        "BuggyDesk zero loss",
+        "DeepBench zero loss",
+        "Wiki zero loss",
+        "BuggyShop zero loss",
+        "witness violations 0",
+        "terminal violations 0",
+        "product default unchanged"
+      ],
+      "not": [
+        "fresh validation",
+        "generalization proof",
+        "product default promotion"
+      ]
+    }
+  },
+  "product_default": {
+    "policy": "NoFrontier",
+    "sequence_mode": "off",
+    "unchanged": true,
+    "promotion_prohibited": true,
+    "outcome_A_promotes": false,
+    "next_round_if_A": "fresh validation, not immediate promotion"
+  },
+  "prohibited_changes": [
+    "ghostqa/exploration/sequence.py",
+    "ghostqa/exploration/return_cycle_guard.py",
+    "ghostqa/exploration/nested_hub_guard.py",
+    "ghostqa/exploration/nested_stack_guard.py",
+    "ghostqa/exploration/policy.py",
+    "ghostqa/exploration/sequence_memory.py",
+    "ghostqa/exploration/interaction.py",
+    "ghostqa/exploration/payload.py",
+    "experiments/published/nested-stack-v0.3.13",
+    "product default GhostPolicy"
+  ],
+  "stop_rules": {
+    "no_semantic_change_after_freeze": true,
+    "no_retune_after_first_target_evaluation": true,
+    "publish_any_outcome": true,
+    "negative_or_mixed_results_published_unchanged": true,
+    "product_default_unchanged": true,
+    "no_generalization_claim": true
+  },
+  "git_phase_gates": {
+    "reaudit": "experiment: record v0.3.14 v0.3.13 restore re-audit",
+    "protocol": "experiment: preregister v0.3.14 horizon handoff",
+    "freeze": "experiment: freeze v0.3.14 horizon handoff candidate",
+    "before_target_evaluation_require": [
+      "protocol commit",
+      "candidate freeze commit"
+    ]
+  },
+  "published_root": "experiments/published/horizon-handoff-v0.3.14/",
+  "verify_command": "python -m benchmark.horizon_handoff_reproduce --root experiments/published/horizon-handoff-v0.3.14 --verify"
+}
