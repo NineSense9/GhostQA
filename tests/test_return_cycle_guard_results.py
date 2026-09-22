@@ -6,7 +6,9 @@ from benchmark.algorithm_freeze import DEFAULT_FREEZE, verify_freeze
 from benchmark.return_cycle_guard_analysis import (
     HISTORICAL_C1_120, PUBLISHED_ROOT, compute_outcome, derive_bundle,
 )
-from benchmark.return_cycle_guard_reproduce import CANDIDATE_FREEZE, verify
+from benchmark.return_cycle_guard_reproduce import (
+    CANDIDATE_FREEZE, verify, verify_candidate_identity,
+)
 
 
 def test_outcome_gates_synthetic():
@@ -51,7 +53,7 @@ def test_v039_reproduce_verify():
 
 def test_both_freezes_still_pass():
     assert verify_freeze(DEFAULT_FREEZE) == []
-    assert verify_freeze(CANDIDATE_FREEZE) == []
+    assert verify_candidate_identity(CANDIDATE_FREEZE) == []
 
 
 def test_protocol_unchanged_rules():

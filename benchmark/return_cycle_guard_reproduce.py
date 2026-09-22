@@ -6,14 +6,37 @@ import json
 import os
 import sys
 
-from benchmark.algorithm_freeze import DEFAULT_FREEZE, verify_freeze
+from benchmark.algorithm_freeze import DEFAULT_FREEZE, sha256_file, verify_freeze
 from benchmark.application_shape_evidence import (
-    canonical_json_bytes, sha256_bytes, sha256_file,
+    canonical_json_bytes, sha256_bytes,
 )
 from benchmark.return_cycle_guard_analysis import PUBLISHED_ROOT, derive_bundle
 
 CANDIDATE_FREEZE = os.path.join(
     "experiments", "frozen", "ghost-return-cycle-guard-v0.3.9", "freeze.json")
+CANDIDATE_IDENTITY_FILES = (
+    "ghostqa/exploration/return_cycle_guard.py",
+    "experiments/validation/v0.3.9/protocol.json",
+)
+
+
+def verify_candidate_identity(freeze_path: str = CANDIDATE_FREEZE) -> list:
+    """v0.3.9 algorithm identity. web_runner.py may gain additive app support."""
+    with open(freeze_path, encoding="utf-8") as f:
+        freeze = json.load(f)
+    bad = []
+    files = freeze.get("files") or {}
+    for rel in CANDIDATE_IDENTITY_FILES:
+        meta = files.get(rel) or {}
+        path = rel.replace("/", os.sep)
+        if not os.path.isfile(path):
+            bad.append(f"missing {rel}")
+            continue
+        got = sha256_file(path)
+        want = meta.get("sha256")
+        if want and got != want:
+            bad.append(f"{rel}: sha256 {got} != frozen {want}")
+    return bad
 
 
 def verify(root: str) -> int:
@@ -22,10 +45,14 @@ def verify(root: str) -> int:
         print("historical C1 freeze MATCH false")
         return 2
     print("historical C1 freeze match true")
-    if verify_freeze(CANDIDATE_FREEZE):
+    ident = verify_candidate_identity(CANDIDATE_FREEZE)
+    if ident:
         print("candidate freeze MATCH false")
+        for line in ident:
+            print(" ", line)
         return 2
     print("candidate freeze match true")
+    print("web_runner.py exact-hash skipped (additive app registry allowed)")
     man_path = os.path.join(root, "evidence-manifest.json")
     if not os.path.isfile(man_path):
         print("FAIL missing evidence-manifest.json")

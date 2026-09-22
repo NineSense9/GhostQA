@@ -56,11 +56,14 @@ def test_exploration_modules_do_not_read_manifests():
         "ghostqa.exploration.payload",
         "ghostqa.exploration.explorer",
         "ghostqa.oracle.engine",
+        "ghostqa.exploration.return_cycle_guard",
     ]
     for name in mods:
         src = inspect.getsource(__import__(name, fromlist=["x"]))
         assert "holdout.manifest" not in src, name
         assert "bugs.manifest.json" not in src, name
+        assert "BUG-K" not in src, name
+        assert "buggy-desk" not in src, name
 
 
 def test_frozen_file_sha256_helper_is_stable():

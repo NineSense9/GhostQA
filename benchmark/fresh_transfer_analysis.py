@@ -1,0 +1,292 @@
+"""v0.3.10 derived metrics, C1 measurement-only cycle detector, Outcome A/B/C/D."""
+from __future__ import annotations
+
+from collections import Counter
+
+from benchmark.application_shape_evidence import page_name, steps_only
+
+
+def normalize_url(url: str) -> str:
+    if not url:
+        return ""
+    path = url
+    if "://" in path:
+        path = path.split("://", 1)[1]
+        path = path.split("/", 1)[1] if "/" in path else ""
+        path = "/" + path
+    path = path.split("#", 1)[0]
+    return path or "/"
+
+
+def seq_event_counts(seq_events: list) -> dict:
+    outcomes = Counter()
+    types = Counter()
+    for e in seq_events or []:
+        types[e.get("event") or ""] += 1
+        if e.get("event") == "sequence_terminal":
+            outcomes[e.get("outcome") or "unknown"] += 1
+        if e.get("event") == "return_cycle_escape":
+            outcomes["return_cycle_escape"] += 1
+    return {
+        "branch_start_events": types.get("branch_start", 0),
+        "return_attempt_events": types.get("return_attempt", 0),
+        "successful_return_to_parent_events": outcomes.get("returned", 0),
+        "sequence_instances_returned": outcomes.get("returned", 0),
+        "sequence_lost_parent": outcomes.get("lost_parent", 0),
+        "return_cycle_escape_events": types.get("return_cycle_escape", 0),
+        "return_cycle_abandoned": outcomes.get("return_cycle_abandoned", 0),
+        "finding": outcomes.get("finding", 0),
+        "returned": outcomes.get("returned", 0),
+        "event_types": dict(types),
+    }
+
+
+def detect_return_cycle_opportunities(seq_events: list, step_events: list | None = None) -> list:
+    """Measurement-only detector. Does not affect C1 decisions.
+
+    An evaluable opportunity exists when an unresolved return phase revisits
+    the same exact destination signature before matching the recorded parent.
+    """
+    dest_by_step = {}
+    cluster_by_step = {}
+    for s in steps_only(step_events or []):
+        idx = s.get("index")
+        if idx is None:
+            continue
+        dest_by_step[idx] = s.get("dst_sig") or ""
+        cluster_by_step[idx] = s.get("dst_cluster") or ""
+
+    by_step: dict[int, list] = {}
+    for e in seq_events or []:
+        st = e.get("step")
+        if st is None:
+            continue
+        by_step.setdefault(int(st), []).append(e)
+
+    returning = False
+    was_returning = False
+    seen: set = set()
+    parent_sig = ""
+    parent_cluster = ""
+    branch = ""
+    opportunities = []
+    pending_success = {}
+
+    steps = sorted(set(by_step) | set(dest_by_step))
+    for step in steps:
+        for e in by_step.get(step, []):
+            ev = e.get("event")
+            if ev == "branch_start":
+                parent_sig = e.get("exact_sig") or ""
+                parent_cluster = e.get("cluster_id") or ""
+                branch = e.get("branch_key") or ""
+                returning = False
+                seen = set()
+            elif ev == "sequence_horizon_reached":
+                returning = True
+            elif ev == "sequence_terminal":
+                outcome = e.get("outcome")
+                if outcome in ("finding", "crash"):
+                    returning = True
+                elif outcome == "returned":
+                    returning = False
+                    seen = set()
+                    for opp in opportunities:
+                        if (opp.get("branch") == (e.get("branch_key") or branch)
+                                and opp.get("return_later_succeeded") is False
+                                and opp.get("open")):
+                            opp["return_later_succeeded"] = True
+                            opp["open"] = False
+                elif outcome in ("lost_parent", "return_cycle_abandoned", "budget_end"):
+                    returning = False
+                    seen = set()
+                    for opp in opportunities:
+                        if opp.get("open"):
+                            opp["open"] = False
+            elif ev == "return_cycle_escape":
+                returning = False
+                seen = set()
+
+        dest = dest_by_step.get(step) or ""
+        dst_cluster = cluster_by_step.get(step) or ""
+        if returning and dest:
+            if not was_returning:
+                seen = set()
+            parent_hit = dest == parent_sig or (
+                dst_cluster and dst_cluster == parent_cluster)
+            if parent_hit:
+                returning = False
+                seen = set()
+            elif dest in seen:
+                opportunities.append({
+                    "step": step,
+                    "branch": branch,
+                    "repeated_destination_sig": dest,
+                    "parent_hub_sig": parent_sig,
+                    "return_later_succeeded": False,
+                    "open": True,
+                })
+                returning = False
+                seen = set()
+            else:
+                seen.add(dest)
+        was_returning = returning
+
+    for opp in opportunities:
+        opp.pop("open", None)
+    return opportunities
+
+
+def first_escape_record(seq_events: list) -> dict:
+    esc = next((e for e in seq_events or []
+                if e.get("event") == "return_cycle_escape"), None)
+    if esc is None:
+        return {}
+    return {
+        "first_escape_step": esc.get("step"),
+        "repeated_destination_sig": esc.get("repeated_destination_sig"),
+        "parent": esc.get("parent_hub_sig") or esc.get("parent_hub_cluster"),
+        "parent_hub_sig": esc.get("parent_hub_sig"),
+        "parent_hub_cluster": esc.get("parent_hub_cluster"),
+        "branch_key": esc.get("active_branch") or esc.get("branch_key"),
+    }
+
+
+def post_escape_novelty(graph: dict, events: list, escape_step) -> dict:
+    if escape_step is None:
+        return {
+            "post_escape_novel_state_count": 0,
+            "post_escape_novel_url_count": 0,
+            "post_escape_novel_urls": [],
+            "first_post_escape_novel_state_step": None,
+            "first_post_escape_novel_url_step": None,
+        }
+    before_nodes = [n for n in graph.get("nodes") or []
+                    if (n.get("first_seen_step") or 0) <= (escape_step + 1)]
+    after_nodes = [n for n in graph.get("nodes") or []
+                   if (n.get("first_seen_step") or 0) > (escape_step + 1)]
+    before_urls = {normalize_url(s.get("dst_url") or "")
+                   for s in steps_only(events)
+                   if (s.get("index") or 0) <= escape_step}
+    after_urls = []
+    first_url_step = None
+    for s in steps_only(events):
+        idx = s.get("index")
+        if idx is None or idx <= escape_step:
+            continue
+        u = normalize_url(s.get("dst_url") or "")
+        if u and u not in before_urls and u not in after_urls:
+            after_urls.append(u)
+            if first_url_step is None:
+                first_url_step = idx
+    first_state = None
+    if after_nodes:
+        first_state = min(n.get("first_seen_step") for n in after_nodes)
+    return {
+        "post_escape_novel_state_count": len(after_nodes),
+        "post_escape_novel_url_count": len(after_urls),
+        "post_escape_novel_urls": after_urls,
+        "first_post_escape_novel_state_step": first_state,
+        "first_post_escape_novel_url_step": first_url_step,
+        "states_before_escape": len(before_nodes),
+    }
+
+
+def novelty_absent_from_c1(guard_graph: dict, guard_events: list,
+                           c1_graph: dict, c1_events: list, escape_step) -> dict:
+    if escape_step is None:
+        return {"absent_from_c1_state_count": 0, "absent_from_c1_url_count": 0,
+                "absent_from_c1_urls": []}
+    c1_sigs = {n.get("id") or n.get("sig") for n in c1_graph.get("nodes") or []}
+    c1_urls = {normalize_url(n.get("url") or "") for n in c1_graph.get("nodes") or []}
+    c1_urls |= {normalize_url(s.get("dst_url") or "") for s in steps_only(c1_events)}
+    c1_urls.discard("")
+    new_states = 0
+    new_urls = []
+    for n in guard_graph.get("nodes") or []:
+        if (n.get("first_seen_step") or 0) <= (escape_step + 1):
+            continue
+        sig = n.get("id") or n.get("sig")
+        if sig and sig not in c1_sigs:
+            new_states += 1
+        u = normalize_url(n.get("url") or "")
+        if u and u not in c1_urls and u not in new_urls:
+            new_urls.append(u)
+    for s in steps_only(guard_events):
+        idx = s.get("index")
+        if idx is None or idx <= escape_step:
+            continue
+        u = normalize_url(s.get("dst_url") or "")
+        if u and u not in c1_urls and u not in new_urls:
+            new_urls.append(u)
+    return {
+        "absent_from_c1_state_count": new_states,
+        "absent_from_c1_url_count": len(new_urls),
+        "absent_from_c1_urls": new_urls,
+    }
+
+
+def unique_urls_from_graph(graph: dict) -> list:
+    urls = []
+    seen = set()
+    for n in graph.get("nodes") or []:
+        u = normalize_url(n.get("url") or "")
+        if u and u not in seen:
+            seen.add(u)
+            urls.append(u)
+    return urls
+
+
+def derive_outcome(
+    *,
+    opportunity_count: int,
+    guard_escapes: int,
+    post_escape_novel_state_count: int = 0,
+    post_escape_novel_url_count: int = 0,
+    absent_from_c1_state_count: int = 0,
+    absent_from_c1_url_count: int = 0,
+    c1_confirmed: list | None = None,
+    guard_confirmed: list | None = None,
+    s1_escapes: int = 0,
+    s2_escapes: int = 0,
+    s3_escapes: int = 0,
+    s4_escapes: int = 1,
+    s4_returned_inflation: int = 0,
+    s5_escapes: int = 1,
+    s5_returned_inflation: int = 0,
+    escape_counted_returned: bool = False,
+    safety_regression: bool = False,
+    historical_ok: bool = True,
+    freeze_ok: bool = True,
+) -> str:
+    """Preregistered v0.3.10 Outcome A/B/C/D."""
+    c1_set = {str(x) for x in (c1_confirmed or [])}
+    g_set = {str(x) for x in (guard_confirmed or [])}
+    lost = sorted(c1_set - g_set)
+    s123_false = (s1_escapes > 0) or (s2_escapes > 0) or (s3_escapes > 0)
+    s45_bad = (
+        s4_escapes != 1 or s4_returned_inflation > 0
+        or s5_escapes != 1 or s5_returned_inflation > 0
+    )
+    if (s123_false or escape_counted_returned or lost or safety_regression
+            or not historical_ok or not freeze_ok or s45_bad):
+        return "C"
+    if int(opportunity_count or 0) < 1:
+        return "D"
+    novel = (
+        int(post_escape_novel_state_count or 0) >= 1
+        or int(post_escape_novel_url_count or 0) >= 1
+        or int(absent_from_c1_state_count or 0) >= 1
+        or int(absent_from_c1_url_count or 0) >= 1
+    )
+    if int(guard_escapes or 0) >= 1 and novel and not lost:
+        return "A"
+    return "B"
+
+
+OUTCOME_MEANING = {
+    "A": "fresh transfer with safety",
+    "B": "safe but no demonstrated transfer benefit",
+    "C": "harmful/regression",
+    "D": "inconclusive target",
+}

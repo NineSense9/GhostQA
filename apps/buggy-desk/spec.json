@@ -1,0 +1,32 @@
+{
+  "app": "buggy-desk",
+  "note": "Specification-driven semantic oracle. Uses ONLY page-presented values (data-obs / input values) - never internal app state.",
+  "assertions": [
+    {"id": "ticket_title_required", "severity": "high",
+     "desc": "标题为空时不应提示工单已创建",
+     "when": {"url_contains": "/compose"},
+     "assert": {"op": "implies",
+                "cond": {"op": "eq", "left": {"obs": "input_ticket_title"}, "right": {"const": ""}},
+                "then": {"op": "not_contains", "left": {"obs": "form_msg"},
+                         "right": {"const": "已创建"}}}},
+    {"id": "sla_display_matches_remaining", "severity": "medium",
+     "desc": "工单页展示的剩余时限应与剩余时限值一致",
+     "when": {"url_contains": "/ticket.html"},
+     "assert": {"op": "eq", "left": {"obs": "sla_display"},
+                "right": {"obs": "sla_remaining"}}},
+    {"id": "reopen_clears_closed", "severity": "high",
+     "desc": "已重开的工单不应仍显示为已关闭",
+     "when": {"url_contains": "/ticket.html"},
+     "assert": {"op": "implies",
+                "cond": {"op": "eq", "left": {"obs": "reopen_state"}, "right": {"const": "是"}},
+                "then": {"op": "ne", "left": {"obs": "ticket_status"},
+                         "right": {"const": "已关闭"}}}},
+    {"id": "internal_note_not_customer_visible", "severity": "high",
+     "desc": "内部备注在客户动态中不应显示为客户可见",
+     "when": {"url_contains": "/activity"},
+     "assert": {"op": "implies",
+                "cond": {"op": "eq", "left": {"obs": "note_kind"}, "right": {"const": "内部"}},
+                "then": {"op": "eq", "left": {"obs": "note_visibility"},
+                         "right": {"const": "内部"}}}}
+  ]
+}

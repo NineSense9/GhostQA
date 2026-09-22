@@ -1,0 +1,32 @@
+{
+  "app": "buggy-desk",
+  "note": "Judge/authoring topology metadata. Not served to the browser. Policy/Explorer/Oracle must not read this file.",
+  "pages": [
+    "index.html",
+    "tickets.html",
+    "ticket.html",
+    "customers.html",
+    "customer.html",
+    "activity.html",
+    "kb.html",
+    "article.html",
+    "reports.html",
+    "team.html",
+    "settings.html",
+    "profile.html",
+    "integrations.html",
+    "compose.html",
+    "help.html",
+    "handbook.html"
+  ],
+  "hub_like_pages": ["index.html", "tickets.html", "ticket.html"],
+  "distractor_pages": ["reports.html", "settings.html", "profile.html", "help.html"],
+  "legitimate_return": {
+    "from_page": "ticket.html",
+    "action_testid": "nav_back_tickets",
+    "to_page": "tickets.html"
+  },
+  "related_ticket_clique": ["1001", "1002", "1003"],
+  "mutation_paths": ["compose.html", "ticket close/reopen", "internal note", "SLA pause"],
+  "input_paths": ["search_box", "ticket_title"]
+}

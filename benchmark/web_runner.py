@@ -35,6 +35,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 APPS = {
     "buggy-shop": os.path.join(ROOT, "apps", "buggy-shop"),
     "buggy-flow": os.path.join(ROOT, "apps", "buggy-flow"),
+    "buggy-desk": os.path.join(ROOT, "apps", "buggy-desk"),
 }
 DEEP_DEPTH = 4
 
@@ -118,6 +119,18 @@ def _state_model(policy_name: str) -> str:
     return "structural" if policy_name == "ghost-nosemantic" else "semantic"
 
 
+def _norm_url(url: str) -> str:
+    """Host-stripped path + query. Clone-portable coverage key."""
+    if not url:
+        return ""
+    path = url
+    if "://" in path:
+        path = path.split("://", 1)[1]
+        path = path.split("/", 1)[1] if "/" in path else ""
+        path = "/" + path
+    return path.split("#", 1)[0] or "/"
+
+
 def _auc(first_steps: list, budget: int, n_bugs: int) -> float:
     """Area under (actions → confirmed bugs) curve, normalised by budget * n_bugs."""
     if not n_bugs or not budget:
@@ -133,17 +146,56 @@ def _auc(first_steps: list, budget: int, n_bugs: int) -> float:
 
 
 def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
-            spec, manifest, skip_minimize: bool, trace_dir: str = "") -> dict:
+            spec, manifest, skip_minimize: bool, trace_dir: str = "",
+            dump_dir: str = "") -> dict:
     from ghostqa.executor.playwright_web import PlaywrightWebExecutor
 
     oracle = OracleEngine(spec)
     spec_brief = format_spec_brief(spec)
     web = PlaywrightWebExecutor(base_url, headless=True, shared=shared)
     policy = make_policy(policy_name, seed)
+    seq = getattr(policy, "sequence", None)
+    events = []
+    on_step = None
+    if dump_dir:
+        from benchmark.diagnostic_runner import wrap_sequence_after, _ledger_snap
+
+        def on_step(ev):
+            rec = {
+                "kind": "step",
+                "index": ev.get("index"),
+                "decision_mode": ev.get("decision_mode") or "",
+                "action": ev.get("action"),
+                "relation": ev.get("relation"),
+                "src_url": (ev.get("src") or {}).get("url"),
+                "src_title": (ev.get("src") or {}).get("title"),
+                "src_cluster": (ev.get("src") or {}).get("cluster_id"),
+                "src_sig": (ev.get("src") or {}).get("sig"),
+                "dst_url": (ev.get("dst") or {}).get("url"),
+                "dst_title": (ev.get("dst") or {}).get("title"),
+                "dst_cluster": (ev.get("dst") or {}).get("cluster_id"),
+                "dst_sig": (ev.get("dst") or {}).get("sig"),
+                "dst_is_new": (ev.get("dst") or {}).get("is_new"),
+                "findings": [
+                    {"kind": f.get("kind"),
+                     "assert_id": (f.get("evidence") or {}).get("assert_id"),
+                     "error": (f.get("evidence") or {}).get("error")
+                     or (f.get("evidence") or {}).get("error_contains")}
+                    for f in (ev.get("findings") or [])
+                ],
+                "js_errors": ev.get("js_errors") or [],
+                "n_nodes": (ev.get("graph_stats") or {}).get("nodes"),
+            }
+            rec.update(_ledger_snap(seq))
+            events.append(rec)
+
+        if seq is not None:
+            wrap_sequence_after(seq, events)
     t0 = time.time()
     result = run_exploration(web, policy, budget, oracle=oracle,
                              spec_brief=spec_brief,
-                             state_model=_state_model(policy_name))
+                             state_model=_state_model(policy_name),
+                             on_step=on_step)
 
     found_ids = set()
     for f in result.candidates:
@@ -191,6 +243,26 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
             replay_fail += 1
     web.close()
 
+    urls = sorted({_norm_url(n.url) for n in result.graph.nodes.values() if n.url})
+    if dump_dir:
+        from benchmark.diagnostic_runner import _dump_graph
+        os.makedirs(dump_dir, exist_ok=True)
+        stem = f"{policy_name}_b{budget}_s{seed}"
+        with open(os.path.join(dump_dir, stem + ".events.jsonl"), "w",
+                  encoding="utf-8", newline="\n") as f:
+            for rec in events:
+                f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+        with open(os.path.join(dump_dir, stem + ".graph.json"), "w",
+                  encoding="utf-8", newline="\n") as f:
+            json.dump(_dump_graph(result.graph), f, ensure_ascii=False, indent=2)
+            f.write("\n")
+        seq_events = list(getattr(result, "sequence_events", None) or (
+            seq.events if seq is not None else []))
+        with open(os.path.join(dump_dir, stem + ".sequence_events.json"), "w",
+                  encoding="utf-8", newline="\n") as f:
+            json.dump(seq_events, f, ensure_ascii=False, indent=2)
+            f.write("\n")
+
     deep = [b for b in manifest if b.get("trigger_depth", 0) >= DEEP_DEPTH]
     deep_ids = {b["id"] for b in deep}
     confirmed_deep = confirmed_ids & deep_ids
@@ -209,6 +281,8 @@ def run_one(base_url: str, shared, policy_name: str, seed: int, budget: int,
         "states": len(result.graph.nodes),
         "clusters": result.graph.cluster_count(),
         "variants": result.graph.variant_count(),
+        "normalized_unique_urls": len(urls),
+        "unique_urls": urls,
         "relocate_count": result.relocate_count,
         "restore_failures": result.restore_failures,
         "similarity": dict(result.graph.similarity_counts),
@@ -324,6 +398,8 @@ def main():
                          "Never passed into Policy/Explorer/Oracle.")
     ap.add_argument("--freeze", default="",
                     help="If set, abort when frozen algorithm file hashes mismatch.")
+    ap.add_argument("--dump-evidence", action="store_true",
+                    help="Write events.jsonl / graph.json / sequence_events.json under out/.")
     args = ap.parse_args()
 
     if args.freeze:
@@ -359,9 +435,11 @@ def main():
         for policy in policies:
             for budget in budgets:
                 for seed in seeds:
+                    dump_dir = os.path.join(args.out, "evidence") if args.dump_evidence else ""
                     row = run_one(base_url, shared, policy, seed, budget,
                                   spec, manifest, args.skip_minimize,
-                                  trace_dir=os.path.join(args.out, "relocation_traces"))
+                                  trace_dir=os.path.join(args.out, "relocation_traces"),
+                                  dump_dir=dump_dir)
                     rows.append(row)
                     print(f"[{policy:16s} bud={budget} seed={seed}] "
                           f"bdr={row['bug_discovery_rate']:.2f} "

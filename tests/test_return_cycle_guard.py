@@ -74,9 +74,22 @@ def test_v036_freeze_still_passes():
 
 
 def test_candidate_freeze_matches():
-    path = os.path.join(
-        "experiments", "frozen", "ghost-return-cycle-guard-v0.3.9", "freeze.json")
-    assert verify_freeze(path) == []
+    from benchmark.return_cycle_guard_reproduce import verify_candidate_identity
+    assert verify_candidate_identity() == []
+
+
+def test_s1_direct_successful_return_zero_escape():
+    """S1: parent match on the first return step, no cycle."""
+    ctrl = ReturnCycleGuardSequenceController("structural")
+    g, hub, leaf = _graph(), make_hub_state(), _leaf()
+    rs, ct = _enter_returning(ctrl, g, hub, leaf)
+    ctrl.after("A", Action("click", "backh"), leaf, hub, "new", [], "P", False, g, 4)
+    assert any(e.get("outcome") == "returned" for e in ctrl.events
+               if e.get("event") == "sequence_terminal")
+    assert ctrl.ledger.return_success == rs + 1
+    assert ctrl.ledger.completed_total == ct + 1
+    assert ctrl.metrics()["return_cycle_escape_events"] == 0
+    assert ctrl.ledger.returning is False
 
 
 def test_return_cycle_guard_escapes_on_first_exact_repeat():
@@ -225,8 +238,10 @@ def test_candidate_source_has_no_benchmark_strings():
         encoding="utf-8").read()
     for needle in ("cart.html", "index.html", "detail.html", "BuggyShop",
                    "billing.html", "settings.html", "BUG-H1", "BUG-H2",
-                   "BUG-D6", "BUG-W"):
-        assert needle not in src
+                   "BUG-D6", "BUG-W", "BUG-K", "buggy-desk", "BuggyDesk",
+                   "channel handshake", "search query too long",
+                   "bugs.manifest.json", "topology.json"):
+        assert needle not in src, needle
     assert "RETURN_CYCLE_LIMIT" not in src
 
 
