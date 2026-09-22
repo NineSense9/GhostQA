@@ -1,0 +1,53 @@
+{
+  "algorithm_name": "ghost-structural-horizon-handoff-guard",
+  "round": "v0.3.14",
+  "product": "v0.4 preview",
+  "source_head": "ab883e94a6661f1183e30dccba84ed506e92dab6",
+  "protocol_commit": "ab883e94a6661f1183e30dccba84ed506e92dab6",
+  "reaudit_commit": "f7f40864e3eceefae4bc02d1f7e270c07253cc0f",
+  "historical_c1_freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json",
+  "historical_guard_freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+  "historical_flatten_freeze": "experiments/frozen/ghost-nested-hub-guard-v0.3.12/freeze.json",
+  "historical_stack_freeze": "experiments/frozen/ghost-nested-stack-guard-v0.3.13/freeze.json",
+  "policy": {
+    "constructor": "HorizonHandoffReturnGuardGhostPolicy",
+    "controller": "HorizonHandoffSequenceController",
+    "policy_name": "ghost-structural-horizon-handoff-guard",
+    "sequence_mode": "structural",
+    "use_frontier": false,
+    "cycle_key": "new_sig",
+    "branch_horizon": 3,
+    "continuation_when": "commitment_left > 1",
+    "handoff_when": "commitment_left == 1",
+    "no_threshold_N": true,
+    "no_max_depth": true,
+    "no_is_hub_monkeypatch": true,
+    "parent_stack_only_on_final_slot": true,
+    "product_default": false,
+    "replaces_historical_identities": false
+  },
+  "note": "Candidate freeze before the v0.3.14 target cells. Do not change these files after the first empirical result.",
+  "hash_normalization": "LF newlines",
+  "files": {
+    "ghostqa/exploration/horizon_handoff_guard.py": {
+      "sha256": "827b8e64f953012ceec06fe3e0302c343a016463b5b1f88191e7a0a486c2467e",
+      "git_blob": "df9769c2eec51007c056e398e2272a1b134b0dd2",
+      "bytes": 33969
+    },
+    "benchmark/horizon_handoff_analysis.py": {
+      "sha256": "6191b5df45cbcad714c739554259915e18889063811225b5a422a7aee3692c36",
+      "git_blob": "b921988540a1a5787320fbdbbe2de33feb58d728",
+      "bytes": 5387
+    },
+    "benchmark/horizon_handoff_modelcheck.py": {
+      "sha256": "6b3e2c59afe79d2c6f709aba4d30ad8708f3e172b4b234cb33ae609b5cb9e055",
+      "git_blob": "46c719e59a8ca444e49b54783c118d82602a19be",
+      "bytes": 7128
+    },
+    "experiments/validation/v0.3.14/protocol.json": {
+      "sha256": "186934f9f269298bfe1b368fdabf03e89e76cb76dd3e2cf10c1793fc0e603ac3",
+      "git_blob": "7929a62146c6f933c5afedac6d7afc9eee0cfe2c",
+      "bytes": 18829
+    }
+  }
+}

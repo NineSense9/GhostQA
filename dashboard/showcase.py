@@ -16,6 +16,7 @@ V0310 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.10")
 V0311 = os.path.join(PUBLISHED, "multi-target-replication-v0.3.11")
 V0312 = os.path.join(PUBLISHED, "nested-hub-parent-v0.3.12")
 V0313 = os.path.join(PUBLISHED, "nested-stack-v0.3.13")
+V0314 = os.path.join(PUBLISHED, "horizon-handoff-v0.3.14")
 
 
 def _load(path, default=None):
@@ -475,16 +476,119 @@ def _v0313(root: str | None = None) -> dict:
     }
 
 
+def _v0314(root: str | None = None) -> dict:
+    base = root or V0314
+    mechanism = _load(os.path.join(base, "metrics", "mechanism.json"))
+    regression = _load(os.path.join(base, "metrics", "regression.json"))
+    safety = _load(os.path.join(base, "metrics", "safety.json"))
+    repro = _load(os.path.join(base, "metrics", "reproduction.json"))
+    config = _load(os.path.join(base, "config.json"))
+    man = _load(os.path.join(base, "evidence-manifest.json"))
+    reaudit = _load(os.path.join(base, "v0313-restore-reaudit.json"))
+    if not mechanism:
+        return {"available": False}
+    derived = mechanism.get("derived") or {}
+    targets = []
+    for name in ("buggy-crm", "buggy-ops"):
+        block = (mechanism.get("targets") or {}).get(name) or {}
+        cell = ((block.get("cells") or {}).get(
+            "ghost-structural-horizon-handoff-guard@120") or {})
+        guard = ((block.get("history_120") or {}).get("guard") or {})
+        targets.append({
+            "name": name,
+            "guard_states": guard.get("states"),
+            "guard_urls": guard.get("normalized_unique_urls"),
+            "states": cell.get("states"),
+            "urls": cell.get("normalized_unique_urls"),
+            "continuations": cell.get("nested_continuation_events"),
+            "handoffs": cell.get("horizon_handoff_started_events"),
+            "witnesses": cell.get("child_parent_witness_events"),
+            "resumes": cell.get("parent_frame_resume_to_return_events"),
+            "unwinds": cell.get("horizon_handoff_unwind_events"),
+            "max_depth": cell.get("max_handoff_stack_depth"),
+            "horizon": cell.get("sequence_horizon_reached"),
+            "returns": cell.get("sequence_instances_returned"),
+            "repair": bool((block.get("assessment_120") or {}).get("pass")),
+        })
+    lost = {}
+    for key, case in ((regression or {}).get("cases") or {}).items():
+        lost[key] = case.get("lost_vs_guard") or []
+    apps = (reaudit or {}).get("apps") or {}
+    gate = (reaudit or {}).get("counterfactual_gate") or {}
+    return {
+        "available": True,
+        "round": "v0.3.14",
+        "title": "Horizon Handoff",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning"),
+        "product_default_changed": bool(derived.get("product_default_changed")),
+        "generalization_claim": bool(derived.get("generalization_claim")),
+        "crm_repair": bool(derived.get("crm_repair")),
+        "ops_repair": bool(derived.get("ops_repair")),
+        "lost_cases": derived.get("lost_cases") or [],
+        "lost": lost,
+        "lost_count": sum(len(items or []) for items in lost.values()),
+        "witness_violations": mechanism.get("witness_violations"),
+        "terminal_accounting_violations": mechanism.get(
+            "terminal_accounting_violations"),
+        "targets": targets,
+        "h_series_cases": (safety or {}).get("h_series_cases"),
+        "h_series_failures": (safety or {}).get("h_series_failures"),
+        "model_raw_traces": (safety or {}).get("model_raw_traces"),
+        "model_invariant_failures": (safety or {}).get("model_invariant_failures"),
+        "reaudit": {
+            "published_outcome": (reaudit or {}).get("v0313_published_outcome"),
+            "counterfactual_outcome": gate.get("counterfactual_outcome"),
+            "desk_old_bad": ((apps.get("buggy-desk") or {}).get(
+                "old_bad_restore_count")),
+            "desk_residual": ((apps.get("buggy-desk") or {}).get(
+                "corrected_residual_bad_count")),
+            "deep_old_bad": ((apps.get("deepbench") or {}).get(
+                "old_bad_restore_count")),
+            "deep_residual": ((apps.get("deepbench") or {}).get(
+                "corrected_residual_bad_count")),
+        },
+        "reproduction": {
+            "clean_clone_verified": bool((repro or {}).get("clean_clone_verified")),
+            "match": bool((repro or {}).get("match")),
+            "command": (repro or {}).get("command") or (config or {}).get("verify_command"),
+            "metrics_sha256": (repro or {}).get("expected_mechanism_sha256"),
+            "metrics_sha256_short": _short_hash(
+                (repro or {}).get("expected_mechanism_sha256") or ""),
+            "evidence_files": len((man or {}).get("files") or []),
+            "candidate_freeze_verified": bool((repro or {}).get("candidate_freeze_verified")),
+            "historical_guard_freeze_verified": bool(
+                (repro or {}).get("historical_guard_freeze_verified")),
+            "evidence_manifest_verified": bool(
+                (repro or {}).get("evidence_manifest_verified")),
+        },
+        "product_default": (config or {}).get("product_default"),
+        "command": (config or {}).get("verify_command") or (
+            (repro or {}).get("command")),
+    }
+
+
 def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None,
                    v0310_root: str | None = None, v0311_root: str | None = None,
-                   v0312_root: str | None = None, v0313_root: str | None = None) -> dict:
+                   v0312_root: str | None = None, v0313_root: str | None = None,
+                   v0314_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
     v0311 = _v0311(v0311_root)
     v0312 = _v0312(v0312_root)
     v0313 = _v0313(v0313_root)
-    if v0313.get("available"):
+    v0314 = _v0314(v0314_root)
+    if v0314.get("available"):
+        latest = {
+            "round": "v0.3.14",
+            "title": "Horizon Handoff",
+            "available": True,
+            "outcome": v0314.get("outcome"),
+            "product_default_changed": v0314.get("product_default_changed"),
+        }
+        latest_research = "v0.3.14"
+    elif v0313.get("available"):
         latest = {
             "round": "v0.3.13",
             "title": "Suspended Parent Frames",
@@ -537,6 +641,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "horizon_handoff": v0314,
         "nested_stack": v0313,
         "nested_hub": v0312,
         "multi_target": v0311,
@@ -559,6 +664,8 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             {"round": "v0.3.12", "title": "Nested-Hub Parent Preservation",
              "kind": "mechanism repair"},
             {"round": "v0.3.13", "title": "Suspended Parent Frames",
+             "kind": "mechanism development"},
+            {"round": "v0.3.14", "title": "Horizon Handoff",
              "kind": "mechanism development"},
         ],
     }

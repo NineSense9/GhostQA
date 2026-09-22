@@ -229,6 +229,85 @@ function renderNestedHub(nh) {
   }
 }
 
+function renderHorizon(hh) {
+  const sec = document.querySelector('[data-testid="horizon-handoff"]');
+  if (!hh || !hh.available) {
+    if (sec && !sec.querySelector('[data-unavailable]')) {
+      const note = document.createElement('p');
+      note.className = 'limit-note';
+      note.dataset.unavailable = '1';
+      note.textContent = '暂时无法读取已发布证据';
+      sec.appendChild(note);
+    }
+    return;
+  }
+  const grid = gid('hh-grid');
+  if (grid) {
+    grid.innerHTML = (hh.targets || []).map((t) => {
+      return `<article class="rc-card"><h3>${escapeHtml(t.name)}</h3>` +
+        `<dl class="rc-metrics">` +
+        `<div><dt>states</dt><dd>${escapeHtml(t.guard_states)} → ${escapeHtml(t.states)}</dd></div>` +
+        `<div><dt>URLs</dt><dd>${escapeHtml(t.guard_urls)} → ${escapeHtml(t.urls)}</dd></div>` +
+        `<div><dt>continuations</dt><dd>${escapeHtml(t.continuations)}</dd></div>` +
+        `<div><dt>handoffs</dt><dd>${escapeHtml(t.handoffs)}</dd></div>` +
+        `</dl><p class="rc-bugs">witnesses ${escapeHtml(t.witnesses)} · resumes ${escapeHtml(t.resumes)} · unwinds ${escapeHtml(t.unwinds)} · depth ${escapeHtml(t.max_depth)} · horizon ${escapeHtml(t.horizon)}</p></article>`;
+    }).join('');
+  }
+  const oc = gid('hh-outcome');
+  if (oc) {
+    oc.textContent = hh.outcome ? ('Outcome ' + hh.outcome) : 'Outcome';
+    oc.className = hh.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('hh-outcome-mean');
+  if (om) {
+    om.textContent = (hh.outcome_meaning || '') +
+      '。产品默认未改。不是 fresh validation。回归丢失 ' + escapeHtml(hh.lost_count) + '。';
+  }
+  const delta = gid('hh-delta');
+  if (delta) {
+    delta.innerHTML =
+      `<span>回归丢失 <b>${escapeHtml(hh.lost_count)}</b></span>` +
+      `<span>witness violations <b>${escapeHtml(hh.witness_violations)}</b></span>` +
+      `<span>H1–H20 failures <b>${escapeHtml(hh.h_series_failures)}</b></span>` +
+      `<span>model failures <b>${escapeHtml(hh.model_invariant_failures)}</b></span>`;
+  }
+  const audit = hh.reaudit || {};
+  const reaudit = gid('hh-reaudit');
+  if (reaudit) {
+    reaudit.textContent = 'v0.3.13 测量订正不改变已发布结果：Outcome ' +
+      (audit.published_outcome || '—') +
+      '，反事实仍是 Outcome ' + (audit.counterfactual_outcome || '—') +
+      '。BuggyDesk old bad ' + (audit.desk_old_bad ?? '—') +
+      ' / residual ' + (audit.desk_residual ?? '—') +
+      '。DeepBench old bad ' + (audit.deep_old_bad ?? '—') +
+      ' / residual ' + (audit.deep_residual ?? '—') + '。';
+  }
+  setText('proof-round', hh.round || 'v0.3.14');
+  setText('proof-outcome', hh.outcome || '—');
+  const crm = (hh.targets || []).find((t) => t.name === 'buggy-crm') || {};
+  const ops = (hh.targets || []).find((t) => t.name === 'buggy-ops') || {};
+  const l1 = gid('proof-metric-1');
+  if (l1) l1.textContent = 'CRM states G → H';
+  setText('proof-b-states', crm.guard_states);
+  setText('proof-g-states', crm.states);
+  const l2 = gid('proof-metric-2');
+  if (l2) l2.textContent = 'Ops states G → H';
+  setText('proof-b-ret', ops.guard_states);
+  setText('proof-g-ret', ops.states);
+  const l3 = gid('proof-metric-3');
+  if (l3) l3.textContent = 'witness violations';
+  setText('proof-esc', hh.witness_violations);
+  const note = gid('proof-note');
+  if (note) {
+    note.textContent = '已分析机制用例。最后一格 handoff 不是 fresh validation。产品默认未改。';
+  }
+  const tl = gid('tl-v0314');
+  if (tl) {
+    tl.textContent = 'Outcome ' + (hh.outcome || '—') + ' — ' + (hh.outcome_meaning || '') +
+      '。CRM / Ops 是已分析用例。v0.3.13 仍是 Outcome C。产品默认未改。';
+  }
+}
+
 function renderNestedStack(ns) {
   const sec = document.querySelector('[data-testid="nested-stack"]');
   if (!ns || !ns.available) {
@@ -428,6 +507,8 @@ function renderEvidence(data) {
   const mt = (data && data.multi_target) || {};
   const nh = (data && data.nested_hub) || {};
   const ns = (data && data.nested_stack) || {};
+  const hh = (data && data.horizon_handoff) || {};
+  const ev0314 = gid('ev-v0314');
   const ev0313 = gid('ev-v0313');
   const ev0312 = gid('ev-v0312');
   const ev0311 = gid('ev-v0311');
@@ -435,6 +516,28 @@ function renderEvidence(data) {
   const ev039 = gid('ev-v039');
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
+
+  if (ev0314) {
+    if (!hh.available) {
+      ev0314.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = hh.reproduction || {};
+      ev0314.innerHTML = [
+        statusRow('轮次结果', hh.outcome ? ('Outcome ' + hh.outcome) : '—', hh.outcome === 'A'),
+        statusRow('候选 freeze', yn(r.candidate_freeze_verified), r.candidate_freeze_verified),
+        statusRow('历史 guard freeze', yn(r.historical_guard_freeze_verified), r.historical_guard_freeze_verified),
+        statusRow('证据清单', fileLabel(r.evidence_files, r.evidence_manifest_verified),
+          r.evidence_manifest_verified),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', hh.product_default_changed ? '已改' : '未改',
+          hh.product_default_changed === false),
+        statusRow('witness violations', String(hh.witness_violations), hh.witness_violations === 0),
+        hashRow('Mechanism SHA256', r.metrics_sha256, r.metrics_sha256_short),
+      ].join('');
+    }
+  }
+  const cmd0314 = hh.command || (hh.reproduction && hh.reproduction.command) || '';
+  if (gid('ev-cmd-0314')) gid('ev-cmd-0314').textContent = cmd0314;
 
   if (ev0313) {
     if (!ns.available) {
@@ -641,6 +744,7 @@ async function loadShowcase() {
     renderMultiTarget(data.multi_target);
     renderNestedHub(data.nested_hub);
     renderNestedStack(data.nested_stack);
+    renderHorizon(data.horizon_handoff);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

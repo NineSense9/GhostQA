@@ -101,13 +101,15 @@ def test_showcase_missing_artifacts_do_not_crash():
     from dashboard.showcase import build_showcase
     s = build_showcase(v039_root="/tmp/missing-v039", v038_root="/tmp/missing-v038",
                        v0310_root="/tmp/missing-v0310", v0311_root="/tmp/missing-v0311",
-                       v0312_root="/tmp/missing-v0312", v0313_root="/tmp/missing-v0313")
+                       v0312_root="/tmp/missing-v0312", v0313_root="/tmp/missing-v0313",
+                       v0314_root="/tmp/missing-v0314")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
     assert s["multi_target"]["available"] is False
     assert s["nested_hub"]["available"] is False
     assert s["nested_stack"]["available"] is False
+    assert s["horizon_handoff"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -131,7 +133,15 @@ def test_showcase_endpoint_function_returns_payload():
     mt = body.get("multi_target") or {}
     nh = body.get("nested_hub") or {}
     ns = body.get("nested_stack") or {}
-    if ns.get("available"):
+    hh = body.get("horizon_handoff") or {}
+    if hh.get("available"):
+        assert body["latest"]["round"] == "v0.3.14"
+        assert body["project"]["latest_research"] == "v0.3.14"
+        assert hh["product_default_changed"] is False
+        assert hh["outcome"] == "A"
+        assert hh.get("generalization_claim") is False
+        assert ns.get("outcome") == "C"
+    elif ns.get("available"):
         assert body["latest"]["round"] == "v0.3.13"
         assert body["project"]["latest_research"] == "v0.3.13"
         assert ns["product_default_changed"] is False
@@ -168,8 +178,26 @@ def test_showcase_reads_v0311_published_metrics():
     assert nh["available"] is True
     ns = s["nested_stack"]
     assert ns["available"] is True
-    assert s["latest"]["round"] == "v0.3.13"
-    assert s["project"]["latest_research"] == "v0.3.13"
+    hh = s["horizon_handoff"]
+    assert hh["available"] is True
+    assert s["latest"]["round"] == "v0.3.14"
+    assert s["project"]["latest_research"] == "v0.3.14"
+    assert hh["outcome"] == "A"
+    assert hh["product_default_changed"] is False
+    assert hh["generalization_claim"] is False
+    assert hh["crm_repair"] is True
+    assert hh["ops_repair"] is True
+    assert hh["lost_count"] == 0
+    assert hh["witness_violations"] == 0
+    assert hh["reaudit"]["published_outcome"] == "C"
+    assert hh["reaudit"]["counterfactual_outcome"] == "C"
+    assert hh["reaudit"]["desk_old_bad"] == 1
+    assert hh["reaudit"]["desk_residual"] == 0
+    assert hh["reaudit"]["deep_old_bad"] == 33
+    assert hh["reaudit"]["deep_residual"] == 0
+    crm_h = {t["name"]: t for t in hh["targets"]}["buggy-crm"]
+    assert crm_h["guard_states"] == 5
+    assert crm_h["states"] > 5
     assert ns["outcome"] == "C"
     assert ns["product_default_changed"] is False
     assert ns["generalization_claim"] is False
@@ -225,7 +253,8 @@ def test_index_has_three_views_and_live_ids():
         'data-testid="return-cycle"', 'data-testid="fresh-transfer"',
         'data-testid="multi-target"', 'data-testid="evidence-v0311"',
         'data-testid="nested-hub"', 'data-testid="evidence-v0312"',
-        'id="proof-metric-1"', 'id="tl-v0311"', 'id="tl-v0312"',
+        'data-testid="horizon-handoff"', 'data-testid="evidence-v0314"',
+        'id="proof-metric-1"', 'id="tl-v0311"', 'id="tl-v0312"', 'id="tl-v0314"',
         'data-testid="live-viewport"',
         'id="theme-toggle"', 'data-testid="theme-toggle"',
     ):

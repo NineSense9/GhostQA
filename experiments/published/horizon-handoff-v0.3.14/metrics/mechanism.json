@@ -1,0 +1,738 @@
+{
+  "derived": {
+    "crm_repair": true,
+    "generalization_claim": false,
+    "lost_cases": [],
+    "lost_vs_guard": {
+      "buggy-desk": [],
+      "buggy-shop": [],
+      "deepbench": [],
+      "wiki": []
+    },
+    "ops_repair": true,
+    "outcome": "A",
+    "outcome_meaning": "Horizon Handoff repairs the inspected nested-boundary mechanism and passes the specified historical regression suite",
+    "product_default_changed": false,
+    "promotion_prohibited": true,
+    "safety_failure": false,
+    "v0_3_11_outcome_preserved": "D",
+    "v0_3_12_outcome_preserved": "C",
+    "v0_3_13_outcome_preserved": "C"
+  },
+  "reference_confirmed": {
+    "buggy-desk": [
+      "BUG-K1",
+      "BUG-K10",
+      "BUG-K2",
+      "BUG-K3",
+      "BUG-K5",
+      "BUG-K6",
+      "BUG-K9"
+    ],
+    "buggy-shop": [
+      "BUG-W10",
+      "BUG-W5",
+      "BUG-W6",
+      "BUG-W9"
+    ],
+    "deepbench": [
+      "BUG-D11",
+      "BUG-D12",
+      "BUG-D13",
+      "BUG-D14",
+      "BUG-D6",
+      "BUG-D7"
+    ],
+    "wiki": [
+      "BUG-W2"
+    ]
+  },
+  "return_inflation": false,
+  "targets": {
+    "buggy-crm": {
+      "assessment_120": {
+        "baseline_5_5": true,
+        "commitment_window_preemptions": 0,
+        "horizon_handoff_started_events": 2,
+        "nested_continuation_events": 5,
+        "pass": true,
+        "pathological_unresolved_stack": false,
+        "reached_return_lifecycle": true,
+        "sequence_horizon_reached": 10,
+        "states_above_guard_collapse": true,
+        "urls_above_guard_collapse": true,
+        "witness_violations": 0
+      },
+      "audits": [
+        {
+          "examples": [],
+          "return_inflation": false,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        },
+        {
+          "examples": [],
+          "return_inflation": false,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        },
+        {
+          "examples": [],
+          "return_inflation": false,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        }
+      ],
+      "cells": {
+        "ghost-structural-horizon-handoff-guard@120": {
+          "active_budget_end_count": 0,
+          "budget": 120,
+          "child_parent_cluster_witness_events": 0,
+          "child_parent_exact_witness_events": 2,
+          "child_parent_witness_events": 2,
+          "commitment_window_preemptions": 0,
+          "confirmed_bugs": [
+            "BUG-C1",
+            "BUG-C2",
+            "BUG-C4",
+            "BUG-C5",
+            "BUG-C8"
+          ],
+          "deferred_horizon_events": 2,
+          "handoff_child_started_events": 2,
+          "handoff_frames_abandoned": 0,
+          "handoff_stack_depth_at_budget_end": 0,
+          "horizon_handoff_started_events": 2,
+          "horizon_handoff_unwind_events": 0,
+          "max_handoff_stack_depth": 1,
+          "nested_continuation_events": 5,
+          "normalized_unique_urls": 13,
+          "parent_frame_resume_to_return_events": 2,
+          "policy": "ghost-structural-horizon-handoff-guard",
+          "resolved_deferred_horizon_events": 2,
+          "return_attempt_events": 16,
+          "return_cycle_escape_events": 2,
+          "return_inflation": false,
+          "same_step_terminal_witness_events": 2,
+          "sequence_horizon_reached": 10,
+          "sequence_instances_returned": 8,
+          "sequence_lost_parent": 0,
+          "states": 20,
+          "suspended_budget_end_count": 0,
+          "terminal_accounting_violations": 0,
+          "unique_nested_continuations": 3,
+          "witness_rejection_events": 0,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        },
+        "ghost-structural-horizon-handoff-guard@40": {
+          "active_budget_end_count": 0,
+          "budget": 40,
+          "child_parent_cluster_witness_events": 0,
+          "child_parent_exact_witness_events": 2,
+          "child_parent_witness_events": 2,
+          "commitment_window_preemptions": 0,
+          "confirmed_bugs": [
+            "BUG-C2",
+            "BUG-C5"
+          ],
+          "deferred_horizon_events": 2,
+          "handoff_child_started_events": 2,
+          "handoff_frames_abandoned": 0,
+          "handoff_stack_depth_at_budget_end": 0,
+          "horizon_handoff_started_events": 2,
+          "horizon_handoff_unwind_events": 0,
+          "max_handoff_stack_depth": 1,
+          "nested_continuation_events": 5,
+          "normalized_unique_urls": 10,
+          "parent_frame_resume_to_return_events": 2,
+          "policy": "ghost-structural-horizon-handoff-guard",
+          "resolved_deferred_horizon_events": 2,
+          "return_attempt_events": 10,
+          "return_cycle_escape_events": 0,
+          "return_inflation": false,
+          "same_step_terminal_witness_events": 2,
+          "sequence_horizon_reached": 8,
+          "sequence_instances_returned": 8,
+          "sequence_lost_parent": 0,
+          "states": 13,
+          "suspended_budget_end_count": 0,
+          "terminal_accounting_violations": 0,
+          "unique_nested_continuations": 3,
+          "witness_rejection_events": 0,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        },
+        "ghost-structural-horizon-handoff-guard@80": {
+          "active_budget_end_count": 0,
+          "budget": 80,
+          "child_parent_cluster_witness_events": 0,
+          "child_parent_exact_witness_events": 2,
+          "child_parent_witness_events": 2,
+          "commitment_window_preemptions": 0,
+          "confirmed_bugs": [
+            "BUG-C1",
+            "BUG-C2",
+            "BUG-C4",
+            "BUG-C5",
+            "BUG-C8"
+          ],
+          "deferred_horizon_events": 2,
+          "handoff_child_started_events": 2,
+          "handoff_frames_abandoned": 0,
+          "handoff_stack_depth_at_budget_end": 0,
+          "horizon_handoff_started_events": 2,
+          "horizon_handoff_unwind_events": 0,
+          "max_handoff_stack_depth": 1,
+          "nested_continuation_events": 5,
+          "normalized_unique_urls": 13,
+          "parent_frame_resume_to_return_events": 2,
+          "policy": "ghost-structural-horizon-handoff-guard",
+          "resolved_deferred_horizon_events": 2,
+          "return_attempt_events": 16,
+          "return_cycle_escape_events": 2,
+          "return_inflation": false,
+          "same_step_terminal_witness_events": 2,
+          "sequence_horizon_reached": 10,
+          "sequence_instances_returned": 8,
+          "sequence_lost_parent": 0,
+          "states": 20,
+          "suspended_budget_end_count": 0,
+          "terminal_accounting_violations": 0,
+          "unique_nested_continuations": 3,
+          "witness_rejection_events": 0,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        }
+      },
+      "history_120": {
+        "flatten": {
+          "confirmed_bugs": [
+            "BUG-C1",
+            "BUG-C2",
+            "BUG-C4",
+            "BUG-C5",
+            "BUG-C8"
+          ],
+          "normalized_unique_urls": 13,
+          "states": 20
+        },
+        "guard": {
+          "confirmed_bugs": [],
+          "normalized_unique_urls": 5,
+          "states": 5
+        },
+        "stack": {
+          "confirmed_bugs": [],
+          "normalized_unique_urls": 5,
+          "states": 5
+        }
+      }
+    },
+    "buggy-desk": {
+      "audits": [
+        {
+          "examples": [],
+          "return_inflation": false,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        }
+      ],
+      "cells": {
+        "ghost-structural-horizon-handoff-guard@120": {
+          "active_budget_end_count": 0,
+          "budget": 120,
+          "child_parent_cluster_witness_events": 0,
+          "child_parent_exact_witness_events": 1,
+          "child_parent_witness_events": 1,
+          "commitment_window_preemptions": 0,
+          "confirmed_bugs": [
+            "BUG-K1",
+            "BUG-K10",
+            "BUG-K2",
+            "BUG-K3",
+            "BUG-K4",
+            "BUG-K5",
+            "BUG-K6",
+            "BUG-K9"
+          ],
+          "deferred_horizon_events": 2,
+          "handoff_child_started_events": 2,
+          "handoff_frames_abandoned": 1,
+          "handoff_stack_depth_at_budget_end": 0,
+          "horizon_handoff_started_events": 2,
+          "horizon_handoff_unwind_events": 1,
+          "max_handoff_stack_depth": 1,
+          "nested_continuation_events": 4,
+          "normalized_unique_urls": 20,
+          "parent_frame_resume_to_return_events": 1,
+          "policy": "ghost-structural-horizon-handoff-guard",
+          "resolved_deferred_horizon_events": 1,
+          "return_attempt_events": 33,
+          "return_cycle_escape_events": 6,
+          "return_inflation": false,
+          "same_step_terminal_witness_events": 1,
+          "sequence_horizon_reached": 11,
+          "sequence_instances_returned": 5,
+          "sequence_lost_parent": 0,
+          "states": 33,
+          "suspended_budget_end_count": 0,
+          "terminal_accounting_violations": 0,
+          "unique_nested_continuations": 4,
+          "witness_rejection_events": 0,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        }
+      },
+      "history_120": {
+        "flatten": {
+          "confirmed_bugs": [
+            "BUG-K1",
+            "BUG-K2",
+            "BUG-K4",
+            "BUG-K5"
+          ],
+          "normalized_unique_urls": 16,
+          "states": 23
+        },
+        "guard": {
+          "confirmed_bugs": [
+            "BUG-K1",
+            "BUG-K10",
+            "BUG-K2",
+            "BUG-K3",
+            "BUG-K5",
+            "BUG-K6",
+            "BUG-K9"
+          ],
+          "normalized_unique_urls": 19,
+          "states": 35
+        },
+        "stack": {
+          "confirmed_bugs": [
+            "BUG-K10",
+            "BUG-K3",
+            "BUG-K5",
+            "BUG-K6",
+            "BUG-K9"
+          ],
+          "normalized_unique_urls": 13,
+          "states": 23
+        }
+      }
+    },
+    "buggy-ops": {
+      "assessment_120": {
+        "baseline_5_5": true,
+        "commitment_window_preemptions": 0,
+        "horizon_handoff_started_events": 7,
+        "nested_continuation_events": 13,
+        "pass": true,
+        "pathological_unresolved_stack": false,
+        "reached_return_lifecycle": true,
+        "sequence_horizon_reached": 19,
+        "states_above_guard_collapse": true,
+        "urls_above_guard_collapse": true,
+        "witness_violations": 0
+      },
+      "audits": [
+        {
+          "examples": [],
+          "return_inflation": false,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        },
+        {
+          "examples": [],
+          "return_inflation": false,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        },
+        {
+          "examples": [],
+          "return_inflation": false,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        }
+      ],
+      "cells": {
+        "ghost-structural-horizon-handoff-guard@120": {
+          "active_budget_end_count": 1,
+          "budget": 120,
+          "child_parent_cluster_witness_events": 0,
+          "child_parent_exact_witness_events": 4,
+          "child_parent_witness_events": 4,
+          "commitment_window_preemptions": 0,
+          "confirmed_bugs": [
+            "BUG-O2",
+            "BUG-O5"
+          ],
+          "deferred_horizon_events": 7,
+          "handoff_child_started_events": 7,
+          "handoff_frames_abandoned": 3,
+          "handoff_stack_depth_at_budget_end": 0,
+          "horizon_handoff_started_events": 7,
+          "horizon_handoff_unwind_events": 3,
+          "max_handoff_stack_depth": 2,
+          "nested_continuation_events": 13,
+          "normalized_unique_urls": 25,
+          "parent_frame_resume_to_return_events": 4,
+          "policy": "ghost-structural-horizon-handoff-guard",
+          "resolved_deferred_horizon_events": 4,
+          "return_attempt_events": 34,
+          "return_cycle_escape_events": 8,
+          "return_inflation": false,
+          "same_step_terminal_witness_events": 4,
+          "sequence_horizon_reached": 19,
+          "sequence_instances_returned": 12,
+          "sequence_lost_parent": 0,
+          "states": 28,
+          "suspended_budget_end_count": 0,
+          "terminal_accounting_violations": 0,
+          "unique_nested_continuations": 8,
+          "witness_rejection_events": 0,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        },
+        "ghost-structural-horizon-handoff-guard@40": {
+          "active_budget_end_count": 0,
+          "budget": 40,
+          "child_parent_cluster_witness_events": 0,
+          "child_parent_exact_witness_events": 2,
+          "child_parent_witness_events": 2,
+          "commitment_window_preemptions": 0,
+          "confirmed_bugs": [],
+          "deferred_horizon_events": 3,
+          "handoff_child_started_events": 3,
+          "handoff_frames_abandoned": 1,
+          "handoff_stack_depth_at_budget_end": 0,
+          "horizon_handoff_started_events": 3,
+          "horizon_handoff_unwind_events": 1,
+          "max_handoff_stack_depth": 2,
+          "nested_continuation_events": 4,
+          "normalized_unique_urls": 15,
+          "parent_frame_resume_to_return_events": 2,
+          "policy": "ghost-structural-horizon-handoff-guard",
+          "resolved_deferred_horizon_events": 2,
+          "return_attempt_events": 9,
+          "return_cycle_escape_events": 3,
+          "return_inflation": false,
+          "same_step_terminal_witness_events": 2,
+          "sequence_horizon_reached": 8,
+          "sequence_instances_returned": 5,
+          "sequence_lost_parent": 0,
+          "states": 15,
+          "suspended_budget_end_count": 0,
+          "terminal_accounting_violations": 0,
+          "unique_nested_continuations": 4,
+          "witness_rejection_events": 0,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        },
+        "ghost-structural-horizon-handoff-guard@80": {
+          "active_budget_end_count": 1,
+          "budget": 80,
+          "child_parent_cluster_witness_events": 0,
+          "child_parent_exact_witness_events": 2,
+          "child_parent_witness_events": 2,
+          "commitment_window_preemptions": 0,
+          "confirmed_bugs": [
+            "BUG-O2",
+            "BUG-O5"
+          ],
+          "deferred_horizon_events": 4,
+          "handoff_child_started_events": 4,
+          "handoff_frames_abandoned": 2,
+          "handoff_stack_depth_at_budget_end": 0,
+          "horizon_handoff_started_events": 4,
+          "horizon_handoff_unwind_events": 2,
+          "max_handoff_stack_depth": 2,
+          "nested_continuation_events": 8,
+          "normalized_unique_urls": 24,
+          "parent_frame_resume_to_return_events": 2,
+          "policy": "ghost-structural-horizon-handoff-guard",
+          "resolved_deferred_horizon_events": 2,
+          "return_attempt_events": 22,
+          "return_cycle_escape_events": 4,
+          "return_inflation": false,
+          "same_step_terminal_witness_events": 2,
+          "sequence_horizon_reached": 12,
+          "sequence_instances_returned": 9,
+          "sequence_lost_parent": 0,
+          "states": 27,
+          "suspended_budget_end_count": 0,
+          "terminal_accounting_violations": 0,
+          "unique_nested_continuations": 8,
+          "witness_rejection_events": 0,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        }
+      },
+      "history_120": {
+        "flatten": {
+          "confirmed_bugs": [
+            "BUG-O2",
+            "BUG-O5"
+          ],
+          "normalized_unique_urls": 24,
+          "states": 28
+        },
+        "guard": {
+          "confirmed_bugs": [],
+          "normalized_unique_urls": 5,
+          "states": 5
+        },
+        "stack": {
+          "confirmed_bugs": [],
+          "normalized_unique_urls": 5,
+          "states": 5
+        }
+      }
+    },
+    "buggy-shop": {
+      "audits": [
+        {
+          "examples": [],
+          "return_inflation": false,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        }
+      ],
+      "cells": {
+        "ghost-structural-horizon-handoff-guard@120": {
+          "active_budget_end_count": 0,
+          "budget": 120,
+          "child_parent_cluster_witness_events": 0,
+          "child_parent_exact_witness_events": 0,
+          "child_parent_witness_events": 0,
+          "commitment_window_preemptions": 0,
+          "confirmed_bugs": [
+            "BUG-W10",
+            "BUG-W5",
+            "BUG-W6",
+            "BUG-W9"
+          ],
+          "deferred_horizon_events": 4,
+          "handoff_child_started_events": 4,
+          "handoff_frames_abandoned": 4,
+          "handoff_stack_depth_at_budget_end": 0,
+          "horizon_handoff_started_events": 4,
+          "horizon_handoff_unwind_events": 4,
+          "max_handoff_stack_depth": 1,
+          "nested_continuation_events": 0,
+          "normalized_unique_urls": 8,
+          "parent_frame_resume_to_return_events": 0,
+          "policy": "ghost-structural-horizon-handoff-guard",
+          "resolved_deferred_horizon_events": 0,
+          "return_attempt_events": 15,
+          "return_cycle_escape_events": 4,
+          "return_inflation": false,
+          "same_step_terminal_witness_events": 0,
+          "sequence_horizon_reached": 0,
+          "sequence_instances_returned": 0,
+          "sequence_lost_parent": 0,
+          "states": 22,
+          "suspended_budget_end_count": 0,
+          "terminal_accounting_violations": 0,
+          "unique_nested_continuations": 0,
+          "witness_rejection_events": 0,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        }
+      },
+      "history_120": {
+        "flatten": {
+          "confirmed_bugs": [
+            "BUG-W10",
+            "BUG-W2",
+            "BUG-W5",
+            "BUG-W6",
+            "BUG-W9"
+          ],
+          "normalized_unique_urls": 9,
+          "states": 17
+        },
+        "guard": {
+          "confirmed_bugs": [
+            "BUG-W10",
+            "BUG-W5",
+            "BUG-W6",
+            "BUG-W9"
+          ],
+          "normalized_unique_urls": 8,
+          "states": 22
+        },
+        "stack": {
+          "confirmed_bugs": [
+            "BUG-W10",
+            "BUG-W5",
+            "BUG-W6",
+            "BUG-W9"
+          ],
+          "normalized_unique_urls": 8,
+          "states": 22
+        }
+      }
+    },
+    "deepbench": {
+      "audits": [
+        {
+          "examples": [],
+          "return_inflation": false,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        }
+      ],
+      "cells": {
+        "ghost-structural-horizon-handoff-guard@120": {
+          "active_budget_end_count": 1,
+          "budget": 120,
+          "child_parent_cluster_witness_events": 2,
+          "child_parent_exact_witness_events": 0,
+          "child_parent_witness_events": 2,
+          "commitment_window_preemptions": 0,
+          "confirmed_bugs": [
+            "BUG-D11",
+            "BUG-D12",
+            "BUG-D13",
+            "BUG-D14",
+            "BUG-D6",
+            "BUG-D7"
+          ],
+          "deferred_horizon_events": 2,
+          "handoff_child_started_events": 2,
+          "handoff_frames_abandoned": 0,
+          "handoff_stack_depth_at_budget_end": 0,
+          "horizon_handoff_started_events": 2,
+          "horizon_handoff_unwind_events": 0,
+          "max_handoff_stack_depth": 2,
+          "nested_continuation_events": 8,
+          "normalized_unique_urls": 8,
+          "parent_frame_resume_to_return_events": 2,
+          "policy": "ghost-structural-horizon-handoff-guard",
+          "resolved_deferred_horizon_events": 2,
+          "return_attempt_events": 42,
+          "return_cycle_escape_events": 0,
+          "return_inflation": false,
+          "same_step_terminal_witness_events": 2,
+          "sequence_horizon_reached": 14,
+          "sequence_instances_returned": 14,
+          "sequence_lost_parent": 0,
+          "states": 23,
+          "suspended_budget_end_count": 0,
+          "terminal_accounting_violations": 0,
+          "unique_nested_continuations": 6,
+          "witness_rejection_events": 0,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        }
+      },
+      "history_120": {
+        "flatten": {
+          "confirmed_bugs": [
+            "BUG-D11",
+            "BUG-D13",
+            "BUG-D14",
+            "BUG-D6",
+            "BUG-D7"
+          ],
+          "normalized_unique_urls": 8,
+          "states": 26
+        },
+        "guard": {
+          "confirmed_bugs": [
+            "BUG-D11",
+            "BUG-D12",
+            "BUG-D13",
+            "BUG-D14",
+            "BUG-D6",
+            "BUG-D7"
+          ],
+          "normalized_unique_urls": null,
+          "states": 28
+        },
+        "stack": {
+          "confirmed_bugs": [
+            "BUG-D12",
+            "BUG-D6"
+          ],
+          "normalized_unique_urls": 6,
+          "states": 68
+        }
+      }
+    },
+    "wiki": {
+      "audits": [
+        {
+          "examples": [],
+          "return_inflation": false,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        }
+      ],
+      "cells": {
+        "ghost-structural-horizon-handoff-guard@120": {
+          "active_budget_end_count": 1,
+          "budget": 120,
+          "child_parent_cluster_witness_events": 0,
+          "child_parent_exact_witness_events": 1,
+          "child_parent_witness_events": 1,
+          "commitment_window_preemptions": 0,
+          "confirmed_bugs": [
+            "BUG-W2"
+          ],
+          "deferred_horizon_events": 1,
+          "handoff_child_started_events": 1,
+          "handoff_frames_abandoned": 0,
+          "handoff_stack_depth_at_budget_end": 0,
+          "horizon_handoff_started_events": 1,
+          "horizon_handoff_unwind_events": 0,
+          "max_handoff_stack_depth": 1,
+          "nested_continuation_events": 4,
+          "normalized_unique_urls": 16,
+          "parent_frame_resume_to_return_events": 1,
+          "policy": "ghost-structural-horizon-handoff-guard",
+          "resolved_deferred_horizon_events": 1,
+          "return_attempt_events": 52,
+          "return_cycle_escape_events": 2,
+          "return_inflation": false,
+          "same_step_terminal_witness_events": 1,
+          "sequence_horizon_reached": 23,
+          "sequence_instances_returned": 21,
+          "sequence_lost_parent": 0,
+          "states": 24,
+          "suspended_budget_end_count": 0,
+          "terminal_accounting_violations": 0,
+          "unique_nested_continuations": 3,
+          "witness_rejection_events": 0,
+          "witness_violations": 0,
+          "wrong_child_or_parent_resume": false
+        }
+      },
+      "history_120": {
+        "flatten": {
+          "confirmed_bugs": [
+            "BUG-W2"
+          ],
+          "normalized_unique_urls": 16,
+          "states": 23
+        },
+        "guard": {
+          "confirmed_bugs": [
+            "BUG-W2"
+          ],
+          "normalized_unique_urls": 16,
+          "states": 23
+        },
+        "stack": {
+          "confirmed_bugs": [],
+          "normalized_unique_urls": 14,
+          "states": 33
+        }
+      }
+    }
+  },
+  "terminal_accounting_violations": 0,
+  "witness_violations": 0,
+  "wrong_child_or_parent_resume": false
+}

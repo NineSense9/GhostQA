@@ -1,0 +1,672 @@
+{
+  "cases": {
+    "buggy-desk": {
+      "app": "buggy-desk",
+      "bug_first_steps": [
+        {
+          "first_match": {
+            "active_branch": "fd26171d403eafe5:click:nav_integrations",
+            "commitment_left": 2,
+            "dst_url": "/integrations.html",
+            "finding_assert_ids": [],
+            "index": 74,
+            "last_label": "sequence_followup",
+            "parent_hub_cluster": "fd26171d403eafe5",
+            "returning": false,
+            "src_url": "/integrations.html",
+            "target_eid": "btn_test_conn",
+            "type": "click"
+          },
+          "id": "BUG-K1"
+        },
+        {
+          "first_match": {
+            "active_branch": "fd26171d403eafe5:click:nav_customers",
+            "commitment_left": 1,
+            "dst_url": "/activity.html?id=c1",
+            "finding_assert_ids": [
+              "internal_note_not_customer_visible"
+            ],
+            "index": 53,
+            "last_label": "sequence_followup",
+            "parent_hub_cluster": "fd26171d403eafe5",
+            "returning": false,
+            "src_url": "/customer.html?id=c1",
+            "target_eid": "nav_activity",
+            "type": "click"
+          },
+          "id": "BUG-K10"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/reports.html",
+            "finding_assert_ids": [],
+            "index": 104,
+            "last_label": "return_hub",
+            "parent_hub_cluster": "",
+            "returning": false,
+            "src_url": "/index.html",
+            "target_eid": "nav_reports",
+            "type": "click"
+          },
+          "id": "BUG-K2"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/ticket.html?id=1001",
+            "finding_assert_ids": [],
+            "index": 38,
+            "last_label": "branch",
+            "parent_hub_cluster": "",
+            "returning": false,
+            "src_url": "/ticket.html?id=1001",
+            "target_eid": "btn_watch",
+            "type": "click"
+          },
+          "id": "BUG-K3"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/compose.html",
+            "finding_assert_ids": [
+              "ticket_title_required"
+            ],
+            "index": 45,
+            "last_label": "branch",
+            "parent_hub_cluster": "b59f447f88f8c270",
+            "returning": false,
+            "src_url": "/compose.html",
+            "target_eid": "btn_create",
+            "type": "click"
+          },
+          "id": "BUG-K5"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/ticket.html?id=1001",
+            "finding_assert_ids": [
+              "sla_display_matches_remaining"
+            ],
+            "index": 39,
+            "last_label": "branch",
+            "parent_hub_cluster": "b59f447f88f8c270",
+            "returning": false,
+            "src_url": "/ticket.html?id=1001",
+            "target_eid": "btn_pause_sla",
+            "type": "click"
+          },
+          "id": "BUG-K6"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/ticket.html?id=1001",
+            "finding_assert_ids": [
+              "reopen_clears_closed",
+              "sla_display_matches_remaining"
+            ],
+            "index": 41,
+            "last_label": "branch",
+            "parent_hub_cluster": "b59f447f88f8c270",
+            "returning": false,
+            "src_url": "/ticket.html?id=1001",
+            "target_eid": "btn_reopen",
+            "type": "click"
+          },
+          "id": "BUG-K9"
+        }
+      ],
+      "candidate_confirmed": [
+        "BUG-K1",
+        "BUG-K10",
+        "BUG-K2",
+        "BUG-K3",
+        "BUG-K4",
+        "BUG-K5",
+        "BUG-K6",
+        "BUG-K9"
+      ],
+      "candidate_only_urls": [
+        "/handbook.html",
+        "/help.html",
+        "/settings.html"
+      ],
+      "child_parent_cluster_witness_events": 0,
+      "child_parent_exact_witness_events": 1,
+      "child_parent_witness_events": 1,
+      "divergence_from_guard": {
+        "candidate_action": {
+          "active_branch": "b59f447f88f8c270:click:related_1002",
+          "commitment_left": 0,
+          "dst_url": "/customer.html?id=c1",
+          "index": 13,
+          "last_label": "return_hub",
+          "parent_hub_cluster": "b59f447f88f8c270",
+          "returning": true,
+          "src_url": "/activity.html?id=c1",
+          "target_eid": "nav_back_customer",
+          "type": "click"
+        },
+        "first_divergence_step": 13,
+        "first_identical_prefix_length": 13,
+        "reference_action": {
+          "active_branch": "fa94359be0c20cd8:click:nav_customer_c1",
+          "commitment_left": 1,
+          "dst_url": "/customer.html?id=c1",
+          "index": 13,
+          "last_label": "sequence_followup",
+          "parent_hub_cluster": "fa94359be0c20cd8",
+          "returning": false,
+          "src_url": "/activity.html?id=c1",
+          "target_eid": null,
+          "type": "back"
+        }
+      },
+      "flatten_states": 23,
+      "flatten_urls": 16,
+      "focus_bug_first_steps": [
+        {
+          "first_match": {
+            "active_branch": "fd26171d403eafe5:click:nav_integrations",
+            "commitment_left": 2,
+            "dst_url": "/integrations.html",
+            "finding_assert_ids": [],
+            "index": 74,
+            "last_label": "sequence_followup",
+            "parent_hub_cluster": "fd26171d403eafe5",
+            "returning": false,
+            "src_url": "/integrations.html",
+            "target_eid": "btn_test_conn",
+            "type": "click"
+          },
+          "id": "BUG-K1"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/reports.html",
+            "finding_assert_ids": [],
+            "index": 104,
+            "last_label": "return_hub",
+            "parent_hub_cluster": "",
+            "returning": false,
+            "src_url": "/index.html",
+            "target_eid": "nav_reports",
+            "type": "click"
+          },
+          "id": "BUG-K2"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/ticket.html?id=1001",
+            "finding_assert_ids": [],
+            "index": 38,
+            "last_label": "branch",
+            "parent_hub_cluster": "",
+            "returning": false,
+            "src_url": "/ticket.html?id=1001",
+            "target_eid": "btn_watch",
+            "type": "click"
+          },
+          "id": "BUG-K3"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/ticket.html?id=1001",
+            "finding_assert_ids": [
+              "sla_display_matches_remaining"
+            ],
+            "index": 39,
+            "last_label": "branch",
+            "parent_hub_cluster": "b59f447f88f8c270",
+            "returning": false,
+            "src_url": "/ticket.html?id=1001",
+            "target_eid": "btn_pause_sla",
+            "type": "click"
+          },
+          "id": "BUG-K6"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/ticket.html?id=1001",
+            "finding_assert_ids": [
+              "reopen_clears_closed",
+              "sla_display_matches_remaining"
+            ],
+            "index": 41,
+            "last_label": "branch",
+            "parent_hub_cluster": "b59f447f88f8c270",
+            "returning": false,
+            "src_url": "/ticket.html?id=1001",
+            "target_eid": "btn_reopen",
+            "type": "click"
+          },
+          "id": "BUG-K9"
+        },
+        {
+          "first_match": {
+            "active_branch": "fd26171d403eafe5:click:nav_customers",
+            "commitment_left": 1,
+            "dst_url": "/activity.html?id=c1",
+            "finding_assert_ids": [
+              "internal_note_not_customer_visible"
+            ],
+            "index": 53,
+            "last_label": "sequence_followup",
+            "parent_hub_cluster": "fd26171d403eafe5",
+            "returning": false,
+            "src_url": "/customer.html?id=c1",
+            "target_eid": "nav_activity",
+            "type": "click"
+          },
+          "id": "BUG-K10"
+        }
+      ],
+      "guard_states": 35,
+      "guard_urls": 19,
+      "horizon_handoff_started_events": 2,
+      "horizon_handoff_unwind_events": 1,
+      "lost_vs_guard": [],
+      "max_handoff_stack_depth": 1,
+      "nested_continuation_events": 4,
+      "normalized_unique_urls": 20,
+      "parent_frame_resume_to_return_events": 1,
+      "reference_confirmed": [
+        "BUG-K1",
+        "BUG-K10",
+        "BUG-K2",
+        "BUG-K3",
+        "BUG-K5",
+        "BUG-K6",
+        "BUG-K9"
+      ],
+      "reference_only_urls": [
+        "/article.html?id=a2",
+        "/article.html?id=a3"
+      ],
+      "return_attempt_events": 33,
+      "return_cycle_escape_events": 6,
+      "same_step_terminal_witness_events": 1,
+      "sequence_horizon_reached": 11,
+      "sequence_instances_returned": 5,
+      "stack_states": 23,
+      "stack_urls": 13,
+      "states": 33,
+      "terminal_accounting_violations": 0,
+      "v0_3_12_confirmed": [
+        "BUG-K1",
+        "BUG-K2",
+        "BUG-K4",
+        "BUG-K5"
+      ],
+      "v0_3_13_confirmed": [
+        "BUG-K10",
+        "BUG-K3",
+        "BUG-K5",
+        "BUG-K6",
+        "BUG-K9"
+      ],
+      "witness_violations": 0
+    },
+    "buggy-shop": {
+      "app": "buggy-shop",
+      "bug_first_steps": [
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/profile.html",
+            "finding_assert_ids": [
+              "login_gate"
+            ],
+            "index": 10,
+            "last_label": "branch",
+            "parent_hub_cluster": "a538e7db31dad458",
+            "returning": false,
+            "src_url": "/index.html",
+            "target_eid": "3ba7d816c4",
+            "type": "click"
+          },
+          "id": "BUG-W10"
+        },
+        {
+          "first_match": {
+            "active_branch": "6a8a7975ba8a12e6:click:btn_add",
+            "commitment_left": 2,
+            "dst_url": "/cart.html",
+            "finding_assert_ids": [
+              "cart_total_consistent"
+            ],
+            "index": 3,
+            "last_label": "sequence_followup",
+            "parent_hub_cluster": "6a8a7975ba8a12e6",
+            "returning": false,
+            "src_url": "/cart.html",
+            "target_eid": "btn_remove",
+            "type": "click"
+          },
+          "id": "BUG-W5"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/register.html",
+            "finding_assert_ids": [
+              "register_requires_username"
+            ],
+            "index": 22,
+            "last_label": "return_hub",
+            "parent_hub_cluster": "",
+            "returning": false,
+            "src_url": "/register.html",
+            "target_eid": "btn_reg",
+            "type": "click"
+          },
+          "id": "BUG-W6"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/promo.html",
+            "finding_assert_ids": [],
+            "index": 12,
+            "last_label": "branch",
+            "parent_hub_cluster": "a538e7db31dad458",
+            "returning": false,
+            "src_url": "/index.html",
+            "target_eid": "be0ee545ca",
+            "type": "click"
+          },
+          "id": "BUG-W9"
+        }
+      ],
+      "candidate_confirmed": [
+        "BUG-W10",
+        "BUG-W5",
+        "BUG-W6",
+        "BUG-W9"
+      ],
+      "child_parent_cluster_witness_events": 0,
+      "child_parent_exact_witness_events": 0,
+      "child_parent_witness_events": 0,
+      "flatten_states": 17,
+      "flatten_urls": 9,
+      "guard_states": 22,
+      "guard_urls": 8,
+      "horizon_handoff_started_events": 4,
+      "horizon_handoff_unwind_events": 4,
+      "lost_vs_guard": [],
+      "max_handoff_stack_depth": 1,
+      "nested_continuation_events": 0,
+      "normalized_unique_urls": 8,
+      "parent_frame_resume_to_return_events": 0,
+      "reference_confirmed": [
+        "BUG-W10",
+        "BUG-W5",
+        "BUG-W6",
+        "BUG-W9"
+      ],
+      "return_attempt_events": 15,
+      "return_cycle_escape_events": 4,
+      "same_step_terminal_witness_events": 0,
+      "sequence_horizon_reached": 0,
+      "sequence_instances_returned": 0,
+      "stack_states": 22,
+      "stack_urls": 8,
+      "states": 22,
+      "terminal_accounting_violations": 0,
+      "v0_3_12_confirmed": [
+        "BUG-W10",
+        "BUG-W2",
+        "BUG-W5",
+        "BUG-W6",
+        "BUG-W9"
+      ],
+      "v0_3_13_confirmed": [
+        "BUG-W10",
+        "BUG-W5",
+        "BUG-W6",
+        "BUG-W9"
+      ],
+      "witness_violations": 0
+    },
+    "deepbench": {
+      "app": "deepbench",
+      "bug_first_steps": [
+        {
+          "first_match": {
+            "active_branch": "dd847159b387ae6c:click:btn_billing",
+            "commitment_left": 2,
+            "dst_url": "/billing.html",
+            "finding_assert_ids": [
+              "coupon_price_consistent"
+            ],
+            "index": 33,
+            "last_label": "sequence_followup",
+            "parent_hub_cluster": "dd847159b387ae6c",
+            "returning": false,
+            "src_url": "/billing.html",
+            "target_eid": "btn_qty_up",
+            "type": "click"
+          },
+          "id": "BUG-D11"
+        },
+        {
+          "first_match": {
+            "active_branch": "f29a7ac2e556577a:click:btn_set_guest",
+            "commitment_left": 2,
+            "dst_url": "/members.html",
+            "finding_assert_ids": [
+              "member_count_consistent"
+            ],
+            "index": 26,
+            "last_label": "sequence_followup",
+            "parent_hub_cluster": "f29a7ac2e556577a",
+            "returning": false,
+            "src_url": "/members.html",
+            "target_eid": "btn_remove_member",
+            "type": "click"
+          },
+          "id": "BUG-D12"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/project.html",
+            "finding_assert_ids": [
+              "project_name_required"
+            ],
+            "index": 37,
+            "last_label": "branch",
+            "parent_hub_cluster": "dd847159b387ae6c",
+            "returning": false,
+            "src_url": "/project.html",
+            "target_eid": "btn_delete",
+            "type": "click"
+          },
+          "id": "BUG-D13"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/dashboard.html",
+            "finding_assert_ids": [
+              "dashboard_name_matches"
+            ],
+            "index": 41,
+            "last_label": "branch",
+            "parent_hub_cluster": "dd847159b387ae6c",
+            "returning": false,
+            "src_url": "/project.html",
+            "target_eid": "nav_dash",
+            "type": "click"
+          },
+          "id": "BUG-D14"
+        },
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/project.html",
+            "finding_assert_ids": [
+              "project_name_required"
+            ],
+            "index": 14,
+            "last_label": "branch",
+            "parent_hub_cluster": "a7e0cc1b4800e9db",
+            "returning": false,
+            "src_url": "/wizard.html",
+            "target_eid": "btn_wiz_confirm",
+            "type": "click"
+          },
+          "id": "BUG-D6"
+        },
+        {
+          "first_match": {
+            "active_branch": "79b901116d3fb118:click:btn_coupon",
+            "commitment_left": 2,
+            "dst_url": "/billing.html",
+            "finding_assert_ids": [],
+            "index": 87,
+            "last_label": "branch",
+            "parent_hub_cluster": "79b901116d3fb118",
+            "returning": false,
+            "src_url": "/billing.html",
+            "target_eid": "btn_export",
+            "type": "click"
+          },
+          "id": "BUG-D7"
+        }
+      ],
+      "candidate_confirmed": [
+        "BUG-D11",
+        "BUG-D12",
+        "BUG-D13",
+        "BUG-D14",
+        "BUG-D6",
+        "BUG-D7"
+      ],
+      "child_parent_cluster_witness_events": 2,
+      "child_parent_exact_witness_events": 0,
+      "child_parent_witness_events": 2,
+      "d12_confirmed": true,
+      "flatten_states": 26,
+      "flatten_urls": 8,
+      "guard_events_available": false,
+      "guard_states": 28,
+      "guard_urls": null,
+      "horizon_handoff_started_events": 2,
+      "horizon_handoff_unwind_events": 0,
+      "lost_vs_guard": [],
+      "max_handoff_stack_depth": 2,
+      "member_workflow_note": "DeepBench guard reference is the committed v0.3.9 metrics file. That publication has no event trace. D12 is reported from the candidate confirmed set and its first matching step.",
+      "nested_continuation_events": 8,
+      "normalized_unique_urls": 8,
+      "parent_frame_resume_to_return_events": 2,
+      "reference_confirmed": [
+        "BUG-D11",
+        "BUG-D12",
+        "BUG-D13",
+        "BUG-D14",
+        "BUG-D6",
+        "BUG-D7"
+      ],
+      "return_attempt_events": 42,
+      "return_cycle_escape_events": 0,
+      "same_step_terminal_witness_events": 2,
+      "sequence_horizon_reached": 14,
+      "sequence_instances_returned": 14,
+      "stack_states": 68,
+      "stack_urls": 6,
+      "states": 23,
+      "terminal_accounting_violations": 0,
+      "v0_3_12_confirmed": [
+        "BUG-D11",
+        "BUG-D13",
+        "BUG-D14",
+        "BUG-D6",
+        "BUG-D7"
+      ],
+      "v0_3_13_confirmed": [
+        "BUG-D12",
+        "BUG-D6"
+      ],
+      "witness_violations": 0
+    },
+    "wiki": {
+      "app": "wiki",
+      "bug_first_steps": [
+        {
+          "first_match": {
+            "active_branch": "",
+            "commitment_left": 0,
+            "dst_url": "/search.html",
+            "finding_assert_ids": [],
+            "index": 23,
+            "last_label": "branch",
+            "parent_hub_cluster": "b17b2d9b346b47b4",
+            "returning": false,
+            "src_url": "/index.html",
+            "target_eid": "nav_search",
+            "type": "click"
+          },
+          "id": "BUG-W2"
+        }
+      ],
+      "candidate_confirmed": [
+        "BUG-W2"
+      ],
+      "child_parent_cluster_witness_events": 0,
+      "child_parent_exact_witness_events": 1,
+      "child_parent_witness_events": 1,
+      "flatten_states": 23,
+      "flatten_urls": 16,
+      "guard_states": 23,
+      "guard_urls": 16,
+      "horizon_handoff_started_events": 1,
+      "horizon_handoff_unwind_events": 0,
+      "lost_vs_guard": [],
+      "max_handoff_stack_depth": 1,
+      "nested_continuation_events": 4,
+      "normalized_unique_urls": 16,
+      "parent_frame_resume_to_return_events": 1,
+      "reference_confirmed": [
+        "BUG-W2"
+      ],
+      "return_attempt_events": 52,
+      "return_cycle_escape_events": 2,
+      "same_step_terminal_witness_events": 1,
+      "sequence_horizon_reached": 23,
+      "sequence_instances_returned": 21,
+      "stack_states": 33,
+      "stack_urls": 14,
+      "states": 24,
+      "terminal_accounting_violations": 0,
+      "v0_3_12_confirmed": [
+        "BUG-W2"
+      ],
+      "v0_3_13_confirmed": [],
+      "witness_violations": 0
+    }
+  }
+}
