@@ -14,6 +14,7 @@ V039 = os.path.join(PUBLISHED, "return-cycle-guard-v0.3.9")
 V038 = os.path.join(PUBLISHED, "application-shape-v0.3.8")
 V0310 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.10")
 V0311 = os.path.join(PUBLISHED, "multi-target-replication-v0.3.11")
+V0312 = os.path.join(PUBLISHED, "nested-hub-parent-v0.3.12")
 
 
 def _load(path, default=None):
@@ -306,13 +307,104 @@ def _v0311(root: str | None = None) -> dict:
     }
 
 
+def _v0312(root: str | None = None) -> dict:
+    base = root or V0312
+    mechanism = _load(os.path.join(base, "metrics", "mechanism.json"))
+    regression = _load(os.path.join(base, "metrics", "regression.json"))
+    safety = _load(os.path.join(base, "metrics", "safety.json"))
+    repro = _load(os.path.join(base, "metrics", "reproduction.json"))
+    config = _load(os.path.join(base, "config.json"))
+    man = _load(os.path.join(base, "evidence-manifest.json"))
+    if not mechanism:
+        return {"available": False}
+    derived = mechanism.get("derived") or {}
+    targets = []
+    for name in ("buggy-crm", "buggy-ops"):
+        block = (mechanism.get("targets") or {}).get(name) or {}
+        cells = block.get("cells") or {}
+        guard = cells.get("ghost-structural-return-guard@120") or {}
+        nested = cells.get("ghost-structural-nested-return-guard@120") or {}
+        targets.append({
+            "name": name,
+            "guard_states": guard.get("states"),
+            "guard_urls": guard.get("normalized_unique_urls"),
+            "guard_lost_parent": guard.get("sequence_lost_parent"),
+            "guard_return_attempts": guard.get("return_attempt_events"),
+            "nested_states": nested.get("states"),
+            "nested_urls": nested.get("normalized_unique_urls"),
+            "nested_lost_parent": nested.get("sequence_lost_parent"),
+            "nested_followup": nested.get("nested_branch_followup_events"),
+            "nested_horizon": nested.get("sequence_horizon_reached"),
+            "nested_return_attempts": nested.get("return_attempt_events"),
+            "nested_returned": nested.get("sequence_instances_returned"),
+            "nested_escapes": nested.get("return_cycle_escape_events"),
+            "confirmed": nested.get("confirmed_bugs") or [],
+            "repair": bool((block.get("assessment_120") or {}).get("mechanism_repair")),
+        })
+    lost = {}
+    for key, case in ((regression or {}).get("cases") or {}).items():
+        lost[key] = case.get("lost") or []
+    n_files = len((man or {}).get("files") or [])
+    return {
+        "available": True,
+        "round": "v0.3.12",
+        "title": "Nested-Hub Parent Preservation",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning"),
+        "product_default_changed": bool(derived.get("product_default_changed")),
+        "generalization_claim": bool(derived.get("generalization_claim")),
+        "crm_repair": bool(derived.get("crm_repair")),
+        "ops_repair": bool(derived.get("ops_repair")),
+        "lost_confirmed_cases": derived.get("lost_confirmed_cases") or [],
+        "lost": lost,
+        "targets": targets,
+        "n_series_cases": (safety or {}).get("n_series_cases"),
+        "n_series_failures": (safety or {}).get("n_series_failures"),
+        "s1_s7_cases": (safety or {}).get("s1_s7_cases"),
+        "s1_s7_failures": (safety or {}).get("s1_s7_failures"),
+        "exhaustive_traces": (safety or {}).get("exhaustive_traces"),
+        "exhaustive_failures": (safety or {}).get("exhaustive_candidate_failures"),
+        "reproduction": {
+            "clean_clone_verified": bool((repro or {}).get("clean_clone_verified")),
+            "match": bool((repro or {}).get("match")),
+            "command": (repro or {}).get("command") or (config or {}).get("verify_command"),
+            "metrics_sha256": (repro or {}).get("expected_mechanism_sha256"),
+            "metrics_sha256_short": _short_hash(
+                (repro or {}).get("expected_mechanism_sha256") or ""),
+            "evidence_files": n_files,
+            "candidate_freeze_verified": bool((repro or {}).get("candidate_freeze_verified")),
+            "historical_c1_freeze_verified": bool(
+                (repro or {}).get("historical_c1_freeze_verified")),
+            "historical_guard_freeze_verified": bool(
+                (repro or {}).get("historical_guard_freeze_verified")),
+            "target_freeze_verified": bool((repro or {}).get("target_freeze_verified")),
+            "evidence_manifest_verified": bool(
+                (repro or {}).get("evidence_manifest_verified")),
+        },
+        "product_default": (config or {}).get("product_default"),
+        "command": (config or {}).get("verify_command") or (
+            (repro or {}).get("command")),
+    }
+
+
 def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None,
-                   v0310_root: str | None = None, v0311_root: str | None = None) -> dict:
+                   v0310_root: str | None = None, v0311_root: str | None = None,
+                   v0312_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
     v0311 = _v0311(v0311_root)
-    if v0311.get("available"):
+    v0312 = _v0312(v0312_root)
+    if v0312.get("available"):
+        latest = {
+            "round": "v0.3.12",
+            "title": "Nested-Hub Parent Preservation",
+            "available": True,
+            "outcome": v0312.get("outcome"),
+            "product_default_changed": v0312.get("product_default_changed"),
+        }
+        latest_research = "v0.3.12"
+    elif v0311.get("available"):
         latest = {
             "round": "v0.3.11",
             "title": "Preregistered Multi-Target Replication",
@@ -347,6 +439,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "nested_hub": v0312,
         "multi_target": v0311,
         "fresh_transfer": v0310,
         "return_cycle": v039,
@@ -364,5 +457,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
              "kind": "one-target transfer"},
             {"round": "v0.3.11", "title": "Preregistered Multi-Target Replication",
              "kind": "multi-target replication"},
+            {"round": "v0.3.12", "title": "Nested-Hub Parent Preservation",
+             "kind": "mechanism repair"},
         ],
     }

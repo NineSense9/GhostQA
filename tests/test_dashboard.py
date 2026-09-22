@@ -100,11 +100,13 @@ def test_showcase_reads_v038_shop_collapse():
 def test_showcase_missing_artifacts_do_not_crash():
     from dashboard.showcase import build_showcase
     s = build_showcase(v039_root="/tmp/missing-v039", v038_root="/tmp/missing-v038",
-                       v0310_root="/tmp/missing-v0310", v0311_root="/tmp/missing-v0311")
+                       v0310_root="/tmp/missing-v0310", v0311_root="/tmp/missing-v0311",
+                       v0312_root="/tmp/missing-v0312")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
     assert s["multi_target"]["available"] is False
+    assert s["nested_hub"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -126,7 +128,14 @@ def test_showcase_endpoint_function_returns_payload():
     assert body["fresh_transfer"]["product_default_changed"] is False
     assert body["latest"]["product_default_changed"] is False
     mt = body.get("multi_target") or {}
-    if mt.get("available"):
+    nh = body.get("nested_hub") or {}
+    if nh.get("available"):
+        assert body["latest"]["round"] == "v0.3.12"
+        assert body["project"]["latest_research"] == "v0.3.12"
+        assert nh["product_default_changed"] is False
+        assert nh["outcome"] == "C"
+        assert nh.get("generalization_claim") is False
+    elif mt.get("available"):
         assert body["latest"]["round"] == "v0.3.11"
         assert body["project"]["latest_research"] == "v0.3.11"
         assert mt["product_default_changed"] is False
@@ -145,9 +154,18 @@ def test_showcase_reads_v0311_published_metrics():
     s = build_showcase()
     mt = s["multi_target"]
     assert mt["available"] is True
-    assert s["latest"]["round"] == "v0.3.11"
-    assert s["project"]["latest_research"] == "v0.3.11"
     assert mt["outcome"] == "D"
+    nh = s["nested_hub"]
+    assert nh["available"] is True
+    assert s["latest"]["round"] == "v0.3.12"
+    assert s["project"]["latest_research"] == "v0.3.12"
+    assert nh["outcome"] == "C"
+    assert nh["product_default_changed"] is False
+    assert nh["generalization_claim"] is False
+    assert nh["crm_repair"] is True
+    assert nh["ops_repair"] is True
+    assert "buggy-desk" in nh["lost_confirmed_cases"]
+    assert "deepbench" in nh["lost_confirmed_cases"]
     assert mt["product_default_changed"] is False
     assert mt["generalization_claim"] is False
     assert mt["evaluable_targets"] == 1
@@ -183,7 +201,8 @@ def test_index_has_three_views_and_live_ids():
         'id="run-form"', 'id="shot"', 'id="graph"', 'id="btn-run"',
         'data-testid="return-cycle"', 'data-testid="fresh-transfer"',
         'data-testid="multi-target"', 'data-testid="evidence-v0311"',
-        'id="proof-metric-1"', 'id="tl-v0311"',
+        'data-testid="nested-hub"', 'data-testid="evidence-v0312"',
+        'id="proof-metric-1"', 'id="tl-v0311"', 'id="tl-v0312"',
         'data-testid="live-viewport"',
         'id="theme-toggle"', 'data-testid="theme-toggle"',
     ):
@@ -253,3 +272,8 @@ def test_make_policy_exposes_return_guard_without_changing_default():
     assert isinstance(d, GhostPolicy)
     assert d.name == "ghost"
     assert getattr(d, "sequence_mode", "off") in (False, "off", "", None)
+    from ghostqa.exploration.nested_hub_guard import NestedHubReturnGuardGhostPolicy
+    n = _make_policy("ghost-structural-nested-return-guard", None, 0)
+    assert isinstance(n, NestedHubReturnGuardGhostPolicy)
+    assert n.name == "ghost-structural-nested-return-guard"
+    assert n is not d

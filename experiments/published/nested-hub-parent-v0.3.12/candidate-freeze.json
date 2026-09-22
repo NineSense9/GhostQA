@@ -1,0 +1,44 @@
+{
+  "algorithm_name": "ghost-structural-nested-return-guard",
+  "round": "v0.3.12",
+  "product": "v0.4 preview",
+  "source_head": "a1c2ac093f3219f12434aa4570ad13786c14c3be",
+  "protocol_commit": "a1c2ac093f3219f12434aa4570ad13786c14c3be",
+  "historical_c1_freeze": "experiments/frozen/ghost-structural-v0.3.6/freeze.json",
+  "historical_guard_freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+  "policy": {
+    "constructor": "NestedHubReturnGuardGhostPolicy",
+    "controller": "NestedHubPreservingSequenceController",
+    "policy_name": "ghost-structural-nested-return-guard",
+    "sequence_mode": "structural",
+    "use_frontier": false,
+    "cycle_key": "new_sig",
+    "no_threshold_N": true,
+    "no_parent_stack": true,
+    "product_default": false
+  },
+  "note": "Candidate freeze before the v0.3.12 mechanism matrix. Do not change these files after the first empirical result.",
+  "hash_normalization": "LF newlines",
+  "files": {
+    "ghostqa/exploration/nested_hub_guard.py": {
+      "sha256": "2391b4bcedd4ad7310e7bed3579a46decdd7c75e2abf2dcb340eb71638e301d0",
+      "git_blob": "25e1a7ef9f6646559c7305e91cc45bb31bede024",
+      "bytes": 6358
+    },
+    "benchmark/nested_hub_detector.py": {
+      "sha256": "72fc7c2fdc558d000ffa340ce64a6a7763c93412d24a765ed50af36c161c798e",
+      "git_blob": "0f86470dec748ca72453d58389ffdac44c68d21d",
+      "bytes": 5867
+    },
+    "benchmark/nested_hub_analysis.py": {
+      "sha256": "cd2c1a6065e48bb233ea16efb3801517ff39597088dcc02295bccc8a5790fa1e",
+      "git_blob": "4d5a979a52ab2b71a687aea6c3a2ee224174d3ce",
+      "bytes": 14000
+    },
+    "experiments/validation/v0.3.12/protocol.json": {
+      "sha256": "4dcd43c554e3d7a6ec2f534ba63daa902b91c5f73f14be4be5137b7422a1c637",
+      "git_blob": "bea7d9e382c7c55c79a68c8c85a04866cf63f3ee",
+      "bytes": 15146
+    }
+  }
+}

@@ -79,6 +79,10 @@ def _make_policy(name: str, llm, seed: int):
         # Product `ghost` default is unchanged (NoFrontier, sequence off).
         from .exploration.return_cycle_guard import ReturnCycleGuardGhostPolicy
         return ReturnCycleGuardGhostPolicy(llm=None)
+    if name == "ghost-structural-nested-return-guard":
+        # Research-only. Not the product default. v0.3.12 Outcome C.
+        from .exploration.nested_hub_guard import NestedHubReturnGuardGhostPolicy
+        return NestedHubReturnGuardGhostPolicy(llm=None)
     if name == "ghost-contextual":
         return GhostPolicy(llm=None, use_frontier=False, sequence_mode="contextual")
     if name == "ghost-contextual-crossview":

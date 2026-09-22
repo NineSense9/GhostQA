@@ -1,0 +1,137 @@
+{
+  "cases": {
+    "buggy-desk": {
+      "app": "buggy-desk",
+      "bug_discovery_rate": 0.4,
+      "candidate_confirmed": [
+        "BUG-K1",
+        "BUG-K2",
+        "BUG-K4",
+        "BUG-K5"
+      ],
+      "lost": [
+        "BUG-K10",
+        "BUG-K3",
+        "BUG-K6",
+        "BUG-K9"
+      ],
+      "nested_branch_followup_events": 4,
+      "normalized_unique_urls": 16,
+      "reference_confirmed": [
+        "BUG-K1",
+        "BUG-K10",
+        "BUG-K2",
+        "BUG-K3",
+        "BUG-K5",
+        "BUG-K6",
+        "BUG-K9"
+      ],
+      "reference_policy": "ghost-structural-return-guard",
+      "reference_states": 35,
+      "reference_urls": 19,
+      "return_attempt_events": 16,
+      "return_cycle_escape_events": 2,
+      "return_inflation": false,
+      "sequence_instances_returned": 6,
+      "sequence_lost_parent": 0,
+      "states": 23
+    },
+    "buggy-shop": {
+      "app": "buggy-shop",
+      "bug_discovery_rate": 0.5,
+      "candidate_confirmed": [
+        "BUG-W10",
+        "BUG-W2",
+        "BUG-W5",
+        "BUG-W6",
+        "BUG-W9"
+      ],
+      "lost": [],
+      "nested_branch_followup_events": 3,
+      "normalized_unique_urls": 9,
+      "reference_confirmed": [
+        "BUG-W10",
+        "BUG-W5",
+        "BUG-W6",
+        "BUG-W9"
+      ],
+      "reference_policy": "ghost-structural-return-guard",
+      "reference_states": 22,
+      "reference_urls": null,
+      "return_attempt_events": 7,
+      "return_cycle_escape_events": 1,
+      "return_inflation": false,
+      "sequence_instances_returned": 2,
+      "sequence_lost_parent": 0,
+      "states": 17
+    },
+    "deepbench": {
+      "app": "buggy-flow",
+      "bug_discovery_rate": 0.357,
+      "candidate_confirmed": [
+        "BUG-D11",
+        "BUG-D13",
+        "BUG-D14",
+        "BUG-D6",
+        "BUG-D7"
+      ],
+      "lost": [
+        "BUG-D12"
+      ],
+      "nested_branch_followup_events": 13,
+      "normalized_unique_urls": 8,
+      "reference_confirmed": [
+        "BUG-D11",
+        "BUG-D12",
+        "BUG-D13",
+        "BUG-D14",
+        "BUG-D6",
+        "BUG-D7"
+      ],
+      "reference_policy": "ghost-structural-return-guard",
+      "reference_states": 28,
+      "reference_urls": null,
+      "return_attempt_events": 38,
+      "return_cycle_escape_events": 0,
+      "return_inflation": false,
+      "sequence_instances_returned": 16,
+      "sequence_lost_parent": 0,
+      "states": 26
+    },
+    "wiki": {
+      "app": "buggy-wiki",
+      "bug_discovery_rate": 0.111,
+      "candidate_confirmed": [
+        "BUG-W2"
+      ],
+      "lost": [],
+      "nested_branch_followup_events": 5,
+      "normalized_unique_urls": 16,
+      "reference_confirmed": [
+        "BUG-W2"
+      ],
+      "reference_policy": "ghost-structural-return-guard",
+      "reference_states": 23,
+      "reference_urls": 16,
+      "return_attempt_events": 52,
+      "return_cycle_escape_events": 2,
+      "return_inflation": false,
+      "sequence_instances_returned": 20,
+      "sequence_lost_parent": 0,
+      "states": 23
+    }
+  },
+  "lost_confirmed": {
+    "buggy-desk": [
+      "BUG-K10",
+      "BUG-K3",
+      "BUG-K6",
+      "BUG-K9"
+    ],
+    "buggy-shop": [],
+    "deepbench": [
+      "BUG-D12"
+    ],
+    "wiki": []
+  }
+}

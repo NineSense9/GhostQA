@@ -1,0 +1,4379 @@
+[
+  {
+    "step": 0,
+    "event": "hub_seen",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 0,
+    "event": "branch_discovered",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 0,
+    "event": "branch_start",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 0,
+    "event": "sequence_action",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "action_key": "click:nav_spaces:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 0,
+    "event": "mutation",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 1,
+    "event": "hub_seen",
+    "exact_sig": "c0e8521a60f830b6:none",
+    "cluster_id": "c0e8521a60f830b6",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 1,
+    "event": "branch_discovered",
+    "exact_sig": "c0e8521a60f830b6:none",
+    "cluster_id": "c0e8521a60f830b6",
+    "branch_key": "c0e8521a60f830b6:click:space_s1",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 1,
+    "event": "nested_branch_followup",
+    "exact_sig": "c0e8521a60f830b6:none",
+    "cluster_id": "c0e8521a60f830b6",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "outer_branch": "05dbe4f15528b372:click:nav_spaces",
+    "outer_parent_hub_sig": "05dbe4f15528b372:8877d37c14a4",
+    "outer_parent_hub_cluster": "05dbe4f15528b372",
+    "nested_hub_sig": "c0e8521a60f830b6:none",
+    "nested_hub_cluster": "c0e8521a60f830b6",
+    "nested_branch_key": "c0e8521a60f830b6:click:space_s1",
+    "commitment_left_before": 2
+  },
+  {
+    "step": 1,
+    "event": "sequence_action",
+    "exact_sig": "c0e8521a60f830b6:none",
+    "cluster_id": "c0e8521a60f830b6",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "action_key": "click:space_s1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 1,
+    "event": "mutation",
+    "exact_sig": "c0e8521a60f830b6:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 1,
+    "event": "followup",
+    "exact_sig": "c0e8521a60f830b6:none",
+    "cluster_id": "c0e8521a60f830b6",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 2,
+    "event": "sequence_action",
+    "exact_sig": "2ad4083dbaa8a038:none",
+    "cluster_id": "2ad4083dbaa8a038",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "action_key": "click:space_page_p1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 2,
+    "event": "mutation",
+    "exact_sig": "2ad4083dbaa8a038:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 2,
+    "event": "followup",
+    "exact_sig": "2ad4083dbaa8a038:none",
+    "cluster_id": "2ad4083dbaa8a038",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 2,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "2ad4083dbaa8a038:none",
+    "cluster_id": "2ad4083dbaa8a038",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 3,
+    "event": "hub_seen",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 3,
+    "event": "sequence_action",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 3,
+    "event": "mutation",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 3,
+    "event": "return_attempt",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 4,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 4,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 4,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 4,
+    "event": "return_attempt",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 4,
+    "event": "sequence_terminal",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 5,
+    "event": "hub_seen",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 5,
+    "event": "branch_discovered",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 5,
+    "event": "branch_start",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 5,
+    "event": "sequence_action",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:nav_pages:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 5,
+    "event": "mutation",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 6,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 6,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 6,
+    "event": "nested_branch_followup",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "outer_branch": "05dbe4f15528b372:click:nav_pages",
+    "outer_parent_hub_sig": "05dbe4f15528b372:8877d37c14a4",
+    "outer_parent_hub_cluster": "05dbe4f15528b372",
+    "nested_hub_sig": "6cadcc5199faae5e:none",
+    "nested_hub_cluster": "6cadcc5199faae5e",
+    "nested_branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "commitment_left_before": 2
+  },
+  {
+    "step": 6,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:wiki_page_p1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 6,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 6,
+    "event": "followup",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 7,
+    "event": "hub_seen",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 7,
+    "event": "sequence_action",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 7,
+    "event": "mutation",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 7,
+    "event": "followup",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 7,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 8,
+    "event": "sequence_action",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 8,
+    "event": "mutation",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 8,
+    "event": "return_attempt",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 9,
+    "event": "hub_seen",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 9,
+    "event": "sequence_action",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 9,
+    "event": "mutation",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 9,
+    "event": "return_attempt",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 10,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 10,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 10,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 10,
+    "event": "return_attempt",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 10,
+    "event": "sequence_terminal",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 11,
+    "event": "hub_seen",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 11,
+    "event": "branch_discovered",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 11,
+    "event": "branch_start",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 11,
+    "event": "sequence_action",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "action_key": "click:nav_tags:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 11,
+    "event": "mutation",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 12,
+    "event": "sequence_action",
+    "exact_sig": "10897103836f4235:none",
+    "cluster_id": "10897103836f4235",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "action_key": "click:tag_t1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 12,
+    "event": "mutation",
+    "exact_sig": "10897103836f4235:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 12,
+    "event": "followup",
+    "exact_sig": "10897103836f4235:none",
+    "cluster_id": "10897103836f4235",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 13,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 13,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 13,
+    "event": "nested_branch_followup",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "outer_branch": "05dbe4f15528b372:click:nav_tags",
+    "outer_parent_hub_sig": "05dbe4f15528b372:8877d37c14a4",
+    "outer_parent_hub_cluster": "05dbe4f15528b372",
+    "nested_hub_sig": "6cadcc5199faae5e:none",
+    "nested_hub_cluster": "6cadcc5199faae5e",
+    "nested_branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "commitment_left_before": 1
+  },
+  {
+    "step": 13,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 13,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 13,
+    "event": "followup",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 13,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 14,
+    "event": "sequence_action",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 14,
+    "event": "mutation",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 14,
+    "event": "return_attempt",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 15,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 15,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 15,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 15,
+    "event": "return_attempt",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 15,
+    "event": "sequence_terminal",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 16,
+    "event": "hub_seen",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 16,
+    "event": "branch_discovered",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 16,
+    "event": "branch_start",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 16,
+    "event": "sequence_action",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 16,
+    "event": "mutation",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 17,
+    "event": "sequence_action",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 17,
+    "event": "mutation",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 17,
+    "event": "followup",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 18,
+    "event": "sequence_action",
+    "exact_sig": "908887006b1f27df:148166a93b3b",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 18,
+    "event": "followup",
+    "exact_sig": "908887006b1f27df:148166a93b3b",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 18,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "908887006b1f27df:148166a93b3b",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 19,
+    "event": "sequence_action",
+    "exact_sig": "908887006b1f27df:148166a93b3b",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 19,
+    "event": "mutation",
+    "exact_sig": "908887006b1f27df:148166a93b3b",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 19,
+    "event": "return_attempt",
+    "exact_sig": "908887006b1f27df:148166a93b3b",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 20,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 20,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 20,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 20,
+    "event": "return_attempt",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 20,
+    "event": "sequence_terminal",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 21,
+    "event": "hub_seen",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 21,
+    "event": "branch_discovered",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_search",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 21,
+    "event": "branch_start",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_search",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 21,
+    "event": "sequence_action",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_search",
+    "sequence_instance_id": "seq-0005",
+    "action_key": "click:nav_search:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 21,
+    "event": "mutation",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_search",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 21,
+    "event": "sequence_terminal",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_search",
+    "sequence_instance_id": "seq-0005",
+    "outcome": "finding",
+    "fingerprints": [
+      "fdfbc2580d7ca158"
+    ]
+  },
+  {
+    "step": 22,
+    "event": "mutation",
+    "exact_sig": "5a4a6f468a4f0549:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:nav_search",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 22,
+    "event": "return_attempt",
+    "exact_sig": "5a4a6f468a4f0549:none",
+    "cluster_id": "5a4a6f468a4f0549",
+    "branch_key": "05dbe4f15528b372:click:nav_search",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 23,
+    "event": "hub_seen",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 23,
+    "event": "branch_discovered",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 23,
+    "event": "branch_start",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 23,
+    "event": "sequence_action",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006",
+    "action_key": "click:search_btn:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 23,
+    "event": "mutation",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 24,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 24,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 24,
+    "event": "nested_branch_followup",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006",
+    "outer_branch": "05dbe4f15528b372:click:search_btn",
+    "outer_parent_hub_sig": "05dbe4f15528b372:8877d37c14a4",
+    "outer_parent_hub_cluster": "05dbe4f15528b372",
+    "nested_hub_sig": "6cadcc5199faae5e:none",
+    "nested_hub_cluster": "6cadcc5199faae5e",
+    "nested_branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "commitment_left_before": 2
+  },
+  {
+    "step": 24,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 24,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 24,
+    "event": "followup",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 25,
+    "event": "sequence_action",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006",
+    "action_key": "input:page_title:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 25,
+    "event": "followup",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 25,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 26,
+    "event": "sequence_action",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 26,
+    "event": "mutation",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 26,
+    "event": "return_attempt",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 27,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 27,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 27,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 27,
+    "event": "return_attempt",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 27,
+    "event": "sequence_terminal",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "05dbe4f15528b372:click:search_btn",
+    "sequence_instance_id": "seq-0006",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 28,
+    "event": "hub_seen",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 28,
+    "event": "mutation",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 29,
+    "event": "hub_seen",
+    "exact_sig": "d266f13617008999:8877d37c14a4",
+    "cluster_id": "d266f13617008999",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 29,
+    "event": "branch_discovered",
+    "exact_sig": "d266f13617008999:8877d37c14a4",
+    "cluster_id": "d266f13617008999",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 29,
+    "event": "branch_start",
+    "exact_sig": "d266f13617008999:8877d37c14a4",
+    "cluster_id": "d266f13617008999",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 29,
+    "event": "sequence_action",
+    "exact_sig": "d266f13617008999:8877d37c14a4",
+    "cluster_id": "d266f13617008999",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "click:nav_spaces:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 29,
+    "event": "mutation",
+    "exact_sig": "d266f13617008999:8877d37c14a4",
+    "cluster_id": "d266f13617008999",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 30,
+    "event": "hub_seen",
+    "exact_sig": "c0e8521a60f830b6:none",
+    "cluster_id": "c0e8521a60f830b6",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 30,
+    "event": "branch_discovered",
+    "exact_sig": "c0e8521a60f830b6:none",
+    "cluster_id": "c0e8521a60f830b6",
+    "branch_key": "c0e8521a60f830b6:click:space_s1",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 30,
+    "event": "nested_branch_followup",
+    "exact_sig": "c0e8521a60f830b6:none",
+    "cluster_id": "c0e8521a60f830b6",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007",
+    "outer_branch": "d266f13617008999:click:nav_spaces",
+    "outer_parent_hub_sig": "d266f13617008999:8877d37c14a4",
+    "outer_parent_hub_cluster": "d266f13617008999",
+    "nested_hub_sig": "c0e8521a60f830b6:none",
+    "nested_hub_cluster": "c0e8521a60f830b6",
+    "nested_branch_key": "c0e8521a60f830b6:click:space_s1",
+    "commitment_left_before": 2
+  },
+  {
+    "step": 30,
+    "event": "sequence_action",
+    "exact_sig": "c0e8521a60f830b6:none",
+    "cluster_id": "c0e8521a60f830b6",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "click:space_s1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 30,
+    "event": "mutation",
+    "exact_sig": "c0e8521a60f830b6:none",
+    "cluster_id": "d266f13617008999",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 30,
+    "event": "followup",
+    "exact_sig": "c0e8521a60f830b6:none",
+    "cluster_id": "c0e8521a60f830b6",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 31,
+    "event": "sequence_action",
+    "exact_sig": "2ad4083dbaa8a038:none",
+    "cluster_id": "2ad4083dbaa8a038",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "click:space_page_p1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 31,
+    "event": "mutation",
+    "exact_sig": "2ad4083dbaa8a038:none",
+    "cluster_id": "d266f13617008999",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 31,
+    "event": "followup",
+    "exact_sig": "2ad4083dbaa8a038:none",
+    "cluster_id": "2ad4083dbaa8a038",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 31,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "2ad4083dbaa8a038:none",
+    "cluster_id": "2ad4083dbaa8a038",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 32,
+    "event": "hub_seen",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 32,
+    "event": "sequence_action",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 32,
+    "event": "mutation",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "d266f13617008999",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 32,
+    "event": "return_attempt",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 33,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 33,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 33,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "d266f13617008999",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 33,
+    "event": "return_attempt",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 34,
+    "event": "hub_seen",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 34,
+    "event": "sequence_action",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "back::",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 34,
+    "event": "mutation",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "d266f13617008999",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 34,
+    "event": "return_attempt",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 34,
+    "event": "return_cycle_escape",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007",
+    "repeated_destination_sig": "6cadcc5199faae5e:none",
+    "parent_hub_sig": "d266f13617008999:8877d37c14a4",
+    "parent_hub_cluster": "d266f13617008999",
+    "active_branch": "d266f13617008999:click:nav_spaces",
+    "return_phase_attempts": 3,
+    "outcome": "return_cycle_abandoned"
+  },
+  {
+    "step": 34,
+    "event": "sequence_terminal",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "d266f13617008999:click:nav_spaces",
+    "sequence_instance_id": "seq-0007",
+    "outcome": "return_cycle_abandoned"
+  },
+  {
+    "step": 35,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 35,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 35,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 35,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008",
+    "action_key": "click:wiki_page_p2:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 35,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 36,
+    "event": "hub_seen",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 36,
+    "event": "sequence_action",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 36,
+    "event": "mutation",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 36,
+    "event": "followup",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 37,
+    "event": "sequence_action",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008",
+    "action_key": "click:rev_r3:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 37,
+    "event": "mutation",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 37,
+    "event": "followup",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 37,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 38,
+    "event": "sequence_action",
+    "exact_sig": "c0f34d4f79bc93dd:e01f01653c70",
+    "cluster_id": "c0f34d4f79bc93dd",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 38,
+    "event": "mutation",
+    "exact_sig": "c0f34d4f79bc93dd:e01f01653c70",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 38,
+    "event": "return_attempt",
+    "exact_sig": "c0f34d4f79bc93dd:e01f01653c70",
+    "cluster_id": "c0f34d4f79bc93dd",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 39,
+    "event": "sequence_action",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 39,
+    "event": "mutation",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 39,
+    "event": "return_attempt",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 40,
+    "event": "hub_seen",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 40,
+    "event": "sequence_action",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 40,
+    "event": "mutation",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 40,
+    "event": "return_attempt",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 40,
+    "event": "sequence_terminal",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0008",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 41,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 41,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 41,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 41,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009",
+    "action_key": "click:wiki_page_p3:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 41,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 42,
+    "event": "hub_seen",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 42,
+    "event": "sequence_action",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 42,
+    "event": "mutation",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 42,
+    "event": "followup",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 43,
+    "event": "sequence_action",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 43,
+    "event": "mutation",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 43,
+    "event": "followup",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 43,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 43,
+    "event": "return_attempt",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 44,
+    "event": "hub_seen",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 44,
+    "event": "sequence_action",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 44,
+    "event": "mutation",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 44,
+    "event": "return_attempt",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 44,
+    "event": "sequence_terminal",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0009",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 45,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 45,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 46,
+    "event": "hub_seen",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 46,
+    "event": "branch_discovered",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 46,
+    "event": "branch_start",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 46,
+    "event": "sequence_action",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 46,
+    "event": "mutation",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 47,
+    "event": "sequence_action",
+    "exact_sig": "324b9b9b2d827c16:148166a93b3b",
+    "cluster_id": "324b9b9b2d827c16",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 47,
+    "event": "mutation",
+    "exact_sig": "324b9b9b2d827c16:148166a93b3b",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 47,
+    "event": "followup",
+    "exact_sig": "324b9b9b2d827c16:148166a93b3b",
+    "cluster_id": "324b9b9b2d827c16",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 48,
+    "event": "sequence_action",
+    "exact_sig": "6d495af2fa8ed3d5:148166a93b3b",
+    "cluster_id": "6d495af2fa8ed3d5",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 48,
+    "event": "followup",
+    "exact_sig": "6d495af2fa8ed3d5:148166a93b3b",
+    "cluster_id": "6d495af2fa8ed3d5",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 48,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "6d495af2fa8ed3d5:148166a93b3b",
+    "cluster_id": "6d495af2fa8ed3d5",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 49,
+    "event": "sequence_action",
+    "exact_sig": "6d495af2fa8ed3d5:148166a93b3b",
+    "cluster_id": "6d495af2fa8ed3d5",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 49,
+    "event": "mutation",
+    "exact_sig": "6d495af2fa8ed3d5:148166a93b3b",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 49,
+    "event": "return_attempt",
+    "exact_sig": "6d495af2fa8ed3d5:148166a93b3b",
+    "cluster_id": "6d495af2fa8ed3d5",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 50,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 50,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 50,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 50,
+    "event": "return_attempt",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 51,
+    "event": "hub_seen",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 51,
+    "event": "sequence_action",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "back::",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 51,
+    "event": "mutation",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 51,
+    "event": "return_attempt",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 51,
+    "event": "return_cycle_escape",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010",
+    "repeated_destination_sig": "6cadcc5199faae5e:none",
+    "parent_hub_sig": "e94330295b1d1401:68ac158295bb",
+    "parent_hub_cluster": "e94330295b1d1401",
+    "active_branch": "e94330295b1d1401:click:nav_editor",
+    "return_phase_attempts": 3,
+    "outcome": "return_cycle_abandoned"
+  },
+  {
+    "step": 51,
+    "event": "sequence_terminal",
+    "exact_sig": "05dbe4f15528b372:8877d37c14a4",
+    "cluster_id": "05dbe4f15528b372",
+    "branch_key": "e94330295b1d1401:click:nav_editor",
+    "sequence_instance_id": "seq-0010",
+    "outcome": "return_cycle_abandoned"
+  },
+  {
+    "step": 52,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 52,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 52,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 52,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "click:wiki_page_p1:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 52,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 53,
+    "event": "hub_seen",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 53,
+    "event": "sequence_action",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 53,
+    "event": "mutation",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 53,
+    "event": "followup",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 54,
+    "event": "sequence_action",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "click:rev_r1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 54,
+    "event": "mutation",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 54,
+    "event": "followup",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 54,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 55,
+    "event": "sequence_action",
+    "exact_sig": "7a77803ae14999fb:a5150dc3f221",
+    "cluster_id": "7a77803ae14999fb",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 55,
+    "event": "mutation",
+    "exact_sig": "7a77803ae14999fb:a5150dc3f221",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 55,
+    "event": "return_attempt",
+    "exact_sig": "7a77803ae14999fb:a5150dc3f221",
+    "cluster_id": "7a77803ae14999fb",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 56,
+    "event": "sequence_action",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 56,
+    "event": "mutation",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 56,
+    "event": "return_attempt",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 57,
+    "event": "hub_seen",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 57,
+    "event": "sequence_action",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 57,
+    "event": "mutation",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 57,
+    "event": "return_attempt",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 57,
+    "event": "sequence_terminal",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0011",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 58,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 58,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 58,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 58,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012",
+    "action_key": "click:wiki_page_p2:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 58,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 59,
+    "event": "hub_seen",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 59,
+    "event": "sequence_action",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 59,
+    "event": "mutation",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 59,
+    "event": "followup",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 60,
+    "event": "sequence_action",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012",
+    "action_key": "click:rev_r3:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 60,
+    "event": "mutation",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 60,
+    "event": "followup",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 60,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 61,
+    "event": "sequence_action",
+    "exact_sig": "c0f34d4f79bc93dd:e01f01653c70",
+    "cluster_id": "c0f34d4f79bc93dd",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 61,
+    "event": "mutation",
+    "exact_sig": "c0f34d4f79bc93dd:e01f01653c70",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 61,
+    "event": "return_attempt",
+    "exact_sig": "c0f34d4f79bc93dd:e01f01653c70",
+    "cluster_id": "c0f34d4f79bc93dd",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 62,
+    "event": "sequence_action",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 62,
+    "event": "mutation",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 62,
+    "event": "return_attempt",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 63,
+    "event": "hub_seen",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 63,
+    "event": "sequence_action",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 63,
+    "event": "mutation",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 63,
+    "event": "return_attempt",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 63,
+    "event": "sequence_terminal",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0012",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 64,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 64,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 64,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 64,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0013",
+    "action_key": "click:wiki_page_p3:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 64,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 65,
+    "event": "hub_seen",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 65,
+    "event": "sequence_action",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0013",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 65,
+    "event": "mutation",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 65,
+    "event": "followup",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 66,
+    "event": "sequence_action",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0013",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 66,
+    "event": "mutation",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 66,
+    "event": "followup",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 66,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 66,
+    "event": "return_attempt",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 66,
+    "event": "sequence_terminal",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0013",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 67,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 67,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 67,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 67,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 67,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 67,
+    "event": "followup",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 68,
+    "event": "sequence_action",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014",
+    "action_key": "click:btn_preview:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 68,
+    "event": "mutation",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 68,
+    "event": "followup",
+    "exact_sig": "ec2b5c25ce2d8d7e:148166a93b3b",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 69,
+    "event": "sequence_action",
+    "exact_sig": "ec2b5c25ce2d8d7e:0fed12b82202",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 69,
+    "event": "mutation",
+    "exact_sig": "ec2b5c25ce2d8d7e:0fed12b82202",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 69,
+    "event": "followup",
+    "exact_sig": "ec2b5c25ce2d8d7e:0fed12b82202",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 69,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "ec2b5c25ce2d8d7e:0fed12b82202",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 70,
+    "event": "sequence_action",
+    "exact_sig": "908887006b1f27df:0fed12b82202",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 70,
+    "event": "mutation",
+    "exact_sig": "908887006b1f27df:0fed12b82202",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 70,
+    "event": "return_attempt",
+    "exact_sig": "908887006b1f27df:0fed12b82202",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 70,
+    "event": "sequence_terminal",
+    "exact_sig": "908887006b1f27df:0fed12b82202",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0014",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 71,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 71,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 71,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 71,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015",
+    "action_key": "click:wiki_page_p1:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 71,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 72,
+    "event": "hub_seen",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 72,
+    "event": "sequence_action",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 72,
+    "event": "mutation",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 72,
+    "event": "followup",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 73,
+    "event": "sequence_action",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015",
+    "action_key": "click:rev_r1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 73,
+    "event": "mutation",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 73,
+    "event": "followup",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 73,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 74,
+    "event": "sequence_action",
+    "exact_sig": "7a77803ae14999fb:a5150dc3f221",
+    "cluster_id": "7a77803ae14999fb",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 74,
+    "event": "mutation",
+    "exact_sig": "7a77803ae14999fb:a5150dc3f221",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 74,
+    "event": "return_attempt",
+    "exact_sig": "7a77803ae14999fb:a5150dc3f221",
+    "cluster_id": "7a77803ae14999fb",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 75,
+    "event": "sequence_action",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 75,
+    "event": "mutation",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 75,
+    "event": "return_attempt",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 76,
+    "event": "hub_seen",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 76,
+    "event": "sequence_action",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 76,
+    "event": "mutation",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 76,
+    "event": "return_attempt",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 76,
+    "event": "sequence_terminal",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0015",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 77,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 77,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 77,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 77,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016",
+    "action_key": "click:wiki_page_p2:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 77,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 78,
+    "event": "hub_seen",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 78,
+    "event": "sequence_action",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 78,
+    "event": "mutation",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 78,
+    "event": "followup",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 79,
+    "event": "sequence_action",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016",
+    "action_key": "click:rev_r3:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 79,
+    "event": "mutation",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 79,
+    "event": "followup",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 79,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 80,
+    "event": "sequence_action",
+    "exact_sig": "c0f34d4f79bc93dd:e01f01653c70",
+    "cluster_id": "c0f34d4f79bc93dd",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 80,
+    "event": "mutation",
+    "exact_sig": "c0f34d4f79bc93dd:e01f01653c70",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 80,
+    "event": "return_attempt",
+    "exact_sig": "c0f34d4f79bc93dd:e01f01653c70",
+    "cluster_id": "c0f34d4f79bc93dd",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 81,
+    "event": "sequence_action",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 81,
+    "event": "mutation",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 81,
+    "event": "return_attempt",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 82,
+    "event": "hub_seen",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 82,
+    "event": "sequence_action",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 82,
+    "event": "mutation",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 82,
+    "event": "return_attempt",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 82,
+    "event": "sequence_terminal",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0016",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 83,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 83,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 83,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 83,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017",
+    "action_key": "click:wiki_page_p3:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 83,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 84,
+    "event": "hub_seen",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 84,
+    "event": "sequence_action",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 84,
+    "event": "mutation",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 84,
+    "event": "followup",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 85,
+    "event": "sequence_action",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017",
+    "action_key": "back::",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 85,
+    "event": "mutation",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 85,
+    "event": "followup",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 85,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 85,
+    "event": "return_attempt",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 86,
+    "event": "hub_seen",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 86,
+    "event": "sequence_action",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 86,
+    "event": "mutation",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 86,
+    "event": "return_attempt",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 86,
+    "event": "sequence_terminal",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0017",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 87,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 87,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 87,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 87,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 87,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 88,
+    "event": "sequence_action",
+    "exact_sig": "ec2b5c25ce2d8d7e:0fed12b82202",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018",
+    "action_key": "input:page_title:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 88,
+    "event": "followup",
+    "exact_sig": "ec2b5c25ce2d8d7e:0fed12b82202",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 89,
+    "event": "sequence_action",
+    "exact_sig": "ec2b5c25ce2d8d7e:0fed12b82202",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018",
+    "action_key": "click:btn_preview:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 89,
+    "event": "mutation",
+    "exact_sig": "ec2b5c25ce2d8d7e:0fed12b82202",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 89,
+    "event": "followup",
+    "exact_sig": "ec2b5c25ce2d8d7e:0fed12b82202",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 89,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "ec2b5c25ce2d8d7e:0fed12b82202",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 90,
+    "event": "sequence_action",
+    "exact_sig": "ec2b5c25ce2d8d7e:2e923f4cfad1",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 90,
+    "event": "mutation",
+    "exact_sig": "ec2b5c25ce2d8d7e:2e923f4cfad1",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 90,
+    "event": "return_attempt",
+    "exact_sig": "ec2b5c25ce2d8d7e:2e923f4cfad1",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 90,
+    "event": "sequence_terminal",
+    "exact_sig": "ec2b5c25ce2d8d7e:2e923f4cfad1",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0018",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 91,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 91,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 91,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 91,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019",
+    "action_key": "click:wiki_page_p1:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 91,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 92,
+    "event": "hub_seen",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 92,
+    "event": "sequence_action",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 92,
+    "event": "mutation",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 92,
+    "event": "followup",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 93,
+    "event": "sequence_action",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019",
+    "action_key": "click:rev_r1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 93,
+    "event": "mutation",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 93,
+    "event": "followup",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 93,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 94,
+    "event": "sequence_action",
+    "exact_sig": "7a77803ae14999fb:a5150dc3f221",
+    "cluster_id": "7a77803ae14999fb",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 94,
+    "event": "mutation",
+    "exact_sig": "7a77803ae14999fb:a5150dc3f221",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 94,
+    "event": "return_attempt",
+    "exact_sig": "7a77803ae14999fb:a5150dc3f221",
+    "cluster_id": "7a77803ae14999fb",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 95,
+    "event": "sequence_action",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 95,
+    "event": "mutation",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 95,
+    "event": "return_attempt",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 96,
+    "event": "hub_seen",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 96,
+    "event": "sequence_action",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 96,
+    "event": "mutation",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 96,
+    "event": "return_attempt",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 96,
+    "event": "sequence_terminal",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0019",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 97,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 97,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 97,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 97,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020",
+    "action_key": "click:wiki_page_p2:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 97,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 98,
+    "event": "hub_seen",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 98,
+    "event": "sequence_action",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 98,
+    "event": "mutation",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 98,
+    "event": "followup",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 99,
+    "event": "sequence_action",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020",
+    "action_key": "click:rev_r3:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 99,
+    "event": "mutation",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 99,
+    "event": "followup",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 99,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 100,
+    "event": "sequence_action",
+    "exact_sig": "c0f34d4f79bc93dd:e01f01653c70",
+    "cluster_id": "c0f34d4f79bc93dd",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 100,
+    "event": "mutation",
+    "exact_sig": "c0f34d4f79bc93dd:e01f01653c70",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 100,
+    "event": "return_attempt",
+    "exact_sig": "c0f34d4f79bc93dd:e01f01653c70",
+    "cluster_id": "c0f34d4f79bc93dd",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 101,
+    "event": "sequence_action",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 101,
+    "event": "mutation",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 101,
+    "event": "return_attempt",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 102,
+    "event": "hub_seen",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 102,
+    "event": "sequence_action",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 102,
+    "event": "mutation",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 102,
+    "event": "return_attempt",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 102,
+    "event": "sequence_terminal",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0020",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 103,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 103,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 103,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 103,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021",
+    "action_key": "click:wiki_page_p3:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 103,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 104,
+    "event": "hub_seen",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 104,
+    "event": "sequence_action",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 104,
+    "event": "mutation",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 104,
+    "event": "followup",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 105,
+    "event": "sequence_action",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 105,
+    "event": "mutation",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 105,
+    "event": "followup",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 105,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 105,
+    "event": "return_attempt",
+    "exact_sig": "207c7b2b6776dc19:none",
+    "cluster_id": "207c7b2b6776dc19",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 106,
+    "event": "hub_seen",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 106,
+    "event": "sequence_action",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 106,
+    "event": "mutation",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 106,
+    "event": "return_attempt",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 106,
+    "event": "sequence_terminal",
+    "exact_sig": "e94330295b1d1401:68ac158295bb",
+    "cluster_id": "e94330295b1d1401",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0021",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 107,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 107,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 107,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 107,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 107,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 108,
+    "event": "sequence_action",
+    "exact_sig": "ec2b5c25ce2d8d7e:2e923f4cfad1",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 108,
+    "event": "mutation",
+    "exact_sig": "ec2b5c25ce2d8d7e:2e923f4cfad1",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 108,
+    "event": "followup",
+    "exact_sig": "ec2b5c25ce2d8d7e:2e923f4cfad1",
+    "cluster_id": "ec2b5c25ce2d8d7e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 109,
+    "event": "sequence_action",
+    "exact_sig": "908887006b1f27df:2e923f4cfad1",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 109,
+    "event": "followup",
+    "exact_sig": "908887006b1f27df:2e923f4cfad1",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 109,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "908887006b1f27df:2e923f4cfad1",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 110,
+    "event": "sequence_action",
+    "exact_sig": "908887006b1f27df:2e923f4cfad1",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 110,
+    "event": "mutation",
+    "exact_sig": "908887006b1f27df:2e923f4cfad1",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 110,
+    "event": "return_attempt",
+    "exact_sig": "908887006b1f27df:2e923f4cfad1",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 110,
+    "event": "sequence_terminal",
+    "exact_sig": "908887006b1f27df:2e923f4cfad1",
+    "cluster_id": "908887006b1f27df",
+    "branch_key": "6cadcc5199faae5e:click:nav_editor",
+    "sequence_instance_id": "seq-0022",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 111,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 111,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 111,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 111,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023",
+    "action_key": "click:wiki_page_p1:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 111,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 112,
+    "event": "hub_seen",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 112,
+    "event": "sequence_action",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 112,
+    "event": "mutation",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 112,
+    "event": "followup",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 113,
+    "event": "sequence_action",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023",
+    "action_key": "click:rev_r1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 113,
+    "event": "mutation",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 113,
+    "event": "followup",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 113,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 114,
+    "event": "sequence_action",
+    "exact_sig": "7a77803ae14999fb:a5150dc3f221",
+    "cluster_id": "7a77803ae14999fb",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 114,
+    "event": "mutation",
+    "exact_sig": "7a77803ae14999fb:a5150dc3f221",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 114,
+    "event": "return_attempt",
+    "exact_sig": "7a77803ae14999fb:a5150dc3f221",
+    "cluster_id": "7a77803ae14999fb",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 115,
+    "event": "sequence_action",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 115,
+    "event": "mutation",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 115,
+    "event": "return_attempt",
+    "exact_sig": "a42b4fe1d4912cd9:none",
+    "cluster_id": "a42b4fe1d4912cd9",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 116,
+    "event": "hub_seen",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 116,
+    "event": "sequence_action",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 116,
+    "event": "mutation",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 116,
+    "event": "return_attempt",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 116,
+    "event": "sequence_terminal",
+    "exact_sig": "afe03c04e0133e50:6686af34f593",
+    "cluster_id": "afe03c04e0133e50",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0023",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 117,
+    "event": "hub_seen",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 117,
+    "event": "branch_discovered",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 117,
+    "event": "branch_start",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 117,
+    "event": "sequence_action",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0024",
+    "action_key": "click:wiki_page_p2:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 117,
+    "event": "mutation",
+    "exact_sig": "6cadcc5199faae5e:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 118,
+    "event": "hub_seen",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 118,
+    "event": "sequence_action",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0024",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 118,
+    "event": "mutation",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 118,
+    "event": "followup",
+    "exact_sig": "f1b1b1a318c0f66d:77252a622530",
+    "cluster_id": "f1b1b1a318c0f66d",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 119,
+    "event": "sequence_action",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0024",
+    "action_key": "click:rev_r3:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 119,
+    "event": "mutation",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "6cadcc5199faae5e",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 119,
+    "event": "followup",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 119,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "3d767fc4eb0acbb8:none",
+    "cluster_id": "3d767fc4eb0acbb8",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 120,
+    "event": "sequence_terminal",
+    "exact_sig": "",
+    "cluster_id": "",
+    "branch_key": "6cadcc5199faae5e:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0024",
+    "outcome": "budget_end",
+    "length": 1
+  }
+]

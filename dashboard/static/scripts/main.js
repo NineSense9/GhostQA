@@ -79,11 +79,13 @@ const POLICY_HINT = {
   'workflow-bfs': '按 workflow 阶段推进',
   'ghost-structural-memory': 'Structural hub memory',
   'ghost-structural-return-guard': 'Structural memory + exact-repeat return-cycle escape.',
+  'ghost-structural-nested-return-guard': 'Research only. Nested-hub preservation. v0.3.12 Outcome C, not the default.',
 };
 
 const RESEARCH_POLICIES = {
   'ghost-structural-memory': true,
   'ghost-structural-return-guard': true,
+  'ghost-structural-nested-return-guard': true,
 };
 
 /* ------------------------------ theme ----------------------------------- */

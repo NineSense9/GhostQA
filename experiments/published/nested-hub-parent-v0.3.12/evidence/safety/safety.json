@@ -1,0 +1,143 @@
+{
+  "app_specific_logic": false,
+  "differential": [
+    {
+      "name": "test_differential_equivalence_without_nested_preemption",
+      "pass": true
+    },
+    {
+      "name": "test_select_matches_guard_before_any_nested_click",
+      "pass": true
+    },
+    {
+      "name": "test_s1_s7_expectations_hold_on_candidate_scripts",
+      "pass": true
+    }
+  ],
+  "differential_failures": 0,
+  "exhaustive_candidate_failures": 0,
+  "exhaustive_candidate_traces": 5800,
+  "exhaustive_failures": 0,
+  "exhaustive_guard_failures": 0,
+  "exhaustive_guard_traces": 5800,
+  "exhaustive_traces": 5800,
+  "n_series": [
+    {
+      "id": "N1",
+      "name": "test_n1_nested_branch_does_not_kill_outer_instance",
+      "pass": true
+    },
+    {
+      "id": "N2",
+      "name": "test_n2_nested_branch_consumes_commitment",
+      "pass": true
+    },
+    {
+      "id": "N3",
+      "name": "test_n3_nested_branch_reaches_horizon",
+      "pass": true
+    },
+    {
+      "id": "N4",
+      "name": "test_n4_return_still_targets_outer_parent",
+      "pass": true
+    },
+    {
+      "id": "N5",
+      "name": "test_n5_return_cycle_guard_still_exact",
+      "pass": true
+    },
+    {
+      "id": "N6",
+      "name": "test_n6_no_open_instance_matches_historical_branch_start",
+      "pass": true
+    },
+    {
+      "id": "N7",
+      "name": "test_n7_outside_window_matches_historical_controller",
+      "pass": true
+    },
+    {
+      "id": "N8",
+      "name": "test_n8_finding_during_nested_traversal_is_l2_later",
+      "pass": true
+    },
+    {
+      "id": "N9",
+      "name": "test_n9_crash_during_nested_traversal_is_one_terminal",
+      "pass": true
+    },
+    {
+      "id": "N10",
+      "name": "test_n10_nested_branch_accounting_is_not_a_new_sequence",
+      "pass": true
+    },
+    {
+      "id": "N11",
+      "name": "test_n11_repeated_nested_hub_does_not_reset_parent_or_commitment",
+      "pass": true
+    },
+    {
+      "id": "N12",
+      "name": "test_n12_reset_clears_candidate_nested_state",
+      "pass": true
+    }
+  ],
+  "n_series_cases": 12,
+  "n_series_failures": 0,
+  "product_default_changed": false,
+  "s1_s7": [
+    {
+      "escapes": 0,
+      "name": "direct successful return",
+      "pass": true,
+      "returned": 1,
+      "scenario": "S1"
+    },
+    {
+      "escapes": 0,
+      "name": "multi-step successful return",
+      "pass": true,
+      "returned": 1,
+      "scenario": "S2"
+    },
+    {
+      "escapes": 0,
+      "name": "same cluster, distinct exact variants",
+      "pass": true,
+      "returned": 1,
+      "scenario": "S3"
+    },
+    {
+      "escapes": 1,
+      "name": "exact self-loop",
+      "pass": true,
+      "returned": 0,
+      "scenario": "S4"
+    },
+    {
+      "escapes": 1,
+      "name": "short A→B→A cycle",
+      "pass": true,
+      "returned": 0,
+      "scenario": "S5"
+    },
+    {
+      "escapes": 1,
+      "name": "history reset between branches",
+      "pass": true,
+      "returned": 1,
+      "scenario": "S6"
+    },
+    {
+      "escapes": 1,
+      "name": "finding then cycle",
+      "pass": true,
+      "returned": 0,
+      "scenario": "S7"
+    }
+  ],
+  "s1_s7_all_pass": true,
+  "s1_s7_cases": 7,
+  "s1_s7_failures": 0
+}
