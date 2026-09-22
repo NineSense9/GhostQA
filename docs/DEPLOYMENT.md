@@ -22,6 +22,7 @@ Remote layout:
 - App: `/opt/ghostqa/app`
 - Venv: `/opt/ghostqa/venv`
 - Playwright browsers: `/opt/ghostqa/playwright`
+- Optional Chromium binary override: `GHOSTQA_CHROMIUM_EXECUTABLE` (systemd). Use this when the venv Playwright build expects `chromium_headless_shell` but the host already has `chromium-1243/chrome-linux64/chrome`.
 - Service user: `ghostqa`
 - Units: `ghostqa-dashboard.service`, `ghostqa-buggyshop.service`
 - BuggyShop: `127.0.0.1:3939` (loopback only)
@@ -44,6 +45,10 @@ git rev-parse HEAD   # must equal local HEAD and origin/main
 ```
 
 Do not reinstall Chromium unless the browser runtime is actually missing.
+If Live fails with `chromium_headless_shell` not found, point systemd at the
+installed Chrome instead of downloading a second browser:
+
+`GHOSTQA_CHROMIUM_EXECUTABLE=/opt/ghostqa/playwright/chromium-1243/chrome-linux64/chrome`
 
 Confirm:
 

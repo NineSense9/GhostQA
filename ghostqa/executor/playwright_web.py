@@ -140,8 +140,11 @@ class PlaywrightWebExecutor(Executor):
         else:
             from playwright.sync_api import sync_playwright
             self._pw = sync_playwright().start()
-            self.browser = self._pw.chromium.launch(headless=headless,
-                                                    slow_mo=slow_mo_ms)
+            launch_kw = {"headless": headless, "slow_mo": slow_mo_ms}
+            exe = os.environ.get("GHOSTQA_CHROMIUM_EXECUTABLE", "").strip()
+            if exe:
+                launch_kw["executable_path"] = exe
+            self.browser = self._pw.chromium.launch(**launch_kw)
             self._owns_browser = True
         self.context = self.browser.new_context(ignore_https_errors=True)
         self.page = self.context.new_page()
