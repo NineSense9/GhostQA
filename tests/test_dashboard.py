@@ -160,6 +160,7 @@ def test_showcase_reads_v0311_published_metrics():
     assert by["buggy-ops"]["transfer_demonstrated"] is False
     assert s["fresh_transfer"]["outcome"] == "A"
     assert s["latest"]["product_default_changed"] is False
+    assert mt["reproduction"]["clean_clone_verified"] is True
 
 
 def test_showcase_evidence_file_counts():
