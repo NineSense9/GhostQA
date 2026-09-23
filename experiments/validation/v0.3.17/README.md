@@ -9,3 +9,5 @@ v0.3.16 Outcome B stands. Directory false handoffs went from 2 to 0 and early pa
 Guard BUG-L10 is first confirmed at step 30 on `open_result_from_run` after `btn_staff_note`. Guard BUG-L9 is first confirmed at step 74 on `btn_reopen` after `btn_close`. BUG-L8 is already recovered by v0.3.16. BUG-L1 is a downstream `/samples.html` hit at step 99; this audit does not claim local button drain causes it.
 
 `protocol.json` preregisters Local Action Drain before any v0.3.17 target cell. `executed` stays false.
+
+Published result: Outcome B. The run hub drained `btn_staff_note` then `btn_cool` before the structural lease selected `open_result_from_run`. BUG-L10, BUG-L8, and BUG-L1 were confirmed. The result hub never started a drain, so BUG-L9 remains lost. Directory handoffs stayed 0. Forum and billing strict full transfer were both true. No historical Guard bug was lost. The product default is unchanged. This is not a fresh validation and not a promotion.

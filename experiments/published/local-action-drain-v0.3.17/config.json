@@ -1,0 +1,25 @@
+{
+  "candidate": "ghost-structural-local-action-drain-guard",
+  "candidate_freeze_commit": "5a46bbab67ba6c3cc56afa807ce2c62de7347ae0",
+  "cells": [
+    "buggy-lab@40",
+    "buggy-lab@80",
+    "buggy-lab@120",
+    "buggy-directory@120",
+    "buggy-forum@120",
+    "buggy-billing@120",
+    "buggy-crm@120",
+    "buggy-ops@120",
+    "buggy-desk@120",
+    "buggy-flow@120",
+    "buggy-wiki@120",
+    "buggy-shop@120"
+  ],
+  "outcome": "B",
+  "product_default_changed": false,
+  "protocol_commit": "de348adc61fedbffc5b341edea9e432195ae6c86",
+  "round": "v0.3.17",
+  "scope": "inspected repair, not fresh validation",
+  "starting_head": "d66fb7303cb18ef341161c77ae8f4689ac067f8e",
+  "verify_command": "python -m benchmark.local_action_drain_reproduce --root experiments/published/local-action-drain-v0.3.17 --verify"
+}

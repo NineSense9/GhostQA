@@ -1,0 +1,45 @@
+{
+  "algorithm_name": "ghost-structural-local-action-drain-guard",
+  "round": "v0.3.17",
+  "product": "v0.4 preview",
+  "source_head": "de348adc61fedbffc5b341edea9e432195ae6c86",
+  "protocol_commit": "de348adc61fedbffc5b341edea9e432195ae6c86",
+  "historical_candidate_freeze": "experiments/frozen/ghost-reentry-frontier-v0.3.16/freeze.json",
+  "historical_handoff_freeze": "experiments/frozen/ghost-horizon-handoff-v0.3.14/freeze.json",
+  "historical_suite_freeze": "experiments/frozen/v0.3.15-fresh-handoff-suite/freeze.json",
+  "policy": {
+    "constructor": "LocalActionDrainGuardGhostPolicy",
+    "controller": "LocalActionDrainSequenceController",
+    "policy_name": "ghost-structural-local-action-drain-guard",
+    "sequence_mode": "structural",
+    "use_frontier": false,
+    "drain_key": "<hub_cluster>:button:<eid>",
+    "no_app_specific_rule": true,
+    "product_default": false,
+    "replaces_historical_identities": false
+  },
+  "note": "Candidate freeze before the v0.3.17 target cells. Do not change these files after the first empirical result.",
+  "hash_normalization": "LF newlines",
+  "files": {
+    "ghostqa/exploration/local_action_drain_guard.py": {
+      "sha256": "d8fcdc9be3ac3bd063c1143c192ddd33bfd2aee04331ad3b68225c4cdd88f177",
+      "git_blob": "bccc92a6aea884d4065e72f3a920559333eb4958",
+      "bytes": 34246
+    },
+    "benchmark/local_action_drain_analysis.py": {
+      "sha256": "f07c0312b9afb9497ffd90b8df65db51f4b8a3645439279df58175b2cf115dae",
+      "git_blob": "fbcf85d07c9cb71fe5a93fcd65e6bc49dedde633",
+      "bytes": 7359
+    },
+    "benchmark/local_action_drain_modelcheck.py": {
+      "sha256": "20345479a7e22ab8ede223859ee22d5a42416ae8c147a58306c9920b0206371e",
+      "git_blob": "9a1e081cada3d5d73ce44bba144ae0b6ca0457c3",
+      "bytes": 7103
+    },
+    "experiments/validation/v0.3.17/protocol.json": {
+      "sha256": "6c034f7d09f34ac9b79a501b1f1d3ca1739ef1b2ca99bff3b0de51388ddfea77",
+      "git_blob": "18156d8a18a65c43ec25cd80d94d83545febff93",
+      "bytes": 10334
+    }
+  }
+}

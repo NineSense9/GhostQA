@@ -1,0 +1,157 @@
+{
+  "bug_notes": {
+    "BUG-L1": {
+      "first_hit": {
+        "dst_url": "/samples.html",
+        "finding_assert_ids": [],
+        "index": 61,
+        "src_url": "/experiments.html",
+        "target_eid": "nav_samples",
+        "type": "click"
+      }
+    },
+    "BUG-L10": {
+      "first_hit": {
+        "dst_url": "/result.html?id=q1",
+        "finding_assert_ids": [
+          "lab_note_visibility"
+        ],
+        "index": 15,
+        "src_url": "/run.html?id=u1",
+        "target_eid": "open_result_from_run",
+        "type": "click"
+      }
+    },
+    "BUG-L8": {
+      "first_hit": {
+        "dst_url": "/run.html?id=u1",
+        "finding_assert_ids": [
+          "lab_heat_matches"
+        ],
+        "index": 14,
+        "src_url": "/run.html?id=u1",
+        "target_eid": "btn_cool",
+        "type": "click"
+      }
+    },
+    "BUG-L9": {
+      "first_hit": null
+    },
+    "l10_navigation_kind": "local_frontier_lease_action",
+    "l10_recovered": true,
+    "l10_staff_note_before_open_result": true,
+    "l1_recovered": true,
+    "l8_recovered": true,
+    "l9_close_before_reopen": false,
+    "l9_dynamic_reveal_events": 0,
+    "l9_recovered": false,
+    "result_order": {
+      "local_names_selected_before_structural": false,
+      "probe_before_structural": false,
+      "selected_eids": [],
+      "started": false,
+      "structural_eid": "",
+      "structural_event": "",
+      "structural_step": null,
+      "visible_eids": []
+    },
+    "run_order": {
+      "hub_cluster": "dde6bd46971c5fa0",
+      "hub_sig": "dde6bd46971c5fa0:a67130acc7f3",
+      "local_names_selected_before_structural": true,
+      "probe_before_structural": true,
+      "probe_completed": 2,
+      "required_local_eids": [
+        "btn_cool",
+        "btn_staff_note"
+      ],
+      "selected_eids": [
+        "btn_staff_note",
+        "btn_cool"
+      ],
+      "started": true,
+      "step": 12,
+      "structural_eid": "open_result_from_run",
+      "structural_event": "local_frontier_lease_action",
+      "structural_step": 15,
+      "suspended_outer_id": "seq-0001",
+      "visible_eids": [
+        "btn_staff_note",
+        "btn_cool"
+      ]
+    }
+  },
+  "candidate_confirmed": [
+    "BUG-L1",
+    "BUG-L10",
+    "BUG-L2",
+    "BUG-L5",
+    "BUG-L6",
+    "BUG-L8"
+  ],
+  "diagnosis": {
+    "close_reopen_before_structural_navigation": false,
+    "drain_started_at_run": true,
+    "lab_drain_engaged": true,
+    "local_action_sequence_accounting_violations": 0,
+    "repeated_local_key_violations": 0,
+    "result": {
+      "local_names_selected_before_structural": false,
+      "probe_before_structural": false,
+      "selected_eids": [],
+      "started": false,
+      "structural_eid": "",
+      "structural_event": "",
+      "structural_step": null,
+      "visible_eids": []
+    },
+    "result_drain_started": false,
+    "run": {
+      "hub_cluster": "dde6bd46971c5fa0",
+      "hub_sig": "dde6bd46971c5fa0:a67130acc7f3",
+      "local_names_selected_before_structural": true,
+      "probe_before_structural": true,
+      "probe_completed": 2,
+      "required_local_eids": [
+        "btn_cool",
+        "btn_staff_note"
+      ],
+      "selected_eids": [
+        "btn_staff_note",
+        "btn_cool"
+      ],
+      "started": true,
+      "step": 12,
+      "structural_eid": "open_result_from_run",
+      "structural_event": "local_frontier_lease_action",
+      "structural_step": 15,
+      "suspended_outer_id": "seq-0001",
+      "visible_eids": [
+        "btn_staff_note",
+        "btn_cool"
+      ]
+    },
+    "same_hub_probe_before_structural_navigation": true,
+    "sample_child_witness": true,
+    "terminal_accounting_violations": 0,
+    "witness_violations": 0
+  },
+  "guard_confirmed": [
+    "BUG-L1",
+    "BUG-L10",
+    "BUG-L2",
+    "BUG-L8",
+    "BUG-L9"
+  ],
+  "lab_zero_guard_loss": false,
+  "lost_vs_guard": [
+    "BUG-L9"
+  ],
+  "v0316_confirmed": [
+    "BUG-L2",
+    "BUG-L4",
+    "BUG-L5",
+    "BUG-L6",
+    "BUG-L8"
+  ]
+}

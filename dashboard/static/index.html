@@ -202,6 +202,17 @@
       <p class="footnote" id="ft-scope">一次目标应用上的 transfer，不是 universal generalization。</p>
     </section>
 
+    <section class="rc-section" data-testid="local-action-drain" aria-labelledby="h-la">
+      <p class="eyebrow">v0.3.17 · 已发布证据</p>
+      <h2 id="h-la">子分支回到父页面后，先把可见按钮各试一次</h2>
+      <p class="rc-lead" id="la-lead">run 父页面上，btn_staff_note 和 btn_cool 发生在 open_result 之前。Guard 丢失从 BUG-L1、BUG-L9、BUG-L10 收到只剩 BUG-L9。结果页没有开始 drain。</p>
+      <p class="limit-note">这是 v0.3.16 剩余失败点的检修，不是新的 fresh 验证，也不是泛化证明。产品默认仍是 NoFrontier / sequence_mode=off。v0.3.16 仍是 Outcome B，v0.3.15 仍是 Outcome C，v0.3.14 仍是 Outcome A。</p>
+      <p class="delta" id="la-delta"></p>
+      <p class="pill-row"><span class="pill" id="la-outcome">Outcome</span>
+        <span class="muted" id="la-outcome-mean"></span></p>
+      <p class="footnote" id="la-scope">已检查的本地按钮顺序。不是 fresh validation，也不是产品默认切换。</p>
+    </section>
+
     <section class="rc-section" data-testid="reentry-frontier" aria-labelledby="h-rf">
       <p class="eyebrow">v0.3.16 · 已发布证据</p>
       <h2 id="h-rf">提前回到父页面会结束这条分支，本地未试分支先租一格</h2>
@@ -290,7 +301,7 @@
 
     <section class="timeline" aria-labelledby="h-tl">
       <p class="eyebrow">研究记录</p>
-      <h2 id="h-tl">v0.3.6 → v0.3.16</h2>
+      <h2 id="h-tl">v0.3.6 → v0.3.17</h2>
       <ol class="tl">
         <li><details><summary>v0.3.6 · Structural Memory</summary><p>DeepBench 上，structural memory 把重复 branch 尝试压低，同时保住 D6/D12 并找到更多深 workflow 缺陷。Deep-BDR @120：0.667 · development benchmark</p></details></li>
         <li><details><summary>v0.3.7 · Frozen Transfer Check</summary><p>冻结算法后换到 BuggyShop，C1 只确认 1/10。这轮没有顺手调参，结论直接记为 DeepBench-specific。BuggyShop: 6 states · W5</p></details></li>
@@ -302,7 +313,8 @@
         <li><details><summary>v0.3.13 · Suspended Parent Frames</summary><p id="tl-v0313">嵌套分支挂起外层帧并启动真实 child sequence。数字来自已发布产物。候选不晋升。</p></details></li>
         <li><details><summary>v0.3.14 · Horizon Handoff</summary><p id="tl-v0314">嵌套分支在 commitment 多于 1 时继续当前 sequence，只在最后一格交给子 sequence。数字来自已发布产物。候选不晋升。</p></details></li>
         <li><details><summary>v0.3.15 · Fresh Handoff Validation</summary><p id="tl-v0315">Outcome C。forum 与 billing 完整 transfer，buggy-lab 丢失四个 guard 缺陷，目录对照触发 2 次 handoff。产品默认未改。</p></details></li>
-        <li><details open><summary>v0.3.16 · Early Parent Re-entry</summary><p id="tl-v0316">Outcome B。目录假 handoff 2 → 0。实验记录租约恢复 BUG-L8，仍丢失 BUG-L1、BUG-L9、BUG-L10。历史回归丢失为 0。产品默认未改。</p></details></li>
+        <li><details><summary>v0.3.16 · Early Parent Re-entry</summary><p id="tl-v0316">Outcome B。目录假 handoff 2 → 0。实验记录租约恢复 BUG-L8，仍丢失 BUG-L1、BUG-L9、BUG-L10。历史回归丢失为 0。产品默认未改。</p></details></li>
+        <li><details open><summary>v0.3.17 · Local Action Drain</summary><p id="tl-v0317">Outcome B。run 父页面先点可见按钮，恢复 BUG-L10 和 BUG-L1，BUG-L8 仍在。结果页没有 drain，BUG-L9 仍丢失。目录 handoff 仍是 0。历史回归丢失为 0。产品默认未改。</p></details></li>
       </ol>
     </section>
 
@@ -497,6 +509,14 @@
     </header>
     <div class="ev-layout">
       <div class="ev-grid">
+        <article class="ev-card" data-testid="evidence-v0317">
+          <p class="ev-kicker">来源轮次 · v0.3.17</p>
+          <h2>Local Action Drain</h2>
+          <p class="limit-note">已检查失败点的检修。不是 fresh 验证。候选未晋升。v0.3.16 Outcome B 仍保留。</p>
+          <ul class="status-rows" id="ev-v0317"></ul>
+          <pre class="cmd" id="ev-cmd-0317"></pre>
+          <button type="button" class="btn btn-ghost" data-copy="ev-cmd-0317">复制命令</button>
+        </article>
         <article class="ev-card" data-testid="evidence-v0316">
           <p class="ev-kicker">来源轮次 · v0.3.16</p>
           <h2>Early Parent Re-entry</h2>

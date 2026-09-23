@@ -500,6 +500,45 @@ function renderFreshTransfer(ft) {
   setText('proof-outcome', ft.outcome || '—');
 }
 
+function renderLocalAction(la) {
+  la = la || {};
+  const oc = gid('la-outcome');
+  if (oc) {
+    oc.textContent = la.outcome ? ('Outcome ' + la.outcome) : 'Outcome';
+    oc.className = la.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('la-outcome-mean');
+  if (om) om.textContent = la.outcome_meaning || '';
+  const delta = gid('la-delta');
+  if (delta) {
+    const before = (la.lab_lost_before || []).join(', ') || '无';
+    const lost = (la.lab_lost || []).join(', ') || '无';
+    delta.textContent = 'Lab Guard 丢失 ' + before + ' → ' + lost +
+      ' · 按钮排空 ' + la.buttons_drained +
+      ' · 提升为子分支 ' + la.promoted_children +
+      ' · 目录 handoff ' + la.directory_handoffs +
+      ' · 历史回归丢失 ' + la.historical_regression_loss;
+  }
+  if (!la.available) return;
+  setText('proof-round', la.round || 'v0.3.17');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = '按钮排空';
+  if (m2) m2.textContent = '提升子分支';
+  if (m3) m3.textContent = '目录 handoff';
+  setText('proof-b-states', la.buttons_drained);
+  setText('proof-g-states', la.promoted_children);
+  setText('proof-b-ret', (la.lab_lost_before || []).length);
+  setText('proof-g-ret', (la.lab_lost || []).length);
+  setText('proof-esc', la.directory_handoffs);
+  setText('proof-outcome', la.outcome || '—');
+  const note = gid('proof-note');
+  if (note) {
+    note.textContent = '检修了 v0.3.16 里本地按钮排在结构跳转后面的问题。不是新的 fresh 验证。产品默认未改。';
+  }
+}
+
 function renderReentry(rf) {
   rf = rf || {};
   const oc = gid('rf-outcome');
@@ -589,6 +628,8 @@ function renderEvidence(data) {
   const hh = (data && data.horizon_handoff) || {};
   const fh = (data && data.fresh_handoff) || {};
   const rf = (data && data.reentry_frontier) || {};
+  const la = (data && data.local_action_drain) || {};
+  const ev0317 = gid('ev-v0317');
   const ev0316 = gid('ev-v0316');
   const ev0315 = gid('ev-v0315');
   const ev0314 = gid('ev-v0314');
@@ -600,6 +641,31 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0317) {
+    if (!la.available) {
+      ev0317.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = la.reproduction || {};
+      const before = (la.lab_lost_before || []).join(', ') || '无';
+      const lost = (la.lab_lost || []).join(', ') || '无';
+      ev0317.innerHTML = [
+        statusRow('轮次结果', la.outcome ? ('Outcome ' + la.outcome) : '—', la.outcome === 'A'),
+        statusRow('Lab Guard 丢失', before + ' → ' + lost, (la.lab_lost || []).length === 0),
+        statusRow('按钮排空', String(la.buttons_drained), true),
+        statusRow('提升为子分支', String(la.promoted_children), true),
+        statusRow('目录 handoff', String(la.directory_handoffs), la.directory_handoffs === 0),
+        statusRow('历史回归丢失', String(la.historical_regression_loss),
+          la.historical_regression_loss === 0),
+        statusRow('证据清单', fileLabel(r.evidence_files, true), true),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', la.product_default_changed ? '已改' : '未改',
+          la.product_default_changed === false),
+      ].join('');
+    }
+  }
+  const cmd0317 = la.command || '';
+  const cmdEl17 = gid('ev-cmd-0317');
+  if (cmdEl17) cmdEl17.textContent = cmd0317;
   if (ev0316) {
     if (!rf.available) {
       ev0316.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -876,6 +942,7 @@ async function loadShowcase() {
     renderHorizon(data.horizon_handoff);
     renderFreshHandoff(data.fresh_handoff);
     renderReentry(data.reentry_frontier);
+    renderLocalAction(data.local_action_drain);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

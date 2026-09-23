@@ -1,0 +1,344 @@
+{
+  "browser_rerun": false,
+  "budget": 120,
+  "candidate_policy": "ghost-structural-reentry-frontier-guard",
+  "derived_from_committed_evidence": true,
+  "evidence_files": [
+    {
+      "path": "experiments/published/reentry-frontier-v0.3.16/evidence/buggy-lab/ghost-structural-reentry-frontier-guard_b120_s1.sequence_events.json",
+      "sha256": "67e98618ba2c09402f1f54e4254e4f2a61c2b60e8c6bd1a34cc996e58a078705"
+    },
+    {
+      "path": "experiments/published/reentry-frontier-v0.3.16/evidence/buggy-lab/ghost-structural-reentry-frontier-guard_b120_s1.events.jsonl",
+      "sha256": "d13c62070933296b7477111d12418b34fefe3611c0399d6ba09f4bd430b7897a"
+    },
+    {
+      "path": "experiments/published/reentry-frontier-v0.3.16/evidence/buggy-lab/metrics.json",
+      "sha256": "7837e6d7eb54a5422b07be8f35f2c9814f04a3b38dd3cb52fa8316254f3ebe6b"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-lab/ghost-structural-return-guard_b120_s1.events.jsonl",
+      "sha256": "ad17ba7b7d0c7479c0a5f3024a0f3a2e1d2bd7454a29990970d28de37b36dddf"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-lab/metrics.json",
+      "sha256": "371826583c249aa1e708595a4e6a505745459b2724049901a6bdc714a55280f2"
+    },
+    {
+      "path": "apps/buggy-lab/bugs.manifest.json",
+      "sha256": "53cb77d80cd959f83c404258e3728b0675136cc68ea51b643cff4358746851c1"
+    }
+  ],
+  "guard_bugs": {
+    "BUG-L1": {
+      "bug_id": "BUG-L1",
+      "causality": "downstream trajectory outcome only. The first hit is navigation to /samples.html. Local button drain is not claimed as its cause",
+      "first_hit": {
+        "dst_url": "/samples.html",
+        "finding_assert_ids": [],
+        "index": 99,
+        "src_url": "/experiments.html",
+        "target_eid": "nav_samples",
+        "type": "click"
+      },
+      "match": {
+        "url_contains": "/samples.html"
+      },
+      "window_eids": [
+        null,
+        null,
+        "open_exp_e3",
+        null,
+        "open_exp_e1",
+        "open_run_u1",
+        "nav_up_exp",
+        "open_result_side",
+        "nav_up_exp_result",
+        "nav_up_experiments",
+        "nav_up_home_exp",
+        null,
+        "nav_samples"
+      ]
+    },
+    "BUG-L10": {
+      "bug_id": "BUG-L10",
+      "causality": "direct local-action ordering hypothesis: btn_staff_note occurs before open_result_from_run on the Guard chain that first confirms lab_note_visibility",
+      "first_hit": {
+        "dst_url": "/result.html?id=q1",
+        "finding_assert_ids": [
+          "lab_note_visibility"
+        ],
+        "index": 30,
+        "src_url": "/run.html?id=u1",
+        "target_eid": "open_result_from_run",
+        "type": "click"
+      },
+      "match": {
+        "assert_id": "lab_note_visibility"
+      },
+      "window_eids": [
+        "open_compare_from_note",
+        "btn_pin_base",
+        "nav_up_result",
+        "open_run_again",
+        "open_sample_s1",
+        "btn_obs",
+        "nav_up_run",
+        "open_sample_s2",
+        "btn_obs",
+        "nav_up_run",
+        "btn_staff_note",
+        "btn_cool",
+        "open_result_from_run"
+      ]
+    },
+    "BUG-L8": {
+      "bug_id": "BUG-L8",
+      "causality": "Guard first confirms lab_heat_matches on btn_cool. v0.3.16 later executes that button on another trajectory and confirms BUG-L8",
+      "first_hit": {
+        "dst_url": "/run.html?id=u1",
+        "finding_assert_ids": [
+          "lab_heat_matches"
+        ],
+        "index": 29,
+        "src_url": "/run.html?id=u1",
+        "target_eid": "btn_cool",
+        "type": "click"
+      },
+      "match": {
+        "assert_id": "lab_heat_matches"
+      },
+      "window_eids": [
+        "open_notebook",
+        "open_compare_from_note",
+        "btn_pin_base",
+        "nav_up_result",
+        "open_run_again",
+        "open_sample_s1",
+        "btn_obs",
+        "nav_up_run",
+        "open_sample_s2",
+        "btn_obs",
+        "nav_up_run",
+        "btn_staff_note",
+        "btn_cool"
+      ]
+    },
+    "BUG-L9": {
+      "bug_id": "BUG-L9",
+      "causality": "direct local-action ordering hypothesis: btn_close occurs before btn_reopen on the Guard chain that first confirms lab_reopen_clears",
+      "first_hit": {
+        "dst_url": "/result.html?id=q1",
+        "finding_assert_ids": [
+          "lab_note_visibility",
+          "lab_reopen_clears"
+        ],
+        "index": 74,
+        "src_url": "/result.html?id=q1",
+        "target_eid": "btn_reopen",
+        "type": "click"
+      },
+      "match": {
+        "assert_id": "lab_reopen_clears"
+      },
+      "window_eids": [
+        "open_exp_e3b",
+        null,
+        "open_exp_e2",
+        "open_result_q1",
+        "nav_up_exp_result",
+        "nav_notebook_side",
+        "open_compare_from_note",
+        "btn_pin_base",
+        "nav_up_result",
+        "nav_up_exp_result",
+        null,
+        "btn_close",
+        "btn_reopen"
+      ]
+    }
+  },
+  "guard_lab_confirmed": [
+    "BUG-L1",
+    "BUG-L10",
+    "BUG-L2",
+    "BUG-L8",
+    "BUG-L9"
+  ],
+  "guard_policy": "ghost-structural-return-guard",
+  "guard_publication": "experiments/published/fresh-handoff-v0.3.15",
+  "hand_typed_counts": false,
+  "l1_causal_claim": false,
+  "result_hub": {
+    "escape_branch": "0823d70e52b922af:click:open_run_again",
+    "escape_step": 38,
+    "found": true,
+    "frontier_count": 4,
+    "frontier_eids": [
+      "btn_close",
+      "btn_reopen",
+      "open_notebook",
+      "open_run_again"
+    ],
+    "frontier_keys": [
+      "0823d70e52b922af:click:btn_close",
+      "0823d70e52b922af:click:btn_reopen",
+      "0823d70e52b922af:click:open_notebook",
+      "0823d70e52b922af:click:open_run_again"
+    ],
+    "hub_cluster": "0823d70e52b922af",
+    "hub_sig": "0823d70e52b922af:cf9cb275d12e",
+    "lease_actions_before_escape": [
+      {
+        "chosen_branch_key": "0823d70e52b922af:click:open_notebook",
+        "eid": "open_notebook",
+        "frontier_keys": [
+          "0823d70e52b922af:click:btn_close",
+          "0823d70e52b922af:click:btn_reopen",
+          "0823d70e52b922af:click:open_notebook",
+          "0823d70e52b922af:click:open_run_again"
+        ],
+        "step": 26
+      },
+      {
+        "chosen_branch_key": "0823d70e52b922af:click:open_run_again",
+        "eid": "open_run_again",
+        "frontier_keys": [
+          "0823d70e52b922af:click:btn_close",
+          "0823d70e52b922af:click:btn_reopen",
+          "0823d70e52b922af:click:open_run_again"
+        ],
+        "step": 30
+      }
+    ],
+    "outer_abandon_outcome": "horizon_handoff_abandoned",
+    "outer_abandon_reason": "child_return_cycle_escape",
+    "outer_abandoned": true,
+    "remaining_frontier_eids": [
+      "btn_close",
+      "btn_reopen"
+    ],
+    "remaining_frontier_keys": [
+      "0823d70e52b922af:click:btn_close",
+      "0823d70e52b922af:click:btn_reopen"
+    ],
+    "suspended_branch": "13da2414a433a8f8:click:open_exp_e2",
+    "suspended_outer_id": "seq-0004",
+    "witness_step": 25
+  },
+  "round": "v0.3.17",
+  "run_child_does_not_return_to_run_before_escape": {
+    "end_step": 20,
+    "path": [
+      {
+        "dst_url": "/result.html?id=q1",
+        "index": 13,
+        "target_eid": "open_result_from_run"
+      },
+      {
+        "dst_url": "/compare.html?id=q1",
+        "index": 14,
+        "target_eid": "open_compare"
+      },
+      {
+        "dst_url": "/compare.html?id=q1",
+        "index": 15,
+        "target_eid": "btn_pin_base"
+      },
+      {
+        "dst_url": "/result.html?id=q1",
+        "index": 16,
+        "target_eid": "nav_up_result"
+      },
+      {
+        "dst_url": "/experiment.html?id=e2",
+        "index": 17,
+        "target_eid": "nav_up_exp_result"
+      },
+      {
+        "dst_url": "/experiments.html",
+        "index": 18,
+        "target_eid": "nav_up_experiments"
+      },
+      {
+        "dst_url": "/index.html",
+        "index": 19,
+        "target_eid": "nav_up_home_exp"
+      },
+      {
+        "dst_url": "/experiments.html",
+        "index": 20,
+        "target_eid": null
+      }
+    ],
+    "returns_to_run_html": false,
+    "start_step": 13
+  },
+  "run_hub": {
+    "escape_branch": "74e4bbf7af4fe716:click:open_result_from_run",
+    "escape_step": 20,
+    "found": true,
+    "frontier_count": 4,
+    "frontier_eids": [
+      "btn_cool",
+      "btn_staff_note",
+      "open_result_from_run",
+      "open_sample_s2"
+    ],
+    "frontier_keys": [
+      "74e4bbf7af4fe716:click:btn_cool",
+      "74e4bbf7af4fe716:click:btn_staff_note",
+      "74e4bbf7af4fe716:click:open_result_from_run",
+      "74e4bbf7af4fe716:click:open_sample_s2"
+    ],
+    "hub_cluster": "74e4bbf7af4fe716",
+    "hub_sig": "74e4bbf7af4fe716:a67130acc7f3",
+    "lease_actions_before_escape": [
+      {
+        "chosen_branch_key": "74e4bbf7af4fe716:click:open_result_from_run",
+        "eid": "open_result_from_run",
+        "frontier_keys": [
+          "74e4bbf7af4fe716:click:btn_cool",
+          "74e4bbf7af4fe716:click:btn_staff_note",
+          "74e4bbf7af4fe716:click:open_result_from_run",
+          "74e4bbf7af4fe716:click:open_sample_s2"
+        ],
+        "step": 13
+      }
+    ],
+    "outer_abandon_outcome": "horizon_handoff_abandoned",
+    "outer_abandon_reason": "child_return_cycle_escape",
+    "outer_abandoned": true,
+    "remaining_frontier_eids": [
+      "btn_cool",
+      "btn_staff_note",
+      "open_sample_s2"
+    ],
+    "remaining_frontier_keys": [
+      "74e4bbf7af4fe716:click:btn_cool",
+      "74e4bbf7af4fe716:click:btn_staff_note",
+      "74e4bbf7af4fe716:click:open_sample_s2"
+    ],
+    "suspended_branch": "ed5d546504991f7a:click:open_exp_e1",
+    "suspended_outer_id": "seq-0001",
+    "witness_step": 12
+  },
+  "seed": 1,
+  "source_publication": "experiments/published/reentry-frontier-v0.3.16",
+  "source_round": "v0.3.16",
+  "v0316_lab_confirmed": [
+    "BUG-L2",
+    "BUG-L4",
+    "BUG-L5",
+    "BUG-L6",
+    "BUG-L8"
+  ],
+  "v0316_recovered_vs_guard": [
+    "BUG-L8"
+  ],
+  "v0316_still_lost_vs_guard": [
+    "BUG-L1",
+    "BUG-L10",
+    "BUG-L9"
+  ]
+}
