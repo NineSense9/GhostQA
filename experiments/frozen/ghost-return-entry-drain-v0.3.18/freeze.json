@@ -1,0 +1,52 @@
+{
+  "algorithm_name": "ghost-structural-return-entry-drain-guard",
+  "round": "v0.3.18",
+  "product": "v0.4 preview",
+  "source_head": "f3bc961321d7d2058c45346394c0d99d3e4aaac0",
+  "protocol_commit": "f3bc961321d7d2058c45346394c0d99d3e4aaac0",
+  "historical_candidate_freeze": "experiments/frozen/ghost-local-action-drain-v0.3.17/freeze.json",
+  "historical_reentry_freeze": "experiments/frozen/ghost-reentry-frontier-v0.3.16/freeze.json",
+  "historical_handoff_freeze": "experiments/frozen/ghost-horizon-handoff-v0.3.14/freeze.json",
+  "historical_suite_freeze": "experiments/frozen/v0.3.15-fresh-handoff-suite/freeze.json",
+  "policy": {
+    "constructor": "ReturnEntryDrainGuardGhostPolicy",
+    "controller": "ReturnEntryDrainSequenceController",
+    "policy_name": "ghost-structural-return-entry-drain-guard",
+    "sequence_mode": "structural",
+    "use_frontier": false,
+    "drain_key": "<hub_cluster>:button:<eid>",
+    "shared_with": "ghost-structural-local-action-drain-guard",
+    "no_app_specific_rule": true,
+    "product_default": false,
+    "replaces_historical_identities": false
+  },
+  "note": "Candidate freeze before the v0.3.18 target cells. Do not change these files after the first empirical result.",
+  "hash_normalization": "LF newlines",
+  "files": {
+    "ghostqa/exploration/return_entry_drain_guard.py": {
+      "sha256": "9be20f0217b710e8cba3e866b0201c683678b6e6504300a37b4ac39b09fccf52",
+      "git_blob": "467a2522d9446ac925dbe8d3fa229ae7f44acd97",
+      "bytes": 17426
+    },
+    "benchmark/return_entry_drain_analysis.py": {
+      "sha256": "41d99249e03713b16ce8d7bc11b2b8383c8e3f2607bebaa40e1672530663373e",
+      "git_blob": "29d9b6b0c0a36671874ce9d7f2a8596ef40bb6e1",
+      "bytes": 7869
+    },
+    "benchmark/return_entry_drain_modelcheck.py": {
+      "sha256": "091eb4ac63b9489865b7a4e3f0d183d3db8bd572a4249024da3e980eee9af177",
+      "git_blob": "9adabc1e83f863301571ff2145ab5ed2c727a0e7",
+      "bytes": 6671
+    },
+    "benchmark/return_entry_drain_trace.py": {
+      "sha256": "42328d6cb8c6c8e1ca72486efb3e182ff75bafc3f226bb7a27216892110a613c",
+      "git_blob": "21e81918f7633caab0360a444cccb0f8727e5aec",
+      "bytes": 8431
+    },
+    "experiments/validation/v0.3.18/protocol.json": {
+      "sha256": "38e65af2c87da3a4d823d9e06e8384d3d53283fe542bba7c7d22f3d4a9fe5c80",
+      "git_blob": "9e34026e0a46566c6d3c805df77755124bfe9046",
+      "bytes": 13030
+    }
+  }
+}
