@@ -1,4 +1,7 @@
-"""Commit order for the v0.3.15 round. This proves ancestry, not wall clocks."""
+"""Commit order for the v0.3.15 round. This proves ancestry, not wall clocks.
+
+A depth-1 checkout cannot see these commits. Unit CI fetches full history.
+"""
 import subprocess
 
 
@@ -13,7 +16,11 @@ ORDER = (
 def _ancestor(older: str, newer: str) -> bool:
     result = subprocess.run(
         ["git", "merge-base", "--is-ancestor", older, newer],
-        capture_output=True)
+        capture_output=True, text=True)
+    if result.returncode not in (0, 1):
+        raise AssertionError(
+            "ordering check needs those commits in the checkout "
+            f"(returncode {result.returncode}): {result.stderr.strip()}")
     return result.returncode == 0
 
 

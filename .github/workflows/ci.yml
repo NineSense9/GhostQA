@@ -9,7 +9,11 @@ jobs:
   unit:
     runs-on: ubuntu-latest
     steps:
+      # The v0.3.15 ordering test checks ancestor commits. A depth-1 checkout
+      # does not contain them, so this job needs the full history.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
