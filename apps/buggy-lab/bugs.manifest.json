@@ -1,0 +1,186 @@
+{
+  "app": "buggy-lab",
+  "note": "BENCHMARK JUDGE ONLY. GhostQA exploration/oracle must never read this file.",
+  "bugs": [
+    {
+      "id": "BUG-L1",
+      "category": "blank page",
+      "severity": "high",
+      "desc": "样品架渲染后完全空白",
+      "kind": "blank",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "url_contains": "/samples.html"
+      },
+      "min_reproduction": [
+        "index.html: nav_experiments",
+        "experiments.html: nav_samples"
+      ]
+    },
+    {
+      "id": "BUG-L2",
+      "category": "boundary js error",
+      "severity": "medium",
+      "desc": "首页检索词超过 24 字抛出未捕获异常",
+      "kind": "js_error",
+      "trigger_depth": 1,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "lab search query too long"
+      },
+      "min_reproduction": [
+        "index.html: search_box=25 chars",
+        "index.html: btn_query_submit"
+      ]
+    },
+    {
+      "id": "BUG-L3",
+      "category": "navigation loop",
+      "severity": "medium",
+      "desc": "说明与手册互相链接",
+      "kind": "nav_loop",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "cycle_urls_contains": "help.html"
+      },
+      "min_reproduction": [
+        "index.html: nav_help",
+        "help.html: open_handbook",
+        "handbook.html: nav_up_help",
+        "help.html: open_handbook",
+        "handbook.html: nav_up_help"
+      ]
+    },
+    {
+      "id": "BUG-L4",
+      "category": "form validation",
+      "severity": "high",
+      "desc": "标题为空时仍提示已创建",
+      "kind": "semantic",
+      "trigger_depth": 4,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "lab_title_required"
+      },
+      "min_reproduction": [
+        "index.html: nav_projects",
+        "projects.html: open_proj_p1",
+        "project.html: nav_compose",
+        "compose.html: btn_submit"
+      ]
+    },
+    {
+      "id": "BUG-L5",
+      "category": "dead action",
+      "severity": "medium",
+      "desc": "项目页收藏点击无效果",
+      "kind": "dead_action",
+      "trigger_depth": 3,
+      "prerequisites": [],
+      "match": {
+        "eid": "btn_pin"
+      },
+      "min_reproduction": [
+        "index.html: nav_projects",
+        "projects.html: open_proj_p1",
+        "project.html: btn_pin"
+      ]
+    },
+    {
+      "id": "BUG-L6",
+      "category": "js error",
+      "severity": "medium",
+      "desc": "偏好页测试同步抛出未捕获异常",
+      "kind": "js_error",
+      "trigger_depth": 4,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "lab sync handshake failed"
+      },
+      "min_reproduction": [
+        "index.html: nav_projects",
+        "projects.html: open_proj_p1",
+        "project.html: nav_prefs",
+        "settings.html: btn_probe"
+      ]
+    },
+    {
+      "id": "BUG-L7",
+      "category": "http 5xx",
+      "severity": "high",
+      "desc": "导出请求返回 500",
+      "kind": "http_error",
+      "trigger_depth": 4,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "/api/export"
+      },
+      "min_reproduction": [
+        "index.html: nav_projects",
+        "projects.html: open_proj_p1",
+        "project.html: nav_prefs",
+        "settings.html: btn_export"
+      ]
+    },
+    {
+      "id": "BUG-L8",
+      "category": "state inconsistency",
+      "severity": "medium",
+      "desc": "下调读数后展示值未更新",
+      "kind": "semantic",
+      "trigger_depth": 5,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "lab_heat_matches"
+      },
+      "min_reproduction": [
+        "index.html: nav_projects",
+        "projects.html: open_proj_p1",
+        "project.html: open_exp_e1",
+        "experiment.html: open_run_u1",
+        "run.html: btn_cool"
+      ]
+    },
+    {
+      "id": "BUG-L9",
+      "category": "sequence-dependent",
+      "severity": "high",
+      "desc": "关闭后再打开仍显示已关闭",
+      "kind": "semantic",
+      "trigger_depth": 5,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "lab_reopen_clears"
+      },
+      "min_reproduction": [
+        "index.html: nav_experiments",
+        "experiments.html: open_exp_e2",
+        "experiment.html: open_result_q1",
+        "result.html: btn_close",
+        "result.html: btn_reopen"
+      ]
+    },
+    {
+      "id": "BUG-L10",
+      "category": "cross-page consistency",
+      "severity": "high",
+      "desc": "内部记录在结果页显示为公开",
+      "kind": "semantic",
+      "trigger_depth": 6,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "lab_note_visibility"
+      },
+      "min_reproduction": [
+        "index.html: nav_projects",
+        "projects.html: open_proj_p1",
+        "project.html: open_exp_e1",
+        "experiment.html: open_run_u1",
+        "run.html: btn_staff_note",
+        "run.html: open_result_from_run"
+      ]
+    }
+  ]
+}

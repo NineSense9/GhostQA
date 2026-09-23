@@ -1,0 +1,137 @@
+{
+  "app": "buggy-directory",
+  "note": "BENCHMARK JUDGE ONLY. GhostQA exploration/oracle must never read this file.",
+  "bugs": [
+    {
+      "id": "BUG-DIR1",
+      "category": "blank page",
+      "severity": "high",
+      "desc": "办公点页渲染后完全空白",
+      "kind": "blank",
+      "trigger_depth": 1,
+      "prerequisites": [],
+      "match": {
+        "url_contains": "/offices.html"
+      },
+      "min_reproduction": [
+        "index.html: nav_offices"
+      ]
+    },
+    {
+      "id": "BUG-DIR2",
+      "category": "boundary js error",
+      "severity": "medium",
+      "desc": "首页检索词超过 24 字抛出未捕获异常",
+      "kind": "js_error",
+      "trigger_depth": 1,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "directory search query too long"
+      },
+      "min_reproduction": [
+        "index.html: search_box=25 chars",
+        "index.html: btn_query_submit"
+      ]
+    },
+    {
+      "id": "BUG-DIR3",
+      "category": "navigation loop",
+      "severity": "medium",
+      "desc": "说明与偏好互相链接",
+      "kind": "nav_loop",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "cycle_urls_contains": "help.html"
+      },
+      "min_reproduction": [
+        "index.html: nav_help",
+        "help.html: open_handbook",
+        "settings.html: nav_up_help",
+        "help.html: open_handbook",
+        "settings.html: nav_up_help"
+      ]
+    },
+    {
+      "id": "BUG-DIR4",
+      "category": "form validation",
+      "severity": "high",
+      "desc": "标题为空时仍提示已创建",
+      "kind": "semantic",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "directory_title_required"
+      },
+      "min_reproduction": [
+        "index.html: nav_prefs_word",
+        "settings.html: btn_submit"
+      ]
+    },
+    {
+      "id": "BUG-DIR5",
+      "category": "dead action",
+      "severity": "medium",
+      "desc": "人员收藏点击无效果",
+      "kind": "dead_action",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "eid": "btn_pin"
+      },
+      "min_reproduction": [
+        "index.html: nav_people",
+        "people.html: btn_pin"
+      ]
+    },
+    {
+      "id": "BUG-DIR6",
+      "category": "js error",
+      "severity": "medium",
+      "desc": "偏好页测试同步抛出未捕获异常",
+      "kind": "js_error",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "directory sync handshake failed"
+      },
+      "min_reproduction": [
+        "index.html: nav_prefs_word",
+        "settings.html: btn_probe"
+      ]
+    },
+    {
+      "id": "BUG-DIR7",
+      "category": "http 5xx",
+      "severity": "high",
+      "desc": "导出请求返回 500",
+      "kind": "http_error",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "/api/export"
+      },
+      "min_reproduction": [
+        "index.html: nav_prefs_word",
+        "settings.html: btn_export"
+      ]
+    },
+    {
+      "id": "BUG-DIR8",
+      "category": "state inconsistency",
+      "severity": "medium",
+      "desc": "下调班次后展示值未更新",
+      "kind": "semantic",
+      "trigger_depth": 3,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "directory_shift_matches"
+      },
+      "min_reproduction": [
+        "index.html: nav_people",
+        "people.html: open_highlight",
+        "people.html: btn_adjust"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "app": "buggy-billing",
+  "note": "Specification-driven semantic oracle. Uses ONLY page-presented values.",
+  "assertions": [
+    {
+      "id": "billing_title_required",
+      "severity": "high",
+      "desc": "标题为空时不应提示已创建",
+      "when": {
+        "url_contains": "/compose.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "input_topic_title"
+          },
+          "right": {
+            "const": ""
+          }
+        },
+        "then": {
+          "op": "not_contains",
+          "left": {
+            "obs": "form_msg"
+          },
+          "right": {
+            "const": "已创建"
+          }
+        }
+      }
+    },
+    {
+      "id": "billing_fee_matches",
+      "severity": "medium",
+      "desc": "展示费用应与剩余费用一致",
+      "when": {
+        "url_contains": "/invoice.html"
+      },
+      "assert": {
+        "op": "eq",
+        "left": {
+          "obs": "fee_display"
+        },
+        "right": {
+          "obs": "fee_remaining"
+        }
+      }
+    },
+    {
+      "id": "billing_reopen_clears",
+      "severity": "high",
+      "desc": "重新打开后不应仍显示已关闭",
+      "when": {
+        "url_contains": "/credits.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "reopened"
+          },
+          "right": {
+            "const": "是"
+          }
+        },
+        "then": {
+          "op": "ne",
+          "left": {
+            "obs": "topic_status"
+          },
+          "right": {
+            "const": "已关闭"
+          }
+        }
+      }
+    },
+    {
+      "id": "billing_note_visibility",
+      "severity": "high",
+      "desc": "内部记录不应显示为公开",
+      "when": {
+        "url_contains": "/credits.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "note_kind"
+          },
+          "right": {
+            "const": "内部"
+          }
+        },
+        "then": {
+          "op": "eq",
+          "left": {
+            "obs": "note_visibility"
+          },
+          "right": {
+            "const": "内部"
+          }
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "app": "buggy-directory",
+  "note": "Specification-driven semantic oracle. Uses ONLY page-presented values.",
+  "assertions": [
+    {
+      "id": "directory_title_required",
+      "severity": "high",
+      "desc": "标题为空时不应提示已创建",
+      "when": {
+        "url_contains": "/settings.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "input_topic_title"
+          },
+          "right": {
+            "const": ""
+          }
+        },
+        "then": {
+          "op": "not_contains",
+          "left": {
+            "obs": "form_msg"
+          },
+          "right": {
+            "const": "已创建"
+          }
+        }
+      }
+    },
+    {
+      "id": "directory_shift_matches",
+      "severity": "medium",
+      "desc": "展示班次应与剩余班次一致",
+      "when": {
+        "url_contains": "/people.html"
+      },
+      "assert": {
+        "op": "eq",
+        "left": {
+          "obs": "heat_display"
+        },
+        "right": {
+          "obs": "heat_remaining"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "app": "buggy-forum",
+  "note": "Specification-driven semantic oracle. Uses ONLY page-presented values.",
+  "assertions": [
+    {
+      "id": "forum_title_required",
+      "severity": "high",
+      "desc": "标题为空时不应提示已创建",
+      "when": {
+        "url_contains": "/compose.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "input_topic_title"
+          },
+          "right": {
+            "const": ""
+          }
+        },
+        "then": {
+          "op": "not_contains",
+          "left": {
+            "obs": "form_msg"
+          },
+          "right": {
+            "const": "已创建"
+          }
+        }
+      }
+    },
+    {
+      "id": "forum_heat_matches",
+      "severity": "medium",
+      "desc": "展示读数应与剩余读数一致",
+      "when": {
+        "url_contains": "/thread.html"
+      },
+      "assert": {
+        "op": "eq",
+        "left": {
+          "obs": "heat_display"
+        },
+        "right": {
+          "obs": "heat_remaining"
+        }
+      }
+    },
+    {
+      "id": "forum_reopen_clears",
+      "severity": "high",
+      "desc": "重新打开后不应仍显示已关闭",
+      "when": {
+        "url_contains": "/reply.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "reopened"
+          },
+          "right": {
+            "const": "是"
+          }
+        },
+        "then": {
+          "op": "ne",
+          "left": {
+            "obs": "topic_status"
+          },
+          "right": {
+            "const": "已关闭"
+          }
+        }
+      }
+    },
+    {
+      "id": "forum_note_visibility",
+      "severity": "high",
+      "desc": "内部记录不应显示为公开",
+      "when": {
+        "url_contains": "/replies.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "note_kind"
+          },
+          "right": {
+            "const": "内部"
+          }
+        },
+        "then": {
+          "op": "eq",
+          "left": {
+            "obs": "note_visibility"
+          },
+          "right": {
+            "const": "内部"
+          }
+        }
+      }
+    }
+  ]
+}

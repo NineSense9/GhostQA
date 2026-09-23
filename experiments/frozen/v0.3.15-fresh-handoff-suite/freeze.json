@@ -1,0 +1,397 @@
+{
+  "round": "v0.3.15",
+  "purpose": "v0.3.15 fresh handoff suite freeze before policy evaluation",
+  "protocol_commit": "4681d444dc45905c8c644528dae7c253dd936233",
+  "freeze_commit": "pending",
+  "candidate_identity": "ghost-structural-horizon-handoff-guard",
+  "candidate_source_sha256": "827b8e64f953012ceec06fe3e0302c343a016463b5b1f88191e7a0a486c2467e",
+  "candidate_freeze": "experiments/frozen/ghost-horizon-handoff-v0.3.14/freeze.json",
+  "no_target_policy_evaluation_before_freeze": true,
+  "manifest_is_judge_only": true,
+  "post_evaluation_changes_invalidate_protocol_identity": true,
+  "hash_normalization": "LF newlines",
+  "target": "v0.3.15-fresh-handoff-suite",
+  "qualification": "experiments/validation/v0.3.15/topology-qualification.json",
+  "files": {
+    "benchmark/fresh_handoff_generator.py": {
+      "sha256": "87b3b7fb7e65734b4ef5c2f333fe4dc370b20e55b261bb627334e40df3c652ae",
+      "bytes": 55568
+    },
+    "benchmark/fresh_handoff_vocab.py": {
+      "sha256": "b7ebfc3018e2318129a01af1aad10eaac094e56f7c0f2afe3a457a83c8c0857d",
+      "bytes": 4387
+    },
+    "benchmark/fresh_handoff_js.py": {
+      "sha256": "2aef8c93cb7e218e9e47d14c6847cb064e60da65ecfcb32be539d054034514ed",
+      "bytes": 5735
+    },
+    "benchmark/fresh_handoff_qualify.py": {
+      "sha256": "e7768121e15a32508ee32605810f0a7e022f9f453b7fa29e1a4b2dc8ecff2243",
+      "bytes": 7189
+    },
+    "apps/generate_v0315_targets.py": {
+      "sha256": "ec23b871720280a75909757b93e5f796586d274000051db7ba8cda33075565da",
+      "bytes": 208
+    },
+    "experiments/validation/v0.3.15/protocol.json": {
+      "sha256": "14ca9dd22fbad7a8f308ea8b0453d4e0d2f56e325bab98e108a768cdef412f58",
+      "bytes": 19343
+    },
+    "experiments/validation/v0.3.15/README.md": {
+      "sha256": "86f24a97b41a95e4690472e8bbc1fea1c1e178fe758f21d918310e9b9ad063ea",
+      "bytes": 4094
+    },
+    "experiments/validation/v0.3.15/topology-qualification.json": {
+      "sha256": "b7a07dac0ac027cd64049c79af6d382b4f6f9ba6dd20bbdd52cb0d9e684b76e2",
+      "bytes": 5795
+    },
+    "apps/buggy-forum/server.py": {
+      "sha256": "39f78a346ff0433bb498c3acc713b1d5b00ad425a751ffd5fd31376dd4f3766e",
+      "bytes": 1269
+    },
+    "apps/buggy-forum/README.md": {
+      "sha256": "ef7d6a4291de332066b79f32514aa1668cf02885b7f56326f158a51cf3c5c545",
+      "bytes": 294
+    },
+    "apps/buggy-forum/spec.json": {
+      "sha256": "337c215df432d5816134440de52157963ef20c08564aa1ad127f99cb7ee66f64",
+      "bytes": 2316
+    },
+    "apps/buggy-forum/topology.json": {
+      "sha256": "9125cd2d25c30ff11394065600704e5df1bdb11a4a78dfb5d813075e890ae870",
+      "bytes": 25124
+    },
+    "apps/buggy-forum/bugs.manifest.json": {
+      "sha256": "2b899f4cac88fe800ae0124ecca102fbfd438a4d2e53a7438981c73d90a277e8",
+      "bytes": 4872
+    },
+    "apps/buggy-forum/generation.json": {
+      "sha256": "7b740aae14a7e3f659bce13da593e9e44d38bf647b436b259929432807299583",
+      "bytes": 375
+    },
+    "apps/buggy-forum/static/app.js": {
+      "sha256": "2fb3ba2f37a2ee4df494b54971fae7de7bdcae9aa078994b593e11610ccbf15b",
+      "bytes": 13720
+    },
+    "apps/buggy-forum/static/index.html": {
+      "sha256": "821f284f6dc41fa8efed5161a78d387ed70df5e2d4df0ccc2a62a3dd77898968",
+      "bytes": 524
+    },
+    "apps/buggy-forum/static/categories.html": {
+      "sha256": "dcd568a3f0857397d6d21aade5a6041a6526f36a8ee2ec361ff18c3007c2f95e",
+      "bytes": 535
+    },
+    "apps/buggy-forum/static/category.html": {
+      "sha256": "8a5485824947f96463e5f3c54f356c9a5cb77df43c5d5535e915c2c71c66467f",
+      "bytes": 531
+    },
+    "apps/buggy-forum/static/threads.html": {
+      "sha256": "b56f08351985d4984dffaa84ad80cc637fc7b39d339fb5af98832f95897f99c7",
+      "bytes": 529
+    },
+    "apps/buggy-forum/static/thread.html": {
+      "sha256": "900283f7c08251035e52f3afd3121d25c0b9aae6c205ed767ef373e1e2431fc4",
+      "bytes": 527
+    },
+    "apps/buggy-forum/static/reply.html": {
+      "sha256": "940d109019c1b71d984f5209bf0f687de2d1073073f793828d031c4121fe176d",
+      "bytes": 525
+    },
+    "apps/buggy-forum/static/replies.html": {
+      "sha256": "71d3a84fb32a58976ad6aed9292314e77c9129e3546c20ab2b79049d170507cb",
+      "bytes": 529
+    },
+    "apps/buggy-forum/static/profile.html": {
+      "sha256": "bdab05bb090af89b0a08d2521afcf0f44cef0e28def261dadeff3c03ea835573",
+      "bytes": 529
+    },
+    "apps/buggy-forum/static/moderation.html": {
+      "sha256": "dbfee0dd472eb63a03f2b87baf7c73196d9d1369449af25f57c3b728f4974c5b",
+      "bytes": 535
+    },
+    "apps/buggy-forum/static/report.html": {
+      "sha256": "b832e626b74c114a65cad56907b1a944ac5c07d383c96ad51c7bc04071c724e4",
+      "bytes": 527
+    },
+    "apps/buggy-forum/static/drafts.html": {
+      "sha256": "4643cd6e30139a5740a523df4e4e9d5a07cc8c99701525951db6896db3f3e4fb",
+      "bytes": 527
+    },
+    "apps/buggy-forum/static/compose.html": {
+      "sha256": "491f76c5089cd9be6e68cae64006c144f1000de475e645fc3ebe8cf78e8764a8",
+      "bytes": 529
+    },
+    "apps/buggy-forum/static/settings.html": {
+      "sha256": "3dd7c4c75b80b2b9a75857f0afdd355958f7df94c1c0630a5b49c5944f8127d9",
+      "bytes": 531
+    },
+    "apps/buggy-forum/static/search.html": {
+      "sha256": "2fe43e7b1a82001b6a8ee3afb5fe53ec8d9ea3aa85ce6ea2677e20d8f3933c5f",
+      "bytes": 527
+    },
+    "apps/buggy-forum/static/help.html": {
+      "sha256": "3508dd8c9601d4fb9a7c98f9c0a2c3f7a82b22f4e4038a7517c32d5267de4cb0",
+      "bytes": 523
+    },
+    "apps/buggy-forum/static/handbook.html": {
+      "sha256": "40f8d385a073c743cb0f47cac8bf3c9b2606d0abe15d0544f24688ce690c5090",
+      "bytes": 531
+    },
+    "apps/buggy-billing/server.py": {
+      "sha256": "f2f965cde3b8f3814f063545d8fd30ac4f7f4b6ba3e6969bf14c0a738aac850e",
+      "bytes": 1265
+    },
+    "apps/buggy-billing/README.md": {
+      "sha256": "e58e77a3c25b0fc961f4779ed429404b08cd83963491d6bd93a711d24ee41dc0",
+      "bytes": 291
+    },
+    "apps/buggy-billing/spec.json": {
+      "sha256": "12dd5a0a1a0257aff8e35bc8c45d7bb90a24d8c0a753ac6a3c3900d09898250e",
+      "bytes": 2326
+    },
+    "apps/buggy-billing/topology.json": {
+      "sha256": "7cb37d48df8cde0bad612ac609a975de44df111ba6e91c51007dfc6e2f95861e",
+      "bytes": 23055
+    },
+    "apps/buggy-billing/bugs.manifest.json": {
+      "sha256": "c9eb89516eeca4a809f572c6e879a107737f03d185df533c29d1f67f0fb9b166",
+      "bytes": 4896
+    },
+    "apps/buggy-billing/generation.json": {
+      "sha256": "f6adc4cc9a19732233f6b8efdfbf6e9e83c74508e3439399913f3a5a69997e27",
+      "bytes": 375
+    },
+    "apps/buggy-billing/static/app.js": {
+      "sha256": "94715234fe79b4efce14fadbd6fe4179975d9a1c55884bdb9d6c952bb33a8f9d",
+      "bytes": 13263
+    },
+    "apps/buggy-billing/static/index.html": {
+      "sha256": "d584ea03ede4eb6b7ef6f1a3b6c6fa62150418150ed475e2da72714303227fab",
+      "bytes": 521
+    },
+    "apps/buggy-billing/static/accounts.html": {
+      "sha256": "d2a24eae091a982ccb56d23aeaa3a749e34aa09469a1a3d77ee26c33692d0a2e",
+      "bytes": 528
+    },
+    "apps/buggy-billing/static/account.html": {
+      "sha256": "b9ce7a5bd0c809dcd170a5abcafe0e9508ac5a910c4ed5d318bfc22abf698418",
+      "bytes": 526
+    },
+    "apps/buggy-billing/static/invoices.html": {
+      "sha256": "e33222bbf67b0ac19a01dc595f4a24bc8d8b5cf12ca4e0b3e8e776dce6394d75",
+      "bytes": 528
+    },
+    "apps/buggy-billing/static/invoice.html": {
+      "sha256": "803775300632d4bc980eb3715ed5fbe73ff32bf93646edae85e50528fe192411",
+      "bytes": 526
+    },
+    "apps/buggy-billing/static/payment.html": {
+      "sha256": "95ac7dc90c4d7c0cf99cb99fab5ad2e7749e8a6066c5e2bf2938da247dbd2db7",
+      "bytes": 526
+    },
+    "apps/buggy-billing/static/disputes.html": {
+      "sha256": "287896a2b472000aadcdeca383fa21aaca1727d4409997d45ec711cbebcc39dc",
+      "bytes": 527
+    },
+    "apps/buggy-billing/static/refund.html": {
+      "sha256": "4004e438b6f26a2f31e8c71de765dd548686cc9529027d9f63b7b3629b3c93c5",
+      "bytes": 524
+    },
+    "apps/buggy-billing/static/credits.html": {
+      "sha256": "4af04f68ee36855e0f42ecd950ff5b403866376540bdf2ab82abc21fd05f5b0a",
+      "bytes": 526
+    },
+    "apps/buggy-billing/static/payments.html": {
+      "sha256": "4a90ae2a6162f7089dd1759dc9cebb5325c7767f65ade16924096f347bf683b0",
+      "bytes": 528
+    },
+    "apps/buggy-billing/static/refunds.html": {
+      "sha256": "b31360321abc5e6407b64c425766b9c6475a426621cf991d8bd9763bff50ae59",
+      "bytes": 526
+    },
+    "apps/buggy-billing/static/reports.html": {
+      "sha256": "295f0c0df5933f9d64e12cd61cdcad629d4b51828226eeb648f7aa6e7d52f40f",
+      "bytes": 526
+    },
+    "apps/buggy-billing/static/compose.html": {
+      "sha256": "54b38ca788cd4c93afecf3c311071ccb71cd2ae1ac9347c0a98d5b67c081e5c6",
+      "bytes": 526
+    },
+    "apps/buggy-billing/static/settings.html": {
+      "sha256": "b0e99a71833678c5954edb65dfc0e7a17fd3336d2512e4402fa81f5267b0c856",
+      "bytes": 528
+    },
+    "apps/buggy-billing/static/search.html": {
+      "sha256": "1c371924bada2e0ff2f43af4f6ab2b933f330c4d318c07661643fd4c3434c3da",
+      "bytes": 524
+    },
+    "apps/buggy-billing/static/help.html": {
+      "sha256": "b069f5bf9451d62d4b490fc2db1a646671a358ff06eccb27327812127483f28f",
+      "bytes": 520
+    },
+    "apps/buggy-billing/static/handbook.html": {
+      "sha256": "8fde363349a64a6c337f9fec515406114a8a0289e1d6d6aeecadc151303a1576",
+      "bytes": 528
+    },
+    "apps/buggy-lab/server.py": {
+      "sha256": "e5ec4c3900ce7d73c51d3b88907db33d5b1399fc2fcb7796065a5e18eed39e8f",
+      "bytes": 1267
+    },
+    "apps/buggy-lab/README.md": {
+      "sha256": "d2c9cec208a5a5e6691bd15690ced3ef2b64df204df110da1069bf2482724d31",
+      "bytes": 285
+    },
+    "apps/buggy-lab/spec.json": {
+      "sha256": "67753cbf4beba3167410cbd298b2d59f80e181f5bc98e8a19dd8764f65286dd9",
+      "bytes": 2303
+    },
+    "apps/buggy-lab/topology.json": {
+      "sha256": "5967d13f08c4a64369939afdd1faf5957df029f5983404c3b03142bc3e02659d",
+      "bytes": 23820
+    },
+    "apps/buggy-lab/bugs.manifest.json": {
+      "sha256": "53cb77d80cd959f83c404258e3728b0675136cc68ea51b643cff4358746851c1",
+      "bytes": 4955
+    },
+    "apps/buggy-lab/generation.json": {
+      "sha256": "f808a3af19285fd41cd5e1a4f000c16ec5f70c1d68a161f6a640365cd6c0c5e7",
+      "bytes": 366
+    },
+    "apps/buggy-lab/static/app.js": {
+      "sha256": "af632d6ea6ae4b516b25124ea640fa97838af813ae7da4ce76bc2b2389f4cafd",
+      "bytes": 13548
+    },
+    "apps/buggy-lab/static/index.html": {
+      "sha256": "cd19861dd3d5c350348ba28ad57233b11ab140c9fcd9dd6eda8a101b67dd9c10",
+      "bytes": 524
+    },
+    "apps/buggy-lab/static/projects.html": {
+      "sha256": "769b53aa41ae138c4629617b74ebe2c598cfb8a7e4a50707a175b4fbc70e726b",
+      "bytes": 531
+    },
+    "apps/buggy-lab/static/project.html": {
+      "sha256": "109171159bf897d878c5f105357fd35a014361c28e9f746620ee208dc99e41af",
+      "bytes": 529
+    },
+    "apps/buggy-lab/static/experiments.html": {
+      "sha256": "36132dbc8e7127c6a9e71cc15c06b57a4685fb6765f383c8e87b5b26c40f0e9f",
+      "bytes": 537
+    },
+    "apps/buggy-lab/static/experiment.html": {
+      "sha256": "599b7130ec92434553829f17eb87d76d9b4d644a41bd6928a7cf42a954fbdbfa",
+      "bytes": 535
+    },
+    "apps/buggy-lab/static/run.html": {
+      "sha256": "7c90a7e980cf6f2e9171d56eb7b1f5b75e6651d11f182ccd304a1b7883271f65",
+      "bytes": 521
+    },
+    "apps/buggy-lab/static/sample.html": {
+      "sha256": "9142c6368b1d336833da9462d3bd34258534911a0ee754ea6fee0ff4b59c7db6",
+      "bytes": 527
+    },
+    "apps/buggy-lab/static/result.html": {
+      "sha256": "8a7e4f26947a5128d09762bb6fde0df6416cf95ee97e541b9723028103ea4ad7",
+      "bytes": 527
+    },
+    "apps/buggy-lab/static/compare.html": {
+      "sha256": "742b42af0246dbf707df122c9512649d171695b3b3168c916150786f32ba082d",
+      "bytes": 529
+    },
+    "apps/buggy-lab/static/notebook.html": {
+      "sha256": "b1ba0efa50023a478bde7fddcbd0cc25a0b5c74ac8aae52dd24374dadc67eb37",
+      "bytes": 531
+    },
+    "apps/buggy-lab/static/runs.html": {
+      "sha256": "a952af51db1ac57610b4b3c26b9dfa0c9a1343fbba51220551448cdae93ffbb0",
+      "bytes": 523
+    },
+    "apps/buggy-lab/static/samples.html": {
+      "sha256": "5a9e4d6343ac416713a48272ac9512a9582cdc99c67e83fb9f7b39b8274b6129",
+      "bytes": 529
+    },
+    "apps/buggy-lab/static/results.html": {
+      "sha256": "e53eab2df3b48982c4c91648e479086992e6fd9609f447678adb4635d391fbf3",
+      "bytes": 529
+    },
+    "apps/buggy-lab/static/compose.html": {
+      "sha256": "f61fe42da0fe0693335ec09bb919e0667b4969424b372fb8fff64842559b42f1",
+      "bytes": 529
+    },
+    "apps/buggy-lab/static/settings.html": {
+      "sha256": "d8788b0de3f081a7aab4a4c0001100b911ee674fc8a19ea99ad7c8eebebd186e",
+      "bytes": 531
+    },
+    "apps/buggy-lab/static/search.html": {
+      "sha256": "9bce55005768e7b2b13a04303a4fbfc3873942347f3bea4ab59a2b77ded4452f",
+      "bytes": 527
+    },
+    "apps/buggy-lab/static/help.html": {
+      "sha256": "9143e4d82fb4d2e53fddcbc3b24a340232ca454cf10a0b4617ca30e11e4ef68b",
+      "bytes": 523
+    },
+    "apps/buggy-lab/static/handbook.html": {
+      "sha256": "d3bc04e543d72e1e1dbd27bcb052ddecbc1ab3c82b47eb8baa55694eb3ed5454",
+      "bytes": 531
+    },
+    "apps/buggy-directory/server.py": {
+      "sha256": "7b40a7bcaada6d046383b472cb0c08e3acdea8e68a0b0308f73dc061dc1d5c68",
+      "bytes": 1273
+    },
+    "apps/buggy-directory/README.md": {
+      "sha256": "b81a041663fa93fb229dab72fa60efb438a96d39900f98659b7039a362acfd10",
+      "bytes": 279
+    },
+    "apps/buggy-directory/spec.json": {
+      "sha256": "f337354977cc39fe0ee83c0e730c4a30bdb2007533fe9763cca0345f856b9c80",
+      "bytes": 1124
+    },
+    "apps/buggy-directory/topology.json": {
+      "sha256": "45756e38ea3ab954d48e75049d7e78825bb7810dc1de0c7bf4e9c9137d9246af",
+      "bytes": 8772
+    },
+    "apps/buggy-directory/bugs.manifest.json": {
+      "sha256": "a8e832b8d2ade45d43c82a36e06ffb8d0147f186fac288ca1995d446ee4812ea",
+      "bytes": 3520
+    },
+    "apps/buggy-directory/generation.json": {
+      "sha256": "b2e89c77a00c19d2973c60aab6327839fc86f0609da3e9a9c691a0cb8fa6ce46",
+      "bytes": 360
+    },
+    "apps/buggy-directory/static/app.js": {
+      "sha256": "c71740dfd03a4d44984f0764e578ba2f0865668c972690e75fd3d8fda4e0a79a",
+      "bytes": 7761
+    },
+    "apps/buggy-directory/static/index.html": {
+      "sha256": "13e814ca1de356fcd952063d25dd6ae330e4264db2792cf2f4fa122dcf2b4958",
+      "bytes": 524
+    },
+    "apps/buggy-directory/static/people.html": {
+      "sha256": "75463c0c368876ac85d4860e012aa0f8d382ad5bd4c11738e15477a143a9fbf8",
+      "bytes": 527
+    },
+    "apps/buggy-directory/static/teams.html": {
+      "sha256": "e0643b6525e23c2cc5d4ec4c1cf0db3aaab7b380f851f5b9e685ab16e4a9f434",
+      "bytes": 525
+    },
+    "apps/buggy-directory/static/offices.html": {
+      "sha256": "d48ff30ed4a29daccde3d14f5ed8c964e4e5ec67015e6e22e92d3ff93afb3e04",
+      "bytes": 529
+    },
+    "apps/buggy-directory/static/roles.html": {
+      "sha256": "184ecad8234da15882c98203784dc3f6a760512e7afd9f503181caab6d159370",
+      "bytes": 525
+    },
+    "apps/buggy-directory/static/search.html": {
+      "sha256": "3a06fdb735a068a29b281aa4b32ee2f4911078776e7590a0f1e82f7989e1f363",
+      "bytes": 527
+    },
+    "apps/buggy-directory/static/settings.html": {
+      "sha256": "5f623e1d9bbe55e6fe7baa9d8f024e7250286b8de04dd652f2734b270ca01336",
+      "bytes": 531
+    },
+    "apps/buggy-directory/static/help.html": {
+      "sha256": "dbbe8c32851c333a9821ccc60d6e35f5d7cd6d08b4137719f7fea1ae72fe4426",
+      "bytes": 523
+    }
+  }
+}
