@@ -500,6 +500,45 @@ function renderFreshTransfer(ft) {
   setText('proof-outcome', ft.outcome || '—');
 }
 
+function renderReturnEntry(re) {
+  re = re || {};
+  const oc = gid('re-outcome');
+  if (oc) {
+    oc.textContent = re.outcome ? ('Outcome ' + re.outcome) : 'Outcome';
+    oc.className = re.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('re-outcome-mean');
+  if (om) om.textContent = re.outcome_meaning || '';
+  const delta = gid('re-delta');
+  if (delta) {
+    const buttons = (re.result_buttons_drained || []).join(', ') || '无';
+    const lost = (re.historical_regression_loss || []).join(', ') || '无';
+    delta.textContent = 'Lab L9 ' + (re.lab_l9_before || '—') + ' → ' + (re.lab_l9_after || '—') +
+      ' · return-entry drain ' + re.return_entry_drains +
+      ' · 结果页按钮 ' + buttons +
+      ' · 目录 handoff ' + re.directory_handoffs +
+      ' · 历史回归丢失 ' + lost;
+  }
+  if (!re.available) return;
+  setText('proof-round', re.round || 'v0.3.18');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = 'Lab L9';
+  if (m2) m2.textContent = 'return-entry / 结果按钮';
+  if (m3) m3.textContent = '目录 handoff / 历史丢失';
+  setText('proof-b-states', re.lab_l9_before);
+  setText('proof-g-states', re.lab_l9_after);
+  setText('proof-b-ret', re.return_entry_drains);
+  setText('proof-g-ret', (re.result_buttons_drained || []).length);
+  setText('proof-esc', String(re.directory_handoffs) + ' / ' + String(re.historical_regression_loss_count));
+  setText('proof-outcome', re.outcome || '—');
+  const note = gid('proof-note');
+  if (note) {
+    note.textContent = '检修了返回阶段刚开始时结果页按钮没被点到的问题。DeepBench 出现新的 guard 丢失，所以这轮是 Outcome C。不是新的 fresh 验证。产品默认未改。';
+  }
+}
+
 function renderLocalAction(la) {
   la = la || {};
   const oc = gid('la-outcome');
@@ -629,6 +668,8 @@ function renderEvidence(data) {
   const fh = (data && data.fresh_handoff) || {};
   const rf = (data && data.reentry_frontier) || {};
   const la = (data && data.local_action_drain) || {};
+  const re = (data && data.return_entry_drain) || {};
+  const ev0318 = gid('ev-v0318');
   const ev0317 = gid('ev-v0317');
   const ev0316 = gid('ev-v0316');
   const ev0315 = gid('ev-v0315');
@@ -641,6 +682,31 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0318) {
+    if (!re.available) {
+      ev0318.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = re.reproduction || {};
+      const buttons = (re.result_buttons_drained || []).join(', ') || '无';
+      const lost = (re.historical_regression_loss || []).join(', ') || '无';
+      ev0318.innerHTML = [
+        statusRow('轮次结果', re.outcome ? ('Outcome ' + re.outcome) : '—', re.outcome === 'A'),
+        statusRow('Lab L9', (re.lab_l9_before || '—') + ' → ' + (re.lab_l9_after || '—'),
+          re.lab_l9_after === 'retained'),
+        statusRow('return-entry drain', String(re.return_entry_drains), true),
+        statusRow('结果页按钮', buttons, (re.result_buttons_drained || []).length > 0),
+        statusRow('目录 handoff', String(re.directory_handoffs), re.directory_handoffs === 0),
+        statusRow('历史回归丢失', lost, (re.historical_regression_loss || []).length === 0),
+        statusRow('证据清单', fileLabel(r.evidence_files, true), true),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', re.product_default_changed ? '已改' : '未改',
+          re.product_default_changed === false),
+      ].join('');
+    }
+  }
+  const cmd0318 = re.command || '';
+  const cmdEl18 = gid('ev-cmd-0318');
+  if (cmdEl18) cmdEl18.textContent = cmd0318;
   if (ev0317) {
     if (!la.available) {
       ev0317.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -943,6 +1009,7 @@ async function loadShowcase() {
     renderFreshHandoff(data.fresh_handoff);
     renderReentry(data.reentry_frontier);
     renderLocalAction(data.local_action_drain);
+    renderReturnEntry(data.return_entry_drain);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

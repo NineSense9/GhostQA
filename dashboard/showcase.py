@@ -20,6 +20,7 @@ V0314 = os.path.join(PUBLISHED, "horizon-handoff-v0.3.14")
 V0315 = os.path.join(PUBLISHED, "fresh-handoff-v0.3.15")
 V0316 = os.path.join(PUBLISHED, "reentry-frontier-v0.3.16")
 V0317 = os.path.join(PUBLISHED, "local-action-drain-v0.3.17")
+V0318 = os.path.join(PUBLISHED, "return-entry-drain-v0.3.18")
 
 
 def _load(path, default=None):
@@ -718,12 +719,66 @@ def _v0317(root: str | None = None) -> dict:
     }
 
 
+def _v0318(root: str | None = None) -> dict:
+    base = root or V0318
+    mechanism = _load(os.path.join(base, "metrics", "mechanism.json"))
+    regression = _load(os.path.join(base, "metrics", "regression.json"))
+    repro = _load(os.path.join(base, "metrics", "reproduction.json"))
+    man = _load(os.path.join(base, "evidence-manifest.json"))
+    if not mechanism:
+        return {"available": False}
+    derived = mechanism.get("derived") or {}
+    fresh = mechanism.get("fresh") or {}
+    lab = fresh.get("buggy-lab") or {}
+    directory = (fresh.get("buggy-directory") or {}).get("candidate") or {}
+    row = lab.get("candidate") or {}
+    result = (mechanism.get("diagnosis") or {}).get("result") or {}
+    previous = _load(os.path.join(V0317, "metrics", "mechanism.json")) or {}
+    previous_lost = ((previous.get("fresh") or {}).get("buggy-lab") or {}).get("lost_vs_guard") or []
+    regression_loss = []
+    for block in ((regression or {}).get("historical") or {}).values():
+        regression_loss.extend(block.get("lost_vs_guard") or [])
+    return {
+        "available": True,
+        "round": "v0.3.18",
+        "title": "Return-Phase Entry Drain",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning"),
+        "lab_l9_before": "lost" if "BUG-L9" in previous_lost else "retained",
+        "lab_l9_after": "lost" if "BUG-L9" in (lab.get("lost_vs_guard") or []) else "retained",
+        "lab_lost": lab.get("lost_vs_guard") or [],
+        "return_entry_drains": row.get("return_entry_drain_started_events"),
+        "result_buttons_drained": list(result.get("selected_eids") or []),
+        "directory_handoffs": directory.get("horizon_handoff_started_events"),
+        "historical_regression_loss": regression_loss,
+        "historical_regression_loss_count": len(regression_loss),
+        "forum_full_transfer": bool(mechanism.get("forum_full_transfer")),
+        "billing_full_transfer": bool(mechanism.get("billing_full_transfer")),
+        "promotion_readiness": derived.get("promotion_readiness"),
+        "product_default_changed": bool(derived.get("product_default_changed")),
+        "generalization_claim": False,
+        "fresh_validation": False,
+        "scope": "inspected repair, not fresh validation",
+        "reproduction": {
+            "clean_clone_verified": bool((repro or {}).get("clean_clone_verified")),
+            "command": (repro or {}).get("command") or (
+                "python -m benchmark.return_entry_drain_reproduce "
+                "--root experiments/published/return-entry-drain-v0.3.18 --verify"),
+            "evidence_files": len((man or {}).get("files") or []),
+        },
+        "command": (
+            "python -m benchmark.return_entry_drain_reproduce "
+            "--root experiments/published/return-entry-drain-v0.3.18 --verify"),
+    }
+
+
 def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None,
                    v0310_root: str | None = None, v0311_root: str | None = None,
                    v0312_root: str | None = None, v0313_root: str | None = None,
                    v0314_root: str | None = None, v0315_root: str | None = None,
                    v0316_root: str | None = None,
-                   v0317_root: str | None = None) -> dict:
+                   v0317_root: str | None = None,
+                   v0318_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
@@ -734,7 +789,17 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
     v0315 = _v0315(v0315_root)
     v0316 = _v0316(v0316_root)
     v0317 = _v0317(v0317_root)
-    if v0317.get("available"):
+    v0318 = _v0318(v0318_root)
+    if v0318.get("available"):
+        latest = {
+            "round": "v0.3.18",
+            "title": "Return-Phase Entry Drain",
+            "available": True,
+            "outcome": v0318.get("outcome"),
+            "product_default_changed": v0318.get("product_default_changed"),
+        }
+        latest_research = "v0.3.18"
+    elif v0317.get("available"):
         latest = {
             "round": "v0.3.17",
             "title": "Local Action Drain",
@@ -823,6 +888,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "return_entry_drain": v0318,
         "local_action_drain": v0317,
         "reentry_frontier": v0316,
         "fresh_handoff": v0315,
@@ -857,6 +923,8 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             {"round": "v0.3.16", "title": "Early Parent Re-entry",
              "kind": "inspected failure repair"},
             {"round": "v0.3.17", "title": "Local Action Drain",
+             "kind": "inspected failure repair"},
+            {"round": "v0.3.18", "title": "Return-Phase Entry Drain",
              "kind": "inspected failure repair"},
         ],
     }

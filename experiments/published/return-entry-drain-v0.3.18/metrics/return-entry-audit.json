@@ -1,0 +1,143 @@
+{
+  "bug_notes": {
+    "BUG-L1": {
+      "first_hit": {
+        "dst_url": "/samples.html",
+        "finding_assert_ids": [],
+        "index": 67,
+        "src_url": "/experiments.html",
+        "target_eid": "nav_samples",
+        "type": "click"
+      }
+    },
+    "BUG-L10": {
+      "first_hit": {
+        "dst_url": "/result.html?id=q1",
+        "finding_assert_ids": [
+          "lab_note_visibility"
+        ],
+        "index": 16,
+        "src_url": "/run.html?id=u1",
+        "target_eid": "open_result_from_run",
+        "type": "click"
+      }
+    },
+    "BUG-L2": {
+      "first_hit": {
+        "dst_url": "/index.html",
+        "finding_assert_ids": [],
+        "index": 5,
+        "src_url": "/index.html",
+        "target_eid": "btn_query_submit",
+        "type": "click"
+      }
+    },
+    "BUG-L8": {
+      "first_hit": {
+        "dst_url": "/run.html?id=u1",
+        "finding_assert_ids": [
+          "lab_heat_matches"
+        ],
+        "index": 15,
+        "src_url": "/run.html?id=u1",
+        "target_eid": "btn_cool",
+        "type": "click"
+      }
+    },
+    "BUG-L9": {
+      "first_hit": {
+        "dst_url": "/result.html?id=q1",
+        "finding_assert_ids": [
+          "lab_note_visibility",
+          "lab_reopen_clears"
+        ],
+        "index": 18,
+        "src_url": "/result.html?id=q1",
+        "target_eid": "btn_reopen",
+        "type": "click"
+      }
+    },
+    "l9_recovered": true,
+    "result": {
+      "exhaust_resumed": true,
+      "first_return_step": 19,
+      "hub_cluster": "298b5b8526fbb9a2",
+      "return_attempts_at_start": 4,
+      "selected_eids": [
+        "btn_close",
+        "btn_reopen"
+      ],
+      "started": true,
+      "step": 16,
+      "visible_eids": [
+        "btn_close",
+        "btn_reopen"
+      ]
+    }
+  },
+  "candidate_confirmed": [
+    "BUG-L1",
+    "BUG-L10",
+    "BUG-L2",
+    "BUG-L4",
+    "BUG-L5",
+    "BUG-L6",
+    "BUG-L7",
+    "BUG-L8",
+    "BUG-L9"
+  ],
+  "diagnosis": {
+    "duplicate_terminal_count": 0,
+    "false_return_success_count": 0,
+    "false_to_true_at_result": true,
+    "historical_return_resumes_after_exhaustion": true,
+    "no_duplicate_terminal": true,
+    "no_return_cycle_contamination": true,
+    "parent_corruption_count": 0,
+    "probe_return_attempt_violations": 0,
+    "probe_return_cycle_violations": 0,
+    "repeated_key_violations": 0,
+    "result": {
+      "exhaust_resumed": true,
+      "first_return_step": 19,
+      "hub_cluster": "298b5b8526fbb9a2",
+      "return_attempts_at_start": 4,
+      "selected_eids": [
+        "btn_close",
+        "btn_reopen"
+      ],
+      "started": true,
+      "step": 16,
+      "visible_eids": [
+        "btn_close",
+        "btn_reopen"
+      ]
+    },
+    "result_button_probe_before_first_return": true,
+    "result_hub_reached": true,
+    "result_return_entry_engaged": true,
+    "return_attempts_unchanged_during_probes": true,
+    "return_entry_accounting_violations": 0,
+    "return_entry_drain_started_at_result": true,
+    "stable_order_when_close_reopen_visible": true,
+    "terminal_accounting_violations": 0,
+    "witness_violations": 0
+  },
+  "guard_confirmed": [
+    "BUG-L1",
+    "BUG-L10",
+    "BUG-L2",
+    "BUG-L8",
+    "BUG-L9"
+  ],
+  "lab_zero_guard_loss": true,
+  "lost_vs_guard": [],
+  "v0317_confirmed": [
+    "BUG-L1",
+    "BUG-L10",
+    "BUG-L2",
+    "BUG-L5",
+    "BUG-L6",
+    "BUG-L8"
+  ]
+}

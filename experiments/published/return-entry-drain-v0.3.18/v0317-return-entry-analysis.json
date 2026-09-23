@@ -1,0 +1,179 @@
+{
+  "browser_rerun": false,
+  "budget": 120,
+  "candidate_policy": "ghost-structural-local-action-drain-guard",
+  "derived_from_committed_evidence": true,
+  "evidence_files": [
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/buggy-lab/ghost-structural-local-action-drain-guard_b120_s1.sequence_events.json",
+      "sha256": "3ac139a99e21e4985ced1b52e06e2f069b3834e4e9feeb6df65dc73a39010e17"
+    },
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/buggy-lab/ghost-structural-local-action-drain-guard_b120_s1.events.jsonl",
+      "sha256": "00c5c5e0b1840053c6242d2ba0b7edb6fb32c944ae5d0a40719e6cb545088f6c"
+    },
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/buggy-lab/metrics.json",
+      "sha256": "b346afb3ad442dbc6831f0321b5af92e3e7aaf35492a1b9d8839498753096be4"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-lab/ghost-structural-return-guard_b120_s1.events.jsonl",
+      "sha256": "ad17ba7b7d0c7479c0a5f3024a0f3a2e1d2bd7454a29990970d28de37b36dddf"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-lab/metrics.json",
+      "sha256": "371826583c249aa1e708595a4e6a505745459b2724049901a6bdc714a55280f2"
+    },
+    {
+      "path": "apps/buggy-lab/bugs.manifest.json",
+      "sha256": "53cb77d80cd959f83c404258e3728b0675136cc68ea51b643cff4358746851c1"
+    }
+  ],
+  "guard_l9": {
+    "assert_id": "lab_reopen_clears",
+    "btn_close_before_btn_reopen": true,
+    "bug_id": "BUG-L9",
+    "first_hit": {
+      "dst_url": "/result.html?id=q1",
+      "finding_assert_ids": [
+        "lab_note_visibility",
+        "lab_reopen_clears"
+      ],
+      "index": 74,
+      "src_url": "/result.html?id=q1",
+      "target_eid": "btn_reopen",
+      "type": "click"
+    },
+    "window_eids": [
+      "open_exp_e3b",
+      "",
+      "open_exp_e2",
+      "open_result_q1",
+      "nav_up_exp_result",
+      "nav_notebook_side",
+      "open_compare_from_note",
+      "btn_pin_base",
+      "nav_up_result",
+      "nav_up_exp_result",
+      "",
+      "btn_close",
+      "btn_reopen"
+    ]
+  },
+  "guard_lab_confirmed": [
+    "BUG-L1",
+    "BUG-L10",
+    "BUG-L2",
+    "BUG-L8",
+    "BUG-L9"
+  ],
+  "guard_policy": "ghost-structural-return-guard",
+  "guard_publication": "experiments/published/fresh-handoff-v0.3.15",
+  "guard_reference": [
+    "BUG-L1",
+    "BUG-L2",
+    "BUG-L8",
+    "BUG-L9",
+    "BUG-L10"
+  ],
+  "hand_typed_counts": false,
+  "result_drain_missing": true,
+  "round": "v0.3.18",
+  "seed": 1,
+  "source_publication": "experiments/published/local-action-drain-v0.3.17",
+  "source_round": "v0.3.17",
+  "step15_result_return": {
+    "browser": {
+      "dst_url": "/result.html?id=q1",
+      "finding_assert_ids": [
+        "lab_note_visibility"
+      ],
+      "index": 15,
+      "src_url": "/run.html?id=u1",
+      "target_eid": "open_result_from_run",
+      "type": "click"
+    },
+    "drain_started_on_result_cluster": false,
+    "drain_started_on_terminal_or_next_step": false,
+    "finding_branch": "dde6bd46971c5fa0:click:open_result_from_run",
+    "finding_outcome": "finding",
+    "finding_terminal": true,
+    "next_browser": {
+      "dst_url": "/experiment.html?id=e2",
+      "finding_assert_ids": [],
+      "index": 16,
+      "src_url": "/result.html?id=q1",
+      "target_eid": "nav_up_exp_result",
+      "type": "click"
+    },
+    "next_is_return_attempt": true,
+    "next_step": 16,
+    "return_attempt_cluster": "306e3494aa2b307f",
+    "same_step_events": [
+      "branch_discovered",
+      "branch_start",
+      "horizon_handoff_started",
+      "hub_seen",
+      "local_frontier_lease_action",
+      "mutation",
+      "sequence_action",
+      "sequence_terminal"
+    ],
+    "terminal_step": 15
+  },
+  "step21_result_return": {
+    "browser": {
+      "dst_url": "/result.html?id=q1",
+      "finding_assert_ids": [
+        "lab_note_visibility"
+      ],
+      "index": 21,
+      "src_url": "/experiment.html?id=e2",
+      "target_eid": "open_result_q1",
+      "type": "click"
+    },
+    "drain_started_on_result_cluster": false,
+    "drain_started_on_terminal_or_next_step": false,
+    "finding_branch": "442fa9a1f0b7008c:click:open_exp_e2",
+    "finding_outcome": "finding",
+    "finding_terminal": true,
+    "next_browser": {
+      "dst_url": "/experiment.html?id=e2",
+      "finding_assert_ids": [],
+      "index": 22,
+      "src_url": "/result.html?id=q1",
+      "target_eid": "nav_up_exp_result",
+      "type": "click"
+    },
+    "next_is_return_attempt": true,
+    "next_step": 22,
+    "return_attempt_cluster": "306e3494aa2b307f",
+    "same_step_events": [
+      "branch_discovered",
+      "followup",
+      "hub_seen",
+      "mutation",
+      "nested_continuation",
+      "sequence_action",
+      "sequence_terminal"
+    ],
+    "terminal_step": 21
+  },
+  "v0317_lab_confirmed": [
+    "BUG-L1",
+    "BUG-L10",
+    "BUG-L2",
+    "BUG-L5",
+    "BUG-L6",
+    "BUG-L8"
+  ],
+  "v0317_lost_vs_guard_confirmed": [
+    "BUG-L9"
+  ],
+  "v0317_lost_vs_guard_reference": [
+    "BUG-L9"
+  ],
+  "v0317_only_guard_loss": [
+    "BUG-L9"
+  ]
+}

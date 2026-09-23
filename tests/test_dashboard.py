@@ -104,7 +104,8 @@ def test_showcase_missing_artifacts_do_not_crash():
                        v0312_root="/tmp/missing-v0312", v0313_root="/tmp/missing-v0313",
                        v0314_root="/tmp/missing-v0314", v0315_root="/tmp/missing-v0315",
                        v0316_root="/tmp/missing-v0316",
-                       v0317_root="/tmp/missing-v0317")
+                       v0317_root="/tmp/missing-v0317",
+                       v0318_root="/tmp/missing-v0318")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -115,6 +116,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["fresh_handoff"]["available"] is False
     assert s["reentry_frontier"]["available"] is False
     assert s["local_action_drain"]["available"] is False
+    assert s["return_entry_drain"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -142,7 +144,24 @@ def test_showcase_endpoint_function_returns_payload():
     fh = body.get("fresh_handoff") or {}
     rf = body.get("reentry_frontier") or {}
     la = body.get("local_action_drain") or {}
-    if la.get("available"):
+    re = body.get("return_entry_drain") or {}
+    if re.get("available"):
+        assert body["latest"]["round"] == "v0.3.18"
+        assert body["project"]["latest_research"] == "v0.3.18"
+        assert re["outcome"] == "C"
+        assert re["lab_l9_before"] == "lost"
+        assert re["lab_l9_after"] == "retained"
+        assert re["directory_handoffs"] == 0
+        assert re["product_default_changed"] is False
+        assert re["return_entry_drains"] >= 1
+        assert "btn_close" in (re.get("result_buttons_drained") or [])
+        assert "btn_reopen" in (re.get("result_buttons_drained") or [])
+        assert re["historical_regression_loss_count"] > 0
+        assert la.get("outcome") == "B"
+        assert rf.get("outcome") == "B"
+        assert fh.get("outcome") == "C"
+        assert hh.get("outcome") == "A"
+    elif la.get("available"):
         assert body["latest"]["round"] == "v0.3.17"
         assert body["project"]["latest_research"] == "v0.3.17"
         assert la["outcome"] == "B"
@@ -247,8 +266,16 @@ def test_showcase_reads_v0311_published_metrics():
     assert la["outcome"] == "B"
     assert la["product_default_changed"] is False
     assert la["directory_handoffs"] == 0
-    assert s["latest"]["round"] == "v0.3.17"
-    assert s["project"]["latest_research"] == "v0.3.17"
+    re = s["return_entry_drain"]
+    assert re["available"] is True
+    assert re["outcome"] == "C"
+    assert re["product_default_changed"] is False
+    assert re["directory_handoffs"] == 0
+    assert re["lab_l9_before"] == "lost"
+    assert re["lab_l9_after"] == "retained"
+    assert s["latest"]["round"] == "v0.3.18"
+    assert s["latest"]["outcome"] == "C"
+    assert s["project"]["latest_research"] == "v0.3.18"
     assert hh["outcome"] == "A"
     assert hh["product_default_changed"] is False
     assert hh["generalization_claim"] is False

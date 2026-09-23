@@ -9,3 +9,5 @@ v0.3.17 Outcome B stands. Its final SHA is `4ee5d6527c8f3405f7dd6f9a961b8b2ab555
 Guard L9 is first confirmed at step 74 on `btn_reopen` with `lab_reopen_clears`, after `btn_close` in the same window.
 
 `protocol.json` preregisters Return-Phase Entry Drain before any v0.3.18 target cell. `executed` stays false. The candidate, once frozen, may drain eligible local buttons only on a false-to-true return transition. It shares the v0.3.17 drained-key store and does not promote a cross-hub probe into a child.
+
+Published result: Outcome C. The result hub did start a return-entry drain, and `btn_close` then `btn_reopen` confirmed BUG-L9 at step 18. Lab retained L1, L2, L8, L9, and L10. Directory handoffs stayed 0. Forum and billing strict full transfer stayed true. Desk, Wiki, and BuggyShop lost no Guard bugs. DeepBench lost BUG-D6, BUG-D7, BUG-D11, BUG-D12, BUG-D13, and BUG-D14, so the preregistered order records Outcome C. The product default is unchanged. This is not a fresh validation and not a promotion.
