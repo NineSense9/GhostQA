@@ -1,0 +1,441 @@
+{
+  "name": "v0.3.15 fresh multi-target horizon-handoff validation",
+  "version": "v0.3.15",
+  "date": "2026-09-23",
+  "starting_head": "6a8f51d86fced3bdb87b8d1851035a202394500a",
+  "executed": false,
+  "one_shot": true,
+  "one_shot_semantics": "After this protocol commit and the later suite-freeze commit, run the 30 preregistered cells once. Rerun only an exact cell that fails for infrastructure reasons. Do not change the candidate, targets, seeds, budgets, qualification, opportunity detector, or transfer gate after the first target-policy result.",
+  "question_kind": "fresh-multi-target-mechanism-transfer",
+  "research_question": "Does the completely frozen v0.3.14 Horizon Handoff candidate exhibit the same useful nested-boundary behavior on multiple NEW preregistered application shapes that were not used to design or tune it?",
+  "success_means": "Protocol integrity and reproducible fresh-transfer evidence. Not universal generalization and not a product-default change.",
+  "not": [
+    "mechanism tuning",
+    "permission to edit the v0.3.14 candidate",
+    "permission to change the stable product default",
+    "universal generalization",
+    "production-ready",
+    "solved web exploration",
+    "proven on arbitrary websites",
+    "reinterpretation of v0.3.11 Outcome D",
+    "reinterpretation of v0.3.12 Outcome C",
+    "reinterpretation of v0.3.13 Outcome C",
+    "reinterpretation of v0.3.14 Outcome A beyond its narrow inspected-mechanism meaning"
+  ],
+  "historical_outcomes_preserved": {
+    "v0.3.9": "A",
+    "v0.3.10": "A",
+    "v0.3.11": "D",
+    "v0.3.12": "C",
+    "v0.3.13": "C",
+    "v0.3.14": "A"
+  },
+  "v0_3_14_narrow_meaning": "Horizon Handoff repaired the inspected nested-boundary mechanism on CRM/Ops and passed the specified historical regression suite. It is not fresh validation, not universal generalization, and not a product-default promotion.",
+  "distinctions": {
+    "static_qualified": "The declared graph contains the preregistered nested-boundary structure. It does not mean a policy reached that structure.",
+    "actual_evaluable": "Frozen guard or candidate evidence at budget 120 shows the nested boundary was actually exercised. Not defined by bug discovery.",
+    "full_transfer": "The structural transfer gate passed on an actually evaluable positive target. Not a requirement that H beat G on bug count."
+  },
+  "frozen_candidate": {
+    "identity": "ghost-structural-horizon-handoff-guard",
+    "constructors": [
+      "HorizonHandoffSequenceController",
+      "HorizonHandoffReturnGuardGhostPolicy"
+    ],
+    "source": "ghostqa/exploration/horizon_handoff_guard.py",
+    "source_sha256": "827b8e64f953012ceec06fe3e0302c343a016463b5b1f88191e7a0a486c2467e",
+    "freeze": "experiments/frozen/ghost-horizon-handoff-v0.3.14/freeze.json",
+    "immutable_this_round": true,
+    "product_default": false,
+    "research_only": true,
+    "branch_horizon": 3,
+    "continuation_when": "commitment_left > 1",
+    "handoff_when": "commitment_left == 1",
+    "child_gets_own_commitment": true,
+    "outer_resumes_only_after_child_parent_witness": true,
+    "exact_or_cluster_parent_witness": true,
+    "child_escape_unwinds": true,
+    "no_threshold_N": true,
+    "no_max_stack_depth": true,
+    "no_app_specific_rules": true,
+    "do_not_edit_source": true,
+    "do_not_retune_on_failure": true,
+    "publish_failure_unchanged": true
+  },
+  "historical_freezes": {
+    "c1": "experiments/frozen/ghost-structural-v0.3.6/freeze.json",
+    "return_cycle_guard": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+    "fresh_desk": "experiments/frozen/buggy-desk-v0.3.10/freeze.json",
+    "multitarget_suite": "experiments/frozen/v0.3.11-multitarget/freeze.json",
+    "nested_flatten": "experiments/frozen/ghost-nested-hub-guard-v0.3.12/freeze.json",
+    "nested_stack": "experiments/frozen/ghost-nested-stack-guard-v0.3.13/freeze.json",
+    "horizon_handoff": "experiments/frozen/ghost-horizon-handoff-v0.3.14/freeze.json"
+  },
+  "seed_rule": "seed = uint32(first 8 hex digits of SHA256(\"ghostqa-v0.3.15:\" + app_name))",
+  "seed_prefix": "ghostqa-v0.3.15:",
+  "no_seed_search": true,
+  "one_graph_per_identity": true,
+  "historical_apps_not_fresh_targets": [
+    "buggy-crm",
+    "buggy-ops",
+    "buggy-wiki",
+    "buggy-desk",
+    "buggy-flow",
+    "buggy-shop"
+  ],
+  "targets": [
+    {
+      "app": "buggy-forum",
+      "class": "positive",
+      "domain": "discussion/community moderation",
+      "topology_family": "cross_linked_discussion_with_nested_moderation",
+      "seed_hex": "93494ede",
+      "seed": 2471055070,
+      "bug_count": 10,
+      "bug_prefix": "BUG-F",
+      "bug_ids": ["BUG-F1", "BUG-F2", "BUG-F3", "BUG-F4", "BUG-F5", "BUG-F6", "BUG-F7", "BUG-F8", "BUG-F9", "BUG-F10"],
+      "default_port": 3945,
+      "pages": ["index.html", "categories.html", "category.html", "threads.html", "thread.html", "replies.html", "reply.html", "profile.html", "moderation.html", "report.html", "drafts.html", "compose.html", "search.html", "settings.html", "help.html", "handbook.html"]
+    },
+    {
+      "app": "buggy-billing",
+      "class": "positive",
+      "domain": "billing / invoices / payments / refunds",
+      "topology_family": "transactional_nested_account_invoice_payment",
+      "seed_hex": "5e5d80a8",
+      "seed": 1583186088,
+      "bug_count": 10,
+      "bug_prefix": "BUG-B",
+      "bug_ids": ["BUG-B1", "BUG-B2", "BUG-B3", "BUG-B4", "BUG-B5", "BUG-B6", "BUG-B7", "BUG-B8", "BUG-B9", "BUG-B10"],
+      "default_port": 3946,
+      "pages": ["index.html", "accounts.html", "account.html", "invoices.html", "invoice.html", "payments.html", "payment.html", "refunds.html", "refund.html", "credits.html", "disputes.html", "reports.html", "compose.html", "settings.html", "help.html", "handbook.html"]
+    },
+    {
+      "app": "buggy-lab",
+      "class": "positive",
+      "domain": "lab / experiment tracking",
+      "topology_family": "deep_experiment_run_sample_result_graph",
+      "seed_hex": "5e7e0329",
+      "seed": 1585316649,
+      "bug_count": 10,
+      "bug_prefix": "BUG-L",
+      "bug_ids": ["BUG-L1", "BUG-L2", "BUG-L3", "BUG-L4", "BUG-L5", "BUG-L6", "BUG-L7", "BUG-L8", "BUG-L9", "BUG-L10"],
+      "default_port": 3947,
+      "pages": ["index.html", "projects.html", "project.html", "experiments.html", "experiment.html", "runs.html", "run.html", "samples.html", "sample.html", "results.html", "result.html", "compare.html", "notebook.html", "compose.html", "settings.html", "help.html", "handbook.html"]
+    },
+    {
+      "app": "buggy-directory",
+      "class": "negative",
+      "domain": "flat internal directory / reference lookup",
+      "topology_family": "shallow_flat_fanout_control",
+      "seed_hex": "85797ba0",
+      "seed": 2239331232,
+      "bug_count": 8,
+      "bug_prefix": "BUG-DIR",
+      "bug_ids": ["BUG-DIR1", "BUG-DIR2", "BUG-DIR3", "BUG-DIR4", "BUG-DIR5", "BUG-DIR6", "BUG-DIR7", "BUG-DIR8"],
+      "default_port": 3948,
+      "pages": ["index.html", "people.html", "teams.html", "offices.html", "roles.html", "search.html", "settings.html", "help.html"],
+      "expected_horizon_handoff_started_events": 0
+    }
+  ],
+  "positive_shape_requirements": {
+    "different_application_shapes": true,
+    "not_reskins_of_crm_or_ops": true,
+    "may_contain_nested_workflows": true,
+    "min_handoff_capable_chains": 2,
+    "chains_not_identical_except_entity_id": true,
+    "chains_from_different_families_or_roles": true,
+    "bugs_per_target": 10,
+    "min_bugs_trigger_depth_gte_4": 3,
+    "min_bugs_trigger_depth_gte_6": 1,
+    "depth_mix": {
+      "shallow_1_2": 2,
+      "medium_3_4": 3,
+      "deep_4_6": 3,
+      "sequence_or_cross_page_gte_5": 2
+    }
+  },
+  "negative_shape_requirements": {
+    "shallow": true,
+    "no_static_handoff_capable_path": true,
+    "qualified_for_handoff": false,
+    "qualifying_chain_count": 0,
+    "max_nested_branch_chain_lt_branch_horizon": true,
+    "bugs": 8,
+    "depths_mostly_1_to_3": true
+  },
+  "qualification": {
+    "module": "benchmark/fresh_handoff_qualify.py",
+    "policy_blind": true,
+    "no_browser": true,
+    "no_candidate_import": true,
+    "branch_horizon": 3,
+    "inputs": ["topology.json", "generator metadata"],
+    "positive_rule": {
+      "min_distinct_handoff_capable_chains": 2,
+      "each_chain": [
+        "starts at a hub",
+        "at least 3 branch or follow-up actions before returning to the original outer parent",
+        "at least one nested hub branch before that return",
+        "a real child-local continuation after the nested branch",
+        "a documented path back to the child parent or an alternate child completion",
+        "no repeated edge-only fake chain"
+      ]
+    },
+    "negative_rule": {
+      "qualified_for_handoff": false,
+      "qualifying_chain_count": 0,
+      "max_nested_branch_chain_lt": 3
+    },
+    "required_before_freeze": {
+      "buggy-forum": {"qualified": true, "qualifying_chain_count_gte": 2},
+      "buggy-billing": {"qualified": true, "qualifying_chain_count_gte": 2},
+      "buggy-lab": {"qualified": true, "qualifying_chain_count_gte": 2},
+      "buggy-directory": {"qualified": false, "qualifying_chain_count": 0}
+    },
+    "artifact": "experiments/validation/v0.3.15/topology-qualification.json",
+    "failure_before_policy": "If generation misses this rule before any target-policy run, fix the generator implementation only. Do not change seeds and do not select another generated graph."
+  },
+  "policies": {
+    "C1": "ghost-structural-memory",
+    "G": "ghost-structural-return-guard",
+    "H": "ghost-structural-horizon-handoff-guard"
+  },
+  "matrix": {
+    "seed": 1,
+    "skip_minimize": true,
+    "no_llm": true,
+    "no_bfs_dfs_in_primary": true,
+    "positive_budgets": [40, 80, 120],
+    "negative_budget": 120,
+    "positive_cells": 27,
+    "negative_cells": 3,
+    "cells_total": 30,
+    "cells": [
+      {"app": "buggy-forum", "policy": "C1", "budget": 40, "seed": 1},
+      {"app": "buggy-forum", "policy": "C1", "budget": 80, "seed": 1},
+      {"app": "buggy-forum", "policy": "C1", "budget": 120, "seed": 1},
+      {"app": "buggy-forum", "policy": "G", "budget": 40, "seed": 1},
+      {"app": "buggy-forum", "policy": "G", "budget": 80, "seed": 1},
+      {"app": "buggy-forum", "policy": "G", "budget": 120, "seed": 1},
+      {"app": "buggy-forum", "policy": "H", "budget": 40, "seed": 1},
+      {"app": "buggy-forum", "policy": "H", "budget": 80, "seed": 1},
+      {"app": "buggy-forum", "policy": "H", "budget": 120, "seed": 1},
+      {"app": "buggy-billing", "policy": "C1", "budget": 40, "seed": 1},
+      {"app": "buggy-billing", "policy": "C1", "budget": 80, "seed": 1},
+      {"app": "buggy-billing", "policy": "C1", "budget": 120, "seed": 1},
+      {"app": "buggy-billing", "policy": "G", "budget": 40, "seed": 1},
+      {"app": "buggy-billing", "policy": "G", "budget": 80, "seed": 1},
+      {"app": "buggy-billing", "policy": "G", "budget": 120, "seed": 1},
+      {"app": "buggy-billing", "policy": "H", "budget": 40, "seed": 1},
+      {"app": "buggy-billing", "policy": "H", "budget": 80, "seed": 1},
+      {"app": "buggy-billing", "policy": "H", "budget": 120, "seed": 1},
+      {"app": "buggy-lab", "policy": "C1", "budget": 40, "seed": 1},
+      {"app": "buggy-lab", "policy": "C1", "budget": 80, "seed": 1},
+      {"app": "buggy-lab", "policy": "C1", "budget": 120, "seed": 1},
+      {"app": "buggy-lab", "policy": "G", "budget": 40, "seed": 1},
+      {"app": "buggy-lab", "policy": "G", "budget": 80, "seed": 1},
+      {"app": "buggy-lab", "policy": "G", "budget": 120, "seed": 1},
+      {"app": "buggy-lab", "policy": "H", "budget": 40, "seed": 1},
+      {"app": "buggy-lab", "policy": "H", "budget": 80, "seed": 1},
+      {"app": "buggy-lab", "policy": "H", "budget": 120, "seed": 1},
+      {"app": "buggy-directory", "policy": "C1", "budget": 120, "seed": 1},
+      {"app": "buggy-directory", "policy": "G", "budget": 120, "seed": 1},
+      {"app": "buggy-directory", "policy": "H", "budget": 120, "seed": 1}
+    ]
+  },
+  "runner_ports": {
+    "buggy-forum": 3945,
+    "buggy-billing": 3946,
+    "buggy-lab": 3947,
+    "buggy-directory": 3948,
+    "exposure": "loopback benchmark fixtures only",
+    "production_public": [8787],
+    "production_loopback": [3939],
+    "do_not_publish_fixture_ports": true
+  },
+  "evaluability": {
+    "budget": 120,
+    "not_defined_by_bug_discovery": true,
+    "any": [
+      "G shows historical nested-parent preemption or lost_parent on a qualified chain",
+      "H emits nested_continuation_events > 0 AND horizon_handoff_started_events > 0",
+      "the structured opportunity detector identifies a final-slot nested branch opportunity in the executed trace"
+    ]
+  },
+  "opportunity_detector": {
+    "module": "benchmark/fresh_handoff_analysis.py",
+    "measurement_only": true,
+    "no_count_only_fallback": true,
+    "match_required": [
+      "every nested_continuation matches a detector continuation opportunity",
+      "every horizon_handoff_started matches a detector handoff opportunity",
+      "every child_parent_witness corresponds to an active top frame",
+      "every resume corresponds to a witness",
+      "every unwind corresponds to unresolved child escape or abandonment",
+      "no unclassified H candidate event"
+    ]
+  },
+  "full_transfer_gate": {
+    "budget": 120,
+    "all": [
+      "static qualification valid",
+      "actually evaluable",
+      "H horizon_handoff_started_events >= 1",
+      "H resolves at least one handoff by child_parent_witness or horizon_handoff_unwind",
+      "witness_violations == 0",
+      "terminal_accounting_violations == 0",
+      "confirmed(G) is a subset of confirmed(H)",
+      "states(H) > states(G) OR urls(H) > urls(G)",
+      "runaway pattern is false: not (max_depth == pushes AND resumes+unwinds == 0 AND horizon == 0)",
+      "horizon > 0 OR returned > 0 OR escapes > 0"
+    ],
+    "not_required": "H beats G on confirmed bug count"
+  },
+  "fresh_bug_regression": {
+    "rule": "confirmed(G) subset of confirmed(H) on every fresh target including the negative control",
+    "any_loss": "Outcome C",
+    "bug_ids_are_outcome_only": true
+  },
+  "negative_control_gate": {
+    "app": "buggy-directory",
+    "policy": "H",
+    "budget": 120,
+    "all": [
+      "horizon_handoff_started_events == 0",
+      "child_parent_witness_events == 0",
+      "parent_frame_resume_to_return_events == 0",
+      "max_handoff_stack_depth == 0",
+      "witness_violations == 0",
+      "terminal_accounting_violations == 0",
+      "confirmed(G) subset of confirmed(H)"
+    ],
+    "false_positive_is_outcome_C": true,
+    "lifecycle_fields_to_compare": ["states", "normalized_unique_urls", "confirmed_bugs", "return_attempt_events", "sequence_instances_returned", "return_cycle_escape_events"]
+  },
+  "outcome_module": "benchmark/fresh_handoff_analysis.py",
+  "outcome_function": "derive_v0315_outcome",
+  "outcome_gates": {
+    "priority": "C, then D, then B, else A",
+    "C": {
+      "label": "validation failed or protocol invalid",
+      "any": [
+        "candidate freeze mismatch",
+        "target or suite freeze mismatch",
+        "protocol identity mismatch",
+        "target changed after first result",
+        "generator or qualifier used policy or result feedback",
+        "source isolation failure",
+        "H historical safety failure",
+        "witness violation",
+        "terminal accounting violation",
+        "app-specific candidate logic",
+        "guard-confirmed bug loss on any fresh target",
+        "negative control emits any H handoff",
+        "product default changed",
+        "post-freeze candidate tuning",
+        "judge leakage"
+      ]
+    },
+    "D": {
+      "label": "fresh suite inconclusive",
+      "when": "Safety and protocol pass, and actual_evaluable_positive_targets < 2."
+    },
+    "B": {
+      "label": "evaluable but mixed transfer",
+      "when": "Safety and protocol pass, no bug loss, negative control clean, at least 2 positive targets actually evaluable, and full_transfer_targets < 2."
+    },
+    "A": {
+      "label": "fresh multi-target mechanism transfer",
+      "meaning": "Frozen Horizon Handoff transfers on at least two of three fresh qualified application shapes while preserving the frozen guard's confirmed bugs and remaining inactive on a fresh shallow negative control.",
+      "all": [
+        "candidate freeze valid",
+        "suite and target freezes valid",
+        "protocol valid",
+        "static qualification valid",
+        "historical safety valid",
+        "actual_evaluable_positive_targets >= 2",
+        "full_transfer_targets >= 2",
+        "zero guard-confirmed bug loss on all four fresh targets",
+        "negative control emits zero handoff",
+        "witness violations == 0",
+        "terminal accounting violations == 0",
+        "no app-specific logic",
+        "no post-freeze tuning",
+        "product default unchanged"
+      ],
+      "not": [
+        "universal generalization",
+        "production-ready",
+        "solved web exploration",
+        "proven on arbitrary websites"
+      ]
+    }
+  },
+  "promotion_readiness": {
+    "default": "not_ready",
+    "outcome_A_only": "evidence_supports_productization_study",
+    "forbidden": ["promoted", "default_ready", "production_ready"],
+    "product_default_remains_unchanged": true,
+    "next_round_if_A": "v0.3.16 productization/default-policy study",
+    "next_round_if_BCD": "failure analysis, not product promotion"
+  },
+  "product_default": {
+    "policy": "ghost",
+    "constructor": "GhostPolicy",
+    "use_frontier": false,
+    "sequence_mode": "off",
+    "unchanged": true,
+    "promotion_prohibited": true,
+    "outcome_A_promotes": false
+  },
+  "judge_isolation": {
+    "manifest_not_served": true,
+    "no_bug_ids_in_visible_app": true,
+    "no_new_app_names_in_candidate": true,
+    "candidate_does_not_read_manifest_or_topology": true,
+    "generator_and_qualifier_do_not_import_exploration_or_results": true
+  },
+  "historical_safety_before_targets": [
+    "v0.3.14 candidate freeze",
+    "H1-H20",
+    "v0.3.14 19607-trace handoff model",
+    "S1-S7",
+    "historical 5800 return model",
+    "N1-N12",
+    "P1-P15"
+  ],
+  "suite_freeze": "experiments/frozen/v0.3.15-fresh-handoff-suite/freeze.json",
+  "published_root": "experiments/published/fresh-handoff-v0.3.15/",
+  "verify_command": "python -m benchmark.fresh_handoff_reproduce --root experiments/published/fresh-handoff-v0.3.15 --verify",
+  "prohibited_after_first_result": [
+    "edit H candidate",
+    "edit generator",
+    "edit target",
+    "edit topology",
+    "edit bug manifest",
+    "change seed",
+    "change budget",
+    "change qualification",
+    "change opportunity detector semantics",
+    "change transfer gate",
+    "add exceptions",
+    "change product default"
+  ],
+  "git_phase_gates": {
+    "protocol": "experiment: preregister v0.3.15 fresh handoff validation",
+    "freeze": "experiment: freeze v0.3.15 fresh target suite",
+    "before_target_evaluation_require": [
+      "protocol commit",
+      "suite freeze commit"
+    ]
+  },
+  "stop_rules": {
+    "no_semantic_change_after_freeze": true,
+    "no_retune_after_first_target_evaluation": true,
+    "publish_any_outcome": true,
+    "negative_or_mixed_results_published_unchanged": true,
+    "product_default_unchanged": true,
+    "no_generalization_claim": true
+  }
+}
