@@ -53,6 +53,7 @@ def test_outcome_c_precedes_d_and_a():
     assert _ok(witness_violations=1)["outcome"] == "C"
     assert _ok(product_default_changed=True)["outcome"] == "C"
     assert _ok(candidate_freeze_ok=False)["outcome"] == "C"
+    assert _ok(event_match_ok=False)["outcome"] == "C"
     assert _ok(post_freeze_tuning=True)["outcome"] == "C"
     assert _ok()["promotion_readiness"] != "promoted"
 

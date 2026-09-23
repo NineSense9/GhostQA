@@ -362,6 +362,7 @@ def derive_v0315_outcome(
     product_default_changed: bool,
     post_freeze_tuning: bool,
     judge_leakage: bool,
+    event_match_ok: bool = True,
     target_changed_after_result: bool = False,
     generator_used_feedback: bool = False,
     actual_evaluable_positive_targets: int,
@@ -383,6 +384,7 @@ def derive_v0315_outcome(
         or bool(product_default_changed)
         or bool(post_freeze_tuning)
         or bool(judge_leakage)
+        or not event_match_ok
         or bool(target_changed_after_result)
         or bool(generator_used_feedback)
     )

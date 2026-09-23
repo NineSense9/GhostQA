@@ -1,0 +1,220 @@
+{
+  "round": "v0.3.15",
+  "branch_horizon": 3,
+  "note": "Static qualification only. It does not mean a policy reached the structure.",
+  "apps": {
+    "buggy-forum": {
+      "app": "buggy-forum",
+      "seed": 2471055070,
+      "seed_hex": "93494ede",
+      "topology_family": "cross_linked_discussion_with_nested_moderation",
+      "expected_control_class": "positive",
+      "node_count": 18,
+      "edge_count": 54,
+      "hub_count": 9,
+      "qualified": true,
+      "qualification_ok": true,
+      "qualifying_chain_count": 2,
+      "qualifying_path_count": 17334,
+      "qualifying_chains": [
+        {
+          "child_workflow_role": "moderation_resolution",
+          "start_hub": "category",
+          "edge_count": 4,
+          "actions": [
+            "open_topic_t1",
+            "open_triage",
+            "btn_mark",
+            "nav_up_topic_mod"
+          ],
+          "nodes": [
+            "category",
+            "thread_t1",
+            "moderation",
+            "moderation",
+            "thread_t1"
+          ]
+        },
+        {
+          "child_workflow_role": "report_triage",
+          "start_hub": "thread_t1",
+          "edge_count": 4,
+          "actions": [
+            "open_author",
+            "open_case",
+            "btn_accept",
+            "nav_up_author"
+          ],
+          "nodes": [
+            "thread_t1",
+            "profile",
+            "report",
+            "report",
+            "profile"
+          ]
+        }
+      ],
+      "max_nested_branch_chain": 8,
+      "max_nested_depth": 8,
+      "distinct_child_workflows": [
+        "moderation_resolution",
+        "report_triage"
+      ],
+      "child_workflow_roles": [
+        "moderation_resolution",
+        "report_triage"
+      ],
+      "negative_control_expected": false,
+      "branch_horizon": 3
+    },
+    "buggy-billing": {
+      "app": "buggy-billing",
+      "seed": 1583186088,
+      "seed_hex": "5e5d80a8",
+      "topology_family": "transactional_nested_account_invoice_payment",
+      "expected_control_class": "positive",
+      "node_count": 18,
+      "edge_count": 49,
+      "hub_count": 6,
+      "qualified": true,
+      "qualification_ok": true,
+      "qualifying_chain_count": 2,
+      "qualifying_path_count": 8596,
+      "qualifying_chains": [
+        {
+          "child_workflow_role": "payment_capture",
+          "start_hub": "account",
+          "edge_count": 4,
+          "actions": [
+            "open_bill_i1",
+            "open_receipt",
+            "btn_post",
+            "nav_up_bill"
+          ],
+          "nodes": [
+            "account",
+            "invoice_i1",
+            "payment",
+            "payment",
+            "invoice_i1"
+          ]
+        },
+        {
+          "child_workflow_role": "refund_escape",
+          "start_hub": "invoice_i1",
+          "edge_count": 4,
+          "actions": [
+            "open_dispute",
+            "open_refund_case",
+            "btn_mark",
+            "nav_up_dispute"
+          ],
+          "nodes": [
+            "invoice_i1",
+            "dispute",
+            "refund",
+            "refund",
+            "dispute"
+          ]
+        }
+      ],
+      "max_nested_branch_chain": 7,
+      "max_nested_depth": 7,
+      "distinct_child_workflows": [
+        "payment_capture",
+        "refund_escape"
+      ],
+      "child_workflow_roles": [
+        "payment_capture",
+        "refund_escape"
+      ],
+      "negative_control_expected": false,
+      "branch_horizon": 3
+    },
+    "buggy-lab": {
+      "app": "buggy-lab",
+      "seed": 1585316649,
+      "seed_hex": "5e7e0329",
+      "topology_family": "deep_experiment_run_sample_result_graph",
+      "expected_control_class": "positive",
+      "node_count": 19,
+      "edge_count": 50,
+      "hub_count": 6,
+      "qualified": true,
+      "qualification_ok": true,
+      "qualifying_chain_count": 2,
+      "qualifying_path_count": 8232,
+      "qualifying_chains": [
+        {
+          "child_workflow_role": "comparison_notebook",
+          "start_hub": "experiment_e1",
+          "edge_count": 4,
+          "actions": [
+            "open_result_side",
+            "open_compare",
+            "btn_pin_base",
+            "nav_up_result"
+          ],
+          "nodes": [
+            "experiment_e1",
+            "result",
+            "compare",
+            "compare",
+            "result"
+          ]
+        },
+        {
+          "child_workflow_role": "sample_observation",
+          "start_hub": "experiment_e1",
+          "edge_count": 4,
+          "actions": [
+            "open_run_u1",
+            "open_sample_s1",
+            "btn_obs",
+            "nav_up_run"
+          ],
+          "nodes": [
+            "experiment_e1",
+            "run",
+            "sample",
+            "sample",
+            "run"
+          ]
+        }
+      ],
+      "max_nested_branch_chain": 8,
+      "max_nested_depth": 8,
+      "distinct_child_workflows": [
+        "comparison_notebook",
+        "sample_observation"
+      ],
+      "child_workflow_roles": [
+        "comparison_notebook",
+        "sample_observation"
+      ],
+      "negative_control_expected": false,
+      "branch_horizon": 3
+    },
+    "buggy-directory": {
+      "app": "buggy-directory",
+      "seed": 2239331232,
+      "seed_hex": "85797ba0",
+      "topology_family": "shallow_flat_fanout_control",
+      "expected_control_class": "negative",
+      "node_count": 10,
+      "edge_count": 17,
+      "hub_count": 1,
+      "qualified": false,
+      "qualification_ok": true,
+      "qualifying_chain_count": 0,
+      "qualifying_path_count": 0,
+      "qualifying_chains": [],
+      "max_nested_branch_chain": 2,
+      "max_nested_depth": 2,
+      "distinct_child_workflows": [],
+      "child_workflow_roles": [],
+      "negative_control_expected": true,
+      "branch_horizon": 3
+    }
+  }
+}
