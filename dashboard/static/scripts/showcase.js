@@ -500,6 +500,44 @@ function renderFreshTransfer(ft) {
   setText('proof-outcome', ft.outcome || '—');
 }
 
+function renderReentry(rf) {
+  rf = rf || {};
+  const oc = gid('rf-outcome');
+  if (oc) {
+    oc.textContent = rf.outcome ? ('Outcome ' + rf.outcome) : 'Outcome';
+    oc.className = rf.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('rf-outcome-mean');
+  if (om) om.textContent = rf.outcome_meaning || '';
+  const delta = gid('rf-delta');
+  if (delta) {
+    const lost = (rf.lab_lost || []).join(', ') || '无';
+    delta.textContent = '目录 handoff ' + rf.directory_handoffs_before + ' → ' +
+      rf.directory_handoffs +
+      ' · 提前返回 ' + rf.directory_reentry +
+      ' · 租约 ' + rf.lab_leases +
+      ' · lab 仍丢失 ' + lost;
+  }
+  if (!rf.available) return;
+  setText('proof-round', rf.round || 'v0.3.16');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = '目录 handoff';
+  if (m2) m2.textContent = '提前返回 / 租约';
+  if (m3) m3.textContent = '历史回归丢失';
+  setText('proof-b-states', rf.directory_handoffs_before);
+  setText('proof-g-states', rf.directory_handoffs);
+  setText('proof-b-ret', rf.directory_reentry);
+  setText('proof-g-ret', rf.lab_leases);
+  setText('proof-esc', rf.historical_regression_loss);
+  setText('proof-outcome', rf.outcome || '—');
+  const note = gid('proof-note');
+  if (note) {
+    note.textContent = '检修了 v0.3.15 的假 handoff 和局部饥饿。不是新的 fresh 验证。产品默认未改。';
+  }
+}
+
 function renderFreshHandoff(fh) {
   fh = fh || {};
   const oc = gid('fh-outcome');
@@ -550,6 +588,8 @@ function renderEvidence(data) {
   const ns = (data && data.nested_stack) || {};
   const hh = (data && data.horizon_handoff) || {};
   const fh = (data && data.fresh_handoff) || {};
+  const rf = (data && data.reentry_frontier) || {};
+  const ev0316 = gid('ev-v0316');
   const ev0315 = gid('ev-v0315');
   const ev0314 = gid('ev-v0314');
   const ev0313 = gid('ev-v0313');
@@ -560,6 +600,29 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0316) {
+    if (!rf.available) {
+      ev0316.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = rf.reproduction || {};
+      ev0316.innerHTML = [
+        statusRow('轮次结果', rf.outcome ? ('Outcome ' + rf.outcome) : '—', rf.outcome === 'A'),
+        statusRow('目录 handoff', String(rf.directory_handoffs_before) + ' → ' + String(rf.directory_handoffs),
+          rf.directory_handoffs === 0),
+        statusRow('提前返回', String(rf.directory_reentry), true),
+        statusRow('本地租约', String(rf.lab_leases), true),
+        statusRow('历史回归丢失', String(rf.historical_regression_loss),
+          rf.historical_regression_loss === 0),
+        statusRow('证据清单', fileLabel(r.evidence_files, true), true),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', rf.product_default_changed ? '已改' : '未改',
+          rf.product_default_changed === false),
+      ].join('');
+    }
+  }
+  const cmd0316 = rf.command || '';
+  const cmdEl16 = gid('ev-cmd-0316');
+  if (cmdEl16) cmdEl16.textContent = cmd0316;
   if (ev0315) {
     if (!fh.available) {
       ev0315.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -812,6 +875,7 @@ async function loadShowcase() {
     renderNestedStack(data.nested_stack);
     renderHorizon(data.horizon_handoff);
     renderFreshHandoff(data.fresh_handoff);
+    renderReentry(data.reentry_frontier);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

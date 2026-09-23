@@ -4,9 +4,11 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.15
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.16
 
-产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.15 没有改产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.16 没有改产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+
+**v0.3.16 Outcome B — partial safe repair.** 提前物理回到父页面会结束当前 sequence；子分支回到自己的 hub 后，已发现但还没试过的本地结构分支先获得一格租约。目录 @120 的 handoff 从 2 降到 0，提前返回 4 次，guard 已确认缺陷没有丢失。buggy-lab @120 发出 6 次本地租约并恢复 BUG-L8，仍丢失 BUG-L1、BUG-L9、BUG-L10。forum 保住完整 transfer。billing 没有丢失 guard 缺陷，但覆盖与 guard 持平，没有满足 v0.3.15 的扩张门。CRM / Ops 仍超过 5 states / 5 URLs。Desk、DeepBench、Wiki、BuggyShop 相对 guard 的已确认缺陷丢失为 0。这不是新的 fresh 验证，也不是晋升。`python -m benchmark.reentry_frontier_reproduce --root experiments/published/reentry-frontier-v0.3.16 --verify`
 
 **v0.3.15 Outcome C — validation failed.** 冻结的 Horizon Handoff 在 forum 与 billing 上完成了结构 transfer（3 个正目标都实际可评估，其中 2 个完整 transfer），但 buggy-lab 丢失了 guard 已确认的 BUG-L1、BUG-L8、BUG-L9、BUG-L10，并且浅层负对照 buggy-directory 触发了 2 次 handoff。Witness violations 与 terminal violations 为 0。这是 fresh 验证失败，不是泛化证明，也不是产品化依据。promotion readiness 为 `not_ready`。下一问是失败分析，不是改默认策略。`python -m benchmark.fresh_handoff_reproduce --root experiments/published/fresh-handoff-v0.3.15 --verify`
 
@@ -74,7 +76,7 @@ python -m dashboard.server --port 8787
 # 浏览器打开 http://127.0.0.1:8787/
 ```
 
-三个视图：**总览**（默认，含 v0.3.15 Outcome C，并保留 v0.3.14 Outcome A、v0.3.13 Outcome C、v0.3.12 Outcome C、v0.3.11 Outcome D）、**实时探索**（浏览器截图 / 状态图 / 决策日志）、**研究证据**（freeze / clean clone / 复现命令）。研究数字来自 `GET /api/showcase`，读取已提交的 `experiments/published/` 产物，不在页面里写死研究结果。演示步骤见 `docs/DEMO.md`。
+三个视图：**总览**（默认，含 v0.3.16 Outcome B，并保留 v0.3.15 Outcome C、v0.3.14 Outcome A、v0.3.13 Outcome C、v0.3.12 Outcome C、v0.3.11 Outcome D）、**实时探索**（浏览器截图 / 状态图 / 决策日志）、**研究证据**（freeze / clean clone / 复现命令）。研究数字来自 `GET /api/showcase`，读取已提交的 `experiments/published/` 产物，不在页面里写死研究结果。演示步骤见 `docs/DEMO.md`。
 
 使用真实 LLM（可选，模型不可用时自动降级为 no-LLM 策略）：
 

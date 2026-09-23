@@ -1,0 +1,111 @@
+{
+  "candidate": {
+    "budget": 120,
+    "child_parent_witness_events": 7,
+    "confirmed_bugs": [
+      "BUG-L2",
+      "BUG-L4",
+      "BUG-L5",
+      "BUG-L6",
+      "BUG-L8"
+    ],
+    "deferred_horizon_resolved_by_reentry": 0,
+    "deferred_horizon_resolved_by_return": 1,
+    "early_parent_reentry_cluster": 0,
+    "early_parent_reentry_events": 3,
+    "early_parent_reentry_exact": 3,
+    "frontier_lease_active_at_budget_end": false,
+    "frontier_lease_remaining_keys_at_budget_end": 0,
+    "frontier_monotonicity_violations": 0,
+    "frontier_new_keys_from_variant": 0,
+    "frontier_repeated_key_violations": 0,
+    "horizon_handoff_started_events": 9,
+    "horizon_handoff_unwind_events": 2,
+    "lease_cross_hub_uncancelled": 0,
+    "local_frontier_lease_action_events": 6,
+    "local_frontier_lease_exhausted_events": 0,
+    "local_frontier_lease_granted_events": 6,
+    "local_frontier_lease_hidden_events": 0,
+    "local_frontier_lease_location_lost_events": 0,
+    "max_frontier_lease_chain": 3,
+    "max_handoff_stack_depth": 1,
+    "nested_continuation_events": 7,
+    "normalized_unique_urls": 17,
+    "parent_frame_resume_to_return_events": 1,
+    "policy": "ghost-structural-reentry-frontier-guard",
+    "reentry_double_completion_violations": 0,
+    "return_cycle_escape_events": 6,
+    "sequence_horizon_reached": 2,
+    "sequence_instances_returned": 3,
+    "sequence_lost_parent": 0,
+    "source_parent_reentry_repair_events": 0,
+    "states": 27,
+    "terminal_accounting_violations": 0,
+    "unique_frontier_branch_keys_leased": 6,
+    "witness_violations": 0
+  },
+  "candidate_confirmed": [
+    "BUG-L2",
+    "BUG-L4",
+    "BUG-L5",
+    "BUG-L6",
+    "BUG-L8"
+  ],
+  "first_divergence": {
+    "candidate": {
+      "active_branch": "74e4bbf7af4fe716:click:open_result_from_run",
+      "commitment_left": 0,
+      "dst_cluster": "8e7f211b737b2f37",
+      "dst_sig": "8e7f211b737b2f37:none",
+      "dst_url": "/experiment.html?id=e2",
+      "finding_assert_ids": [],
+      "index": 17,
+      "last_label": "return_hub",
+      "parent_hub_cluster": "74e4bbf7af4fe716",
+      "returning": true,
+      "src_cluster": "0823d70e52b922af",
+      "src_sig": "0823d70e52b922af:cf9cb275d12e",
+      "src_url": "/result.html?id=q1",
+      "target_eid": "nav_up_exp_result",
+      "type": "click"
+    },
+    "first_divergent_step": 17,
+    "guard": {
+      "active_branch": "",
+      "commitment_left": 0,
+      "dst_cluster": "6eccf66a21427a72",
+      "dst_sig": "6eccf66a21427a72:none",
+      "dst_url": "/notebook.html?id=q1",
+      "finding_assert_ids": [],
+      "index": 17,
+      "last_label": "branch",
+      "parent_hub_cluster": "9781919a1496fdff",
+      "returning": false,
+      "src_cluster": "9781919a1496fdff",
+      "src_sig": "9781919a1496fdff:cf9cb275d12e",
+      "src_url": "/result.html?id=q1",
+      "target_eid": "open_notebook",
+      "type": "click"
+    }
+  },
+  "guard_confirmed": [
+    "BUG-L1",
+    "BUG-L10",
+    "BUG-L2",
+    "BUG-L8",
+    "BUG-L9"
+  ],
+  "horizon_confirmed": [
+    "BUG-L2",
+    "BUG-L4",
+    "BUG-L5",
+    "BUG-L6"
+  ],
+  "lab_gate": true,
+  "lab_zero_guard_loss": false,
+  "lost_vs_guard": [
+    "BUG-L1",
+    "BUG-L10",
+    "BUG-L9"
+  ]
+}

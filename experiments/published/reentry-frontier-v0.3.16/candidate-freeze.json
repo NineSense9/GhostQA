@@ -1,0 +1,45 @@
+{
+  "algorithm_name": "ghost-structural-reentry-frontier-guard",
+  "round": "v0.3.16",
+  "product": "v0.4 preview",
+  "source_head": "3e42aaaf4feadff9075552a6daddce3621b4add3",
+  "protocol_commit": "3e42aaaf4feadff9075552a6daddce3621b4add3",
+  "historical_candidate_freeze": "experiments/frozen/ghost-horizon-handoff-v0.3.14/freeze.json",
+  "historical_suite_freeze": "experiments/frozen/v0.3.15-fresh-handoff-suite/freeze.json",
+  "policy": {
+    "constructor": "ReentryFrontierGuardGhostPolicy",
+    "controller": "ReentryFrontierSequenceController",
+    "policy_name": "ghost-structural-reentry-frontier-guard",
+    "sequence_mode": "structural",
+    "use_frontier": false,
+    "lease_slots": 1,
+    "no_threshold_N": true,
+    "no_app_specific_rule": true,
+    "product_default": false,
+    "replaces_historical_identities": false
+  },
+  "note": "Candidate freeze before the v0.3.16 target cells. Do not change these files after the first empirical result.",
+  "hash_normalization": "LF newlines",
+  "files": {
+    "ghostqa/exploration/reentry_frontier_guard.py": {
+      "sha256": "46f16ccbfd993c8c7ee80a7913a6f91292cd3d85de079d7516afc23ae2664b0e",
+      "git_blob": "095d4c5faa1f89faace78e3a191df3a0ecda46b1",
+      "bytes": 27413
+    },
+    "benchmark/reentry_frontier_analysis.py": {
+      "sha256": "ebfd7251014c1ac7942adf918bcc964facda91109edbe54e1ea06ec2537607ef",
+      "git_blob": "a9477856124ebc7ffa85729769c784f3882c0f46",
+      "bytes": 8138
+    },
+    "benchmark/reentry_frontier_modelcheck.py": {
+      "sha256": "88786a0e7a8da89b2918233763f5cf83e8471a89ef91a02e6beaaea1f7a24883",
+      "git_blob": "5d936b38dee134261668d4d6b0be61235fe79d08",
+      "bytes": 10658
+    },
+    "experiments/validation/v0.3.16/protocol.json": {
+      "sha256": "f19ac2daa8f18cf84930dcccb286324c87ca9155768e2c331514d3062edaffdd",
+      "git_blob": "3d3e1a34e840b97797b6765901f848b18ba4ac45",
+      "bytes": 10230
+    }
+  }
+}

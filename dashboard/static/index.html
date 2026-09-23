@@ -202,6 +202,17 @@
       <p class="footnote" id="ft-scope">一次目标应用上的 transfer，不是 universal generalization。</p>
     </section>
 
+    <section class="rc-section" data-testid="reentry-frontier" aria-labelledby="h-rf">
+      <p class="eyebrow">v0.3.16 · 已发布证据</p>
+      <h2 id="h-rf">提前回到父页面会结束这条分支，本地未试分支先租一格</h2>
+      <p class="rc-lead" id="rf-lead">目录上的同父假 handoff 从 2 次降到 0。实验记录的本地分支租约恢复了 BUG-L8，仍丢失 BUG-L1、BUG-L9、BUG-L10。</p>
+      <p class="limit-note">这是 v0.3.15 失败点的检修，不是新的 fresh 验证，也不是泛化证明。产品默认仍是 NoFrontier / sequence_mode=off。v0.3.15 仍是 Outcome C，v0.3.14 仍是 Outcome A。</p>
+      <p class="delta" id="rf-delta"></p>
+      <p class="pill-row"><span class="pill" id="rf-outcome">Outcome</span>
+        <span class="muted" id="rf-outcome-mean"></span></p>
+      <p class="footnote" id="rf-scope">分支级租约没有覆盖全部丢失路径。本轮不把租约扩成任意按钮。</p>
+    </section>
+
     <section class="rc-section" data-testid="fresh-handoff" aria-labelledby="h-fh">
       <p class="eyebrow">v0.3.15 · 已发布证据</p>
       <h2 id="h-fh">四个新目标上的 Horizon Handoff 验证没有通过</h2>
@@ -279,7 +290,7 @@
 
     <section class="timeline" aria-labelledby="h-tl">
       <p class="eyebrow">研究记录</p>
-      <h2 id="h-tl">v0.3.6 → v0.3.14</h2>
+      <h2 id="h-tl">v0.3.6 → v0.3.16</h2>
       <ol class="tl">
         <li><details><summary>v0.3.6 · Structural Memory</summary><p>DeepBench 上，structural memory 把重复 branch 尝试压低，同时保住 D6/D12 并找到更多深 workflow 缺陷。Deep-BDR @120：0.667 · development benchmark</p></details></li>
         <li><details><summary>v0.3.7 · Frozen Transfer Check</summary><p>冻结算法后换到 BuggyShop，C1 只确认 1/10。这轮没有顺手调参，结论直接记为 DeepBench-specific。BuggyShop: 6 states · W5</p></details></li>
@@ -290,7 +301,8 @@
         <li><details><summary>v0.3.12 · Nested-Hub Parent Preservation</summary><p id="tl-v0312">外层 sequence 在 nested hub 上不再被 lost_parent 打断。CRM / Ops 是已分析用例。历史回归有确认缺陷丢失。数字来自已发布产物。</p></details></li>
         <li><details><summary>v0.3.13 · Suspended Parent Frames</summary><p id="tl-v0313">嵌套分支挂起外层帧并启动真实 child sequence。数字来自已发布产物。候选不晋升。</p></details></li>
         <li><details><summary>v0.3.14 · Horizon Handoff</summary><p id="tl-v0314">嵌套分支在 commitment 多于 1 时继续当前 sequence，只在最后一格交给子 sequence。数字来自已发布产物。候选不晋升。</p></details></li>
-        <li><details open><summary>v0.3.15 · Fresh Handoff Validation</summary><p id="tl-v0315">四个预注册新目标上的验证。数字来自已发布产物。产品默认未改。</p></details></li>
+        <li><details><summary>v0.3.15 · Fresh Handoff Validation</summary><p id="tl-v0315">Outcome C。forum 与 billing 完整 transfer，buggy-lab 丢失四个 guard 缺陷，目录对照触发 2 次 handoff。产品默认未改。</p></details></li>
+        <li><details open><summary>v0.3.16 · Early Parent Re-entry</summary><p id="tl-v0316">Outcome B。目录假 handoff 2 → 0。实验记录租约恢复 BUG-L8，仍丢失 BUG-L1、BUG-L9、BUG-L10。历史回归丢失为 0。产品默认未改。</p></details></li>
       </ol>
     </section>
 
@@ -485,6 +497,14 @@
     </header>
     <div class="ev-layout">
       <div class="ev-grid">
+        <article class="ev-card" data-testid="evidence-v0316">
+          <p class="ev-kicker">来源轮次 · v0.3.16</p>
+          <h2>Early Parent Re-entry</h2>
+          <p class="limit-note">已检查失败点的检修。不是 fresh 验证。候选未晋升。v0.3.15 Outcome C 仍保留。</p>
+          <ul class="status-rows" id="ev-v0316"></ul>
+          <pre class="cmd" id="ev-cmd-0316"></pre>
+          <button type="button" class="btn btn-ghost" data-copy="ev-cmd-0316">复制命令</button>
+        </article>
         <article class="ev-card" data-testid="evidence-v0315">
           <p class="ev-kicker">来源轮次 · v0.3.15</p>
           <h2>Fresh Handoff Validation</h2>

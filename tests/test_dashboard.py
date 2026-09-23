@@ -102,7 +102,8 @@ def test_showcase_missing_artifacts_do_not_crash():
     s = build_showcase(v039_root="/tmp/missing-v039", v038_root="/tmp/missing-v038",
                        v0310_root="/tmp/missing-v0310", v0311_root="/tmp/missing-v0311",
                        v0312_root="/tmp/missing-v0312", v0313_root="/tmp/missing-v0313",
-                       v0314_root="/tmp/missing-v0314", v0315_root="/tmp/missing-v0315")
+                       v0314_root="/tmp/missing-v0314", v0315_root="/tmp/missing-v0315",
+                       v0316_root="/tmp/missing-v0316")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -111,6 +112,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["nested_stack"]["available"] is False
     assert s["horizon_handoff"]["available"] is False
     assert s["fresh_handoff"]["available"] is False
+    assert s["reentry_frontier"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -136,7 +138,25 @@ def test_showcase_endpoint_function_returns_payload():
     ns = body.get("nested_stack") or {}
     hh = body.get("horizon_handoff") or {}
     fh = body.get("fresh_handoff") or {}
-    if fh.get("available"):
+    rf = body.get("reentry_frontier") or {}
+    if rf.get("available"):
+        assert body["latest"]["round"] == "v0.3.16"
+        assert body["project"]["latest_research"] == "v0.3.16"
+        assert rf["outcome"] == "B"
+        assert rf["directory_handoffs"] == 0
+        assert rf["directory_handoffs_before"] == 2
+        assert rf["lab_leases"] >= 1
+        assert "BUG-L8" not in (rf.get("lab_lost") or [])
+        assert rf["historical_regression_loss"] == 0
+        assert rf["product_default_changed"] is False
+        assert fh.get("outcome") == "C"
+        assert fh["evaluable_targets"] == 3
+        assert fh["transfer_targets"] == 2
+        assert fh["negative_control_handoffs"] == 2
+        assert hh.get("outcome") == "A"
+        assert ns.get("outcome") == "C"
+        assert mt.get("outcome") == "D"
+    elif fh.get("available"):
         assert body["latest"]["round"] == "v0.3.15"
         assert body["project"]["latest_research"] == "v0.3.15"
         assert fh["outcome"] == "C"
@@ -198,8 +218,12 @@ def test_showcase_reads_v0311_published_metrics():
     fh = s["fresh_handoff"]
     assert fh["available"] is True
     assert fh["outcome"] == "C"
-    assert s["latest"]["round"] == "v0.3.15"
-    assert s["project"]["latest_research"] == "v0.3.15"
+    rf = s["reentry_frontier"]
+    assert rf["available"] is True
+    assert rf["outcome"] == "B"
+    assert rf["product_default_changed"] is False
+    assert s["latest"]["round"] == "v0.3.16"
+    assert s["project"]["latest_research"] == "v0.3.16"
     assert hh["outcome"] == "A"
     assert hh["product_default_changed"] is False
     assert hh["generalization_claim"] is False

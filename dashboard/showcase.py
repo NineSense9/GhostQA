@@ -18,6 +18,7 @@ V0312 = os.path.join(PUBLISHED, "nested-hub-parent-v0.3.12")
 V0313 = os.path.join(PUBLISHED, "nested-stack-v0.3.13")
 V0314 = os.path.join(PUBLISHED, "horizon-handoff-v0.3.14")
 V0315 = os.path.join(PUBLISHED, "fresh-handoff-v0.3.15")
+V0316 = os.path.join(PUBLISHED, "reentry-frontier-v0.3.16")
 
 
 def _load(path, default=None):
@@ -612,10 +613,65 @@ def _v0315(root: str | None = None) -> dict:
     }
 
 
+def _v0316(root: str | None = None) -> dict:
+    base = root or V0316
+    mechanism = _load(os.path.join(base, "metrics", "mechanism.json"))
+    regression = _load(os.path.join(base, "metrics", "regression.json"))
+    repro = _load(os.path.join(base, "metrics", "reproduction.json"))
+    man = _load(os.path.join(base, "evidence-manifest.json"))
+    if not mechanism:
+        return {"available": False}
+    derived = mechanism.get("derived") or {}
+    fresh = mechanism.get("fresh") or {}
+    directory = (fresh.get("buggy-directory") or {})
+    lab = (fresh.get("buggy-lab") or {})
+    drow = directory.get("candidate") or {}
+    lrow = lab.get("candidate") or {}
+    regression_loss = 0
+    for block in ((regression or {}).get("historical") or {}).values():
+        regression_loss += len(block.get("lost_vs_guard") or [])
+    witness = 0
+    terminal = 0
+    for cell in (mechanism.get("cells") or {}).values():
+        witness += int(cell.get("witness_violations") or 0)
+        terminal += int(cell.get("terminal_accounting_violations") or 0)
+    return {
+        "available": True,
+        "round": "v0.3.16",
+        "title": "Early Parent Re-entry",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning"),
+        "directory_handoffs_before": 2,
+        "directory_handoffs": drow.get("horizon_handoff_started_events"),
+        "directory_reentry": drow.get("early_parent_reentry_events"),
+        "lab_lost_before": ["BUG-L1", "BUG-L10", "BUG-L8", "BUG-L9"],
+        "lab_lost": lab.get("lost_vs_guard") or [],
+        "lab_leases": lrow.get("local_frontier_lease_granted_events"),
+        "lab_lease_actions": lrow.get("local_frontier_lease_action_events"),
+        "historical_regression_loss": regression_loss,
+        "witness_violations": witness,
+        "terminal_accounting_violations": terminal,
+        "promotion_readiness": derived.get("promotion_readiness"),
+        "product_default_changed": bool(derived.get("product_default_changed")),
+        "generalization_claim": False,
+        "reproduction": {
+            "clean_clone_verified": bool((repro or {}).get("clean_clone_verified")),
+            "command": (repro or {}).get("command") or (
+                "python -m benchmark.reentry_frontier_reproduce "
+                "--root experiments/published/reentry-frontier-v0.3.16 --verify"),
+            "evidence_files": len((man or {}).get("files") or []),
+        },
+        "command": (
+            "python -m benchmark.reentry_frontier_reproduce "
+            "--root experiments/published/reentry-frontier-v0.3.16 --verify"),
+    }
+
+
 def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None,
                    v0310_root: str | None = None, v0311_root: str | None = None,
                    v0312_root: str | None = None, v0313_root: str | None = None,
-                   v0314_root: str | None = None, v0315_root: str | None = None) -> dict:
+                   v0314_root: str | None = None, v0315_root: str | None = None,
+                   v0316_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
@@ -624,7 +680,17 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
     v0313 = _v0313(v0313_root)
     v0314 = _v0314(v0314_root)
     v0315 = _v0315(v0315_root)
-    if v0315.get("available"):
+    v0316 = _v0316(v0316_root)
+    if v0316.get("available"):
+        latest = {
+            "round": "v0.3.16",
+            "title": "Early Parent Re-entry",
+            "available": True,
+            "outcome": v0316.get("outcome"),
+            "product_default_changed": v0316.get("product_default_changed"),
+        }
+        latest_research = "v0.3.16"
+    elif v0315.get("available"):
         latest = {
             "round": "v0.3.15",
             "title": "Fresh Handoff Validation",
@@ -695,6 +761,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "reentry_frontier": v0316,
         "fresh_handoff": v0315,
         "horizon_handoff": v0314,
         "nested_stack": v0313,
@@ -724,5 +791,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
              "kind": "mechanism development"},
             {"round": "v0.3.15", "title": "Fresh Handoff Validation",
              "kind": "fresh multi-target validation"},
+            {"round": "v0.3.16", "title": "Early Parent Re-entry",
+             "kind": "inspected failure repair"},
         ],
     }
