@@ -1,0 +1,726 @@
+{
+  "budget": 120,
+  "candidate_policy": "ghost-structural-horizon-handoff-guard",
+  "causality_limit": "BUG-L8 and BUG-L10 sit on the local run/result frontier skipped by the first divergence. BUG-L1 and BUG-L9 are downstream trajectory outcomes; the first divergence alone does not establish their cause.",
+  "confirmed_at_120": {
+    "buggy-billing": {
+      "guard": [
+        "BUG-B2",
+        "BUG-B9"
+      ],
+      "horizon": [
+        "BUG-B1",
+        "BUG-B2",
+        "BUG-B4",
+        "BUG-B9"
+      ],
+      "lost_vs_guard": []
+    },
+    "buggy-directory": {
+      "guard": [
+        "BUG-DIR1",
+        "BUG-DIR4",
+        "BUG-DIR5",
+        "BUG-DIR6",
+        "BUG-DIR7",
+        "BUG-DIR8"
+      ],
+      "horizon": [
+        "BUG-DIR1",
+        "BUG-DIR4",
+        "BUG-DIR5",
+        "BUG-DIR6",
+        "BUG-DIR7",
+        "BUG-DIR8"
+      ],
+      "lost_vs_guard": []
+    },
+    "buggy-forum": {
+      "guard": [
+        "BUG-F2"
+      ],
+      "horizon": [
+        "BUG-F1",
+        "BUG-F2",
+        "BUG-F4"
+      ],
+      "lost_vs_guard": []
+    },
+    "buggy-lab": {
+      "guard": [
+        "BUG-L1",
+        "BUG-L10",
+        "BUG-L2",
+        "BUG-L8",
+        "BUG-L9"
+      ],
+      "horizon": [
+        "BUG-L2",
+        "BUG-L4",
+        "BUG-L5",
+        "BUG-L6"
+      ],
+      "lost_vs_guard": [
+        "BUG-L1",
+        "BUG-L10",
+        "BUG-L8",
+        "BUG-L9"
+      ]
+    }
+  },
+  "derived_from_committed_evidence": true,
+  "directory": {
+    "events": [
+      {
+        "child_branch": "37b32dfc3ef858fa:click:nav_people",
+        "child_parent_cluster": "37b32dfc3ef858fa",
+        "child_parent_sig": "37b32dfc3ef858fa:none",
+        "child_sequence_instance_id": "seq-0005",
+        "current_cluster": "37b32dfc3ef858fa",
+        "current_exact_sig": "37b32dfc3ef858fa:none",
+        "handoff_action": {
+          "active_branch": "37b32dfc3ef858fa:click:nav_roles",
+          "commitment_left": 1,
+          "dst_cluster": "c260d5c61ae05cd8",
+          "dst_sig": "c260d5c61ae05cd8:none",
+          "dst_url": "/people.html",
+          "finding_assert_ids": [],
+          "index": 13,
+          "last_label": "sequence_followup",
+          "parent_hub_cluster": "37b32dfc3ef858fa",
+          "returning": false,
+          "src_cluster": "37b32dfc3ef858fa",
+          "src_sig": "37b32dfc3ef858fa:none",
+          "src_url": "/index.html",
+          "target_eid": "nav_people",
+          "type": "click"
+        },
+        "outer_commitment_before": 1,
+        "preceding_action": {
+          "active_branch": "37b32dfc3ef858fa:click:nav_roles",
+          "commitment_left": 2,
+          "dst_cluster": "37b32dfc3ef858fa",
+          "dst_sig": "37b32dfc3ef858fa:none",
+          "dst_url": "/index.html",
+          "finding_assert_ids": [],
+          "index": 12,
+          "last_label": "branch",
+          "parent_hub_cluster": "37b32dfc3ef858fa",
+          "returning": false,
+          "src_cluster": "07fd543080a890d1",
+          "src_sig": "07fd543080a890d1:none",
+          "src_url": "/roles.html",
+          "target_eid": "nav_up_home_roles",
+          "type": "click"
+        },
+        "preceding_lands_on_suspended_parent_cluster": true,
+        "preceding_lands_on_suspended_parent_exact": true,
+        "same_parent_cluster": true,
+        "same_parent_exact": true,
+        "step": 13,
+        "suspended_branch": "37b32dfc3ef858fa:click:nav_roles",
+        "suspended_parent_hub_cluster": "37b32dfc3ef858fa",
+        "suspended_parent_hub_sig": "37b32dfc3ef858fa:none",
+        "suspended_sequence_instance_id": "seq-0004"
+      },
+      {
+        "child_branch": "37b32dfc3ef858fa:click:nav_people",
+        "child_parent_cluster": "37b32dfc3ef858fa",
+        "child_parent_sig": "37b32dfc3ef858fa:f10c8767fe55",
+        "child_sequence_instance_id": "seq-0013",
+        "current_cluster": "37b32dfc3ef858fa",
+        "current_exact_sig": "37b32dfc3ef858fa:f10c8767fe55",
+        "handoff_action": {
+          "active_branch": "37b32dfc3ef858fa:click:nav_roles",
+          "commitment_left": 1,
+          "dst_cluster": "c260d5c61ae05cd8",
+          "dst_sig": "c260d5c61ae05cd8:none",
+          "dst_url": "/people.html",
+          "finding_assert_ids": [],
+          "index": 67,
+          "last_label": "sequence_followup",
+          "parent_hub_cluster": "37b32dfc3ef858fa",
+          "returning": false,
+          "src_cluster": "37b32dfc3ef858fa",
+          "src_sig": "37b32dfc3ef858fa:f10c8767fe55",
+          "src_url": "/index.html",
+          "target_eid": "nav_people",
+          "type": "click"
+        },
+        "outer_commitment_before": 1,
+        "preceding_action": {
+          "active_branch": "37b32dfc3ef858fa:click:nav_roles",
+          "commitment_left": 2,
+          "dst_cluster": "37b32dfc3ef858fa",
+          "dst_sig": "37b32dfc3ef858fa:f10c8767fe55",
+          "dst_url": "/index.html",
+          "finding_assert_ids": [],
+          "index": 66,
+          "last_label": "return_hub",
+          "parent_hub_cluster": "37b32dfc3ef858fa",
+          "returning": false,
+          "src_cluster": "07fd543080a890d1",
+          "src_sig": "07fd543080a890d1:none",
+          "src_url": "/roles.html",
+          "target_eid": "nav_up_home_roles",
+          "type": "click"
+        },
+        "preceding_lands_on_suspended_parent_cluster": true,
+        "preceding_lands_on_suspended_parent_exact": true,
+        "same_parent_cluster": true,
+        "same_parent_exact": true,
+        "step": 67,
+        "suspended_branch": "37b32dfc3ef858fa:click:nav_roles",
+        "suspended_parent_hub_cluster": "37b32dfc3ef858fa",
+        "suspended_parent_hub_sig": "37b32dfc3ef858fa:f10c8767fe55",
+        "suspended_sequence_instance_id": "seq-0012"
+      }
+    ],
+    "handoff_count": 2,
+    "interpretation": "Both handoffs fire while the current hub is the active outer sequence's own parent. The preceding action has already landed on that parent. The following branch is a sibling, not a nested child.",
+    "same_parent_cluster_handoff_count": 2,
+    "same_parent_exact_handoff_count": 2
+  },
+  "evidence_files": [
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-forum/ghost-structural-horizon-handoff-guard_b120_s1.events.jsonl",
+      "sha256": "6fea5fcac993a2dd13bb8107f8d15577aee34cad16ef9eea233a34bbd0598693"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-forum/ghost-structural-horizon-handoff-guard_b120_s1.sequence_events.json",
+      "sha256": "4190638ba96bd2877e76e283f97cb55c215741b3f36b8be9f51c0c84b70bd992"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-forum/metrics.json",
+      "sha256": "cdc369429c9addb57714a7d28a4d6b2ed8f3dd40be60d5096dece1b726d7d06b"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-billing/ghost-structural-horizon-handoff-guard_b120_s1.events.jsonl",
+      "sha256": "1dff39c68a7447921d8326ff08355011550aec1672e9ea2bb69b04375418ad46"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-billing/ghost-structural-horizon-handoff-guard_b120_s1.sequence_events.json",
+      "sha256": "6f0de5e64b6e4e8be287ef323f123c1e30a067599a01a887c35bb05d68e037c2"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-billing/metrics.json",
+      "sha256": "0b50ef3831303bcc934b5461a9a48ced08ef1d5dca40003231072c1ec5a96134"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-lab/ghost-structural-horizon-handoff-guard_b120_s1.events.jsonl",
+      "sha256": "c00a5104428110d19a95c62ddbedb2fa82ede885810fe8b40a3770a5903920e0"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-lab/ghost-structural-horizon-handoff-guard_b120_s1.sequence_events.json",
+      "sha256": "a82b50990f80633df0cfc336081431c52ae3307a2b81e42370386975d2b38ea2"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-lab/metrics.json",
+      "sha256": "371826583c249aa1e708595a4e6a505745459b2724049901a6bdc714a55280f2"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-directory/ghost-structural-horizon-handoff-guard_b120_s1.events.jsonl",
+      "sha256": "cf95cfbeb0220489192a833e6e10929d2272e010ebc5850f814ad590d0cb3701"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-directory/ghost-structural-horizon-handoff-guard_b120_s1.sequence_events.json",
+      "sha256": "f7512467769a1f51a9fcbe916408b5caf23c24158a8207e84af35ab050b9842c"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-directory/metrics.json",
+      "sha256": "7bcaaa40f743e0df0a837f5fb346c9b1f3632e711878416c91be8c643b1ba9b2"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-lab/ghost-structural-return-guard_b120_s1.events.jsonl",
+      "sha256": "ad17ba7b7d0c7479c0a5f3024a0f3a2e1d2bd7454a29990970d28de37b36dddf"
+    },
+    {
+      "path": "apps/buggy-lab/bugs.manifest.json",
+      "sha256": "53cb77d80cd959f83c404258e3728b0675136cc68ea51b643cff4358746851c1"
+    }
+  ],
+  "guard_policy": "ghost-structural-return-guard",
+  "hand_typed_counts": false,
+  "lab_first_divergence": {
+    "first_divergent_step": 13,
+    "guard": {
+      "active_branch": "",
+      "commitment_left": 0,
+      "dst_cluster": "9781919a1496fdff",
+      "dst_sig": "9781919a1496fdff:cf9cb275d12e",
+      "dst_url": "/result.html?id=q1",
+      "finding_assert_ids": [],
+      "index": 13,
+      "last_label": "branch",
+      "parent_hub_cluster": "44c1dc2dcd63b31f",
+      "returning": false,
+      "src_cluster": "44c1dc2dcd63b31f",
+      "src_sig": "44c1dc2dcd63b31f:1581239615ac",
+      "src_url": "/run.html?id=u1",
+      "target_eid": "open_result_from_run",
+      "type": "click"
+    },
+    "guard_path_around": [
+      {
+        "active_branch": "",
+        "commitment_left": 0,
+        "dst_cluster": "ba6586f459f92eb4",
+        "dst_sig": "ba6586f459f92eb4:none",
+        "dst_url": "/experiment.html?id=e1",
+        "finding_assert_ids": [],
+        "index": 8,
+        "last_label": "branch",
+        "parent_hub_cluster": "",
+        "returning": false,
+        "src_cluster": "ced77322b01c0206",
+        "src_sig": "ced77322b01c0206:none",
+        "src_url": "/project.html?id=p1",
+        "target_eid": "open_exp_e1",
+        "type": "click"
+      },
+      {
+        "active_branch": "ced77322b01c0206:click:open_exp_e1",
+        "commitment_left": 2,
+        "dst_cluster": "44c1dc2dcd63b31f",
+        "dst_sig": "44c1dc2dcd63b31f:a67130acc7f3",
+        "dst_url": "/run.html?id=u1",
+        "finding_assert_ids": [],
+        "index": 9,
+        "last_label": "sequence_followup",
+        "parent_hub_cluster": "ced77322b01c0206",
+        "returning": false,
+        "src_cluster": "ba6586f459f92eb4",
+        "src_sig": "ba6586f459f92eb4:none",
+        "src_url": "/experiment.html?id=e1",
+        "target_eid": "open_run_u1",
+        "type": "click"
+      },
+      {
+        "active_branch": "ba6586f459f92eb4:click:open_run_u1",
+        "commitment_left": 2,
+        "dst_cluster": "056f326b30900bde",
+        "dst_sig": "056f326b30900bde:none",
+        "dst_url": "/sample.html?id=s1",
+        "finding_assert_ids": [],
+        "index": 10,
+        "last_label": "sequence_followup",
+        "parent_hub_cluster": "ba6586f459f92eb4",
+        "returning": false,
+        "src_cluster": "44c1dc2dcd63b31f",
+        "src_sig": "44c1dc2dcd63b31f:a67130acc7f3",
+        "src_url": "/run.html?id=u1",
+        "target_eid": "open_sample_s1",
+        "type": "click"
+      },
+      {
+        "active_branch": "44c1dc2dcd63b31f:click:open_sample_s1",
+        "commitment_left": 2,
+        "dst_cluster": "056f326b30900bde",
+        "dst_sig": "056f326b30900bde:none",
+        "dst_url": "/sample.html?id=s1",
+        "finding_assert_ids": [],
+        "index": 11,
+        "last_label": "sequence_followup",
+        "parent_hub_cluster": "44c1dc2dcd63b31f",
+        "returning": false,
+        "src_cluster": "056f326b30900bde",
+        "src_sig": "056f326b30900bde:none",
+        "src_url": "/sample.html?id=s1",
+        "target_eid": "btn_obs",
+        "type": "click"
+      },
+      {
+        "active_branch": "44c1dc2dcd63b31f:click:open_sample_s1",
+        "commitment_left": 0,
+        "dst_cluster": "44c1dc2dcd63b31f",
+        "dst_sig": "44c1dc2dcd63b31f:1581239615ac",
+        "dst_url": "/run.html?id=u1",
+        "finding_assert_ids": [],
+        "index": 12,
+        "last_label": "return_hub",
+        "parent_hub_cluster": "44c1dc2dcd63b31f",
+        "returning": true,
+        "src_cluster": "056f326b30900bde",
+        "src_sig": "056f326b30900bde:none",
+        "src_url": "/sample.html?id=s1",
+        "target_eid": "nav_up_run",
+        "type": "click"
+      },
+      {
+        "active_branch": "",
+        "commitment_left": 0,
+        "dst_cluster": "9781919a1496fdff",
+        "dst_sig": "9781919a1496fdff:cf9cb275d12e",
+        "dst_url": "/result.html?id=q1",
+        "finding_assert_ids": [],
+        "index": 13,
+        "last_label": "branch",
+        "parent_hub_cluster": "44c1dc2dcd63b31f",
+        "returning": false,
+        "src_cluster": "44c1dc2dcd63b31f",
+        "src_sig": "44c1dc2dcd63b31f:1581239615ac",
+        "src_url": "/run.html?id=u1",
+        "target_eid": "open_result_from_run",
+        "type": "click"
+      },
+      {
+        "active_branch": "44c1dc2dcd63b31f:click:open_result_from_run",
+        "commitment_left": 2,
+        "dst_cluster": "8778db7cad5784fd",
+        "dst_sig": "8778db7cad5784fd:none",
+        "dst_url": "/compare.html?id=q1",
+        "finding_assert_ids": [],
+        "index": 14,
+        "last_label": "sequence_followup",
+        "parent_hub_cluster": "44c1dc2dcd63b31f",
+        "returning": false,
+        "src_cluster": "9781919a1496fdff",
+        "src_sig": "9781919a1496fdff:cf9cb275d12e",
+        "src_url": "/result.html?id=q1",
+        "target_eid": "open_compare",
+        "type": "click"
+      },
+      {
+        "active_branch": "9781919a1496fdff:click:open_compare",
+        "commitment_left": 2,
+        "dst_cluster": "8778db7cad5784fd",
+        "dst_sig": "8778db7cad5784fd:none",
+        "dst_url": "/compare.html?id=q1",
+        "finding_assert_ids": [],
+        "index": 15,
+        "last_label": "sequence_followup",
+        "parent_hub_cluster": "9781919a1496fdff",
+        "returning": false,
+        "src_cluster": "8778db7cad5784fd",
+        "src_sig": "8778db7cad5784fd:none",
+        "src_url": "/compare.html?id=q1",
+        "target_eid": "btn_pin_base",
+        "type": "click"
+      },
+      {
+        "active_branch": "9781919a1496fdff:click:open_compare",
+        "commitment_left": 0,
+        "dst_cluster": "9781919a1496fdff",
+        "dst_sig": "9781919a1496fdff:cf9cb275d12e",
+        "dst_url": "/result.html?id=q1",
+        "finding_assert_ids": [],
+        "index": 16,
+        "last_label": "return_hub",
+        "parent_hub_cluster": "9781919a1496fdff",
+        "returning": true,
+        "src_cluster": "8778db7cad5784fd",
+        "src_sig": "8778db7cad5784fd:none",
+        "src_url": "/compare.html?id=q1",
+        "target_eid": "nav_up_result",
+        "type": "click"
+      }
+    ],
+    "horizon": {
+      "active_branch": "ced77322b01c0206:click:open_exp_e1",
+      "commitment_left": 0,
+      "dst_cluster": "ba6586f459f92eb4",
+      "dst_sig": "ba6586f459f92eb4:none",
+      "dst_url": "/experiment.html?id=e1",
+      "finding_assert_ids": [],
+      "index": 13,
+      "last_label": "return_hub",
+      "parent_hub_cluster": "ced77322b01c0206",
+      "returning": true,
+      "src_cluster": "44c1dc2dcd63b31f",
+      "src_sig": "44c1dc2dcd63b31f:1581239615ac",
+      "src_url": "/run.html?id=u1",
+      "target_eid": "nav_up_exp",
+      "type": "click"
+    },
+    "horizon_path_around": [
+      {
+        "active_branch": "",
+        "commitment_left": 0,
+        "dst_cluster": "ba6586f459f92eb4",
+        "dst_sig": "ba6586f459f92eb4:none",
+        "dst_url": "/experiment.html?id=e1",
+        "finding_assert_ids": [],
+        "index": 8,
+        "last_label": "branch",
+        "parent_hub_cluster": "",
+        "returning": false,
+        "src_cluster": "ced77322b01c0206",
+        "src_sig": "ced77322b01c0206:none",
+        "src_url": "/project.html?id=p1",
+        "target_eid": "open_exp_e1",
+        "type": "click"
+      },
+      {
+        "active_branch": "ced77322b01c0206:click:open_exp_e1",
+        "commitment_left": 2,
+        "dst_cluster": "44c1dc2dcd63b31f",
+        "dst_sig": "44c1dc2dcd63b31f:a67130acc7f3",
+        "dst_url": "/run.html?id=u1",
+        "finding_assert_ids": [],
+        "index": 9,
+        "last_label": "sequence_followup",
+        "parent_hub_cluster": "ced77322b01c0206",
+        "returning": false,
+        "src_cluster": "ba6586f459f92eb4",
+        "src_sig": "ba6586f459f92eb4:none",
+        "src_url": "/experiment.html?id=e1",
+        "target_eid": "open_run_u1",
+        "type": "click"
+      },
+      {
+        "active_branch": "ced77322b01c0206:click:open_exp_e1",
+        "commitment_left": 1,
+        "dst_cluster": "056f326b30900bde",
+        "dst_sig": "056f326b30900bde:none",
+        "dst_url": "/sample.html?id=s1",
+        "finding_assert_ids": [],
+        "index": 10,
+        "last_label": "sequence_followup",
+        "parent_hub_cluster": "ced77322b01c0206",
+        "returning": false,
+        "src_cluster": "44c1dc2dcd63b31f",
+        "src_sig": "44c1dc2dcd63b31f:a67130acc7f3",
+        "src_url": "/run.html?id=u1",
+        "target_eid": "open_sample_s1",
+        "type": "click"
+      },
+      {
+        "active_branch": "44c1dc2dcd63b31f:click:open_sample_s1",
+        "commitment_left": 2,
+        "dst_cluster": "056f326b30900bde",
+        "dst_sig": "056f326b30900bde:none",
+        "dst_url": "/sample.html?id=s1",
+        "finding_assert_ids": [],
+        "index": 11,
+        "last_label": "sequence_followup",
+        "parent_hub_cluster": "44c1dc2dcd63b31f",
+        "returning": false,
+        "src_cluster": "056f326b30900bde",
+        "src_sig": "056f326b30900bde:none",
+        "src_url": "/sample.html?id=s1",
+        "target_eid": "btn_obs",
+        "type": "click"
+      },
+      {
+        "active_branch": "44c1dc2dcd63b31f:click:open_sample_s1",
+        "commitment_left": 0,
+        "dst_cluster": "44c1dc2dcd63b31f",
+        "dst_sig": "44c1dc2dcd63b31f:1581239615ac",
+        "dst_url": "/run.html?id=u1",
+        "finding_assert_ids": [],
+        "index": 12,
+        "last_label": "return_hub",
+        "parent_hub_cluster": "44c1dc2dcd63b31f",
+        "returning": true,
+        "src_cluster": "056f326b30900bde",
+        "src_sig": "056f326b30900bde:none",
+        "src_url": "/sample.html?id=s1",
+        "target_eid": "nav_up_run",
+        "type": "click"
+      },
+      {
+        "active_branch": "ced77322b01c0206:click:open_exp_e1",
+        "commitment_left": 0,
+        "dst_cluster": "ba6586f459f92eb4",
+        "dst_sig": "ba6586f459f92eb4:none",
+        "dst_url": "/experiment.html?id=e1",
+        "finding_assert_ids": [],
+        "index": 13,
+        "last_label": "return_hub",
+        "parent_hub_cluster": "ced77322b01c0206",
+        "returning": true,
+        "src_cluster": "44c1dc2dcd63b31f",
+        "src_sig": "44c1dc2dcd63b31f:1581239615ac",
+        "src_url": "/run.html?id=u1",
+        "target_eid": "nav_up_exp",
+        "type": "click"
+      },
+      {
+        "active_branch": "ced77322b01c0206:click:open_exp_e1",
+        "commitment_left": 0,
+        "dst_cluster": "ced77322b01c0206",
+        "dst_sig": "ced77322b01c0206:none",
+        "dst_url": "/project.html?id=p1",
+        "finding_assert_ids": [],
+        "index": 14,
+        "last_label": "return_hub",
+        "parent_hub_cluster": "ced77322b01c0206",
+        "returning": true,
+        "src_cluster": "ba6586f459f92eb4",
+        "src_sig": "ba6586f459f92eb4:none",
+        "src_url": "/experiment.html?id=e1",
+        "target_eid": "nav_up_project",
+        "type": "click"
+      },
+      {
+        "active_branch": "",
+        "commitment_left": 0,
+        "dst_cluster": "d36f5b58050d35fa",
+        "dst_sig": "d36f5b58050d35fa:none",
+        "dst_url": "/experiment.html?id=e3",
+        "finding_assert_ids": [],
+        "index": 15,
+        "last_label": "branch",
+        "parent_hub_cluster": "ced77322b01c0206",
+        "returning": false,
+        "src_cluster": "ced77322b01c0206",
+        "src_sig": "ced77322b01c0206:none",
+        "src_url": "/project.html?id=p1",
+        "target_eid": "open_exp_e3",
+        "type": "click"
+      },
+      {
+        "active_branch": "ced77322b01c0206:click:open_exp_e3",
+        "commitment_left": 2,
+        "dst_cluster": "ced77322b01c0206",
+        "dst_sig": "ced77322b01c0206:none",
+        "dst_url": "/project.html?id=p1",
+        "finding_assert_ids": [],
+        "index": 16,
+        "last_label": "branch",
+        "parent_hub_cluster": "ced77322b01c0206",
+        "returning": false,
+        "src_cluster": "d36f5b58050d35fa",
+        "src_sig": "d36f5b58050d35fa:none",
+        "src_url": "/experiment.html?id=e3",
+        "target_eid": null,
+        "type": "back"
+      }
+    ]
+  },
+  "lab_lost_bugs": {
+    "BUG-L1": {
+      "assert_or_match": {
+        "url_contains": "/samples.html"
+      },
+      "causality": "consistent with the broader downstream trajectory shift; direct causal attribution is not established by the first divergence alone",
+      "guard_first_hit": {
+        "active_branch": "",
+        "commitment_left": 0,
+        "dst_cluster": "6ea4cb6d82cb6e61",
+        "dst_sig": "6ea4cb6d82cb6e61:none",
+        "dst_url": "/samples.html",
+        "finding_assert_ids": [],
+        "index": 99,
+        "last_label": "branch",
+        "parent_hub_cluster": "",
+        "returning": false,
+        "src_cluster": "06a49c2e2cc17de5",
+        "src_sig": "06a49c2e2cc17de5:none",
+        "src_url": "/experiments.html",
+        "target_eid": "nav_samples",
+        "type": "click"
+      },
+      "horizon_first_hit": null,
+      "horizon_never_hits": true
+    },
+    "BUG-L10": {
+      "assert_or_match": {
+        "assert_id": "lab_note_visibility"
+      },
+      "causality": "strong mechanism evidence: the first action divergence leaves the local run/result frontier that later contains this bug",
+      "guard_first_hit": {
+        "active_branch": "",
+        "commitment_left": 0,
+        "dst_cluster": "9781919a1496fdff",
+        "dst_sig": "9781919a1496fdff:b0ee22b5fd2f",
+        "dst_url": "/result.html?id=q1",
+        "finding_assert_ids": [
+          "lab_note_visibility"
+        ],
+        "index": 30,
+        "last_label": "branch",
+        "parent_hub_cluster": "44c1dc2dcd63b31f",
+        "returning": false,
+        "src_cluster": "44c1dc2dcd63b31f",
+        "src_sig": "44c1dc2dcd63b31f:e21086a62c5c",
+        "src_url": "/run.html?id=u1",
+        "target_eid": "open_result_from_run",
+        "type": "click"
+      },
+      "horizon_first_hit": null,
+      "horizon_never_hits": true
+    },
+    "BUG-L8": {
+      "assert_or_match": {
+        "assert_id": "lab_heat_matches"
+      },
+      "causality": "strong mechanism evidence: the first action divergence leaves the local run/result frontier that later contains this bug",
+      "guard_first_hit": {
+        "active_branch": "",
+        "commitment_left": 0,
+        "dst_cluster": "44c1dc2dcd63b31f",
+        "dst_sig": "44c1dc2dcd63b31f:e21086a62c5c",
+        "dst_url": "/run.html?id=u1",
+        "finding_assert_ids": [
+          "lab_heat_matches"
+        ],
+        "index": 29,
+        "last_label": "branch",
+        "parent_hub_cluster": "44c1dc2dcd63b31f",
+        "returning": false,
+        "src_cluster": "44c1dc2dcd63b31f",
+        "src_sig": "44c1dc2dcd63b31f:1581239615ac",
+        "src_url": "/run.html?id=u1",
+        "target_eid": "btn_cool",
+        "type": "click"
+      },
+      "horizon_first_hit": null,
+      "horizon_never_hits": true
+    },
+    "BUG-L9": {
+      "assert_or_match": {
+        "assert_id": "lab_reopen_clears"
+      },
+      "causality": "consistent with the broader downstream trajectory shift; direct causal attribution is not established by the first divergence alone",
+      "guard_first_hit": {
+        "active_branch": "",
+        "commitment_left": 0,
+        "dst_cluster": "9781919a1496fdff",
+        "dst_sig": "9781919a1496fdff:6671b0db648b",
+        "dst_url": "/result.html?id=q1",
+        "finding_assert_ids": [
+          "lab_note_visibility",
+          "lab_reopen_clears"
+        ],
+        "index": 74,
+        "last_label": "branch",
+        "parent_hub_cluster": "9781919a1496fdff",
+        "returning": false,
+        "src_cluster": "9781919a1496fdff",
+        "src_sig": "9781919a1496fdff:f890aae87a5a",
+        "src_url": "/result.html?id=q1",
+        "target_eid": "btn_reopen",
+        "type": "click"
+      },
+      "horizon_first_hit": null,
+      "horizon_never_hits": true
+    }
+  },
+  "round": "v0.3.16",
+  "same_parent_census": {
+    "buggy-billing": {
+      "same_parent_cluster": 1,
+      "same_parent_exact": 1,
+      "total_handoffs": 6
+    },
+    "buggy-directory": {
+      "same_parent_cluster": 2,
+      "same_parent_exact": 2,
+      "total_handoffs": 2
+    },
+    "buggy-forum": {
+      "same_parent_cluster": 1,
+      "same_parent_exact": 1,
+      "total_handoffs": 11
+    },
+    "buggy-lab": {
+      "same_parent_cluster": 3,
+      "same_parent_exact": 3,
+      "total_handoffs": 11
+    }
+  },
+  "seed": 1,
+  "source_publication": "experiments/published/fresh-handoff-v0.3.15",
+  "source_round": "v0.3.15"
+}

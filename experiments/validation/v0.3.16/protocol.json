@@ -1,0 +1,184 @@
+{
+  "name": "v0.3.16 early parent re-entry and local frontier lease",
+  "version": "v0.3.16",
+  "date": "2026-09-23",
+  "starting_head": "9a185d4dde4d01658dd99af9b1356e0cc12f8886",
+  "executed": false,
+  "one_shot": true,
+  "one_shot_semantics": "After this protocol commit and the later candidate-freeze commit, run the 12 preregistered new candidate cells once. Rerun only an exact cell that fails for infrastructure reasons. Do not change early re-entry, cluster matching, frontier definition, lease slot count, ordering, budgets, or gates after the first target result.",
+  "question_kind": "inspected-failure-repair",
+  "research_question": "Can two parameter-free lifecycle invariants repair the v0.3.15 same-parent false handoff and the buggy-lab local-frontier starvation without an app-specific rule and without a new horizon threshold?",
+  "not": [
+    "fresh validation",
+    "generalization",
+    "permission to rewrite v0.3.14 or v0.3.15 evidence",
+    "permission to edit historical controllers",
+    "permission to change the product default",
+    "permission to retune after the first target result",
+    "promotion"
+  ],
+  "historical_outcomes_preserved": {
+    "v0.3.14": "A",
+    "v0.3.15": "C"
+  },
+  "v0_3_15_result_unchanged": {
+    "outcome": "C",
+    "product_default_changed": false,
+    "full_transfer": ["buggy-forum", "buggy-billing"],
+    "full_transfer_false": ["buggy-lab"],
+    "lab_lost_vs_guard": ["BUG-L1", "BUG-L10", "BUG-L8", "BUG-L9"],
+    "directory_horizon_handoff_started_events": 2,
+    "witness_violations": 0,
+    "terminal_accounting_violations": 0,
+    "promotion_readiness": "not_ready"
+  },
+  "failure_analysis": {
+    "path": "experiments/validation/v0.3.16/v0315-failure-analysis.json",
+    "sha256": "53b017f1db89e7306350388a7e80072e9000830bcf62e2f3d249d5a2ab197ddd",
+    "derived_from_committed_v0_3_15_evidence": true,
+    "directory_handoffs": 2,
+    "directory_same_parent_exact": 2,
+    "directory_same_parent_cluster": 2,
+    "census": {
+      "buggy-forum": {"total": 11, "same_parent_cluster": 1},
+      "buggy-billing": {"total": 6, "same_parent_cluster": 1},
+      "buggy-lab": {"total": 11, "same_parent_cluster": 3},
+      "buggy-directory": {"total": 2, "same_parent_cluster": 2}
+    },
+    "lab_first_divergence_step": 13,
+    "lab_guard_action": "open_result_from_run",
+    "lab_horizon_action": "nav_up_exp",
+    "l1_l9_causality": "downstream trajectory only; first divergence does not establish direct cause"
+  },
+  "frozen_v0_3_14": {
+    "identity": "ghost-structural-horizon-handoff-guard",
+    "source": "ghostqa/exploration/horizon_handoff_guard.py",
+    "source_sha256": "827b8e64f953012ceec06fe3e0302c343a016463b5b1f88191e7a0a486c2467e",
+    "freeze": "experiments/frozen/ghost-horizon-handoff-v0.3.14/freeze.json",
+    "immutable": true
+  },
+  "frozen_v0_3_15_suite": {
+    "freeze": "experiments/frozen/v0.3.15-fresh-handoff-suite/freeze.json",
+    "immutable": true,
+    "do_not_rerun_H_cells": true,
+    "H_evidence": "experiments/published/fresh-handoff-v0.3.15"
+  },
+  "historical_sources_immutable": [
+    "ghostqa/exploration/sequence.py",
+    "ghostqa/exploration/return_cycle_guard.py",
+    "ghostqa/exploration/nested_hub_guard.py",
+    "ghostqa/exploration/nested_stack_guard.py",
+    "ghostqa/exploration/horizon_handoff_guard.py",
+    "ghostqa/exploration/policy.py",
+    "ghostqa/exploration/sequence_memory.py",
+    "ghostqa/exploration/interaction.py",
+    "ghostqa/exploration/payload.py"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-reentry-frontier-guard",
+    "module": "ghostqa/exploration/reentry_frontier_guard.py",
+    "controller": "ReentryFrontierSequenceController",
+    "policy": "ReentryFrontierGuardGhostPolicy",
+    "research_only": true,
+    "product_default": false,
+    "replaces_historical_identities": false,
+    "subclass_or_isolated_copy_of": "HorizonHandoffSequenceController",
+    "no_monkeypatch": true,
+    "no_new_horizon_N": true,
+    "lease_slots": 1,
+    "parameter_free": true,
+    "no_app_specific_rule": true
+  },
+  "invariant_a_early_parent_reentry": {
+    "rule": "After an action on an active non-returning sequence, a destination that matches the recorded parent exact signature or parent cluster completes that sequence once, even if commitment_left has not reached zero.",
+    "event": "early_parent_reentry",
+    "strength": ["exact", "cluster"],
+    "terminal_outcome": "returned",
+    "return_success_increment": 1,
+    "branch_completion": 1,
+    "no_sequence_horizon_reached_for_that_completion": true,
+    "already_returning": "historical return path only; no early event",
+    "finding_or_crash_same_step": "Inspected historical behavior already emits the finding or crash terminal and, when the destination matches the parent, completes the physical lifecycle without a second returned terminal. The candidate keeps that behavior and does not emit early_parent_reentry for a sequence historical logic already completed.",
+    "child_reentry_resolves_witness": true
+  },
+  "source_parent_fallback": {
+    "event": "source_parent_reentry_repair",
+    "when": "Before nested continuation or handoff classification, an active non-returning sequence whose current source already matches its recorded parent exact signature or cluster is closed once. The current action is then processed as a fresh branch through normal history.",
+    "expected_on_correct_primary_logic": 0,
+    "distinct_from_early_parent_reentry": true
+  },
+  "invariant_b_local_frontier_lease": {
+    "definition": "For the child-parent hub cluster, branch keys that are discovered and not started and not completed and have no structural attempt. Cluster-aware union across recorded hub variants. The just-resolved child branch is excluded. Return actions are not branch keys.",
+    "observation": "Visible branch clicks on a hub state GhostQA has already reached are recorded into the existing BranchLedger discovered set. No manifest read, no hidden-topology scan, no URL or bug id.",
+    "empty_frontier": "Behave exactly like v0.3.14: restore outer, commitment 0, returning true, emit deferred sequence_horizon_reached, return toward the outer parent.",
+    "nonempty_frontier": "Restore the same outer identity and original parent, grant exactly one structural slot (commitment_left 1, returning false), emit local_frontier_lease_granted, and do not emit deferred sequence_horizon_reached yet.",
+    "selection_event": "local_frontier_lease_action",
+    "selection_label": "local_frontier_lease",
+    "selection_order": "existing action order",
+    "lease_branch_uses_final_slot_handoff": true,
+    "renew_while_distinct_untried_keys_remain": true,
+    "no_repeated_key": true,
+    "no_arbitrary_max_count": true,
+    "browser_budget_is_the_bound": true,
+    "monotonicity": "A successful lease start strictly decreases the remaining known frontier unless a newly observed state variant reveals a new branch key, recorded as frontier_new_keys_from_variant.",
+    "location_lost_event": "local_frontier_lease_location_lost",
+    "hidden_event": "local_frontier_lease_exhausted_or_hidden",
+    "exhausted_event": "local_frontier_lease_exhausted",
+    "not_broadened_to_generic_actions": true
+  },
+  "deferred_horizon": {
+    "suppress_while_lease_active": true,
+    "emit_once_on_return": "deferred_horizon_resolved_by_return",
+    "suppress_if_early_reentry_completes_outer": "deferred_horizon_resolved_by_reentry"
+  },
+  "child_escape_unchanged": true,
+  "recursive_lifo": true,
+  "budget_end_no_fake_lease_terminal": true,
+  "reset_clears_candidate_state": true,
+  "safety_before_target_evaluation": {
+    "R": "R1-R12",
+    "F": "F1-F20",
+    "model_alphabet": ["P", "V", "H", "W", "L", "A", "X", "N"],
+    "model_raw_traces": 37448,
+    "model_lengths": "1..5",
+    "historical": ["S1-S7", "5800 return traces", "N1-N12", "P1-P15", "H1-H20", "19607 handoff model traces"]
+  },
+  "matrix": {
+    "seed": 1,
+    "policies_evaluated_new": ["R"],
+    "H_source": "committed v0.3.15 evidence for fresh targets; committed v0.3.14 evidence for historical targets",
+    "do_not_add_cells_after_results": true,
+    "cells_total": 12,
+    "cells": [
+      {"app": "buggy-directory", "budget": 120, "role": "primary"},
+      {"app": "buggy-lab", "budget": 40, "role": "primary"},
+      {"app": "buggy-lab", "budget": 80, "role": "primary"},
+      {"app": "buggy-lab", "budget": 120, "role": "primary"},
+      {"app": "buggy-forum", "budget": 120, "role": "transfer-preservation"},
+      {"app": "buggy-billing", "budget": 120, "role": "transfer-preservation"},
+      {"app": "buggy-crm", "budget": 120, "role": "historical-mechanism"},
+      {"app": "buggy-ops", "budget": 120, "role": "historical-mechanism"},
+      {"app": "buggy-desk", "budget": 120, "role": "historical-regression"},
+      {"app": "buggy-flow", "budget": 120, "role": "historical-regression"},
+      {"app": "buggy-wiki", "budget": 120, "role": "historical-regression"},
+      {"app": "buggy-shop", "budget": 120, "role": "historical-regression"}
+    ]
+  },
+  "historical_guard_confirmed": {
+    "source": "benchmark/horizon_handoff_analysis.py GUARD_CONFIRMED",
+    "buggy-desk": ["BUG-K1", "BUG-K2", "BUG-K3", "BUG-K5", "BUG-K6", "BUG-K9", "BUG-K10"],
+    "deepbench": ["BUG-D6", "BUG-D7", "BUG-D11", "BUG-D12", "BUG-D13", "BUG-D14"],
+    "wiki": ["BUG-W2"],
+    "buggy-shop": ["BUG-W5", "BUG-W6", "BUG-W9", "BUG-W10"]
+  },
+  "lab_guard_confirmed_for_outcome_a": ["BUG-L1", "BUG-L10", "BUG-L2", "BUG-L8", "BUG-L9"],
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "unsafe, harmful, invalid, new guard-bug loss versus cases v0.3.14 H already kept, historical regression loss, or product default change",
+    "D": "safety and protocol pass, but directory still has a same-parent false handoff with no early-reentry repair and lab shows no frontier lease",
+    "B": "safety and protocol pass and at least one repair mechanism improves, but Outcome A is incomplete",
+    "A": "directory repair, lab starvation repair, zero lab Guard loss, forum and billing full-transfer preservation, CRM and Ops mechanism preservation, and zero historical regression loss"
+  },
+  "product_default_unchanged": true,
+  "no_same_round_retuning": true
+}
