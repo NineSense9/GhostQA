@@ -202,6 +202,17 @@
       <p class="footnote" id="ft-scope">一次目标应用上的 transfer，不是 universal generalization。</p>
     </section>
 
+    <section class="rc-section" data-testid="fresh-handoff" aria-labelledby="h-fh">
+      <p class="eyebrow">v0.3.15 · 已发布证据</p>
+      <h2 id="h-fh">四个新目标上的 Horizon Handoff 验证没有通过</h2>
+      <p class="rc-lead" id="fh-lead">forum 和 billing 出现了结构 transfer。buggy-lab 丢失了 guard 已确认缺陷。浅层目录对照触发了 handoff。</p>
+      <p class="limit-note">静态合格、实际可评估、完整 transfer 是三件不同的事。产品默认仍是 NoFrontier / sequence_mode=off。本轮不晋升。v0.3.14 仍是 Outcome A，v0.3.11 仍是 Outcome D，v0.3.12 与 v0.3.13 仍是 Outcome C。</p>
+      <p class="delta" id="fh-delta"></p>
+      <p class="pill-row"><span class="pill" id="fh-outcome">Outcome</span>
+        <span class="muted" id="fh-outcome-mean"></span></p>
+      <p class="footnote" id="fh-scope">这是 fresh 验证失败，不是任意网站上的泛化证明。</p>
+    </section>
+
     <section class="rc-section" data-testid="horizon-handoff" aria-labelledby="h-hh">
       <p class="eyebrow">v0.3.14 · 已发布证据</p>
       <h2 id="h-hh">最后一格 commitment 才把嵌套分支交给子 sequence</h2>
@@ -278,7 +289,8 @@
         <li><details><summary>v0.3.11 · Preregistered Multi-Target Replication</summary><p id="tl-v0311">Outcome D — inconclusive suite。只有 Wiki 进入 return phase。CRM / Ops 没有。产品默认未改。</p></details></li>
         <li><details><summary>v0.3.12 · Nested-Hub Parent Preservation</summary><p id="tl-v0312">外层 sequence 在 nested hub 上不再被 lost_parent 打断。CRM / Ops 是已分析用例。历史回归有确认缺陷丢失。数字来自已发布产物。</p></details></li>
         <li><details><summary>v0.3.13 · Suspended Parent Frames</summary><p id="tl-v0313">嵌套分支挂起外层帧并启动真实 child sequence。数字来自已发布产物。候选不晋升。</p></details></li>
-        <li><details open><summary>v0.3.14 · Horizon Handoff</summary><p id="tl-v0314">嵌套分支在 commitment 多于 1 时继续当前 sequence，只在最后一格交给子 sequence。数字来自已发布产物。候选不晋升。</p></details></li>
+        <li><details><summary>v0.3.14 · Horizon Handoff</summary><p id="tl-v0314">嵌套分支在 commitment 多于 1 时继续当前 sequence，只在最后一格交给子 sequence。数字来自已发布产物。候选不晋升。</p></details></li>
+        <li><details open><summary>v0.3.15 · Fresh Handoff Validation</summary><p id="tl-v0315">四个预注册新目标上的验证。数字来自已发布产物。产品默认未改。</p></details></li>
       </ol>
     </section>
 
@@ -473,6 +485,14 @@
     </header>
     <div class="ev-layout">
       <div class="ev-grid">
+        <article class="ev-card" data-testid="evidence-v0315">
+          <p class="ev-kicker">来源轮次 · v0.3.15</p>
+          <h2>Fresh Handoff Validation</h2>
+          <p class="limit-note">新目标验证。负结果原样保留。候选未晋升。</p>
+          <ul class="status-rows" id="ev-v0315"></ul>
+          <pre class="cmd" id="ev-cmd-0315"></pre>
+          <button type="button" class="btn btn-ghost" data-copy="ev-cmd-0315">复制命令</button>
+        </article>
         <article class="ev-card" data-testid="evidence-v0314">
           <p class="ev-kicker">来源轮次 · v0.3.14</p>
           <h2>Horizon Handoff</h2>

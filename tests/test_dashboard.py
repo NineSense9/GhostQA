@@ -102,7 +102,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     s = build_showcase(v039_root="/tmp/missing-v039", v038_root="/tmp/missing-v038",
                        v0310_root="/tmp/missing-v0310", v0311_root="/tmp/missing-v0311",
                        v0312_root="/tmp/missing-v0312", v0313_root="/tmp/missing-v0313",
-                       v0314_root="/tmp/missing-v0314")
+                       v0314_root="/tmp/missing-v0314", v0315_root="/tmp/missing-v0315")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -110,6 +110,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["nested_hub"]["available"] is False
     assert s["nested_stack"]["available"] is False
     assert s["horizon_handoff"]["available"] is False
+    assert s["fresh_handoff"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -134,7 +135,21 @@ def test_showcase_endpoint_function_returns_payload():
     nh = body.get("nested_hub") or {}
     ns = body.get("nested_stack") or {}
     hh = body.get("horizon_handoff") or {}
-    if hh.get("available"):
+    fh = body.get("fresh_handoff") or {}
+    if fh.get("available"):
+        assert body["latest"]["round"] == "v0.3.15"
+        assert body["project"]["latest_research"] == "v0.3.15"
+        assert fh["outcome"] == "C"
+        assert fh["evaluable_targets"] == 3
+        assert fh["transfer_targets"] == 2
+        assert fh["negative_control_handoffs"] == 2
+        assert fh["bug_loss_count"] == 1
+        assert fh["product_default_changed"] is False
+        assert fh["promotion_readiness"] == "not_ready"
+        assert hh.get("outcome") == "A"
+        assert ns.get("outcome") == "C"
+        assert mt.get("outcome") == "D"
+    elif hh.get("available"):
         assert body["latest"]["round"] == "v0.3.14"
         assert body["project"]["latest_research"] == "v0.3.14"
         assert hh["product_default_changed"] is False
@@ -180,8 +195,11 @@ def test_showcase_reads_v0311_published_metrics():
     assert ns["available"] is True
     hh = s["horizon_handoff"]
     assert hh["available"] is True
-    assert s["latest"]["round"] == "v0.3.14"
-    assert s["project"]["latest_research"] == "v0.3.14"
+    fh = s["fresh_handoff"]
+    assert fh["available"] is True
+    assert fh["outcome"] == "C"
+    assert s["latest"]["round"] == "v0.3.15"
+    assert s["project"]["latest_research"] == "v0.3.15"
     assert hh["outcome"] == "A"
     assert hh["product_default_changed"] is False
     assert hh["generalization_claim"] is False

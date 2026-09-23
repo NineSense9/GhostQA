@@ -17,6 +17,7 @@ V0311 = os.path.join(PUBLISHED, "multi-target-replication-v0.3.11")
 V0312 = os.path.join(PUBLISHED, "nested-hub-parent-v0.3.12")
 V0313 = os.path.join(PUBLISHED, "nested-stack-v0.3.13")
 V0314 = os.path.join(PUBLISHED, "horizon-handoff-v0.3.14")
+V0315 = os.path.join(PUBLISHED, "fresh-handoff-v0.3.15")
 
 
 def _load(path, default=None):
@@ -568,10 +569,53 @@ def _v0314(root: str | None = None) -> dict:
     }
 
 
+def _v0315(root: str | None = None) -> dict:
+    base = root or V0315
+    aggregate = _load(os.path.join(base, "metrics", "aggregate.json"))
+    control = _load(os.path.join(base, "metrics", "negative-control.json"))
+    repro = _load(os.path.join(base, "metrics", "reproduction.json"))
+    config = _load(os.path.join(base, "config.json"))
+    man = _load(os.path.join(base, "evidence-manifest.json"))
+    if not aggregate:
+        return {"available": False}
+    derived = aggregate.get("derived") or {}
+    return {
+        "available": True,
+        "round": "v0.3.15",
+        "title": "Fresh Handoff Validation",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning"),
+        "evaluable_targets": aggregate.get("actual_evaluable_positive_targets"),
+        "transfer_targets": aggregate.get("full_transfer_targets"),
+        "static_positive_targets": aggregate.get("static_positive_targets"),
+        "bug_loss_apps": aggregate.get("bug_loss_apps") or [],
+        "bug_loss_count": len(aggregate.get("bug_loss_apps") or []),
+        "negative_control_handoffs": aggregate.get("negative_control_handoffs"),
+        "witness_violations": aggregate.get("witness_violations"),
+        "terminal_accounting_violations": aggregate.get("terminal_accounting_violations"),
+        "promotion_readiness": derived.get("promotion_readiness"),
+        "product_default_changed": bool(derived.get("product_default_changed")),
+        "generalization_claim": bool(derived.get("generalization_claim")),
+        "lifecycle_equivalence": (control or {}).get("lifecycle_equivalence"),
+        "reproduction": {
+            "clean_clone_verified": bool((repro or {}).get("clean_clone_verified")),
+            "command": (repro or {}).get("command") or (
+                "python -m benchmark.fresh_handoff_reproduce "
+                "--root experiments/published/fresh-handoff-v0.3.15 --verify"),
+            "evidence_files": len((man or {}).get("files") or []),
+            "verified_head": (repro or {}).get("verified_head"),
+        },
+        "product_default": (config or {}).get("product_default_changed"),
+        "command": (
+            "python -m benchmark.fresh_handoff_reproduce "
+            "--root experiments/published/fresh-handoff-v0.3.15 --verify"),
+    }
+
+
 def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None,
                    v0310_root: str | None = None, v0311_root: str | None = None,
                    v0312_root: str | None = None, v0313_root: str | None = None,
-                   v0314_root: str | None = None) -> dict:
+                   v0314_root: str | None = None, v0315_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
@@ -579,7 +623,17 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
     v0312 = _v0312(v0312_root)
     v0313 = _v0313(v0313_root)
     v0314 = _v0314(v0314_root)
-    if v0314.get("available"):
+    v0315 = _v0315(v0315_root)
+    if v0315.get("available"):
+        latest = {
+            "round": "v0.3.15",
+            "title": "Fresh Handoff Validation",
+            "available": True,
+            "outcome": v0315.get("outcome"),
+            "product_default_changed": v0315.get("product_default_changed"),
+        }
+        latest_research = "v0.3.15"
+    elif v0314.get("available"):
         latest = {
             "round": "v0.3.14",
             "title": "Horizon Handoff",
@@ -641,6 +695,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "fresh_handoff": v0315,
         "horizon_handoff": v0314,
         "nested_stack": v0313,
         "nested_hub": v0312,
@@ -667,5 +722,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
              "kind": "mechanism development"},
             {"round": "v0.3.14", "title": "Horizon Handoff",
              "kind": "mechanism development"},
+            {"round": "v0.3.15", "title": "Fresh Handoff Validation",
+             "kind": "fresh multi-target validation"},
         ],
     }

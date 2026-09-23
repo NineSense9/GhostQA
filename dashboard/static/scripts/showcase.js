@@ -500,6 +500,47 @@ function renderFreshTransfer(ft) {
   setText('proof-outcome', ft.outcome || '—');
 }
 
+function renderFreshHandoff(fh) {
+  fh = fh || {};
+  const oc = gid('fh-outcome');
+  if (oc) {
+    oc.textContent = fh.outcome ? ('Outcome ' + fh.outcome) : 'Outcome';
+    oc.className = fh.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('fh-outcome-mean');
+  if (om) {
+    om.textContent = (fh.outcome_meaning || '') +
+      '。可评估 ' + (fh.evaluable_targets == null ? '—' : fh.evaluable_targets) +
+      '，完整 transfer ' + (fh.transfer_targets == null ? '—' : fh.transfer_targets) +
+      '，负对照 handoff ' + (fh.negative_control_handoffs == null ? '—' : fh.negative_control_handoffs) +
+      '。';
+  }
+  const delta = gid('fh-delta');
+  if (delta) {
+    const lost = (fh.bug_loss_apps || []).join(', ') || '无';
+    delta.textContent = 'bug loss: ' + lost +
+      ' · promotion ' + (fh.promotion_readiness || '—');
+  }
+  if (!fh.available) return;
+  setText('proof-round', fh.round || 'v0.3.15');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = '可评估目标';
+  if (m2) m2.textContent = '完整 transfer';
+  if (m3) m3.textContent = '负对照 handoff';
+  setText('proof-b-states', fh.evaluable_targets);
+  setText('proof-g-states', fh.transfer_targets);
+  setText('proof-b-ret', fh.static_positive_targets);
+  setText('proof-g-ret', fh.bug_loss_count);
+  setText('proof-esc', fh.negative_control_handoffs);
+  setText('proof-outcome', fh.outcome || '—');
+  const note = gid('proof-note');
+  if (note) {
+    note.textContent = '验证未通过。浅层对照触发了 handoff，并且有 guard 已确认缺陷丢失。产品默认未改。';
+  }
+}
+
 function renderEvidence(data) {
   const rc = (data && data.return_cycle) || {};
   const app = (data && data.application_shape) || {};
@@ -508,6 +549,8 @@ function renderEvidence(data) {
   const nh = (data && data.nested_hub) || {};
   const ns = (data && data.nested_stack) || {};
   const hh = (data && data.horizon_handoff) || {};
+  const fh = (data && data.fresh_handoff) || {};
+  const ev0315 = gid('ev-v0315');
   const ev0314 = gid('ev-v0314');
   const ev0313 = gid('ev-v0313');
   const ev0312 = gid('ev-v0312');
@@ -517,6 +560,29 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0315) {
+    if (!fh.available) {
+      ev0315.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = fh.reproduction || {};
+      ev0315.innerHTML = [
+        statusRow('轮次结果', fh.outcome ? ('Outcome ' + fh.outcome) : '—', fh.outcome === 'A'),
+        statusRow('可评估目标', String(fh.evaluable_targets), true),
+        statusRow('完整 transfer', String(fh.transfer_targets), true),
+        statusRow('负对照 handoff', String(fh.negative_control_handoffs),
+          fh.negative_control_handoffs === 0),
+        statusRow('证据清单', fileLabel(r.evidence_files, true), true),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', fh.product_default_changed ? '已改' : '未改',
+          fh.product_default_changed === false),
+        statusRow('promotion', fh.promotion_readiness || '—',
+          fh.promotion_readiness === 'not_ready' || fh.promotion_readiness === 'evidence_supports_productization_study'),
+      ].join('');
+    }
+  }
+  const cmd0315 = fh.command || '';
+  const cmdEl15 = gid('ev-cmd-0315');
+  if (cmdEl15) cmdEl15.textContent = cmd0315;
   if (ev0314) {
     if (!hh.available) {
       ev0314.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -745,6 +811,7 @@ async function loadShowcase() {
     renderNestedHub(data.nested_hub);
     renderNestedStack(data.nested_stack);
     renderHorizon(data.horizon_handoff);
+    renderFreshHandoff(data.fresh_handoff);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {
