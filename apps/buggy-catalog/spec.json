@@ -1,0 +1,52 @@
+{
+  "app": "buggy-catalog",
+  "note": "Specification-driven semantic oracle. Uses ONLY page-presented values.",
+  "assertions": [
+    {
+      "id": "catalog_title_required",
+      "severity": "high",
+      "desc": "标题为空时不应提示已创建",
+      "when": {
+        "url_contains": "/settings.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "input_topic_title"
+          },
+          "right": {
+            "const": ""
+          }
+        },
+        "then": {
+          "op": "not_contains",
+          "left": {
+            "obs": "form_msg"
+          },
+          "right": {
+            "const": "已创建"
+          }
+        }
+      }
+    },
+    {
+      "id": "catalog_qty_matches",
+      "severity": "medium",
+      "desc": "展示数量应与剩余数量一致",
+      "when": {
+        "url_contains": "/product.html"
+      },
+      "assert": {
+        "op": "eq",
+        "left": {
+          "obs": "shown_qty"
+        },
+        "right": {
+          "obs": "live_qty"
+        }
+      }
+    }
+  ]
+}

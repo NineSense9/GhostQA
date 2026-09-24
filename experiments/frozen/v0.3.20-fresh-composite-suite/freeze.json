@@ -1,0 +1,566 @@
+{
+  "round": "v0.3.20",
+  "purpose": "v0.3.20 fresh composite suite freeze before policy evaluation",
+  "protocol_commit": "c278b8274d92c509ea4d29de286150e51c4918ea",
+  "freeze_commit": "pending",
+  "candidate_identity": "ghost-structural-finding-return-entry-drain-guard",
+  "candidate_source_sha256": "0bfec3c7bd2811f154daa83bc81fde632976b8ab6e1da9ee6a208cf81c4bb42c",
+  "candidate_freeze": "experiments/frozen/ghost-finding-return-entry-v0.3.19/freeze.json",
+  "no_target_policy_evaluation_before_freeze": true,
+  "manifest_is_judge_only": true,
+  "mechanism_opportunities_are_judge_only": true,
+  "post_evaluation_changes_invalidate_protocol_identity": true,
+  "hash_normalization": "LF newlines",
+  "target": "v0.3.20-fresh-composite-suite",
+  "qualification": "experiments/validation/v0.3.20/static-qualification.json",
+  "files": {
+    "benchmark/fresh_composite_generator.py": {
+      "sha256": "f05bada3c9df92d7c9f305466be23f3b9dc20f7c69586f94fdcccd5a6d960b1f",
+      "bytes": 56946
+    },
+    "benchmark/fresh_composite_vocab.py": {
+      "sha256": "feb66dac989bc7543377fc458a33999ebbf3f56892404a3469188e7db65a844e",
+      "bytes": 5495
+    },
+    "benchmark/fresh_composite_js.py": {
+      "sha256": "12641cb6f9bb4418ca9ff0001ee7c95dfeb6a74b1e77c78bbc6541c2f6cf0447",
+      "bytes": 5852
+    },
+    "benchmark/fresh_composite_qualify.py": {
+      "sha256": "e88d36ceaa560aa371420060036db37461490a144b8f330900491a38fe107d2d",
+      "bytes": 18375
+    },
+    "apps/generate_v0320_targets.py": {
+      "sha256": "79212e8bb56a0719dc10a742c342cc98c2f391fb5688d793c488dddd36b833d0",
+      "bytes": 212
+    },
+    "experiments/validation/v0.3.20/protocol.json": {
+      "sha256": "b3009e8006639cfce02735fd9e25191c18831dd4c51015549d9bf6cd3868e507",
+      "bytes": 30311
+    },
+    "experiments/validation/v0.3.20/README.md": {
+      "sha256": "01558f54f5dd579d4d66972797297782c52f343a1bf70d71111c917ade9c9a77",
+      "bytes": 4552
+    },
+    "experiments/validation/v0.3.20/static-qualification.json": {
+      "sha256": "230751de09ec982d8c223fb8a255d6adee817fd370a4f67b825476bc0b40913a",
+      "bytes": 80507
+    },
+    "apps/buggy-campus/server.py": {
+      "sha256": "4f43f26e0c5dd4a04bf2584e44d62417f3f5641f1d1288d97da92b84bde33670",
+      "bytes": 1270
+    },
+    "apps/buggy-campus/README.md": {
+      "sha256": "a9c1ae42db723530d5d29f59a00dcdb554c279b6e440c6c3137fed86dd91f9b4",
+      "bytes": 317
+    },
+    "apps/buggy-campus/spec.json": {
+      "sha256": "bf6f5f2d35508836a3b9ab9fd6dded5edde8be18da10ff0c328cc853b8f7f14b",
+      "bytes": 3270
+    },
+    "apps/buggy-campus/topology.json": {
+      "sha256": "26a7090ff23643d1a86ee2fcadf8d24f9c860a430ab40580b330916d21fa635b",
+      "bytes": 44486
+    },
+    "apps/buggy-campus/mechanism-opportunities.json": {
+      "sha256": "656a391c2427c3bbd8b3bff65cd54d6bbf8326b6aa799f9735c2758680a459f6",
+      "bytes": 2371
+    },
+    "apps/buggy-campus/bugs.manifest.json": {
+      "sha256": "38aa2b2e57600dedf3318f4b05868bf969735a1cdca05723940f90d295b96ba6",
+      "bytes": 5772
+    },
+    "apps/buggy-campus/generation.json": {
+      "sha256": "dc8305fb1fd344f8af77cc1152e7bf7c687bb71e00cb83181d156a7ef11790fa",
+      "bytes": 371
+    },
+    "apps/buggy-campus/static/app.js": {
+      "sha256": "41cf5e8c23af45ca3557fdea89afda7c00b06aa9e580f2873bb010db7686764d",
+      "bytes": 19395
+    },
+    "apps/buggy-campus/static/index.html": {
+      "sha256": "5f2fcfcb663c1fea6226215ba3547fe06a15e7229b3caf048a377289a1e4dd45",
+      "bytes": 524
+    },
+    "apps/buggy-campus/static/modules.html": {
+      "sha256": "9af39c0fcb6bbee66166d77295b6706579eb12fa1ca4c310369226cde300a411",
+      "bytes": 529
+    },
+    "apps/buggy-campus/static/courses.html": {
+      "sha256": "32bc3489d675a4aef27f9e3a4af2a79b014b4da47099542b43bef80d20bd5a77",
+      "bytes": 529
+    },
+    "apps/buggy-campus/static/course.html": {
+      "sha256": "123b9d9750cd1ba7f458e6b6485f508343301261088a9f734171bc980f44160a",
+      "bytes": 527
+    },
+    "apps/buggy-campus/static/module.html": {
+      "sha256": "7de564f95ecd75379f98c7380f91e192eee9357be98a4ec04e293b3aab599134",
+      "bytes": 527
+    },
+    "apps/buggy-campus/static/quiz.html": {
+      "sha256": "f258ac9b0e5d6f94e1d98031a888853c6167fa85811059c0087f7d3c96bd7edc",
+      "bytes": 523
+    },
+    "apps/buggy-campus/static/lessons.html": {
+      "sha256": "3d3ac8d26674eb21012073d2e95d363fa2491ba1f2081ef6b12fb6f0afed0570",
+      "bytes": 529
+    },
+    "apps/buggy-campus/static/lesson.html": {
+      "sha256": "399bc028045e3cc071df4132465d3dddae41c46ceca5e29a80351a223c2b00df",
+      "bytes": 527
+    },
+    "apps/buggy-campus/static/review.html": {
+      "sha256": "91219b5c29f7ba0ad6ed9829a13aab0126b4e5b4fd81331c17109d6045bc90b7",
+      "bytes": 527
+    },
+    "apps/buggy-campus/static/feedback.html": {
+      "sha256": "8996a5b85d53c11135f6d97c43a8b456c0a3896ac50028355cd3dfad849b76d2",
+      "bytes": 531
+    },
+    "apps/buggy-campus/static/gradebook.html": {
+      "sha256": "365844d5614cc3dff7dc310151e2adddbca100abad99de0c55e5efc2c0940d1c",
+      "bytes": 533
+    },
+    "apps/buggy-campus/static/student.html": {
+      "sha256": "590fe394399357ec46ac3c0688b892f6d9725264fa401f310963574c2c994913",
+      "bytes": 529
+    },
+    "apps/buggy-campus/static/submission.html": {
+      "sha256": "92335f3f14672c1a9f5a569c175ec998897298579b79581856daafccfd3fb076",
+      "bytes": 535
+    },
+    "apps/buggy-campus/static/handbook.html": {
+      "sha256": "6594491f41eda791967219aaf172c14977237b4f0307c4cac1e0021cbb2eb426",
+      "bytes": 531
+    },
+    "apps/buggy-campus/static/help.html": {
+      "sha256": "f3fabbb635e8b0661b1b9c76eaeaeb3b79bf93232e91fdf22a683ebe4c14f0d5",
+      "bytes": 523
+    },
+    "apps/buggy-campus/static/settings.html": {
+      "sha256": "919c01411d4fb16116dd3c3b6ba6c87cb27daae39096fc495eb8e7192ba671b6",
+      "bytes": 531
+    },
+    "apps/buggy-warehouse/server.py": {
+      "sha256": "544a690fb73bff60849eaed7e9008d2488b9c63d10fd887bcd323827a49c8629",
+      "bytes": 1273
+    },
+    "apps/buggy-warehouse/README.md": {
+      "sha256": "7c3f8c9c39a66be90e081342fe351cbb099d21028ce785c517e192580576e8c8",
+      "bytes": 311
+    },
+    "apps/buggy-warehouse/spec.json": {
+      "sha256": "63acaf3739f814b01bff3dfc2d43c2df47cb7d4b802c06a6df720b6bbd69541c",
+      "bytes": 3302
+    },
+    "apps/buggy-warehouse/topology.json": {
+      "sha256": "849a344bfaad6af3d041ef31cd4831f35ac85ed02c5a5d49a3d31786b8b1bd25",
+      "bytes": 46627
+    },
+    "apps/buggy-warehouse/mechanism-opportunities.json": {
+      "sha256": "0c23f350efa0edf6baea9a265c194b1fe3b2a9f2a6b201546aff4727ed4ab629",
+      "bytes": 2373
+    },
+    "apps/buggy-warehouse/bugs.manifest.json": {
+      "sha256": "3e568403a2c81369504f23135481f30a8a6c3df2936dfcf8978e299735972b2c",
+      "bytes": 5864
+    },
+    "apps/buggy-warehouse/generation.json": {
+      "sha256": "10c72dd372865c3c9a98d0048daeb853d4ed0dc4247c7e9ef1447168061a12ca",
+      "bytes": 365
+    },
+    "apps/buggy-warehouse/static/app.js": {
+      "sha256": "0575f6ad9cb2ee8f21a7ab9a6875c659964a3f9c626c74bd5c5a0ec920c6df5c",
+      "bytes": 19910
+    },
+    "apps/buggy-warehouse/static/index.html": {
+      "sha256": "3cefd3b9992dcb7146d474f7942a7c8746e84fd38eff17a8c7d140443803cc7d",
+      "bytes": 524
+    },
+    "apps/buggy-warehouse/static/reports.html": {
+      "sha256": "82781d13f0b614ec0d02b8e99a43a7186b24749cd2f8fa0f8af6d6ca3a83b293",
+      "bytes": 529
+    },
+    "apps/buggy-warehouse/static/warehouses.html": {
+      "sha256": "c0529e82cb7e0f2fb509c295dffd5f1cf4a3c9e0889e4decbd2311bdfa4db945",
+      "bytes": 535
+    },
+    "apps/buggy-warehouse/static/warehouse.html": {
+      "sha256": "89a41311f8780f4239d4bcc866d192ab412a0edb56d7b2b4d16f11b5dda66e4b",
+      "bytes": 533
+    },
+    "apps/buggy-warehouse/static/zone.html": {
+      "sha256": "8930bec08217b2f25fe51bdad53d75c527ab3e6ba627b9ebb22b4c21671f8de2",
+      "bytes": 523
+    },
+    "apps/buggy-warehouse/static/transfer.html": {
+      "sha256": "7a3a48c379cf9bfc6c2e4230e976a7f694a4b2f6a6e4c5338a16d8a378576537",
+      "bytes": 531
+    },
+    "apps/buggy-warehouse/static/items.html": {
+      "sha256": "3e06f8361f3030314510b1ddba2632232a824dd89ab72d9e6308e6d8a86caeb1",
+      "bytes": 525
+    },
+    "apps/buggy-warehouse/static/item.html": {
+      "sha256": "07b2b98c70b55f3c43e1ce6bd3ecceac65a7a9fd65bb6cd6c5aad92997ad5cba",
+      "bytes": 523
+    },
+    "apps/buggy-warehouse/static/batch.html": {
+      "sha256": "8586879739cc8bf3c4e0a97983093ecb68da0b7fc5a07c8ba3c653cb37b2a33f",
+      "bytes": 525
+    },
+    "apps/buggy-warehouse/static/audit.html": {
+      "sha256": "06fdf28fd346bfc66dc7b8a4d26f621ea9e735fdd071d0a1acb597c260e93be6",
+      "bytes": 525
+    },
+    "apps/buggy-warehouse/static/inspection.html": {
+      "sha256": "a2dee5ee6191eec9b02fdb9d805d48b874462fcdb8770acdd720edd15bf01999",
+      "bytes": 535
+    },
+    "apps/buggy-warehouse/static/supplier.html": {
+      "sha256": "330bdb9214114bbabbb425262cee76ed4a8181421d9ed35ea97b1f9397dc7278",
+      "bytes": 531
+    },
+    "apps/buggy-warehouse/static/adjustment.html": {
+      "sha256": "26478491a534c6912e997075380311db5b97bc9dc67ee7a20b55171135a10450",
+      "bytes": 535
+    },
+    "apps/buggy-warehouse/static/help.html": {
+      "sha256": "84a04bb54e46c3541bf905c85e20121b33a4d5dd9117b226b778b104c0f2c206",
+      "bytes": 523
+    },
+    "apps/buggy-warehouse/static/zones.html": {
+      "sha256": "82fa4b001bd7d40e7debb69ef795fe82aa6e77545d6d6931673f14fb6c414178",
+      "bytes": 525
+    },
+    "apps/buggy-warehouse/static/batches.html": {
+      "sha256": "1fdacdb116273be060855285127fb67f794928dc7b250f5129a01a9e551fab00",
+      "bytes": 529
+    },
+    "apps/buggy-warehouse/static/settings.html": {
+      "sha256": "00fe610e9884b18745cb3c224937027e697d9d532c27d5cc2e59648d98862393",
+      "bytes": 531
+    },
+    "apps/buggy-studio/server.py": {
+      "sha256": "696359c47c906287ba200c3e91c1d572a60ec577d2d9fc928c89dc1f0d6bcf94",
+      "bytes": 1270
+    },
+    "apps/buggy-studio/README.md": {
+      "sha256": "d066755f1b37f1a323b916a6f2227915ab7f3a9dace11d8417fc84e229b86bc5",
+      "bytes": 311
+    },
+    "apps/buggy-studio/spec.json": {
+      "sha256": "7354faa95a74a2b169c6622097f2174c885f4571cbf32104c8cd757e0638b95d",
+      "bytes": 3276
+    },
+    "apps/buggy-studio/topology.json": {
+      "sha256": "12a28e1946fee862f9606f4007550b3cb3ab25a9d5351ec1a04d9d4e305d3c8d",
+      "bytes": 45547
+    },
+    "apps/buggy-studio/mechanism-opportunities.json": {
+      "sha256": "87a5b12bea85d8b3298e0c41043aeee2396f6e17a7397058d98f1f46b8d50c38",
+      "bytes": 2355
+    },
+    "apps/buggy-studio/bugs.manifest.json": {
+      "sha256": "dd1150396848e7908f759d05fcfadb9c0bd254b157560b90a940ae54c000de63",
+      "bytes": 5801
+    },
+    "apps/buggy-studio/generation.json": {
+      "sha256": "b5c4f513f90643b6a2c364be57ebf1f3774b5c8a5c5c0d32f985decd4511492a",
+      "bytes": 365
+    },
+    "apps/buggy-studio/static/app.js": {
+      "sha256": "4bc30394239675818206e507b03d1480d147741ff5c3e1313b6d31bcc20bb1a2",
+      "bytes": 19739
+    },
+    "apps/buggy-studio/static/index.html": {
+      "sha256": "a9049bc2228960d14c8e0b461f39c193b998180c6372bf691b82affb21375e15",
+      "bytes": 524
+    },
+    "apps/buggy-studio/static/compare.html": {
+      "sha256": "6c20e941a19f38357eeeb668f6259d12d47b4895697f5a5e560473c98f9e749e",
+      "bytes": 529
+    },
+    "apps/buggy-studio/static/projects.html": {
+      "sha256": "6c571cc46c21056804813c39cb64a974444ef460767e471fa84f0772293812c3",
+      "bytes": 531
+    },
+    "apps/buggy-studio/static/project.html": {
+      "sha256": "aa8f4fd4e33d7d113a0746e87185e97fcdd9115f9587e94e43edff229922ad03",
+      "bytes": 529
+    },
+    "apps/buggy-studio/static/scene.html": {
+      "sha256": "c4cc9b96610e468c5e8fe3b1849f33bb1d124186c338e3354e292fe8b91a9434",
+      "bytes": 525
+    },
+    "apps/buggy-studio/static/render.html": {
+      "sha256": "45e0ea5c0d8a7038489c5b1023c554128ad119c142f31f95ea27efe26cee9324",
+      "bytes": 527
+    },
+    "apps/buggy-studio/static/assets.html": {
+      "sha256": "525784863af62ae57e7b7bfc81031c334fc31143ccc422143366dd879677d734",
+      "bytes": 527
+    },
+    "apps/buggy-studio/static/asset.html": {
+      "sha256": "175de5d002786c39080208dd8e53a1771d8855974804be70fa72428948da2d67",
+      "bytes": 525
+    },
+    "apps/buggy-studio/static/versions.html": {
+      "sha256": "35ce08ab899f2e05e06e8f99385e179766196d65b94de3af5324c07533e7d31f",
+      "bytes": 531
+    },
+    "apps/buggy-studio/static/publish.html": {
+      "sha256": "804763f2d6051148d458307f7a19fc6d1a634adc67d1869fe73fdbae53151467",
+      "bytes": 529
+    },
+    "apps/buggy-studio/static/comments.html": {
+      "sha256": "d985d85291809bbabf6dccf86f769297fc40584eb44ea4c7a5fc349bf02ccbdc",
+      "bytes": 531
+    },
+    "apps/buggy-studio/static/review.html": {
+      "sha256": "4d0cb17cc98d9861a203e407cdac484c8c92642321219dbc4533c413ff13fb5d",
+      "bytes": 527
+    },
+    "apps/buggy-studio/static/renders.html": {
+      "sha256": "f47b3b1704f7ec69b1c92915b5ea39f6164475f93f79ca54db0f40781a666a81",
+      "bytes": 529
+    },
+    "apps/buggy-studio/static/handbook.html": {
+      "sha256": "8d540e06c3291755fd21fc085a3b953f4a4e13d37e57b26e9a49f44e479cf214",
+      "bytes": 531
+    },
+    "apps/buggy-studio/static/help.html": {
+      "sha256": "c8910023130946e3bf8312b9d4257257e99f6779677564bc4f7633dce229e12f",
+      "bytes": 523
+    },
+    "apps/buggy-studio/static/scenes.html": {
+      "sha256": "b77a3822f4a1a836f50f25dd90f63951468416898da6d25af088b55d35bca796",
+      "bytes": 527
+    },
+    "apps/buggy-studio/static/settings.html": {
+      "sha256": "0706ac801df15ae1084389749b568912b04be4bfcd63b2bd34f7e1e29c23dd2b",
+      "bytes": 531
+    },
+    "apps/buggy-booking/server.py": {
+      "sha256": "fb32bbf13a10619f2b93e6804491546aa5f77aa9f7e867ccfc75c204439dcc81",
+      "bytes": 1271
+    },
+    "apps/buggy-booking/README.md": {
+      "sha256": "559e48d7fe4bec8e5e9bfe620bc9daf11c3663247e8995677a998f98f69598d3",
+      "bytes": 319
+    },
+    "apps/buggy-booking/spec.json": {
+      "sha256": "7b9226ea7dd88421098b2095b483fdc15003d8eef6517f3c724c66714aad2db0",
+      "bytes": 3274
+    },
+    "apps/buggy-booking/topology.json": {
+      "sha256": "b83d25da5c159de5680203f40f5fd2cd7d9d461ea84f3d305744151a48942994",
+      "bytes": 46680
+    },
+    "apps/buggy-booking/mechanism-opportunities.json": {
+      "sha256": "e895fc48afd38999ab8c07951ce78f7f1dcb867baf135c462683eb28ad71ce99",
+      "bytes": 2371
+    },
+    "apps/buggy-booking/bugs.manifest.json": {
+      "sha256": "93f40a573bcc42d946981ac30d5390c8cc3609d0a112907b2018b44a898e93e1",
+      "bytes": 5756
+    },
+    "apps/buggy-booking/generation.json": {
+      "sha256": "0fad475667c92767c379842d2a9fa0ed9fc2acab5ee38f8cf199af5a22e9f4e0",
+      "bytes": 373
+    },
+    "apps/buggy-booking/static/app.js": {
+      "sha256": "6b7d69e5d4009e460c19c7e02caf2fb9578073116b4e0f76ca0d72814fb49663",
+      "bytes": 19962
+    },
+    "apps/buggy-booking/static/index.html": {
+      "sha256": "065942e5a7434d7669dad306f09126423f060f4ea344d52107a89743fd9692b2",
+      "bytes": 524
+    },
+    "apps/buggy-booking/static/reports.html": {
+      "sha256": "1085a405a516e4b773e0b17f31916225af62bad81177fb6da6d0ded277d72f27",
+      "bytes": 529
+    },
+    "apps/buggy-booking/static/venues.html": {
+      "sha256": "a1eaaf8e585c555afcce37468b6274fad862de464fb7aa74b8d8bd49dae2d218",
+      "bytes": 527
+    },
+    "apps/buggy-booking/static/venue.html": {
+      "sha256": "eb49c30549b043d6f3371340c85eb4a4632ab382912b2993b3ee95ed7387117a",
+      "bytes": 525
+    },
+    "apps/buggy-booking/static/room.html": {
+      "sha256": "f4b71f9f3457dd8d43ffc73471a97fec107ffb6a3c87cf7506894f1e7bffa9ae",
+      "bytes": 523
+    },
+    "apps/buggy-booking/static/guest.html": {
+      "sha256": "f77cdd49ecd288d36b6dfb62253645686053dc229c8f6b4cabe04c28bf7df6a9",
+      "bytes": 525
+    },
+    "apps/buggy-booking/static/calendar.html": {
+      "sha256": "2f0d15a0ce2050b1d52402072c42ce8557a7f04e813b882469867dd28da1b96b",
+      "bytes": 531
+    },
+    "apps/buggy-booking/static/reservation.html": {
+      "sha256": "50e2ea0a5878b131f5466f57872f64fe58f1f5f429d21d38bcb3bd4520dcb449",
+      "bytes": 537
+    },
+    "apps/buggy-booking/static/modify.html": {
+      "sha256": "7c9f0bb4b817c240cbdb4a775407cf046cbaabf3d2fd10573bfbfd3d089164f5",
+      "bytes": 527
+    },
+    "apps/buggy-booking/static/confirmation.html": {
+      "sha256": "4bd027c9960a1eef7f85ff63f94b7991cc3425f8ba0a21b22c5bdb5c24712519",
+      "bytes": 539
+    },
+    "apps/buggy-booking/static/notes.html": {
+      "sha256": "5ebd0dd7da96e46541ec6cf69a6fb3f4f222f9c90e44624dd2a5dc8b5a20f5c3",
+      "bytes": 525
+    },
+    "apps/buggy-booking/static/guests.html": {
+      "sha256": "680acddc5e3aa09c3300746b69f456399a3dd6a819265932c6958a4d14d75779",
+      "bytes": 527
+    },
+    "apps/buggy-booking/static/cancellation.html": {
+      "sha256": "ba13137d7e5727b7344f13ee3a14676e290ac1b77fd26c68f335b25320b7afa5",
+      "bytes": 539
+    },
+    "apps/buggy-booking/static/help.html": {
+      "sha256": "0f769c7a17938ced8d86f2240c0d0371baaefbbae52bea52675517ccd03272dc",
+      "bytes": 523
+    },
+    "apps/buggy-booking/static/rooms.html": {
+      "sha256": "7e317568d29383c690242a7f22ad6ed0eaeb2882476c05324807976e156b716b",
+      "bytes": 525
+    },
+    "apps/buggy-booking/static/reservations.html": {
+      "sha256": "d6dce27e993a3487ff80c175bdf0584d11e71513b1a55db50297fc4a3ef40a18",
+      "bytes": 539
+    },
+    "apps/buggy-booking/static/settings.html": {
+      "sha256": "ba7ae4ef137ad031c996fbf09b46bfce25ff547d424863093b15a2f250655b3f",
+      "bytes": 531
+    },
+    "apps/buggy-catalog/server.py": {
+      "sha256": "947c155fbde1e15b711ec3476b2467b5e19edcdb18c62bf30ac7be13f5aea142",
+      "bytes": 1271
+    },
+    "apps/buggy-catalog/README.md": {
+      "sha256": "4ae49d10cccb19512ce01c4e021956a108ea2fc0f44cce5b2bec6ed9686d7242",
+      "bytes": 308
+    },
+    "apps/buggy-catalog/spec.json": {
+      "sha256": "3fbe1c7daca56c145ed601b3c70a7f31841e3991bf18c7f17904a7ff0c6cf873",
+      "bytes": 1108
+    },
+    "apps/buggy-catalog/topology.json": {
+      "sha256": "194caec811286a7fd176fe7bd82d99296db31fdbf077c0d961e787bd46d992a3",
+      "bytes": 10736
+    },
+    "apps/buggy-catalog/mechanism-opportunities.json": {
+      "sha256": "63ef3184a4db40f9bea8522275cc31d34ec602e412208e52d276947fcd798c53",
+      "bytes": 361
+    },
+    "apps/buggy-catalog/bugs.manifest.json": {
+      "sha256": "5d93ef21a1ca6c80abce70111ae1aec973f66e7c4dcf1eb1c6ba3990c69756eb",
+      "bytes": 3599
+    },
+    "apps/buggy-catalog/generation.json": {
+      "sha256": "af999930d0e0569d7b438464cae3296c349ed90ef4631d2f94f8bc3d54315d63",
+      "bytes": 361
+    },
+    "apps/buggy-catalog/static/app.js": {
+      "sha256": "ce17077954b7c075c53966c9f93826b2fcd4079530d6f937c21003c232df7b9a",
+      "bytes": 7555
+    },
+    "apps/buggy-catalog/static/index.html": {
+      "sha256": "8f502fd51d09744f02c3f228baec973c07cac22c91c8a404659d173e4b6c569a",
+      "bytes": 524
+    },
+    "apps/buggy-catalog/static/categories.html": {
+      "sha256": "60b7b83d5e87f20374c1aaeb4dbe89c70462e9b28c373649e03d37176949f886",
+      "bytes": 535
+    },
+    "apps/buggy-catalog/static/products.html": {
+      "sha256": "da8889d1c15f2dcf3cd74a537e49360b8404b5e25783725105b5f43da5d50542",
+      "bytes": 531
+    },
+    "apps/buggy-catalog/static/product.html": {
+      "sha256": "a8b21e78d85945590ad0f49f01eeba4ce85966aecd9b5da30514a70c2e620700",
+      "bytes": 529
+    },
+    "apps/buggy-catalog/static/compare.html": {
+      "sha256": "6bbcee132cb58f186fa645e218eeaae2132c03bd055cc8eaa13fd018059457fa",
+      "bytes": 529
+    },
+    "apps/buggy-catalog/static/search.html": {
+      "sha256": "1548db2925a9aed29dbbda6da3a8342d3d34b64315aeb9f4ed5f57f753ece064",
+      "bytes": 527
+    },
+    "apps/buggy-catalog/static/help.html": {
+      "sha256": "974f7f23bd6faf1d2adc4445db491668591f2a59d04377166425d77cd0313eab",
+      "bytes": 523
+    },
+    "apps/buggy-catalog/static/settings.html": {
+      "sha256": "5ec94a1c34bbbf9fa87beca58386f49488e68d7c79a7ca9183239c2560d3dd5d",
+      "bytes": 531
+    },
+    "apps/buggy-kiosk/server.py": {
+      "sha256": "5b6bf0db4fef8bfa0dcc42f502c5ec1029e42ae376d70b3f05f88c07ad2878b2",
+      "bytes": 1269
+    },
+    "apps/buggy-kiosk/README.md": {
+      "sha256": "1347c624d740a39afb1295976ad9505041bf33aa1c63f44684cca929a81d3dc5",
+      "bytes": 312
+    },
+    "apps/buggy-kiosk/spec.json": {
+      "sha256": "2ec0d50f6ca1746c06efdc985475222737d8f9bc4dbde6864a770c81f5c65222",
+      "bytes": 1692
+    },
+    "apps/buggy-kiosk/topology.json": {
+      "sha256": "d6e38fa019d3927d376f9a276ddc3905ac47279a624effb9dfcbdacff3fed55c",
+      "bytes": 11427
+    },
+    "apps/buggy-kiosk/mechanism-opportunities.json": {
+      "sha256": "02dda32c0cd05691d120761bfe8c51dc9af5a3cc4a1a007f5abac797e3c20edc",
+      "bytes": 1309
+    },
+    "apps/buggy-kiosk/bugs.manifest.json": {
+      "sha256": "9be8625ebc79d372e2bcc8cbe1db8608020b996f4fffafa7f653545c14150bd8",
+      "bytes": 3622
+    },
+    "apps/buggy-kiosk/generation.json": {
+      "sha256": "943d97b460167435106b3979591826b2b4d176a3f8cd60de7321de755f4c9028",
+      "bytes": 363
+    },
+    "apps/buggy-kiosk/static/app.js": {
+      "sha256": "6778e1270bdce067a5adb0dc46d613ad3ed04e7d41c8f465bbf6be6e7a6167a4",
+      "bytes": 8097
+    },
+    "apps/buggy-kiosk/static/index.html": {
+      "sha256": "d27ead7dabb251ddd197b66456be8b9c663c6267924ffe2640c1f337aa4c6050",
+      "bytes": 524
+    },
+    "apps/buggy-kiosk/static/kiosk.html": {
+      "sha256": "dc47f4082f9608bd5df3265a6e6633c6671e1406a452d266f31adf993fae17c3",
+      "bytes": 525
+    },
+    "apps/buggy-kiosk/static/task.html": {
+      "sha256": "b3c3d142c2df0814ce4d9a52ba9d35daf8d60b7052ba11199514595f21cb9cde",
+      "bytes": 523
+    },
+    "apps/buggy-kiosk/static/receipt.html": {
+      "sha256": "1b94e2c2e8397eb055ad56fa77eef8a1784dd35311c5f1d7a7d45474e979428b",
+      "bytes": 529
+    },
+    "apps/buggy-kiosk/static/help.html": {
+      "sha256": "8e9e05f480ca942e70b3a6510ffcc9c5143bf36c942500ce9a11f2a815308eb5",
+      "bytes": 523
+    },
+    "apps/buggy-kiosk/static/settings.html": {
+      "sha256": "5f8f3be570862a4bcbd2b93026f7813633d246408f6531f52dc8dc2ecfbfc341",
+      "bytes": 531
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "app": "buggy-kiosk",
+  "note": "OFFLINE JUDGE ONLY. Not served. No empirical policy results.",
+  "round": "v0.3.20",
+  "opportunities": [
+    {
+      "id": "kiosk:open_task_t1",
+      "class": "finding_return_entry_opportunity",
+      "source_hub_role": "kiosk_panel",
+      "destination_hub_role": "task_panel",
+      "action": "open_task_t1",
+      "destination_node": "task_t1",
+      "eligible_button_count": 2,
+      "offline_guarantees_finding": true
+    },
+    {
+      "id": "kiosk:open_task_t2",
+      "class": "finding_return_entry_opportunity",
+      "source_hub_role": "kiosk_panel",
+      "destination_hub_role": "task_panel",
+      "action": "open_task_t2",
+      "destination_node": "task_t2",
+      "eligible_button_count": 2,
+      "offline_guarantees_finding": true
+    },
+    {
+      "id": "horizon-main",
+      "class": "horizon_only_return_entry_control",
+      "source_hub_role": "kiosk_panel",
+      "destination_hub_role": "receipt",
+      "edge_ids": [
+        "kiosk:open_lane_a",
+        "lane_a:open_lane_b",
+        "lane_b:open_dest"
+      ],
+      "nodes": [
+        "kiosk",
+        "lane_a",
+        "lane_b",
+        "lane_dest"
+      ],
+      "eligible_button_count": 2,
+      "offline_guarantees_finding": false,
+      "offline_guarantees_no_finding": true
+    }
+  ]
+}

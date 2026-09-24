@@ -1,0 +1,101 @@
+
+(function () {
+  "use strict";
+  const MODEL = {"storage_key":"campus_v0320","fail_path":"/api/export","initial":{"obs":{"score_shown":"8","score_live":"6","shown_qty":"8","live_qty":"8","status_label":"跟进中","reopened":"否","note_kind":"","note_visible":"","handled":"","handled_label":"","handled_note":"","form_msg":"","search_state":"","variant_note":"原稿","scratch_a":"","scratch_b":"","hold_mark":"","tag_mark":""},"revealed":{}},"entities":{"list_rows":[{"id":"c1","name":"水彩课"},{"id":"c2","name":"园艺课"},{"id":"c3","name":"声乐课"}],"side_rows":[{"id":"l1","name":"识谱"},{"id":"l2","name":"合奏"},{"id":"l3","name":"复习"}]},"pages":{"home":{"title":"首页","blank":false,"entity_param":"","entity_source":"","obs":["search_state"],"obs_by_entity":{},"controls":[{"kind":"link","testid":"nav_courses","text":"课程","href":"courses.html","effect":"goto"},{"kind":"link","testid":"nav_shelf","text":"模块架","href":"modules.html","effect":"goto"},{"kind":"link","testid":"open_aid","text":"帮助","href":"help.html","effect":"goto"},{"kind":"input","testid":"search_box","text":"检索词"},{"kind":"button","testid":"btn_query_submit","text":"提交查询","effect":"search","message":"campus search query too long","input":"search_box","obs_key":"search_state"}]},"modules":{"title":"模块架","blank":true,"entity_param":"","entity_source":"","obs":[],"obs_by_entity":{},"controls":[]},"courses":{"title":"课程","blank":false,"entity_param":"","entity_source":"","obs":[],"obs_by_entity":{},"controls":[{"kind":"link","testid":"open_row_c1","text":"水彩课","href":"course.html?id=c1","effect":"goto"},{"kind":"link","testid":"open_row_c2","text":"园艺课","href":"course.html?id=c2","effect":"goto"},{"kind":"link","testid":"open_row_c3","text":"声乐课","href":"course.html?id=c3","effect":"goto"},{"kind":"link","testid":"open_finding","text":"成绩页","href":"gradebook.html","effect":"goto"},{"kind":"link","testid":"nav_up_home","text":"返回首页","href":"index.html","effect":"goto"}]},"course":{"title":"课程明细","blank":false,"entity_param":"id","entity_source":"list_rows","obs":[],"obs_by_entity":{"c1":["shown_qty","live_qty"],"c2":["shown_qty","live_qty"],"c3":["shown_qty","live_qty"]},"controls":[{"kind":"link","testid":"open_mid","text":"单元","href":"module.html","effect":"goto","when_entity":"c1"},{"kind":"link","testid":"open_side","text":"课节","href":"lessons.html","effect":"goto","when_entity":"c1"},{"kind":"link","testid":"nav_prefs","text":"偏好","href":"settings.html","effect":"goto","when_entity":"c1"},{"kind":"button","testid":"btn_pin","text":"收藏","effect":"dead","when_entity":"c1"},{"kind":"button","testid":"btn_cool","text":"下调数量","effect":"mutate","patch":[{"key":"live_qty","value":"6"}],"when_entity":"c1"},{"kind":"link","testid":"nav_up_list","text":"返回上页","href":"courses.html","effect":"goto","when_entity":"c1"},{"kind":"link","testid":"open_mid","text":"单元","href":"module.html","effect":"goto","when_entity":"c2"},{"kind":"link","testid":"open_side","text":"课节","href":"lessons.html","effect":"goto","when_entity":"c2"},{"kind":"link","testid":"nav_prefs","text":"偏好","href":"settings.html","effect":"goto","when_entity":"c2"},{"kind":"button","testid":"btn_pin","text":"收藏","effect":"dead","when_entity":"c2"},{"kind":"button","testid":"btn_cool","text":"下调数量","effect":"mutate","patch":[{"key":"live_qty","value":"6"}],"when_entity":"c2"},{"kind":"link","testid":"nav_up_list","text":"返回上页","href":"courses.html","effect":"goto","when_entity":"c2"},{"kind":"link","testid":"open_mid","text":"单元","href":"module.html","effect":"goto","when_entity":"c3"},{"kind":"link","testid":"open_side","text":"课节","href":"lessons.html","effect":"goto","when_entity":"c3"},{"kind":"link","testid":"nav_prefs","text":"偏好","href":"settings.html","effect":"goto","when_entity":"c3"},{"kind":"button","testid":"btn_pin","text":"收藏","effect":"dead","when_entity":"c3"},{"kind":"button","testid":"btn_cool","text":"下调数量","effect":"mutate","patch":[{"key":"live_qty","value":"6"}],"when_entity":"c3"},{"kind":"link","testid":"nav_up_list","text":"返回上页","href":"courses.html","effect":"goto","when_entity":"c3"}]},"module":{"title":"单元","blank":false,"entity_param":"","entity_source":"","obs":[],"obs_by_entity":{},"controls":[{"kind":"link","testid":"open_child_a","text":"测验单","href":"quiz.html?id=a","effect":"goto"},{"kind":"link","testid":"open_child_b","text":"测验单","href":"quiz.html?id=b","effect":"goto"},{"kind":"link","testid":"open_child_c","text":"测验单","href":"quiz.html?id=c","effect":"goto"},{"kind":"button","testid":"btn_close","text":"关闭条目","effect":"mutate","patch":[{"key":"status_label","value":"已关闭"}]},{"kind":"button","testid":"btn_reopen","text":"重新打开","effect":"mutate","patch":[{"key":"reopened","value":"是"}]},{"kind":"link","testid":"nav_up_row","text":"返回上页","href":"course.html?id=c1","effect":"goto"}]},"quiz":{"title":"测验","blank":false,"entity_param":"id","entity_source":"","obs":[],"obs_by_entity":{"a":["status_label","reopened","handled","handled_label","handled_note"],"b":["status_label","reopened","handled","handled_label","handled_note"],"c":["status_label","reopened","handled","handled_label","handled_note"]},"controls":[{"kind":"button","testid":"btn_mark","text":"登记处理","effect":"mutate","patch":[{"key":"handled","value":"是"},{"key":"handled_label","value":"未登记"}],"reveal":"btn_follow","when_entity":"a"},{"kind":"button","testid":"btn_follow","text":"补充说明","effect":"mutate","patch":[{"key":"handled_note","value":"已补充"}],"reveal_after":"btn_mark","when_entity":"a"},{"kind":"link","testid":"nav_up_child","text":"返回上页","href":"module.html","effect":"goto","when_entity":"a"},{"kind":"button","testid":"btn_mark","text":"登记处理","effect":"mutate","patch":[{"key":"handled","value":"是"},{"key":"handled_label","value":"未登记"}],"reveal":"btn_follow","when_entity":"b"},{"kind":"button","testid":"btn_follow","text":"补充说明","effect":"mutate","patch":[{"key":"handled_note","value":"已补充"}],"reveal_after":"btn_mark","when_entity":"b"},{"kind":"link","testid":"nav_up_child","text":"返回上页","href":"module.html","effect":"goto","when_entity":"b"},{"kind":"button","testid":"btn_mark","text":"登记处理","effect":"mutate","patch":[{"key":"handled","value":"是"},{"key":"handled_label","value":"未登记"}],"reveal":"btn_follow","when_entity":"c"},{"kind":"button","testid":"btn_follow","text":"补充说明","effect":"mutate","patch":[{"key":"handled_note","value":"已补充"}],"reveal_after":"btn_mark","when_entity":"c"},{"kind":"link","testid":"nav_up_child","text":"返回上页","href":"module.html","effect":"goto","when_entity":"c"}]},"lessons":{"title":"课节","blank":false,"entity_param":"","entity_source":"","obs":["note_kind","note_visible","variant_note"],"obs_by_entity":{},"controls":[{"kind":"link","testid":"open_side_l1","text":"识谱","href":"lesson.html?id=l1","effect":"goto"},{"kind":"link","testid":"open_side_l2","text":"合奏","href":"lesson.html?id=l2","effect":"goto"},{"kind":"link","testid":"open_side_l3","text":"复习","href":"lesson.html?id=l3","effect":"goto"},{"kind":"link","testid":"nav_up_home_side","text":"返回首页","href":"index.html","effect":"goto"}]},"lesson":{"title":"课节明细","blank":false,"entity_param":"id","entity_source":"side_rows","obs":[],"obs_by_entity":{"l1":["variant_note","note_kind","note_visible"],"l2":["variant_note","note_kind","note_visible"],"l3":["variant_note","note_kind","note_visible"]},"controls":[{"kind":"link","testid":"open_mid_b","text":"讲评","href":"review.html","effect":"goto","when_entity":"l1"},{"kind":"link","testid":"open_cross","text":"学员页","href":"student.html","effect":"goto","when_entity":"l1"},{"kind":"button","testid":"btn_variant","text":"改注记","effect":"mutate","patch":[{"key":"variant_note","value":"已改"}],"when_entity":"l1"},{"kind":"button","testid":"btn_staff_note","text":"内部摘记","effect":"mutate","patch":[{"key":"note_kind","value":"内部"},{"key":"note_visible","value":"公开"}],"when_entity":"l1"},{"kind":"link","testid":"nav_up_side","text":"返回上页","href":"lessons.html","effect":"goto","when_entity":"l1"},{"kind":"link","testid":"open_mid_b","text":"讲评","href":"review.html","effect":"goto","when_entity":"l2"},{"kind":"link","testid":"open_cross","text":"学员页","href":"student.html","effect":"goto","when_entity":"l2"},{"kind":"button","testid":"btn_variant","text":"改注记","effect":"mutate","patch":[{"key":"variant_note","value":"已改"}],"when_entity":"l2"},{"kind":"button","testid":"btn_staff_note","text":"内部摘记","effect":"mutate","patch":[{"key":"note_kind","value":"内部"},{"key":"note_visible","value":"公开"}],"when_entity":"l2"},{"kind":"link","testid":"nav_up_side","text":"返回上页","href":"lessons.html","effect":"goto","when_entity":"l2"},{"kind":"link","testid":"open_mid_b","text":"讲评","href":"review.html","effect":"goto","when_entity":"l3"},{"kind":"link","testid":"open_cross","text":"学员页","href":"student.html","effect":"goto","when_entity":"l3"},{"kind":"button","testid":"btn_variant","text":"改注记","effect":"mutate","patch":[{"key":"variant_note","value":"已改"}],"when_entity":"l3"},{"kind":"button","testid":"btn_staff_note","text":"内部摘记","effect":"mutate","patch":[{"key":"note_kind","value":"内部"},{"key":"note_visible","value":"公开"}],"when_entity":"l3"},{"kind":"link","testid":"nav_up_side","text":"返回上页","href":"lessons.html","effect":"goto","when_entity":"l3"}]},"review":{"title":"讲评","blank":false,"entity_param":"","entity_source":"","obs":["note_kind","note_visible"],"obs_by_entity":{},"controls":[{"kind":"link","testid":"open_child_b_a","text":"反馈单","href":"feedback.html?id=a","effect":"goto"},{"kind":"link","testid":"open_child_b_b","text":"反馈单","href":"feedback.html?id=b","effect":"goto"},{"kind":"link","testid":"open_child_b_c","text":"反馈单","href":"feedback.html?id=c","effect":"goto"},{"kind":"button","testid":"btn_close","text":"关闭条目","effect":"mutate","patch":[{"key":"status_label","value":"已关闭"}]},{"kind":"button","testid":"btn_reopen","text":"重新打开","effect":"mutate","patch":[{"key":"reopened","value":"是"}]},{"kind":"link","testid":"nav_up_side_row","text":"返回上页","href":"lesson.html?id=l1","effect":"goto"}]},"feedback":{"title":"反馈","blank":false,"entity_param":"id","entity_source":"","obs":[],"obs_by_entity":{"a":["status_label","reopened","handled","handled_label","handled_note"],"b":["status_label","reopened","handled","handled_label","handled_note"],"c":["status_label","reopened","handled","handled_label","handled_note"]},"controls":[{"kind":"button","testid":"btn_mark","text":"登记处理","effect":"mutate","patch":[{"key":"handled","value":"是"},{"key":"handled_label","value":"未登记"}],"reveal":"btn_follow","when_entity":"a"},{"kind":"button","testid":"btn_follow","text":"补充说明","effect":"mutate","patch":[{"key":"handled_note","value":"已补充"}],"reveal_after":"btn_mark","when_entity":"a"},{"kind":"link","testid":"nav_up_child","text":"返回上页","href":"review.html","effect":"goto","when_entity":"a"},{"kind":"button","testid":"btn_mark","text":"登记处理","effect":"mutate","patch":[{"key":"handled","value":"是"},{"key":"handled_label","value":"未登记"}],"reveal":"btn_follow","when_entity":"b"},{"kind":"button","testid":"btn_follow","text":"补充说明","effect":"mutate","patch":[{"key":"handled_note","value":"已补充"}],"reveal_after":"btn_mark","when_entity":"b"},{"kind":"link","testid":"nav_up_child","text":"返回上页","href":"review.html","effect":"goto","when_entity":"b"},{"kind":"button","testid":"btn_mark","text":"登记处理","effect":"mutate","patch":[{"key":"handled","value":"是"},{"key":"handled_label","value":"未登记"}],"reveal":"btn_follow","when_entity":"c"},{"kind":"button","testid":"btn_follow","text":"补充说明","effect":"mutate","patch":[{"key":"handled_note","value":"已补充"}],"reveal_after":"btn_mark","when_entity":"c"},{"kind":"link","testid":"nav_up_child","text":"返回上页","href":"review.html","effect":"goto","when_entity":"c"}]},"gradebook":{"title":"成绩","blank":false,"entity_param":"","entity_source":"","obs":["score_shown","score_live","scratch_a","scratch_b"],"obs_by_entity":{},"controls":[{"kind":"button","testid":"btn_note_a","text":"记一笔","effect":"mutate","patch":[{"key":"scratch_a","value":"已记"}]},{"kind":"button","testid":"btn_note_b","text":"标重点","effect":"mutate","patch":[{"key":"scratch_b","value":"已标"}]},{"kind":"link","testid":"nav_up_finding","text":"返回上页","href":"courses.html","effect":"goto"},{"kind":"link","testid":"nav_up_anchor","text":"返回名册","href":"student.html","effect":"goto"}]},"student":{"title":"学员","blank":false,"entity_param":"","entity_source":"","obs":[],"obs_by_entity":{},"controls":[{"kind":"link","testid":"open_lane_a","text":"答卷","href":"submission.html?id=s1","effect":"goto"},{"kind":"link","testid":"open_finding_b","text":"成绩页","href":"gradebook.html","effect":"goto"},{"kind":"link","testid":"open_leaf","text":"手册页","href":"handbook.html","effect":"goto"},{"kind":"link","testid":"nav_up_home_anchor","text":"返回首页","href":"index.html","effect":"goto"}]},"submission":{"title":"答卷","blank":false,"entity_param":"id","entity_source":"","obs":[],"obs_by_entity":{"dest":["hold_mark","tag_mark"]},"controls":[{"kind":"link","testid":"open_lane_b","text":"下一段","href":"submission.html?id=s2","effect":"goto","when_entity":"s1"},{"kind":"link","testid":"nav_up_anchor_a","text":"返回上页","href":"student.html","effect":"goto","when_entity":"s1"},{"kind":"link","testid":"open_dest","text":"答卷页","href":"submission.html?id=dest","effect":"goto","when_entity":"s2"},{"kind":"link","testid":"nav_up_lane","text":"返回上页","href":"submission.html?id=s1","effect":"goto","when_entity":"s2"},{"kind":"button","testid":"btn_hold","text":"记下","effect":"mutate","patch":[{"key":"hold_mark","value":"是"}],"when_entity":"dest"},{"kind":"button","testid":"btn_tag","text":"加标记","effect":"mutate","patch":[{"key":"tag_mark","value":"是"}],"when_entity":"dest"},{"kind":"link","testid":"nav_up_lane_b","text":"返回上页","href":"submission.html?id=s2","effect":"goto","when_entity":"dest"}]},"handbook":{"title":"手册","blank":false,"entity_param":"","entity_source":"","obs":[],"obs_by_entity":{},"controls":[{"kind":"link","testid":"nav_up_help","text":"返回说明","href":"help.html","effect":"goto"}]},"help":{"title":"说明","blank":false,"entity_param":"","entity_source":"","obs":[],"obs_by_entity":{},"controls":[{"kind":"link","testid":"open_loop","text":"打开手册","href":"handbook.html","effect":"goto"}]},"settings":{"title":"偏好","blank":false,"entity_param":"","entity_source":"","obs":["form_msg"],"obs_by_entity":{},"controls":[{"kind":"input","testid":"topic_title","text":"标题"},{"kind":"button","testid":"btn_submit","text":"提交","effect":"form"},{"kind":"button","testid":"btn_probe","text":"提交同步","effect":"throw","message":"campus sync handshake failed"},{"kind":"button","testid":"btn_export","text":"提交导出","effect":"post"},{"kind":"link","testid":"nav_up_from_prefs","text":"返回上页","href":"course.html?id=c1","effect":"goto"}]}}};
+  function load() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(MODEL.storage_key));
+      if (saved && typeof saved === "object" && saved.obs) return saved;
+    } catch (e) { /* fresh state */ }
+    return JSON.parse(JSON.stringify(MODEL.initial));
+  }
+  function save(state) { localStorage.setItem(MODEL.storage_key, JSON.stringify(state)); }
+  function el(tag, attrs, text) {
+    const node = document.createElement(tag);
+    if (attrs) Object.keys(attrs).forEach(function (key) { node.setAttribute(key, attrs[key]); });
+    if (text != null) node.textContent = text;
+    return node;
+  }
+  function qid(name) {
+    try { return new URL(location.href).searchParams.get(name) || ""; }
+    catch (e) { return ""; }
+  }
+  const state = load();
+  const page = document.body.getAttribute("data-page");
+  function entityTitle(spec, entity) {
+    if (!entity || !spec.entity_source) return spec.title;
+    const rows = MODEL.entities[spec.entity_source] || [];
+    for (let i = 0; i < rows.length; i++) {
+      if (rows[i].id === entity) return rows[i].name;
+    }
+    return spec.title;
+  }
+  function render() {
+    const spec = MODEL.pages[page];
+    const root = document.getElementById("root");
+    if (!root) return;
+    while (root.firstChild) root.removeChild(root.firstChild);
+    if (!spec || spec.blank) return;
+    const entity = spec.entity_param ? (qid(spec.entity_param) || "") : "";
+    root.appendChild(el("h1", null, entityTitle(spec, entity)));
+    root.appendChild(el("p", {class: "muted"}, "此页提供日常浏览、登记和返回入口。"));
+    let obsKeys = (spec.obs || []).slice();
+    const extra = spec.obs_by_entity && entity ? spec.obs_by_entity[entity] : null;
+    if (extra) obsKeys = obsKeys.concat(extra);
+    obsKeys.forEach(function (key) {
+      const value = state.obs[key];
+      if (value == null || value === "") return;
+      root.appendChild(el("div", {"data-obs": key}, String(value)));
+    });
+    (spec.controls || []).forEach(function (ctl) {
+      if (ctl.when_entity && ctl.when_entity !== entity) return;
+      if (ctl.when_no_entity && entity) return;
+      if (ctl.reveal_after && !state.revealed[ctl.reveal_after]) return;
+      if (ctl.kind === "input") {
+        const input = el("input", {
+          id: ctl.testid, "data-testid": ctl.testid, type: "text", placeholder: ctl.text || ""
+        });
+        root.appendChild(input);
+        return;
+      }
+      if (ctl.kind === "link") {
+        const anchor = el("a", {href: ctl.href, "data-testid": ctl.testid}, ctl.text);
+        root.appendChild(anchor);
+        root.appendChild(el("br"));
+        return;
+      }
+      const button = el("button", {"data-testid": ctl.testid, type: "button"}, ctl.text);
+      button.onclick = function () { apply(ctl); };
+      root.appendChild(button);
+    });
+  }
+  function apply(ctl) {
+    if (ctl.effect === "dead") return;
+    if (ctl.effect === "throw") throw new Error(ctl.message || "error");
+    if (ctl.effect === "search") {
+      const box = document.getElementById(ctl.input);
+      if (box && box.value.length > 24) throw new RangeError(ctl.message || "query too long");
+      state.obs[ctl.obs_key || "search_state"] = "已检索";
+      save(state);
+      render();
+      return;
+    }
+    if (ctl.effect === "form") {
+      state.obs.form_msg = "已创建";
+      save(state);
+      render();
+      return;
+    }
+    if (ctl.effect === "post") {
+      fetch(MODEL.fail_path, {method: "POST"});
+      return;
+    }
+    if (ctl.effect === "mutate") {
+      (ctl.patch || []).forEach(function (item) { state.obs[item.key] = item.value; });
+      if (ctl.reveal) state.revealed[ctl.reveal] = true;
+      save(state);
+      render();
+    }
+  }
+  render();
+})();

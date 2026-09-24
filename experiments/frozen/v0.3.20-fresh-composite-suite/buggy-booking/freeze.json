@@ -1,0 +1,118 @@
+{
+  "round": "v0.3.20",
+  "purpose": "v0.3.20 fresh target freeze before policy evaluation",
+  "protocol_commit": "c278b8274d92c509ea4d29de286150e51c4918ea",
+  "freeze_commit": "pending",
+  "candidate_identity": "ghost-structural-finding-return-entry-drain-guard",
+  "candidate_source_sha256": "0bfec3c7bd2811f154daa83bc81fde632976b8ab6e1da9ee6a208cf81c4bb42c",
+  "candidate_freeze": "experiments/frozen/ghost-finding-return-entry-v0.3.19/freeze.json",
+  "no_target_policy_evaluation_before_freeze": true,
+  "manifest_is_judge_only": true,
+  "mechanism_opportunities_are_judge_only": true,
+  "post_evaluation_changes_invalidate_protocol_identity": true,
+  "hash_normalization": "LF newlines",
+  "target": "buggy-booking",
+  "qualification": "experiments/validation/v0.3.20/static-qualification.json",
+  "files": {
+    "apps/buggy-booking/server.py": {
+      "sha256": "fb32bbf13a10619f2b93e6804491546aa5f77aa9f7e867ccfc75c204439dcc81",
+      "bytes": 1271
+    },
+    "apps/buggy-booking/README.md": {
+      "sha256": "559e48d7fe4bec8e5e9bfe620bc9daf11c3663247e8995677a998f98f69598d3",
+      "bytes": 319
+    },
+    "apps/buggy-booking/spec.json": {
+      "sha256": "7b9226ea7dd88421098b2095b483fdc15003d8eef6517f3c724c66714aad2db0",
+      "bytes": 3274
+    },
+    "apps/buggy-booking/topology.json": {
+      "sha256": "b83d25da5c159de5680203f40f5fd2cd7d9d461ea84f3d305744151a48942994",
+      "bytes": 46680
+    },
+    "apps/buggy-booking/mechanism-opportunities.json": {
+      "sha256": "e895fc48afd38999ab8c07951ce78f7f1dcb867baf135c462683eb28ad71ce99",
+      "bytes": 2371
+    },
+    "apps/buggy-booking/bugs.manifest.json": {
+      "sha256": "93f40a573bcc42d946981ac30d5390c8cc3609d0a112907b2018b44a898e93e1",
+      "bytes": 5756
+    },
+    "apps/buggy-booking/generation.json": {
+      "sha256": "0fad475667c92767c379842d2a9fa0ed9fc2acab5ee38f8cf199af5a22e9f4e0",
+      "bytes": 373
+    },
+    "apps/buggy-booking/static/app.js": {
+      "sha256": "6b7d69e5d4009e460c19c7e02caf2fb9578073116b4e0f76ca0d72814fb49663",
+      "bytes": 19962
+    },
+    "apps/buggy-booking/static/index.html": {
+      "sha256": "065942e5a7434d7669dad306f09126423f060f4ea344d52107a89743fd9692b2",
+      "bytes": 524
+    },
+    "apps/buggy-booking/static/reports.html": {
+      "sha256": "1085a405a516e4b773e0b17f31916225af62bad81177fb6da6d0ded277d72f27",
+      "bytes": 529
+    },
+    "apps/buggy-booking/static/venues.html": {
+      "sha256": "a1eaaf8e585c555afcce37468b6274fad862de464fb7aa74b8d8bd49dae2d218",
+      "bytes": 527
+    },
+    "apps/buggy-booking/static/venue.html": {
+      "sha256": "eb49c30549b043d6f3371340c85eb4a4632ab382912b2993b3ee95ed7387117a",
+      "bytes": 525
+    },
+    "apps/buggy-booking/static/room.html": {
+      "sha256": "f4b71f9f3457dd8d43ffc73471a97fec107ffb6a3c87cf7506894f1e7bffa9ae",
+      "bytes": 523
+    },
+    "apps/buggy-booking/static/guest.html": {
+      "sha256": "f77cdd49ecd288d36b6dfb62253645686053dc229c8f6b4cabe04c28bf7df6a9",
+      "bytes": 525
+    },
+    "apps/buggy-booking/static/calendar.html": {
+      "sha256": "2f0d15a0ce2050b1d52402072c42ce8557a7f04e813b882469867dd28da1b96b",
+      "bytes": 531
+    },
+    "apps/buggy-booking/static/reservation.html": {
+      "sha256": "50e2ea0a5878b131f5466f57872f64fe58f1f5f429d21d38bcb3bd4520dcb449",
+      "bytes": 537
+    },
+    "apps/buggy-booking/static/modify.html": {
+      "sha256": "7c9f0bb4b817c240cbdb4a775407cf046cbaabf3d2fd10573bfbfd3d089164f5",
+      "bytes": 527
+    },
+    "apps/buggy-booking/static/confirmation.html": {
+      "sha256": "4bd027c9960a1eef7f85ff63f94b7991cc3425f8ba0a21b22c5bdb5c24712519",
+      "bytes": 539
+    },
+    "apps/buggy-booking/static/notes.html": {
+      "sha256": "5ebd0dd7da96e46541ec6cf69a6fb3f4f222f9c90e44624dd2a5dc8b5a20f5c3",
+      "bytes": 525
+    },
+    "apps/buggy-booking/static/guests.html": {
+      "sha256": "680acddc5e3aa09c3300746b69f456399a3dd6a819265932c6958a4d14d75779",
+      "bytes": 527
+    },
+    "apps/buggy-booking/static/cancellation.html": {
+      "sha256": "ba13137d7e5727b7344f13ee3a14676e290ac1b77fd26c68f335b25320b7afa5",
+      "bytes": 539
+    },
+    "apps/buggy-booking/static/help.html": {
+      "sha256": "0f769c7a17938ced8d86f2240c0d0371baaefbbae52bea52675517ccd03272dc",
+      "bytes": 523
+    },
+    "apps/buggy-booking/static/rooms.html": {
+      "sha256": "7e317568d29383c690242a7f22ad6ed0eaeb2882476c05324807976e156b716b",
+      "bytes": 525
+    },
+    "apps/buggy-booking/static/reservations.html": {
+      "sha256": "d6dce27e993a3487ff80c175bdf0584d11e71513b1a55db50297fc4a3ef40a18",
+      "bytes": 539
+    },
+    "apps/buggy-booking/static/settings.html": {
+      "sha256": "ba7ae4ef137ad031c996fbf09b46bfce25ff547d424863093b15a2f250655b3f",
+      "bytes": 531
+    }
+  }
+}

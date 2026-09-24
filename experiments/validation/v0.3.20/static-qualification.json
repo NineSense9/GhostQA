@@ -1,0 +1,2540 @@
+{
+  "round": "v0.3.20",
+  "branch_horizon": 3,
+  "note": "Static qualification only. It does not mean a policy reached the structure.",
+  "apps": {
+    "buggy-campus": {
+      "app": "buggy-campus",
+      "seed": 2388280117,
+      "seed_hex": "8e5a4335",
+      "family": "hierarchical_learning_assessment_review",
+      "class": "positive",
+      "node_count": 26,
+      "edge_count": 73,
+      "hub_count": 11,
+      "max_nested_branch_depth": 8,
+      "nested_handoff_opportunity_count": 2,
+      "finding_return_entry_opportunity_count": 2,
+      "horizon_only_return_entry_control_count": 1,
+      "state_variant_return_count": 1,
+      "qualified": true,
+      "positive_class": true,
+      "distinct_child_workflows": [
+        "assessment_record",
+        "feedback_note"
+      ],
+      "qualifying_path_summaries": [
+        {
+          "id": "nested:assessment_record",
+          "class": "nested_handoff_opportunity",
+          "child_workflow_role": "assessment_record",
+          "start_hub": "row_c1",
+          "start_hub_role": "course",
+          "destination_hub_role": "module",
+          "edge_count": 4,
+          "crosses_branch_horizon": true,
+          "actions": [
+            "open_mid",
+            "open_child_a",
+            "btn_mark",
+            "nav_up_child"
+          ],
+          "edge_ids": [
+            "row_c1:open_mid",
+            "mid:open_child_a",
+            "child_a:btn_mark",
+            "child_a:nav_up_child"
+          ],
+          "nodes": [
+            "row_c1",
+            "mid",
+            "child_a",
+            "child_a",
+            "mid"
+          ]
+        },
+        {
+          "id": "nested:feedback_note",
+          "class": "nested_handoff_opportunity",
+          "child_workflow_role": "feedback_note",
+          "start_hub": "side_l1",
+          "start_hub_role": "lesson",
+          "destination_hub_role": "review",
+          "edge_count": 4,
+          "crosses_branch_horizon": true,
+          "actions": [
+            "open_mid_b",
+            "open_child_b_a",
+            "btn_mark",
+            "nav_up_child"
+          ],
+          "edge_ids": [
+            "side_l1:open_mid_b",
+            "mid_b:open_child_b_a",
+            "child_b_a:btn_mark",
+            "child_b_a:nav_up_child"
+          ],
+          "nodes": [
+            "side_l1",
+            "mid_b",
+            "child_b_a",
+            "child_b_a",
+            "mid_b"
+          ]
+        }
+      ],
+      "finding_return_opportunities": [
+        {
+          "id": "anchor:open_finding_b",
+          "class": "finding_return_entry_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "student",
+          "action": "open_finding_b",
+          "destination_node": "finding",
+          "destination_hub_role": "gradebook",
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_note_a",
+            "btn_note_b"
+          ],
+          "offline_guarantees_finding": true,
+          "path_id": "finding-anchor"
+        },
+        {
+          "id": "list_hub:open_finding",
+          "class": "finding_return_entry_opportunity",
+          "source_node": "list_hub",
+          "source_hub_role": "course_hub",
+          "action": "open_finding",
+          "destination_node": "finding",
+          "destination_hub_role": "gradebook",
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_note_a",
+            "btn_note_b"
+          ],
+          "offline_guarantees_finding": true,
+          "path_id": "finding-main"
+        }
+      ],
+      "horizon_only_controls": [
+        {
+          "id": "horizon-main",
+          "class": "horizon_only_return_entry_control",
+          "source_node": "anchor",
+          "source_hub_role": "student",
+          "destination_node": "lane_dest",
+          "destination_hub_role": "horizon_destination",
+          "actions": [
+            "open_lane_a",
+            "open_lane_b",
+            "open_dest"
+          ],
+          "edge_ids": [
+            "anchor:open_lane_a",
+            "lane_a:open_lane_b",
+            "lane_b:open_dest"
+          ],
+          "nodes": [
+            "anchor",
+            "lane_a",
+            "lane_b",
+            "lane_dest"
+          ],
+          "length": 3,
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_hold",
+            "btn_tag"
+          ],
+          "offline_guarantees_finding": false,
+          "offline_guarantees_no_finding": true,
+          "start_is_hub": true,
+          "later_sources_are_hubs": false,
+          "final_source_is_hub": false
+        }
+      ],
+      "handoff_edges": [
+        {
+          "id": "anchor:open_finding_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "student",
+          "action": "open_finding_b",
+          "destination_node": "finding",
+          "destination_hub_role": "gradebook",
+          "navigates": true
+        },
+        {
+          "id": "anchor:open_lane_a",
+          "class": "nested_handoff_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "student",
+          "action": "open_lane_a",
+          "destination_node": "lane_a",
+          "destination_hub_role": "horizon_lane",
+          "navigates": true
+        },
+        {
+          "id": "anchor:open_leaf",
+          "class": "nested_handoff_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "student",
+          "action": "open_leaf",
+          "destination_node": "handbook",
+          "destination_hub_role": "handbook",
+          "navigates": true
+        },
+        {
+          "id": "mid:btn_close",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "module",
+          "action": "btn_close",
+          "destination_node": "mid",
+          "destination_hub_role": "module",
+          "navigates": false
+        },
+        {
+          "id": "mid:btn_reopen",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "module",
+          "action": "btn_reopen",
+          "destination_node": "mid",
+          "destination_hub_role": "module",
+          "navigates": false
+        },
+        {
+          "id": "mid:open_child_a",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "module",
+          "action": "open_child_a",
+          "destination_node": "child_a",
+          "destination_hub_role": "quiz_child",
+          "navigates": true
+        },
+        {
+          "id": "mid:open_child_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "module",
+          "action": "open_child_b",
+          "destination_node": "child_b",
+          "destination_hub_role": "quiz_child",
+          "navigates": true
+        },
+        {
+          "id": "mid:open_child_c",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "module",
+          "action": "open_child_c",
+          "destination_node": "child_c",
+          "destination_hub_role": "quiz_child",
+          "navigates": true
+        },
+        {
+          "id": "mid_b:btn_close",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "review",
+          "action": "btn_close",
+          "destination_node": "mid_b",
+          "destination_hub_role": "review",
+          "navigates": false
+        },
+        {
+          "id": "mid_b:btn_reopen",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "review",
+          "action": "btn_reopen",
+          "destination_node": "mid_b",
+          "destination_hub_role": "review",
+          "navigates": false
+        },
+        {
+          "id": "mid_b:open_child_b_a",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "review",
+          "action": "open_child_b_a",
+          "destination_node": "child_b_a",
+          "destination_hub_role": "feedback_child",
+          "navigates": true
+        },
+        {
+          "id": "mid_b:open_child_b_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "review",
+          "action": "open_child_b_b",
+          "destination_node": "child_b_b",
+          "destination_hub_role": "feedback_child",
+          "navigates": true
+        },
+        {
+          "id": "mid_b:open_child_b_c",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "review",
+          "action": "open_child_b_c",
+          "destination_node": "child_b_c",
+          "destination_hub_role": "feedback_child",
+          "navigates": true
+        },
+        {
+          "id": "row_c1:btn_cool",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c1",
+          "source_hub_role": "course",
+          "action": "btn_cool",
+          "destination_node": "row_c1",
+          "destination_hub_role": "course",
+          "navigates": false
+        },
+        {
+          "id": "row_c1:btn_pin",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c1",
+          "source_hub_role": "course",
+          "action": "btn_pin",
+          "destination_node": "row_c1",
+          "destination_hub_role": "course",
+          "navigates": false
+        },
+        {
+          "id": "row_c1:nav_prefs",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c1",
+          "source_hub_role": "course",
+          "action": "nav_prefs",
+          "destination_node": "settings",
+          "destination_hub_role": "settings",
+          "navigates": true
+        },
+        {
+          "id": "row_c1:open_mid",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c1",
+          "source_hub_role": "course",
+          "action": "open_mid",
+          "destination_node": "mid",
+          "destination_hub_role": "module",
+          "navigates": true
+        },
+        {
+          "id": "row_c1:open_side",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c1",
+          "source_hub_role": "course",
+          "action": "open_side",
+          "destination_node": "side_hub",
+          "destination_hub_role": "lesson_hub",
+          "navigates": true
+        },
+        {
+          "id": "row_c2:btn_cool",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c2",
+          "source_hub_role": "course",
+          "action": "btn_cool",
+          "destination_node": "row_c2",
+          "destination_hub_role": "course",
+          "navigates": false
+        },
+        {
+          "id": "row_c2:btn_pin",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c2",
+          "source_hub_role": "course",
+          "action": "btn_pin",
+          "destination_node": "row_c2",
+          "destination_hub_role": "course",
+          "navigates": false
+        },
+        {
+          "id": "row_c2:nav_prefs",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c2",
+          "source_hub_role": "course",
+          "action": "nav_prefs",
+          "destination_node": "settings",
+          "destination_hub_role": "settings",
+          "navigates": true
+        },
+        {
+          "id": "row_c2:open_mid",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c2",
+          "source_hub_role": "course",
+          "action": "open_mid",
+          "destination_node": "mid",
+          "destination_hub_role": "module",
+          "navigates": true
+        },
+        {
+          "id": "row_c2:open_side",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c2",
+          "source_hub_role": "course",
+          "action": "open_side",
+          "destination_node": "side_hub",
+          "destination_hub_role": "lesson_hub",
+          "navigates": true
+        },
+        {
+          "id": "row_c3:btn_cool",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c3",
+          "source_hub_role": "course",
+          "action": "btn_cool",
+          "destination_node": "row_c3",
+          "destination_hub_role": "course",
+          "navigates": false
+        },
+        {
+          "id": "row_c3:btn_pin",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c3",
+          "source_hub_role": "course",
+          "action": "btn_pin",
+          "destination_node": "row_c3",
+          "destination_hub_role": "course",
+          "navigates": false
+        },
+        {
+          "id": "row_c3:nav_prefs",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c3",
+          "source_hub_role": "course",
+          "action": "nav_prefs",
+          "destination_node": "settings",
+          "destination_hub_role": "settings",
+          "navigates": true
+        },
+        {
+          "id": "row_c3:open_mid",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c3",
+          "source_hub_role": "course",
+          "action": "open_mid",
+          "destination_node": "mid",
+          "destination_hub_role": "module",
+          "navigates": true
+        },
+        {
+          "id": "row_c3:open_side",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_c3",
+          "source_hub_role": "course",
+          "action": "open_side",
+          "destination_node": "side_hub",
+          "destination_hub_role": "lesson_hub",
+          "navigates": true
+        },
+        {
+          "id": "side_hub:open_side_l1",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_hub",
+          "source_hub_role": "lesson_hub",
+          "action": "open_side_l1",
+          "destination_node": "side_l1",
+          "destination_hub_role": "lesson",
+          "navigates": true
+        },
+        {
+          "id": "side_hub:open_side_l2",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_hub",
+          "source_hub_role": "lesson_hub",
+          "action": "open_side_l2",
+          "destination_node": "side_l2",
+          "destination_hub_role": "lesson",
+          "navigates": true
+        },
+        {
+          "id": "side_hub:open_side_l3",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_hub",
+          "source_hub_role": "lesson_hub",
+          "action": "open_side_l3",
+          "destination_node": "side_l3",
+          "destination_hub_role": "lesson",
+          "navigates": true
+        },
+        {
+          "id": "side_l1:btn_staff_note",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_l1",
+          "source_hub_role": "lesson",
+          "action": "btn_staff_note",
+          "destination_node": "side_l1",
+          "destination_hub_role": "lesson",
+          "navigates": false
+        },
+        {
+          "id": "side_l1:btn_variant",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_l1",
+          "source_hub_role": "lesson",
+          "action": "btn_variant",
+          "destination_node": "side_l1",
+          "destination_hub_role": "lesson",
+          "navigates": false
+        },
+        {
+          "id": "side_l1:open_cross",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_l1",
+          "source_hub_role": "lesson",
+          "action": "open_cross",
+          "destination_node": "anchor",
+          "destination_hub_role": "student",
+          "navigates": true
+        },
+        {
+          "id": "side_l1:open_mid_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_l1",
+          "source_hub_role": "lesson",
+          "action": "open_mid_b",
+          "destination_node": "mid_b",
+          "destination_hub_role": "review",
+          "navigates": true
+        },
+        {
+          "id": "side_l2:btn_staff_note",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_l2",
+          "source_hub_role": "lesson",
+          "action": "btn_staff_note",
+          "destination_node": "side_l2",
+          "destination_hub_role": "lesson",
+          "navigates": false
+        },
+        {
+          "id": "side_l2:btn_variant",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_l2",
+          "source_hub_role": "lesson",
+          "action": "btn_variant",
+          "destination_node": "side_l2",
+          "destination_hub_role": "lesson",
+          "navigates": false
+        },
+        {
+          "id": "side_l2:open_cross",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_l2",
+          "source_hub_role": "lesson",
+          "action": "open_cross",
+          "destination_node": "anchor",
+          "destination_hub_role": "student",
+          "navigates": true
+        },
+        {
+          "id": "side_l2:open_mid_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_l2",
+          "source_hub_role": "lesson",
+          "action": "open_mid_b",
+          "destination_node": "mid_b",
+          "destination_hub_role": "review",
+          "navigates": true
+        },
+        {
+          "id": "side_l3:btn_staff_note",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_l3",
+          "source_hub_role": "lesson",
+          "action": "btn_staff_note",
+          "destination_node": "side_l3",
+          "destination_hub_role": "lesson",
+          "navigates": false
+        },
+        {
+          "id": "side_l3:btn_variant",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_l3",
+          "source_hub_role": "lesson",
+          "action": "btn_variant",
+          "destination_node": "side_l3",
+          "destination_hub_role": "lesson",
+          "navigates": false
+        },
+        {
+          "id": "side_l3:open_cross",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_l3",
+          "source_hub_role": "lesson",
+          "action": "open_cross",
+          "destination_node": "anchor",
+          "destination_hub_role": "student",
+          "navigates": true
+        },
+        {
+          "id": "side_l3:open_mid_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_l3",
+          "source_hub_role": "lesson",
+          "action": "open_mid_b",
+          "destination_node": "mid_b",
+          "destination_hub_role": "review",
+          "navigates": true
+        }
+      ],
+      "local_button_opportunity_counts": {
+        "child_a": 1,
+        "child_b": 1,
+        "child_b_a": 1,
+        "child_b_b": 1,
+        "child_b_c": 1,
+        "child_c": 1,
+        "finding": 2,
+        "lane_dest": 2,
+        "mid": 2,
+        "mid_b": 2,
+        "row_c1": 2,
+        "row_c2": 2,
+        "row_c3": 2,
+        "side_l1": 2,
+        "side_l2": 2,
+        "side_l3": 2
+      },
+      "qualification_ok": true
+    },
+    "buggy-warehouse": {
+      "app": "buggy-warehouse",
+      "seed": 2226848266,
+      "seed_hex": "84bb020a",
+      "family": "inventory_batch_transfer_audit",
+      "class": "positive",
+      "node_count": 27,
+      "edge_count": 77,
+      "hub_count": 11,
+      "max_nested_branch_depth": 8,
+      "nested_handoff_opportunity_count": 2,
+      "finding_return_entry_opportunity_count": 2,
+      "horizon_only_return_entry_control_count": 1,
+      "state_variant_return_count": 1,
+      "qualified": true,
+      "positive_class": true,
+      "distinct_child_workflows": [
+        "audit_count",
+        "transfer_capture"
+      ],
+      "qualifying_path_summaries": [
+        {
+          "id": "nested:audit_count",
+          "class": "nested_handoff_opportunity",
+          "child_workflow_role": "audit_count",
+          "start_hub": "side_i1",
+          "start_hub_role": "item",
+          "destination_hub_role": "batch",
+          "edge_count": 4,
+          "crosses_branch_horizon": true,
+          "actions": [
+            "open_mid_b",
+            "open_child_b_a",
+            "btn_mark",
+            "nav_up_child"
+          ],
+          "edge_ids": [
+            "side_i1:open_mid_b",
+            "mid_b:open_child_b_a",
+            "child_b_a:btn_mark",
+            "child_b_a:nav_up_child"
+          ],
+          "nodes": [
+            "side_i1",
+            "mid_b",
+            "child_b_a",
+            "child_b_a",
+            "mid_b"
+          ]
+        },
+        {
+          "id": "nested:transfer_capture",
+          "class": "nested_handoff_opportunity",
+          "child_workflow_role": "transfer_capture",
+          "start_hub": "row_w1",
+          "start_hub_role": "warehouse",
+          "destination_hub_role": "zone",
+          "edge_count": 4,
+          "crosses_branch_horizon": true,
+          "actions": [
+            "open_mid",
+            "open_child_a",
+            "btn_mark",
+            "nav_up_child"
+          ],
+          "edge_ids": [
+            "row_w1:open_mid",
+            "mid:open_child_a",
+            "child_a:btn_mark",
+            "child_a:nav_up_child"
+          ],
+          "nodes": [
+            "row_w1",
+            "mid",
+            "child_a",
+            "child_a",
+            "mid"
+          ]
+        }
+      ],
+      "finding_return_opportunities": [
+        {
+          "id": "anchor:open_finding_b",
+          "class": "finding_return_entry_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "supplier",
+          "action": "open_finding_b",
+          "destination_node": "finding",
+          "destination_hub_role": "inspection",
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_note_a",
+            "btn_note_b"
+          ],
+          "offline_guarantees_finding": true,
+          "path_id": "finding-anchor"
+        },
+        {
+          "id": "list_hub:open_finding",
+          "class": "finding_return_entry_opportunity",
+          "source_node": "list_hub",
+          "source_hub_role": "warehouse_hub",
+          "action": "open_finding",
+          "destination_node": "finding",
+          "destination_hub_role": "inspection",
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_note_a",
+            "btn_note_b"
+          ],
+          "offline_guarantees_finding": true,
+          "path_id": "finding-main"
+        }
+      ],
+      "horizon_only_controls": [
+        {
+          "id": "horizon-main",
+          "class": "horizon_only_return_entry_control",
+          "source_node": "anchor",
+          "source_hub_role": "supplier",
+          "destination_node": "lane_dest",
+          "destination_hub_role": "horizon_destination",
+          "actions": [
+            "open_lane_a",
+            "open_lane_b",
+            "open_dest"
+          ],
+          "edge_ids": [
+            "anchor:open_lane_a",
+            "lane_a:open_lane_b",
+            "lane_b:open_dest"
+          ],
+          "nodes": [
+            "anchor",
+            "lane_a",
+            "lane_b",
+            "lane_dest"
+          ],
+          "length": 3,
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_hold",
+            "btn_tag"
+          ],
+          "offline_guarantees_finding": false,
+          "offline_guarantees_no_finding": true,
+          "start_is_hub": true,
+          "later_sources_are_hubs": false,
+          "final_source_is_hub": false
+        }
+      ],
+      "handoff_edges": [
+        {
+          "id": "anchor:open_finding_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "supplier",
+          "action": "open_finding_b",
+          "destination_node": "finding",
+          "destination_hub_role": "inspection",
+          "navigates": true
+        },
+        {
+          "id": "anchor:open_lane_a",
+          "class": "nested_handoff_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "supplier",
+          "action": "open_lane_a",
+          "destination_node": "lane_a",
+          "destination_hub_role": "horizon_lane",
+          "navigates": true
+        },
+        {
+          "id": "anchor:open_leaf",
+          "class": "nested_handoff_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "supplier",
+          "action": "open_leaf",
+          "destination_node": "extra_0",
+          "destination_hub_role": "extra",
+          "navigates": true
+        },
+        {
+          "id": "mid:btn_close",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "zone",
+          "action": "btn_close",
+          "destination_node": "mid",
+          "destination_hub_role": "zone",
+          "navigates": false
+        },
+        {
+          "id": "mid:btn_reopen",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "zone",
+          "action": "btn_reopen",
+          "destination_node": "mid",
+          "destination_hub_role": "zone",
+          "navigates": false
+        },
+        {
+          "id": "mid:open_child_a",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "zone",
+          "action": "open_child_a",
+          "destination_node": "child_a",
+          "destination_hub_role": "transfer_child",
+          "navigates": true
+        },
+        {
+          "id": "mid:open_child_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "zone",
+          "action": "open_child_b",
+          "destination_node": "child_b",
+          "destination_hub_role": "transfer_child",
+          "navigates": true
+        },
+        {
+          "id": "mid:open_child_c",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "zone",
+          "action": "open_child_c",
+          "destination_node": "child_c",
+          "destination_hub_role": "transfer_child",
+          "navigates": true
+        },
+        {
+          "id": "mid_b:btn_close",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "batch",
+          "action": "btn_close",
+          "destination_node": "mid_b",
+          "destination_hub_role": "batch",
+          "navigates": false
+        },
+        {
+          "id": "mid_b:btn_reopen",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "batch",
+          "action": "btn_reopen",
+          "destination_node": "mid_b",
+          "destination_hub_role": "batch",
+          "navigates": false
+        },
+        {
+          "id": "mid_b:open_child_b_a",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "batch",
+          "action": "open_child_b_a",
+          "destination_node": "child_b_a",
+          "destination_hub_role": "audit_child",
+          "navigates": true
+        },
+        {
+          "id": "mid_b:open_child_b_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "batch",
+          "action": "open_child_b_b",
+          "destination_node": "child_b_b",
+          "destination_hub_role": "audit_child",
+          "navigates": true
+        },
+        {
+          "id": "mid_b:open_child_b_c",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "batch",
+          "action": "open_child_b_c",
+          "destination_node": "child_b_c",
+          "destination_hub_role": "audit_child",
+          "navigates": true
+        },
+        {
+          "id": "row_w1:btn_cool",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w1",
+          "source_hub_role": "warehouse",
+          "action": "btn_cool",
+          "destination_node": "row_w1",
+          "destination_hub_role": "warehouse",
+          "navigates": false
+        },
+        {
+          "id": "row_w1:btn_pin",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w1",
+          "source_hub_role": "warehouse",
+          "action": "btn_pin",
+          "destination_node": "row_w1",
+          "destination_hub_role": "warehouse",
+          "navigates": false
+        },
+        {
+          "id": "row_w1:nav_prefs",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w1",
+          "source_hub_role": "warehouse",
+          "action": "nav_prefs",
+          "destination_node": "settings",
+          "destination_hub_role": "settings",
+          "navigates": true
+        },
+        {
+          "id": "row_w1:open_mid",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w1",
+          "source_hub_role": "warehouse",
+          "action": "open_mid",
+          "destination_node": "mid",
+          "destination_hub_role": "zone",
+          "navigates": true
+        },
+        {
+          "id": "row_w1:open_side",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w1",
+          "source_hub_role": "warehouse",
+          "action": "open_side",
+          "destination_node": "side_hub",
+          "destination_hub_role": "item_hub",
+          "navigates": true
+        },
+        {
+          "id": "row_w2:btn_cool",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w2",
+          "source_hub_role": "warehouse",
+          "action": "btn_cool",
+          "destination_node": "row_w2",
+          "destination_hub_role": "warehouse",
+          "navigates": false
+        },
+        {
+          "id": "row_w2:btn_pin",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w2",
+          "source_hub_role": "warehouse",
+          "action": "btn_pin",
+          "destination_node": "row_w2",
+          "destination_hub_role": "warehouse",
+          "navigates": false
+        },
+        {
+          "id": "row_w2:nav_prefs",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w2",
+          "source_hub_role": "warehouse",
+          "action": "nav_prefs",
+          "destination_node": "settings",
+          "destination_hub_role": "settings",
+          "navigates": true
+        },
+        {
+          "id": "row_w2:open_mid",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w2",
+          "source_hub_role": "warehouse",
+          "action": "open_mid",
+          "destination_node": "mid",
+          "destination_hub_role": "zone",
+          "navigates": true
+        },
+        {
+          "id": "row_w2:open_side",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w2",
+          "source_hub_role": "warehouse",
+          "action": "open_side",
+          "destination_node": "side_hub",
+          "destination_hub_role": "item_hub",
+          "navigates": true
+        },
+        {
+          "id": "row_w3:btn_cool",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w3",
+          "source_hub_role": "warehouse",
+          "action": "btn_cool",
+          "destination_node": "row_w3",
+          "destination_hub_role": "warehouse",
+          "navigates": false
+        },
+        {
+          "id": "row_w3:btn_pin",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w3",
+          "source_hub_role": "warehouse",
+          "action": "btn_pin",
+          "destination_node": "row_w3",
+          "destination_hub_role": "warehouse",
+          "navigates": false
+        },
+        {
+          "id": "row_w3:nav_prefs",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w3",
+          "source_hub_role": "warehouse",
+          "action": "nav_prefs",
+          "destination_node": "settings",
+          "destination_hub_role": "settings",
+          "navigates": true
+        },
+        {
+          "id": "row_w3:open_mid",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w3",
+          "source_hub_role": "warehouse",
+          "action": "open_mid",
+          "destination_node": "mid",
+          "destination_hub_role": "zone",
+          "navigates": true
+        },
+        {
+          "id": "row_w3:open_side",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_w3",
+          "source_hub_role": "warehouse",
+          "action": "open_side",
+          "destination_node": "side_hub",
+          "destination_hub_role": "item_hub",
+          "navigates": true
+        },
+        {
+          "id": "side_hub:open_side_i1",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_hub",
+          "source_hub_role": "item_hub",
+          "action": "open_side_i1",
+          "destination_node": "side_i1",
+          "destination_hub_role": "item",
+          "navigates": true
+        },
+        {
+          "id": "side_hub:open_side_i2",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_hub",
+          "source_hub_role": "item_hub",
+          "action": "open_side_i2",
+          "destination_node": "side_i2",
+          "destination_hub_role": "item",
+          "navigates": true
+        },
+        {
+          "id": "side_hub:open_side_i3",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_hub",
+          "source_hub_role": "item_hub",
+          "action": "open_side_i3",
+          "destination_node": "side_i3",
+          "destination_hub_role": "item",
+          "navigates": true
+        },
+        {
+          "id": "side_i1:btn_staff_note",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_i1",
+          "source_hub_role": "item",
+          "action": "btn_staff_note",
+          "destination_node": "side_i1",
+          "destination_hub_role": "item",
+          "navigates": false
+        },
+        {
+          "id": "side_i1:btn_variant",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_i1",
+          "source_hub_role": "item",
+          "action": "btn_variant",
+          "destination_node": "side_i1",
+          "destination_hub_role": "item",
+          "navigates": false
+        },
+        {
+          "id": "side_i1:open_cross",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_i1",
+          "source_hub_role": "item",
+          "action": "open_cross",
+          "destination_node": "anchor",
+          "destination_hub_role": "supplier",
+          "navigates": true
+        },
+        {
+          "id": "side_i1:open_mid_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_i1",
+          "source_hub_role": "item",
+          "action": "open_mid_b",
+          "destination_node": "mid_b",
+          "destination_hub_role": "batch",
+          "navigates": true
+        },
+        {
+          "id": "side_i2:btn_staff_note",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_i2",
+          "source_hub_role": "item",
+          "action": "btn_staff_note",
+          "destination_node": "side_i2",
+          "destination_hub_role": "item",
+          "navigates": false
+        },
+        {
+          "id": "side_i2:btn_variant",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_i2",
+          "source_hub_role": "item",
+          "action": "btn_variant",
+          "destination_node": "side_i2",
+          "destination_hub_role": "item",
+          "navigates": false
+        },
+        {
+          "id": "side_i2:open_cross",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_i2",
+          "source_hub_role": "item",
+          "action": "open_cross",
+          "destination_node": "anchor",
+          "destination_hub_role": "supplier",
+          "navigates": true
+        },
+        {
+          "id": "side_i2:open_mid_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_i2",
+          "source_hub_role": "item",
+          "action": "open_mid_b",
+          "destination_node": "mid_b",
+          "destination_hub_role": "batch",
+          "navigates": true
+        },
+        {
+          "id": "side_i3:btn_staff_note",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_i3",
+          "source_hub_role": "item",
+          "action": "btn_staff_note",
+          "destination_node": "side_i3",
+          "destination_hub_role": "item",
+          "navigates": false
+        },
+        {
+          "id": "side_i3:btn_variant",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_i3",
+          "source_hub_role": "item",
+          "action": "btn_variant",
+          "destination_node": "side_i3",
+          "destination_hub_role": "item",
+          "navigates": false
+        },
+        {
+          "id": "side_i3:open_cross",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_i3",
+          "source_hub_role": "item",
+          "action": "open_cross",
+          "destination_node": "anchor",
+          "destination_hub_role": "supplier",
+          "navigates": true
+        },
+        {
+          "id": "side_i3:open_mid_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_i3",
+          "source_hub_role": "item",
+          "action": "open_mid_b",
+          "destination_node": "mid_b",
+          "destination_hub_role": "batch",
+          "navigates": true
+        }
+      ],
+      "local_button_opportunity_counts": {
+        "child_a": 1,
+        "child_b": 1,
+        "child_b_a": 1,
+        "child_b_b": 1,
+        "child_b_c": 1,
+        "child_c": 1,
+        "finding": 2,
+        "lane_dest": 2,
+        "mid": 2,
+        "mid_b": 2,
+        "row_w1": 2,
+        "row_w2": 2,
+        "row_w3": 2,
+        "side_i1": 2,
+        "side_i2": 2,
+        "side_i3": 2
+      },
+      "qualification_ok": true
+    },
+    "buggy-studio": {
+      "app": "buggy-studio",
+      "seed": 2246306509,
+      "seed_hex": "85e3eacd",
+      "family": "project_scene_asset_render_review",
+      "class": "positive",
+      "node_count": 27,
+      "edge_count": 75,
+      "hub_count": 11,
+      "max_nested_branch_depth": 8,
+      "nested_handoff_opportunity_count": 2,
+      "finding_return_entry_opportunity_count": 2,
+      "horizon_only_return_entry_control_count": 1,
+      "state_variant_return_count": 1,
+      "qualified": true,
+      "positive_class": true,
+      "distinct_child_workflows": [
+        "publish_note",
+        "render_take"
+      ],
+      "qualifying_path_summaries": [
+        {
+          "id": "nested:publish_note",
+          "class": "nested_handoff_opportunity",
+          "child_workflow_role": "publish_note",
+          "start_hub": "side_a1",
+          "start_hub_role": "asset",
+          "destination_hub_role": "versions",
+          "edge_count": 4,
+          "crosses_branch_horizon": true,
+          "actions": [
+            "open_mid_b",
+            "open_child_b_a",
+            "btn_mark",
+            "nav_up_child"
+          ],
+          "edge_ids": [
+            "side_a1:open_mid_b",
+            "mid_b:open_child_b_a",
+            "child_b_a:btn_mark",
+            "child_b_a:nav_up_child"
+          ],
+          "nodes": [
+            "side_a1",
+            "mid_b",
+            "child_b_a",
+            "child_b_a",
+            "mid_b"
+          ]
+        },
+        {
+          "id": "nested:render_take",
+          "class": "nested_handoff_opportunity",
+          "child_workflow_role": "render_take",
+          "start_hub": "row_p1",
+          "start_hub_role": "project",
+          "destination_hub_role": "scene",
+          "edge_count": 4,
+          "crosses_branch_horizon": true,
+          "actions": [
+            "open_mid",
+            "open_child_a",
+            "btn_mark",
+            "nav_up_child"
+          ],
+          "edge_ids": [
+            "row_p1:open_mid",
+            "mid:open_child_a",
+            "child_a:btn_mark",
+            "child_a:nav_up_child"
+          ],
+          "nodes": [
+            "row_p1",
+            "mid",
+            "child_a",
+            "child_a",
+            "mid"
+          ]
+        }
+      ],
+      "finding_return_opportunities": [
+        {
+          "id": "anchor:open_finding_b",
+          "class": "finding_return_entry_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "review",
+          "action": "open_finding_b",
+          "destination_node": "finding",
+          "destination_hub_role": "comments",
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_note_a",
+            "btn_note_b"
+          ],
+          "offline_guarantees_finding": true,
+          "path_id": "finding-anchor"
+        },
+        {
+          "id": "list_hub:open_finding",
+          "class": "finding_return_entry_opportunity",
+          "source_node": "list_hub",
+          "source_hub_role": "project_hub",
+          "action": "open_finding",
+          "destination_node": "finding",
+          "destination_hub_role": "comments",
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_note_a",
+            "btn_note_b"
+          ],
+          "offline_guarantees_finding": true,
+          "path_id": "finding-main"
+        }
+      ],
+      "horizon_only_controls": [
+        {
+          "id": "horizon-main",
+          "class": "horizon_only_return_entry_control",
+          "source_node": "anchor",
+          "source_hub_role": "review",
+          "destination_node": "lane_dest",
+          "destination_hub_role": "horizon_destination",
+          "actions": [
+            "open_lane_a",
+            "open_lane_b",
+            "open_dest"
+          ],
+          "edge_ids": [
+            "anchor:open_lane_a",
+            "lane_a:open_lane_b",
+            "lane_b:open_dest"
+          ],
+          "nodes": [
+            "anchor",
+            "lane_a",
+            "lane_b",
+            "lane_dest"
+          ],
+          "length": 3,
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_hold",
+            "btn_tag"
+          ],
+          "offline_guarantees_finding": false,
+          "offline_guarantees_no_finding": true,
+          "start_is_hub": true,
+          "later_sources_are_hubs": false,
+          "final_source_is_hub": false
+        }
+      ],
+      "handoff_edges": [
+        {
+          "id": "anchor:open_finding_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "review",
+          "action": "open_finding_b",
+          "destination_node": "finding",
+          "destination_hub_role": "comments",
+          "navigates": true
+        },
+        {
+          "id": "anchor:open_lane_a",
+          "class": "nested_handoff_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "review",
+          "action": "open_lane_a",
+          "destination_node": "lane_a",
+          "destination_hub_role": "horizon_lane",
+          "navigates": true
+        },
+        {
+          "id": "anchor:open_leaf",
+          "class": "nested_handoff_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "review",
+          "action": "open_leaf",
+          "destination_node": "handbook",
+          "destination_hub_role": "handbook",
+          "navigates": true
+        },
+        {
+          "id": "mid:btn_close",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "scene",
+          "action": "btn_close",
+          "destination_node": "mid",
+          "destination_hub_role": "scene",
+          "navigates": false
+        },
+        {
+          "id": "mid:btn_reopen",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "scene",
+          "action": "btn_reopen",
+          "destination_node": "mid",
+          "destination_hub_role": "scene",
+          "navigates": false
+        },
+        {
+          "id": "mid:open_child_a",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "scene",
+          "action": "open_child_a",
+          "destination_node": "child_a",
+          "destination_hub_role": "render_child",
+          "navigates": true
+        },
+        {
+          "id": "mid:open_child_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "scene",
+          "action": "open_child_b",
+          "destination_node": "child_b",
+          "destination_hub_role": "render_child",
+          "navigates": true
+        },
+        {
+          "id": "mid:open_child_c",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "scene",
+          "action": "open_child_c",
+          "destination_node": "child_c",
+          "destination_hub_role": "render_child",
+          "navigates": true
+        },
+        {
+          "id": "mid_b:btn_close",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "versions",
+          "action": "btn_close",
+          "destination_node": "mid_b",
+          "destination_hub_role": "versions",
+          "navigates": false
+        },
+        {
+          "id": "mid_b:btn_reopen",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "versions",
+          "action": "btn_reopen",
+          "destination_node": "mid_b",
+          "destination_hub_role": "versions",
+          "navigates": false
+        },
+        {
+          "id": "mid_b:open_child_b_a",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "versions",
+          "action": "open_child_b_a",
+          "destination_node": "child_b_a",
+          "destination_hub_role": "publish_child",
+          "navigates": true
+        },
+        {
+          "id": "mid_b:open_child_b_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "versions",
+          "action": "open_child_b_b",
+          "destination_node": "child_b_b",
+          "destination_hub_role": "publish_child",
+          "navigates": true
+        },
+        {
+          "id": "mid_b:open_child_b_c",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "versions",
+          "action": "open_child_b_c",
+          "destination_node": "child_b_c",
+          "destination_hub_role": "publish_child",
+          "navigates": true
+        },
+        {
+          "id": "row_p1:btn_cool",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p1",
+          "source_hub_role": "project",
+          "action": "btn_cool",
+          "destination_node": "row_p1",
+          "destination_hub_role": "project",
+          "navigates": false
+        },
+        {
+          "id": "row_p1:btn_pin",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p1",
+          "source_hub_role": "project",
+          "action": "btn_pin",
+          "destination_node": "row_p1",
+          "destination_hub_role": "project",
+          "navigates": false
+        },
+        {
+          "id": "row_p1:nav_prefs",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p1",
+          "source_hub_role": "project",
+          "action": "nav_prefs",
+          "destination_node": "settings",
+          "destination_hub_role": "settings",
+          "navigates": true
+        },
+        {
+          "id": "row_p1:open_mid",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p1",
+          "source_hub_role": "project",
+          "action": "open_mid",
+          "destination_node": "mid",
+          "destination_hub_role": "scene",
+          "navigates": true
+        },
+        {
+          "id": "row_p1:open_side",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p1",
+          "source_hub_role": "project",
+          "action": "open_side",
+          "destination_node": "side_hub",
+          "destination_hub_role": "asset_hub",
+          "navigates": true
+        },
+        {
+          "id": "row_p2:btn_cool",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p2",
+          "source_hub_role": "project",
+          "action": "btn_cool",
+          "destination_node": "row_p2",
+          "destination_hub_role": "project",
+          "navigates": false
+        },
+        {
+          "id": "row_p2:btn_pin",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p2",
+          "source_hub_role": "project",
+          "action": "btn_pin",
+          "destination_node": "row_p2",
+          "destination_hub_role": "project",
+          "navigates": false
+        },
+        {
+          "id": "row_p2:nav_prefs",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p2",
+          "source_hub_role": "project",
+          "action": "nav_prefs",
+          "destination_node": "settings",
+          "destination_hub_role": "settings",
+          "navigates": true
+        },
+        {
+          "id": "row_p2:open_mid",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p2",
+          "source_hub_role": "project",
+          "action": "open_mid",
+          "destination_node": "mid",
+          "destination_hub_role": "scene",
+          "navigates": true
+        },
+        {
+          "id": "row_p2:open_side",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p2",
+          "source_hub_role": "project",
+          "action": "open_side",
+          "destination_node": "side_hub",
+          "destination_hub_role": "asset_hub",
+          "navigates": true
+        },
+        {
+          "id": "row_p3:btn_cool",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p3",
+          "source_hub_role": "project",
+          "action": "btn_cool",
+          "destination_node": "row_p3",
+          "destination_hub_role": "project",
+          "navigates": false
+        },
+        {
+          "id": "row_p3:btn_pin",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p3",
+          "source_hub_role": "project",
+          "action": "btn_pin",
+          "destination_node": "row_p3",
+          "destination_hub_role": "project",
+          "navigates": false
+        },
+        {
+          "id": "row_p3:nav_prefs",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p3",
+          "source_hub_role": "project",
+          "action": "nav_prefs",
+          "destination_node": "settings",
+          "destination_hub_role": "settings",
+          "navigates": true
+        },
+        {
+          "id": "row_p3:open_mid",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p3",
+          "source_hub_role": "project",
+          "action": "open_mid",
+          "destination_node": "mid",
+          "destination_hub_role": "scene",
+          "navigates": true
+        },
+        {
+          "id": "row_p3:open_side",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_p3",
+          "source_hub_role": "project",
+          "action": "open_side",
+          "destination_node": "side_hub",
+          "destination_hub_role": "asset_hub",
+          "navigates": true
+        },
+        {
+          "id": "side_a1:btn_staff_note",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_a1",
+          "source_hub_role": "asset",
+          "action": "btn_staff_note",
+          "destination_node": "side_a1",
+          "destination_hub_role": "asset",
+          "navigates": false
+        },
+        {
+          "id": "side_a1:btn_variant",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_a1",
+          "source_hub_role": "asset",
+          "action": "btn_variant",
+          "destination_node": "side_a1",
+          "destination_hub_role": "asset",
+          "navigates": false
+        },
+        {
+          "id": "side_a1:open_cross",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_a1",
+          "source_hub_role": "asset",
+          "action": "open_cross",
+          "destination_node": "anchor",
+          "destination_hub_role": "review",
+          "navigates": true
+        },
+        {
+          "id": "side_a1:open_mid_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_a1",
+          "source_hub_role": "asset",
+          "action": "open_mid_b",
+          "destination_node": "mid_b",
+          "destination_hub_role": "versions",
+          "navigates": true
+        },
+        {
+          "id": "side_a2:btn_staff_note",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_a2",
+          "source_hub_role": "asset",
+          "action": "btn_staff_note",
+          "destination_node": "side_a2",
+          "destination_hub_role": "asset",
+          "navigates": false
+        },
+        {
+          "id": "side_a2:btn_variant",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_a2",
+          "source_hub_role": "asset",
+          "action": "btn_variant",
+          "destination_node": "side_a2",
+          "destination_hub_role": "asset",
+          "navigates": false
+        },
+        {
+          "id": "side_a2:open_cross",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_a2",
+          "source_hub_role": "asset",
+          "action": "open_cross",
+          "destination_node": "anchor",
+          "destination_hub_role": "review",
+          "navigates": true
+        },
+        {
+          "id": "side_a2:open_mid_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_a2",
+          "source_hub_role": "asset",
+          "action": "open_mid_b",
+          "destination_node": "mid_b",
+          "destination_hub_role": "versions",
+          "navigates": true
+        },
+        {
+          "id": "side_a3:btn_staff_note",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_a3",
+          "source_hub_role": "asset",
+          "action": "btn_staff_note",
+          "destination_node": "side_a3",
+          "destination_hub_role": "asset",
+          "navigates": false
+        },
+        {
+          "id": "side_a3:btn_variant",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_a3",
+          "source_hub_role": "asset",
+          "action": "btn_variant",
+          "destination_node": "side_a3",
+          "destination_hub_role": "asset",
+          "navigates": false
+        },
+        {
+          "id": "side_a3:open_cross",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_a3",
+          "source_hub_role": "asset",
+          "action": "open_cross",
+          "destination_node": "anchor",
+          "destination_hub_role": "review",
+          "navigates": true
+        },
+        {
+          "id": "side_a3:open_mid_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_a3",
+          "source_hub_role": "asset",
+          "action": "open_mid_b",
+          "destination_node": "mid_b",
+          "destination_hub_role": "versions",
+          "navigates": true
+        },
+        {
+          "id": "side_hub:open_side_a1",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_hub",
+          "source_hub_role": "asset_hub",
+          "action": "open_side_a1",
+          "destination_node": "side_a1",
+          "destination_hub_role": "asset",
+          "navigates": true
+        },
+        {
+          "id": "side_hub:open_side_a2",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_hub",
+          "source_hub_role": "asset_hub",
+          "action": "open_side_a2",
+          "destination_node": "side_a2",
+          "destination_hub_role": "asset",
+          "navigates": true
+        },
+        {
+          "id": "side_hub:open_side_a3",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_hub",
+          "source_hub_role": "asset_hub",
+          "action": "open_side_a3",
+          "destination_node": "side_a3",
+          "destination_hub_role": "asset",
+          "navigates": true
+        }
+      ],
+      "local_button_opportunity_counts": {
+        "child_a": 1,
+        "child_b": 1,
+        "child_b_a": 1,
+        "child_b_b": 1,
+        "child_b_c": 1,
+        "child_c": 1,
+        "finding": 2,
+        "lane_dest": 2,
+        "mid": 2,
+        "mid_b": 2,
+        "row_p1": 2,
+        "row_p2": 2,
+        "row_p3": 2,
+        "side_a1": 2,
+        "side_a2": 2,
+        "side_a3": 2
+      },
+      "qualification_ok": true
+    },
+    "buggy-booking": {
+      "app": "buggy-booking",
+      "seed": 684480120,
+      "seed_hex": "28cc5678",
+      "family": "venue_calendar_reservation_guest_workflow",
+      "class": "positive",
+      "node_count": 27,
+      "edge_count": 77,
+      "hub_count": 11,
+      "max_nested_branch_depth": 8,
+      "nested_handoff_opportunity_count": 2,
+      "finding_return_entry_opportunity_count": 2,
+      "horizon_only_return_entry_control_count": 1,
+      "state_variant_return_count": 1,
+      "qualified": true,
+      "positive_class": true,
+      "distinct_child_workflows": [
+        "guest_checkin",
+        "modification_slip"
+      ],
+      "qualifying_path_summaries": [
+        {
+          "id": "nested:guest_checkin",
+          "class": "nested_handoff_opportunity",
+          "child_workflow_role": "guest_checkin",
+          "start_hub": "row_v1",
+          "start_hub_role": "venue",
+          "destination_hub_role": "room",
+          "edge_count": 4,
+          "crosses_branch_horizon": true,
+          "actions": [
+            "open_mid",
+            "open_child_a",
+            "btn_mark",
+            "nav_up_child"
+          ],
+          "edge_ids": [
+            "row_v1:open_mid",
+            "mid:open_child_a",
+            "child_a:btn_mark",
+            "child_a:nav_up_child"
+          ],
+          "nodes": [
+            "row_v1",
+            "mid",
+            "child_a",
+            "child_a",
+            "mid"
+          ]
+        },
+        {
+          "id": "nested:modification_slip",
+          "class": "nested_handoff_opportunity",
+          "child_workflow_role": "modification_slip",
+          "start_hub": "side_r1",
+          "start_hub_role": "reservation",
+          "destination_hub_role": "modify",
+          "edge_count": 4,
+          "crosses_branch_horizon": true,
+          "actions": [
+            "open_mid_b",
+            "open_child_b_a",
+            "btn_mark",
+            "nav_up_child"
+          ],
+          "edge_ids": [
+            "side_r1:open_mid_b",
+            "mid_b:open_child_b_a",
+            "child_b_a:btn_mark",
+            "child_b_a:nav_up_child"
+          ],
+          "nodes": [
+            "side_r1",
+            "mid_b",
+            "child_b_a",
+            "child_b_a",
+            "mid_b"
+          ]
+        }
+      ],
+      "finding_return_opportunities": [
+        {
+          "id": "anchor:open_finding_b",
+          "class": "finding_return_entry_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "guest_list",
+          "action": "open_finding_b",
+          "destination_node": "finding",
+          "destination_hub_role": "notes",
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_note_a",
+            "btn_note_b"
+          ],
+          "offline_guarantees_finding": true,
+          "path_id": "finding-anchor"
+        },
+        {
+          "id": "list_hub:open_finding",
+          "class": "finding_return_entry_opportunity",
+          "source_node": "list_hub",
+          "source_hub_role": "venue_hub",
+          "action": "open_finding",
+          "destination_node": "finding",
+          "destination_hub_role": "notes",
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_note_a",
+            "btn_note_b"
+          ],
+          "offline_guarantees_finding": true,
+          "path_id": "finding-main"
+        }
+      ],
+      "horizon_only_controls": [
+        {
+          "id": "horizon-main",
+          "class": "horizon_only_return_entry_control",
+          "source_node": "anchor",
+          "source_hub_role": "guest_list",
+          "destination_node": "lane_dest",
+          "destination_hub_role": "horizon_destination",
+          "actions": [
+            "open_lane_a",
+            "open_lane_b",
+            "open_dest"
+          ],
+          "edge_ids": [
+            "anchor:open_lane_a",
+            "lane_a:open_lane_b",
+            "lane_b:open_dest"
+          ],
+          "nodes": [
+            "anchor",
+            "lane_a",
+            "lane_b",
+            "lane_dest"
+          ],
+          "length": 3,
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_hold",
+            "btn_tag"
+          ],
+          "offline_guarantees_finding": false,
+          "offline_guarantees_no_finding": true,
+          "start_is_hub": true,
+          "later_sources_are_hubs": false,
+          "final_source_is_hub": false
+        }
+      ],
+      "handoff_edges": [
+        {
+          "id": "anchor:open_finding_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "guest_list",
+          "action": "open_finding_b",
+          "destination_node": "finding",
+          "destination_hub_role": "notes",
+          "navigates": true
+        },
+        {
+          "id": "anchor:open_lane_a",
+          "class": "nested_handoff_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "guest_list",
+          "action": "open_lane_a",
+          "destination_node": "lane_a",
+          "destination_hub_role": "horizon_lane",
+          "navigates": true
+        },
+        {
+          "id": "anchor:open_leaf",
+          "class": "nested_handoff_opportunity",
+          "source_node": "anchor",
+          "source_hub_role": "guest_list",
+          "action": "open_leaf",
+          "destination_node": "extra_0",
+          "destination_hub_role": "extra",
+          "navigates": true
+        },
+        {
+          "id": "mid:btn_close",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "room",
+          "action": "btn_close",
+          "destination_node": "mid",
+          "destination_hub_role": "room",
+          "navigates": false
+        },
+        {
+          "id": "mid:btn_reopen",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "room",
+          "action": "btn_reopen",
+          "destination_node": "mid",
+          "destination_hub_role": "room",
+          "navigates": false
+        },
+        {
+          "id": "mid:open_child_a",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "room",
+          "action": "open_child_a",
+          "destination_node": "child_a",
+          "destination_hub_role": "guest_child",
+          "navigates": true
+        },
+        {
+          "id": "mid:open_child_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "room",
+          "action": "open_child_b",
+          "destination_node": "child_b",
+          "destination_hub_role": "guest_child",
+          "navigates": true
+        },
+        {
+          "id": "mid:open_child_c",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid",
+          "source_hub_role": "room",
+          "action": "open_child_c",
+          "destination_node": "child_c",
+          "destination_hub_role": "guest_child",
+          "navigates": true
+        },
+        {
+          "id": "mid_b:btn_close",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "modify",
+          "action": "btn_close",
+          "destination_node": "mid_b",
+          "destination_hub_role": "modify",
+          "navigates": false
+        },
+        {
+          "id": "mid_b:btn_reopen",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "modify",
+          "action": "btn_reopen",
+          "destination_node": "mid_b",
+          "destination_hub_role": "modify",
+          "navigates": false
+        },
+        {
+          "id": "mid_b:open_child_b_a",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "modify",
+          "action": "open_child_b_a",
+          "destination_node": "child_b_a",
+          "destination_hub_role": "slip_child",
+          "navigates": true
+        },
+        {
+          "id": "mid_b:open_child_b_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "modify",
+          "action": "open_child_b_b",
+          "destination_node": "child_b_b",
+          "destination_hub_role": "slip_child",
+          "navigates": true
+        },
+        {
+          "id": "mid_b:open_child_b_c",
+          "class": "nested_handoff_opportunity",
+          "source_node": "mid_b",
+          "source_hub_role": "modify",
+          "action": "open_child_b_c",
+          "destination_node": "child_b_c",
+          "destination_hub_role": "slip_child",
+          "navigates": true
+        },
+        {
+          "id": "row_v1:btn_cool",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v1",
+          "source_hub_role": "venue",
+          "action": "btn_cool",
+          "destination_node": "row_v1",
+          "destination_hub_role": "venue",
+          "navigates": false
+        },
+        {
+          "id": "row_v1:btn_pin",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v1",
+          "source_hub_role": "venue",
+          "action": "btn_pin",
+          "destination_node": "row_v1",
+          "destination_hub_role": "venue",
+          "navigates": false
+        },
+        {
+          "id": "row_v1:nav_prefs",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v1",
+          "source_hub_role": "venue",
+          "action": "nav_prefs",
+          "destination_node": "settings",
+          "destination_hub_role": "settings",
+          "navigates": true
+        },
+        {
+          "id": "row_v1:open_mid",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v1",
+          "source_hub_role": "venue",
+          "action": "open_mid",
+          "destination_node": "mid",
+          "destination_hub_role": "room",
+          "navigates": true
+        },
+        {
+          "id": "row_v1:open_side",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v1",
+          "source_hub_role": "venue",
+          "action": "open_side",
+          "destination_node": "side_hub",
+          "destination_hub_role": "calendar",
+          "navigates": true
+        },
+        {
+          "id": "row_v2:btn_cool",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v2",
+          "source_hub_role": "venue",
+          "action": "btn_cool",
+          "destination_node": "row_v2",
+          "destination_hub_role": "venue",
+          "navigates": false
+        },
+        {
+          "id": "row_v2:btn_pin",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v2",
+          "source_hub_role": "venue",
+          "action": "btn_pin",
+          "destination_node": "row_v2",
+          "destination_hub_role": "venue",
+          "navigates": false
+        },
+        {
+          "id": "row_v2:nav_prefs",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v2",
+          "source_hub_role": "venue",
+          "action": "nav_prefs",
+          "destination_node": "settings",
+          "destination_hub_role": "settings",
+          "navigates": true
+        },
+        {
+          "id": "row_v2:open_mid",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v2",
+          "source_hub_role": "venue",
+          "action": "open_mid",
+          "destination_node": "mid",
+          "destination_hub_role": "room",
+          "navigates": true
+        },
+        {
+          "id": "row_v2:open_side",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v2",
+          "source_hub_role": "venue",
+          "action": "open_side",
+          "destination_node": "side_hub",
+          "destination_hub_role": "calendar",
+          "navigates": true
+        },
+        {
+          "id": "row_v3:btn_cool",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v3",
+          "source_hub_role": "venue",
+          "action": "btn_cool",
+          "destination_node": "row_v3",
+          "destination_hub_role": "venue",
+          "navigates": false
+        },
+        {
+          "id": "row_v3:btn_pin",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v3",
+          "source_hub_role": "venue",
+          "action": "btn_pin",
+          "destination_node": "row_v3",
+          "destination_hub_role": "venue",
+          "navigates": false
+        },
+        {
+          "id": "row_v3:nav_prefs",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v3",
+          "source_hub_role": "venue",
+          "action": "nav_prefs",
+          "destination_node": "settings",
+          "destination_hub_role": "settings",
+          "navigates": true
+        },
+        {
+          "id": "row_v3:open_mid",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v3",
+          "source_hub_role": "venue",
+          "action": "open_mid",
+          "destination_node": "mid",
+          "destination_hub_role": "room",
+          "navigates": true
+        },
+        {
+          "id": "row_v3:open_side",
+          "class": "nested_handoff_opportunity",
+          "source_node": "row_v3",
+          "source_hub_role": "venue",
+          "action": "open_side",
+          "destination_node": "side_hub",
+          "destination_hub_role": "calendar",
+          "navigates": true
+        },
+        {
+          "id": "side_hub:open_side_r1",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_hub",
+          "source_hub_role": "calendar",
+          "action": "open_side_r1",
+          "destination_node": "side_r1",
+          "destination_hub_role": "reservation",
+          "navigates": true
+        },
+        {
+          "id": "side_hub:open_side_r2",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_hub",
+          "source_hub_role": "calendar",
+          "action": "open_side_r2",
+          "destination_node": "side_r2",
+          "destination_hub_role": "reservation",
+          "navigates": true
+        },
+        {
+          "id": "side_hub:open_side_r3",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_hub",
+          "source_hub_role": "calendar",
+          "action": "open_side_r3",
+          "destination_node": "side_r3",
+          "destination_hub_role": "reservation",
+          "navigates": true
+        },
+        {
+          "id": "side_r1:btn_staff_note",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_r1",
+          "source_hub_role": "reservation",
+          "action": "btn_staff_note",
+          "destination_node": "side_r1",
+          "destination_hub_role": "reservation",
+          "navigates": false
+        },
+        {
+          "id": "side_r1:btn_variant",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_r1",
+          "source_hub_role": "reservation",
+          "action": "btn_variant",
+          "destination_node": "side_r1",
+          "destination_hub_role": "reservation",
+          "navigates": false
+        },
+        {
+          "id": "side_r1:open_cross",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_r1",
+          "source_hub_role": "reservation",
+          "action": "open_cross",
+          "destination_node": "anchor",
+          "destination_hub_role": "guest_list",
+          "navigates": true
+        },
+        {
+          "id": "side_r1:open_mid_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_r1",
+          "source_hub_role": "reservation",
+          "action": "open_mid_b",
+          "destination_node": "mid_b",
+          "destination_hub_role": "modify",
+          "navigates": true
+        },
+        {
+          "id": "side_r2:btn_staff_note",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_r2",
+          "source_hub_role": "reservation",
+          "action": "btn_staff_note",
+          "destination_node": "side_r2",
+          "destination_hub_role": "reservation",
+          "navigates": false
+        },
+        {
+          "id": "side_r2:btn_variant",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_r2",
+          "source_hub_role": "reservation",
+          "action": "btn_variant",
+          "destination_node": "side_r2",
+          "destination_hub_role": "reservation",
+          "navigates": false
+        },
+        {
+          "id": "side_r2:open_cross",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_r2",
+          "source_hub_role": "reservation",
+          "action": "open_cross",
+          "destination_node": "anchor",
+          "destination_hub_role": "guest_list",
+          "navigates": true
+        },
+        {
+          "id": "side_r2:open_mid_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_r2",
+          "source_hub_role": "reservation",
+          "action": "open_mid_b",
+          "destination_node": "mid_b",
+          "destination_hub_role": "modify",
+          "navigates": true
+        },
+        {
+          "id": "side_r3:btn_staff_note",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_r3",
+          "source_hub_role": "reservation",
+          "action": "btn_staff_note",
+          "destination_node": "side_r3",
+          "destination_hub_role": "reservation",
+          "navigates": false
+        },
+        {
+          "id": "side_r3:btn_variant",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_r3",
+          "source_hub_role": "reservation",
+          "action": "btn_variant",
+          "destination_node": "side_r3",
+          "destination_hub_role": "reservation",
+          "navigates": false
+        },
+        {
+          "id": "side_r3:open_cross",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_r3",
+          "source_hub_role": "reservation",
+          "action": "open_cross",
+          "destination_node": "anchor",
+          "destination_hub_role": "guest_list",
+          "navigates": true
+        },
+        {
+          "id": "side_r3:open_mid_b",
+          "class": "nested_handoff_opportunity",
+          "source_node": "side_r3",
+          "source_hub_role": "reservation",
+          "action": "open_mid_b",
+          "destination_node": "mid_b",
+          "destination_hub_role": "modify",
+          "navigates": true
+        }
+      ],
+      "local_button_opportunity_counts": {
+        "child_a": 1,
+        "child_b": 1,
+        "child_b_a": 1,
+        "child_b_b": 1,
+        "child_b_c": 1,
+        "child_c": 1,
+        "finding": 2,
+        "lane_dest": 2,
+        "mid": 2,
+        "mid_b": 2,
+        "row_v1": 2,
+        "row_v2": 2,
+        "row_v3": 2,
+        "side_r1": 2,
+        "side_r2": 2,
+        "side_r3": 2
+      },
+      "qualification_ok": true
+    },
+    "buggy-catalog": {
+      "app": "buggy-catalog",
+      "seed": 950621117,
+      "seed_hex": "38a953bd",
+      "family": "shallow_catalog_fanout_control",
+      "class": "negative",
+      "node_count": 10,
+      "edge_count": 17,
+      "hub_count": 1,
+      "max_nested_branch_depth": 2,
+      "nested_handoff_opportunity_count": 0,
+      "finding_return_entry_opportunity_count": 0,
+      "horizon_only_return_entry_control_count": 0,
+      "state_variant_return_count": 0,
+      "qualified": true,
+      "positive_class": false,
+      "distinct_child_workflows": [],
+      "qualifying_path_summaries": [],
+      "finding_return_opportunities": [],
+      "horizon_only_controls": [],
+      "handoff_edges": [],
+      "local_button_opportunity_counts": {},
+      "qualification_ok": true
+    },
+    "buggy-kiosk": {
+      "app": "buggy-kiosk",
+      "seed": 655628102,
+      "seed_hex": "27141746",
+      "family": "shallow_finding_heavy_button_control",
+      "class": "negative",
+      "node_count": 9,
+      "edge_count": 16,
+      "hub_count": 1,
+      "max_nested_branch_depth": 4,
+      "nested_handoff_opportunity_count": 0,
+      "finding_return_entry_opportunity_count": 2,
+      "horizon_only_return_entry_control_count": 1,
+      "state_variant_return_count": 0,
+      "qualified": true,
+      "positive_class": false,
+      "distinct_child_workflows": [],
+      "qualifying_path_summaries": [],
+      "finding_return_opportunities": [
+        {
+          "id": "kiosk:open_task_t1",
+          "class": "finding_return_entry_opportunity",
+          "source_node": "kiosk",
+          "source_hub_role": "kiosk_panel",
+          "action": "open_task_t1",
+          "destination_node": "task_t1",
+          "destination_hub_role": "task_panel",
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_note_a",
+            "btn_note_b"
+          ],
+          "offline_guarantees_finding": true,
+          "path_id": "finding-t1"
+        },
+        {
+          "id": "kiosk:open_task_t2",
+          "class": "finding_return_entry_opportunity",
+          "source_node": "kiosk",
+          "source_hub_role": "kiosk_panel",
+          "action": "open_task_t2",
+          "destination_node": "task_t2",
+          "destination_hub_role": "task_panel",
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_note_a",
+            "btn_note_b"
+          ],
+          "offline_guarantees_finding": true,
+          "path_id": "finding-t2"
+        }
+      ],
+      "horizon_only_controls": [
+        {
+          "id": "horizon-main",
+          "class": "horizon_only_return_entry_control",
+          "source_node": "kiosk",
+          "source_hub_role": "kiosk_panel",
+          "destination_node": "lane_dest",
+          "destination_hub_role": "receipt",
+          "actions": [
+            "open_lane_a",
+            "open_lane_b",
+            "open_dest"
+          ],
+          "edge_ids": [
+            "kiosk:open_lane_a",
+            "lane_a:open_lane_b",
+            "lane_b:open_dest"
+          ],
+          "nodes": [
+            "kiosk",
+            "lane_a",
+            "lane_b",
+            "lane_dest"
+          ],
+          "length": 3,
+          "eligible_button_count": 2,
+          "eligible_buttons": [
+            "btn_hold",
+            "btn_tag"
+          ],
+          "offline_guarantees_finding": false,
+          "offline_guarantees_no_finding": true,
+          "start_is_hub": true,
+          "later_sources_are_hubs": false,
+          "final_source_is_hub": false
+        }
+      ],
+      "handoff_edges": [],
+      "local_button_opportunity_counts": {
+        "lane_dest": 2,
+        "task_t1": 2,
+        "task_t2": 2
+      },
+      "qualification_ok": true
+    }
+  }
+}

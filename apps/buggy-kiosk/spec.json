@@ -1,0 +1,81 @@
+{
+  "app": "buggy-kiosk",
+  "note": "Specification-driven semantic oracle. Uses ONLY page-presented values.",
+  "assertions": [
+    {
+      "id": "kiosk_title_required",
+      "severity": "high",
+      "desc": "标题为空时不应提示已创建",
+      "when": {
+        "url_contains": "/settings.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "input_topic_title"
+          },
+          "right": {
+            "const": ""
+          }
+        },
+        "then": {
+          "op": "not_contains",
+          "left": {
+            "obs": "form_msg"
+          },
+          "right": {
+            "const": "已创建"
+          }
+        }
+      }
+    },
+    {
+      "id": "kiosk_score_matches",
+      "severity": "high",
+      "desc": "展示分数应与记录分数一致",
+      "when": {
+        "url_contains": "/task.html"
+      },
+      "assert": {
+        "op": "eq",
+        "left": {
+          "obs": "score_shown"
+        },
+        "right": {
+          "obs": "score_live"
+        }
+      }
+    },
+    {
+      "id": "kiosk_note_label",
+      "severity": "medium",
+      "desc": "记一笔后摘记不应为空",
+      "when": {
+        "url_contains": "/task.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "scratch_a"
+          },
+          "right": {
+            "const": "已记"
+          }
+        },
+        "then": {
+          "op": "eq",
+          "left": {
+            "obs": "scratch_b"
+          },
+          "right": {
+            "const": "已记"
+          }
+        }
+      }
+    }
+  ]
+}

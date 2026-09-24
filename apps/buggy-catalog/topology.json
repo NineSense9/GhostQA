@@ -1,0 +1,437 @@
+{
+  "app": "buggy-catalog",
+  "note": "Judge and qualification topology. Not served. Exploration must not read this file.",
+  "topology_family": "shallow_catalog_fanout_control",
+  "seed": 950621117,
+  "seed_hex": "38a953bd",
+  "expected_control_class": "catalog",
+  "branch_horizon": 3,
+  "nodes": [
+    {
+      "id": "home",
+      "page": "index.html",
+      "hub": false,
+      "hub_role": "entry",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "nav_categories",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "nav_categories",
+          "dst": "categories",
+          "navigates": true
+        },
+        {
+          "testid": "nav_search",
+          "dst": "search",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "categories",
+      "page": "categories.html",
+      "hub": true,
+      "hub_role": "category_list",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_p1",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_p1",
+          "dst": "product_p1",
+          "navigates": true
+        },
+        {
+          "testid": "open_p2",
+          "dst": "product_p2",
+          "navigates": true
+        },
+        {
+          "testid": "open_p3",
+          "dst": "product_p3",
+          "navigates": true
+        },
+        {
+          "testid": "nav_products",
+          "dst": "products",
+          "navigates": true
+        },
+        {
+          "testid": "open_compare",
+          "dst": "compare",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "products",
+      "page": "products.html",
+      "hub": false,
+      "hub_role": "product_list",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "product_p1",
+      "page": "product.html",
+      "hub": false,
+      "hub_role": "product",
+      "entity": "p1",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "product_p2",
+      "page": "product.html",
+      "hub": false,
+      "hub_role": "product",
+      "entity": "p2",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "product_p3",
+      "page": "product.html",
+      "hub": false,
+      "hub_role": "product",
+      "entity": "p3",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "compare",
+      "page": "compare.html",
+      "hub": false,
+      "hub_role": "compare",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": true,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "search",
+      "page": "search.html",
+      "hub": false,
+      "hub_role": "search",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "help",
+      "page": "help.html",
+      "hub": false,
+      "hub_role": "help",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_loop",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_loop",
+          "dst": "settings",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "page": "settings.html",
+      "hub": false,
+      "hub_role": "settings",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_loop",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_loop",
+          "dst": "help",
+          "navigates": true
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "home:nav_categories",
+      "src": "home",
+      "dst": "categories",
+      "action": "nav_categories",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "home:nav_search",
+      "src": "home",
+      "dst": "search",
+      "action": "nav_search",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "home:open_aid",
+      "src": "home",
+      "dst": "help",
+      "action": "open_aid",
+      "branch_like": false,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "categories:open_p1",
+      "src": "categories",
+      "dst": "product_p1",
+      "action": "open_p1",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "categories:open_p2",
+      "src": "categories",
+      "dst": "product_p2",
+      "action": "open_p2",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "categories:open_p3",
+      "src": "categories",
+      "dst": "product_p3",
+      "action": "open_p3",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "categories:nav_products",
+      "src": "categories",
+      "dst": "products",
+      "action": "nav_products",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "categories:open_compare",
+      "src": "categories",
+      "dst": "compare",
+      "action": "open_compare",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "categories:nav_up_home",
+      "src": "categories",
+      "dst": "home",
+      "action": "nav_up_home",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "home",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "products:nav_up_categories",
+      "src": "products",
+      "dst": "categories",
+      "action": "nav_up_categories",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "categories",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "product_p1:nav_up_products",
+      "src": "product_p1",
+      "dst": "products",
+      "action": "nav_up_products",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "products",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "product_p2:nav_up_products",
+      "src": "product_p2",
+      "dst": "products",
+      "action": "nav_up_products",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "products",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "product_p3:nav_up_products",
+      "src": "product_p3",
+      "dst": "products",
+      "action": "nav_up_products",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "products",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "search:nav_up_home_search",
+      "src": "search",
+      "dst": "home",
+      "action": "nav_up_home_search",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "home",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "help:open_loop",
+      "src": "help",
+      "dst": "settings",
+      "action": "open_loop",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "settings:open_loop",
+      "src": "settings",
+      "dst": "help",
+      "action": "open_loop",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "settings:nav_up_home_prefs",
+      "src": "settings",
+      "dst": "home",
+      "action": "nav_up_home_prefs",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "home",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    }
+  ]
+}

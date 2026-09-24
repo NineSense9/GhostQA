@@ -1,0 +1,118 @@
+{
+  "round": "v0.3.20",
+  "purpose": "v0.3.20 fresh target freeze before policy evaluation",
+  "protocol_commit": "c278b8274d92c509ea4d29de286150e51c4918ea",
+  "freeze_commit": "pending",
+  "candidate_identity": "ghost-structural-finding-return-entry-drain-guard",
+  "candidate_source_sha256": "0bfec3c7bd2811f154daa83bc81fde632976b8ab6e1da9ee6a208cf81c4bb42c",
+  "candidate_freeze": "experiments/frozen/ghost-finding-return-entry-v0.3.19/freeze.json",
+  "no_target_policy_evaluation_before_freeze": true,
+  "manifest_is_judge_only": true,
+  "mechanism_opportunities_are_judge_only": true,
+  "post_evaluation_changes_invalidate_protocol_identity": true,
+  "hash_normalization": "LF newlines",
+  "target": "buggy-warehouse",
+  "qualification": "experiments/validation/v0.3.20/static-qualification.json",
+  "files": {
+    "apps/buggy-warehouse/server.py": {
+      "sha256": "544a690fb73bff60849eaed7e9008d2488b9c63d10fd887bcd323827a49c8629",
+      "bytes": 1273
+    },
+    "apps/buggy-warehouse/README.md": {
+      "sha256": "7c3f8c9c39a66be90e081342fe351cbb099d21028ce785c517e192580576e8c8",
+      "bytes": 311
+    },
+    "apps/buggy-warehouse/spec.json": {
+      "sha256": "63acaf3739f814b01bff3dfc2d43c2df47cb7d4b802c06a6df720b6bbd69541c",
+      "bytes": 3302
+    },
+    "apps/buggy-warehouse/topology.json": {
+      "sha256": "849a344bfaad6af3d041ef31cd4831f35ac85ed02c5a5d49a3d31786b8b1bd25",
+      "bytes": 46627
+    },
+    "apps/buggy-warehouse/mechanism-opportunities.json": {
+      "sha256": "0c23f350efa0edf6baea9a265c194b1fe3b2a9f2a6b201546aff4727ed4ab629",
+      "bytes": 2373
+    },
+    "apps/buggy-warehouse/bugs.manifest.json": {
+      "sha256": "3e568403a2c81369504f23135481f30a8a6c3df2936dfcf8978e299735972b2c",
+      "bytes": 5864
+    },
+    "apps/buggy-warehouse/generation.json": {
+      "sha256": "10c72dd372865c3c9a98d0048daeb853d4ed0dc4247c7e9ef1447168061a12ca",
+      "bytes": 365
+    },
+    "apps/buggy-warehouse/static/app.js": {
+      "sha256": "0575f6ad9cb2ee8f21a7ab9a6875c659964a3f9c626c74bd5c5a0ec920c6df5c",
+      "bytes": 19910
+    },
+    "apps/buggy-warehouse/static/index.html": {
+      "sha256": "3cefd3b9992dcb7146d474f7942a7c8746e84fd38eff17a8c7d140443803cc7d",
+      "bytes": 524
+    },
+    "apps/buggy-warehouse/static/reports.html": {
+      "sha256": "82781d13f0b614ec0d02b8e99a43a7186b24749cd2f8fa0f8af6d6ca3a83b293",
+      "bytes": 529
+    },
+    "apps/buggy-warehouse/static/warehouses.html": {
+      "sha256": "c0529e82cb7e0f2fb509c295dffd5f1cf4a3c9e0889e4decbd2311bdfa4db945",
+      "bytes": 535
+    },
+    "apps/buggy-warehouse/static/warehouse.html": {
+      "sha256": "89a41311f8780f4239d4bcc866d192ab412a0edb56d7b2b4d16f11b5dda66e4b",
+      "bytes": 533
+    },
+    "apps/buggy-warehouse/static/zone.html": {
+      "sha256": "8930bec08217b2f25fe51bdad53d75c527ab3e6ba627b9ebb22b4c21671f8de2",
+      "bytes": 523
+    },
+    "apps/buggy-warehouse/static/transfer.html": {
+      "sha256": "7a3a48c379cf9bfc6c2e4230e976a7f694a4b2f6a6e4c5338a16d8a378576537",
+      "bytes": 531
+    },
+    "apps/buggy-warehouse/static/items.html": {
+      "sha256": "3e06f8361f3030314510b1ddba2632232a824dd89ab72d9e6308e6d8a86caeb1",
+      "bytes": 525
+    },
+    "apps/buggy-warehouse/static/item.html": {
+      "sha256": "07b2b98c70b55f3c43e1ce6bd3ecceac65a7a9fd65bb6cd6c5aad92997ad5cba",
+      "bytes": 523
+    },
+    "apps/buggy-warehouse/static/batch.html": {
+      "sha256": "8586879739cc8bf3c4e0a97983093ecb68da0b7fc5a07c8ba3c653cb37b2a33f",
+      "bytes": 525
+    },
+    "apps/buggy-warehouse/static/audit.html": {
+      "sha256": "06fdf28fd346bfc66dc7b8a4d26f621ea9e735fdd071d0a1acb597c260e93be6",
+      "bytes": 525
+    },
+    "apps/buggy-warehouse/static/inspection.html": {
+      "sha256": "a2dee5ee6191eec9b02fdb9d805d48b874462fcdb8770acdd720edd15bf01999",
+      "bytes": 535
+    },
+    "apps/buggy-warehouse/static/supplier.html": {
+      "sha256": "330bdb9214114bbabbb425262cee76ed4a8181421d9ed35ea97b1f9397dc7278",
+      "bytes": 531
+    },
+    "apps/buggy-warehouse/static/adjustment.html": {
+      "sha256": "26478491a534c6912e997075380311db5b97bc9dc67ee7a20b55171135a10450",
+      "bytes": 535
+    },
+    "apps/buggy-warehouse/static/help.html": {
+      "sha256": "84a04bb54e46c3541bf905c85e20121b33a4d5dd9117b226b778b104c0f2c206",
+      "bytes": 523
+    },
+    "apps/buggy-warehouse/static/zones.html": {
+      "sha256": "82fa4b001bd7d40e7debb69ef795fe82aa6e77545d6d6931673f14fb6c414178",
+      "bytes": 525
+    },
+    "apps/buggy-warehouse/static/batches.html": {
+      "sha256": "1fdacdb116273be060855285127fb67f794928dc7b250f5129a01a9e551fab00",
+      "bytes": 529
+    },
+    "apps/buggy-warehouse/static/settings.html": {
+      "sha256": "00fe610e9884b18745cb3c224937027e697d9d532c27d5cc2e59648d98862393",
+      "bytes": 531
+    }
+  }
+}

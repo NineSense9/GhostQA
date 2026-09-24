@@ -1,0 +1,118 @@
+{
+  "round": "v0.3.20",
+  "purpose": "v0.3.20 fresh target freeze before policy evaluation",
+  "protocol_commit": "c278b8274d92c509ea4d29de286150e51c4918ea",
+  "freeze_commit": "pending",
+  "candidate_identity": "ghost-structural-finding-return-entry-drain-guard",
+  "candidate_source_sha256": "0bfec3c7bd2811f154daa83bc81fde632976b8ab6e1da9ee6a208cf81c4bb42c",
+  "candidate_freeze": "experiments/frozen/ghost-finding-return-entry-v0.3.19/freeze.json",
+  "no_target_policy_evaluation_before_freeze": true,
+  "manifest_is_judge_only": true,
+  "mechanism_opportunities_are_judge_only": true,
+  "post_evaluation_changes_invalidate_protocol_identity": true,
+  "hash_normalization": "LF newlines",
+  "target": "buggy-studio",
+  "qualification": "experiments/validation/v0.3.20/static-qualification.json",
+  "files": {
+    "apps/buggy-studio/server.py": {
+      "sha256": "696359c47c906287ba200c3e91c1d572a60ec577d2d9fc928c89dc1f0d6bcf94",
+      "bytes": 1270
+    },
+    "apps/buggy-studio/README.md": {
+      "sha256": "d066755f1b37f1a323b916a6f2227915ab7f3a9dace11d8417fc84e229b86bc5",
+      "bytes": 311
+    },
+    "apps/buggy-studio/spec.json": {
+      "sha256": "7354faa95a74a2b169c6622097f2174c885f4571cbf32104c8cd757e0638b95d",
+      "bytes": 3276
+    },
+    "apps/buggy-studio/topology.json": {
+      "sha256": "12a28e1946fee862f9606f4007550b3cb3ab25a9d5351ec1a04d9d4e305d3c8d",
+      "bytes": 45547
+    },
+    "apps/buggy-studio/mechanism-opportunities.json": {
+      "sha256": "87a5b12bea85d8b3298e0c41043aeee2396f6e17a7397058d98f1f46b8d50c38",
+      "bytes": 2355
+    },
+    "apps/buggy-studio/bugs.manifest.json": {
+      "sha256": "dd1150396848e7908f759d05fcfadb9c0bd254b157560b90a940ae54c000de63",
+      "bytes": 5801
+    },
+    "apps/buggy-studio/generation.json": {
+      "sha256": "b5c4f513f90643b6a2c364be57ebf1f3774b5c8a5c5c0d32f985decd4511492a",
+      "bytes": 365
+    },
+    "apps/buggy-studio/static/app.js": {
+      "sha256": "4bc30394239675818206e507b03d1480d147741ff5c3e1313b6d31bcc20bb1a2",
+      "bytes": 19739
+    },
+    "apps/buggy-studio/static/index.html": {
+      "sha256": "a9049bc2228960d14c8e0b461f39c193b998180c6372bf691b82affb21375e15",
+      "bytes": 524
+    },
+    "apps/buggy-studio/static/compare.html": {
+      "sha256": "6c20e941a19f38357eeeb668f6259d12d47b4895697f5a5e560473c98f9e749e",
+      "bytes": 529
+    },
+    "apps/buggy-studio/static/projects.html": {
+      "sha256": "6c571cc46c21056804813c39cb64a974444ef460767e471fa84f0772293812c3",
+      "bytes": 531
+    },
+    "apps/buggy-studio/static/project.html": {
+      "sha256": "aa8f4fd4e33d7d113a0746e87185e97fcdd9115f9587e94e43edff229922ad03",
+      "bytes": 529
+    },
+    "apps/buggy-studio/static/scene.html": {
+      "sha256": "c4cc9b96610e468c5e8fe3b1849f33bb1d124186c338e3354e292fe8b91a9434",
+      "bytes": 525
+    },
+    "apps/buggy-studio/static/render.html": {
+      "sha256": "45e0ea5c0d8a7038489c5b1023c554128ad119c142f31f95ea27efe26cee9324",
+      "bytes": 527
+    },
+    "apps/buggy-studio/static/assets.html": {
+      "sha256": "525784863af62ae57e7b7bfc81031c334fc31143ccc422143366dd879677d734",
+      "bytes": 527
+    },
+    "apps/buggy-studio/static/asset.html": {
+      "sha256": "175de5d002786c39080208dd8e53a1771d8855974804be70fa72428948da2d67",
+      "bytes": 525
+    },
+    "apps/buggy-studio/static/versions.html": {
+      "sha256": "35ce08ab899f2e05e06e8f99385e179766196d65b94de3af5324c07533e7d31f",
+      "bytes": 531
+    },
+    "apps/buggy-studio/static/publish.html": {
+      "sha256": "804763f2d6051148d458307f7a19fc6d1a634adc67d1869fe73fdbae53151467",
+      "bytes": 529
+    },
+    "apps/buggy-studio/static/comments.html": {
+      "sha256": "d985d85291809bbabf6dccf86f769297fc40584eb44ea4c7a5fc349bf02ccbdc",
+      "bytes": 531
+    },
+    "apps/buggy-studio/static/review.html": {
+      "sha256": "4d0cb17cc98d9861a203e407cdac484c8c92642321219dbc4533c413ff13fb5d",
+      "bytes": 527
+    },
+    "apps/buggy-studio/static/renders.html": {
+      "sha256": "f47b3b1704f7ec69b1c92915b5ea39f6164475f93f79ca54db0f40781a666a81",
+      "bytes": 529
+    },
+    "apps/buggy-studio/static/handbook.html": {
+      "sha256": "8d540e06c3291755fd21fc085a3b953f4a4e13d37e57b26e9a49f44e479cf214",
+      "bytes": 531
+    },
+    "apps/buggy-studio/static/help.html": {
+      "sha256": "c8910023130946e3bf8312b9d4257257e99f6779677564bc4f7633dce229e12f",
+      "bytes": 523
+    },
+    "apps/buggy-studio/static/scenes.html": {
+      "sha256": "b77a3822f4a1a836f50f25dd90f63951468416898da6d25af088b55d35bca796",
+      "bytes": 527
+    },
+    "apps/buggy-studio/static/settings.html": {
+      "sha256": "0706ac801df15ae1084389749b568912b04be4bfcd63b2bd34f7e1e29c23dd2b",
+      "bytes": 531
+    }
+  }
+}

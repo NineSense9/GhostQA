@@ -1,0 +1,89 @@
+{
+  "app": "buggy-campus",
+  "note": "OFFLINE JUDGE ONLY. Not served. No empirical policy results.",
+  "round": "v0.3.20",
+  "opportunities": [
+    {
+      "id": "nested:assessment_record",
+      "class": "nested_handoff_opportunity",
+      "child_workflow_role": "assessment_record",
+      "source_hub_role": "course",
+      "destination_hub_role": "module",
+      "edge_ids": [
+        "row_c1:open_mid",
+        "mid:open_child_a",
+        "child_a:btn_mark",
+        "child_a:nav_up_child"
+      ],
+      "nodes": [
+        "row_c1",
+        "mid",
+        "child_a",
+        "child_a",
+        "mid"
+      ],
+      "offline_guarantees_finding": false
+    },
+    {
+      "id": "nested:feedback_note",
+      "class": "nested_handoff_opportunity",
+      "child_workflow_role": "feedback_note",
+      "source_hub_role": "lesson",
+      "destination_hub_role": "review",
+      "edge_ids": [
+        "side_l1:open_mid_b",
+        "mid_b:open_child_b_a",
+        "child_b_a:btn_mark",
+        "child_b_a:nav_up_child"
+      ],
+      "nodes": [
+        "side_l1",
+        "mid_b",
+        "child_b_a",
+        "child_b_a",
+        "mid_b"
+      ],
+      "offline_guarantees_finding": false
+    },
+    {
+      "id": "anchor:open_finding_b",
+      "class": "finding_return_entry_opportunity",
+      "source_hub_role": "student",
+      "destination_hub_role": "gradebook",
+      "action": "open_finding_b",
+      "destination_node": "finding",
+      "eligible_button_count": 2,
+      "offline_guarantees_finding": true
+    },
+    {
+      "id": "list_hub:open_finding",
+      "class": "finding_return_entry_opportunity",
+      "source_hub_role": "course_hub",
+      "destination_hub_role": "gradebook",
+      "action": "open_finding",
+      "destination_node": "finding",
+      "eligible_button_count": 2,
+      "offline_guarantees_finding": true
+    },
+    {
+      "id": "horizon-main",
+      "class": "horizon_only_return_entry_control",
+      "source_hub_role": "student",
+      "destination_hub_role": "horizon_destination",
+      "edge_ids": [
+        "anchor:open_lane_a",
+        "lane_a:open_lane_b",
+        "lane_b:open_dest"
+      ],
+      "nodes": [
+        "anchor",
+        "lane_a",
+        "lane_b",
+        "lane_dest"
+      ],
+      "eligible_button_count": 2,
+      "offline_guarantees_finding": false,
+      "offline_guarantees_no_finding": true
+    }
+  ]
+}

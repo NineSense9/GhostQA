@@ -1,0 +1,1813 @@
+{
+  "app": "buggy-campus",
+  "note": "Judge and qualification topology. Not served. Exploration must not read this file.",
+  "topology_family": "hierarchical_learning_assessment_review",
+  "seed": 2388280117,
+  "seed_hex": "8e5a4335",
+  "expected_control_class": "positive",
+  "branch_horizon": 3,
+  "nodes": [
+    {
+      "id": "home",
+      "page": "index.html",
+      "hub": false,
+      "hub_role": "entry",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "nav_courses",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "nav_courses",
+          "dst": "list_hub",
+          "navigates": true
+        },
+        {
+          "testid": "nav_shelf",
+          "dst": "blank",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "blank",
+      "page": "modules.html",
+      "hub": false,
+      "hub_role": "blank",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": true,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "list_hub",
+      "page": "courses.html",
+      "hub": true,
+      "hub_role": "course_hub",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_row_c1",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_row_c1",
+          "dst": "row_c1",
+          "navigates": true
+        },
+        {
+          "testid": "open_row_c2",
+          "dst": "row_c2",
+          "navigates": true
+        },
+        {
+          "testid": "open_row_c3",
+          "dst": "row_c3",
+          "navigates": true
+        },
+        {
+          "testid": "open_finding",
+          "dst": "finding",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "row_c1",
+      "page": "course.html",
+      "hub": true,
+      "hub_role": "course",
+      "entity": "c1",
+      "variant_of": "",
+      "first_branch_action": "open_mid",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_pin",
+        "btn_cool"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_mid",
+          "dst": "mid",
+          "navigates": true
+        },
+        {
+          "testid": "open_side",
+          "dst": "side_hub",
+          "navigates": true
+        },
+        {
+          "testid": "nav_prefs",
+          "dst": "settings",
+          "navigates": true
+        },
+        {
+          "testid": "btn_pin",
+          "dst": "row_c1",
+          "navigates": false
+        },
+        {
+          "testid": "btn_cool",
+          "dst": "row_c1",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "row_c2",
+      "page": "course.html",
+      "hub": true,
+      "hub_role": "course",
+      "entity": "c2",
+      "variant_of": "",
+      "first_branch_action": "open_mid",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_pin",
+        "btn_cool"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_mid",
+          "dst": "mid",
+          "navigates": true
+        },
+        {
+          "testid": "open_side",
+          "dst": "side_hub",
+          "navigates": true
+        },
+        {
+          "testid": "nav_prefs",
+          "dst": "settings",
+          "navigates": true
+        },
+        {
+          "testid": "btn_pin",
+          "dst": "row_c2",
+          "navigates": false
+        },
+        {
+          "testid": "btn_cool",
+          "dst": "row_c2",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "row_c3",
+      "page": "course.html",
+      "hub": true,
+      "hub_role": "course",
+      "entity": "c3",
+      "variant_of": "",
+      "first_branch_action": "open_mid",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_pin",
+        "btn_cool"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_mid",
+          "dst": "mid",
+          "navigates": true
+        },
+        {
+          "testid": "open_side",
+          "dst": "side_hub",
+          "navigates": true
+        },
+        {
+          "testid": "nav_prefs",
+          "dst": "settings",
+          "navigates": true
+        },
+        {
+          "testid": "btn_pin",
+          "dst": "row_c3",
+          "navigates": false
+        },
+        {
+          "testid": "btn_cool",
+          "dst": "row_c3",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "mid",
+      "page": "module.html",
+      "hub": true,
+      "hub_role": "module",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_child_a",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_close",
+        "btn_reopen"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_child_a",
+          "dst": "child_a",
+          "navigates": true
+        },
+        {
+          "testid": "open_child_b",
+          "dst": "child_b",
+          "navigates": true
+        },
+        {
+          "testid": "open_child_c",
+          "dst": "child_c",
+          "navigates": true
+        },
+        {
+          "testid": "btn_close",
+          "dst": "mid",
+          "navigates": false
+        },
+        {
+          "testid": "btn_reopen",
+          "dst": "mid",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "child_a",
+      "page": "quiz.html",
+      "hub": false,
+      "hub_role": "quiz_child",
+      "entity": "a",
+      "variant_of": "",
+      "first_branch_action": "btn_mark",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_mark"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_mark",
+          "dst": "child_a",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "child_b",
+      "page": "quiz.html",
+      "hub": false,
+      "hub_role": "quiz_child",
+      "entity": "b",
+      "variant_of": "",
+      "first_branch_action": "btn_mark",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_mark"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_mark",
+          "dst": "child_b",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "child_c",
+      "page": "quiz.html",
+      "hub": false,
+      "hub_role": "quiz_child",
+      "entity": "c",
+      "variant_of": "",
+      "first_branch_action": "btn_mark",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_mark"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_mark",
+          "dst": "child_c",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "side_hub",
+      "page": "lessons.html",
+      "hub": true,
+      "hub_role": "lesson_hub",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_side_l1",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_side_l1",
+          "dst": "side_l1",
+          "navigates": true
+        },
+        {
+          "testid": "open_side_l2",
+          "dst": "side_l2",
+          "navigates": true
+        },
+        {
+          "testid": "open_side_l3",
+          "dst": "side_l3",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "side_l1",
+      "page": "lesson.html",
+      "hub": true,
+      "hub_role": "lesson",
+      "entity": "l1",
+      "variant_of": "",
+      "first_branch_action": "open_mid_b",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_variant",
+        "btn_staff_note"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_mid_b",
+          "dst": "mid_b",
+          "navigates": true
+        },
+        {
+          "testid": "open_cross",
+          "dst": "anchor",
+          "navigates": true
+        },
+        {
+          "testid": "btn_variant",
+          "dst": "side_l1",
+          "navigates": false
+        },
+        {
+          "testid": "btn_staff_note",
+          "dst": "side_l1",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "side_l2",
+      "page": "lesson.html",
+      "hub": true,
+      "hub_role": "lesson",
+      "entity": "l2",
+      "variant_of": "side_l1",
+      "first_branch_action": "open_mid_b",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_variant",
+        "btn_staff_note"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_mid_b",
+          "dst": "mid_b",
+          "navigates": true
+        },
+        {
+          "testid": "open_cross",
+          "dst": "anchor",
+          "navigates": true
+        },
+        {
+          "testid": "btn_variant",
+          "dst": "side_l2",
+          "navigates": false
+        },
+        {
+          "testid": "btn_staff_note",
+          "dst": "side_l2",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "side_l3",
+      "page": "lesson.html",
+      "hub": true,
+      "hub_role": "lesson",
+      "entity": "l3",
+      "variant_of": "side_l1",
+      "first_branch_action": "open_mid_b",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_variant",
+        "btn_staff_note"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_mid_b",
+          "dst": "mid_b",
+          "navigates": true
+        },
+        {
+          "testid": "open_cross",
+          "dst": "anchor",
+          "navigates": true
+        },
+        {
+          "testid": "btn_variant",
+          "dst": "side_l3",
+          "navigates": false
+        },
+        {
+          "testid": "btn_staff_note",
+          "dst": "side_l3",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "mid_b",
+      "page": "review.html",
+      "hub": true,
+      "hub_role": "review",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_child_b_a",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_close",
+        "btn_reopen"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_child_b_a",
+          "dst": "child_b_a",
+          "navigates": true
+        },
+        {
+          "testid": "open_child_b_b",
+          "dst": "child_b_b",
+          "navigates": true
+        },
+        {
+          "testid": "open_child_b_c",
+          "dst": "child_b_c",
+          "navigates": true
+        },
+        {
+          "testid": "btn_close",
+          "dst": "mid_b",
+          "navigates": false
+        },
+        {
+          "testid": "btn_reopen",
+          "dst": "mid_b",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "child_b_a",
+      "page": "feedback.html",
+      "hub": false,
+      "hub_role": "feedback_child",
+      "entity": "a",
+      "variant_of": "",
+      "first_branch_action": "btn_mark",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_mark"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_mark",
+          "dst": "child_b_a",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "child_b_b",
+      "page": "feedback.html",
+      "hub": false,
+      "hub_role": "feedback_child",
+      "entity": "b",
+      "variant_of": "",
+      "first_branch_action": "btn_mark",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_mark"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_mark",
+          "dst": "child_b_b",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "child_b_c",
+      "page": "feedback.html",
+      "hub": false,
+      "hub_role": "feedback_child",
+      "entity": "c",
+      "variant_of": "",
+      "first_branch_action": "btn_mark",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_mark"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_mark",
+          "dst": "child_b_c",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "finding",
+      "page": "gradebook.html",
+      "hub": false,
+      "hub_role": "gradebook",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "btn_note_a",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_note_a",
+        "btn_note_b"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_note_a",
+          "dst": "finding",
+          "navigates": false
+        },
+        {
+          "testid": "btn_note_b",
+          "dst": "finding",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "anchor",
+      "page": "student.html",
+      "hub": true,
+      "hub_role": "student",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_lane_a",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_lane_a",
+          "dst": "lane_a",
+          "navigates": true
+        },
+        {
+          "testid": "open_finding_b",
+          "dst": "finding",
+          "navigates": true
+        },
+        {
+          "testid": "open_leaf",
+          "dst": "handbook",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "lane_a",
+      "page": "submission.html",
+      "hub": false,
+      "hub_role": "horizon_lane",
+      "entity": "s1",
+      "variant_of": "",
+      "first_branch_action": "open_lane_b",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_lane_b",
+          "dst": "lane_b",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "lane_b",
+      "page": "submission.html",
+      "hub": false,
+      "hub_role": "horizon_lane",
+      "entity": "s2",
+      "variant_of": "",
+      "first_branch_action": "open_dest",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_dest",
+          "dst": "lane_dest",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "lane_dest",
+      "page": "submission.html",
+      "hub": false,
+      "hub_role": "horizon_destination",
+      "entity": "dest",
+      "variant_of": "",
+      "first_branch_action": "btn_hold",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_hold",
+        "btn_tag"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_hold",
+          "dst": "lane_dest",
+          "navigates": false
+        },
+        {
+          "testid": "btn_tag",
+          "dst": "lane_dest",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "handbook",
+      "page": "handbook.html",
+      "hub": false,
+      "hub_role": "handbook",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "help",
+      "page": "help.html",
+      "hub": false,
+      "hub_role": "help",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_loop",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_loop",
+          "dst": "handbook",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "page": "settings.html",
+      "hub": false,
+      "hub_role": "settings",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": []
+    }
+  ],
+  "edges": [
+    {
+      "id": "home:nav_courses",
+      "src": "home",
+      "dst": "list_hub",
+      "action": "nav_courses",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "home:nav_shelf",
+      "src": "home",
+      "dst": "blank",
+      "action": "nav_shelf",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "home:open_aid",
+      "src": "home",
+      "dst": "help",
+      "action": "open_aid",
+      "branch_like": false,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "list_hub:open_row_c1",
+      "src": "list_hub",
+      "dst": "row_c1",
+      "action": "open_row_c1",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "list_hub:open_row_c2",
+      "src": "list_hub",
+      "dst": "row_c2",
+      "action": "open_row_c2",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "list_hub:open_row_c3",
+      "src": "list_hub",
+      "dst": "row_c3",
+      "action": "open_row_c3",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "list_hub:open_finding",
+      "src": "list_hub",
+      "dst": "finding",
+      "action": "open_finding",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_finding": true,
+      "path_id": "finding-main",
+      "opportunity_class": "finding_return_entry_opportunity"
+    },
+    {
+      "id": "list_hub:nav_up_home",
+      "src": "list_hub",
+      "dst": "home",
+      "action": "nav_up_home",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "home",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "row_c1:open_mid",
+      "src": "row_c1",
+      "dst": "mid",
+      "action": "open_mid",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "row_c1:open_side",
+      "src": "row_c1",
+      "dst": "side_hub",
+      "action": "open_side",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "row_c1:nav_prefs",
+      "src": "row_c1",
+      "dst": "settings",
+      "action": "nav_prefs",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "row_c1:nav_up_list",
+      "src": "row_c1",
+      "dst": "list_hub",
+      "action": "nav_up_list",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "list_hub",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "row_c2:open_mid",
+      "src": "row_c2",
+      "dst": "mid",
+      "action": "open_mid",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "row_c2:open_side",
+      "src": "row_c2",
+      "dst": "side_hub",
+      "action": "open_side",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "row_c2:nav_prefs",
+      "src": "row_c2",
+      "dst": "settings",
+      "action": "nav_prefs",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "row_c2:nav_up_list",
+      "src": "row_c2",
+      "dst": "list_hub",
+      "action": "nav_up_list",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "list_hub",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "row_c3:open_mid",
+      "src": "row_c3",
+      "dst": "mid",
+      "action": "open_mid",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "row_c3:open_side",
+      "src": "row_c3",
+      "dst": "side_hub",
+      "action": "open_side",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "row_c3:nav_prefs",
+      "src": "row_c3",
+      "dst": "settings",
+      "action": "nav_prefs",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "row_c3:nav_up_list",
+      "src": "row_c3",
+      "dst": "list_hub",
+      "action": "nav_up_list",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "list_hub",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "mid:open_child_a",
+      "src": "mid",
+      "dst": "child_a",
+      "action": "open_child_a",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "assessment_record",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "mid:open_child_b",
+      "src": "mid",
+      "dst": "child_b",
+      "action": "open_child_b",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "assessment_record",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "mid:open_child_c",
+      "src": "mid",
+      "dst": "child_c",
+      "action": "open_child_c",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "assessment_record",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "mid:nav_up_row",
+      "src": "mid",
+      "dst": "row_c1",
+      "action": "nav_up_row",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "row_c1",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "child_a:btn_mark",
+      "src": "child_a",
+      "dst": "child_a",
+      "action": "btn_mark",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "assessment_record",
+      "child_workflow_role": "assessment_record"
+    },
+    {
+      "id": "child_a:btn_follow",
+      "src": "child_a",
+      "dst": "child_a",
+      "action": "btn_follow",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": true,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "assessment_record",
+      "child_workflow_role": "assessment_record"
+    },
+    {
+      "id": "child_a:nav_up_child",
+      "src": "child_a",
+      "dst": "mid",
+      "action": "nav_up_child",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "mid",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "child_b:btn_mark",
+      "src": "child_b",
+      "dst": "child_b",
+      "action": "btn_mark",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "assessment_record",
+      "child_workflow_role": "assessment_record"
+    },
+    {
+      "id": "child_b:btn_follow",
+      "src": "child_b",
+      "dst": "child_b",
+      "action": "btn_follow",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": true,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "assessment_record",
+      "child_workflow_role": "assessment_record"
+    },
+    {
+      "id": "child_b:nav_up_child",
+      "src": "child_b",
+      "dst": "mid",
+      "action": "nav_up_child",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "mid",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "child_c:btn_mark",
+      "src": "child_c",
+      "dst": "child_c",
+      "action": "btn_mark",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "assessment_record",
+      "child_workflow_role": "assessment_record"
+    },
+    {
+      "id": "child_c:btn_follow",
+      "src": "child_c",
+      "dst": "child_c",
+      "action": "btn_follow",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": true,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "assessment_record",
+      "child_workflow_role": "assessment_record"
+    },
+    {
+      "id": "child_c:nav_up_child",
+      "src": "child_c",
+      "dst": "mid",
+      "action": "nav_up_child",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "mid",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "side_hub:open_side_l1",
+      "src": "side_hub",
+      "dst": "side_l1",
+      "action": "open_side_l1",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "side_hub:open_side_l2",
+      "src": "side_hub",
+      "dst": "side_l2",
+      "action": "open_side_l2",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "side_hub:open_side_l3",
+      "src": "side_hub",
+      "dst": "side_l3",
+      "action": "open_side_l3",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "side_hub:nav_up_home_side",
+      "src": "side_hub",
+      "dst": "home",
+      "action": "nav_up_home_side",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "home",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "side_l1:open_mid_b",
+      "src": "side_l1",
+      "dst": "mid_b",
+      "action": "open_mid_b",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "side_l1:open_cross",
+      "src": "side_l1",
+      "dst": "anchor",
+      "action": "open_cross",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "side_l1:nav_up_side",
+      "src": "side_l1",
+      "dst": "side_hub",
+      "action": "nav_up_side",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "side_hub",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "side_l2:open_mid_b",
+      "src": "side_l2",
+      "dst": "mid_b",
+      "action": "open_mid_b",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "side_l2:open_cross",
+      "src": "side_l2",
+      "dst": "anchor",
+      "action": "open_cross",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "side_l2:nav_up_side",
+      "src": "side_l2",
+      "dst": "side_hub",
+      "action": "nav_up_side",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "side_hub",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "state_variant_return": true
+    },
+    {
+      "id": "side_l3:open_mid_b",
+      "src": "side_l3",
+      "dst": "mid_b",
+      "action": "open_mid_b",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "side_l3:open_cross",
+      "src": "side_l3",
+      "dst": "anchor",
+      "action": "open_cross",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "side_l3:nav_up_side",
+      "src": "side_l3",
+      "dst": "side_hub",
+      "action": "nav_up_side",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "side_hub",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "mid_b:open_child_b_a",
+      "src": "mid_b",
+      "dst": "child_b_a",
+      "action": "open_child_b_a",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "feedback_note",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "mid_b:open_child_b_b",
+      "src": "mid_b",
+      "dst": "child_b_b",
+      "action": "open_child_b_b",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "feedback_note",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "mid_b:open_child_b_c",
+      "src": "mid_b",
+      "dst": "child_b_c",
+      "action": "open_child_b_c",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "feedback_note",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "mid_b:nav_up_side_row",
+      "src": "mid_b",
+      "dst": "side_l1",
+      "action": "nav_up_side_row",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "side_l1",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "child_b_a:btn_mark",
+      "src": "child_b_a",
+      "dst": "child_b_a",
+      "action": "btn_mark",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "feedback_note",
+      "child_workflow_role": "feedback_note"
+    },
+    {
+      "id": "child_b_a:btn_follow",
+      "src": "child_b_a",
+      "dst": "child_b_a",
+      "action": "btn_follow",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": true,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "feedback_note",
+      "child_workflow_role": "feedback_note"
+    },
+    {
+      "id": "child_b_a:nav_up_child",
+      "src": "child_b_a",
+      "dst": "mid_b",
+      "action": "nav_up_child",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "mid_b",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "child_b_b:btn_mark",
+      "src": "child_b_b",
+      "dst": "child_b_b",
+      "action": "btn_mark",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "feedback_note",
+      "child_workflow_role": "feedback_note"
+    },
+    {
+      "id": "child_b_b:btn_follow",
+      "src": "child_b_b",
+      "dst": "child_b_b",
+      "action": "btn_follow",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": true,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "feedback_note",
+      "child_workflow_role": "feedback_note"
+    },
+    {
+      "id": "child_b_b:nav_up_child",
+      "src": "child_b_b",
+      "dst": "mid_b",
+      "action": "nav_up_child",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "mid_b",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "child_b_c:btn_mark",
+      "src": "child_b_c",
+      "dst": "child_b_c",
+      "action": "btn_mark",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "feedback_note",
+      "child_workflow_role": "feedback_note"
+    },
+    {
+      "id": "child_b_c:btn_follow",
+      "src": "child_b_c",
+      "dst": "child_b_c",
+      "action": "btn_follow",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": true,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "feedback_note",
+      "child_workflow_role": "feedback_note"
+    },
+    {
+      "id": "child_b_c:nav_up_child",
+      "src": "child_b_c",
+      "dst": "mid_b",
+      "action": "nav_up_child",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "mid_b",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "finding:nav_up_finding",
+      "src": "finding",
+      "dst": "list_hub",
+      "action": "nav_up_finding",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "list_hub",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "finding:nav_up_anchor",
+      "src": "finding",
+      "dst": "anchor",
+      "action": "nav_up_anchor",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "anchor",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "anchor:open_lane_a",
+      "src": "anchor",
+      "dst": "lane_a",
+      "action": "open_lane_a",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_no_finding": true,
+      "path_id": "horizon-main",
+      "opportunity_class": "horizon_only_return_entry_control"
+    },
+    {
+      "id": "anchor:open_finding_b",
+      "src": "anchor",
+      "dst": "finding",
+      "action": "open_finding_b",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_finding": true,
+      "path_id": "finding-anchor",
+      "opportunity_class": "finding_return_entry_opportunity"
+    },
+    {
+      "id": "anchor:open_leaf",
+      "src": "anchor",
+      "dst": "handbook",
+      "action": "open_leaf",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "anchor:nav_up_home_anchor",
+      "src": "anchor",
+      "dst": "home",
+      "action": "nav_up_home_anchor",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "home",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "lane_a:open_lane_b",
+      "src": "lane_a",
+      "dst": "lane_b",
+      "action": "open_lane_b",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_no_finding": true,
+      "path_id": "horizon-main",
+      "path_index": 1,
+      "opportunity_class": "horizon_only_return_entry_control"
+    },
+    {
+      "id": "lane_a:nav_up_anchor_a",
+      "src": "lane_a",
+      "dst": "anchor",
+      "action": "nav_up_anchor_a",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "anchor",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "lane_b:open_dest",
+      "src": "lane_b",
+      "dst": "lane_dest",
+      "action": "open_dest",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_no_finding": true,
+      "path_id": "horizon-main",
+      "path_index": 2,
+      "opportunity_class": "horizon_only_return_entry_control"
+    },
+    {
+      "id": "lane_b:nav_up_lane",
+      "src": "lane_b",
+      "dst": "lane_a",
+      "action": "nav_up_lane",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "lane_a",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "lane_dest:nav_up_lane_b",
+      "src": "lane_dest",
+      "dst": "lane_b",
+      "action": "nav_up_lane_b",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "lane_b",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "handbook:nav_up_help",
+      "src": "handbook",
+      "dst": "help",
+      "action": "nav_up_help",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "help",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "help:open_loop",
+      "src": "help",
+      "dst": "handbook",
+      "action": "open_loop",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "settings:nav_up_from_prefs",
+      "src": "settings",
+      "dst": "row_c1",
+      "action": "nav_up_from_prefs",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "row_c1",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    }
+  ]
+}

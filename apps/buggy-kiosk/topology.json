@@ -1,0 +1,466 @@
+{
+  "app": "buggy-kiosk",
+  "note": "Judge and qualification topology. Not served. Exploration must not read this file.",
+  "topology_family": "shallow_finding_heavy_button_control",
+  "seed": 655628102,
+  "seed_hex": "27141746",
+  "expected_control_class": "kiosk",
+  "branch_horizon": 3,
+  "nodes": [
+    {
+      "id": "home",
+      "page": "index.html",
+      "hub": false,
+      "hub_role": "entry",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "nav_kiosk",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "nav_kiosk",
+          "dst": "kiosk",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "kiosk",
+      "page": "kiosk.html",
+      "hub": true,
+      "hub_role": "kiosk_panel",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_task_t1",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_task_t1",
+          "dst": "task_t1",
+          "navigates": true
+        },
+        {
+          "testid": "open_task_t2",
+          "dst": "task_t2",
+          "navigates": true
+        },
+        {
+          "testid": "open_lane_a",
+          "dst": "lane_a",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "task_t1",
+      "page": "task.html",
+      "hub": false,
+      "hub_role": "task_panel",
+      "entity": "t1",
+      "variant_of": "",
+      "first_branch_action": "btn_note_a",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_note_a",
+        "btn_note_b"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_note_a",
+          "dst": "task_t1",
+          "navigates": false
+        },
+        {
+          "testid": "btn_note_b",
+          "dst": "task_t1",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "task_t2",
+      "page": "task.html",
+      "hub": false,
+      "hub_role": "task_panel",
+      "entity": "t2",
+      "variant_of": "",
+      "first_branch_action": "btn_note_a",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_note_a",
+        "btn_note_b"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_note_a",
+          "dst": "task_t2",
+          "navigates": false
+        },
+        {
+          "testid": "btn_note_b",
+          "dst": "task_t2",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "lane_a",
+      "page": "receipt.html",
+      "hub": false,
+      "hub_role": "horizon_lane",
+      "entity": "s1",
+      "variant_of": "",
+      "first_branch_action": "open_lane_b",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_lane_b",
+          "dst": "lane_b",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "lane_b",
+      "page": "receipt.html",
+      "hub": false,
+      "hub_role": "horizon_lane",
+      "entity": "s2",
+      "variant_of": "",
+      "first_branch_action": "open_dest",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_dest",
+          "dst": "lane_dest",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "lane_dest",
+      "page": "receipt.html",
+      "hub": false,
+      "hub_role": "receipt",
+      "entity": "dest",
+      "variant_of": "",
+      "first_branch_action": "btn_hold",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_hold",
+        "btn_tag"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_hold",
+          "dst": "lane_dest",
+          "navigates": false
+        },
+        {
+          "testid": "btn_tag",
+          "dst": "lane_dest",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "help",
+      "page": "help.html",
+      "hub": false,
+      "hub_role": "help",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_loop",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_loop",
+          "dst": "settings",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "page": "settings.html",
+      "hub": false,
+      "hub_role": "settings",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_loop",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_loop",
+          "dst": "help",
+          "navigates": true
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "home:nav_kiosk",
+      "src": "home",
+      "dst": "kiosk",
+      "action": "nav_kiosk",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "home:open_aid",
+      "src": "home",
+      "dst": "help",
+      "action": "open_aid",
+      "branch_like": false,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "kiosk:open_task_t1",
+      "src": "kiosk",
+      "dst": "task_t1",
+      "action": "open_task_t1",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_finding": true,
+      "path_id": "finding-t1",
+      "opportunity_class": "finding_return_entry_opportunity"
+    },
+    {
+      "id": "kiosk:open_task_t2",
+      "src": "kiosk",
+      "dst": "task_t2",
+      "action": "open_task_t2",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_finding": true,
+      "path_id": "finding-t2",
+      "opportunity_class": "finding_return_entry_opportunity"
+    },
+    {
+      "id": "kiosk:open_lane_a",
+      "src": "kiosk",
+      "dst": "lane_a",
+      "action": "open_lane_a",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_no_finding": true,
+      "path_id": "horizon-main",
+      "opportunity_class": "horizon_only_return_entry_control"
+    },
+    {
+      "id": "kiosk:nav_up_home",
+      "src": "kiosk",
+      "dst": "home",
+      "action": "nav_up_home",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "home",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "task_t1:nav_up_kiosk",
+      "src": "task_t1",
+      "dst": "kiosk",
+      "action": "nav_up_kiosk",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "kiosk",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "task_t2:nav_up_kiosk",
+      "src": "task_t2",
+      "dst": "kiosk",
+      "action": "nav_up_kiosk",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "kiosk",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "lane_a:open_lane_b",
+      "src": "lane_a",
+      "dst": "lane_b",
+      "action": "open_lane_b",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_no_finding": true,
+      "path_id": "horizon-main",
+      "path_index": 1,
+      "opportunity_class": "horizon_only_return_entry_control"
+    },
+    {
+      "id": "lane_a:nav_up_kiosk_a",
+      "src": "lane_a",
+      "dst": "kiosk",
+      "action": "nav_up_kiosk_a",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "kiosk",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "lane_b:open_dest",
+      "src": "lane_b",
+      "dst": "lane_dest",
+      "action": "open_dest",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_no_finding": true,
+      "path_id": "horizon-main",
+      "path_index": 2,
+      "opportunity_class": "horizon_only_return_entry_control"
+    },
+    {
+      "id": "lane_b:nav_up_lane",
+      "src": "lane_b",
+      "dst": "lane_a",
+      "action": "nav_up_lane",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "lane_a",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "lane_dest:nav_up_lane_b",
+      "src": "lane_dest",
+      "dst": "lane_b",
+      "action": "nav_up_lane_b",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "lane_b",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "help:open_loop",
+      "src": "help",
+      "dst": "settings",
+      "action": "open_loop",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "settings:open_loop",
+      "src": "settings",
+      "dst": "help",
+      "action": "open_loop",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "settings:nav_up_home_prefs",
+      "src": "settings",
+      "dst": "home",
+      "action": "nav_up_home_prefs",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "home",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    }
+  ]
+}

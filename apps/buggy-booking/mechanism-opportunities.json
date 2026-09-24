@@ -1,0 +1,89 @@
+{
+  "app": "buggy-booking",
+  "note": "OFFLINE JUDGE ONLY. Not served. No empirical policy results.",
+  "round": "v0.3.20",
+  "opportunities": [
+    {
+      "id": "nested:guest_checkin",
+      "class": "nested_handoff_opportunity",
+      "child_workflow_role": "guest_checkin",
+      "source_hub_role": "venue",
+      "destination_hub_role": "room",
+      "edge_ids": [
+        "row_v1:open_mid",
+        "mid:open_child_a",
+        "child_a:btn_mark",
+        "child_a:nav_up_child"
+      ],
+      "nodes": [
+        "row_v1",
+        "mid",
+        "child_a",
+        "child_a",
+        "mid"
+      ],
+      "offline_guarantees_finding": false
+    },
+    {
+      "id": "nested:modification_slip",
+      "class": "nested_handoff_opportunity",
+      "child_workflow_role": "modification_slip",
+      "source_hub_role": "reservation",
+      "destination_hub_role": "modify",
+      "edge_ids": [
+        "side_r1:open_mid_b",
+        "mid_b:open_child_b_a",
+        "child_b_a:btn_mark",
+        "child_b_a:nav_up_child"
+      ],
+      "nodes": [
+        "side_r1",
+        "mid_b",
+        "child_b_a",
+        "child_b_a",
+        "mid_b"
+      ],
+      "offline_guarantees_finding": false
+    },
+    {
+      "id": "anchor:open_finding_b",
+      "class": "finding_return_entry_opportunity",
+      "source_hub_role": "guest_list",
+      "destination_hub_role": "notes",
+      "action": "open_finding_b",
+      "destination_node": "finding",
+      "eligible_button_count": 2,
+      "offline_guarantees_finding": true
+    },
+    {
+      "id": "list_hub:open_finding",
+      "class": "finding_return_entry_opportunity",
+      "source_hub_role": "venue_hub",
+      "destination_hub_role": "notes",
+      "action": "open_finding",
+      "destination_node": "finding",
+      "eligible_button_count": 2,
+      "offline_guarantees_finding": true
+    },
+    {
+      "id": "horizon-main",
+      "class": "horizon_only_return_entry_control",
+      "source_hub_role": "guest_list",
+      "destination_hub_role": "horizon_destination",
+      "edge_ids": [
+        "anchor:open_lane_a",
+        "lane_a:open_lane_b",
+        "lane_b:open_dest"
+      ],
+      "nodes": [
+        "anchor",
+        "lane_a",
+        "lane_b",
+        "lane_dest"
+      ],
+      "eligible_button_count": 2,
+      "offline_guarantees_finding": false,
+      "offline_guarantees_no_finding": true
+    }
+  ]
+}

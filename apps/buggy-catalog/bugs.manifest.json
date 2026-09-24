@@ -1,0 +1,141 @@
+{
+  "app": "buggy-catalog",
+  "note": "BENCHMARK JUDGE ONLY. GhostQA exploration must never read this file.",
+  "bugs": [
+    {
+      "id": "BUG-CT1",
+      "category": "blank page",
+      "severity": "high",
+      "desc": "并排页渲染后完全空白",
+      "kind": "blank",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "url_contains": "/compare.html"
+      },
+      "min_reproduction": [
+        "index.html: nav_categories",
+        "categories.html: open_compare"
+      ]
+    },
+    {
+      "id": "BUG-CT2",
+      "category": "boundary js error",
+      "severity": "medium",
+      "desc": "首页检索词超过 24 字抛出未捕获异常",
+      "kind": "js_error",
+      "trigger_depth": 1,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "catalog search query too long"
+      },
+      "min_reproduction": [
+        "index.html: search_box=25 chars",
+        "index.html: btn_query_submit"
+      ]
+    },
+    {
+      "id": "BUG-CT3",
+      "category": "navigation loop",
+      "severity": "medium",
+      "desc": "说明与偏好互相链接",
+      "kind": "nav_loop",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "cycle_urls_contains": "help.html"
+      },
+      "min_reproduction": [
+        "index.html: open_aid",
+        "help.html: open_loop",
+        "settings.html: open_loop",
+        "help.html: open_loop",
+        "settings.html: open_loop"
+      ]
+    },
+    {
+      "id": "BUG-CT4",
+      "category": "form validation",
+      "severity": "high",
+      "desc": "标题为空时仍提示已创建",
+      "kind": "semantic",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "catalog_title_required"
+      },
+      "min_reproduction": [
+        "index.html: open_aid",
+        "help.html: open_loop",
+        "settings.html: btn_submit"
+      ]
+    },
+    {
+      "id": "BUG-CT5",
+      "category": "dead action",
+      "severity": "medium",
+      "desc": "保存草稿点击无效果",
+      "kind": "dead_action",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "eid": "btn_pin"
+      },
+      "min_reproduction": [
+        "index.html: open_aid",
+        "help.html: open_loop",
+        "settings.html: btn_pin"
+      ]
+    },
+    {
+      "id": "BUG-CT6",
+      "category": "js error",
+      "severity": "medium",
+      "desc": "偏好页同步抛出未捕获异常",
+      "kind": "js_error",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "catalog sync handshake failed"
+      },
+      "min_reproduction": [
+        "index.html: open_aid",
+        "help.html: open_loop",
+        "settings.html: btn_probe"
+      ]
+    },
+    {
+      "id": "BUG-CT7",
+      "category": "http 5xx",
+      "severity": "high",
+      "desc": "导出请求返回 500",
+      "kind": "http_error",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "/api/export"
+      },
+      "min_reproduction": [
+        "index.html: open_aid",
+        "help.html: open_loop",
+        "settings.html: btn_export"
+      ]
+    },
+    {
+      "id": "BUG-CT8",
+      "category": "state inconsistency",
+      "severity": "high",
+      "desc": "样品展示数量与剩余数量不一致",
+      "kind": "semantic",
+      "trigger_depth": 3,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "catalog_qty_matches"
+      },
+      "min_reproduction": [
+        "index.html: nav_categories",
+        "categories.html: open_p1"
+      ]
+    }
+  ]
+}
