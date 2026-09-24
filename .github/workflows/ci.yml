@@ -20,7 +20,20 @@ jobs:
       - name: Install
         run: pip install -e ".[dev]"
       - name: Unit tests (sim, no browser needed)
-        run: pytest -m "not integration"
+        run: |
+          set +e
+          python -m pytest -m "not integration" --tb=short > "$RUNNER_TEMP/pytest-unit.txt" 2>&1
+          code=$?
+          set -e
+          if [ "$code" -ne 0 ]; then
+            echo "::error::unit pytest exit $code"
+            tail -n 40 "$RUNNER_TEMP/pytest-unit.txt" | while IFS= read -r line; do
+              printf '%s\n' "$line" | sed 's/%/%25/g; s/\r/%0D/g' | while IFS= read -r safe; do
+                echo "::error::$safe"
+              done
+            done
+            exit "$code"
+          fi
 
   integration:
     runs-on: ubuntu-latest
@@ -34,4 +47,17 @@ jobs:
           pip install -e ".[dev]"
           playwright install --with-deps chromium
       - name: Integration tests (real browser + BuggyShop)
-        run: pytest -m integration
+        run: |
+          set +e
+          python -m pytest -m integration --tb=short > "$RUNNER_TEMP/pytest-integration.txt" 2>&1
+          code=$?
+          set -e
+          if [ "$code" -ne 0 ]; then
+            echo "::error::integration pytest exit $code"
+            tail -n 40 "$RUNNER_TEMP/pytest-integration.txt" | while IFS= read -r line; do
+              printf '%s\n' "$line" | sed 's/%/%25/g; s/\r/%0D/g' | while IFS= read -r safe; do
+                echo "::error::$safe"
+              done
+            done
+            exit "$code"
+          fi
