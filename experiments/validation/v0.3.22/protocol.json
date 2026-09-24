@@ -1,0 +1,172 @@
+{
+  "name": "v0.3.22 post-escape sink attractor analysis",
+  "version": "v0.3.22",
+  "date": "2026-09-24",
+  "starting_head": "deda60a7ef7494466d12598b9418234c09b543f4",
+  "executed": false,
+  "question_kind": "analysis-only",
+  "research_question": "Why does the same first Return-Waypoint Frontier Escape repair two of the four v0.3.20 positive targets and not the other two?",
+  "hypotheses": {
+    "H1": "persistent_post_terminal_sink",
+    "H2": "budget_delay",
+    "H3": "mixed_or_inconclusive",
+    "H4": "protocol_invalid"
+  },
+  "hypothesis_definitions": {
+    "persistent_post_terminal_sink": "Within the preregistered horizons, the remaining regression on the targets that lost template 5/8/9 at budget 120 is consistent with a post-terminal ordinary-policy attractor rather than sequence-scoped return-cycle failure or 120-step budget delay.",
+    "budget_delay": "The budget-120 split was a finite-budget delay on the losing targets. The unchanged candidate reached the entity residual frontier and recovered template 5/8/9 by budget 240 or 480.",
+    "mixed_or_inconclusive": "The preregistered budgets do not isolate one shared mechanism.",
+    "protocol_invalid": "Freeze, protocol, semantic, or publication identity failed."
+  },
+  "not": [
+    "a candidate repair",
+    "a fresh validation round",
+    "permission to change v0.3.21 candidate semantics",
+    "permission to change v0.3.20 target or generator semantics",
+    "permission to generate new targets",
+    "permission to change the product default",
+    "permission to add a global loop guard",
+    "an infinite-loop proof"
+  ],
+  "v0_3_21_immutable": {
+    "outcome": "C",
+    "sha": "deda60a7ef7494466d12598b9418234c09b543f4",
+    "publication": "experiments\\published\\return-waypoint-frontier-v0.3.21",
+    "candidate": "ghost-structural-return-waypoint-frontier-guard",
+    "candidate_freeze": "experiments\\frozen\\ghost-return-waypoint-frontier-v0.3.21\\freeze.json",
+    "candidate_source": "ghostqa/exploration/return_waypoint_frontier_guard.py",
+    "candidate_source_sha256": "32bb69afbe97058db51dbc8cb74334941aff1df470e58f944610135c2bc9f72a",
+    "candidate_freeze_sha256": "f1d406b47ef974d253156ffad3cb16ffafc10d9d5bed225c9aa64e93a4c237a6",
+    "product_default_changed": false
+  },
+  "v0_3_20_immutable": {
+    "outcome": "C",
+    "publication": "experiments\\published\\fresh-composite-v0.3.20",
+    "suite_freeze": "experiments\\frozen\\v0.3.20-fresh-composite-suite\\freeze.json",
+    "suite_freeze_sha256": "17f7d6f1f8e6e130f4b289ac1563631986cf92deccddc2e38295e98208fa77d5",
+    "target_freeze_sha256": {
+      "buggy-campus": "6551ebb4c3af23fd842bb7054b83748339b266be26f62c341610ddf143f41c7f",
+      "buggy-warehouse": "6affdc18d6b1368dee65b9f5391ff113f8e77d7c9225a33e0d7d8d000dad86f1",
+      "buggy-studio": "e0b063708ebc840e4e199524e341368fb533b173f6fbddfc7574487657e41767",
+      "buggy-booking": "83fd41e590b6e8e19b264c79f5871200f8176db73f744bdbcf23be509449eaf6"
+    }
+  },
+  "dominance_threshold": 0.6,
+  "final_quartile": 0.25,
+  "recurrent_page_minimum_visits": 2,
+  "matrix": {
+    "candidate": "ghost-structural-return-waypoint-frontier-guard",
+    "targets": [
+      "buggy-campus",
+      "buggy-warehouse",
+      "buggy-studio",
+      "buggy-booking"
+    ],
+    "budgets": [
+      240,
+      480
+    ],
+    "seed": 1,
+    "cells": [
+      {
+        "app": "buggy-campus",
+        "budget": 240,
+        "seed": 1
+      },
+      {
+        "app": "buggy-campus",
+        "budget": 480,
+        "seed": 1
+      },
+      {
+        "app": "buggy-warehouse",
+        "budget": 240,
+        "seed": 1
+      },
+      {
+        "app": "buggy-warehouse",
+        "budget": 480,
+        "seed": 1
+      },
+      {
+        "app": "buggy-studio",
+        "budget": 240,
+        "seed": 1
+      },
+      {
+        "app": "buggy-studio",
+        "budget": 480,
+        "seed": 1
+      },
+      {
+        "app": "buggy-booking",
+        "budget": 240,
+        "seed": 1
+      },
+      {
+        "app": "buggy-booking",
+        "budget": 480,
+        "seed": 1
+      }
+    ],
+    "cells_total": 8,
+    "historical_reference_budget": 120,
+    "excluded": [
+      "C1",
+      "guard rerun",
+      "v0.3.19 rerun",
+      "negative-control rerun",
+      "budgets other than 240 and 480"
+    ]
+  },
+  "operational_definitions": {
+    "navigation_edge": "topology edge whose source and destination node ids differ, including parent-return edges",
+    "relevant_abandonment": "earliest sequence-scoped return_cycle_escape after the first waypoint escape whose branch_start is after that escape and whose sequence_terminal outcome is return_cycle_abandoned",
+    "suffix": "step rows with index strictly greater than the relevant abandonment step",
+    "dominant_scc": "SCC that contains a recurrent suffix page and has the greatest suffix visit coverage; equal coverage is ambiguous",
+    "form_hub": "empty-entity node with a parent_return edge to a non-empty-entity node and an incoming page-changing edge from an empty-entity node",
+    "productive_reentry": "after sink entry, the run reaches the first-escape entity cluster and executes a residual frontier action recorded on that escape",
+    "sink_entry": "first suffix step whose destination lies in the dominant SCC when coverage meets the threshold; otherwise the abandonment step",
+    "ordinary_policy_recurrence": "the abandoned sequence has no later events, and at least the dominance threshold of final-quartile dominant-SCC visits have an empty active branch",
+    "horizon_cycle": "latest post-escape sequence that has branch_start, sequence_horizon_reached, return_cycle_escape, and terminal return_cycle_abandoned",
+    "template_589": "manifest bug ids whose trailing integer is 5, 8, or 9",
+    "guard_retained": "v0.3.20 guard budget-120 confirmed set is a subset of the cell confirmed set",
+    "persistent_sink": [
+      "sequence-scoped return_cycle_escape after the first waypoint escape",
+      "dominant suffix SCC coverage >= 0.60",
+      "the same SCC remains dominant through the final 25 percent of the run at coverage >= 0.60",
+      "no productive entity re-entry after sink entry",
+      "template 5/8/9 remains unrecovered",
+      "no candidate, source, or target semantic change"
+    ],
+    "budget_delay": [
+      "budget-120 template 5/8/9 lost",
+      "budget 240 or 480 recovers template 5/8/9",
+      "productive entity re-entry step is at or before the first recovered template confirmation",
+      "no protocol, target, or candidate change"
+    ]
+  },
+  "classifications": [
+    "closed_scc",
+    "policy_attractor_with_static_exit",
+    "no_dominant_scc",
+    "ambiguous"
+  ],
+  "diagnostic_conclusion_values": [
+    "persistent_post_terminal_sink",
+    "budget_delay",
+    "mixed_or_inconclusive",
+    "protocol_invalid"
+  ],
+  "publication": "experiments\\published\\post-escape-sink-v0.3.22",
+  "runs": "experiments\\runs\\v0322-post-escape-sink",
+  "validation": "experiments\\validation\\v0.3.22",
+  "product_default_changed": false,
+  "promotion_readiness": "not_ready",
+  "public_copy": {
+    "persistent_post_terminal_sink": "v0.3.22 没有改策略，只分析 v0.3.21 的分裂结果。Campus/Studio 在 sequence-scoped return cycle 已经被正确 abandon 后，普通探索仍进入重复 导航吸引子；到 b480 仍未重新获得原 entity residual frontier。Warehouse/Booking 则保留了回到 entity 的生产性路径。这是已检查目标上的 failure diagnosis，不是新修复，也不是 fresh validation。",
+    "budget_delay": "v0.3.22 没有改策略。提高诊断预算后，Campus/Studio 在冻结候选下重新进入 entity residual frontier 并恢复 5/8/9，因此 v0.3.21 的分裂更符合有限预算 延迟，而不是 b480 内持续的 post-terminal sink。",
+    "mixed_or_inconclusive": "v0.3.22 没有改策略。b240/b480 的分裂没有收敛到单一机制，诊断为 mixed_or_inconclusive。这不是新修复，也不是 fresh validation。",
+    "protocol_invalid": "v0.3.22 诊断协议未能成立，结论为 protocol_invalid。没有改策略，也没有新修复。"
+  }
+}
