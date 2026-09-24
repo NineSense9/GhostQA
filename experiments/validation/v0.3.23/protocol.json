@@ -1,0 +1,232 @@
+{
+  "name": "v0.3.23 residual frontier debt escape",
+  "version": "v0.3.23",
+  "date": "2026-09-24",
+  "starting_head": "34e8e3e625eb8fae7f4754bd6e3a1c54839eedd7",
+  "executed": false,
+  "question_kind": "inspected-repair",
+  "fresh_validation": false,
+  "product_default_changed": false,
+  "research_question": "If ordinary exploration enters a closed, interaction-exhausted observed SCC while no sequence lifecycle is active, can the policy yield to the oldest unresolved waypoint residual frontier through the existing reset-plus-replay contract without choosing the action that follows replay?",
+  "candidate": {
+    "identity": "ghost-structural-residual-frontier-debt-guard",
+    "module": "ghostqa/exploration/residual_frontier_debt_guard.py",
+    "controller": "ResidualFrontierDebtSequenceController",
+    "policy": "ResidualFrontierDebtGuardGhostPolicy",
+    "subclasses": "ReturnWaypointFrontierSequenceController",
+    "research_only": true,
+    "chooses_target_action": false,
+    "product_default": false
+  },
+  "historical_candidate": {
+    "round": "v0.3.21",
+    "identity": "ghost-structural-return-waypoint-frontier-guard",
+    "module": "ghostqa/exploration/return_waypoint_frontier_guard.py",
+    "module_sha256": "32bb69afbe97058db51dbc8cb74334941aff1df470e58f944610135c2bc9f72a",
+    "freeze": "experiments/frozen/ghost-return-waypoint-frontier-v0.3.21/freeze.json",
+    "freeze_sha256": "f1d406b47ef974d253156ffad3cb16ffafc10d9d5bed225c9aa64e93a4c237a6",
+    "outcome": "C",
+    "editable": false
+  },
+  "v0_3_22_audit": {
+    "path": "experiments/validation/v0.3.23/v0322-residual-debt-audit.json",
+    "sha256": "e86476592a4757d8d34924c027ef39b35c06241bd258fbedc6c3b9f9d4fa2019",
+    "diagnosis": "persistent_post_terminal_sink",
+    "publication": "experiments/published/post-escape-sink-v0.3.22",
+    "protocol_sha256": "0536d067bb5c997cc0429ec24ce3979f83aff7aee534e1f503ddd91822a3f8f9"
+  },
+  "immutable": [
+    "ghostqa/exploration/policy.py",
+    "ghostqa/exploration/sequence.py",
+    "ghostqa/exploration/sequence_memory.py",
+    "ghostqa/exploration/interaction.py",
+    "ghostqa/exploration/return_cycle_guard.py",
+    "ghostqa/exploration/horizon_handoff_guard.py",
+    "ghostqa/exploration/reentry_frontier_guard.py",
+    "ghostqa/exploration/local_action_drain_guard.py",
+    "ghostqa/exploration/return_entry_drain_guard.py",
+    "ghostqa/exploration/finding_return_entry_guard.py",
+    "ghostqa/exploration/return_waypoint_frontier_guard.py",
+    "ghostqa/exploration/payload.py",
+    "apps/generate_v0320_targets.py",
+    "experiments/frozen/v0.3.20-fresh-composite-suite"
+  ],
+  "debt": {
+    "source_event": "return_waypoint_frontier_escape",
+    "created_event": "residual_frontier_debt_created",
+    "consumed_event": "residual_frontier_debt_consumed",
+    "resolved_event": "residual_frontier_debt_resolved",
+    "relocate_event": "residual_frontier_debt_relocate",
+    "failure_event": "residual_frontier_debt_relocation_failure",
+    "create_when": [
+      "a new return_waypoint_frontier_escape event was emitted",
+      "waypoint signature and cluster are non-empty",
+      "the normalized union of local and structural residual keys is non-empty",
+      "the event belongs to a real sequence instance",
+      "waypoint lifecycle accounting did not inflate return success or terminal accounting"
+    ],
+    "normalization": "cluster + click role + eid; button and click kinds of the same eid collapse to one token",
+    "ordering": "oldest unresolved debt first",
+    "no_score": true,
+    "no_app_preference": true,
+    "arrival_does_not_resolve": true,
+    "consumption": "a normal non-restore action from the debt waypoint cluster consumes matching remaining tokens by eid and role",
+    "cluster_variants_consume": true,
+    "restore_does_not_consume": true,
+    "replay_navigation_does_not_consume": true,
+    "resolve_when_remaining_zero": true,
+    "resolution_does_not_increment_return_success": true,
+    "policy_reset_clears_debts": true,
+    "executor_relocate_reset_does_not_clear_debts": true
+  },
+  "relocation_gate": {
+    "requires": [
+      "sequence controller enabled",
+      "no open sequence instance",
+      "ledger.active_branch empty",
+      "ledger.returning false",
+      "stack_depth zero",
+      "no active return-entry drain",
+      "no pending return probe",
+      "no active post-witness local drain or promoted child",
+      "no active structural frontier lease",
+      "no pending lease action",
+      "at least one unresolved debt",
+      "current signature present in the runtime graph",
+      "current SCC closed",
+      "current SCC pending progress+clicks+inputs+deferred equals zero",
+      "oldest usable debt whose exact waypoint signature is outside that SCC",
+      "shortest_path from the graph start to that signature exists",
+      "remaining budget is strictly greater than the replay path length",
+      "the current episode has executed at least one normal non-restore action since the previous debt relocation"
+    ],
+    "scc": {
+      "nodes": "graph.nodes exact signatures",
+      "edges": "known edges with a stored action, excluding CRASHED",
+      "closed": "no stored-action edge leaves the component, ignoring edges to CRASHED",
+      "exhausted": "sum of pending_opportunity_counts progress+clicks+inputs+deferred over the component is zero",
+      "ignores_back": true,
+      "no_streak_threshold": true,
+      "no_topology_file": true,
+      "no_cluster_merge": true
+    },
+    "target_selection": "oldest unresolved usable debt; skip an unusable older debt and record the reason",
+    "restore": "return only the debt waypoint signature from maybe_relocate; the existing explorer reset and pending_restore replay performs the path",
+    "does_not_choose_action_after_replay": true,
+    "reason": "closed_exhausted_scc",
+    "zero_normal_action_release": "debt relocation cannot fire again until one normal non-restore action has executed after replay completion or restore failure",
+    "restore_failure": "existing explorer failure accounting; emit a debt relocation failure; debt stays unresolved; do not consume tokens; do not retry inside the same zero-normal-action episode"
+  },
+  "forbidden_source_needles": [
+    "buggy-campus",
+    "buggy-studio",
+    "buggy-warehouse",
+    "buggy-booking",
+    "buggy-catalog",
+    "buggy-kiosk",
+    "help.html",
+    "handbook.html",
+    "settings.html",
+    "BUG-",
+    "btn_pin",
+    "btn_cool",
+    "open_side",
+    "nav_prefs"
+  ],
+  "matrix": {
+    "candidate": "ghost-structural-residual-frontier-debt-guard",
+    "seed": 1,
+    "positives": [
+      {"app": "buggy-campus", "budgets": [40, 80, 120]},
+      {"app": "buggy-warehouse", "budgets": [40, 80, 120]},
+      {"app": "buggy-studio", "budgets": [40, 80, 120]},
+      {"app": "buggy-booking", "budgets": [40, 80, 120]}
+    ],
+    "controls": [
+      {"app": "buggy-catalog", "budget": 120, "expect_debt_created": 0, "expect_relocations": 0},
+      {"app": "buggy-kiosk", "budget": 120, "expect_debt_created": 0, "expect_relocations": 0, "nested_handoff_remains_zero": true}
+    ],
+    "historical": [
+      {"app": "buggy-lab", "evidence": "buggy-lab", "budget": 120, "retain": ["BUG-L1", "BUG-L2", "BUG-L8", "BUG-L9", "BUG-L10"]},
+      {"app": "buggy-flow", "evidence": "deepbench", "budget": 120, "retain": ["BUG-D6", "BUG-D7", "BUG-D11", "BUG-D12", "BUG-D13", "BUG-D14"]},
+      {"app": "buggy-forum", "evidence": "buggy-forum", "budget": 120},
+      {"app": "buggy-billing", "evidence": "buggy-billing", "budget": 120},
+      {"app": "buggy-directory", "evidence": "buggy-directory", "budget": 120},
+      {"app": "buggy-crm", "evidence": "buggy-crm", "budget": 120},
+      {"app": "buggy-ops", "evidence": "buggy-ops", "budget": 120},
+      {"app": "buggy-desk", "evidence": "buggy-desk", "budget": 120, "retain": ["BUG-K1", "BUG-K2", "BUG-K3", "BUG-K5", "BUG-K6", "BUG-K9", "BUG-K10"]},
+      {"app": "buggy-wiki", "evidence": "wiki", "budget": 120, "retain": ["BUG-W2"]},
+      {"app": "buggy-shop", "evidence": "buggy-shop", "budget": 120, "retain": ["BUG-W5", "BUG-W6", "BUG-W9", "BUG-W10"]}
+    ],
+    "cells_total": 24,
+    "references": [
+      "experiments/published/fresh-composite-v0.3.20",
+      "experiments/published/return-waypoint-frontier-v0.3.21"
+    ],
+    "no_extra_cells_after_results": true
+  },
+  "gates": {
+    "campus_studio_mechanism": [
+      "at least one unresolved waypoint debt exists before sink relocation",
+      "candidate reaches a no-active-sequence closed and exhausted SCC",
+      "residual_frontier_debt_relocate count is at least one",
+      "selected target is the oldest usable recorded waypoint debt",
+      "replay path is known and completes without a sequence lifecycle violation",
+      "at least one debt token is later consumed by a normal action",
+      "productive entity residual exploration occurs",
+      "Guard template 5/8/9 are all recovered",
+      "confirmed(Guard) is a subset of confirmed(candidate)",
+      "no false return success"
+    ],
+    "warehouse_booking": [
+      "zero Guard bug loss",
+      "template 5/8/9 remain recovered",
+      "relocation while the current SCC still has pending interactions is Outcome C",
+      "a relocation count of zero is preferred and is not required when the full structural gate was satisfied only after Guard bugs were retained"
+    ],
+    "catalog": ["debt_created = 0", "debt_relocations = 0", "Guard bugs retained", "relocation without a debt is Outcome C"],
+    "kiosk": ["debt_created = 0", "debt_relocations = 0", "nested handoff remains 0", "Guard bugs retained"],
+    "historical": "any historical Guard loss is Outcome C"
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "protocol, freeze, lifecycle, SCC, consumption, success-accounting, app-specific logic, Guard loss, product default, or safety/model failure",
+    "D": "protocol and safety hold, but the debt relocation mechanism does not engage on Campus and Studio",
+    "B": "safe partial repair",
+    "A": "Campus and Studio closed-SCC post-terminal starvation is repaired on the inspected cells while Warehouse, Booking, controls, and the historical suite keep the preregistered Guard bugs",
+    "promotion": false,
+    "meaning_limit": "inspected repair evidence only; a later round must freshly validate the frozen composite candidate"
+  },
+  "safety": {
+    "rd_minimum": 30,
+    "model_alphabet": ["D", "C", "O", "A", "R", "P", "N", "X", "F"],
+    "model_raw_traces": 66429,
+    "historical_suites_unchanged": [
+      "S1-S7",
+      "return model 5800",
+      "N1-N12",
+      "P1-P15",
+      "H1-H20",
+      "handoff model 19607",
+      "v0.3.16 37448",
+      "v0.3.17 66429",
+      "v0.3.18 66429",
+      "v0.3.19 66429",
+      "v0.3.21 waypoint model",
+      "v0.3.22 analysis verifier"
+    ]
+  },
+  "no_same_round_retuning": [
+    "step-count threshold",
+    "repeated-edge threshold",
+    "page-name heuristic",
+    "general FrontierPlanner",
+    "debt ordering change",
+    "forced debt action",
+    "action ranking bonus",
+    "SCC closure change",
+    "pending-opportunity definition change",
+    "target exception",
+    "budget or gate change"
+  ]
+}

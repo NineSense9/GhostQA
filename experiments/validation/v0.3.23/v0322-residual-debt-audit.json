@@ -1,0 +1,1229 @@
+{
+  "version": "v0.3.23",
+  "basis_round": "v0.3.22",
+  "basis_diagnosis": "persistent_post_terminal_sink",
+  "product_default_changed": false,
+  "computed_from_publications": true,
+  "publications": {
+    "v0.3.21": "experiments/published/return-waypoint-frontier-v0.3.21",
+    "v0.3.22": "experiments/published/post-escape-sink-v0.3.22"
+  },
+  "source_candidate": {
+    "freeze": "experiments/frozen/ghost-return-waypoint-frontier-v0.3.21/freeze.json",
+    "freeze_sha256": "f1d406b47ef974d253156ffad3cb16ffafc10d9d5bed225c9aa64e93a4c237a6",
+    "module": "ghostqa/exploration/return_waypoint_frontier_guard.py",
+    "module_sha256": "32bb69afbe97058db51dbc8cb74334941aff1df470e58f944610135c2bc9f72a",
+    "freeze_recorded_module_sha256": "32bb69afbe97058db51dbc8cb74334941aff1df470e58f944610135c2bc9f72a",
+    "module_matches_freeze": true
+  },
+  "restore_step_sequence_isolation": {
+    "file": "ghostqa/exploration/explorer.py",
+    "predicate": "if seqc is not None and not restore_step:",
+    "lines": [
+      405
+    ],
+    "after_skipped_on_restore": true,
+    "policy_reset_in_relocate_window": false
+  },
+  "scc_definition": {
+    "nodes": "runtime StateGraph exact signatures",
+    "edges": "known edges with a stored action, excluding CRASHED",
+    "closed": "no stored-action edge from the component to a signature outside it",
+    "exhausted": "pending progress+clicks+inputs+deferred == 0 via pending_opportunity_counts",
+    "topology_files_read": false
+  },
+  "targets": {
+    "buggy-campus": {
+      "sink_scc_size": 2,
+      "sink_closed": true,
+      "sink_outgoing": 0,
+      "sink_pending_interactions": 0,
+      "sink_pages": [
+        "handbook.html",
+        "help.html"
+      ],
+      "sink_sigs": [
+        "48e8636dba2f1320:none",
+        "78d1dc523692137a:none"
+      ],
+      "final_sig": "78d1dc523692137a:none",
+      "final_sig_in_sink": true,
+      "final_component_pending": 0,
+      "graphs": {
+        "120": {
+          "budget": 120,
+          "node_count": 28,
+          "edge_count": 59,
+          "scc_count": 4,
+          "closed_scc_count": 1,
+          "sink": {
+            "size": 2,
+            "closed": true,
+            "outgoing": 0,
+            "pending_interactions": 0,
+            "pages": [
+              "handbook.html",
+              "help.html"
+            ],
+            "sigs": [
+              "8332e2606cbeba63:none",
+              "b88cb293ee42d4ee:none"
+            ]
+          }
+        },
+        "240": {
+          "budget": 240,
+          "node_count": 28,
+          "edge_count": 59,
+          "scc_count": 4,
+          "closed_scc_count": 1,
+          "sink": {
+            "size": 2,
+            "closed": true,
+            "outgoing": 0,
+            "pending_interactions": 0,
+            "pages": [
+              "handbook.html",
+              "help.html"
+            ],
+            "sigs": [
+              "592a2716df6e0734:none",
+              "98338a6fc7aa2abd:none"
+            ]
+          }
+        },
+        "480": {
+          "budget": 480,
+          "node_count": 28,
+          "edge_count": 59,
+          "scc_count": 4,
+          "closed_scc_count": 1,
+          "sink": {
+            "size": 2,
+            "closed": true,
+            "outgoing": 0,
+            "pending_interactions": 0,
+            "pages": [
+              "handbook.html",
+              "help.html"
+            ],
+            "sigs": [
+              "48e8636dba2f1320:none",
+              "78d1dc523692137a:none"
+            ]
+          }
+        }
+      },
+      "template_589": {
+        "120": {
+          "template_ids": [
+            "BUG-CP5",
+            "BUG-CP8",
+            "BUG-CP9"
+          ],
+          "confirmed_template": [],
+          "missing": [
+            "BUG-CP5",
+            "BUG-CP8",
+            "BUG-CP9"
+          ],
+          "recovered": false
+        },
+        "240": {
+          "template_ids": [
+            "BUG-CP5",
+            "BUG-CP8",
+            "BUG-CP9"
+          ],
+          "confirmed_template": [],
+          "missing": [
+            "BUG-CP5",
+            "BUG-CP8",
+            "BUG-CP9"
+          ],
+          "recovered": false
+        },
+        "480": {
+          "template_ids": [
+            "BUG-CP5",
+            "BUG-CP8",
+            "BUG-CP9"
+          ],
+          "confirmed_template": [],
+          "missing": [
+            "BUG-CP5",
+            "BUG-CP8",
+            "BUG-CP9"
+          ],
+          "recovered": false
+        }
+      },
+      "template_589_missing_through_b480": true,
+      "template_589_retained_through_b480": false,
+      "first_v0321_waypoint_debt": {
+        "source": "experiments/published/return-waypoint-frontier-v0.3.21",
+        "budget": 120,
+        "step": 21,
+        "sequence_instance_id": "seq-0001",
+        "source_branch": "71024b528acdbbd1:click:open_row_c1",
+        "waypoint_sig": "d9e86f110494d793:46d56a72faae",
+        "waypoint_cluster": "d9e86f110494d793",
+        "replay_target_exact_sig": "d9e86f110494d793:46d56a72faae",
+        "raw_local_keys": [
+          "d9e86f110494d793:button:btn_pin",
+          "d9e86f110494d793:button:btn_cool"
+        ],
+        "raw_structural_keys": [
+          "d9e86f110494d793:click:open_side",
+          "d9e86f110494d793:click:nav_prefs",
+          "d9e86f110494d793:click:btn_pin",
+          "d9e86f110494d793:click:btn_cool"
+        ],
+        "raw_key_count": 6,
+        "normalized_tokens": [
+          "d9e86f110494d793:click:btn_pin",
+          "d9e86f110494d793:click:btn_cool",
+          "d9e86f110494d793:click:open_side",
+          "d9e86f110494d793:click:nav_prefs"
+        ],
+        "normalized_count": 4,
+        "deduped": true
+      },
+      "replay_target_exact_sig": "d9e86f110494d793:46d56a72faae",
+      "b480_waypoint_escape_step": 21,
+      "b480_normalized_tokens": [
+        "38bbdc3c4e77d17e:click:btn_pin",
+        "38bbdc3c4e77d17e:click:btn_cool",
+        "38bbdc3c4e77d17e:click:open_side",
+        "38bbdc3c4e77d17e:click:nav_prefs"
+      ],
+      "organic": {
+        "residual_eids": [
+          "btn_pin",
+          "btn_cool",
+          "open_side",
+          "nav_prefs"
+        ],
+        "immediate_next_eids": [
+          "open_side"
+        ],
+        "later_eids": [],
+        "eids_after_return_cycle_terminal": [],
+        "organic_consumption": false,
+        "productive_entity_reentry": false
+      },
+      "post_terminal": {
+        "return_cycle_escape_step": 38,
+        "terminal_step": 38,
+        "terminal_outcome": "return_cycle_abandoned",
+        "terminal_reason": null,
+        "events_after_terminal": [],
+        "sequence_terminalled_before_suffix": true
+      }
+    },
+    "buggy-warehouse": {
+      "sink_scc_size": 40,
+      "sink_closed": true,
+      "sink_outgoing": 0,
+      "sink_pending_interactions": 77,
+      "sink_pages": [
+        "adjustment.html",
+        "audit.html",
+        "batch.html",
+        "batches.html",
+        "help.html",
+        "index.html",
+        "inspection.html",
+        "item.html",
+        "items.html",
+        "reports.html",
+        "settings.html",
+        "supplier.html",
+        "transfer.html",
+        "warehouse.html",
+        "warehouses.html",
+        "zone.html",
+        "zones.html"
+      ],
+      "sink_sigs": [
+        "01d5daf129d5408a:1b1f3478f437",
+        "0f77334270aac22e:1b1f3478f437",
+        "180c2a0741ecf2f7:826b9ca2b8f6",
+        "188e16b5cc06f6bf:f10c8767fe55",
+        "2172993c01150aba:none",
+        "23bcf255b95f158f:1b1f3478f437",
+        "23bcf255b95f158f:none",
+        "39667c440b4c5249:none",
+        "3c3e8a36f70b98a0:none",
+        "4600ace4fd7a93d6:46d56a72faae",
+        "5e2683b1756fbe52:f10c8767fe55",
+        "6a1b07700dd2508a:none",
+        "803c2ba013f003cc:1b1f3478f437",
+        "8357000308ebab95:08e62aa46029",
+        "8357000308ebab95:46d56a72faae",
+        "871ef46820e8e94d:d22e2cb0d9e2",
+        "94796d0b8e7cec1b:none",
+        "b3a651e462ecfa42:none",
+        "b9c31dd62330ff60:826b9ca2b8f6",
+        "bcacfb0d8dc8e3cf:d22e2cb0d9e2",
+        "be8741b61d76cdd1:1b1f3478f437",
+        "c2c5d0feaa0ceefe:b12fbc6eca0d",
+        "c2c5d0feaa0ceefe:none",
+        "d03d4150c741a7fc:826b9ca2b8f6",
+        "d05fb56c4c5d8df0:f10c8767fe55",
+        "d08d5dd2e1d2e97a:acef4274c0e2",
+        "d08d5dd2e1d2e97a:c59511334e12",
+        "d818f4f2627244bd:14a47070636b",
+        "d818f4f2627244bd:7736ca64bb92",
+        "d818f4f2627244bd:bd7fd7d7baf2",
+        "dd4e1f5e56ada088:1b1f3478f437",
+        "e3024240cdf62101:46d56a72faae",
+        "e46b66b39a4bcbbd:none",
+        "f42278222b0fa2b6:none",
+        "f74f1803ba25b762:08cb20359738",
+        "f74f1803ba25b762:7e5021ceae48",
+        "f74f1803ba25b762:d22e2cb0d9e2",
+        "f84c8e011744c5f1:none",
+        "ff0399df93275f5d:7e5021ceae48",
+        "ff0399df93275f5d:d22e2cb0d9e2"
+      ],
+      "final_sig": "23bcf255b95f158f:1b1f3478f437",
+      "final_sig_in_sink": true,
+      "final_component_pending": 77,
+      "graphs": {
+        "120": {
+          "budget": 120,
+          "node_count": 39,
+          "edge_count": 93,
+          "scc_count": 5,
+          "closed_scc_count": 2,
+          "sink": {
+            "size": 35,
+            "closed": true,
+            "outgoing": 0,
+            "pending_interactions": 67,
+            "pages": [
+              "adjustment.html",
+              "audit.html",
+              "batch.html",
+              "batches.html",
+              "help.html",
+              "index.html",
+              "inspection.html",
+              "item.html",
+              "items.html",
+              "settings.html",
+              "supplier.html",
+              "transfer.html",
+              "warehouse.html",
+              "warehouses.html",
+              "zone.html",
+              "zones.html"
+            ],
+            "sigs": [
+              "027b20266f0f80a8:46d56a72faae",
+              "089366142c73acb6:f10c8767fe55",
+              "0b8f8f7e0dfd7868:none",
+              "1dff76b5416fcdf9:d22e2cb0d9e2",
+              "21c6eb7ee2b2c478:none",
+              "262c8d5976bc513c:b12fbc6eca0d",
+              "262c8d5976bc513c:none",
+              "2e7ad9d5127a5457:7e5021ceae48",
+              "2e7ad9d5127a5457:d22e2cb0d9e2",
+              "34bd12f596e4de3d:826b9ca2b8f6",
+              "37f1172bdade8bd4:46d56a72faae",
+              "3a400e889e1b531c:d22e2cb0d9e2",
+              "41947b62c5bd63f4:none",
+              "45de9d1fca6ef7df:none",
+              "4a51227dfca25812:none",
+              "52966936b08af5d0:14a47070636b",
+              "52966936b08af5d0:7736ca64bb92",
+              "52966936b08af5d0:bd7fd7d7baf2",
+              "5e636d64c800549f:none",
+              "939628ad7992973f:f10c8767fe55",
+              "9d2ae7b3d88eb2d7:f10c8767fe55",
+              "9f092cf835b4d969:none",
+              "a59348175951d67a:08cb20359738",
+              "a59348175951d67a:7e5021ceae48",
+              "a59348175951d67a:d22e2cb0d9e2",
+              "acf2abcce759dbea:1b1f3478f437",
+              "ae868c74590d095b:1b1f3478f437",
+              "ae868c74590d095b:none",
+              "b569f109f2c015aa:acef4274c0e2",
+              "b569f109f2c015aa:c59511334e12",
+              "bf665b81ba0e1863:none",
+              "cf496577d4e67d9c:08e62aa46029",
+              "cf496577d4e67d9c:46d56a72faae",
+              "d64577fc2fc49574:826b9ca2b8f6",
+              "de5661ef2c20778c:826b9ca2b8f6"
+            ]
+          }
+        },
+        "240": {
+          "budget": 240,
+          "node_count": 44,
+          "edge_count": 113,
+          "scc_count": 5,
+          "closed_scc_count": 1,
+          "sink": {
+            "size": 40,
+            "closed": true,
+            "outgoing": 0,
+            "pending_interactions": 77,
+            "pages": [
+              "adjustment.html",
+              "audit.html",
+              "batch.html",
+              "batches.html",
+              "help.html",
+              "index.html",
+              "inspection.html",
+              "item.html",
+              "items.html",
+              "reports.html",
+              "settings.html",
+              "supplier.html",
+              "transfer.html",
+              "warehouse.html",
+              "warehouses.html",
+              "zone.html",
+              "zones.html"
+            ],
+            "sigs": [
+              "02d569cb32e3f539:1b1f3478f437",
+              "1747df0932914b19:none",
+              "1ca1ecba0e6bc3fe:none",
+              "243e80112d16a513:14a47070636b",
+              "243e80112d16a513:7736ca64bb92",
+              "243e80112d16a513:bd7fd7d7baf2",
+              "29d3c5a8dc4d42ce:1b1f3478f437",
+              "29d3c5a8dc4d42ce:none",
+              "3cc98844bc413b59:08e62aa46029",
+              "3cc98844bc413b59:46d56a72faae",
+              "45f859f5ddda3bf1:none",
+              "47f5b0be2c3e74cb:46d56a72faae",
+              "4b7f904b8f6a070a:f10c8767fe55",
+              "4dbc20147e0dd74c:08cb20359738",
+              "4dbc20147e0dd74c:7e5021ceae48",
+              "4dbc20147e0dd74c:d22e2cb0d9e2",
+              "565b0ba33d7c1332:1b1f3478f437",
+              "5a56f3ba2fe7690a:d22e2cb0d9e2",
+              "6ae3da0a0bcdbcf1:826b9ca2b8f6",
+              "785c3ef178911975:f10c8767fe55",
+              "7b4ea8a22cb27384:1b1f3478f437",
+              "81780dd71f91e64b:none",
+              "887d382c3d32cce6:826b9ca2b8f6",
+              "8cf53e4a7494da96:none",
+              "8dbd38afd11eb8e8:none",
+              "90bd8263710b407f:none",
+              "a2d4e995de8617f8:1b1f3478f437",
+              "a6f75496add16fcb:826b9ca2b8f6",
+              "aae1fc04190618d2:7e5021ceae48",
+              "aae1fc04190618d2:d22e2cb0d9e2",
+              "ab865cd474b5c20f:d22e2cb0d9e2",
+              "b31cebdd19672bbf:f10c8767fe55",
+              "b678022d965bd9d2:46d56a72faae",
+              "c2a1013994ab87ed:1b1f3478f437",
+              "c97886abb2e0f519:none",
+              "cbf7cb73f9870179:none",
+              "de3b89b5252054c1:b12fbc6eca0d",
+              "de3b89b5252054c1:none",
+              "eae44e9d14610e83:acef4274c0e2",
+              "eae44e9d14610e83:c59511334e12"
+            ]
+          }
+        },
+        "480": {
+          "budget": 480,
+          "node_count": 44,
+          "edge_count": 113,
+          "scc_count": 5,
+          "closed_scc_count": 1,
+          "sink": {
+            "size": 40,
+            "closed": true,
+            "outgoing": 0,
+            "pending_interactions": 77,
+            "pages": [
+              "adjustment.html",
+              "audit.html",
+              "batch.html",
+              "batches.html",
+              "help.html",
+              "index.html",
+              "inspection.html",
+              "item.html",
+              "items.html",
+              "reports.html",
+              "settings.html",
+              "supplier.html",
+              "transfer.html",
+              "warehouse.html",
+              "warehouses.html",
+              "zone.html",
+              "zones.html"
+            ],
+            "sigs": [
+              "01d5daf129d5408a:1b1f3478f437",
+              "0f77334270aac22e:1b1f3478f437",
+              "180c2a0741ecf2f7:826b9ca2b8f6",
+              "188e16b5cc06f6bf:f10c8767fe55",
+              "2172993c01150aba:none",
+              "23bcf255b95f158f:1b1f3478f437",
+              "23bcf255b95f158f:none",
+              "39667c440b4c5249:none",
+              "3c3e8a36f70b98a0:none",
+              "4600ace4fd7a93d6:46d56a72faae",
+              "5e2683b1756fbe52:f10c8767fe55",
+              "6a1b07700dd2508a:none",
+              "803c2ba013f003cc:1b1f3478f437",
+              "8357000308ebab95:08e62aa46029",
+              "8357000308ebab95:46d56a72faae",
+              "871ef46820e8e94d:d22e2cb0d9e2",
+              "94796d0b8e7cec1b:none",
+              "b3a651e462ecfa42:none",
+              "b9c31dd62330ff60:826b9ca2b8f6",
+              "bcacfb0d8dc8e3cf:d22e2cb0d9e2",
+              "be8741b61d76cdd1:1b1f3478f437",
+              "c2c5d0feaa0ceefe:b12fbc6eca0d",
+              "c2c5d0feaa0ceefe:none",
+              "d03d4150c741a7fc:826b9ca2b8f6",
+              "d05fb56c4c5d8df0:f10c8767fe55",
+              "d08d5dd2e1d2e97a:acef4274c0e2",
+              "d08d5dd2e1d2e97a:c59511334e12",
+              "d818f4f2627244bd:14a47070636b",
+              "d818f4f2627244bd:7736ca64bb92",
+              "d818f4f2627244bd:bd7fd7d7baf2",
+              "dd4e1f5e56ada088:1b1f3478f437",
+              "e3024240cdf62101:46d56a72faae",
+              "e46b66b39a4bcbbd:none",
+              "f42278222b0fa2b6:none",
+              "f74f1803ba25b762:08cb20359738",
+              "f74f1803ba25b762:7e5021ceae48",
+              "f74f1803ba25b762:d22e2cb0d9e2",
+              "f84c8e011744c5f1:none",
+              "ff0399df93275f5d:7e5021ceae48",
+              "ff0399df93275f5d:d22e2cb0d9e2"
+            ]
+          }
+        }
+      },
+      "template_589": {
+        "120": {
+          "template_ids": [
+            "BUG-WH5",
+            "BUG-WH8",
+            "BUG-WH9"
+          ],
+          "confirmed_template": [
+            "BUG-WH5",
+            "BUG-WH8",
+            "BUG-WH9"
+          ],
+          "missing": [],
+          "recovered": true
+        },
+        "240": {
+          "template_ids": [
+            "BUG-WH5",
+            "BUG-WH8",
+            "BUG-WH9"
+          ],
+          "confirmed_template": [
+            "BUG-WH5",
+            "BUG-WH8",
+            "BUG-WH9"
+          ],
+          "missing": [],
+          "recovered": true
+        },
+        "480": {
+          "template_ids": [
+            "BUG-WH5",
+            "BUG-WH8",
+            "BUG-WH9"
+          ],
+          "confirmed_template": [
+            "BUG-WH5",
+            "BUG-WH8",
+            "BUG-WH9"
+          ],
+          "missing": [],
+          "recovered": true
+        }
+      },
+      "template_589_missing_through_b480": false,
+      "template_589_retained_through_b480": true,
+      "first_v0321_waypoint_debt": {
+        "source": "experiments/published/return-waypoint-frontier-v0.3.21",
+        "budget": 120,
+        "step": 21,
+        "sequence_instance_id": "seq-0001",
+        "source_branch": "0b8f8f7e0dfd7868:click:open_row_w1",
+        "waypoint_sig": "cf496577d4e67d9c:46d56a72faae",
+        "waypoint_cluster": "cf496577d4e67d9c",
+        "replay_target_exact_sig": "cf496577d4e67d9c:46d56a72faae",
+        "raw_local_keys": [
+          "cf496577d4e67d9c:button:btn_pin",
+          "cf496577d4e67d9c:button:btn_cool"
+        ],
+        "raw_structural_keys": [
+          "cf496577d4e67d9c:click:open_side",
+          "cf496577d4e67d9c:click:nav_prefs",
+          "cf496577d4e67d9c:click:btn_pin",
+          "cf496577d4e67d9c:click:btn_cool"
+        ],
+        "raw_key_count": 6,
+        "normalized_tokens": [
+          "cf496577d4e67d9c:click:btn_pin",
+          "cf496577d4e67d9c:click:btn_cool",
+          "cf496577d4e67d9c:click:open_side",
+          "cf496577d4e67d9c:click:nav_prefs"
+        ],
+        "normalized_count": 4,
+        "deduped": true
+      },
+      "replay_target_exact_sig": "cf496577d4e67d9c:46d56a72faae",
+      "b480_waypoint_escape_step": 21,
+      "b480_normalized_tokens": [
+        "8357000308ebab95:click:btn_pin",
+        "8357000308ebab95:click:btn_cool",
+        "8357000308ebab95:click:open_side",
+        "8357000308ebab95:click:nav_prefs"
+      ],
+      "organic": {
+        "residual_eids": [
+          "btn_pin",
+          "btn_cool",
+          "open_side",
+          "nav_prefs"
+        ],
+        "immediate_next_eids": [
+          "open_side"
+        ],
+        "later_eids": [
+          "nav_prefs",
+          "btn_pin",
+          "btn_cool",
+          "open_side"
+        ],
+        "eids_after_return_cycle_terminal": [
+          "nav_prefs",
+          "btn_pin",
+          "btn_cool",
+          "open_side"
+        ],
+        "organic_consumption": true,
+        "productive_entity_reentry": true
+      },
+      "post_terminal": {
+        "return_cycle_escape_step": 38,
+        "terminal_step": 38,
+        "terminal_outcome": "return_cycle_abandoned",
+        "terminal_reason": null,
+        "events_after_terminal": [],
+        "sequence_terminalled_before_suffix": true
+      }
+    },
+    "buggy-studio": {
+      "sink_scc_size": 3,
+      "sink_closed": true,
+      "sink_outgoing": 0,
+      "sink_pending_interactions": 0,
+      "sink_pages": [
+        "handbook.html",
+        "help.html",
+        "scenes.html"
+      ],
+      "sink_sigs": [
+        "7aa819fe2733d57e:none",
+        "f340d672fb8fba0b:none",
+        "f891075e931eb4c9:none"
+      ],
+      "final_sig": "f891075e931eb4c9:none",
+      "final_sig_in_sink": true,
+      "final_component_pending": 0,
+      "graphs": {
+        "120": {
+          "budget": 120,
+          "node_count": 29,
+          "edge_count": 62,
+          "scc_count": 4,
+          "closed_scc_count": 1,
+          "sink": {
+            "size": 3,
+            "closed": true,
+            "outgoing": 0,
+            "pending_interactions": 0,
+            "pages": [
+              "handbook.html",
+              "help.html",
+              "scenes.html"
+            ],
+            "sigs": [
+              "5c54713c12617099:none",
+              "c1739b5e36239c0f:none",
+              "fc7491014926a589:none"
+            ]
+          }
+        },
+        "240": {
+          "budget": 240,
+          "node_count": 29,
+          "edge_count": 62,
+          "scc_count": 4,
+          "closed_scc_count": 1,
+          "sink": {
+            "size": 3,
+            "closed": true,
+            "outgoing": 0,
+            "pending_interactions": 0,
+            "pages": [
+              "handbook.html",
+              "help.html",
+              "scenes.html"
+            ],
+            "sigs": [
+              "2121d189d2682b49:none",
+              "510c4e7d7960fd3e:none",
+              "eb99043d1e42aae8:none"
+            ]
+          }
+        },
+        "480": {
+          "budget": 480,
+          "node_count": 29,
+          "edge_count": 62,
+          "scc_count": 4,
+          "closed_scc_count": 1,
+          "sink": {
+            "size": 3,
+            "closed": true,
+            "outgoing": 0,
+            "pending_interactions": 0,
+            "pages": [
+              "handbook.html",
+              "help.html",
+              "scenes.html"
+            ],
+            "sigs": [
+              "7aa819fe2733d57e:none",
+              "f340d672fb8fba0b:none",
+              "f891075e931eb4c9:none"
+            ]
+          }
+        }
+      },
+      "template_589": {
+        "120": {
+          "template_ids": [
+            "BUG-ST5",
+            "BUG-ST8",
+            "BUG-ST9"
+          ],
+          "confirmed_template": [],
+          "missing": [
+            "BUG-ST5",
+            "BUG-ST8",
+            "BUG-ST9"
+          ],
+          "recovered": false
+        },
+        "240": {
+          "template_ids": [
+            "BUG-ST5",
+            "BUG-ST8",
+            "BUG-ST9"
+          ],
+          "confirmed_template": [],
+          "missing": [
+            "BUG-ST5",
+            "BUG-ST8",
+            "BUG-ST9"
+          ],
+          "recovered": false
+        },
+        "480": {
+          "template_ids": [
+            "BUG-ST5",
+            "BUG-ST8",
+            "BUG-ST9"
+          ],
+          "confirmed_template": [],
+          "missing": [
+            "BUG-ST5",
+            "BUG-ST8",
+            "BUG-ST9"
+          ],
+          "recovered": false
+        }
+      },
+      "template_589_missing_through_b480": true,
+      "template_589_retained_through_b480": false,
+      "first_v0321_waypoint_debt": {
+        "source": "experiments/published/return-waypoint-frontier-v0.3.21",
+        "budget": 120,
+        "step": 21,
+        "sequence_instance_id": "seq-0001",
+        "source_branch": "6790cbec7dfd4910:click:open_row_p1",
+        "waypoint_sig": "259a23cc15d141f0:46d56a72faae",
+        "waypoint_cluster": "259a23cc15d141f0",
+        "replay_target_exact_sig": "259a23cc15d141f0:46d56a72faae",
+        "raw_local_keys": [
+          "259a23cc15d141f0:button:btn_pin",
+          "259a23cc15d141f0:button:btn_cool"
+        ],
+        "raw_structural_keys": [
+          "259a23cc15d141f0:click:open_side",
+          "259a23cc15d141f0:click:nav_prefs",
+          "259a23cc15d141f0:click:btn_pin",
+          "259a23cc15d141f0:click:btn_cool"
+        ],
+        "raw_key_count": 6,
+        "normalized_tokens": [
+          "259a23cc15d141f0:click:btn_pin",
+          "259a23cc15d141f0:click:btn_cool",
+          "259a23cc15d141f0:click:open_side",
+          "259a23cc15d141f0:click:nav_prefs"
+        ],
+        "normalized_count": 4,
+        "deduped": true
+      },
+      "replay_target_exact_sig": "259a23cc15d141f0:46d56a72faae",
+      "b480_waypoint_escape_step": 21,
+      "b480_normalized_tokens": [
+        "ade50f8b02bae929:click:btn_pin",
+        "ade50f8b02bae929:click:btn_cool",
+        "ade50f8b02bae929:click:open_side",
+        "ade50f8b02bae929:click:nav_prefs"
+      ],
+      "organic": {
+        "residual_eids": [
+          "btn_pin",
+          "btn_cool",
+          "open_side",
+          "nav_prefs"
+        ],
+        "immediate_next_eids": [
+          "open_side"
+        ],
+        "later_eids": [],
+        "eids_after_return_cycle_terminal": [],
+        "organic_consumption": false,
+        "productive_entity_reentry": false
+      },
+      "post_terminal": {
+        "return_cycle_escape_step": 38,
+        "terminal_step": 38,
+        "terminal_outcome": "return_cycle_abandoned",
+        "terminal_reason": null,
+        "events_after_terminal": [],
+        "sequence_terminalled_before_suffix": true
+      }
+    },
+    "buggy-booking": {
+      "sink_scc_size": 40,
+      "sink_closed": true,
+      "sink_outgoing": 0,
+      "sink_pending_interactions": 77,
+      "sink_pages": [
+        "calendar.html",
+        "cancellation.html",
+        "confirmation.html",
+        "guest.html",
+        "guests.html",
+        "help.html",
+        "index.html",
+        "modify.html",
+        "notes.html",
+        "reports.html",
+        "reservation.html",
+        "reservations.html",
+        "room.html",
+        "rooms.html",
+        "settings.html",
+        "venue.html",
+        "venues.html"
+      ],
+      "sink_sigs": [
+        "24a21c93f040d773:f10c8767fe55",
+        "2c9298d1492149ca:none",
+        "2cc5b522892e0953:08cb20359738",
+        "2cc5b522892e0953:7e5021ceae48",
+        "2cc5b522892e0953:d22e2cb0d9e2",
+        "31eac521de1ed94b:1b1f3478f437",
+        "3b9306194b67c6d0:f10c8767fe55",
+        "43d1dce749d593d7:7e5021ceae48",
+        "43d1dce749d593d7:d22e2cb0d9e2",
+        "4670069b02f6bfbd:none",
+        "48edab7ae25fd89e:acef4274c0e2",
+        "48edab7ae25fd89e:c59511334e12",
+        "4cd9c01ac724daeb:08e62aa46029",
+        "4cd9c01ac724daeb:46d56a72faae",
+        "5085d9a030803741:b12fbc6eca0d",
+        "5085d9a030803741:none",
+        "59aab4aeee923ba3:none",
+        "59fe949e794d1e8d:1b1f3478f437",
+        "6c00778ad4555e27:none",
+        "6da6ff08806fb5df:d22e2cb0d9e2",
+        "6e8181d516962f60:1b1f3478f437",
+        "6e8181d516962f60:none",
+        "7bdd83c5eb9fca4d:d22e2cb0d9e2",
+        "7ccbfde64392e1ca:46d56a72faae",
+        "804d8d916b677ff5:826b9ca2b8f6",
+        "821a359882b0728d:f10c8767fe55",
+        "85735c0cb7ab6064:1b1f3478f437",
+        "89302569088aff2b:1b1f3478f437",
+        "8b3379f0133b1db1:none",
+        "9f7226c65e3c4490:1b1f3478f437",
+        "adf56da63df40e92:14a47070636b",
+        "adf56da63df40e92:7736ca64bb92",
+        "adf56da63df40e92:bd7fd7d7baf2",
+        "b16f47ecc73fed23:none",
+        "bf9912f7ce3625a1:none",
+        "c7adb4244c9bce3d:none",
+        "ca328070e9e9bb7a:826b9ca2b8f6",
+        "d1aaf3673284e445:826b9ca2b8f6",
+        "e9165bbef820842f:46d56a72faae",
+        "ff7bf5e3d55a6cf6:none"
+      ],
+      "final_sig": "6e8181d516962f60:1b1f3478f437",
+      "final_sig_in_sink": true,
+      "final_component_pending": 77,
+      "graphs": {
+        "120": {
+          "budget": 120,
+          "node_count": 39,
+          "edge_count": 93,
+          "scc_count": 5,
+          "closed_scc_count": 2,
+          "sink": {
+            "size": 35,
+            "closed": true,
+            "outgoing": 0,
+            "pending_interactions": 67,
+            "pages": [
+              "calendar.html",
+              "cancellation.html",
+              "confirmation.html",
+              "guest.html",
+              "guests.html",
+              "help.html",
+              "index.html",
+              "modify.html",
+              "notes.html",
+              "reservation.html",
+              "reservations.html",
+              "room.html",
+              "rooms.html",
+              "settings.html",
+              "venue.html",
+              "venues.html"
+            ],
+            "sigs": [
+              "1ee6dbe67332601d:none",
+              "251b79f7a2cfcc9a:08e62aa46029",
+              "251b79f7a2cfcc9a:46d56a72faae",
+              "2935b5eee12c1659:1b1f3478f437",
+              "2935b5eee12c1659:none",
+              "2f19fe068c8f7b1e:f10c8767fe55",
+              "3b6ab0b855f71b52:none",
+              "3d4655439d9f9aa5:none",
+              "426db348bdaf0544:46d56a72faae",
+              "4ec753922035a641:none",
+              "5fe79dd73b928f30:none",
+              "680d5a2a7345cf6c:7e5021ceae48",
+              "680d5a2a7345cf6c:d22e2cb0d9e2",
+              "719d8c44ff13b86f:d22e2cb0d9e2",
+              "7797e9f63b0a480b:826b9ca2b8f6",
+              "863f734d6f0d059d:f10c8767fe55",
+              "936bff3530ff8c35:08cb20359738",
+              "936bff3530ff8c35:7e5021ceae48",
+              "936bff3530ff8c35:d22e2cb0d9e2",
+              "96469dd121217181:none",
+              "97e3919ac79f7f5f:d22e2cb0d9e2",
+              "a7388e8cb2cf1227:826b9ca2b8f6",
+              "b15218cfe35fae84:none",
+              "b88f5d03df4eb1eb:46d56a72faae",
+              "c11be49e3b39fdd5:f10c8767fe55",
+              "c301451b154aee06:acef4274c0e2",
+              "c301451b154aee06:c59511334e12",
+              "d9e0e2b6063267fe:826b9ca2b8f6",
+              "e82e007a32b90c66:1b1f3478f437",
+              "e8c34861e3ecd71f:b12fbc6eca0d",
+              "e8c34861e3ecd71f:none",
+              "eb9d772b908dbb74:none",
+              "f19b23246cbe10cb:14a47070636b",
+              "f19b23246cbe10cb:7736ca64bb92",
+              "f19b23246cbe10cb:bd7fd7d7baf2"
+            ]
+          }
+        },
+        "240": {
+          "budget": 240,
+          "node_count": 44,
+          "edge_count": 113,
+          "scc_count": 5,
+          "closed_scc_count": 1,
+          "sink": {
+            "size": 40,
+            "closed": true,
+            "outgoing": 0,
+            "pending_interactions": 77,
+            "pages": [
+              "calendar.html",
+              "cancellation.html",
+              "confirmation.html",
+              "guest.html",
+              "guests.html",
+              "help.html",
+              "index.html",
+              "modify.html",
+              "notes.html",
+              "reports.html",
+              "reservation.html",
+              "reservations.html",
+              "room.html",
+              "rooms.html",
+              "settings.html",
+              "venue.html",
+              "venues.html"
+            ],
+            "sigs": [
+              "0a2760a467b1f545:f10c8767fe55",
+              "0ad3ccfe76dfaaf8:none",
+              "0ca0442e1a8682ba:826b9ca2b8f6",
+              "17814ece9bc2f271:b12fbc6eca0d",
+              "17814ece9bc2f271:none",
+              "1eec59c5021f4b48:1b1f3478f437",
+              "243c3dde4d276d1e:none",
+              "25638744541ebf1f:826b9ca2b8f6",
+              "386438020dbb37b4:f10c8767fe55",
+              "5bb3df1123267a99:46d56a72faae",
+              "5dfdf46c502beaa5:none",
+              "6402afeb55683712:none",
+              "6c89beabf2968faf:none",
+              "7a47710ee66fb6f1:f10c8767fe55",
+              "7d4699cf3eaa6981:826b9ca2b8f6",
+              "86d72a1a079d2b04:14a47070636b",
+              "86d72a1a079d2b04:7736ca64bb92",
+              "86d72a1a079d2b04:bd7fd7d7baf2",
+              "8d5a91daf3378cf7:08e62aa46029",
+              "8d5a91daf3378cf7:46d56a72faae",
+              "8f9f1ecee7b719b5:1b1f3478f437",
+              "9167bfadeb02a7c9:acef4274c0e2",
+              "9167bfadeb02a7c9:c59511334e12",
+              "9711131ddba8e93e:none",
+              "9866be145270493a:none",
+              "98a926b5442165a3:d22e2cb0d9e2",
+              "98c9fe601081e1d9:d22e2cb0d9e2",
+              "a7ccf81077d68438:none",
+              "c24ce3b9fe6bef51:1b1f3478f437",
+              "c43991437231f2d2:1b1f3478f437",
+              "c43991437231f2d2:none",
+              "e1a781e3ee3a12f4:1b1f3478f437",
+              "e5ecd4c1f62d31b2:none",
+              "eb66e157c4800eab:7e5021ceae48",
+              "eb66e157c4800eab:d22e2cb0d9e2",
+              "eee07a061515586d:1b1f3478f437",
+              "f48c37798e24bc3f:08cb20359738",
+              "f48c37798e24bc3f:7e5021ceae48",
+              "f48c37798e24bc3f:d22e2cb0d9e2",
+              "f94231b8f9c6965d:46d56a72faae"
+            ]
+          }
+        },
+        "480": {
+          "budget": 480,
+          "node_count": 44,
+          "edge_count": 113,
+          "scc_count": 5,
+          "closed_scc_count": 1,
+          "sink": {
+            "size": 40,
+            "closed": true,
+            "outgoing": 0,
+            "pending_interactions": 77,
+            "pages": [
+              "calendar.html",
+              "cancellation.html",
+              "confirmation.html",
+              "guest.html",
+              "guests.html",
+              "help.html",
+              "index.html",
+              "modify.html",
+              "notes.html",
+              "reports.html",
+              "reservation.html",
+              "reservations.html",
+              "room.html",
+              "rooms.html",
+              "settings.html",
+              "venue.html",
+              "venues.html"
+            ],
+            "sigs": [
+              "24a21c93f040d773:f10c8767fe55",
+              "2c9298d1492149ca:none",
+              "2cc5b522892e0953:08cb20359738",
+              "2cc5b522892e0953:7e5021ceae48",
+              "2cc5b522892e0953:d22e2cb0d9e2",
+              "31eac521de1ed94b:1b1f3478f437",
+              "3b9306194b67c6d0:f10c8767fe55",
+              "43d1dce749d593d7:7e5021ceae48",
+              "43d1dce749d593d7:d22e2cb0d9e2",
+              "4670069b02f6bfbd:none",
+              "48edab7ae25fd89e:acef4274c0e2",
+              "48edab7ae25fd89e:c59511334e12",
+              "4cd9c01ac724daeb:08e62aa46029",
+              "4cd9c01ac724daeb:46d56a72faae",
+              "5085d9a030803741:b12fbc6eca0d",
+              "5085d9a030803741:none",
+              "59aab4aeee923ba3:none",
+              "59fe949e794d1e8d:1b1f3478f437",
+              "6c00778ad4555e27:none",
+              "6da6ff08806fb5df:d22e2cb0d9e2",
+              "6e8181d516962f60:1b1f3478f437",
+              "6e8181d516962f60:none",
+              "7bdd83c5eb9fca4d:d22e2cb0d9e2",
+              "7ccbfde64392e1ca:46d56a72faae",
+              "804d8d916b677ff5:826b9ca2b8f6",
+              "821a359882b0728d:f10c8767fe55",
+              "85735c0cb7ab6064:1b1f3478f437",
+              "89302569088aff2b:1b1f3478f437",
+              "8b3379f0133b1db1:none",
+              "9f7226c65e3c4490:1b1f3478f437",
+              "adf56da63df40e92:14a47070636b",
+              "adf56da63df40e92:7736ca64bb92",
+              "adf56da63df40e92:bd7fd7d7baf2",
+              "b16f47ecc73fed23:none",
+              "bf9912f7ce3625a1:none",
+              "c7adb4244c9bce3d:none",
+              "ca328070e9e9bb7a:826b9ca2b8f6",
+              "d1aaf3673284e445:826b9ca2b8f6",
+              "e9165bbef820842f:46d56a72faae",
+              "ff7bf5e3d55a6cf6:none"
+            ]
+          }
+        }
+      },
+      "template_589": {
+        "120": {
+          "template_ids": [
+            "BUG-BK5",
+            "BUG-BK8",
+            "BUG-BK9"
+          ],
+          "confirmed_template": [
+            "BUG-BK5",
+            "BUG-BK8",
+            "BUG-BK9"
+          ],
+          "missing": [],
+          "recovered": true
+        },
+        "240": {
+          "template_ids": [
+            "BUG-BK5",
+            "BUG-BK8",
+            "BUG-BK9"
+          ],
+          "confirmed_template": [
+            "BUG-BK5",
+            "BUG-BK8",
+            "BUG-BK9"
+          ],
+          "missing": [],
+          "recovered": true
+        },
+        "480": {
+          "template_ids": [
+            "BUG-BK5",
+            "BUG-BK8",
+            "BUG-BK9"
+          ],
+          "confirmed_template": [
+            "BUG-BK5",
+            "BUG-BK8",
+            "BUG-BK9"
+          ],
+          "missing": [],
+          "recovered": true
+        }
+      },
+      "template_589_missing_through_b480": false,
+      "template_589_retained_through_b480": true,
+      "first_v0321_waypoint_debt": {
+        "source": "experiments/published/return-waypoint-frontier-v0.3.21",
+        "budget": 120,
+        "step": 21,
+        "sequence_instance_id": "seq-0001",
+        "source_branch": "eb9d772b908dbb74:click:open_row_v1",
+        "waypoint_sig": "251b79f7a2cfcc9a:46d56a72faae",
+        "waypoint_cluster": "251b79f7a2cfcc9a",
+        "replay_target_exact_sig": "251b79f7a2cfcc9a:46d56a72faae",
+        "raw_local_keys": [
+          "251b79f7a2cfcc9a:button:btn_pin",
+          "251b79f7a2cfcc9a:button:btn_cool"
+        ],
+        "raw_structural_keys": [
+          "251b79f7a2cfcc9a:click:open_side",
+          "251b79f7a2cfcc9a:click:nav_prefs",
+          "251b79f7a2cfcc9a:click:btn_pin",
+          "251b79f7a2cfcc9a:click:btn_cool"
+        ],
+        "raw_key_count": 6,
+        "normalized_tokens": [
+          "251b79f7a2cfcc9a:click:btn_pin",
+          "251b79f7a2cfcc9a:click:btn_cool",
+          "251b79f7a2cfcc9a:click:open_side",
+          "251b79f7a2cfcc9a:click:nav_prefs"
+        ],
+        "normalized_count": 4,
+        "deduped": true
+      },
+      "replay_target_exact_sig": "251b79f7a2cfcc9a:46d56a72faae",
+      "b480_waypoint_escape_step": 21,
+      "b480_normalized_tokens": [
+        "4cd9c01ac724daeb:click:btn_pin",
+        "4cd9c01ac724daeb:click:btn_cool",
+        "4cd9c01ac724daeb:click:open_side",
+        "4cd9c01ac724daeb:click:nav_prefs"
+      ],
+      "organic": {
+        "residual_eids": [
+          "btn_pin",
+          "btn_cool",
+          "open_side",
+          "nav_prefs"
+        ],
+        "immediate_next_eids": [
+          "open_side"
+        ],
+        "later_eids": [
+          "nav_prefs",
+          "btn_pin",
+          "btn_cool",
+          "open_side"
+        ],
+        "eids_after_return_cycle_terminal": [
+          "nav_prefs",
+          "btn_pin",
+          "btn_cool",
+          "open_side"
+        ],
+        "organic_consumption": true,
+        "productive_entity_reentry": true
+      },
+      "post_terminal": {
+        "return_cycle_escape_step": 38,
+        "terminal_step": 38,
+        "terminal_outcome": "return_cycle_abandoned",
+        "terminal_reason": null,
+        "events_after_terminal": [],
+        "sequence_terminalled_before_suffix": true
+      }
+    }
+  }
+}
