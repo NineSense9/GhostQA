@@ -2,6 +2,9 @@
 import os
 
 from ghostqa.exploration.policy import GhostPolicy
+from ghostqa.exploration.return_waypoint_frontier_guard import (
+    ReturnWaypointFrontierSequenceController,
+)
 from ghostqa.exploration.residual_frontier_debt_guard import (
     ResidualFrontierDebtGuardGhostPolicy,
     ResidualFrontierDebtSequenceController,
@@ -114,6 +117,20 @@ def _relocate(ctrl, graph, sig="A", budget=40, step_index=0):
     return policy.maybe_relocate(graph, None, [], {
         "sig": sig, "step_index": step_index, "budget": budget,
     })
+
+
+def test_historical_helpers_are_not_shadowed():
+    parent = set(ReturnWaypointFrontierSequenceController.__dict__)
+    ours = set(ResidualFrontierDebtSequenceController.__dict__)
+    allowed = {
+        "__init__", "__doc__", "__module__", "__firstlineno__",
+        "__static_attributes__", "reset", "after", "metrics",
+    }
+    assert ours & parent <= allowed
+    ctrl = ResidualFrontierDebtSequenceController("structural")
+    snap = ctrl._snapshot()
+    assert snap["active_branch"] == ""
+    assert "parent_hub_sig" in snap
 
 
 def test_source_isolation_and_product_default():

@@ -186,7 +186,7 @@ class ResidualFrontierDebtSequenceController(ReturnWaypointFrontierSequenceContr
     def _unresolved(self) -> list:
         return [debt for debt in self._debts if debt.get("status") == "unresolved"]
 
-    def _snapshot(self) -> dict:
+    def _debt_before(self) -> dict:
         return {
             "success": int(self.ledger.return_success),
             "started": int(self.ledger.sequences_started),
@@ -399,7 +399,7 @@ class ResidualFrontierDebtSequenceController(ReturnWaypointFrontierSequenceContr
 
     def after(self, sig, action, state, new_state, relation, findings,
               new_sig, crashed, graph, step: int):
-        before = self._snapshot()
+        before = self._debt_before()
         n_events = len(self.events)
         super().after(
             sig, action, state, new_state, relation, findings,
