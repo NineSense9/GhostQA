@@ -1,0 +1,1519 @@
+{
+  "browser_rerun": false,
+  "budget": 120,
+  "causal_claim": false,
+  "crash_terminal_triggers": 0,
+  "deep_harmful_epoch": {
+    "confirmed_bugs": [
+      "BUG-D8"
+    ],
+    "lost_vs_guard": [
+      "BUG-D11",
+      "BUG-D12",
+      "BUG-D13",
+      "BUG-D14",
+      "BUG-D6",
+      "BUG-D7"
+    ],
+    "present": true,
+    "probes": [
+      {
+        "browser": {
+          "dst_cluster": "6cde80a562f8b9a6",
+          "dst_url": "/login.html",
+          "finding_assert_ids": [],
+          "finding_kinds": [
+            "dead_action"
+          ],
+          "index": 8,
+          "src_cluster": "6cde80a562f8b9a6",
+          "src_url": "/login.html",
+          "target_eid": "btn_login",
+          "type": "click"
+        },
+        "eid": "btn_login",
+        "left_hub": false,
+        "probe_finding": true,
+        "return_attempts": 1,
+        "same_hub": true,
+        "step": 8
+      },
+      {
+        "browser": {
+          "dst_cluster": "7e59bb6b631fe64e",
+          "dst_url": "/dashboard.html",
+          "finding_assert_ids": [],
+          "finding_kinds": [],
+          "index": 9,
+          "src_cluster": "6cde80a562f8b9a6",
+          "src_url": "/login.html",
+          "target_eid": "btn_demo_login",
+          "type": "click"
+        },
+        "eid": "btn_demo_login",
+        "left_hub": true,
+        "probe_finding": false,
+        "return_attempts": 1,
+        "same_hub": false,
+        "step": 9
+      }
+    ],
+    "return_cycle_escape_events": 1,
+    "return_success": 0,
+    "states": 8,
+    "trigger": {
+      "branch": "f22f0075d7d25e83:click:nav_dash",
+      "horizon_reached": true,
+      "hub_cluster": "6cde80a562f8b9a6",
+      "kind": "horizon",
+      "parent_hub_cluster": "f22f0075d7d25e83",
+      "return_attempts": 1,
+      "return_success": 0,
+      "same_step_events": [
+        "followup",
+        "mutation",
+        "return_entry_drain_started",
+        "sequence_action",
+        "sequence_horizon_reached"
+      ],
+      "sequence_instance_id": "seq-0001",
+      "step": 7,
+      "terminal_outcomes": [],
+      "visible_eligible_keys": [
+        "6cde80a562f8b9a6:button:btn_login",
+        "6cde80a562f8b9a6:button:btn_demo_login"
+      ]
+    },
+    "urls": 6
+  },
+  "derived_from_committed_evidence": true,
+  "evidence_files": [
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-billing/ghost-structural-return-entry-drain-guard_b120_s1.sequence_events.json",
+      "sha256": "76cdfc354b3f04b378ae6c92253da29c90a834f14958c0e3570971a0d0e1b41b"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-billing/ghost-structural-return-entry-drain-guard_b120_s1.events.jsonl",
+      "sha256": "7dde00533f5a5d5c00cae80131f654f2e01fdd45250fdae94472264ddc87f167"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-billing/metrics.json",
+      "sha256": "96923a13227a0648a457d916a2b5f5dbb74fa7cd417be079c73db8c78a4c4050"
+    },
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/buggy-billing/metrics.json",
+      "sha256": "5c6a630df53d8e0d2e72b3779e317617525abd9833209a63956e68f469413890"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-crm/ghost-structural-return-entry-drain-guard_b120_s1.sequence_events.json",
+      "sha256": "308c8ef3d857d667299082353edf6854c1c87c536cc5e208ede6f9c6804a7858"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-crm/ghost-structural-return-entry-drain-guard_b120_s1.events.jsonl",
+      "sha256": "dcf453673c950465b9be46329de32d86bb3d8da4d9d5dc7b999fb43018231a30"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-crm/metrics.json",
+      "sha256": "80f693cc34163f56ff5d997f0e46815405dd029ab321656e32d6de2f433b6bd5"
+    },
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/buggy-crm/metrics.json",
+      "sha256": "01e55c805bfc4439e76d8a3572e004a1f9d4abb5a9d396f943378b5265f7c71a"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-desk/ghost-structural-return-entry-drain-guard_b120_s1.sequence_events.json",
+      "sha256": "1f25cf426edf0dae5a41cc72ed4d18415037cd3b789c7419a7a399db1e14898d"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-desk/ghost-structural-return-entry-drain-guard_b120_s1.events.jsonl",
+      "sha256": "ad007df56ccbafd36a7fabcf9e04554cf60462fe92eab9d1e544784a294a3423"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-desk/metrics.json",
+      "sha256": "51abab59f59c4f6d3f2a2c7f177deeec513caf1e7d164826cc4aabcea57ee323"
+    },
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/buggy-desk/metrics.json",
+      "sha256": "39729f92b2d27f738737a36f79aa09e10a6f4334537320a24ba7df636fe1e79f"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-directory/ghost-structural-return-entry-drain-guard_b120_s1.sequence_events.json",
+      "sha256": "faa557d6f5718838f77cc8ab8db391774def48a540ccd588f38bd6ad5a15cd97"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-directory/ghost-structural-return-entry-drain-guard_b120_s1.events.jsonl",
+      "sha256": "fe85da23832580042a817c23b4ed5768e85c0a37e2783d490bc477c5b8a0cff5"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-directory/metrics.json",
+      "sha256": "2e756855353d7deac03c54e14e8cd27b973702324ca5d8ffb61ae315990830fb"
+    },
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/buggy-directory/metrics.json",
+      "sha256": "8b8901d3c1910eaf09300fd0e367e715abdc1bd1967be885a44c7df2b84b1239"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-forum/ghost-structural-return-entry-drain-guard_b120_s1.sequence_events.json",
+      "sha256": "af7a5415b2676ac5a939f87038f14ba4c2652177ccfb7a21492438668e518311"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-forum/ghost-structural-return-entry-drain-guard_b120_s1.events.jsonl",
+      "sha256": "abf7556baa80a837915b6c16476830bea379814ce4ae3422054b0cbddc26afdf"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-forum/metrics.json",
+      "sha256": "1bac8b1a59d6dc795f112e0886810650b3b674af1b7a02d8bfb180726e4eac44"
+    },
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/buggy-forum/metrics.json",
+      "sha256": "084bebd81a49e2f405f3bade7a179694c12971f7800dd8da76df1bca90c03b23"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-lab/ghost-structural-return-entry-drain-guard_b120_s1.sequence_events.json",
+      "sha256": "ab2f531fe23e9636ecc6704ce0f29e5f94b3a43d43214af7ac9537f3d2b3da05"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-lab/ghost-structural-return-entry-drain-guard_b120_s1.events.jsonl",
+      "sha256": "e7181bfca8a3b64a8a477e13f6cb22cb58e9705faa6b4b0dcb16609871cf03d8"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-lab/metrics.json",
+      "sha256": "4c51cf24296216d73437897f5cc15f4430bcb1dbff824b37b336005179a94cbc"
+    },
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/buggy-lab/metrics.json",
+      "sha256": "b346afb3ad442dbc6831f0321b5af92e3e7aaf35492a1b9d8839498753096be4"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-ops/ghost-structural-return-entry-drain-guard_b120_s1.sequence_events.json",
+      "sha256": "f76efcc8d6d75d374e7fddf14121221e5bb361399db43a80eebbeca2ab37b4b3"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-ops/ghost-structural-return-entry-drain-guard_b120_s1.events.jsonl",
+      "sha256": "bddb6be128e53deb2e7652c90cf1297b9bea624d5aeddf0c2ae406956e55cdf3"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-ops/metrics.json",
+      "sha256": "0229794a9d0ce5556aba1d1775038a55bacf6e632ef6b6552c6fa7a2599cba97"
+    },
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/buggy-ops/metrics.json",
+      "sha256": "0838db30fd4f64a65fa7097ca735df5a42ab69f3d670dbf5dd4405a890736fd6"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-shop/ghost-structural-return-entry-drain-guard_b120_s1.sequence_events.json",
+      "sha256": "b19e7d12d35e24e03ce374f20c4c6e045bbf95523fb366ba111bab407fd31fca"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-shop/ghost-structural-return-entry-drain-guard_b120_s1.events.jsonl",
+      "sha256": "58a4e0ca490571a0318878da709e2ffc21999a6eddfa932a58ce126d95c5c584"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/buggy-shop/metrics.json",
+      "sha256": "7499c44fc1f56990512dad0e3e659783cc87a727cbc68163d461a3fdc7c792d7"
+    },
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/buggy-shop/metrics.json",
+      "sha256": "7f2bf4937d70064555a71a6b2f7cdbffc43c3edbf7e80f2aa5d0f0e6dddb1282"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/deepbench/ghost-structural-return-entry-drain-guard_b120_s1.sequence_events.json",
+      "sha256": "4f99c3603c43248840673d6bd6f835b9022c163c71565e1efcd700b9790216d2"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/deepbench/ghost-structural-return-entry-drain-guard_b120_s1.events.jsonl",
+      "sha256": "e9a75cea450e806c63e991c34ef7b86e4ff7fd779557186a11c6dea5e6e22150"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/deepbench/metrics.json",
+      "sha256": "48b5e5872d2c1f80f658b4ff58261cf982ff94658f44f0152bbd0eab83b1427b"
+    },
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/deepbench/metrics.json",
+      "sha256": "6f0477c8f1c7d7b44a35f8eec37e8d9bc7f1c0845540602fb3988c34bc24c104"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/wiki/ghost-structural-return-entry-drain-guard_b120_s1.sequence_events.json",
+      "sha256": "433fceb82724bf4160b78d9622b7635f447653105441225138a3877ed85ca303"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/wiki/ghost-structural-return-entry-drain-guard_b120_s1.events.jsonl",
+      "sha256": "43ac3b190138b4fabe21a0a8fae3a78360bfceb3d9fbea68ccf36ed599b3ea22"
+    },
+    {
+      "path": "experiments/published/return-entry-drain-v0.3.18/evidence/wiki/metrics.json",
+      "sha256": "49bb52d608ab7cc58ceb90eef94540349a74f523c6f98cd0575c81c418252a7e"
+    },
+    {
+      "path": "experiments/published/local-action-drain-v0.3.17/evidence/wiki/metrics.json",
+      "sha256": "69584443a704c8deae4ed289a30d658d82c1aa2ed200a28ebc86ed2a8d628197"
+    },
+    {
+      "path": "experiments/published/return-cycle-guard-v0.3.9/evidence/deepbench/metrics.json",
+      "sha256": "254513a8646bba1f52b2dc709e22d4a03892064aa9895fe316a4f37109f6595e"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-forum/metrics.json",
+      "sha256": "cdc369429c9addb57714a7d28a4d6b2ed8f3dd40be60d5096dece1b726d7d06b"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-billing/metrics.json",
+      "sha256": "0b50ef3831303bcc934b5461a9a48ced08ef1d5dca40003231072c1ec5a96134"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/evidence/buggy-directory/metrics.json",
+      "sha256": "7bcaaa40f743e0df0a837f5fb346c9b1f3632e711878416c91be8c643b1ba9b2"
+    },
+    {
+      "path": "experiments/published/fresh-handoff-v0.3.15/metrics/per-target.json",
+      "sha256": "e34dd311de6d670958cb4ff3a98e36d0da7706f5833609fa14248daabb5029bb"
+    }
+  ],
+  "freeze_identities": {
+    "v0.3.14": {
+      "algorithm_name": "ghost-structural-horizon-handoff-guard",
+      "path": "experiments/frozen/ghost-horizon-handoff-v0.3.14/freeze.json",
+      "sha256": "6713be16849e0e910fee15bb28420bfa0d44a0f61728cd21e39a59de86d37239"
+    },
+    "v0.3.15": {
+      "algorithm_name": null,
+      "path": "experiments/frozen/v0.3.15-fresh-handoff-suite/freeze.json",
+      "sha256": "5ed9dea1b63014cd3b5f0e2a3626d78b7cd4ac4a6ea1bf97f17fff84d7999f89"
+    },
+    "v0.3.16": {
+      "algorithm_name": "ghost-structural-reentry-frontier-guard",
+      "path": "experiments/frozen/ghost-reentry-frontier-v0.3.16/freeze.json",
+      "sha256": "ffdb023d94cc7b5484e004f0e7cbef0bfecf5ed66a23520aa504a407b4c16934"
+    },
+    "v0.3.17": {
+      "algorithm_name": "ghost-structural-local-action-drain-guard",
+      "path": "experiments/frozen/ghost-local-action-drain-v0.3.17/freeze.json",
+      "sha256": "7fe971b00ce584c876e02c16befaa9637a3525d9686efdc98b2553804ed9f7ff"
+    },
+    "v0.3.18": {
+      "algorithm_name": "ghost-structural-return-entry-drain-guard",
+      "path": "experiments/frozen/ghost-return-entry-drain-v0.3.18/freeze.json",
+      "sha256": "ba3b3bc8fcb4279118254f9eacbfec31b93bbaff643780b6dcc45aabf36b0629"
+    },
+    "v0.3.9": {
+      "algorithm_name": "ghost-structural-return-guard",
+      "path": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+      "sha256": "480f497dbec92acc428b28785a7dcfb5f1f4786b75aee150dcc5ea50ffc75770"
+    }
+  },
+  "guard_publication": "experiments/published/return-cycle-guard-v0.3.9",
+  "hand_typed_counts": false,
+  "lab_l9_epoch": {
+    "confirmed_bugs": [
+      "BUG-L1",
+      "BUG-L10",
+      "BUG-L2",
+      "BUG-L4",
+      "BUG-L5",
+      "BUG-L6",
+      "BUG-L7",
+      "BUG-L8",
+      "BUG-L9"
+    ],
+    "lost_vs_lab_guard": [],
+    "present": true,
+    "probes": [
+      {
+        "browser": {
+          "dst_cluster": "298b5b8526fbb9a2",
+          "dst_url": "/result.html?id=q1",
+          "finding_assert_ids": [
+            "lab_note_visibility"
+          ],
+          "finding_kinds": [
+            "semantic"
+          ],
+          "index": 17,
+          "src_cluster": "298b5b8526fbb9a2",
+          "src_url": "/result.html?id=q1",
+          "target_eid": "btn_close",
+          "type": "click"
+        },
+        "eid": "btn_close",
+        "left_hub": false,
+        "probe_finding": true,
+        "return_attempts": 4,
+        "same_hub": true,
+        "step": 17
+      },
+      {
+        "browser": {
+          "dst_cluster": "298b5b8526fbb9a2",
+          "dst_url": "/result.html?id=q1",
+          "finding_assert_ids": [
+            "lab_note_visibility",
+            "lab_reopen_clears"
+          ],
+          "finding_kinds": [
+            "semantic"
+          ],
+          "index": 18,
+          "src_cluster": "298b5b8526fbb9a2",
+          "src_url": "/result.html?id=q1",
+          "target_eid": "btn_reopen",
+          "type": "click"
+        },
+        "eid": "btn_reopen",
+        "left_hub": false,
+        "probe_finding": true,
+        "return_attempts": 4,
+        "same_hub": true,
+        "step": 18
+      }
+    ],
+    "return_attempts_unchanged_across_recorded_probes": true,
+    "trigger": {
+      "branch": "32dc81e256fb1046:click:open_result_from_run",
+      "horizon_reached": false,
+      "hub_cluster": "298b5b8526fbb9a2",
+      "kind": "finding",
+      "parent_hub_cluster": "32dc81e256fb1046",
+      "return_attempts": 4,
+      "return_success": 1,
+      "same_step_events": [
+        "branch_discovered",
+        "branch_start",
+        "horizon_handoff_started",
+        "hub_seen",
+        "local_frontier_lease_action",
+        "mutation",
+        "return_entry_drain_started",
+        "sequence_action",
+        "sequence_terminal"
+      ],
+      "sequence_instance_id": null,
+      "step": 16,
+      "terminal_outcomes": [
+        "finding"
+      ],
+      "visible_eligible_keys": [
+        "298b5b8526fbb9a2:button:btn_close",
+        "298b5b8526fbb9a2:button:btn_reopen"
+      ]
+    }
+  },
+  "limitation": "Counts and epochs are read from committed sequence events and browser steps. They support the preregistered hypothesis. They do not by themselves establish that the hypothesis will succeed.",
+  "named_finding_then_next_epochs_present": {
+    "billing_close_reopen": true,
+    "desk_test_conn_webhook": true,
+    "wiki_watch_unpublish": true
+  },
+  "previous_publication": "experiments/published/local-action-drain-v0.3.17",
+  "rejected_finding_stop": {
+    "finding_stop_would_skip_the_later_probe": true,
+    "lab_epochs_where_later_probe_carries_l9": [
+      {
+        "drain_start_step": 16,
+        "next_assert_ids": [
+          "lab_note_visibility",
+          "lab_reopen_clears"
+        ],
+        "next_probe_eid": "btn_reopen",
+        "next_probe_step": 18,
+        "probe_assert_ids": [
+          "lab_note_visibility"
+        ],
+        "probe_eid": "btn_close",
+        "probe_finding_kinds": [
+          "semantic"
+        ],
+        "probe_step": 17,
+        "trigger_kind": "finding"
+      }
+    ],
+    "other_epochs": [
+      {
+        "drain_start_step": 50,
+        "next_assert_ids": [],
+        "next_probe_eid": "btn_export",
+        "next_probe_step": 52,
+        "probe_assert_ids": [],
+        "probe_eid": "btn_probe",
+        "probe_finding_kinds": [
+          "dead_action",
+          "js_error"
+        ],
+        "probe_step": 51,
+        "trigger_kind": "finding"
+      }
+    ],
+    "rejected_before_candidate_design": true,
+    "rule": "if any local probe produces a finding, stop the drain immediately",
+    "trace_support_only": true
+  },
+  "round": "v0.3.19",
+  "seed": 1,
+  "source_publication": "experiments/published/return-entry-drain-v0.3.18",
+  "source_round": "v0.3.18",
+  "trigger_census": {
+    "buggy-billing": {
+      "crash_triggers": 0,
+      "finding_terminal_triggers": 7,
+      "horizon_triggers": 1,
+      "other_triggers": 0,
+      "return_entry_drain_started": 8
+    },
+    "buggy-crm": {
+      "crash_triggers": 0,
+      "finding_terminal_triggers": 0,
+      "horizon_triggers": 4,
+      "other_triggers": 0,
+      "return_entry_drain_started": 4
+    },
+    "buggy-desk": {
+      "crash_triggers": 0,
+      "finding_terminal_triggers": 1,
+      "horizon_triggers": 5,
+      "other_triggers": 0,
+      "return_entry_drain_started": 6
+    },
+    "buggy-directory": {
+      "crash_triggers": 0,
+      "finding_terminal_triggers": 1,
+      "horizon_triggers": 0,
+      "other_triggers": 0,
+      "return_entry_drain_started": 1
+    },
+    "buggy-forum": {
+      "crash_triggers": 0,
+      "finding_terminal_triggers": 3,
+      "horizon_triggers": 1,
+      "other_triggers": 0,
+      "return_entry_drain_started": 4
+    },
+    "buggy-lab": {
+      "crash_triggers": 0,
+      "finding_terminal_triggers": 3,
+      "horizon_triggers": 1,
+      "other_triggers": 0,
+      "return_entry_drain_started": 4
+    },
+    "buggy-ops": {
+      "crash_triggers": 0,
+      "finding_terminal_triggers": 0,
+      "horizon_triggers": 0,
+      "other_triggers": 0,
+      "return_entry_drain_started": 0
+    },
+    "buggy-shop": {
+      "crash_triggers": 0,
+      "finding_terminal_triggers": 1,
+      "horizon_triggers": 0,
+      "other_triggers": 0,
+      "return_entry_drain_started": 1
+    },
+    "deepbench": {
+      "crash_triggers": 0,
+      "finding_terminal_triggers": 0,
+      "horizon_triggers": 1,
+      "other_triggers": 0,
+      "return_entry_drain_started": 1
+    },
+    "wiki": {
+      "crash_triggers": 0,
+      "finding_terminal_triggers": 0,
+      "horizon_triggers": 6,
+      "other_triggers": 0,
+      "return_entry_drain_started": 6
+    }
+  },
+  "trigger_details": {
+    "buggy-billing": [
+      {
+        "branch": "3556f8fd782d6f06:click:open_receipt",
+        "horizon_reached": false,
+        "hub_cluster": "485f3d986cf75b1f",
+        "kind": "finding",
+        "parent_hub_cluster": "3556f8fd782d6f06",
+        "return_attempts": 1,
+        "return_success": 0,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 10,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "485f3d986cf75b1f:button:btn_post"
+        ]
+      },
+      {
+        "branch": "3556f8fd782d6f06:click:open_refund",
+        "horizon_reached": false,
+        "hub_cluster": "5458eb4a2b2a1e08",
+        "kind": "finding",
+        "parent_hub_cluster": "3556f8fd782d6f06",
+        "return_attempts": 4,
+        "return_success": 1,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 16,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "5458eb4a2b2a1e08:button:btn_mark"
+        ]
+      },
+      {
+        "branch": "c4fa39bcdff7660e:click:open_refund_case",
+        "horizon_reached": false,
+        "hub_cluster": "fdb6c9bc71badc92",
+        "kind": "finding",
+        "parent_hub_cluster": "c4fa39bcdff7660e",
+        "return_attempts": 17,
+        "return_success": 1,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 28,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "fdb6c9bc71badc92:button:btn_mark"
+        ]
+      },
+      {
+        "branch": "c4fa39bcdff7660e:click:open_credit_case",
+        "horizon_reached": false,
+        "hub_cluster": "bf35e89b459fb63d",
+        "kind": "finding",
+        "parent_hub_cluster": "c4fa39bcdff7660e",
+        "return_attempts": 25,
+        "return_success": 2,
+        "same_step_events": [
+          "branch_discovered",
+          "branch_start",
+          "hub_seen",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 37,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "bf35e89b459fb63d:button:btn_close",
+          "bf35e89b459fb63d:button:btn_reopen"
+        ]
+      },
+      {
+        "branch": "3ec7c409fa5ee763:click:open_receipt",
+        "horizon_reached": false,
+        "hub_cluster": "245df70d1f383db6",
+        "kind": "finding",
+        "parent_hub_cluster": "3ec7c409fa5ee763",
+        "return_attempts": 36,
+        "return_success": 2,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 49,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "245df70d1f383db6:button:btn_post"
+        ]
+      },
+      {
+        "branch": "f80572e8c41c1f9d:click:nav_compose",
+        "horizon_reached": true,
+        "hub_cluster": "8546ae0f49c01bd6",
+        "kind": "horizon",
+        "parent_hub_cluster": "f80572e8c41c1f9d",
+        "return_attempts": 57,
+        "return_success": 4,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0010",
+        "step": 66,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "8546ae0f49c01bd6:button:btn_submit"
+        ]
+      },
+      {
+        "branch": "f80572e8c41c1f9d:click:open_acct_a1",
+        "horizon_reached": false,
+        "hub_cluster": "ba73ef8a868c4add",
+        "kind": "finding",
+        "parent_hub_cluster": "f80572e8c41c1f9d",
+        "return_attempts": 75,
+        "return_success": 4,
+        "same_step_events": [
+          "branch_discovered",
+          "branch_start",
+          "hub_seen",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 81,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "ba73ef8a868c4add:button:btn_pin"
+        ]
+      },
+      {
+        "branch": "f80572e8c41c1f9d:click:nav_compose",
+        "horizon_reached": false,
+        "hub_cluster": "13476976baa3dcd7",
+        "kind": "finding",
+        "parent_hub_cluster": "f80572e8c41c1f9d",
+        "return_attempts": 103,
+        "return_success": 7,
+        "same_step_events": [
+          "branch_discovered",
+          "branch_start",
+          "hub_seen",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 104,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "13476976baa3dcd7:button:btn_submit"
+        ]
+      }
+    ],
+    "buggy-crm": [
+      {
+        "branch": "00816f02f678d9c9:click:nav_opportunities",
+        "horizon_reached": true,
+        "hub_cluster": "5b401c0e7cba099d",
+        "kind": "horizon",
+        "parent_hub_cluster": "00816f02f678d9c9",
+        "return_attempts": 39,
+        "return_success": 3,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0011",
+        "step": 48,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "5b401c0e7cba099d:button:btn_create"
+        ]
+      },
+      {
+        "branch": "00816f02f678d9c9:click:nav_team",
+        "horizon_reached": true,
+        "hub_cluster": "2f366e79f5b313e4",
+        "kind": "horizon",
+        "parent_hub_cluster": "00816f02f678d9c9",
+        "return_attempts": 52,
+        "return_success": 6,
+        "same_step_events": [
+          "followup",
+          "hub_seen",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0014",
+        "step": 59,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "2f366e79f5b313e4:button:btn_create"
+        ]
+      },
+      {
+        "branch": "d1c836151dcd4f9a:click:nav_accounts",
+        "horizon_reached": true,
+        "hub_cluster": "7f898eb51467c420",
+        "kind": "horizon",
+        "parent_hub_cluster": "d1c836151dcd4f9a",
+        "return_attempts": 67,
+        "return_success": 8,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0016",
+        "step": 77,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "7f898eb51467c420:button:btn_create"
+        ]
+      },
+      {
+        "branch": "b7fcf7ad47010d11:click:nav_accounts",
+        "horizon_reached": true,
+        "hub_cluster": "0b9e63c382b8f9d7",
+        "kind": "horizon",
+        "parent_hub_cluster": "b7fcf7ad47010d11",
+        "return_attempts": 75,
+        "return_success": 8,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0017",
+        "step": 85,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "0b9e63c382b8f9d7:button:btn_create"
+        ]
+      }
+    ],
+    "buggy-desk": [
+      {
+        "branch": "9ca80f88142fc1af:click:nav_team",
+        "horizon_reached": true,
+        "hub_cluster": "4d3f8671cc3c8a07",
+        "kind": "horizon",
+        "parent_hub_cluster": "9ca80f88142fc1af",
+        "return_attempts": 58,
+        "return_success": 7,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0013",
+        "step": 63,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "4d3f8671cc3c8a07:button:btn_create"
+        ]
+      },
+      {
+        "branch": "9ca80f88142fc1af:click:nav_integrations",
+        "horizon_reached": false,
+        "hub_cluster": "64ff504abcc78af9",
+        "kind": "finding",
+        "parent_hub_cluster": "9ca80f88142fc1af",
+        "return_attempts": 61,
+        "return_success": 9,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 69,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "64ff504abcc78af9:button:btn_test_conn",
+          "64ff504abcc78af9:button:btn_webhook"
+        ]
+      },
+      {
+        "branch": "9ca80f88142fc1af:click:search_btn",
+        "horizon_reached": true,
+        "hub_cluster": "e045d36e28a8eeb2",
+        "kind": "horizon",
+        "parent_hub_cluster": "9ca80f88142fc1af",
+        "return_attempts": 64,
+        "return_success": 10,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0016",
+        "step": 75,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "e045d36e28a8eeb2:button:btn_create"
+        ]
+      },
+      {
+        "branch": "4d07ddebe7b97b6a:click:nav_tickets",
+        "horizon_reached": true,
+        "hub_cluster": "eb7ff57b227ee713",
+        "kind": "horizon",
+        "parent_hub_cluster": "4d07ddebe7b97b6a",
+        "return_attempts": 78,
+        "return_success": 11,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0017",
+        "step": 91,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "eb7ff57b227ee713:button:btn_create"
+        ]
+      },
+      {
+        "branch": "511be15209a193d7:click:nav_tickets",
+        "horizon_reached": true,
+        "hub_cluster": "82ace2d395c7dbe7",
+        "kind": "horizon",
+        "parent_hub_cluster": "511be15209a193d7",
+        "return_attempts": 86,
+        "return_success": 11,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0018",
+        "step": 99,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "82ace2d395c7dbe7:button:btn_create"
+        ]
+      },
+      {
+        "branch": "9ca80f88142fc1af:click:nav_tickets",
+        "horizon_reached": true,
+        "hub_cluster": "0a2b110258e058ef",
+        "kind": "horizon",
+        "parent_hub_cluster": "9ca80f88142fc1af",
+        "return_attempts": 99,
+        "return_success": 11,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0019",
+        "step": 111,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "0a2b110258e058ef:button:btn_create"
+        ]
+      }
+    ],
+    "buggy-directory": [
+      {
+        "branch": "376896fcaefafcb2:click:nav_people",
+        "horizon_reached": false,
+        "hub_cluster": "e771f75998438be5",
+        "kind": "finding",
+        "parent_hub_cluster": "376896fcaefafcb2",
+        "return_attempts": 1,
+        "return_success": 0,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 2,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "e771f75998438be5:button:btn_adjust"
+        ]
+      }
+    ],
+    "buggy-forum": [
+      {
+        "branch": "f09535b3f2eb9016:click:open_triage",
+        "horizon_reached": false,
+        "hub_cluster": "fa099d0112f5a1e5",
+        "kind": "finding",
+        "parent_hub_cluster": "f09535b3f2eb9016",
+        "return_attempts": 1,
+        "return_success": 0,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 10,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "fa099d0112f5a1e5:button:btn_mark"
+        ]
+      },
+      {
+        "branch": "6dc919d7acb7bbe9:click:open_case",
+        "horizon_reached": false,
+        "hub_cluster": "08cf3918db9e637e",
+        "kind": "finding",
+        "parent_hub_cluster": "6dc919d7acb7bbe9",
+        "return_attempts": 4,
+        "return_success": 1,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 18,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "08cf3918db9e637e:button:btn_accept"
+        ]
+      },
+      {
+        "branch": "a1b59797fc994059:click:nav_compose",
+        "horizon_reached": true,
+        "hub_cluster": "72dd89133c679def",
+        "kind": "horizon",
+        "parent_hub_cluster": "a1b59797fc994059",
+        "return_attempts": 28,
+        "return_success": 5,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0009",
+        "step": 39,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "72dd89133c679def:button:btn_submit"
+        ]
+      },
+      {
+        "branch": "a1b59797fc994059:click:nav_compose",
+        "horizon_reached": false,
+        "hub_cluster": "49efcccd641c0742",
+        "kind": "finding",
+        "parent_hub_cluster": "a1b59797fc994059",
+        "return_attempts": 83,
+        "return_success": 12,
+        "same_step_events": [
+          "branch_discovered",
+          "branch_start",
+          "hub_seen",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 80,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "49efcccd641c0742:button:btn_submit"
+        ]
+      }
+    ],
+    "buggy-lab": [
+      {
+        "branch": "32dc81e256fb1046:click:open_sample_s1",
+        "horizon_reached": false,
+        "hub_cluster": "cac29c8fdd9eb9f6",
+        "kind": "finding",
+        "parent_hub_cluster": "32dc81e256fb1046",
+        "return_attempts": 1,
+        "return_success": 0,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 11,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "cac29c8fdd9eb9f6:button:btn_obs"
+        ]
+      },
+      {
+        "branch": "32dc81e256fb1046:click:open_result_from_run",
+        "horizon_reached": false,
+        "hub_cluster": "298b5b8526fbb9a2",
+        "kind": "finding",
+        "parent_hub_cluster": "32dc81e256fb1046",
+        "return_attempts": 4,
+        "return_success": 1,
+        "same_step_events": [
+          "branch_discovered",
+          "branch_start",
+          "horizon_handoff_started",
+          "hub_seen",
+          "local_frontier_lease_action",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 16,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "298b5b8526fbb9a2:button:btn_close",
+          "298b5b8526fbb9a2:button:btn_reopen"
+        ]
+      },
+      {
+        "branch": "fb9fd19006fd98fa:click:nav_prefs",
+        "horizon_reached": false,
+        "hub_cluster": "3afa51fa17d19315",
+        "kind": "finding",
+        "parent_hub_cluster": "fb9fd19006fd98fa",
+        "return_attempts": 47,
+        "return_success": 4,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 50,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "3afa51fa17d19315:button:btn_probe",
+          "3afa51fa17d19315:button:btn_export"
+        ]
+      },
+      {
+        "branch": "fb9fd19006fd98fa:click:nav_compose",
+        "horizon_reached": true,
+        "hub_cluster": "b3164e05a35fa422",
+        "kind": "horizon",
+        "parent_hub_cluster": "fb9fd19006fd98fa",
+        "return_attempts": 50,
+        "return_success": 5,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0010",
+        "step": 56,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "b3164e05a35fa422:button:btn_submit"
+        ]
+      }
+    ],
+    "buggy-ops": [],
+    "buggy-shop": [
+      {
+        "branch": "75f91d6da8e3cfde:click:btn_add",
+        "horizon_reached": false,
+        "hub_cluster": "52c16b83b0e25a08",
+        "kind": "finding",
+        "parent_hub_cluster": "75f91d6da8e3cfde",
+        "return_attempts": 1,
+        "return_success": 0,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_terminal"
+        ],
+        "sequence_instance_id": null,
+        "step": 3,
+        "terminal_outcomes": [
+          "finding"
+        ],
+        "visible_eligible_keys": [
+          "52c16b83b0e25a08:button:btn_remove"
+        ]
+      }
+    ],
+    "deepbench": [
+      {
+        "branch": "f22f0075d7d25e83:click:nav_dash",
+        "horizon_reached": true,
+        "hub_cluster": "6cde80a562f8b9a6",
+        "kind": "horizon",
+        "parent_hub_cluster": "f22f0075d7d25e83",
+        "return_attempts": 1,
+        "return_success": 0,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0001",
+        "step": 7,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "6cde80a562f8b9a6:button:btn_login",
+          "6cde80a562f8b9a6:button:btn_demo_login"
+        ]
+      }
+    ],
+    "wiki": [
+      {
+        "branch": "9cbaad1b6e22f01e:click:nav_spaces",
+        "horizon_reached": true,
+        "hub_cluster": "04adda4f67c2e5ee",
+        "kind": "horizon",
+        "parent_hub_cluster": "9cbaad1b6e22f01e",
+        "return_attempts": 1,
+        "return_success": 0,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0001",
+        "step": 2,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "04adda4f67c2e5ee:button:btn_watch",
+          "04adda4f67c2e5ee:button:btn_unpublish"
+        ]
+      },
+      {
+        "branch": "028347967a3840e5:click:nav_editor",
+        "horizon_reached": true,
+        "hub_cluster": "7d082ef786c6a98e",
+        "kind": "horizon",
+        "parent_hub_cluster": "028347967a3840e5",
+        "return_attempts": 11,
+        "return_success": 2,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0004",
+        "step": 15,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "7d082ef786c6a98e:button:btn_preview",
+          "7d082ef786c6a98e:button:btn_publish"
+        ]
+      },
+      {
+        "branch": "028347967a3840e5:click:wiki_page_p2",
+        "horizon_reached": true,
+        "hub_cluster": "e32f68cc333ce555",
+        "kind": "horizon",
+        "parent_hub_cluster": "028347967a3840e5",
+        "return_attempts": 14,
+        "return_success": 3,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0005",
+        "step": 21,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "e32f68cc333ce555:button:btn_restore_rev"
+        ]
+      },
+      {
+        "branch": "028347967a3840e5:click:wiki_page_p3",
+        "horizon_reached": true,
+        "hub_cluster": "9a0c7062d8bb3040",
+        "kind": "horizon",
+        "parent_hub_cluster": "028347967a3840e5",
+        "return_attempts": 21,
+        "return_success": 4,
+        "same_step_events": [
+          "followup",
+          "mutation",
+          "return_attempt",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0006",
+        "step": 28,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "9a0c7062d8bb3040:button:btn_watch",
+          "9a0c7062d8bb3040:button:btn_unpublish"
+        ]
+      },
+      {
+        "branch": "9cbaad1b6e22f01e:click:search_btn",
+        "horizon_reached": true,
+        "hub_cluster": "794108e64fa2ef07",
+        "kind": "horizon",
+        "parent_hub_cluster": "9cbaad1b6e22f01e",
+        "return_attempts": 34,
+        "return_success": 8,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0009",
+        "step": 42,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "794108e64fa2ef07:button:btn_preview",
+          "794108e64fa2ef07:button:btn_publish"
+        ]
+      },
+      {
+        "branch": "04adda4f67c2e5ee:click:nav_editor",
+        "horizon_reached": true,
+        "hub_cluster": "1bdb9701ee73270f",
+        "kind": "horizon",
+        "parent_hub_cluster": "04adda4f67c2e5ee",
+        "return_attempts": 48,
+        "return_success": 9,
+        "same_step_events": [
+          "followup",
+          "return_entry_drain_started",
+          "sequence_action",
+          "sequence_horizon_reached"
+        ],
+        "sequence_instance_id": "seq-0011",
+        "step": 57,
+        "terminal_outcomes": [],
+        "visible_eligible_keys": [
+          "1bdb9701ee73270f:button:btn_preview",
+          "1bdb9701ee73270f:button:btn_publish"
+        ]
+      }
+    ]
+  },
+  "v0317_historical_preservation": {
+    "buggy-billing": {
+      "candidate_confirmed": [
+        "BUG-B1",
+        "BUG-B10",
+        "BUG-B2",
+        "BUG-B4",
+        "BUG-B8",
+        "BUG-B9"
+      ],
+      "evaluable": true,
+      "full_transfer": true,
+      "guard_confirmed": [
+        "BUG-B2",
+        "BUG-B9"
+      ],
+      "lost_vs_guard": []
+    },
+    "buggy-crm": {
+      "collapse": false,
+      "pass": true,
+      "resolved": true,
+      "states": 27,
+      "urls": 16
+    },
+    "buggy-desk": {
+      "confirmed_bugs": [
+        "BUG-K1",
+        "BUG-K10",
+        "BUG-K2",
+        "BUG-K3",
+        "BUG-K5",
+        "BUG-K6",
+        "BUG-K9"
+      ],
+      "lost_vs_guard": []
+    },
+    "buggy-directory": {
+      "horizon_handoff_started_events": 0,
+      "max_handoff_stack_depth": 0,
+      "preserved": true
+    },
+    "buggy-forum": {
+      "candidate_confirmed": [
+        "BUG-F1",
+        "BUG-F10",
+        "BUG-F2",
+        "BUG-F4",
+        "BUG-F8"
+      ],
+      "evaluable": true,
+      "full_transfer": true,
+      "guard_confirmed": [
+        "BUG-F2"
+      ],
+      "lost_vs_guard": []
+    },
+    "buggy-ops": {
+      "collapse": false,
+      "pass": true,
+      "resolved": true,
+      "states": 34,
+      "urls": 25
+    },
+    "buggy-shop": {
+      "confirmed_bugs": [
+        "BUG-W10",
+        "BUG-W5",
+        "BUG-W6",
+        "BUG-W9"
+      ],
+      "lost_vs_guard": []
+    },
+    "deepbench": {
+      "child_parent_witness_events": 1,
+      "confirmed_bugs": [
+        "BUG-D11",
+        "BUG-D12",
+        "BUG-D13",
+        "BUG-D14",
+        "BUG-D6",
+        "BUG-D7"
+      ],
+      "early_parent_reentry_events": 5,
+      "guard_confirmed": [
+        "BUG-D6",
+        "BUG-D7",
+        "BUG-D11",
+        "BUG-D12",
+        "BUG-D13",
+        "BUG-D14"
+      ],
+      "guard_states": 28,
+      "guard_urls_recorded": null,
+      "horizon_handoff_started_events": 1,
+      "lost_vs_guard": [],
+      "max_handoff_stack_depth": 1,
+      "normalized_unique_urls": 8,
+      "return_attempts": 135,
+      "return_cycle_escape_events": 0,
+      "return_success": 40,
+      "sequence_horizon_reached": 14,
+      "sequence_instances_returned": 19,
+      "sequence_lost_parent": 0,
+      "states": 24,
+      "terminal_accounting_violations": 0,
+      "witness_violations": 0
+    },
+    "note": "Committed v0.3.17 rows already preserved these inspected sets without Return-Entry Drain. This is historical support for a horizon fallback, not a guarantee.",
+    "wiki": {
+      "confirmed_bugs": [
+        "BUG-W2"
+      ],
+      "contains_w2": true
+    }
+  },
+  "v0318_deep_metrics": {
+    "child_parent_witness_events": 0,
+    "confirmed_bugs": [
+      "BUG-D8"
+    ],
+    "early_parent_reentry_events": 0,
+    "horizon_handoff_started_events": 0,
+    "max_handoff_stack_depth": 0,
+    "normalized_unique_urls": 6,
+    "return_attempts": 112,
+    "return_cycle_escape_events": 1,
+    "return_success": 0,
+    "sequence_horizon_reached": 1,
+    "sequence_instances_returned": 0,
+    "sequence_lost_parent": 0,
+    "states": 8,
+    "terminal_accounting_violations": 0,
+    "witness_violations": 0
+  },
+  "v0318_lab_metrics": {
+    "child_parent_witness_events": 1,
+    "confirmed_bugs": [
+      "BUG-L1",
+      "BUG-L10",
+      "BUG-L2",
+      "BUG-L4",
+      "BUG-L5",
+      "BUG-L6",
+      "BUG-L7",
+      "BUG-L8",
+      "BUG-L9"
+    ],
+    "early_parent_reentry_events": 4,
+    "horizon_handoff_started_events": 2,
+    "max_handoff_stack_depth": 1,
+    "normalized_unique_urls": 15,
+    "return_attempts": 136,
+    "return_cycle_escape_events": 8,
+    "return_success": 14,
+    "sequence_horizon_reached": 1,
+    "sequence_instances_returned": 4,
+    "sequence_lost_parent": 0,
+    "states": 24,
+    "terminal_accounting_violations": 0,
+    "witness_violations": 0
+  }
+}
