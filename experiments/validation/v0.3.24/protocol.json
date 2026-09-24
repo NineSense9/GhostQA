@@ -1,0 +1,293 @@
+{
+  "name": "v0.3.24 episode-scoped local drain revalidation",
+  "version": "v0.3.24",
+  "date": "2026-09-25",
+  "starting_head": "4b7886e854254cbcca3d6511a8234f0d69e31047",
+  "executed": false,
+  "question_kind": "inspected-repair",
+  "fresh_validation": false,
+  "product_default_changed": false,
+  "research_question": "Does v0.3.23 lose Campus and Studio template 9 because executor.reset clears browser-side mutation state while the local-action drain's run-global already-drained memory survives the reset?",
+  "candidate": {
+    "identity": "ghost-structural-episode-drain-epoch-guard",
+    "module": "ghostqa/exploration/episode_drain_epoch_guard.py",
+    "controller": "EpisodeDrainEpochSequenceController",
+    "policy": "EpisodeDrainEpochGuardGhostPolicy",
+    "subclasses": "ResidualFrontierDebtSequenceController",
+    "research_only": true,
+    "chooses_target_action": false,
+    "adds_drain_trigger": false,
+    "product_default": false
+  },
+  "historical_candidate": {
+    "round": "v0.3.23",
+    "identity": "ghost-structural-residual-frontier-debt-guard",
+    "module": "ghostqa/exploration/residual_frontier_debt_guard.py",
+    "module_sha256": "20b9a2f775e32fd70b3959ce3202ce8110783c6e3f5ddceb535badf31a6c2bff",
+    "freeze": "experiments/frozen/ghost-residual-frontier-debt-v0.3.23/freeze.json",
+    "freeze_sha256": "649b9bdde279eec300b763a01b0bb5c13b283ca833c1003a4daea24884fc77fb",
+    "outcome": "B",
+    "editable": false
+  },
+  "v0_3_23_audit": {
+    "path": "experiments/validation/v0.3.24/v0323-episode-drain-audit.json",
+    "sha256": "f9ce91a3e550882041d9aad0c85a1228a8e32f88da026b117c8a4bff786d0334",
+    "publication": "experiments/published/residual-frontier-debt-v0.3.23",
+    "diagnosis": "same-hub drain dedupe survives executor.reset on residual-debt relocation"
+  },
+  "immutable": [
+    "ghostqa/exploration/policy.py",
+    "ghostqa/exploration/sequence.py",
+    "ghostqa/exploration/sequence_memory.py",
+    "ghostqa/exploration/interaction.py",
+    "ghostqa/exploration/return_cycle_guard.py",
+    "ghostqa/exploration/horizon_handoff_guard.py",
+    "ghostqa/exploration/reentry_frontier_guard.py",
+    "ghostqa/exploration/local_action_drain_guard.py",
+    "ghostqa/exploration/return_entry_drain_guard.py",
+    "ghostqa/exploration/finding_return_entry_guard.py",
+    "ghostqa/exploration/return_waypoint_frontier_guard.py",
+    "ghostqa/exploration/residual_frontier_debt_guard.py",
+    "ghostqa/exploration/payload.py",
+    "apps/generate_v0320_targets.py",
+    "experiments/frozen/v0.3.20-fresh-composite-suite",
+    "experiments/frozen/ghost-residual-frontier-debt-v0.3.23"
+  ],
+  "memory_taxonomy": {
+    "browser_episode_stateful": [
+      "same-hub local-action drain dedupe keys",
+      "same-hub return-entry drain dedupe keys"
+    ],
+    "run_scoped_structural": [
+      "BranchLedger",
+      "sequence histories",
+      "Horizon Handoff frames",
+      "Return-Cycle Guard history",
+      "waypoint escape history",
+      "residual-frontier debt records",
+      "debt consumed structural interactions",
+      "structural frontier completion",
+      "promoted child structural lifecycle"
+    ],
+    "run_scoped_promoted_or_cross_hub": [
+      "promoted local button that left its source hub",
+      "return-entry probe that left the hub",
+      "crash-path drain suppression",
+      "conservative unwind suppression"
+    ]
+  },
+  "interaction_episode": {
+    "initial": 0,
+    "increment_only_when": "ResidualFrontierDebtSequenceController.maybe_debt_relocate returns a non-empty target",
+    "meaning": "a debt relocation has been selected and the explorer will perform executor.reset plus replay",
+    "do_not_increment_on": [
+      "gate check",
+      "suppressed relocate",
+      "open SCC",
+      "pending SCC",
+      "no path",
+      "budget suppression",
+      "debt creation",
+      "ordinary browser navigation",
+      "return cycle escape",
+      "waypoint escape",
+      "crash alone"
+    ],
+    "policy_reset_returns_to_zero": true,
+    "replay_failure_keeps_the_new_episode": true
+  },
+  "same_hub_key": {
+    "identity": ["cluster", "local_key"],
+    "recorded_when": [
+      "LocalActionDrainSequenceController._complete_same_hub completes",
+      "ReturnEntryDrainSequenceController._complete_return_same_hub completes"
+    ],
+    "store": "_episode_same_hub_keys"
+  },
+  "cross_hub_preservation": {
+    "excluded_from_episode_invalidation": [
+      "promoted local button that left the hub",
+      "return-entry probe that left the hub",
+      "crash path",
+      "conservative unwind",
+      "structural child lifecycle"
+    ],
+    "remains_in": "_drained_by_cluster"
+  },
+  "epoch_advance": {
+    "trigger": "non-empty maybe_debt_relocate target",
+    "invalidation": "remove each tracked same-hub key from its _drained_by_cluster bucket when present, then clear the tracked set",
+    "absent_key_not_double_counted": true,
+    "does_not_touch_other_drained_keys": true,
+    "does_not_clear_structural_or_debt_memory": true,
+    "event": "local_drain_episode_advanced",
+    "reason": "residual_frontier_debt_relocation",
+    "no_immediate_drain": true,
+    "restore_steps_are_not_probes": true
+  },
+  "no_new_trigger": {
+    "existing_local_drain_trigger": "valid child_parent_witness",
+    "existing_return_entry_trigger": "finding-gated return-entry",
+    "forbidden_additions": [
+      "resume drain",
+      "horizon drain",
+      "arbitrary page drain",
+      "closed-SCC button drain",
+      "post-reset immediate button drain",
+      "forced eid",
+      "button-text heuristic"
+    ]
+  },
+  "revalidated_probe": {
+    "requires": [
+      "key completed same-hub in an earlier interaction episode",
+      "key invalidated by a real debt relocation reset",
+      "a later existing valid drain trigger selects the same cluster and eid",
+      "the selecting action is not a restore step"
+    ],
+    "finding_not_required": true,
+    "event": "local_drain_key_revalidated"
+  },
+  "forbidden_source_needles": [
+    "buggy-campus",
+    "buggy-studio",
+    "buggy-warehouse",
+    "buggy-booking",
+    "deepbench",
+    "BUG-",
+    "btn_staff_note",
+    "btn_variant",
+    "open_mid_b",
+    "lesson.html",
+    "asset.html",
+    "warehouse.html",
+    "booking",
+    "campus",
+    "studio"
+  ],
+  "matrix": {
+    "candidate": "ghost-structural-episode-drain-epoch-guard",
+    "seed": 1,
+    "positives": [
+      {"app": "buggy-campus", "budgets": [40, 80, 120]},
+      {"app": "buggy-warehouse", "budgets": [40, 80, 120]},
+      {"app": "buggy-studio", "budgets": [40, 80, 120]},
+      {"app": "buggy-booking", "budgets": [40, 80, 120]}
+    ],
+    "controls": [
+      {"app": "buggy-catalog", "budget": 120, "expect_episode_advances": 0, "expect_revalidated_probes": 0, "expect_relocations": 0},
+      {"app": "buggy-kiosk", "budget": 120, "expect_episode_advances": 0, "expect_revalidated_probes": 0, "expect_relocations": 0}
+    ],
+    "historical": [
+      {"app": "buggy-lab", "evidence": "buggy-lab", "budget": 120, "retain": ["BUG-L1", "BUG-L2", "BUG-L8", "BUG-L9", "BUG-L10"]},
+      {"app": "buggy-flow", "evidence": "deepbench", "budget": 120, "retain": ["BUG-D6", "BUG-D7", "BUG-D11", "BUG-D12", "BUG-D13", "BUG-D14"], "expect_episode_advances": 0},
+      {"app": "buggy-forum", "evidence": "buggy-forum", "budget": 120},
+      {"app": "buggy-billing", "evidence": "buggy-billing", "budget": 120},
+      {"app": "buggy-directory", "evidence": "buggy-directory", "budget": 120, "false_handoff_remains_zero": true},
+      {"app": "buggy-crm", "evidence": "buggy-crm", "budget": 120},
+      {"app": "buggy-ops", "evidence": "buggy-ops", "budget": 120},
+      {"app": "buggy-desk", "evidence": "buggy-desk", "budget": 120, "retain": ["BUG-K1", "BUG-K2", "BUG-K3", "BUG-K5", "BUG-K6", "BUG-K9", "BUG-K10"]},
+      {"app": "buggy-wiki", "evidence": "wiki", "budget": 120, "retain": ["BUG-W2"]},
+      {"app": "buggy-shop", "evidence": "buggy-shop", "budget": 120, "retain": ["BUG-W5", "BUG-W6", "BUG-W9", "BUG-W10"]}
+    ],
+    "cells_total": 24,
+    "references": [
+      "experiments/published/fresh-composite-v0.3.20",
+      "experiments/published/residual-frontier-debt-v0.3.23"
+    ],
+    "no_extra_cells_after_results": true
+  },
+  "gates": {
+    "campus_studio_mechanism": [
+      "a legitimate v0.3.23-style debt relocation occurs at budget 120",
+      "local_drain_episode_advances is at least 1",
+      "prior-episode same-hub keys invalidated is greater than 0",
+      "replay contains no local probe",
+      "a later existing child_parent_witness reaches the side-entity hub",
+      "local drain starts again only through an existing trigger",
+      "at least one prior-episode key is revalidated",
+      "template 5 retained",
+      "template 8 retained",
+      "template 9 recovered",
+      "confirmed(Guard) is a subset of confirmed(candidate)",
+      "no false sequence or return accounting"
+    ],
+    "warehouse_booking": [
+      "episode advances stay 0 when debt relocations stay 0",
+      "template 5/8/9 remain retained",
+      "no new revalidated probes caused by this round",
+      "zero Guard bug loss"
+    ],
+    "catalog_kiosk": [
+      "episode advances = 0",
+      "revalidated probes = 0",
+      "debt relocations = 0",
+      "Guard bug loss = 0",
+      "lifecycle violations = 0"
+    ],
+    "deep": [
+      "episode advances = 0",
+      "historical D6 D7 D11 D12 D13 D14 retained",
+      "no new resume drain trigger"
+    ],
+    "historical": "any historical Guard loss is Outcome C"
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "protocol, freeze, historical source edit, episode advance without relocation, cross-hub invalidation, structural memory cleared, restore probe, new drain trigger, forced action, duplicate same-episode probe, false success, Guard loss, control episode, model failure, product default change, or app-specific rule",
+    "D": "protocol and safety hold, but the episode mechanism does not engage on the diagnosed relocation targets",
+    "B": "safe partial repair",
+    "A": "episode-scoped revalidation of same-hub local drain memory repairs the inspected reset-staleness loss on Campus and Studio while preserving the specified productive, control, and historical suite",
+    "promotion": false,
+    "meaning_limit": "inspected repair evidence only; a later round must freshly validate the frozen candidate"
+  },
+  "safety": {
+    "ee_minimum": 28,
+    "model_alphabet": ["S", "P", "R", "X", "W", "Q", "D", "F", "N"],
+    "model_raw_traces": 66429,
+    "historical_suites_unchanged": [
+      "return model 5800",
+      "handoff model 19607",
+      "v0.3.16 37448",
+      "v0.3.17 66429",
+      "v0.3.18 66429",
+      "v0.3.19 66429",
+      "v0.3.21 waypoint model",
+      "v0.3.23 debt model 66429",
+      "v0.3.22 verifier"
+    ]
+  },
+  "metrics": [
+    "local_drain_interaction_episode",
+    "local_drain_episode_advances",
+    "local_drain_same_hub_keys_recorded",
+    "local_drain_same_hub_keys_invalidated",
+    "local_drain_cross_hub_keys_preserved",
+    "local_drain_revalidated_probe_count",
+    "local_drain_revalidated_cluster_count",
+    "local_drain_episode_without_relocation_violations",
+    "local_drain_cross_hub_invalidation_violations",
+    "local_drain_restore_probe_violations",
+    "local_drain_episode_false_success_violations",
+    "local_drain_duplicate_same_episode_violations"
+  ],
+  "events": [
+    "local_drain_same_hub_key_recorded",
+    "local_drain_episode_advanced",
+    "local_drain_key_revalidated",
+    "local_drain_cross_hub_key_preserved"
+  ],
+  "no_same_round_retuning": [
+    "resume drain",
+    "button text or eid heuristic",
+    "invalidate all structural memory",
+    "clear BranchLedger",
+    "clear debt",
+    "clear promoted keys",
+    "change reset or replay",
+    "change budgets",
+    "page exceptions",
+    "payload or input memory epoch",
+    "time or step threshold"
+  ]
+}
