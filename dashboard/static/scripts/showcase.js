@@ -539,6 +539,48 @@ function renderReturnEntry(re) {
   }
 }
 
+function renderFreshComposite(fc) {
+  fc = fc || {};
+  const oc = gid('fc-outcome');
+  if (oc) {
+    oc.textContent = fc.outcome ? ('Outcome ' + fc.outcome) : 'Outcome';
+    oc.className = fc.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('fc-outcome-mean');
+  if (om) om.textContent = fc.outcome_meaning || '';
+  const delta = gid('fc-delta');
+  if (delta) {
+    delta.textContent = '可评估 ' + fc.composite_evaluable + '/4'
+      + ' · full transfer ' + fc.full_transfer + '/4'
+      + ' · nested ' + fc.nested_transfer + '/4'
+      + ' · finding drain ' + fc.finding_drain + '/4'
+      + ' · Guard 丢失目标 ' + fc.guard_loss_count
+      + ' · catalog 事件 ' + fc.catalog_events
+      + ' · kiosk handoff ' + fc.kiosk_handoffs
+      + ' · horizon drain ' + fc.horizon_drains
+      + ' · ' + (fc.promotion_readiness || 'not_ready');
+  }
+  if (!fc.available) return;
+  setText('proof-round', fc.round || 'v0.3.20');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = '可评估 / full transfer';
+  if (m2) m2.textContent = 'nested / finding drain';
+  if (m3) m3.textContent = 'Guard 丢失 / catalog / kiosk / horizon';
+  setText('proof-b-states', fc.composite_evaluable + '/4');
+  setText('proof-g-states', fc.full_transfer + '/4');
+  setText('proof-b-ret', fc.nested_transfer + '/4');
+  setText('proof-g-ret', fc.finding_drain + '/4');
+  setText('proof-esc', String(fc.guard_loss_count) + ' / ' + String(fc.catalog_events)
+    + ' / ' + String(fc.kiosk_handoffs) + ' / ' + String(fc.horizon_drains));
+  setText('proof-outcome', fc.outcome || '—');
+  const note = gid('proof-note');
+  if (note) {
+    note.textContent = '四个新 positive target 都走到了 nested handoff 和 finding-gated drain，但都丢失了 Guard 已确认的缺陷。浅层 catalog 没有触发候选机制，kiosk 没有 nested handoff，horizon-only drain 为 0。这轮是 Outcome C。不是任意网站泛化，产品默认未改。';
+  }
+}
+
 function renderFindingReturn(fr) {
   fr = fr || {};
   const oc = gid('fr-outcome');
@@ -710,6 +752,8 @@ function renderEvidence(data) {
   const la = (data && data.local_action_drain) || {};
   const re = (data && data.return_entry_drain) || {};
   const fr = (data && data.finding_return_entry) || {};
+  const fc = (data && data.fresh_composite) || {};
+  const ev0320 = gid('ev-v0320');
   const ev0319 = gid('ev-v0319');
   const ev0318 = gid('ev-v0318');
   const ev0317 = gid('ev-v0317');
@@ -724,6 +768,32 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0320) {
+    if (!fc.available) {
+      ev0320.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = fc.reproduction || {};
+      ev0320.innerHTML = [
+        statusRow('轮次结果', fc.outcome ? ('Outcome ' + fc.outcome) : '—', fc.outcome === 'A'),
+        statusRow('可评估 positive', String(fc.composite_evaluable) + '/4', true),
+        statusRow('full transfer', String(fc.full_transfer) + '/4', fc.full_transfer >= 3),
+        statusRow('nested transfer', String(fc.nested_transfer) + '/4', fc.nested_transfer >= 3),
+        statusRow('finding drain', String(fc.finding_drain) + '/4', fc.finding_drain >= 3),
+        statusRow('Guard 丢失目标', String(fc.guard_loss_count), fc.guard_loss_count === 0),
+        statusRow('catalog 候选事件', String(fc.catalog_events), fc.catalog_events === 0),
+        statusRow('kiosk handoff', String(fc.kiosk_handoffs), fc.kiosk_handoffs === 0),
+        statusRow('horizon-only drain', String(fc.horizon_drains), fc.horizon_drains === 0),
+        statusRow('42 cells', String(fc.cells), fc.cells === 42),
+        statusRow('证据清单', fileLabel(r.evidence_files, true), true),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', fc.product_default_changed ? '已改' : '未改',
+          fc.product_default_changed === false),
+      ].join('');
+    }
+  }
+  const cmd0320 = fc.command || '';
+  const cmdEl20 = gid('ev-cmd-0320');
+  if (cmdEl20) cmdEl20.textContent = cmd0320;
   if (ev0319) {
     if (!fr.available) {
       ev0319.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -1077,6 +1147,7 @@ async function loadShowcase() {
     renderLocalAction(data.local_action_drain);
     renderReturnEntry(data.return_entry_drain);
     renderFindingReturn(data.finding_return_entry);
+    renderFreshComposite(data.fresh_composite);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

@@ -22,6 +22,7 @@ V0316 = os.path.join(PUBLISHED, "reentry-frontier-v0.3.16")
 V0317 = os.path.join(PUBLISHED, "local-action-drain-v0.3.17")
 V0318 = os.path.join(PUBLISHED, "return-entry-drain-v0.3.18")
 V0319 = os.path.join(PUBLISHED, "finding-return-entry-v0.3.19")
+V0320 = os.path.join(PUBLISHED, "fresh-composite-v0.3.20")
 
 
 def _load(path, default=None):
@@ -828,6 +829,48 @@ def _v0319(root: str | None = None) -> dict:
     }
 
 
+def _v0320(root: str | None = None) -> dict:
+    base = root or V0320
+    derived = _load(os.path.join(base, "metrics", "aggregate.json")) or {}
+    repro = _load(os.path.join(base, "metrics", "reproduction.json")) or {}
+    man = _load(os.path.join(base, "evidence-manifest.json")) or {}
+    if not derived:
+        return {"available": False}
+    return {
+        "available": True,
+        "round": "v0.3.20",
+        "title": "Strong Fresh Composite Validation",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning"),
+        "composite_evaluable": derived.get("composite_evaluable_positive_targets"),
+        "full_transfer": derived.get("full_transfer_positive_targets"),
+        "nested_transfer": derived.get("nested_transfer_positive_targets"),
+        "finding_drain": derived.get("finding_drain_positive_targets"),
+        "guard_loss_count": len(derived.get("guard_bug_losses") or []),
+        "guard_bug_losses": derived.get("guard_bug_losses") or [],
+        "catalog_events": derived.get("catalog_candidate_event_count"),
+        "kiosk_handoffs": derived.get("kiosk_nested_handoff_count"),
+        "horizon_drains": derived.get("horizon_only_drain_count"),
+        "kiosk_finding_evaluable": derived.get("kiosk_finding_control_evaluable"),
+        "promotion_readiness": derived.get("promotion_readiness"),
+        "product_default_changed": bool(derived.get("product_default_changed")),
+        "generalization_claim": False,
+        "fresh_validation": True,
+        "scope": "strong fresh multi-target evidence, not universal generalization",
+        "cells": 42,
+        "reproduction": {
+            "clean_clone_verified": bool(repro.get("clean_clone_verified")),
+            "command": repro.get("command") or (
+                "python -m benchmark.fresh_composite_reproduce "
+                "--root experiments/published/fresh-composite-v0.3.20 --verify"),
+            "evidence_files": len(man.get("files") or []),
+        },
+        "command": (
+            "python -m benchmark.fresh_composite_reproduce "
+            "--root experiments/published/fresh-composite-v0.3.20 --verify"),
+    }
+
+
 def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None,
                    v0310_root: str | None = None, v0311_root: str | None = None,
                    v0312_root: str | None = None, v0313_root: str | None = None,
@@ -835,7 +878,8 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
                    v0316_root: str | None = None,
                    v0317_root: str | None = None,
                    v0318_root: str | None = None,
-                   v0319_root: str | None = None) -> dict:
+                   v0319_root: str | None = None,
+                   v0320_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
@@ -848,7 +892,17 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
     v0317 = _v0317(v0317_root)
     v0318 = _v0318(v0318_root)
     v0319 = _v0319(v0319_root)
-    if v0319.get("available"):
+    v0320 = _v0320(v0320_root)
+    if v0320.get("available"):
+        latest = {
+            "round": "v0.3.20",
+            "title": "Strong Fresh Composite Validation",
+            "available": True,
+            "outcome": v0320.get("outcome"),
+            "product_default_changed": v0320.get("product_default_changed"),
+        }
+        latest_research = "v0.3.20"
+    elif v0319.get("available"):
         latest = {
             "round": "v0.3.19",
             "title": "Finding-Gated Return-Entry Drain",
@@ -955,6 +1009,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "fresh_composite": v0320,
         "finding_return_entry": v0319,
         "return_entry_drain": v0318,
         "local_action_drain": v0317,
@@ -996,5 +1051,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
              "kind": "inspected failure repair"},
             {"round": "v0.3.19", "title": "Finding-Gated Return-Entry Drain",
              "kind": "inspected trigger-narrowing repair"},
+            {"round": "v0.3.20", "title": "Strong Fresh Composite Validation",
+             "kind": "fresh composite validation"},
         ],
     }

@@ -202,6 +202,17 @@
       <p class="footnote" id="ft-scope">一次目标应用上的 transfer，不是 universal generalization。</p>
     </section>
 
+    <section class="rc-section" data-testid="fresh-composite" aria-labelledby="h-fc">
+      <p class="eyebrow">v0.3.20 · 已发布证据</p>
+      <h2 id="h-fc">冻结的 v0.3.19 组合策略在新目标上的 fresh 验证</h2>
+      <p class="rc-lead" id="fc-lead">四个新 positive target 都能走到 nested handoff 和 finding-gated drain，但都丢失了 Guard 已确认的缺陷，所以这轮是 Outcome C。浅层 catalog 没有触发候选机制，kiosk 没有 nested handoff。</p>
+      <p class="limit-note">这是 strong fresh multi-target evidence 的失败记录。不是任意网站泛化，不是 production-ready，产品默认未改。</p>
+      <p class="delta" id="fc-delta"></p>
+      <p class="pill-row"><span class="pill" id="fc-outcome">Outcome</span>
+        <span class="muted" id="fc-outcome-mean"></span></p>
+      <p class="footnote" id="fc-scope">下一问是失败分析，不是改默认策略。</p>
+    </section>
+
     <section class="rc-section" data-testid="finding-return-entry" aria-labelledby="h-fr">
       <p class="eyebrow">v0.3.19 · 已发布证据</p>
       <h2 id="h-fr">只有同一步的 finding terminal 才进入 Return-Entry Drain</h2>
@@ -533,6 +544,14 @@
     </header>
     <div class="ev-layout">
       <div class="ev-grid">
+        <article class="ev-card" data-testid="evidence-v0320">
+          <p class="ev-kicker">来源轮次 · v0.3.20</p>
+          <h2>Strong Fresh Composite Validation</h2>
+          <p class="limit-note">六个新目标的一次性验证。候选未改。产品默认未改。v0.3.19 Outcome A 仍是已检查证据，不是这轮的 fresh 结论。</p>
+          <ul class="status-rows" id="ev-v0320"></ul>
+          <pre class="cmd" id="ev-cmd-0320"></pre>
+          <button type="button" class="btn btn-ghost" data-copy="ev-cmd-0320">复制命令</button>
+        </article>
         <article class="ev-card" data-testid="evidence-v0319">
           <p class="ev-kicker">来源轮次 · v0.3.19</p>
           <h2>Finding-Gated Return-Entry Drain</h2>
