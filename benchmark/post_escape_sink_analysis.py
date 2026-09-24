@@ -35,19 +35,14 @@ CONCLUSIONS = (
 CELLS = tuple(
     (app, budget) for app in POSITIVE_TARGETS for budget in DIAGNOSTIC_BUDGETS
 )
-V0321_PUBLICATION = os.path.join(
-    "experiments", "published", "return-waypoint-frontier-v0.3.21")
-V0320_PUBLICATION = os.path.join(
-    "experiments", "published", "fresh-composite-v0.3.20")
-CANDIDATE_FREEZE = os.path.join(
-    "experiments", "frozen", "ghost-return-waypoint-frontier-v0.3.21", "freeze.json")
-SUITE_FREEZE = os.path.join(
-    "experiments", "frozen", "v0.3.20-fresh-composite-suite", "freeze.json")
+V0321_PUBLICATION = "experiments/published/return-waypoint-frontier-v0.3.21"
+V0320_PUBLICATION = "experiments/published/fresh-composite-v0.3.20"
+CANDIDATE_FREEZE = "experiments/frozen/ghost-return-waypoint-frontier-v0.3.21/freeze.json"
+SUITE_FREEZE = "experiments/frozen/v0.3.20-fresh-composite-suite/freeze.json"
 CANDIDATE_SOURCE = "ghostqa/exploration/return_waypoint_frontier_guard.py"
-VALIDATION_DIR = os.path.join("experiments", "validation", "v0.3.22")
-PUBLICATION_DIR = os.path.join(
-    "experiments", "published", "post-escape-sink-v0.3.22")
-RUN_DIR = os.path.join("experiments", "runs", "v0322-post-escape-sink")
+VALIDATION_DIR = "experiments/validation/v0.3.22"
+PUBLICATION_DIR = "experiments/published/post-escape-sink-v0.3.22"
+RUN_DIR = "experiments/runs/v0322-post-escape-sink"
 STARTING_HEAD = "deda60a7ef7494466d12598b9418234c09b543f4"
 
 DIAGNOSIS_MEANING = {
