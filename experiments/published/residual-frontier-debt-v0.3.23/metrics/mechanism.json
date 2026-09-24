@@ -1,0 +1,1091 @@
+{
+  "derived": {
+    "campus_engaged": true,
+    "fresh_validation": false,
+    "generalization_claim": false,
+    "guard_bug_loss": [],
+    "inspected_repair": true,
+    "outcome": "B",
+    "outcome_a_complete": false,
+    "outcome_meaning": "Safety and protocol pass and the debt relocation engages on at least one of Campus or Studio, but the repair or preservation gate is incomplete",
+    "product_default_changed": false,
+    "promotion_readiness": "not_ready",
+    "studio_engaged": true
+  },
+  "positives": {
+    "buggy-booking": {
+      "audit": {
+        "closed_exhausted": false,
+        "consumed_after_relocation": 0,
+        "consumed_events": 6,
+        "created": 2,
+        "failures": 0,
+        "first_relocation_step": null,
+        "harmful_relocations": [],
+        "identity_mismatches": [],
+        "oldest_debt_id": "debt-0001",
+        "oldest_target": "2f1ba32062ae56be:46d56a72faae",
+        "relocations": 0,
+        "replay_lifecycle_events": [],
+        "replay_path_length": null,
+        "selected_debt_id": null,
+        "selected_target": null,
+        "target_matches_oldest": false,
+        "unresolved_before_relocation": false,
+        "zero_normal_loops": []
+      },
+      "budgets": {
+        "120": {
+          "audit": {
+            "closed_exhausted": false,
+            "consumed_after_relocation": 0,
+            "consumed_events": 6,
+            "created": 2,
+            "failures": 0,
+            "first_relocation_step": null,
+            "harmful_relocations": [],
+            "identity_mismatches": [],
+            "oldest_debt_id": "debt-0001",
+            "oldest_target": "2f1ba32062ae56be:46d56a72faae",
+            "relocations": 0,
+            "replay_lifecycle_events": [],
+            "replay_path_length": null,
+            "selected_debt_id": null,
+            "selected_target": null,
+            "target_matches_oldest": false,
+            "unresolved_before_relocation": false,
+            "zero_normal_loops": []
+          },
+          "confirmed": [
+            "BUG-BK10",
+            "BUG-BK11",
+            "BUG-BK12",
+            "BUG-BK2",
+            "BUG-BK4",
+            "BUG-BK5",
+            "BUG-BK6",
+            "BUG-BK7",
+            "BUG-BK8",
+            "BUG-BK9"
+          ],
+          "debt": {
+            "residual_frontier_active_sequence_suppressed": 43,
+            "residual_frontier_budget_suppressed": 0,
+            "residual_frontier_consumption_violations": 0,
+            "residual_frontier_debt_relocations": 0,
+            "residual_frontier_debts_created": 2,
+            "residual_frontier_debts_resolved": 2,
+            "residual_frontier_debts_unresolved": 0,
+            "residual_frontier_false_success_violations": 0,
+            "residual_frontier_inside_scc_suppressed": 0,
+            "residual_frontier_no_path_suppressed": 0,
+            "residual_frontier_open_scc_suppressed": 0,
+            "residual_frontier_pending_scc_suppressed": 31,
+            "residual_frontier_relocation_failures": 0,
+            "residual_frontier_restore_sequence_violations": 0,
+            "residual_frontier_target_identity_violations": 0,
+            "residual_frontier_tokens_consumed": 6,
+            "residual_frontier_tokens_created": 6,
+            "residual_frontier_zero_normal_action_suppressed": 0
+          },
+          "template": {
+            "ids": [
+              "BUG-BK5",
+              "BUG-BK8",
+              "BUG-BK9"
+            ],
+            "missing": [],
+            "recovered": true
+          }
+        },
+        "40": {
+          "audit": {
+            "closed_exhausted": false,
+            "consumed_after_relocation": 0,
+            "consumed_events": 1,
+            "created": 1,
+            "failures": 0,
+            "first_relocation_step": null,
+            "harmful_relocations": [],
+            "identity_mismatches": [],
+            "oldest_debt_id": "debt-0001",
+            "oldest_target": "f763960f1ff3cd51:46d56a72faae",
+            "relocations": 0,
+            "replay_lifecycle_events": [],
+            "replay_path_length": null,
+            "selected_debt_id": null,
+            "selected_target": null,
+            "target_matches_oldest": false,
+            "unresolved_before_relocation": false,
+            "zero_normal_loops": []
+          },
+          "confirmed": [
+            "BUG-BK10",
+            "BUG-BK11",
+            "BUG-BK12",
+            "BUG-BK2"
+          ],
+          "debt": {
+            "residual_frontier_active_sequence_suppressed": 16,
+            "residual_frontier_budget_suppressed": 0,
+            "residual_frontier_consumption_violations": 0,
+            "residual_frontier_debt_relocations": 0,
+            "residual_frontier_debts_created": 1,
+            "residual_frontier_debts_resolved": 0,
+            "residual_frontier_debts_unresolved": 1,
+            "residual_frontier_false_success_violations": 0,
+            "residual_frontier_inside_scc_suppressed": 0,
+            "residual_frontier_no_path_suppressed": 0,
+            "residual_frontier_open_scc_suppressed": 0,
+            "residual_frontier_pending_scc_suppressed": 2,
+            "residual_frontier_relocation_failures": 0,
+            "residual_frontier_restore_sequence_violations": 0,
+            "residual_frontier_target_identity_violations": 0,
+            "residual_frontier_tokens_consumed": 1,
+            "residual_frontier_tokens_created": 4,
+            "residual_frontier_zero_normal_action_suppressed": 0
+          },
+          "template": {
+            "ids": [
+              "BUG-BK5",
+              "BUG-BK8",
+              "BUG-BK9"
+            ],
+            "missing": [
+              "BUG-BK5",
+              "BUG-BK8",
+              "BUG-BK9"
+            ],
+            "recovered": false
+          }
+        },
+        "80": {
+          "audit": {
+            "closed_exhausted": false,
+            "consumed_after_relocation": 0,
+            "consumed_events": 1,
+            "created": 1,
+            "failures": 0,
+            "first_relocation_step": null,
+            "harmful_relocations": [],
+            "identity_mismatches": [],
+            "oldest_debt_id": "debt-0001",
+            "oldest_target": "d901164e337d4460:46d56a72faae",
+            "relocations": 0,
+            "replay_lifecycle_events": [],
+            "replay_path_length": null,
+            "selected_debt_id": null,
+            "selected_target": null,
+            "target_matches_oldest": false,
+            "unresolved_before_relocation": false,
+            "zero_normal_loops": []
+          },
+          "confirmed": [
+            "BUG-BK10",
+            "BUG-BK11",
+            "BUG-BK12",
+            "BUG-BK2",
+            "BUG-BK4",
+            "BUG-BK6",
+            "BUG-BK7"
+          ],
+          "debt": {
+            "residual_frontier_active_sequence_suppressed": 36,
+            "residual_frontier_budget_suppressed": 0,
+            "residual_frontier_consumption_violations": 0,
+            "residual_frontier_debt_relocations": 0,
+            "residual_frontier_debts_created": 1,
+            "residual_frontier_debts_resolved": 0,
+            "residual_frontier_debts_unresolved": 1,
+            "residual_frontier_false_success_violations": 0,
+            "residual_frontier_inside_scc_suppressed": 0,
+            "residual_frontier_no_path_suppressed": 0,
+            "residual_frontier_open_scc_suppressed": 0,
+            "residual_frontier_pending_scc_suppressed": 22,
+            "residual_frontier_relocation_failures": 0,
+            "residual_frontier_restore_sequence_violations": 0,
+            "residual_frontier_target_identity_violations": 0,
+            "residual_frontier_tokens_consumed": 1,
+            "residual_frontier_tokens_created": 4,
+            "residual_frontier_zero_normal_action_suppressed": 0
+          },
+          "template": {
+            "ids": [
+              "BUG-BK5",
+              "BUG-BK8",
+              "BUG-BK9"
+            ],
+            "missing": [
+              "BUG-BK5",
+              "BUG-BK8",
+              "BUG-BK9"
+            ],
+            "recovered": false
+          }
+        }
+      },
+      "candidate_confirmed": [
+        "BUG-BK10",
+        "BUG-BK11",
+        "BUG-BK12",
+        "BUG-BK2",
+        "BUG-BK4",
+        "BUG-BK5",
+        "BUG-BK6",
+        "BUG-BK7",
+        "BUG-BK8",
+        "BUG-BK9"
+      ],
+      "debt": {
+        "residual_frontier_active_sequence_suppressed": 43,
+        "residual_frontier_budget_suppressed": 0,
+        "residual_frontier_consumption_violations": 0,
+        "residual_frontier_debt_relocations": 0,
+        "residual_frontier_debts_created": 2,
+        "residual_frontier_debts_resolved": 2,
+        "residual_frontier_debts_unresolved": 0,
+        "residual_frontier_false_success_violations": 0,
+        "residual_frontier_inside_scc_suppressed": 0,
+        "residual_frontier_no_path_suppressed": 0,
+        "residual_frontier_open_scc_suppressed": 0,
+        "residual_frontier_pending_scc_suppressed": 31,
+        "residual_frontier_relocation_failures": 0,
+        "residual_frontier_restore_sequence_violations": 0,
+        "residual_frontier_target_identity_violations": 0,
+        "residual_frontier_tokens_consumed": 6,
+        "residual_frontier_tokens_created": 6,
+        "residual_frontier_zero_normal_action_suppressed": 0
+      },
+      "engaged": false,
+      "guard_confirmed": [
+        "BUG-BK10",
+        "BUG-BK11",
+        "BUG-BK12",
+        "BUG-BK2",
+        "BUG-BK5",
+        "BUG-BK8",
+        "BUG-BK9"
+      ],
+      "harmful_relocation": false,
+      "lost_vs_guard": [],
+      "mechanism_pass": false,
+      "other_lost_vs_guard": [],
+      "template": {
+        "ids": [
+          "BUG-BK5",
+          "BUG-BK8",
+          "BUG-BK9"
+        ],
+        "missing": [],
+        "recovered": true
+      },
+      "template_lost_vs_guard": []
+    },
+    "buggy-campus": {
+      "audit": {
+        "closed_exhausted": true,
+        "consumed_after_relocation": 5,
+        "consumed_events": 6,
+        "created": 2,
+        "failures": 0,
+        "first_relocation_step": 68,
+        "harmful_relocations": [],
+        "identity_mismatches": [],
+        "oldest_debt_id": "debt-0001",
+        "oldest_target": "42b982e0e09cf4b2:46d56a72faae",
+        "relocations": 1,
+        "replay_lifecycle_events": [],
+        "replay_path_length": 4,
+        "selected_debt_id": "debt-0001",
+        "selected_target": "42b982e0e09cf4b2:46d56a72faae",
+        "target_matches_oldest": true,
+        "unresolved_before_relocation": true,
+        "zero_normal_loops": []
+      },
+      "budgets": {
+        "120": {
+          "audit": {
+            "closed_exhausted": true,
+            "consumed_after_relocation": 5,
+            "consumed_events": 6,
+            "created": 2,
+            "failures": 0,
+            "first_relocation_step": 68,
+            "harmful_relocations": [],
+            "identity_mismatches": [],
+            "oldest_debt_id": "debt-0001",
+            "oldest_target": "42b982e0e09cf4b2:46d56a72faae",
+            "relocations": 1,
+            "replay_lifecycle_events": [],
+            "replay_path_length": 4,
+            "selected_debt_id": "debt-0001",
+            "selected_target": "42b982e0e09cf4b2:46d56a72faae",
+            "target_matches_oldest": true,
+            "unresolved_before_relocation": true,
+            "zero_normal_loops": []
+          },
+          "confirmed": [
+            "BUG-CP10",
+            "BUG-CP11",
+            "BUG-CP12",
+            "BUG-CP2",
+            "BUG-CP3",
+            "BUG-CP5",
+            "BUG-CP8"
+          ],
+          "debt": {
+            "residual_frontier_active_sequence_suppressed": 55,
+            "residual_frontier_budget_suppressed": 0,
+            "residual_frontier_consumption_violations": 0,
+            "residual_frontier_debt_relocations": 1,
+            "residual_frontier_debts_created": 2,
+            "residual_frontier_debts_resolved": 2,
+            "residual_frontier_debts_unresolved": 0,
+            "residual_frontier_false_success_violations": 0,
+            "residual_frontier_inside_scc_suppressed": 0,
+            "residual_frontier_no_path_suppressed": 0,
+            "residual_frontier_open_scc_suppressed": 4,
+            "residual_frontier_pending_scc_suppressed": 10,
+            "residual_frontier_relocation_failures": 0,
+            "residual_frontier_restore_sequence_violations": 0,
+            "residual_frontier_target_identity_violations": 0,
+            "residual_frontier_tokens_consumed": 6,
+            "residual_frontier_tokens_created": 6,
+            "residual_frontier_zero_normal_action_suppressed": 1
+          },
+          "template": {
+            "ids": [
+              "BUG-CP5",
+              "BUG-CP8",
+              "BUG-CP9"
+            ],
+            "missing": [
+              "BUG-CP9"
+            ],
+            "recovered": false
+          }
+        },
+        "40": {
+          "audit": {
+            "closed_exhausted": false,
+            "consumed_after_relocation": 0,
+            "consumed_events": 1,
+            "created": 1,
+            "failures": 0,
+            "first_relocation_step": null,
+            "harmful_relocations": [],
+            "identity_mismatches": [],
+            "oldest_debt_id": "debt-0001",
+            "oldest_target": "62e5380bf69ab3f2:46d56a72faae",
+            "relocations": 0,
+            "replay_lifecycle_events": [],
+            "replay_path_length": null,
+            "selected_debt_id": null,
+            "selected_target": null,
+            "target_matches_oldest": false,
+            "unresolved_before_relocation": false,
+            "zero_normal_loops": []
+          },
+          "confirmed": [
+            "BUG-CP10",
+            "BUG-CP11",
+            "BUG-CP12",
+            "BUG-CP2"
+          ],
+          "debt": {
+            "residual_frontier_active_sequence_suppressed": 16,
+            "residual_frontier_budget_suppressed": 0,
+            "residual_frontier_consumption_violations": 0,
+            "residual_frontier_debt_relocations": 0,
+            "residual_frontier_debts_created": 1,
+            "residual_frontier_debts_resolved": 0,
+            "residual_frontier_debts_unresolved": 1,
+            "residual_frontier_false_success_violations": 0,
+            "residual_frontier_inside_scc_suppressed": 0,
+            "residual_frontier_no_path_suppressed": 0,
+            "residual_frontier_open_scc_suppressed": 0,
+            "residual_frontier_pending_scc_suppressed": 2,
+            "residual_frontier_relocation_failures": 0,
+            "residual_frontier_restore_sequence_violations": 0,
+            "residual_frontier_target_identity_violations": 0,
+            "residual_frontier_tokens_consumed": 1,
+            "residual_frontier_tokens_created": 4,
+            "residual_frontier_zero_normal_action_suppressed": 0
+          },
+          "template": {
+            "ids": [
+              "BUG-CP5",
+              "BUG-CP8",
+              "BUG-CP9"
+            ],
+            "missing": [
+              "BUG-CP5",
+              "BUG-CP8",
+              "BUG-CP9"
+            ],
+            "recovered": false
+          }
+        },
+        "80": {
+          "audit": {
+            "closed_exhausted": true,
+            "consumed_after_relocation": 3,
+            "consumed_events": 4,
+            "created": 1,
+            "failures": 0,
+            "first_relocation_step": 68,
+            "harmful_relocations": [],
+            "identity_mismatches": [],
+            "oldest_debt_id": "debt-0001",
+            "oldest_target": "8950e1a5f5c16b18:46d56a72faae",
+            "relocations": 1,
+            "replay_lifecycle_events": [],
+            "replay_path_length": 4,
+            "selected_debt_id": "debt-0001",
+            "selected_target": "8950e1a5f5c16b18:46d56a72faae",
+            "target_matches_oldest": true,
+            "unresolved_before_relocation": true,
+            "zero_normal_loops": []
+          },
+          "confirmed": [
+            "BUG-CP10",
+            "BUG-CP11",
+            "BUG-CP12",
+            "BUG-CP2",
+            "BUG-CP3",
+            "BUG-CP5",
+            "BUG-CP8"
+          ],
+          "debt": {
+            "residual_frontier_active_sequence_suppressed": 39,
+            "residual_frontier_budget_suppressed": 0,
+            "residual_frontier_consumption_violations": 0,
+            "residual_frontier_debt_relocations": 1,
+            "residual_frontier_debts_created": 1,
+            "residual_frontier_debts_resolved": 1,
+            "residual_frontier_debts_unresolved": 0,
+            "residual_frontier_false_success_violations": 0,
+            "residual_frontier_inside_scc_suppressed": 0,
+            "residual_frontier_no_path_suppressed": 0,
+            "residual_frontier_open_scc_suppressed": 2,
+            "residual_frontier_pending_scc_suppressed": 10,
+            "residual_frontier_relocation_failures": 0,
+            "residual_frontier_restore_sequence_violations": 0,
+            "residual_frontier_target_identity_violations": 0,
+            "residual_frontier_tokens_consumed": 4,
+            "residual_frontier_tokens_created": 4,
+            "residual_frontier_zero_normal_action_suppressed": 1
+          },
+          "template": {
+            "ids": [
+              "BUG-CP5",
+              "BUG-CP8",
+              "BUG-CP9"
+            ],
+            "missing": [
+              "BUG-CP9"
+            ],
+            "recovered": false
+          }
+        }
+      },
+      "candidate_confirmed": [
+        "BUG-CP10",
+        "BUG-CP11",
+        "BUG-CP12",
+        "BUG-CP2",
+        "BUG-CP3",
+        "BUG-CP5",
+        "BUG-CP8"
+      ],
+      "debt": {
+        "residual_frontier_active_sequence_suppressed": 55,
+        "residual_frontier_budget_suppressed": 0,
+        "residual_frontier_consumption_violations": 0,
+        "residual_frontier_debt_relocations": 1,
+        "residual_frontier_debts_created": 2,
+        "residual_frontier_debts_resolved": 2,
+        "residual_frontier_debts_unresolved": 0,
+        "residual_frontier_false_success_violations": 0,
+        "residual_frontier_inside_scc_suppressed": 0,
+        "residual_frontier_no_path_suppressed": 0,
+        "residual_frontier_open_scc_suppressed": 4,
+        "residual_frontier_pending_scc_suppressed": 10,
+        "residual_frontier_relocation_failures": 0,
+        "residual_frontier_restore_sequence_violations": 0,
+        "residual_frontier_target_identity_violations": 0,
+        "residual_frontier_tokens_consumed": 6,
+        "residual_frontier_tokens_created": 6,
+        "residual_frontier_zero_normal_action_suppressed": 1
+      },
+      "engaged": true,
+      "guard_confirmed": [
+        "BUG-CP10",
+        "BUG-CP11",
+        "BUG-CP12",
+        "BUG-CP2",
+        "BUG-CP3",
+        "BUG-CP5",
+        "BUG-CP8",
+        "BUG-CP9"
+      ],
+      "harmful_relocation": false,
+      "lost_vs_guard": [
+        "BUG-CP9"
+      ],
+      "mechanism_pass": false,
+      "other_lost_vs_guard": [],
+      "template": {
+        "ids": [
+          "BUG-CP5",
+          "BUG-CP8",
+          "BUG-CP9"
+        ],
+        "missing": [
+          "BUG-CP9"
+        ],
+        "recovered": false
+      },
+      "template_lost_vs_guard": [
+        "BUG-CP9"
+      ]
+    },
+    "buggy-studio": {
+      "audit": {
+        "closed_exhausted": true,
+        "consumed_after_relocation": 5,
+        "consumed_events": 6,
+        "created": 2,
+        "failures": 0,
+        "first_relocation_step": 71,
+        "harmful_relocations": [],
+        "identity_mismatches": [],
+        "oldest_debt_id": "debt-0001",
+        "oldest_target": "24bb40520e6d3f41:46d56a72faae",
+        "relocations": 1,
+        "replay_lifecycle_events": [],
+        "replay_path_length": 4,
+        "selected_debt_id": "debt-0001",
+        "selected_target": "24bb40520e6d3f41:46d56a72faae",
+        "target_matches_oldest": true,
+        "unresolved_before_relocation": true,
+        "zero_normal_loops": []
+      },
+      "budgets": {
+        "120": {
+          "audit": {
+            "closed_exhausted": true,
+            "consumed_after_relocation": 5,
+            "consumed_events": 6,
+            "created": 2,
+            "failures": 0,
+            "first_relocation_step": 71,
+            "harmful_relocations": [],
+            "identity_mismatches": [],
+            "oldest_debt_id": "debt-0001",
+            "oldest_target": "24bb40520e6d3f41:46d56a72faae",
+            "relocations": 1,
+            "replay_lifecycle_events": [],
+            "replay_path_length": 4,
+            "selected_debt_id": "debt-0001",
+            "selected_target": "24bb40520e6d3f41:46d56a72faae",
+            "target_matches_oldest": true,
+            "unresolved_before_relocation": true,
+            "zero_normal_loops": []
+          },
+          "confirmed": [
+            "BUG-ST10",
+            "BUG-ST11",
+            "BUG-ST12",
+            "BUG-ST2",
+            "BUG-ST3",
+            "BUG-ST5",
+            "BUG-ST8"
+          ],
+          "debt": {
+            "residual_frontier_active_sequence_suppressed": 55,
+            "residual_frontier_budget_suppressed": 0,
+            "residual_frontier_consumption_violations": 0,
+            "residual_frontier_debt_relocations": 1,
+            "residual_frontier_debts_created": 2,
+            "residual_frontier_debts_resolved": 2,
+            "residual_frontier_debts_unresolved": 0,
+            "residual_frontier_false_success_violations": 0,
+            "residual_frontier_inside_scc_suppressed": 0,
+            "residual_frontier_no_path_suppressed": 0,
+            "residual_frontier_open_scc_suppressed": 4,
+            "residual_frontier_pending_scc_suppressed": 13,
+            "residual_frontier_relocation_failures": 0,
+            "residual_frontier_restore_sequence_violations": 0,
+            "residual_frontier_target_identity_violations": 0,
+            "residual_frontier_tokens_consumed": 6,
+            "residual_frontier_tokens_created": 6,
+            "residual_frontier_zero_normal_action_suppressed": 1
+          },
+          "template": {
+            "ids": [
+              "BUG-ST5",
+              "BUG-ST8",
+              "BUG-ST9"
+            ],
+            "missing": [
+              "BUG-ST9"
+            ],
+            "recovered": false
+          }
+        },
+        "40": {
+          "audit": {
+            "closed_exhausted": false,
+            "consumed_after_relocation": 0,
+            "consumed_events": 1,
+            "created": 1,
+            "failures": 0,
+            "first_relocation_step": null,
+            "harmful_relocations": [],
+            "identity_mismatches": [],
+            "oldest_debt_id": "debt-0001",
+            "oldest_target": "923568e5d0475c99:46d56a72faae",
+            "relocations": 0,
+            "replay_lifecycle_events": [],
+            "replay_path_length": null,
+            "selected_debt_id": null,
+            "selected_target": null,
+            "target_matches_oldest": false,
+            "unresolved_before_relocation": false,
+            "zero_normal_loops": []
+          },
+          "confirmed": [
+            "BUG-ST10",
+            "BUG-ST11",
+            "BUG-ST12",
+            "BUG-ST2"
+          ],
+          "debt": {
+            "residual_frontier_active_sequence_suppressed": 16,
+            "residual_frontier_budget_suppressed": 0,
+            "residual_frontier_consumption_violations": 0,
+            "residual_frontier_debt_relocations": 0,
+            "residual_frontier_debts_created": 1,
+            "residual_frontier_debts_resolved": 0,
+            "residual_frontier_debts_unresolved": 1,
+            "residual_frontier_false_success_violations": 0,
+            "residual_frontier_inside_scc_suppressed": 0,
+            "residual_frontier_no_path_suppressed": 0,
+            "residual_frontier_open_scc_suppressed": 0,
+            "residual_frontier_pending_scc_suppressed": 2,
+            "residual_frontier_relocation_failures": 0,
+            "residual_frontier_restore_sequence_violations": 0,
+            "residual_frontier_target_identity_violations": 0,
+            "residual_frontier_tokens_consumed": 1,
+            "residual_frontier_tokens_created": 4,
+            "residual_frontier_zero_normal_action_suppressed": 0
+          },
+          "template": {
+            "ids": [
+              "BUG-ST5",
+              "BUG-ST8",
+              "BUG-ST9"
+            ],
+            "missing": [
+              "BUG-ST5",
+              "BUG-ST8",
+              "BUG-ST9"
+            ],
+            "recovered": false
+          }
+        },
+        "80": {
+          "audit": {
+            "closed_exhausted": true,
+            "consumed_after_relocation": 2,
+            "consumed_events": 3,
+            "created": 1,
+            "failures": 0,
+            "first_relocation_step": 71,
+            "harmful_relocations": [],
+            "identity_mismatches": [],
+            "oldest_debt_id": "debt-0001",
+            "oldest_target": "af567a5f15be667c:46d56a72faae",
+            "relocations": 1,
+            "replay_lifecycle_events": [],
+            "replay_path_length": 4,
+            "selected_debt_id": "debt-0001",
+            "selected_target": "af567a5f15be667c:46d56a72faae",
+            "target_matches_oldest": true,
+            "unresolved_before_relocation": true,
+            "zero_normal_loops": []
+          },
+          "confirmed": [
+            "BUG-ST10",
+            "BUG-ST11",
+            "BUG-ST12",
+            "BUG-ST2",
+            "BUG-ST3",
+            "BUG-ST5"
+          ],
+          "debt": {
+            "residual_frontier_active_sequence_suppressed": 39,
+            "residual_frontier_budget_suppressed": 0,
+            "residual_frontier_consumption_violations": 0,
+            "residual_frontier_debt_relocations": 1,
+            "residual_frontier_debts_created": 1,
+            "residual_frontier_debts_resolved": 0,
+            "residual_frontier_debts_unresolved": 1,
+            "residual_frontier_false_success_violations": 0,
+            "residual_frontier_inside_scc_suppressed": 0,
+            "residual_frontier_no_path_suppressed": 0,
+            "residual_frontier_open_scc_suppressed": 1,
+            "residual_frontier_pending_scc_suppressed": 13,
+            "residual_frontier_relocation_failures": 0,
+            "residual_frontier_restore_sequence_violations": 0,
+            "residual_frontier_target_identity_violations": 0,
+            "residual_frontier_tokens_consumed": 3,
+            "residual_frontier_tokens_created": 4,
+            "residual_frontier_zero_normal_action_suppressed": 1
+          },
+          "template": {
+            "ids": [
+              "BUG-ST5",
+              "BUG-ST8",
+              "BUG-ST9"
+            ],
+            "missing": [
+              "BUG-ST8",
+              "BUG-ST9"
+            ],
+            "recovered": false
+          }
+        }
+      },
+      "candidate_confirmed": [
+        "BUG-ST10",
+        "BUG-ST11",
+        "BUG-ST12",
+        "BUG-ST2",
+        "BUG-ST3",
+        "BUG-ST5",
+        "BUG-ST8"
+      ],
+      "debt": {
+        "residual_frontier_active_sequence_suppressed": 55,
+        "residual_frontier_budget_suppressed": 0,
+        "residual_frontier_consumption_violations": 0,
+        "residual_frontier_debt_relocations": 1,
+        "residual_frontier_debts_created": 2,
+        "residual_frontier_debts_resolved": 2,
+        "residual_frontier_debts_unresolved": 0,
+        "residual_frontier_false_success_violations": 0,
+        "residual_frontier_inside_scc_suppressed": 0,
+        "residual_frontier_no_path_suppressed": 0,
+        "residual_frontier_open_scc_suppressed": 4,
+        "residual_frontier_pending_scc_suppressed": 13,
+        "residual_frontier_relocation_failures": 0,
+        "residual_frontier_restore_sequence_violations": 0,
+        "residual_frontier_target_identity_violations": 0,
+        "residual_frontier_tokens_consumed": 6,
+        "residual_frontier_tokens_created": 6,
+        "residual_frontier_zero_normal_action_suppressed": 1
+      },
+      "engaged": true,
+      "guard_confirmed": [
+        "BUG-ST10",
+        "BUG-ST11",
+        "BUG-ST12",
+        "BUG-ST2",
+        "BUG-ST3",
+        "BUG-ST5",
+        "BUG-ST8",
+        "BUG-ST9"
+      ],
+      "harmful_relocation": false,
+      "lost_vs_guard": [
+        "BUG-ST9"
+      ],
+      "mechanism_pass": false,
+      "other_lost_vs_guard": [],
+      "template": {
+        "ids": [
+          "BUG-ST5",
+          "BUG-ST8",
+          "BUG-ST9"
+        ],
+        "missing": [
+          "BUG-ST9"
+        ],
+        "recovered": false
+      },
+      "template_lost_vs_guard": [
+        "BUG-ST9"
+      ]
+    },
+    "buggy-warehouse": {
+      "audit": {
+        "closed_exhausted": false,
+        "consumed_after_relocation": 0,
+        "consumed_events": 6,
+        "created": 2,
+        "failures": 0,
+        "first_relocation_step": null,
+        "harmful_relocations": [],
+        "identity_mismatches": [],
+        "oldest_debt_id": "debt-0001",
+        "oldest_target": "4a1765e9d2e146de:46d56a72faae",
+        "relocations": 0,
+        "replay_lifecycle_events": [],
+        "replay_path_length": null,
+        "selected_debt_id": null,
+        "selected_target": null,
+        "target_matches_oldest": false,
+        "unresolved_before_relocation": false,
+        "zero_normal_loops": []
+      },
+      "budgets": {
+        "120": {
+          "audit": {
+            "closed_exhausted": false,
+            "consumed_after_relocation": 0,
+            "consumed_events": 6,
+            "created": 2,
+            "failures": 0,
+            "first_relocation_step": null,
+            "harmful_relocations": [],
+            "identity_mismatches": [],
+            "oldest_debt_id": "debt-0001",
+            "oldest_target": "4a1765e9d2e146de:46d56a72faae",
+            "relocations": 0,
+            "replay_lifecycle_events": [],
+            "replay_path_length": null,
+            "selected_debt_id": null,
+            "selected_target": null,
+            "target_matches_oldest": false,
+            "unresolved_before_relocation": false,
+            "zero_normal_loops": []
+          },
+          "confirmed": [
+            "BUG-WH10",
+            "BUG-WH11",
+            "BUG-WH12",
+            "BUG-WH2",
+            "BUG-WH4",
+            "BUG-WH5",
+            "BUG-WH6",
+            "BUG-WH7",
+            "BUG-WH8",
+            "BUG-WH9"
+          ],
+          "debt": {
+            "residual_frontier_active_sequence_suppressed": 43,
+            "residual_frontier_budget_suppressed": 0,
+            "residual_frontier_consumption_violations": 0,
+            "residual_frontier_debt_relocations": 0,
+            "residual_frontier_debts_created": 2,
+            "residual_frontier_debts_resolved": 2,
+            "residual_frontier_debts_unresolved": 0,
+            "residual_frontier_false_success_violations": 0,
+            "residual_frontier_inside_scc_suppressed": 0,
+            "residual_frontier_no_path_suppressed": 0,
+            "residual_frontier_open_scc_suppressed": 0,
+            "residual_frontier_pending_scc_suppressed": 31,
+            "residual_frontier_relocation_failures": 0,
+            "residual_frontier_restore_sequence_violations": 0,
+            "residual_frontier_target_identity_violations": 0,
+            "residual_frontier_tokens_consumed": 6,
+            "residual_frontier_tokens_created": 6,
+            "residual_frontier_zero_normal_action_suppressed": 0
+          },
+          "template": {
+            "ids": [
+              "BUG-WH5",
+              "BUG-WH8",
+              "BUG-WH9"
+            ],
+            "missing": [],
+            "recovered": true
+          }
+        },
+        "40": {
+          "audit": {
+            "closed_exhausted": false,
+            "consumed_after_relocation": 0,
+            "consumed_events": 1,
+            "created": 1,
+            "failures": 0,
+            "first_relocation_step": null,
+            "harmful_relocations": [],
+            "identity_mismatches": [],
+            "oldest_debt_id": "debt-0001",
+            "oldest_target": "98cb39010bb4bf46:46d56a72faae",
+            "relocations": 0,
+            "replay_lifecycle_events": [],
+            "replay_path_length": null,
+            "selected_debt_id": null,
+            "selected_target": null,
+            "target_matches_oldest": false,
+            "unresolved_before_relocation": false,
+            "zero_normal_loops": []
+          },
+          "confirmed": [
+            "BUG-WH10",
+            "BUG-WH11",
+            "BUG-WH12",
+            "BUG-WH2"
+          ],
+          "debt": {
+            "residual_frontier_active_sequence_suppressed": 16,
+            "residual_frontier_budget_suppressed": 0,
+            "residual_frontier_consumption_violations": 0,
+            "residual_frontier_debt_relocations": 0,
+            "residual_frontier_debts_created": 1,
+            "residual_frontier_debts_resolved": 0,
+            "residual_frontier_debts_unresolved": 1,
+            "residual_frontier_false_success_violations": 0,
+            "residual_frontier_inside_scc_suppressed": 0,
+            "residual_frontier_no_path_suppressed": 0,
+            "residual_frontier_open_scc_suppressed": 0,
+            "residual_frontier_pending_scc_suppressed": 2,
+            "residual_frontier_relocation_failures": 0,
+            "residual_frontier_restore_sequence_violations": 0,
+            "residual_frontier_target_identity_violations": 0,
+            "residual_frontier_tokens_consumed": 1,
+            "residual_frontier_tokens_created": 4,
+            "residual_frontier_zero_normal_action_suppressed": 0
+          },
+          "template": {
+            "ids": [
+              "BUG-WH5",
+              "BUG-WH8",
+              "BUG-WH9"
+            ],
+            "missing": [
+              "BUG-WH5",
+              "BUG-WH8",
+              "BUG-WH9"
+            ],
+            "recovered": false
+          }
+        },
+        "80": {
+          "audit": {
+            "closed_exhausted": false,
+            "consumed_after_relocation": 0,
+            "consumed_events": 1,
+            "created": 1,
+            "failures": 0,
+            "first_relocation_step": null,
+            "harmful_relocations": [],
+            "identity_mismatches": [],
+            "oldest_debt_id": "debt-0001",
+            "oldest_target": "7d0163af15da0ebd:46d56a72faae",
+            "relocations": 0,
+            "replay_lifecycle_events": [],
+            "replay_path_length": null,
+            "selected_debt_id": null,
+            "selected_target": null,
+            "target_matches_oldest": false,
+            "unresolved_before_relocation": false,
+            "zero_normal_loops": []
+          },
+          "confirmed": [
+            "BUG-WH10",
+            "BUG-WH11",
+            "BUG-WH12",
+            "BUG-WH2",
+            "BUG-WH4",
+            "BUG-WH6",
+            "BUG-WH7"
+          ],
+          "debt": {
+            "residual_frontier_active_sequence_suppressed": 36,
+            "residual_frontier_budget_suppressed": 0,
+            "residual_frontier_consumption_violations": 0,
+            "residual_frontier_debt_relocations": 0,
+            "residual_frontier_debts_created": 1,
+            "residual_frontier_debts_resolved": 0,
+            "residual_frontier_debts_unresolved": 1,
+            "residual_frontier_false_success_violations": 0,
+            "residual_frontier_inside_scc_suppressed": 0,
+            "residual_frontier_no_path_suppressed": 0,
+            "residual_frontier_open_scc_suppressed": 0,
+            "residual_frontier_pending_scc_suppressed": 22,
+            "residual_frontier_relocation_failures": 0,
+            "residual_frontier_restore_sequence_violations": 0,
+            "residual_frontier_target_identity_violations": 0,
+            "residual_frontier_tokens_consumed": 1,
+            "residual_frontier_tokens_created": 4,
+            "residual_frontier_zero_normal_action_suppressed": 0
+          },
+          "template": {
+            "ids": [
+              "BUG-WH5",
+              "BUG-WH8",
+              "BUG-WH9"
+            ],
+            "missing": [
+              "BUG-WH5",
+              "BUG-WH8",
+              "BUG-WH9"
+            ],
+            "recovered": false
+          }
+        }
+      },
+      "candidate_confirmed": [
+        "BUG-WH10",
+        "BUG-WH11",
+        "BUG-WH12",
+        "BUG-WH2",
+        "BUG-WH4",
+        "BUG-WH5",
+        "BUG-WH6",
+        "BUG-WH7",
+        "BUG-WH8",
+        "BUG-WH9"
+      ],
+      "debt": {
+        "residual_frontier_active_sequence_suppressed": 43,
+        "residual_frontier_budget_suppressed": 0,
+        "residual_frontier_consumption_violations": 0,
+        "residual_frontier_debt_relocations": 0,
+        "residual_frontier_debts_created": 2,
+        "residual_frontier_debts_resolved": 2,
+        "residual_frontier_debts_unresolved": 0,
+        "residual_frontier_false_success_violations": 0,
+        "residual_frontier_inside_scc_suppressed": 0,
+        "residual_frontier_no_path_suppressed": 0,
+        "residual_frontier_open_scc_suppressed": 0,
+        "residual_frontier_pending_scc_suppressed": 31,
+        "residual_frontier_relocation_failures": 0,
+        "residual_frontier_restore_sequence_violations": 0,
+        "residual_frontier_target_identity_violations": 0,
+        "residual_frontier_tokens_consumed": 6,
+        "residual_frontier_tokens_created": 6,
+        "residual_frontier_zero_normal_action_suppressed": 0
+      },
+      "engaged": false,
+      "guard_confirmed": [
+        "BUG-WH10",
+        "BUG-WH11",
+        "BUG-WH12",
+        "BUG-WH2",
+        "BUG-WH5",
+        "BUG-WH8",
+        "BUG-WH9"
+      ],
+      "harmful_relocation": false,
+      "lost_vs_guard": [],
+      "mechanism_pass": false,
+      "other_lost_vs_guard": [],
+      "template": {
+        "ids": [
+          "BUG-WH5",
+          "BUG-WH8",
+          "BUG-WH9"
+        ],
+        "missing": [],
+        "recovered": true
+      },
+      "template_lost_vs_guard": []
+    }
+  }
+}
