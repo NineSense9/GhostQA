@@ -539,6 +539,46 @@ function renderReturnEntry(re) {
   }
 }
 
+function renderFindingReturn(fr) {
+  fr = fr || {};
+  const oc = gid('fr-outcome');
+  if (oc) {
+    oc.textContent = fr.outcome ? ('Outcome ' + fr.outcome) : 'Outcome';
+    oc.className = fr.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('fr-outcome-mean');
+  if (om) om.textContent = fr.outcome_meaning || '';
+  const delta = gid('fr-delta');
+  if (delta) {
+    const labLost = (fr.lab_lost || []).join(', ') || '无';
+    const deepLost = (fr.deep_lost || []).join(', ') || '无';
+    delta.textContent = 'Lab Guard 丢失 ' + labLost +
+      ' · Deep Guard 丢失 ' + deepLost +
+      ' · Lab finding drain ' + fr.finding_drains +
+      ' · Deep horizon bypass ' + fr.horizon_bypasses +
+      ' · Deep horizon drain ' + fr.deep_horizon_drains +
+      ' · 目录 handoff ' + fr.directory_handoffs;
+  }
+  if (!fr.available) return;
+  setText('proof-round', fr.round || 'v0.3.19');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = 'Lab / Deep Guard 丢失';
+  if (m2) m2.textContent = 'finding drain / horizon bypass';
+  if (m3) m3.textContent = '目录 handoff';
+  setText('proof-b-states', (fr.lab_lost || []).length);
+  setText('proof-g-states', (fr.deep_lost || []).length);
+  setText('proof-b-ret', fr.finding_drains);
+  setText('proof-g-ret', fr.horizon_bypasses);
+  setText('proof-esc', fr.directory_handoffs);
+  setText('proof-outcome', fr.outcome || '—');
+  const note = gid('proof-note');
+  if (note) {
+    note.textContent = '只在同一步 finding terminal 把分支推进 returning 时才做 Return-Entry Drain。horizon 单独进入返回时回到 v0.3.17。不是新的 fresh 验证。产品默认未改。';
+  }
+}
+
 function renderLocalAction(la) {
   la = la || {};
   const oc = gid('la-outcome');
@@ -669,6 +709,8 @@ function renderEvidence(data) {
   const rf = (data && data.reentry_frontier) || {};
   const la = (data && data.local_action_drain) || {};
   const re = (data && data.return_entry_drain) || {};
+  const fr = (data && data.finding_return_entry) || {};
+  const ev0319 = gid('ev-v0319');
   const ev0318 = gid('ev-v0318');
   const ev0317 = gid('ev-v0317');
   const ev0316 = gid('ev-v0316');
@@ -682,6 +724,30 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0319) {
+    if (!fr.available) {
+      ev0319.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = fr.reproduction || {};
+      const labLost = (fr.lab_lost || []).join(', ') || '无';
+      const deepLost = (fr.deep_lost || []).join(', ') || '无';
+      ev0319.innerHTML = [
+        statusRow('轮次结果', fr.outcome ? ('Outcome ' + fr.outcome) : '—', fr.outcome === 'A'),
+        statusRow('Lab Guard 丢失', labLost, (fr.lab_lost || []).length === 0),
+        statusRow('Deep Guard 丢失', deepLost, (fr.deep_lost || []).length === 0),
+        statusRow('finding drain', String(fr.finding_drains), true),
+        statusRow('horizon bypass', String(fr.horizon_bypasses), true),
+        statusRow('目录 handoff', String(fr.directory_handoffs), fr.directory_handoffs === 0),
+        statusRow('证据清单', fileLabel(r.evidence_files, true), true),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', fr.product_default_changed ? '已改' : '未改',
+          fr.product_default_changed === false),
+      ].join('');
+    }
+  }
+  const cmd0319 = fr.command || '';
+  const cmdEl19 = gid('ev-cmd-0319');
+  if (cmdEl19) cmdEl19.textContent = cmd0319;
   if (ev0318) {
     if (!re.available) {
       ev0318.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -1010,6 +1076,7 @@ async function loadShowcase() {
     renderReentry(data.reentry_frontier);
     renderLocalAction(data.local_action_drain);
     renderReturnEntry(data.return_entry_drain);
+    renderFindingReturn(data.finding_return_entry);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

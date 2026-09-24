@@ -21,6 +21,7 @@ V0315 = os.path.join(PUBLISHED, "fresh-handoff-v0.3.15")
 V0316 = os.path.join(PUBLISHED, "reentry-frontier-v0.3.16")
 V0317 = os.path.join(PUBLISHED, "local-action-drain-v0.3.17")
 V0318 = os.path.join(PUBLISHED, "return-entry-drain-v0.3.18")
+V0319 = os.path.join(PUBLISHED, "finding-return-entry-v0.3.19")
 
 
 def _load(path, default=None):
@@ -772,13 +773,69 @@ def _v0318(root: str | None = None) -> dict:
     }
 
 
+def _v0319(root: str | None = None) -> dict:
+    base = root or V0319
+    mechanism = _load(os.path.join(base, "metrics", "mechanism.json"))
+    regression = _load(os.path.join(base, "metrics", "regression.json"))
+    repro = _load(os.path.join(base, "metrics", "reproduction.json"))
+    man = _load(os.path.join(base, "evidence-manifest.json"))
+    if not mechanism:
+        return {"available": False}
+    derived = mechanism.get("derived") or {}
+    fresh = mechanism.get("fresh") or {}
+    lab = fresh.get("buggy-lab") or {}
+    directory = (fresh.get("buggy-directory") or {}).get("candidate") or {}
+    row = lab.get("candidate") or {}
+    historical = (regression or {}).get("historical") or {}
+    deep = historical.get("deepbench") or {}
+    deep_row = deep.get("candidate") or {}
+    deep_diag = mechanism.get("deep") or {}
+    regression_loss = []
+    for block in historical.values():
+        regression_loss.extend(block.get("lost_vs_guard") or [])
+    return {
+        "available": True,
+        "round": "v0.3.19",
+        "title": "Finding-Gated Return-Entry Drain",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning"),
+        "lab_lost": lab.get("lost_vs_guard") or [],
+        "deep_lost": deep.get("lost_vs_guard") or [],
+        "finding_drains": row.get("finding_return_entry_trigger_events"),
+        "horizon_bypasses": deep_row.get("finding_return_entry_horizon_bypass_events"),
+        "deep_horizon_drains": deep_diag.get("horizon_only_drains"),
+        "deep_finding_drains": deep_diag.get("finding_drains"),
+        "directory_handoffs": directory.get("horizon_handoff_started_events"),
+        "forum_full_transfer": bool(mechanism.get("forum_full_transfer")),
+        "billing_full_transfer": bool(mechanism.get("billing_full_transfer")),
+        "historical_regression_loss": regression_loss,
+        "historical_regression_loss_count": len(regression_loss),
+        "promotion_readiness": derived.get("promotion_readiness"),
+        "product_default_changed": bool(derived.get("product_default_changed")),
+        "generalization_claim": False,
+        "fresh_validation": False,
+        "scope": "inspected trigger-narrowing repair, not fresh validation",
+        "reproduction": {
+            "clean_clone_verified": bool((repro or {}).get("clean_clone_verified")),
+            "command": (repro or {}).get("command") or (
+                "python -m benchmark.finding_return_entry_reproduce "
+                "--root experiments/published/finding-return-entry-v0.3.19 --verify"),
+            "evidence_files": len((man or {}).get("files") or []),
+        },
+        "command": (
+            "python -m benchmark.finding_return_entry_reproduce "
+            "--root experiments/published/finding-return-entry-v0.3.19 --verify"),
+    }
+
+
 def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None,
                    v0310_root: str | None = None, v0311_root: str | None = None,
                    v0312_root: str | None = None, v0313_root: str | None = None,
                    v0314_root: str | None = None, v0315_root: str | None = None,
                    v0316_root: str | None = None,
                    v0317_root: str | None = None,
-                   v0318_root: str | None = None) -> dict:
+                   v0318_root: str | None = None,
+                   v0319_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
@@ -790,7 +847,17 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
     v0316 = _v0316(v0316_root)
     v0317 = _v0317(v0317_root)
     v0318 = _v0318(v0318_root)
-    if v0318.get("available"):
+    v0319 = _v0319(v0319_root)
+    if v0319.get("available"):
+        latest = {
+            "round": "v0.3.19",
+            "title": "Finding-Gated Return-Entry Drain",
+            "available": True,
+            "outcome": v0319.get("outcome"),
+            "product_default_changed": v0319.get("product_default_changed"),
+        }
+        latest_research = "v0.3.19"
+    elif v0318.get("available"):
         latest = {
             "round": "v0.3.18",
             "title": "Return-Phase Entry Drain",
@@ -888,6 +955,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "finding_return_entry": v0319,
         "return_entry_drain": v0318,
         "local_action_drain": v0317,
         "reentry_frontier": v0316,
@@ -926,5 +994,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
              "kind": "inspected failure repair"},
             {"round": "v0.3.18", "title": "Return-Phase Entry Drain",
              "kind": "inspected failure repair"},
+            {"round": "v0.3.19", "title": "Finding-Gated Return-Entry Drain",
+             "kind": "inspected trigger-narrowing repair"},
         ],
     }

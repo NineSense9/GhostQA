@@ -1,0 +1,25 @@
+{
+  "candidate": "ghost-structural-finding-return-entry-drain-guard",
+  "candidate_freeze_commit": "eb119e5dce1e6d5695d8709bbfbb89be7232694a",
+  "cells": [
+    "buggy-lab@40",
+    "buggy-lab@80",
+    "buggy-lab@120",
+    "buggy-directory@120",
+    "buggy-forum@120",
+    "buggy-billing@120",
+    "buggy-crm@120",
+    "buggy-ops@120",
+    "buggy-desk@120",
+    "buggy-flow@120",
+    "buggy-wiki@120",
+    "buggy-shop@120"
+  ],
+  "outcome": "A",
+  "product_default_changed": false,
+  "protocol_commit": "01f1021870e819596d6b38cc15c41392ad976c5e",
+  "round": "v0.3.19",
+  "scope": "inspected trigger-narrowing repair, not fresh validation",
+  "starting_head": "0acb51103cfe466db1d3b2227e587535f39d8958",
+  "verify_command": "python -m benchmark.finding_return_entry_reproduce --root experiments/published/finding-return-entry-v0.3.19 --verify"
+}

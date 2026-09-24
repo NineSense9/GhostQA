@@ -1,0 +1,55 @@
+{
+  "algorithm_name": "ghost-structural-finding-return-entry-drain-guard",
+  "round": "v0.3.19",
+  "product": "v0.4 preview",
+  "source_head": "01f1021870e819596d6b38cc15c41392ad976c5e",
+  "protocol_commit": "01f1021870e819596d6b38cc15c41392ad976c5e",
+  "historical_candidate_freeze": "experiments/frozen/ghost-return-entry-drain-v0.3.18/freeze.json",
+  "historical_local_freeze": "experiments/frozen/ghost-local-action-drain-v0.3.17/freeze.json",
+  "historical_reentry_freeze": "experiments/frozen/ghost-reentry-frontier-v0.3.16/freeze.json",
+  "historical_handoff_freeze": "experiments/frozen/ghost-horizon-handoff-v0.3.14/freeze.json",
+  "historical_suite_freeze": "experiments/frozen/v0.3.15-fresh-handoff-suite/freeze.json",
+  "policy": {
+    "constructor": "FindingReturnEntryDrainGuardGhostPolicy",
+    "controller": "FindingReturnEntryDrainSequenceController",
+    "policy_name": "ghost-structural-finding-return-entry-drain-guard",
+    "sequence_mode": "structural",
+    "use_frontier": false,
+    "drain_key": "<hub_cluster>:button:<eid>",
+    "shared_with": "ghost-structural-local-action-drain-guard",
+    "trigger": "same-step sequence_terminal outcome=finding false-to-true return",
+    "horizon_behavior": "v0317_fallback",
+    "no_app_specific_rule": true,
+    "product_default": false,
+    "replaces_historical_identities": false
+  },
+  "note": "Candidate freeze before the v0.3.19 target cells. Do not change these files after the first empirical result.",
+  "hash_normalization": "LF newlines",
+  "files": {
+    "ghostqa/exploration/finding_return_entry_guard.py": {
+      "sha256": "0bfec3c7bd2811f154daa83bc81fde632976b8ab6e1da9ee6a208cf81c4bb42c",
+      "git_blob": "4f5ab1786662d187587c072d9471b3f65be94429",
+      "bytes": 10599
+    },
+    "benchmark/finding_return_entry_analysis.py": {
+      "sha256": "806b889992da4e537cc2ead7cdb44f161effc522ab235fa8816f1ab729923194",
+      "git_blob": "85f256902ca8bead88ec821bf8e23ede39e674c7",
+      "bytes": 11234
+    },
+    "benchmark/finding_return_entry_modelcheck.py": {
+      "sha256": "e4b014d18bc61852a9748debe52387b00c6cb9012ff4a96c94d9948cb0b86cb2",
+      "git_blob": "d05ef0396e238027d76894e79058c004adafef9f",
+      "bytes": 8051
+    },
+    "benchmark/finding_return_entry_trace.py": {
+      "sha256": "0b2822531a17ad2bd6687761a3777ad330add9428d178951e59f8db4e24e4183",
+      "git_blob": "e7c2c75aaf0fa6e3917a364123d022c6f1be7424",
+      "bytes": 9277
+    },
+    "experiments/validation/v0.3.19/protocol.json": {
+      "sha256": "5c18225db346bef1bef1052e08020a86f62f151b486664533633ba5af3189b0a",
+      "git_blob": "1fa7882874680a0b4dbe2eb30922e1dfaeb7d86a",
+      "bytes": 14322
+    }
+  }
+}

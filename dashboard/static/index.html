@@ -202,6 +202,17 @@
       <p class="footnote" id="ft-scope">一次目标应用上的 transfer，不是 universal generalization。</p>
     </section>
 
+    <section class="rc-section" data-testid="finding-return-entry" aria-labelledby="h-fr">
+      <p class="eyebrow">v0.3.19 · 已发布证据</p>
+      <h2 id="h-fr">只有同一步的 finding terminal 才进入 Return-Entry Drain</h2>
+      <p class="rc-lead" id="fr-lead">结果页仍由 finding terminal 开始 drain，btn_close 然后 btn_reopen，BUG-L9 保留。普通 horizon 不再启动 drain。DeepBench 的 Guard 集合被保留。这是已检查的触发收窄，不是 fresh 验证。</p>
+      <p class="limit-note">产品默认仍是 NoFrontier / sequence_mode=off。v0.3.14 仍是 Outcome A，v0.3.15 仍是 Outcome C，v0.3.16 仍是 Outcome B，v0.3.17 仍是 Outcome B，v0.3.18 仍是 Outcome C。</p>
+      <p class="delta" id="fr-delta"></p>
+      <p class="pill-row"><span class="pill" id="fr-outcome">Outcome</span>
+        <span class="muted" id="fr-outcome-mean"></span></p>
+      <p class="footnote" id="fr-scope">已检查的触发来源。不是 fresh validation，也不是产品默认切换。</p>
+    </section>
+
     <section class="rc-section" data-testid="return-entry-drain" aria-labelledby="h-re">
       <p class="eyebrow">v0.3.18 · 已发布证据</p>
       <h2 id="h-re">进入返回阶段时，先把当前 hub 上还没点过的按钮各试一次</h2>
@@ -312,7 +323,7 @@
 
     <section class="timeline" aria-labelledby="h-tl">
       <p class="eyebrow">研究记录</p>
-      <h2 id="h-tl">v0.3.6 → v0.3.18</h2>
+      <h2 id="h-tl">v0.3.6 → v0.3.19</h2>
       <ol class="tl">
         <li><details><summary>v0.3.6 · Structural Memory</summary><p>DeepBench 上，structural memory 把重复 branch 尝试压低，同时保住 D6/D12 并找到更多深 workflow 缺陷。Deep-BDR @120：0.667 · development benchmark</p></details></li>
         <li><details><summary>v0.3.7 · Frozen Transfer Check</summary><p>冻结算法后换到 BuggyShop，C1 只确认 1/10。这轮没有顺手调参，结论直接记为 DeepBench-specific。BuggyShop: 6 states · W5</p></details></li>
@@ -326,7 +337,8 @@
         <li><details><summary>v0.3.15 · Fresh Handoff Validation</summary><p id="tl-v0315">Outcome C。forum 与 billing 完整 transfer，buggy-lab 丢失四个 guard 缺陷，目录对照触发 2 次 handoff。产品默认未改。</p></details></li>
         <li><details><summary>v0.3.16 · Early Parent Re-entry</summary><p id="tl-v0316">Outcome B。目录假 handoff 2 → 0。实验记录租约恢复 BUG-L8，仍丢失 BUG-L1、BUG-L9、BUG-L10。历史回归丢失为 0。产品默认未改。</p></details></li>
         <li><details><summary>v0.3.17 · Local Action Drain</summary><p id="tl-v0317">Outcome B。run 父页面先点可见按钮，恢复 BUG-L10 和 BUG-L1，BUG-L8 仍在。结果页没有 drain，BUG-L9 仍丢失。目录 handoff 仍是 0。历史回归丢失为 0。产品默认未改。</p></details></li>
-        <li><details open><summary>v0.3.18 · Return-Phase Entry Drain</summary><p id="tl-v0318">Outcome C。结果页 drain 排空 btn_close 和 btn_reopen，BUG-L9 从丢失变为保留。目录 handoff 仍是 0。DeepBench 相对 guard 丢失 D6、D7、D11、D12、D13、D14。产品默认未改。不是 fresh 验证。</p></details></li>
+        <li><details><summary>v0.3.18 · Return-Phase Entry Drain</summary><p id="tl-v0318">Outcome C。结果页 drain 排空 btn_close 和 btn_reopen，BUG-L9 从丢失变为保留。目录 handoff 仍是 0。DeepBench 相对 guard 丢失 D6、D7、D11、D12、D13、D14。产品默认未改。不是 fresh 验证。</p></details></li>
+        <li><details open><summary>v0.3.19 · Finding-Gated Return-Entry Drain</summary><p id="tl-v0319">Outcome A。同一步 finding terminal 才启动 drain，结果页仍保留 BUG-L9。horizon 单独进入返回时不再 drain。DeepBench 相对 guard 的丢失为 0。目录 handoff 仍是 0。产品默认未改。不是 fresh 验证。</p></details></li>
       </ol>
     </section>
 
@@ -521,6 +533,14 @@
     </header>
     <div class="ev-layout">
       <div class="ev-grid">
+        <article class="ev-card" data-testid="evidence-v0319">
+          <p class="ev-kicker">来源轮次 · v0.3.19</p>
+          <h2>Finding-Gated Return-Entry Drain</h2>
+          <p class="limit-note">已检查触发收窄。不是 fresh 验证。候选未晋升。v0.3.18 Outcome C 仍保留。</p>
+          <ul class="status-rows" id="ev-v0319"></ul>
+          <pre class="cmd" id="ev-cmd-0319"></pre>
+          <button type="button" class="btn btn-ghost" data-copy="ev-cmd-0319">复制命令</button>
+        </article>
         <article class="ev-card" data-testid="evidence-v0318">
           <p class="ev-kicker">来源轮次 · v0.3.18</p>
           <h2>Return-Phase Entry Drain</h2>
@@ -615,7 +635,7 @@
 </div>
 
 <script src="/static/vendor/cytoscape.min.js"></script>
-<script src="/static/scripts/showcase.js?v=20260922b"></script>
+<script src="/static/scripts/showcase.js?v=20260924"></script>
 <script src="/static/scripts/main.js?v=20260922"></script>
 </body>
 </html>
