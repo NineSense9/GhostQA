@@ -4,9 +4,11 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.22 Diagnostic
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.23 Outcome B
 
-产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.22 没有改产品默认，也没有新候选。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.23 没有改产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+
+**v0.3.23 Outcome B — safe partial repair.** Residual Frontier Debt Escape 在 Campus 和 Studio 上各把最老的 waypoint debt 从闭合且交互耗尽的 SCC 回放到已知路径。随后的普通动作消耗了记录的 residual token，模板 5 和 8 收回，模板 9 仍缺（BUG-CP9、BUG-ST9）。Warehouse 和 Booking 的债务在原组件里被普通动作消耗，回放次数为 0，模板 5/8/9 保留。Catalog 和 Kiosk 没有债务、没有回放。这是已检查修复，不是 fresh validation，也不是晋升。v0.3.22 的诊断仍是 `persistent_post_terminal_sink`，v0.3.21 仍是 Outcome C。`python -m benchmark.residual_frontier_debt_reproduce --root experiments/published/residual-frontier-debt-v0.3.23 --verify`
 
 **v0.3.22 Diagnostic — persistent_post_terminal_sink.** 这轮没有改策略，只分析 v0.3.21 的分裂。Campus/Studio 在 sequence-scoped return cycle 已经被正确 abandon 之后，普通探索仍停在一个静态闭合的导航分量里；到 b480 仍没有重新执行原 entity residual frontier，模板 5/8/9 仍丢失。Warehouse/Booking 的同一分量包含回到 entity 的边，Guard 模板保持恢复。这是已检查目标上的 failure diagnosis，不是新修复，不是无限循环证明，也不是 fresh validation。`python -m benchmark.post_escape_sink_reproduce --root experiments/published/post-escape-sink-v0.3.22 --verify`
 
