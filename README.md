@@ -4,9 +4,11 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.23 Outcome B
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.24 Outcome A
 
-产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.23 没有改产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.24 没有改产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+
+**v0.3.24 Outcome A — inspected repair.** 同页 local drain 的去重标记改成浏览器 episode 记忆。debt relocation 的 `executor.reset` 会清掉同页 mutation，因此只失效旧 episode 的同页 key；跨页 child、sequence、debt 和结构记忆仍是 run-scoped。Campus 和 Studio @120 各前进 1 个 episode，重新探测同页按钮，模板 5/8/9 都在。Warehouse 和 Booking 的 episode 前进次数是 0，模板 5/8/9 保留。Catalog、Kiosk 和 DeepBench 的 episode 前进次数是 0。这是已检查修复，不是 fresh validation，也不是晋升。v0.3.23 仍是 Outcome B，v0.3.22 的诊断仍是 `persistent_post_terminal_sink`，v0.3.21 仍是 Outcome C。`python -m benchmark.episode_drain_epoch_reproduce --root experiments/published/episode-drain-epoch-v0.3.24 --verify`
 
 **v0.3.23 Outcome B — safe partial repair.** Residual Frontier Debt Escape 在 Campus 和 Studio 上各把最老的 waypoint debt 从闭合且交互耗尽的 SCC 回放到已知路径。随后的普通动作消耗了记录的 residual token，模板 5 和 8 收回，模板 9 仍缺（BUG-CP9、BUG-ST9）。Warehouse 和 Booking 的债务在原组件里被普通动作消耗，回放次数为 0，模板 5/8/9 保留。Catalog 和 Kiosk 没有债务、没有回放。这是已检查修复，不是 fresh validation，也不是晋升。v0.3.22 的诊断仍是 `persistent_post_terminal_sink`，v0.3.21 仍是 Outcome C。`python -m benchmark.residual_frontier_debt_reproduce --root experiments/published/residual-frontier-debt-v0.3.23 --verify`
 

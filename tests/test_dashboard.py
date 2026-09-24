@@ -110,7 +110,8 @@ def test_showcase_missing_artifacts_do_not_crash():
                        v0320_root="/tmp/missing-v0320",
                        v0321_root="/tmp/missing-v0321",
                        v0322_root="/tmp/missing-v0322",
-                       v0323_root="/tmp/missing-v0323")
+                       v0323_root="/tmp/missing-v0323",
+                       v0324_root="/tmp/missing-v0324")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -127,6 +128,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["return_waypoint"]["available"] is False
     assert s["post_escape_sink"]["available"] is False
     assert s["residual_frontier_debt"]["available"] is False
+    assert s["episode_drain"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -160,7 +162,32 @@ def test_showcase_endpoint_function_returns_payload():
     rw = body.get("return_waypoint") or {}
     sink = body.get("post_escape_sink") or {}
     debt = body.get("residual_frontier_debt") or {}
-    if debt.get("available"):
+    episode = body.get("episode_drain") or {}
+    if episode.get("available"):
+        assert body["latest"]["round"] == "v0.3.24"
+        assert body["project"]["latest_research"] == "v0.3.24"
+        assert body["latest"]["outcome"] == "A"
+        assert body["latest"]["product_default_changed"] is False
+        assert episode["outcome"] == "A"
+        assert episode["product_default_changed"] is False
+        assert episode["fresh_validation"] is False
+        assert episode["v0323_outcome"] == "B"
+        assert episode["v0322_diagnosis"] == "persistent_post_terminal_sink"
+        assert episode["v0321_outcome"] == "C"
+        assert episode["campus"]["episode_advances"] == 1
+        assert episode["studio"]["episode_advances"] == 1
+        assert episode["campus"]["revalidated"] >= 1
+        assert episode["studio"]["revalidated"] >= 1
+        assert episode["campus"]["template_589"] is True
+        assert episode["studio"]["template_589"] is True
+        assert episode["warehouse"]["episode_advances"] == 0
+        assert episode["booking"]["episode_advances"] == 0
+        assert episode["catalog_episode_advances"] == 0
+        assert episode["kiosk_episode_advances"] == 0
+        assert episode["safety_violations"] == 0
+        assert debt["outcome"] == "B"
+        assert debt["product_default_changed"] is False
+    elif debt.get("available"):
         assert body["latest"]["round"] == "v0.3.23"
         assert body["project"]["latest_research"] == "v0.3.23"
         assert body["latest"]["outcome"] == "B"
@@ -404,7 +431,18 @@ def test_showcase_reads_v0311_published_metrics():
     assert rw["kiosk_escapes"] == 0
     sink = s.get("post_escape_sink") or {}
     debt = s.get("residual_frontier_debt") or {}
-    if debt.get("available"):
+    episode = s.get("episode_drain") or {}
+    if episode.get("available"):
+        assert s["latest"]["round"] == "v0.3.24"
+        assert s["latest"]["outcome"] == "A"
+        assert s["latest"]["product_default_changed"] is False
+        assert s["project"]["latest_research"] == "v0.3.24"
+        assert episode["campus"]["template_589"] is True
+        assert episode["studio"]["template_589"] is True
+        assert episode["warehouse"]["episode_advances"] == 0
+        assert episode["booking"]["episode_advances"] == 0
+        assert debt["outcome"] == "B"
+    elif debt.get("available"):
         assert s["latest"]["round"] == "v0.3.23"
         assert s["latest"]["outcome"] == "B"
         assert s["latest"]["product_default_changed"] is False

@@ -1,0 +1,623 @@
+{
+  "version": "v0.3.24",
+  "basis_round": "v0.3.23",
+  "basis_outcome": "B",
+  "basis_publication": "experiments/published/residual-frontier-debt-v0.3.23",
+  "question": "Does v0.3.23 lose the Campus and Studio template 9 because executor.reset clears browser-side mutation state while the local-action drain's run-global already-drained memory survives?",
+  "hypothesis": "Same-hub local-action and return-entry drain dedupe keys are browser-episode interaction memory. Promoted and other cross-hub drain keys, and all structural sequence, branch, debt, waypoint, and return-cycle memory, stay run-scoped.",
+  "product_default_changed": false,
+  "computed_from_publication": true,
+  "no_candidate_import": true,
+  "source_facts": {
+    "explorer_after_skipped_on_restore": true,
+    "explorer_policy_reset_in_relocate_window": false,
+    "executor_reset_in_relocate_window": true,
+    "drained_by_cluster_cleared_in_local_reset": true,
+    "same_hub_completion_marks_drained": true,
+    "return_same_hub_completion_marks_drained": true,
+    "return_left_hub_marks_drained": true,
+    "promoted_resume_marks_drained": true,
+    "debt_relocate_does_not_assign_drained_by_cluster": true,
+    "debt_module_sha256": "20b9a2f775e32fd70b3959ce3202ce8110783c6e3f5ddceb535badf31a6c2bff",
+    "debt_freeze_recorded_sha256": "20b9a2f775e32fd70b3959ce3202ce8110783c6e3f5ddceb535badf31a6c2bff",
+    "debt_module_matches_freeze": true,
+    "debt_freeze_sha256": "649b9bdde279eec300b763a01b0bb5c13b283ca833c1003a4daea24884fc77fb"
+  },
+  "diagnosed_targets": {
+    "buggy-campus": {
+      "app": "buggy-campus",
+      "budget": 120,
+      "seed": 1,
+      "confirmed_bugs": [
+        "BUG-CP10",
+        "BUG-CP11",
+        "BUG-CP12",
+        "BUG-CP2",
+        "BUG-CP3",
+        "BUG-CP5",
+        "BUG-CP8"
+      ],
+      "template_589": {
+        "ids": [
+          "BUG-CP5",
+          "BUG-CP8",
+          "BUG-CP9"
+        ],
+        "retained": [
+          "BUG-CP5",
+          "BUG-CP8"
+        ],
+        "missing": [
+          "BUG-CP9"
+        ],
+        "five_and_eight_retained": true,
+        "nine_missing": true,
+        "nine_retained": false
+      },
+      "debt_created": 2,
+      "debt_tokens_consumed": 6,
+      "debt_relocations": 1,
+      "relocation_failures": 0,
+      "false_success_violations": 0,
+      "first_staff_local_drain": {
+        "step": 29,
+        "hub_cluster": "a5f3e7ecda43d73d",
+        "hub_sig": "a5f3e7ecda43d73d:7e5021ceae48",
+        "visible_eligible_keys": [
+          "a5f3e7ecda43d73d:button:btn_variant",
+          "a5f3e7ecda43d73d:button:btn_staff_note"
+        ],
+        "trigger_same_step_includes_child_parent_witness": true
+      },
+      "same_hub_probes": {
+        "btn_variant": {
+          "selected_step": 30,
+          "completed_step": 30,
+          "key": "a5f3e7ecda43d73d:button:btn_variant",
+          "destination_sig": "a5f3e7ecda43d73d:08cb20359738",
+          "destination_cluster": "a5f3e7ecda43d73d",
+          "same_hub": true
+        },
+        "btn_staff_note": {
+          "selected_step": 31,
+          "completed_step": 31,
+          "key": "a5f3e7ecda43d73d:button:btn_staff_note",
+          "destination_sig": "a5f3e7ecda43d73d:d22e2cb0d9e2",
+          "destination_cluster": "a5f3e7ecda43d73d",
+          "same_hub": true
+        }
+      },
+      "relocation": {
+        "step": 68,
+        "debt_id": "debt-0001",
+        "from_sig": "f1ecaf065c7c2a03:none",
+        "from_cluster": "f1ecaf065c7c2a03",
+        "target_waypoint_sig": "42b982e0e09cf4b2:46d56a72faae",
+        "target_waypoint_cluster": "42b982e0e09cf4b2",
+        "replay_path_length": 4,
+        "reason": "closed_exhausted_scc",
+        "scc_closed": true,
+        "scc_pending_count": 0,
+        "active_sequence": false,
+        "remaining_count": 3
+      },
+      "executor_reset": {
+        "before_step": 68,
+        "reason": "relocate",
+        "episode_id": 1
+      },
+      "non_initial_resets": [
+        {
+          "before_step": 68,
+          "reason": "relocate",
+          "episode_id": 1
+        }
+      ],
+      "replay": {
+        "present": true,
+        "reset_before_step": 68,
+        "replay_path_length": 4,
+        "restore_step_indexes": [
+          68,
+          69,
+          70,
+          71
+        ],
+        "sequence_events_during_restore_steps": {
+          "68": [
+            "residual_frontier_debt_relocate"
+          ],
+          "69": [],
+          "70": [],
+          "71": []
+        },
+        "local_or_return_probe_events_during_restore": [],
+        "interior_restore_steps_have_no_sequence_events": true,
+        "executed_actions": [
+          {
+            "index": 68,
+            "type": "click",
+            "target_eid": "btn_query_submit",
+            "src_cluster": "5dfa17ae34449bf8"
+          },
+          {
+            "index": 69,
+            "type": "input",
+            "target_eid": "search_box",
+            "src_cluster": "5dfa17ae34449bf8"
+          },
+          {
+            "index": 70,
+            "type": "click",
+            "target_eid": "nav_courses",
+            "src_cluster": "412066c72212e518"
+          },
+          {
+            "index": 71,
+            "type": "click",
+            "target_eid": "open_row_c1",
+            "src_cluster": "8709c594d1678663"
+          }
+        ]
+      },
+      "later_same_hub_witness": {
+        "step": 89,
+        "exact_sig": "a3df0aa600bd04a5:none",
+        "cluster_id": "a3df0aa600bd04a5",
+        "branch_key": "a5f3e7ecda43d73d:click:open_mid_b",
+        "witness_strength": "exact",
+        "same_step_events": [
+          "hub_seen",
+          "mutation",
+          "return_attempt",
+          "child_parent_witness",
+          "parent_frame_resume_to_return",
+          "sequence_horizon_reached"
+        ],
+        "local_action_drain_started": false
+      },
+      "after_relocation": {
+        "staff_hub_drain_or_probe_after_relocation": [],
+        "open_mid_b_after_relocation": [
+          {
+            "index": 85,
+            "src_cluster": "a5f3e7ecda43d73d",
+            "src_url": "http://127.0.0.1:40272/lesson.html?id=l1"
+          },
+          {
+            "index": 92,
+            "src_cluster": "ba3ea1234acc6d30",
+            "src_url": "http://127.0.0.1:40272/lesson.html?id=l2"
+          },
+          {
+            "index": 109,
+            "src_cluster": "33c61b42e472f3c2",
+            "src_url": "http://127.0.0.1:40272/lesson.html?id=l3"
+          }
+        ]
+      }
+    },
+    "buggy-studio": {
+      "app": "buggy-studio",
+      "budget": 120,
+      "seed": 1,
+      "confirmed_bugs": [
+        "BUG-ST10",
+        "BUG-ST11",
+        "BUG-ST12",
+        "BUG-ST2",
+        "BUG-ST3",
+        "BUG-ST5",
+        "BUG-ST8"
+      ],
+      "template_589": {
+        "ids": [
+          "BUG-ST5",
+          "BUG-ST8",
+          "BUG-ST9"
+        ],
+        "retained": [
+          "BUG-ST5",
+          "BUG-ST8"
+        ],
+        "missing": [
+          "BUG-ST9"
+        ],
+        "five_and_eight_retained": true,
+        "nine_missing": true,
+        "nine_retained": false
+      },
+      "debt_created": 2,
+      "debt_tokens_consumed": 6,
+      "debt_relocations": 1,
+      "relocation_failures": 0,
+      "false_success_violations": 0,
+      "first_staff_local_drain": {
+        "step": 29,
+        "hub_cluster": "eaa3815549c900b4",
+        "hub_sig": "eaa3815549c900b4:7e5021ceae48",
+        "visible_eligible_keys": [
+          "eaa3815549c900b4:button:btn_variant",
+          "eaa3815549c900b4:button:btn_staff_note"
+        ],
+        "trigger_same_step_includes_child_parent_witness": true
+      },
+      "same_hub_probes": {
+        "btn_variant": {
+          "selected_step": 30,
+          "completed_step": 30,
+          "key": "eaa3815549c900b4:button:btn_variant",
+          "destination_sig": "eaa3815549c900b4:08cb20359738",
+          "destination_cluster": "eaa3815549c900b4",
+          "same_hub": true
+        },
+        "btn_staff_note": {
+          "selected_step": 31,
+          "completed_step": 31,
+          "key": "eaa3815549c900b4:button:btn_staff_note",
+          "destination_sig": "eaa3815549c900b4:d22e2cb0d9e2",
+          "destination_cluster": "eaa3815549c900b4",
+          "same_hub": true
+        }
+      },
+      "relocation": {
+        "step": 71,
+        "debt_id": "debt-0001",
+        "from_sig": "54f12a96070809de:none",
+        "from_cluster": "54f12a96070809de",
+        "target_waypoint_sig": "24bb40520e6d3f41:46d56a72faae",
+        "target_waypoint_cluster": "24bb40520e6d3f41",
+        "replay_path_length": 4,
+        "reason": "closed_exhausted_scc",
+        "scc_closed": true,
+        "scc_pending_count": 0,
+        "active_sequence": false,
+        "remaining_count": 3
+      },
+      "executor_reset": {
+        "before_step": 71,
+        "reason": "relocate",
+        "episode_id": 1
+      },
+      "non_initial_resets": [
+        {
+          "before_step": 71,
+          "reason": "relocate",
+          "episode_id": 1
+        }
+      ],
+      "replay": {
+        "present": true,
+        "reset_before_step": 71,
+        "replay_path_length": 4,
+        "restore_step_indexes": [
+          71,
+          72,
+          73,
+          74
+        ],
+        "sequence_events_during_restore_steps": {
+          "71": [
+            "residual_frontier_debt_relocate"
+          ],
+          "72": [],
+          "73": [],
+          "74": []
+        },
+        "local_or_return_probe_events_during_restore": [],
+        "interior_restore_steps_have_no_sequence_events": true,
+        "executed_actions": [
+          {
+            "index": 71,
+            "type": "click",
+            "target_eid": "btn_query_submit",
+            "src_cluster": "9d7986b383dfd18a"
+          },
+          {
+            "index": 72,
+            "type": "input",
+            "target_eid": "search_box",
+            "src_cluster": "9d7986b383dfd18a"
+          },
+          {
+            "index": 73,
+            "type": "click",
+            "target_eid": "nav_projects",
+            "src_cluster": "06bde187ecc17983"
+          },
+          {
+            "index": 74,
+            "type": "click",
+            "target_eid": "open_row_p1",
+            "src_cluster": "28201c3f1a37c49d"
+          }
+        ]
+      },
+      "later_same_hub_witness": {
+        "step": 92,
+        "exact_sig": "32ca886998daa82b:none",
+        "cluster_id": "32ca886998daa82b",
+        "branch_key": "eaa3815549c900b4:click:open_mid_b",
+        "witness_strength": "exact",
+        "same_step_events": [
+          "hub_seen",
+          "mutation",
+          "return_attempt",
+          "child_parent_witness",
+          "parent_frame_resume_to_return",
+          "sequence_horizon_reached"
+        ],
+        "local_action_drain_started": false
+      },
+      "after_relocation": {
+        "staff_hub_drain_or_probe_after_relocation": [],
+        "open_mid_b_after_relocation": [
+          {
+            "index": 88,
+            "src_cluster": "eaa3815549c900b4",
+            "src_url": "http://127.0.0.1:19687/asset.html?id=a1"
+          },
+          {
+            "index": 95,
+            "src_cluster": "069c777ecc9546c1",
+            "src_url": "http://127.0.0.1:19687/asset.html?id=a2"
+          },
+          {
+            "index": 112,
+            "src_cluster": "670bb7f28f4b074d",
+            "src_url": "http://127.0.0.1:19687/asset.html?id=a3"
+          }
+        ]
+      }
+    },
+    "buggy-warehouse": {
+      "app": "buggy-warehouse",
+      "budget": 120,
+      "seed": 1,
+      "confirmed_bugs": [
+        "BUG-WH10",
+        "BUG-WH11",
+        "BUG-WH12",
+        "BUG-WH2",
+        "BUG-WH4",
+        "BUG-WH5",
+        "BUG-WH6",
+        "BUG-WH7",
+        "BUG-WH8",
+        "BUG-WH9"
+      ],
+      "template_589": {
+        "ids": [
+          "BUG-WH5",
+          "BUG-WH8",
+          "BUG-WH9"
+        ],
+        "retained": [
+          "BUG-WH5",
+          "BUG-WH8",
+          "BUG-WH9"
+        ],
+        "missing": [],
+        "five_and_eight_retained": true,
+        "nine_missing": false,
+        "nine_retained": true
+      },
+      "debt_created": 2,
+      "debt_tokens_consumed": 6,
+      "debt_relocations": 0,
+      "relocation_failures": 0,
+      "false_success_violations": 0,
+      "first_staff_local_drain": {
+        "step": 29,
+        "hub_cluster": "8c3a0b0bb0167f66",
+        "hub_sig": "8c3a0b0bb0167f66:7e5021ceae48",
+        "visible_eligible_keys": [
+          "8c3a0b0bb0167f66:button:btn_variant",
+          "8c3a0b0bb0167f66:button:btn_staff_note"
+        ],
+        "trigger_same_step_includes_child_parent_witness": true
+      },
+      "same_hub_probes": {
+        "btn_variant": {
+          "selected_step": 30,
+          "completed_step": 30,
+          "key": "8c3a0b0bb0167f66:button:btn_variant",
+          "destination_sig": "8c3a0b0bb0167f66:08cb20359738",
+          "destination_cluster": "8c3a0b0bb0167f66",
+          "same_hub": true
+        },
+        "btn_staff_note": {
+          "selected_step": 31,
+          "completed_step": 31,
+          "key": "8c3a0b0bb0167f66:button:btn_staff_note",
+          "destination_sig": "8c3a0b0bb0167f66:d22e2cb0d9e2",
+          "destination_cluster": "8c3a0b0bb0167f66",
+          "same_hub": true
+        }
+      },
+      "relocation": null,
+      "executor_reset": null,
+      "non_initial_resets": [],
+      "replay": {
+        "present": false,
+        "local_probe_events": [],
+        "sequence_events_during_restore_steps": {}
+      },
+      "later_same_hub_witness": {
+        "step": 100,
+        "exact_sig": "93cbe0b5980431dc:b12fbc6eca0d",
+        "cluster_id": "93cbe0b5980431dc",
+        "branch_key": "8c3a0b0bb0167f66:click:open_mid_b",
+        "witness_strength": "exact",
+        "same_step_events": [
+          "hub_seen",
+          "mutation",
+          "return_attempt",
+          "child_parent_witness",
+          "parent_frame_resume_to_return",
+          "sequence_horizon_reached"
+        ],
+        "local_action_drain_started": false
+      },
+      "after_relocation": {
+        "present": false
+      }
+    },
+    "buggy-booking": {
+      "app": "buggy-booking",
+      "budget": 120,
+      "seed": 1,
+      "confirmed_bugs": [
+        "BUG-BK10",
+        "BUG-BK11",
+        "BUG-BK12",
+        "BUG-BK2",
+        "BUG-BK4",
+        "BUG-BK5",
+        "BUG-BK6",
+        "BUG-BK7",
+        "BUG-BK8",
+        "BUG-BK9"
+      ],
+      "template_589": {
+        "ids": [
+          "BUG-BK5",
+          "BUG-BK8",
+          "BUG-BK9"
+        ],
+        "retained": [
+          "BUG-BK5",
+          "BUG-BK8",
+          "BUG-BK9"
+        ],
+        "missing": [],
+        "five_and_eight_retained": true,
+        "nine_missing": false,
+        "nine_retained": true
+      },
+      "debt_created": 2,
+      "debt_tokens_consumed": 6,
+      "debt_relocations": 0,
+      "relocation_failures": 0,
+      "false_success_violations": 0,
+      "first_staff_local_drain": {
+        "step": 29,
+        "hub_cluster": "59b382c0376c8c99",
+        "hub_sig": "59b382c0376c8c99:7e5021ceae48",
+        "visible_eligible_keys": [
+          "59b382c0376c8c99:button:btn_variant",
+          "59b382c0376c8c99:button:btn_staff_note"
+        ],
+        "trigger_same_step_includes_child_parent_witness": true
+      },
+      "same_hub_probes": {
+        "btn_variant": {
+          "selected_step": 30,
+          "completed_step": 30,
+          "key": "59b382c0376c8c99:button:btn_variant",
+          "destination_sig": "59b382c0376c8c99:08cb20359738",
+          "destination_cluster": "59b382c0376c8c99",
+          "same_hub": true
+        },
+        "btn_staff_note": {
+          "selected_step": 31,
+          "completed_step": 31,
+          "key": "59b382c0376c8c99:button:btn_staff_note",
+          "destination_sig": "59b382c0376c8c99:d22e2cb0d9e2",
+          "destination_cluster": "59b382c0376c8c99",
+          "same_hub": true
+        }
+      },
+      "relocation": null,
+      "executor_reset": null,
+      "non_initial_resets": [],
+      "replay": {
+        "present": false,
+        "local_probe_events": [],
+        "sequence_events_during_restore_steps": {}
+      },
+      "later_same_hub_witness": {
+        "step": 100,
+        "exact_sig": "0bde5a91ca93bfae:b12fbc6eca0d",
+        "cluster_id": "0bde5a91ca93bfae",
+        "branch_key": "59b382c0376c8c99:click:open_mid_b",
+        "witness_strength": "exact",
+        "same_step_events": [
+          "hub_seen",
+          "mutation",
+          "return_attempt",
+          "child_parent_witness",
+          "parent_frame_resume_to_return",
+          "sequence_horizon_reached"
+        ],
+        "local_action_drain_started": false
+      },
+      "after_relocation": {
+        "present": false
+      }
+    }
+  },
+  "deepbench": {
+    "app": "deepbench",
+    "source_app": "buggy-flow",
+    "budget": 120,
+    "seed": 1,
+    "debt_created": 0,
+    "debt_relocations": 0,
+    "non_initial_resets": [],
+    "confirmed_bugs": [
+      "BUG-D11",
+      "BUG-D12",
+      "BUG-D13",
+      "BUG-D14",
+      "BUG-D6",
+      "BUG-D7"
+    ],
+    "parent_frame_resumes": [
+      {
+        "step": 26,
+        "cluster_id": "300ebfd2c26d2f98",
+        "resumed_branch": "8af50582d881d017:click:btn_members",
+        "original_parent_hub_cluster": "8af50582d881d017",
+        "same_step_events": [
+          "local_action_probe_selected",
+          "mutation",
+          "local_action_probe_completed",
+          "local_action_probe_finding",
+          "local_action_drain_exhausted",
+          "parent_frame_resume_to_return",
+          "sequence_horizon_reached",
+          "finding_return_entry_horizon_bypassed"
+        ],
+        "visible_local_button_keys": [
+          "300ebfd2c26d2f98:button:btn_add_alice",
+          "300ebfd2c26d2f98:button:btn_set_guest",
+          "300ebfd2c26d2f98:button:btn_remove_member"
+        ],
+        "probed_local_button_keys": [
+          "300ebfd2c26d2f98:button:btn_add_alice",
+          "300ebfd2c26d2f98:button:btn_set_guest",
+          "300ebfd2c26d2f98:button:btn_remove_member"
+        ],
+        "unprobed_visible_local_keys": [],
+        "local_buttons_on_resumed_hub": true,
+        "drain_exhausted_same_step": true,
+        "exhausted_next_phase": "outer_return",
+        "remaining_structural_frontier_count": 0
+      }
+    ],
+    "broad_resume_drain_rejected": true,
+    "rejection": "A parent_frame_resume_to_return exists on a hub whose visible local buttons were the subject of the existing drain, and this run performs zero residual-debt relocations. A new resume drain would be an extra trigger. v0.3.24 may advance an interaction episode only when a real debt relocation reset is selected."
+  },
+  "split": {
+    "relocation_reset_targets": [
+      "buggy-campus",
+      "buggy-studio"
+    ],
+    "no_relocation_targets": [
+      "buggy-warehouse",
+      "buggy-booking"
+    ],
+    "template_9_missing_only_when_relocation": true
+  }
+}

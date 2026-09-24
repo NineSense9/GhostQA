@@ -26,6 +26,7 @@ V0320 = os.path.join(PUBLISHED, "fresh-composite-v0.3.20")
 V0321 = os.path.join(PUBLISHED, "return-waypoint-frontier-v0.3.21")
 V0322 = os.path.join(PUBLISHED, "post-escape-sink-v0.3.22")
 V0323 = os.path.join(PUBLISHED, "residual-frontier-debt-v0.3.23")
+V0324 = os.path.join(PUBLISHED, "episode-drain-epoch-v0.3.24")
 
 
 def _load(path, default=None):
@@ -1057,6 +1058,86 @@ def _v0323(root: str | None = None) -> dict:
     }
 
 
+def _v0324(root: str | None = None) -> dict:
+    base = root or V0324
+    mechanism = _load(os.path.join(base, "metrics", "mechanism.json")) or {}
+    controls = _load(os.path.join(base, "metrics", "controls.json")) or {}
+    safety = _load(os.path.join(base, "metrics", "safety.json")) or {}
+    repro = _load(os.path.join(base, "metrics", "reproduction.json")) or {}
+    man = _load(os.path.join(base, "evidence-manifest.json")) or {}
+    derived = mechanism.get("derived") or {}
+    positives = mechanism.get("positives") or {}
+    if not derived.get("outcome"):
+        return {"available": False}
+
+    def cell(app: str) -> dict:
+        item = positives.get(app) or {}
+        view = item.get("view") or {}
+        debt = item.get("debt") or {}
+        template = item.get("template") or {}
+        return {
+            "relocations": view.get("relocations", debt.get("residual_frontier_debt_relocations")),
+            "episode_advances": view.get("advances"),
+            "invalidated": view.get("invalidated"),
+            "revalidated": view.get("revalidated"),
+            "template_589": bool(template.get("recovered")),
+            "missing": template.get("missing") or [],
+            "lost": item.get("lost_vs_guard") or [],
+        }
+
+    facts = safety.get("facts") or {}
+    violations = sum(int(facts.get(key) or 0) for key in (
+        "episode_without_relocation",
+        "cross_hub_invalidations",
+        "restore_probe_violations",
+        "duplicate_same_episode",
+        "false_success",
+    ))
+    catalog = (controls.get("buggy-catalog") or {}).get("episode") or {}
+    kiosk = (controls.get("buggy-kiosk") or {}).get("episode") or {}
+    return {
+        "available": True,
+        "round": "v0.3.24",
+        "title": "Episode-Scoped Local Drain Revalidation",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning") or "",
+        "campus": cell("buggy-campus"),
+        "studio": cell("buggy-studio"),
+        "warehouse": cell("buggy-warehouse"),
+        "booking": cell("buggy-booking"),
+        "catalog_episode_advances": catalog.get("local_drain_episode_advances"),
+        "kiosk_episode_advances": kiosk.get("local_drain_episode_advances"),
+        "catalog_revalidated": catalog.get("local_drain_revalidated_probe_count"),
+        "kiosk_revalidated": kiosk.get("local_drain_revalidated_probe_count"),
+        "safety_violations": violations,
+        "product_default_changed": bool(facts.get("product_default_changed")),
+        "fresh_validation": False,
+        "promotion_readiness": derived.get("promotion_readiness") or "not_ready",
+        "v0323_outcome": "B",
+        "v0322_diagnosis": "persistent_post_terminal_sink",
+        "v0321_outcome": "C",
+        "cells": 24,
+        "scope": "inspected repair of reset-stale same-hub drain memory, not fresh validation",
+        "public_copy": (
+            "v0.3.24 修复的是 reset 之后的交互记忆失效：浏览器被 debt relocation "
+            "重置后，旧 episode 里同页按钮的 mutation 已经消失，因此同页 drain 的"
+            "去重标记也必须进入新 episode。结构 sequence、debt 和跨页 child 记忆仍然"
+            "保持 run-scoped。Campus/Studio 的模板 9 在已检查用例上恢复，产品默认未改。"
+            "这是 inspected repair，不是 fresh validation。"
+        ),
+        "reproduction": {
+            "clean_clone_verified": bool(repro.get("clean_clone_verified")),
+            "command": repro.get("command") or (
+                "python -m benchmark.episode_drain_epoch_reproduce "
+                "--root experiments/published/episode-drain-epoch-v0.3.24 --verify"),
+            "evidence_files": len(man.get("files") or []),
+        },
+        "command": (
+            "python -m benchmark.episode_drain_epoch_reproduce "
+            "--root experiments/published/episode-drain-epoch-v0.3.24 --verify"),
+    }
+
+
 def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None,
                    v0310_root: str | None = None, v0311_root: str | None = None,
                    v0312_root: str | None = None, v0313_root: str | None = None,
@@ -1068,7 +1149,8 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
                    v0320_root: str | None = None,
                    v0321_root: str | None = None,
                    v0322_root: str | None = None,
-                   v0323_root: str | None = None) -> dict:
+                   v0323_root: str | None = None,
+                   v0324_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
@@ -1085,7 +1167,17 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
     v0321 = _v0321(v0321_root)
     v0322 = _v0322(v0322_root)
     v0323 = _v0323(v0323_root)
-    if v0323.get("available"):
+    v0324 = _v0324(v0324_root)
+    if v0324.get("available"):
+        latest = {
+            "round": "v0.3.24",
+            "title": "Episode-Scoped Local Drain Revalidation",
+            "available": True,
+            "outcome": v0324.get("outcome"),
+            "product_default_changed": v0324.get("product_default_changed"),
+        }
+        latest_research = "v0.3.24"
+    elif v0323.get("available"):
         latest = {
             "round": "v0.3.23",
             "title": "Residual Frontier Debt Escape",
@@ -1228,6 +1320,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "episode_drain": v0324,
         "residual_frontier_debt": v0323,
         "post_escape_sink": v0322,
         "return_waypoint": v0321,

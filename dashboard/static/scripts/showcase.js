@@ -539,6 +539,57 @@ function renderReturnEntry(re) {
   }
 }
 
+function renderEpisode(ep) {
+  ep = ep || {};
+  const oc = gid('ep-outcome');
+  if (oc) {
+    oc.textContent = ep.outcome ? ('Outcome ' + ep.outcome) : 'Outcome';
+    oc.className = ep.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('ep-outcome-mean');
+  if (om) om.textContent = ep.outcome_meaning || '';
+  const lead = gid('ep-lead');
+  if (lead && ep.public_copy) lead.textContent = ep.public_copy;
+  const campus = ep.campus || {};
+  const studio = ep.studio || {};
+  const warehouse = ep.warehouse || {};
+  const booking = ep.booking || {};
+  const delta = gid('ep-delta');
+  if (delta) {
+    delta.textContent = 'Campus episode ' + (campus.episode_advances ?? '—')
+      + ' · 重新探测 ' + (campus.revalidated ?? '—')
+      + ' · 5/8/9 ' + (campus.template_589 ? '全在' : '未齐')
+      + ' · Studio episode ' + (studio.episode_advances ?? '—')
+      + ' · 重新探测 ' + (studio.revalidated ?? '—')
+      + ' · 5/8/9 ' + (studio.template_589 ? '全在' : '未齐')
+      + ' · Warehouse/Booking episode ' + (warehouse.episode_advances ?? '—')
+      + '/' + (booking.episode_advances ?? '—')
+      + ' · 对照 episode ' + (ep.catalog_episode_advances ?? '—')
+      + '/' + (ep.kiosk_episode_advances ?? '—')
+      + ' · 安全违规 ' + (ep.safety_violations ?? '—')
+      + ' · 产品默认未改';
+  }
+  if (!ep.available) return;
+  const kind = gid('proof-result-kind');
+  if (kind) kind.textContent = 'Outcome';
+  setText('proof-round', ep.round || 'v0.3.24');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = 'Campus / Studio episode';
+  if (m2) m2.textContent = '重新探测';
+  if (m3) m3.textContent = '对照 episode / 违规';
+  setText('proof-b-states', campus.episode_advances);
+  setText('proof-g-states', studio.episode_advances);
+  setText('proof-b-ret', campus.revalidated);
+  setText('proof-g-ret', studio.revalidated);
+  setText('proof-esc', String(ep.catalog_episode_advances ?? '—') + ' / '
+    + String(ep.kiosk_episode_advances ?? '—') + ' / ' + String(ep.safety_violations ?? '—'));
+  setText('proof-outcome', ep.outcome || '—');
+  const note = gid('proof-note');
+  if (note) note.textContent = ep.public_copy || '';
+}
+
 function renderDebt(debt) {
   debt = debt || {};
   const oc = gid('rd-outcome');
@@ -887,6 +938,8 @@ function renderEvidence(data) {
   const rw = (data && data.return_waypoint) || {};
   const sink = (data && data.post_escape_sink) || {};
   const debt = (data && data.residual_frontier_debt) || {};
+  const ep = (data && data.episode_drain) || {};
+  const ev0324 = gid('ev-v0324');
   const ev0323 = gid('ev-v0323');
   const ev0322 = gid('ev-v0322');
   const ev0321 = gid('ev-v0321');
@@ -905,6 +958,38 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0324) {
+    if (!ep.available) {
+      ev0324.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = ep.reproduction || {};
+      const campus = ep.campus || {};
+      const studio = ep.studio || {};
+      const warehouse = ep.warehouse || {};
+      const booking = ep.booking || {};
+      ev0324.innerHTML = [
+        statusRow('轮次结果', ep.outcome ? ('Outcome ' + ep.outcome) : '—', ep.outcome === 'A'),
+        statusRow('Campus episode / 重新探测', String(campus.episode_advances ?? '—') + ' / ' + String(campus.revalidated ?? '—'), campus.episode_advances >= 1),
+        statusRow('Studio episode / 重新探测', String(studio.episode_advances ?? '—') + ' / ' + String(studio.revalidated ?? '—'), studio.episode_advances >= 1),
+        statusRow('Campus 5/8/9', campus.template_589 ? '全在' : '未齐', campus.template_589 === true),
+        statusRow('Studio 5/8/9', studio.template_589 ? '全在' : '未齐', studio.template_589 === true),
+        statusRow('Warehouse/Booking episode', String(warehouse.episode_advances ?? '—') + ' / ' + String(booking.episode_advances ?? '—'),
+          warehouse.episode_advances === 0 && booking.episode_advances === 0),
+        statusRow('对照 episode', String(ep.catalog_episode_advances ?? '—') + ' / ' + String(ep.kiosk_episode_advances ?? '—'),
+          ep.catalog_episode_advances === 0 && ep.kiosk_episode_advances === 0),
+        statusRow('安全违规', String(ep.safety_violations ?? '—'), ep.safety_violations === 0),
+        statusRow('24 cells', String(ep.cells), ep.cells === 24),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', ep.product_default_changed ? '已改' : '未改', ep.product_default_changed === false),
+        statusRow('v0.3.23', 'Outcome ' + (ep.v0323_outcome || 'B'), true),
+        statusRow('v0.3.22', ep.v0322_diagnosis || 'persistent_post_terminal_sink', true),
+        statusRow('v0.3.21', 'Outcome ' + (ep.v0321_outcome || 'C'), true),
+      ].join('');
+    }
+  }
+  const cmd0324 = ep.command || '';
+  const cmdEl24 = gid('ev-cmd-0324');
+  if (cmdEl24) cmdEl24.textContent = cmd0324;
   if (ev0323) {
     if (!debt.available) {
       ev0323.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -1373,6 +1458,7 @@ async function loadShowcase() {
     renderWaypoint(data.return_waypoint);
     renderSink(data.post_escape_sink);
     renderDebt(data.residual_frontier_debt);
+    renderEpisode(data.episode_drain);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {
