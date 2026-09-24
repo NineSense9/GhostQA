@@ -108,7 +108,8 @@ def test_showcase_missing_artifacts_do_not_crash():
                        v0318_root="/tmp/missing-v0318",
                        v0319_root="/tmp/missing-v0319",
                        v0320_root="/tmp/missing-v0320",
-                       v0321_root="/tmp/missing-v0321")
+                       v0321_root="/tmp/missing-v0321",
+                       v0322_root="/tmp/missing-v0322")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -123,6 +124,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["finding_return_entry"]["available"] is False
     assert s["fresh_composite"]["available"] is False
     assert s["return_waypoint"]["available"] is False
+    assert s["post_escape_sink"]["available"] is False
     assert s["latest"]["available"] is False
 
 

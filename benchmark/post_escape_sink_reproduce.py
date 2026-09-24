@@ -151,8 +151,10 @@ def verify(root: str) -> int:
     if product_default_changed() or repro.get("product_default_changed") or saved.get("product_default_changed"):
         return _fail("product default changed")
     print("product default changed false")
-    if repro.get("clean_clone_verified") and repro.get("verified_head") not in ("", head):
-        return _fail("clean clone head mismatch")
+    if repro.get("clean_clone_verified"):
+        verified = repro.get("verified_head") or ""
+        if not verified or not _ancestor(verified, head):
+            return _fail("clean clone head mismatch")
     print(f"clean_clone_verified {repro.get('clean_clone_verified')}")
     print(f"historical budget reference {HISTORICAL_BUDGET}")
     print("OK")
