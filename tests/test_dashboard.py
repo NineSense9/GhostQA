@@ -109,7 +109,8 @@ def test_showcase_missing_artifacts_do_not_crash():
                        v0319_root="/tmp/missing-v0319",
                        v0320_root="/tmp/missing-v0320",
                        v0321_root="/tmp/missing-v0321",
-                       v0322_root="/tmp/missing-v0322")
+                       v0322_root="/tmp/missing-v0322",
+                       v0323_root="/tmp/missing-v0323")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -125,6 +126,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["fresh_composite"]["available"] is False
     assert s["return_waypoint"]["available"] is False
     assert s["post_escape_sink"]["available"] is False
+    assert s["residual_frontier_debt"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -157,7 +159,33 @@ def test_showcase_endpoint_function_returns_payload():
     fc = body.get("fresh_composite") or {}
     rw = body.get("return_waypoint") or {}
     sink = body.get("post_escape_sink") or {}
-    if sink.get("available"):
+    debt = body.get("residual_frontier_debt") or {}
+    if debt.get("available"):
+        assert body["latest"]["round"] == "v0.3.23"
+        assert body["project"]["latest_research"] == "v0.3.23"
+        assert body["latest"]["outcome"] == "B"
+        assert body["latest"]["product_default_changed"] is False
+        assert debt["outcome"] == "B"
+        assert debt["product_default_changed"] is False
+        assert debt["fresh_validation"] is False
+        assert debt["v0322_diagnosis"] == "persistent_post_terminal_sink"
+        assert debt["v0321_outcome"] == "C"
+        assert debt["campus"]["relocations"] == 1
+        assert debt["studio"]["relocations"] == 1
+        assert debt["catalog_relocations"] == 0
+        assert debt["kiosk_relocations"] == 0
+        assert debt["safety_violations"] == 0
+        assert sink["diagnosis"] == "persistent_post_terminal_sink"
+        assert sink["v0321_outcome"] == "C"
+        assert rw["outcome"] == "C"
+        assert sink["product_default_changed"] is False
+        assert sink["fresh_validation"] is False
+        assert rw["product_default_changed"] is False
+        assert rw["fresh_validation"] is False
+        assert rw["engaged"] == 4
+        assert fc.get("outcome") == "C"
+        assert fr.get("outcome") == "A"
+    elif sink.get("available"):
         assert body["latest"]["round"] == "v0.3.22"
         assert body["project"]["latest_research"] == "v0.3.22"
         assert body["latest"].get("diagnosis")
@@ -375,7 +403,22 @@ def test_showcase_reads_v0311_published_metrics():
     assert rw["catalog_escapes"] == 0
     assert rw["kiosk_escapes"] == 0
     sink = s.get("post_escape_sink") or {}
-    if sink.get("available"):
+    debt = s.get("residual_frontier_debt") or {}
+    if debt.get("available"):
+        assert s["latest"]["round"] == "v0.3.23"
+        assert s["latest"]["outcome"] == "B"
+        assert s["latest"]["product_default_changed"] is False
+        assert s["project"]["latest_research"] == "v0.3.23"
+        assert debt["fresh_validation"] is False
+        assert debt["v0322_diagnosis"] == "persistent_post_terminal_sink"
+        assert debt["v0321_outcome"] == "C"
+        assert debt["campus"]["relocations"] == 1
+        assert debt["studio"]["relocations"] == 1
+        assert debt["catalog_relocations"] == 0
+        assert debt["kiosk_relocations"] == 0
+        assert debt["safety_violations"] == 0
+        assert sink["diagnosis"] == "persistent_post_terminal_sink"
+    elif sink.get("available"):
         assert s["latest"]["round"] == "v0.3.22"
         assert s["latest"].get("diagnosis")
         assert s["project"]["latest_research"] == "v0.3.22"
@@ -456,6 +499,8 @@ def test_index_has_three_views_and_live_ids():
         'data-testid="multi-target"', 'data-testid="evidence-v0311"',
         'data-testid="nested-hub"', 'data-testid="evidence-v0312"',
         'data-testid="horizon-handoff"', 'data-testid="evidence-v0314"',
+        'data-testid="residual-debt"', 'data-testid="evidence-v0323"',
+        'data-testid="post-escape-sink"', 'data-testid="evidence-v0322"',
         'id="proof-metric-1"', 'id="tl-v0311"', 'id="tl-v0312"', 'id="tl-v0314"',
         'data-testid="live-viewport"',
         'id="theme-toggle"', 'data-testid="theme-toggle"',
