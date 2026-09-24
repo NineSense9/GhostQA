@@ -202,6 +202,17 @@
       <p class="footnote" id="ft-scope">一次目标应用上的 transfer，不是 universal generalization。</p>
     </section>
 
+    <section class="rc-section" data-testid="residual-debt" aria-labelledby="h-rd">
+      <p class="eyebrow">v0.3.23 · 已发布证据</p>
+      <h2 id="h-rd">闭合流形耗尽之后，把最老的航点债务交回已知路径</h2>
+      <p class="rc-lead" id="rd-lead">Campus 和 Studio 各回放 1 次，普通动作随后消耗了记录下来的残余标记，模板 5 和 8 收回，模板 9 仍缺。Warehouse 和 Booking 没有回放，5/8/9 仍在。这轮是 Outcome B。</p>
+      <p class="limit-note">已检查的修复，不是 fresh validation，也不是产品默认切换。v0.3.22 诊断仍是 persistent_post_terminal_sink。v0.3.21 仍是 Outcome C。</p>
+      <p class="delta" id="rd-delta"></p>
+      <p class="pill-row"><span class="pill" id="rd-outcome">Outcome</span>
+        <span class="muted" id="rd-outcome-mean"></span></p>
+      <p class="footnote" id="rd-scope">已检查的闭合流形饥饿。不是 fresh validation，也不是产品默认切换。</p>
+    </section>
+
     <section class="rc-section" data-testid="post-escape-sink" aria-labelledby="h-sink">
       <p class="eyebrow">v0.3.22 · 诊断</p>
       <h2 id="h-sink">第一次逃逸之后，普通探索有没有回到原来的 residual frontier</h2>
@@ -566,6 +577,14 @@
     </header>
     <div class="ev-layout">
       <div class="ev-grid">
+        <article class="ev-card" data-testid="evidence-v0323">
+          <p class="ev-kicker">来源轮次 · v0.3.23</p>
+          <h2>Residual Frontier Debt Escape</h2>
+          <p class="limit-note">已检查的闭合流形修复。24 个单元。不是 fresh 验证。产品默认未改。v0.3.22 诊断和 v0.3.21 Outcome C 仍保留。</p>
+          <ul class="status-rows" id="ev-v0323"></ul>
+          <pre class="cmd" id="ev-cmd-0323"></pre>
+          <button type="button" class="btn btn-ghost" data-copy="ev-cmd-0323">复制命令</button>
+        </article>
         <article class="ev-card" data-testid="evidence-v0322">
           <p class="ev-kicker">来源轮次 · v0.3.22</p>
           <h2>Post-Escape Sink Diagnosis</h2>

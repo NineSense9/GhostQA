@@ -539,6 +539,53 @@ function renderReturnEntry(re) {
   }
 }
 
+function renderDebt(debt) {
+  debt = debt || {};
+  const oc = gid('rd-outcome');
+  if (oc) {
+    oc.textContent = debt.outcome ? ('Outcome ' + debt.outcome) : 'Outcome';
+    oc.className = debt.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('rd-outcome-mean');
+  if (om) om.textContent = debt.outcome_meaning || '';
+  const campus = debt.campus || {};
+  const studio = debt.studio || {};
+  const warehouse = debt.warehouse || {};
+  const booking = debt.booking || {};
+  const delta = gid('rd-delta');
+  if (delta) {
+    delta.textContent = 'Campus 回放 ' + (campus.relocations ?? '—')
+      + ' · 消耗 ' + (campus.consumed ?? '—')
+      + ' · 5/8/9 ' + (campus.template_589 ? '全收回' : '缺 9')
+      + ' · Studio 回放 ' + (studio.relocations ?? '—')
+      + ' · 消耗 ' + (studio.consumed ?? '—')
+      + ' · 5/8/9 ' + (studio.template_589 ? '全收回' : '缺 9')
+      + ' · Warehouse/Booking 回放 ' + (warehouse.relocations ?? '—') + '/' + (booking.relocations ?? '—')
+      + ' · 对照回放 ' + (debt.catalog_relocations ?? '—') + '/' + (debt.kiosk_relocations ?? '—')
+      + ' · 安全违规 ' + (debt.safety_violations ?? '—')
+      + ' · 产品默认未改';
+  }
+  if (!debt.available) return;
+  const kind = gid('proof-result-kind');
+  if (kind) kind.textContent = 'Outcome';
+  setText('proof-round', debt.round || 'v0.3.23');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = 'Campus / Studio 回放';
+  if (m2) m2.textContent = '消耗的债务标记';
+  if (m3) m3.textContent = '对照回放 / 违规';
+  setText('proof-b-states', campus.relocations);
+  setText('proof-g-states', studio.relocations);
+  setText('proof-b-ret', campus.consumed);
+  setText('proof-g-ret', studio.consumed);
+  setText('proof-esc', String(debt.catalog_relocations ?? '—') + ' / ' + String(debt.kiosk_relocations ?? '—')
+    + ' / ' + String(debt.safety_violations ?? '—'));
+  setText('proof-outcome', debt.outcome || '—');
+  const note = gid('proof-note');
+  if (note) note.textContent = debt.public_copy || '';
+}
+
 function renderSink(sink) {
   sink = sink || {};
   const pill = gid('sink-diagnosis');
@@ -839,6 +886,8 @@ function renderEvidence(data) {
   const fc = (data && data.fresh_composite) || {};
   const rw = (data && data.return_waypoint) || {};
   const sink = (data && data.post_escape_sink) || {};
+  const debt = (data && data.residual_frontier_debt) || {};
+  const ev0323 = gid('ev-v0323');
   const ev0322 = gid('ev-v0322');
   const ev0321 = gid('ev-v0321');
   const ev0320 = gid('ev-v0320');
@@ -856,6 +905,37 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0323) {
+    if (!debt.available) {
+      ev0323.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = debt.reproduction || {};
+      const campus = debt.campus || {};
+      const studio = debt.studio || {};
+      const warehouse = debt.warehouse || {};
+      const booking = debt.booking || {};
+      ev0323.innerHTML = [
+        statusRow('轮次结果', debt.outcome ? ('Outcome ' + debt.outcome) : '—', debt.outcome === 'A'),
+        statusRow('Campus 回放 / 消耗', String(campus.relocations ?? '—') + ' / ' + String(campus.consumed ?? '—'), campus.relocations >= 1),
+        statusRow('Studio 回放 / 消耗', String(studio.relocations ?? '—') + ' / ' + String(studio.consumed ?? '—'), studio.relocations >= 1),
+        statusRow('Campus 5/8/9', campus.template_589 ? '全收回' : '缺 9', campus.template_589 === true),
+        statusRow('Studio 5/8/9', studio.template_589 ? '全收回' : '缺 9', studio.template_589 === true),
+        statusRow('Warehouse/Booking 回放', String(warehouse.relocations ?? '—') + ' / ' + String(booking.relocations ?? '—'),
+          warehouse.relocations === 0 && booking.relocations === 0),
+        statusRow('对照回放', String(debt.catalog_relocations ?? '—') + ' / ' + String(debt.kiosk_relocations ?? '—'),
+          debt.catalog_relocations === 0 && debt.kiosk_relocations === 0),
+        statusRow('安全违规', String(debt.safety_violations ?? '—'), debt.safety_violations === 0),
+        statusRow('24 cells', String(debt.cells), debt.cells === 24),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', debt.product_default_changed ? '已改' : '未改', debt.product_default_changed === false),
+        statusRow('v0.3.22', debt.v0322_diagnosis || 'persistent_post_terminal_sink', true),
+        statusRow('v0.3.21', 'Outcome ' + (debt.v0321_outcome || 'C'), true),
+      ].join('');
+    }
+  }
+  const cmd0323 = debt.command || '';
+  const cmdEl23 = gid('ev-cmd-0323');
+  if (cmdEl23) cmdEl23.textContent = cmd0323;
   if (ev0322) {
     if (!sink.available) {
       ev0322.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -1205,7 +1285,7 @@ function renderEvidence(data) {
 
   if (rail) {
     const latest = (data && data.latest) || {};
-    const r = (sink.reproduction || rw.reproduction || ns.reproduction || mt.reproduction || ft.reproduction || rc.reproduction || {});
+    const r = (debt.reproduction || sink.reproduction || rw.reproduction || ns.reproduction || mt.reproduction || ft.reproduction || rc.reproduction || {});
     if (!mt.available && !ft.available && !rc.available && !app.available) {
       rail.innerHTML = '<h2>当前研究</h2><p>暂时无法读取已发布证据</p>';
     } else {
@@ -1292,6 +1372,7 @@ async function loadShowcase() {
     renderFreshComposite(data.fresh_composite);
     renderWaypoint(data.return_waypoint);
     renderSink(data.post_escape_sink);
+    renderDebt(data.residual_frontier_debt);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

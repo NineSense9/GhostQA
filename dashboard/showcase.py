@@ -25,6 +25,7 @@ V0319 = os.path.join(PUBLISHED, "finding-return-entry-v0.3.19")
 V0320 = os.path.join(PUBLISHED, "fresh-composite-v0.3.20")
 V0321 = os.path.join(PUBLISHED, "return-waypoint-frontier-v0.3.21")
 V0322 = os.path.join(PUBLISHED, "post-escape-sink-v0.3.22")
+V0323 = os.path.join(PUBLISHED, "residual-frontier-debt-v0.3.23")
 
 
 def _load(path, default=None):
@@ -978,6 +979,84 @@ def _v0322(root: str | None = None) -> dict:
     }
 
 
+def _v0323(root: str | None = None) -> dict:
+    base = root or V0323
+    mechanism = _load(os.path.join(base, "metrics", "mechanism.json")) or {}
+    controls = _load(os.path.join(base, "metrics", "controls.json")) or {}
+    safety = _load(os.path.join(base, "metrics", "safety.json")) or {}
+    repro = _load(os.path.join(base, "metrics", "reproduction.json")) or {}
+    man = _load(os.path.join(base, "evidence-manifest.json")) or {}
+    derived = mechanism.get("derived") or {}
+    positives = mechanism.get("positives") or {}
+    if not derived.get("outcome"):
+        return {"available": False}
+
+    def cell(app: str) -> dict:
+        item = positives.get(app) or {}
+        debt = item.get("debt") or {}
+        template = item.get("template") or {}
+        return {
+            "relocations": debt.get("residual_frontier_debt_relocations"),
+            "consumed": debt.get("residual_frontier_tokens_consumed"),
+            "created": debt.get("residual_frontier_debts_created"),
+            "resolved": debt.get("residual_frontier_debts_resolved"),
+            "template_589": bool(template.get("recovered")),
+            "missing": template.get("missing") or [],
+            "lost": item.get("lost_vs_guard") or [],
+        }
+
+    facts = safety.get("facts") or {}
+    violations = sum(int(facts.get(key) or 0) for key in (
+        "false_success_violations",
+        "restore_sequence_violations",
+        "consumption_violations",
+        "zero_normal_loop_violations",
+        "relocation_lifecycle_violations",
+    ))
+    catalog = ((controls.get("buggy-catalog") or {}).get("debt") or {})
+    kiosk = ((controls.get("buggy-kiosk") or {}).get("debt") or {})
+    campus = cell("buggy-campus")
+    studio = cell("buggy-studio")
+    warehouse = cell("buggy-warehouse")
+    booking = cell("buggy-booking")
+    return {
+        "available": True,
+        "round": "v0.3.23",
+        "title": "Residual Frontier Debt Escape",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning") or "",
+        "campus": campus,
+        "studio": studio,
+        "warehouse": warehouse,
+        "booking": booking,
+        "catalog_relocations": catalog.get("residual_frontier_debt_relocations"),
+        "kiosk_relocations": kiosk.get("residual_frontier_debt_relocations"),
+        "safety_violations": violations,
+        "product_default_changed": bool(facts.get("product_default_changed")),
+        "fresh_validation": False,
+        "promotion_readiness": derived.get("promotion_readiness") or "not_ready",
+        "v0322_diagnosis": "persistent_post_terminal_sink",
+        "v0321_outcome": "C",
+        "cells": 24,
+        "scope": "inspected repair of the closed-SCC post-terminal starvation, not fresh validation",
+        "public_copy": (
+            "Campus 和 Studio 各发生 1 次债务回放，模板 5 和 8 收回，模板 9 仍缺。"
+            "Warehouse 和 Booking 的债务在原组件里被普通动作消耗，回放次数为 0。"
+            "Catalog 和 Kiosk 没有债务回放。这是已检查修复，不是 fresh validation。产品默认未改。"
+        ),
+        "reproduction": {
+            "clean_clone_verified": bool(repro.get("clean_clone_verified")),
+            "command": repro.get("command") or (
+                "python -m benchmark.residual_frontier_debt_reproduce "
+                "--root experiments/published/residual-frontier-debt-v0.3.23 --verify"),
+            "evidence_files": len(man.get("files") or []),
+        },
+        "command": (
+            "python -m benchmark.residual_frontier_debt_reproduce "
+            "--root experiments/published/residual-frontier-debt-v0.3.23 --verify"),
+    }
+
+
 def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None,
                    v0310_root: str | None = None, v0311_root: str | None = None,
                    v0312_root: str | None = None, v0313_root: str | None = None,
@@ -988,7 +1067,8 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
                    v0319_root: str | None = None,
                    v0320_root: str | None = None,
                    v0321_root: str | None = None,
-                   v0322_root: str | None = None) -> dict:
+                   v0322_root: str | None = None,
+                   v0323_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
@@ -1004,7 +1084,17 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
     v0320 = _v0320(v0320_root)
     v0321 = _v0321(v0321_root)
     v0322 = _v0322(v0322_root)
-    if v0322.get("available"):
+    v0323 = _v0323(v0323_root)
+    if v0323.get("available"):
+        latest = {
+            "round": "v0.3.23",
+            "title": "Residual Frontier Debt Escape",
+            "available": True,
+            "outcome": v0323.get("outcome"),
+            "product_default_changed": v0323.get("product_default_changed"),
+        }
+        latest_research = "v0.3.23"
+    elif v0322.get("available"):
         latest = {
             "round": "v0.3.22",
             "title": "Post-Escape Sink Diagnosis",
@@ -1138,6 +1228,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "residual_frontier_debt": v0323,
         "post_escape_sink": v0322,
         "return_waypoint": v0321,
         "fresh_composite": v0320,
@@ -1188,5 +1279,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
              "kind": "inspected failure repair"},
             {"round": "v0.3.22", "title": "Post-Escape Sink Diagnosis",
              "kind": "failure diagnosis"},
+            {"round": "v0.3.23", "title": "Residual Frontier Debt Escape",
+             "kind": "inspected failure repair"},
         ],
     }
