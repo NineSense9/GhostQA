@@ -1,0 +1,1149 @@
+{
+  "version": "v0.3.21",
+  "source_publication": "experiments/published/fresh-composite-v0.3.20",
+  "source_round": "v0.3.20",
+  "source_outcome": "C",
+  "budget": 120,
+  "seed": 1,
+  "candidate_policy": "ghost-structural-finding-return-entry-drain-guard",
+  "guard_policy": "ghost-structural-return-guard",
+  "causal_language": "consistent with intermediate-waypoint residual-frontier starvation; entity local actions were observable but skipped at the first resumed return; open_side was residual at the first waypoint and either absent or delayed. This audit does not prove the mechanism will recover every bug.",
+  "common_pattern": [
+    {
+      "app": "buggy-campus",
+      "resume_step": 20,
+      "stack_depth": 0,
+      "mid_to_entity_index": 21,
+      "mid_page": "module.html",
+      "entity_page": "course.html",
+      "entity_to_parent_index": 22,
+      "parent_page": "courses.html",
+      "lost_vs_guard": [
+        "BUG-CP5",
+        "BUG-CP8",
+        "BUG-CP9"
+      ]
+    },
+    {
+      "app": "buggy-warehouse",
+      "resume_step": 20,
+      "stack_depth": 0,
+      "mid_to_entity_index": 21,
+      "mid_page": "zone.html",
+      "entity_page": "warehouse.html",
+      "entity_to_parent_index": 22,
+      "parent_page": "warehouses.html",
+      "lost_vs_guard": [
+        "BUG-WH5",
+        "BUG-WH8",
+        "BUG-WH9"
+      ]
+    },
+    {
+      "app": "buggy-studio",
+      "resume_step": 20,
+      "stack_depth": 0,
+      "mid_to_entity_index": 21,
+      "mid_page": "scene.html",
+      "entity_page": "project.html",
+      "entity_to_parent_index": 22,
+      "parent_page": "projects.html",
+      "lost_vs_guard": [
+        "BUG-ST5",
+        "BUG-ST8",
+        "BUG-ST9"
+      ]
+    },
+    {
+      "app": "buggy-booking",
+      "resume_step": 20,
+      "stack_depth": 0,
+      "mid_to_entity_index": 21,
+      "mid_page": "room.html",
+      "entity_page": "venue.html",
+      "entity_to_parent_index": 22,
+      "parent_page": "venues.html",
+      "lost_vs_guard": [
+        "BUG-BK5",
+        "BUG-BK8",
+        "BUG-BK9"
+      ]
+    }
+  ],
+  "targets": [
+    {
+      "app": "buggy-campus",
+      "budget": 120,
+      "seed": 1,
+      "guard_policy": "ghost-structural-return-guard",
+      "candidate_policy": "ghost-structural-finding-return-entry-drain-guard",
+      "guard_confirmed": [
+        "BUG-CP10",
+        "BUG-CP11",
+        "BUG-CP12",
+        "BUG-CP2",
+        "BUG-CP3",
+        "BUG-CP5",
+        "BUG-CP8",
+        "BUG-CP9"
+      ],
+      "candidate_confirmed": [
+        "BUG-CP1",
+        "BUG-CP10",
+        "BUG-CP11",
+        "BUG-CP12",
+        "BUG-CP2",
+        "BUG-CP3"
+      ],
+      "lost_vs_guard": [
+        "BUG-CP5",
+        "BUG-CP8",
+        "BUG-CP9"
+      ],
+      "template_roles": [
+        {
+          "bug_id": "BUG-CP5",
+          "template": 5,
+          "category": "dead action",
+          "depth": 3,
+          "action_role": "entity/detail local button",
+          "generic_eid": "btn_pin",
+          "manifest_match": {
+            "eid": "btn_pin"
+          },
+          "min_reproduction": [
+            "index.html: nav_courses",
+            "courses.html: open_row_c1",
+            "course.html: btn_pin"
+          ]
+        },
+        {
+          "bug_id": "BUG-CP8",
+          "template": 8,
+          "category": "state inconsistency",
+          "depth": 4,
+          "action_role": "entity/detail same-hub local mutation",
+          "generic_eid": "btn_cool",
+          "manifest_match": {
+            "assert_id": "campus_qty_matches"
+          },
+          "min_reproduction": [
+            "index.html: nav_courses",
+            "courses.html: open_row_c1",
+            "course.html: btn_cool"
+          ]
+        },
+        {
+          "bug_id": "BUG-CP9",
+          "template": 9,
+          "category": "cross-page consistency",
+          "depth": 5,
+          "action_role": "entity -> side list -> side entity local mutation then cross-page navigation",
+          "generic_eid": "btn_staff_note",
+          "manifest_match": {
+            "assert_id": "campus_note_visibility"
+          },
+          "min_reproduction": [
+            "index.html: nav_courses",
+            "courses.html: open_row_c1",
+            "course.html: open_side",
+            "lessons.html: open_side_l1",
+            "lesson.html: btn_staff_note",
+            "lesson.html: open_mid_b"
+          ]
+        }
+      ],
+      "first_divergence": {
+        "action_index": 11,
+        "guard": {
+          "action_index": 11,
+          "decision_mode": "",
+          "last_label": "return_hub",
+          "action_type": "click",
+          "action_eid": "nav_up_child",
+          "src_page": "quiz.html",
+          "dst_page": "module.html",
+          "src_cluster": "2ee9d0110254687d",
+          "dst_cluster": "cfaa1c0dc2850bd5",
+          "src_sig": "2ee9d0110254687d:c59511334e12",
+          "dst_sig": "cfaa1c0dc2850bd5:none",
+          "returning": true,
+          "active_branch": "cfaa1c0dc2850bd5:click:open_child_a"
+        },
+        "candidate": {
+          "action_index": 11,
+          "decision_mode": "",
+          "last_label": "return_entry_drain",
+          "action_type": "click",
+          "action_eid": "btn_mark",
+          "src_page": "quiz.html",
+          "dst_page": "quiz.html",
+          "src_cluster": "2ee9d0110254687d",
+          "dst_cluster": "2ee9d0110254687d",
+          "src_sig": "2ee9d0110254687d:c59511334e12",
+          "dst_sig": "2ee9d0110254687d:c59511334e12",
+          "returning": true,
+          "active_branch": "cfaa1c0dc2850bd5:click:open_child_a"
+        }
+      },
+      "child_parent_witness": {
+        "step": 20,
+        "branch_key": "cfaa1c0dc2850bd5:click:open_child_c",
+        "child_branch": "cfaa1c0dc2850bd5:click:open_child_c",
+        "expected_parent_sig": "cfaa1c0dc2850bd5:none",
+        "expected_parent_cluster": "cfaa1c0dc2850bd5",
+        "observed_destination_sig": "cfaa1c0dc2850bd5:none",
+        "observed_destination_cluster": "cfaa1c0dc2850bd5",
+        "stack_depth_before_pop": 1
+      },
+      "parent_frame_resume_to_return": {
+        "step": 20,
+        "resumed_sequence_instance_id": "seq-0001",
+        "resumed_branch": "b8043ff6f8971625:click:open_row_c1",
+        "original_parent_hub_sig": "b8043ff6f8971625:none",
+        "original_parent_hub_cluster": "b8043ff6f8971625",
+        "stack_depth": 0,
+        "returning": true,
+        "commitment_left": 0
+      },
+      "original_outer_branch": "b8043ff6f8971625:click:open_row_c1",
+      "original_parent": {
+        "sig": "b8043ff6f8971625:none",
+        "cluster": "b8043ff6f8971625"
+      },
+      "first_return_after_resume": {
+        "action_index": 21,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_row",
+        "src_page": "module.html",
+        "dst_page": "course.html",
+        "src_cluster": "cfaa1c0dc2850bd5",
+        "dst_cluster": "fcea4bfdc1b01f0c",
+        "src_sig": "cfaa1c0dc2850bd5:none",
+        "dst_sig": "fcea4bfdc1b01f0c:46d56a72faae",
+        "returning": true,
+        "active_branch": "b8043ff6f8971625:click:open_row_c1"
+      },
+      "second_return_after_resume": {
+        "action_index": 22,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_list",
+        "src_page": "course.html",
+        "dst_page": "courses.html",
+        "src_cluster": "fcea4bfdc1b01f0c",
+        "dst_cluster": "b8043ff6f8971625",
+        "src_sig": "fcea4bfdc1b01f0c:46d56a72faae",
+        "dst_sig": "b8043ff6f8971625:none",
+        "returning": true,
+        "active_branch": "b8043ff6f8971625:click:open_row_c1"
+      },
+      "common_step_mid_to_entity": {
+        "action_index": 21,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_row",
+        "src_page": "module.html",
+        "dst_page": "course.html",
+        "src_cluster": "cfaa1c0dc2850bd5",
+        "dst_cluster": "fcea4bfdc1b01f0c",
+        "src_sig": "cfaa1c0dc2850bd5:none",
+        "dst_sig": "fcea4bfdc1b01f0c:46d56a72faae",
+        "returning": true,
+        "active_branch": "b8043ff6f8971625:click:open_row_c1"
+      },
+      "common_step_entity_to_list": {
+        "action_index": 22,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_list",
+        "src_page": "course.html",
+        "dst_page": "courses.html",
+        "src_cluster": "fcea4bfdc1b01f0c",
+        "dst_cluster": "b8043ff6f8971625",
+        "src_sig": "fcea4bfdc1b01f0c:46d56a72faae",
+        "dst_sig": "b8043ff6f8971625:none",
+        "returning": true,
+        "active_branch": "b8043ff6f8971625:click:open_row_c1"
+      },
+      "first_occurrences": {
+        "btn_pin": null,
+        "btn_cool": null,
+        "open_side": null,
+        "nav_prefs": null
+      },
+      "residual_at_first_waypoint": {
+        "btn_pin": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        },
+        "btn_cool": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        },
+        "open_side": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        },
+        "nav_prefs": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        }
+      },
+      "entity_graph": {
+        "sig": "fcea4bfdc1b01f0c:46d56a72faae",
+        "cluster": "fcea4bfdc1b01f0c",
+        "page": "course.html",
+        "first_seen_step": 6,
+        "visits": 4,
+        "observed": [
+          "back",
+          "btn_cool",
+          "btn_pin",
+          "nav_prefs",
+          "nav_up_list",
+          "open_mid",
+          "open_side"
+        ],
+        "tried": [
+          "nav_up_list",
+          "open_mid"
+        ],
+        "final_graph_residual": [
+          "back",
+          "btn_cool",
+          "btn_pin",
+          "nav_prefs",
+          "open_side"
+        ]
+      },
+      "witness_count": 5,
+      "resume_count": 3
+    },
+    {
+      "app": "buggy-warehouse",
+      "budget": 120,
+      "seed": 1,
+      "guard_policy": "ghost-structural-return-guard",
+      "candidate_policy": "ghost-structural-finding-return-entry-drain-guard",
+      "guard_confirmed": [
+        "BUG-WH10",
+        "BUG-WH11",
+        "BUG-WH12",
+        "BUG-WH2",
+        "BUG-WH5",
+        "BUG-WH8",
+        "BUG-WH9"
+      ],
+      "candidate_confirmed": [
+        "BUG-WH1",
+        "BUG-WH10",
+        "BUG-WH11",
+        "BUG-WH12",
+        "BUG-WH2",
+        "BUG-WH4",
+        "BUG-WH6",
+        "BUG-WH7"
+      ],
+      "lost_vs_guard": [
+        "BUG-WH5",
+        "BUG-WH8",
+        "BUG-WH9"
+      ],
+      "template_roles": [
+        {
+          "bug_id": "BUG-WH5",
+          "template": 5,
+          "category": "dead action",
+          "depth": 3,
+          "action_role": "entity/detail local button",
+          "generic_eid": "btn_pin",
+          "manifest_match": {
+            "eid": "btn_pin"
+          },
+          "min_reproduction": [
+            "index.html: nav_warehouses",
+            "warehouses.html: open_row_w1",
+            "warehouse.html: btn_pin"
+          ]
+        },
+        {
+          "bug_id": "BUG-WH8",
+          "template": 8,
+          "category": "state inconsistency",
+          "depth": 4,
+          "action_role": "entity/detail same-hub local mutation",
+          "generic_eid": "btn_cool",
+          "manifest_match": {
+            "assert_id": "warehouse_qty_matches"
+          },
+          "min_reproduction": [
+            "index.html: nav_warehouses",
+            "warehouses.html: open_row_w1",
+            "warehouse.html: btn_cool"
+          ]
+        },
+        {
+          "bug_id": "BUG-WH9",
+          "template": 9,
+          "category": "cross-page consistency",
+          "depth": 5,
+          "action_role": "entity -> side list -> side entity local mutation then cross-page navigation",
+          "generic_eid": "btn_staff_note",
+          "manifest_match": {
+            "assert_id": "warehouse_note_visibility"
+          },
+          "min_reproduction": [
+            "index.html: nav_warehouses",
+            "warehouses.html: open_row_w1",
+            "warehouse.html: open_side",
+            "items.html: open_side_i1",
+            "item.html: btn_staff_note",
+            "item.html: open_mid_b"
+          ]
+        }
+      ],
+      "first_divergence": {
+        "action_index": 11,
+        "guard": {
+          "action_index": 11,
+          "decision_mode": "",
+          "last_label": "return_hub",
+          "action_type": "click",
+          "action_eid": "nav_up_child",
+          "src_page": "transfer.html",
+          "dst_page": "zone.html",
+          "src_cluster": "d6847a7c0fd43271",
+          "dst_cluster": "0df72befd330ddd7",
+          "src_sig": "d6847a7c0fd43271:c59511334e12",
+          "dst_sig": "0df72befd330ddd7:none",
+          "returning": true,
+          "active_branch": "0df72befd330ddd7:click:open_child_a"
+        },
+        "candidate": {
+          "action_index": 11,
+          "decision_mode": "",
+          "last_label": "return_entry_drain",
+          "action_type": "click",
+          "action_eid": "btn_mark",
+          "src_page": "transfer.html",
+          "dst_page": "transfer.html",
+          "src_cluster": "d6847a7c0fd43271",
+          "dst_cluster": "d6847a7c0fd43271",
+          "src_sig": "d6847a7c0fd43271:c59511334e12",
+          "dst_sig": "d6847a7c0fd43271:c59511334e12",
+          "returning": true,
+          "active_branch": "0df72befd330ddd7:click:open_child_a"
+        }
+      },
+      "child_parent_witness": {
+        "step": 20,
+        "branch_key": "0df72befd330ddd7:click:open_child_c",
+        "child_branch": "0df72befd330ddd7:click:open_child_c",
+        "expected_parent_sig": "0df72befd330ddd7:none",
+        "expected_parent_cluster": "0df72befd330ddd7",
+        "observed_destination_sig": "0df72befd330ddd7:none",
+        "observed_destination_cluster": "0df72befd330ddd7",
+        "stack_depth_before_pop": 1
+      },
+      "parent_frame_resume_to_return": {
+        "step": 20,
+        "resumed_sequence_instance_id": "seq-0001",
+        "resumed_branch": "559cb44d879ed850:click:open_row_w1",
+        "original_parent_hub_sig": "559cb44d879ed850:none",
+        "original_parent_hub_cluster": "559cb44d879ed850",
+        "stack_depth": 0,
+        "returning": true,
+        "commitment_left": 0
+      },
+      "original_outer_branch": "559cb44d879ed850:click:open_row_w1",
+      "original_parent": {
+        "sig": "559cb44d879ed850:none",
+        "cluster": "559cb44d879ed850"
+      },
+      "first_return_after_resume": {
+        "action_index": 21,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_row",
+        "src_page": "zone.html",
+        "dst_page": "warehouse.html",
+        "src_cluster": "0df72befd330ddd7",
+        "dst_cluster": "88ff0b2c5525d16c",
+        "src_sig": "0df72befd330ddd7:none",
+        "dst_sig": "88ff0b2c5525d16c:46d56a72faae",
+        "returning": true,
+        "active_branch": "559cb44d879ed850:click:open_row_w1"
+      },
+      "second_return_after_resume": {
+        "action_index": 22,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_list",
+        "src_page": "warehouse.html",
+        "dst_page": "warehouses.html",
+        "src_cluster": "88ff0b2c5525d16c",
+        "dst_cluster": "559cb44d879ed850",
+        "src_sig": "88ff0b2c5525d16c:46d56a72faae",
+        "dst_sig": "559cb44d879ed850:none",
+        "returning": true,
+        "active_branch": "559cb44d879ed850:click:open_row_w1"
+      },
+      "common_step_mid_to_entity": {
+        "action_index": 21,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_row",
+        "src_page": "zone.html",
+        "dst_page": "warehouse.html",
+        "src_cluster": "0df72befd330ddd7",
+        "dst_cluster": "88ff0b2c5525d16c",
+        "src_sig": "0df72befd330ddd7:none",
+        "dst_sig": "88ff0b2c5525d16c:46d56a72faae",
+        "returning": true,
+        "active_branch": "559cb44d879ed850:click:open_row_w1"
+      },
+      "common_step_entity_to_list": {
+        "action_index": 22,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_list",
+        "src_page": "warehouse.html",
+        "dst_page": "warehouses.html",
+        "src_cluster": "88ff0b2c5525d16c",
+        "dst_cluster": "559cb44d879ed850",
+        "src_sig": "88ff0b2c5525d16c:46d56a72faae",
+        "dst_sig": "559cb44d879ed850:none",
+        "returning": true,
+        "active_branch": "559cb44d879ed850:click:open_row_w1"
+      },
+      "first_occurrences": {
+        "btn_pin": null,
+        "btn_cool": null,
+        "open_side": {
+          "action_index": 57,
+          "src_page": "warehouse.html",
+          "dst_page": "items.html",
+          "decision_mode": "",
+          "last_label": "branch"
+        },
+        "nav_prefs": null
+      },
+      "residual_at_first_waypoint": {
+        "btn_pin": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        },
+        "btn_cool": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        },
+        "open_side": {
+          "observed_on_entity_node": true,
+          "first_occurrence": 57,
+          "first_occurrence_detail": {
+            "action_index": 57,
+            "src_page": "warehouse.html",
+            "dst_page": "items.html",
+            "decision_mode": "",
+            "last_label": "branch"
+          },
+          "residual_at_first_waypoint": true
+        },
+        "nav_prefs": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        }
+      },
+      "entity_graph": {
+        "sig": "88ff0b2c5525d16c:46d56a72faae",
+        "cluster": "88ff0b2c5525d16c",
+        "page": "warehouse.html",
+        "first_seen_step": 6,
+        "visits": 13,
+        "observed": [
+          "back",
+          "btn_cool",
+          "btn_pin",
+          "nav_prefs",
+          "nav_up_list",
+          "open_mid",
+          "open_side"
+        ],
+        "tried": [
+          "nav_up_list",
+          "open_mid",
+          "open_side"
+        ],
+        "final_graph_residual": [
+          "back",
+          "btn_cool",
+          "btn_pin",
+          "nav_prefs"
+        ]
+      },
+      "witness_count": 12,
+      "resume_count": 9
+    },
+    {
+      "app": "buggy-studio",
+      "budget": 120,
+      "seed": 1,
+      "guard_policy": "ghost-structural-return-guard",
+      "candidate_policy": "ghost-structural-finding-return-entry-drain-guard",
+      "guard_confirmed": [
+        "BUG-ST10",
+        "BUG-ST11",
+        "BUG-ST12",
+        "BUG-ST2",
+        "BUG-ST3",
+        "BUG-ST5",
+        "BUG-ST8",
+        "BUG-ST9"
+      ],
+      "candidate_confirmed": [
+        "BUG-ST1",
+        "BUG-ST10",
+        "BUG-ST11",
+        "BUG-ST12",
+        "BUG-ST2",
+        "BUG-ST3"
+      ],
+      "lost_vs_guard": [
+        "BUG-ST5",
+        "BUG-ST8",
+        "BUG-ST9"
+      ],
+      "template_roles": [
+        {
+          "bug_id": "BUG-ST5",
+          "template": 5,
+          "category": "dead action",
+          "depth": 3,
+          "action_role": "entity/detail local button",
+          "generic_eid": "btn_pin",
+          "manifest_match": {
+            "eid": "btn_pin"
+          },
+          "min_reproduction": [
+            "index.html: nav_projects",
+            "projects.html: open_row_p1",
+            "project.html: btn_pin"
+          ]
+        },
+        {
+          "bug_id": "BUG-ST8",
+          "template": 8,
+          "category": "state inconsistency",
+          "depth": 4,
+          "action_role": "entity/detail same-hub local mutation",
+          "generic_eid": "btn_cool",
+          "manifest_match": {
+            "assert_id": "studio_qty_matches"
+          },
+          "min_reproduction": [
+            "index.html: nav_projects",
+            "projects.html: open_row_p1",
+            "project.html: btn_cool"
+          ]
+        },
+        {
+          "bug_id": "BUG-ST9",
+          "template": 9,
+          "category": "cross-page consistency",
+          "depth": 5,
+          "action_role": "entity -> side list -> side entity local mutation then cross-page navigation",
+          "generic_eid": "btn_staff_note",
+          "manifest_match": {
+            "assert_id": "studio_note_visibility"
+          },
+          "min_reproduction": [
+            "index.html: nav_projects",
+            "projects.html: open_row_p1",
+            "project.html: open_side",
+            "assets.html: open_side_a1",
+            "asset.html: btn_staff_note",
+            "asset.html: open_mid_b"
+          ]
+        }
+      ],
+      "first_divergence": {
+        "action_index": 11,
+        "guard": {
+          "action_index": 11,
+          "decision_mode": "",
+          "last_label": "return_hub",
+          "action_type": "click",
+          "action_eid": "nav_up_child",
+          "src_page": "render.html",
+          "dst_page": "scene.html",
+          "src_cluster": "61a7d28861099b5f",
+          "dst_cluster": "cf139c86dfc69c23",
+          "src_sig": "61a7d28861099b5f:c59511334e12",
+          "dst_sig": "cf139c86dfc69c23:none",
+          "returning": true,
+          "active_branch": "cf139c86dfc69c23:click:open_child_a"
+        },
+        "candidate": {
+          "action_index": 11,
+          "decision_mode": "",
+          "last_label": "return_entry_drain",
+          "action_type": "click",
+          "action_eid": "btn_mark",
+          "src_page": "render.html",
+          "dst_page": "render.html",
+          "src_cluster": "61a7d28861099b5f",
+          "dst_cluster": "61a7d28861099b5f",
+          "src_sig": "61a7d28861099b5f:c59511334e12",
+          "dst_sig": "61a7d28861099b5f:c59511334e12",
+          "returning": true,
+          "active_branch": "cf139c86dfc69c23:click:open_child_a"
+        }
+      },
+      "child_parent_witness": {
+        "step": 20,
+        "branch_key": "cf139c86dfc69c23:click:open_child_c",
+        "child_branch": "cf139c86dfc69c23:click:open_child_c",
+        "expected_parent_sig": "cf139c86dfc69c23:none",
+        "expected_parent_cluster": "cf139c86dfc69c23",
+        "observed_destination_sig": "cf139c86dfc69c23:none",
+        "observed_destination_cluster": "cf139c86dfc69c23",
+        "stack_depth_before_pop": 1
+      },
+      "parent_frame_resume_to_return": {
+        "step": 20,
+        "resumed_sequence_instance_id": "seq-0001",
+        "resumed_branch": "652b0d6fe91d9371:click:open_row_p1",
+        "original_parent_hub_sig": "652b0d6fe91d9371:none",
+        "original_parent_hub_cluster": "652b0d6fe91d9371",
+        "stack_depth": 0,
+        "returning": true,
+        "commitment_left": 0
+      },
+      "original_outer_branch": "652b0d6fe91d9371:click:open_row_p1",
+      "original_parent": {
+        "sig": "652b0d6fe91d9371:none",
+        "cluster": "652b0d6fe91d9371"
+      },
+      "first_return_after_resume": {
+        "action_index": 21,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_row",
+        "src_page": "scene.html",
+        "dst_page": "project.html",
+        "src_cluster": "cf139c86dfc69c23",
+        "dst_cluster": "67ed1c4a943fa307",
+        "src_sig": "cf139c86dfc69c23:none",
+        "dst_sig": "67ed1c4a943fa307:46d56a72faae",
+        "returning": true,
+        "active_branch": "652b0d6fe91d9371:click:open_row_p1"
+      },
+      "second_return_after_resume": {
+        "action_index": 22,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_list",
+        "src_page": "project.html",
+        "dst_page": "projects.html",
+        "src_cluster": "67ed1c4a943fa307",
+        "dst_cluster": "652b0d6fe91d9371",
+        "src_sig": "67ed1c4a943fa307:46d56a72faae",
+        "dst_sig": "652b0d6fe91d9371:none",
+        "returning": true,
+        "active_branch": "652b0d6fe91d9371:click:open_row_p1"
+      },
+      "common_step_mid_to_entity": {
+        "action_index": 21,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_row",
+        "src_page": "scene.html",
+        "dst_page": "project.html",
+        "src_cluster": "cf139c86dfc69c23",
+        "dst_cluster": "67ed1c4a943fa307",
+        "src_sig": "cf139c86dfc69c23:none",
+        "dst_sig": "67ed1c4a943fa307:46d56a72faae",
+        "returning": true,
+        "active_branch": "652b0d6fe91d9371:click:open_row_p1"
+      },
+      "common_step_entity_to_list": {
+        "action_index": 22,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_list",
+        "src_page": "project.html",
+        "dst_page": "projects.html",
+        "src_cluster": "67ed1c4a943fa307",
+        "dst_cluster": "652b0d6fe91d9371",
+        "src_sig": "67ed1c4a943fa307:46d56a72faae",
+        "dst_sig": "652b0d6fe91d9371:none",
+        "returning": true,
+        "active_branch": "652b0d6fe91d9371:click:open_row_p1"
+      },
+      "first_occurrences": {
+        "btn_pin": null,
+        "btn_cool": null,
+        "open_side": null,
+        "nav_prefs": null
+      },
+      "residual_at_first_waypoint": {
+        "btn_pin": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        },
+        "btn_cool": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        },
+        "open_side": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        },
+        "nav_prefs": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        }
+      },
+      "entity_graph": {
+        "sig": "67ed1c4a943fa307:46d56a72faae",
+        "cluster": "67ed1c4a943fa307",
+        "page": "project.html",
+        "first_seen_step": 6,
+        "visits": 4,
+        "observed": [
+          "back",
+          "btn_cool",
+          "btn_pin",
+          "nav_prefs",
+          "nav_up_list",
+          "open_mid",
+          "open_side"
+        ],
+        "tried": [
+          "nav_up_list",
+          "open_mid"
+        ],
+        "final_graph_residual": [
+          "back",
+          "btn_cool",
+          "btn_pin",
+          "nav_prefs",
+          "open_side"
+        ]
+      },
+      "witness_count": 5,
+      "resume_count": 3
+    },
+    {
+      "app": "buggy-booking",
+      "budget": 120,
+      "seed": 1,
+      "guard_policy": "ghost-structural-return-guard",
+      "candidate_policy": "ghost-structural-finding-return-entry-drain-guard",
+      "guard_confirmed": [
+        "BUG-BK10",
+        "BUG-BK11",
+        "BUG-BK12",
+        "BUG-BK2",
+        "BUG-BK5",
+        "BUG-BK8",
+        "BUG-BK9"
+      ],
+      "candidate_confirmed": [
+        "BUG-BK1",
+        "BUG-BK10",
+        "BUG-BK11",
+        "BUG-BK12",
+        "BUG-BK2",
+        "BUG-BK4",
+        "BUG-BK6",
+        "BUG-BK7"
+      ],
+      "lost_vs_guard": [
+        "BUG-BK5",
+        "BUG-BK8",
+        "BUG-BK9"
+      ],
+      "template_roles": [
+        {
+          "bug_id": "BUG-BK5",
+          "template": 5,
+          "category": "dead action",
+          "depth": 3,
+          "action_role": "entity/detail local button",
+          "generic_eid": "btn_pin",
+          "manifest_match": {
+            "eid": "btn_pin"
+          },
+          "min_reproduction": [
+            "index.html: nav_venues",
+            "venues.html: open_row_v1",
+            "venue.html: btn_pin"
+          ]
+        },
+        {
+          "bug_id": "BUG-BK8",
+          "template": 8,
+          "category": "state inconsistency",
+          "depth": 4,
+          "action_role": "entity/detail same-hub local mutation",
+          "generic_eid": "btn_cool",
+          "manifest_match": {
+            "assert_id": "booking_qty_matches"
+          },
+          "min_reproduction": [
+            "index.html: nav_venues",
+            "venues.html: open_row_v1",
+            "venue.html: btn_cool"
+          ]
+        },
+        {
+          "bug_id": "BUG-BK9",
+          "template": 9,
+          "category": "cross-page consistency",
+          "depth": 5,
+          "action_role": "entity -> side list -> side entity local mutation then cross-page navigation",
+          "generic_eid": "btn_staff_note",
+          "manifest_match": {
+            "assert_id": "booking_note_visibility"
+          },
+          "min_reproduction": [
+            "index.html: nav_venues",
+            "venues.html: open_row_v1",
+            "venue.html: open_side",
+            "calendar.html: open_side_r1",
+            "reservation.html: btn_staff_note",
+            "reservation.html: open_mid_b"
+          ]
+        }
+      ],
+      "first_divergence": {
+        "action_index": 11,
+        "guard": {
+          "action_index": 11,
+          "decision_mode": "",
+          "last_label": "return_hub",
+          "action_type": "click",
+          "action_eid": "nav_up_child",
+          "src_page": "guest.html",
+          "dst_page": "room.html",
+          "src_cluster": "cfe0d8a647b64fd6",
+          "dst_cluster": "664d45f6f31d4148",
+          "src_sig": "cfe0d8a647b64fd6:c59511334e12",
+          "dst_sig": "664d45f6f31d4148:none",
+          "returning": true,
+          "active_branch": "664d45f6f31d4148:click:open_child_a"
+        },
+        "candidate": {
+          "action_index": 11,
+          "decision_mode": "",
+          "last_label": "return_entry_drain",
+          "action_type": "click",
+          "action_eid": "btn_mark",
+          "src_page": "guest.html",
+          "dst_page": "guest.html",
+          "src_cluster": "cfe0d8a647b64fd6",
+          "dst_cluster": "cfe0d8a647b64fd6",
+          "src_sig": "cfe0d8a647b64fd6:c59511334e12",
+          "dst_sig": "cfe0d8a647b64fd6:c59511334e12",
+          "returning": true,
+          "active_branch": "664d45f6f31d4148:click:open_child_a"
+        }
+      },
+      "child_parent_witness": {
+        "step": 20,
+        "branch_key": "664d45f6f31d4148:click:open_child_c",
+        "child_branch": "664d45f6f31d4148:click:open_child_c",
+        "expected_parent_sig": "664d45f6f31d4148:none",
+        "expected_parent_cluster": "664d45f6f31d4148",
+        "observed_destination_sig": "664d45f6f31d4148:none",
+        "observed_destination_cluster": "664d45f6f31d4148",
+        "stack_depth_before_pop": 1
+      },
+      "parent_frame_resume_to_return": {
+        "step": 20,
+        "resumed_sequence_instance_id": "seq-0001",
+        "resumed_branch": "76ff577b838ddeb2:click:open_row_v1",
+        "original_parent_hub_sig": "76ff577b838ddeb2:none",
+        "original_parent_hub_cluster": "76ff577b838ddeb2",
+        "stack_depth": 0,
+        "returning": true,
+        "commitment_left": 0
+      },
+      "original_outer_branch": "76ff577b838ddeb2:click:open_row_v1",
+      "original_parent": {
+        "sig": "76ff577b838ddeb2:none",
+        "cluster": "76ff577b838ddeb2"
+      },
+      "first_return_after_resume": {
+        "action_index": 21,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_row",
+        "src_page": "room.html",
+        "dst_page": "venue.html",
+        "src_cluster": "664d45f6f31d4148",
+        "dst_cluster": "000859ce1a3f15dd",
+        "src_sig": "664d45f6f31d4148:none",
+        "dst_sig": "000859ce1a3f15dd:46d56a72faae",
+        "returning": true,
+        "active_branch": "76ff577b838ddeb2:click:open_row_v1"
+      },
+      "second_return_after_resume": {
+        "action_index": 22,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_list",
+        "src_page": "venue.html",
+        "dst_page": "venues.html",
+        "src_cluster": "000859ce1a3f15dd",
+        "dst_cluster": "76ff577b838ddeb2",
+        "src_sig": "000859ce1a3f15dd:46d56a72faae",
+        "dst_sig": "76ff577b838ddeb2:none",
+        "returning": true,
+        "active_branch": "76ff577b838ddeb2:click:open_row_v1"
+      },
+      "common_step_mid_to_entity": {
+        "action_index": 21,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_row",
+        "src_page": "room.html",
+        "dst_page": "venue.html",
+        "src_cluster": "664d45f6f31d4148",
+        "dst_cluster": "000859ce1a3f15dd",
+        "src_sig": "664d45f6f31d4148:none",
+        "dst_sig": "000859ce1a3f15dd:46d56a72faae",
+        "returning": true,
+        "active_branch": "76ff577b838ddeb2:click:open_row_v1"
+      },
+      "common_step_entity_to_list": {
+        "action_index": 22,
+        "decision_mode": "",
+        "last_label": "return_hub",
+        "action_type": "click",
+        "action_eid": "nav_up_list",
+        "src_page": "venue.html",
+        "dst_page": "venues.html",
+        "src_cluster": "000859ce1a3f15dd",
+        "dst_cluster": "76ff577b838ddeb2",
+        "src_sig": "000859ce1a3f15dd:46d56a72faae",
+        "dst_sig": "76ff577b838ddeb2:none",
+        "returning": true,
+        "active_branch": "76ff577b838ddeb2:click:open_row_v1"
+      },
+      "first_occurrences": {
+        "btn_pin": null,
+        "btn_cool": null,
+        "open_side": {
+          "action_index": 57,
+          "src_page": "venue.html",
+          "dst_page": "calendar.html",
+          "decision_mode": "",
+          "last_label": "branch"
+        },
+        "nav_prefs": null
+      },
+      "residual_at_first_waypoint": {
+        "btn_pin": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        },
+        "btn_cool": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        },
+        "open_side": {
+          "observed_on_entity_node": true,
+          "first_occurrence": 57,
+          "first_occurrence_detail": {
+            "action_index": 57,
+            "src_page": "venue.html",
+            "dst_page": "calendar.html",
+            "decision_mode": "",
+            "last_label": "branch"
+          },
+          "residual_at_first_waypoint": true
+        },
+        "nav_prefs": {
+          "observed_on_entity_node": true,
+          "first_occurrence": null,
+          "first_occurrence_detail": null,
+          "residual_at_first_waypoint": true
+        }
+      },
+      "entity_graph": {
+        "sig": "000859ce1a3f15dd:46d56a72faae",
+        "cluster": "000859ce1a3f15dd",
+        "page": "venue.html",
+        "first_seen_step": 6,
+        "visits": 13,
+        "observed": [
+          "back",
+          "btn_cool",
+          "btn_pin",
+          "nav_prefs",
+          "nav_up_list",
+          "open_mid",
+          "open_side"
+        ],
+        "tried": [
+          "nav_up_list",
+          "open_mid",
+          "open_side"
+        ],
+        "final_graph_residual": [
+          "back",
+          "btn_cool",
+          "btn_pin",
+          "nav_prefs"
+        ]
+      },
+      "witness_count": 12,
+      "resume_count": 9
+    }
+  ]
+}
