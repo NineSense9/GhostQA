@@ -15,6 +15,7 @@ import time
 import urllib.request
 
 from benchmark.algorithm_freeze import sha256_file, verify_freeze
+from benchmark.return_cycle_guard_reproduce import verify_candidate_identity
 from benchmark.web_runner import run_one
 import benchmark.web_runner as web_runner
 
@@ -96,10 +97,14 @@ def _write_json(path: str, payload) -> None:
 
 
 def _check_freezes() -> None:
+    # v0.3.9 records web_runner.py, which later rounds may extend with app
+    # registration. Identity is the guard source and its protocol.
+    bad = verify_candidate_identity(GUARD_FREEZE)
+    if bad:
+        raise SystemExit("v0.3.9 guard identity mismatch\n" + "\n".join(bad))
     for path, label in (
         (CANDIDATE_FREEZE, "v0.3.21 candidate"),
         (FINDING_FREEZE, "v0.3.19 candidate"),
-        (GUARD_FREEZE, "v0.3.9 guard"),
         (SUITE_FREEZE, "v0.3.20 suite"),
     ):
         bad = verify_freeze(path)

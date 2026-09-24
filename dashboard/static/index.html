@@ -202,6 +202,17 @@
       <p class="footnote" id="ft-scope">一次目标应用上的 transfer，不是 universal generalization。</p>
     </section>
 
+    <section class="rc-section" data-testid="return-waypoint" aria-labelledby="h-rw">
+      <p class="eyebrow">v0.3.21 · 已发布证据</p>
+      <h2 id="h-rw">交接恢复后的外层返回，不再饿死中间枢纽上还没试过的分支</h2>
+      <p class="rc-lead" id="rw-lead">四个已检查的 v0.3.20 positive target 都在 step 21 触发了 Return-Waypoint Frontier Escape，下一次动作由原来的探索策略选择。Warehouse 和 Booking 收回了 Guard 的 5/8/9。Campus 和 Studio 仍丢失这三类。这轮是 Outcome C。v0.3.20 的失败记录保留。</p>
+      <p class="limit-note">这是对已经检查过的 v0.3.20 目标做的检修，不是新的 fresh 验证。产品默认未改。下一问是失败分析，不是继续调这四个目标。</p>
+      <p class="delta" id="rw-delta"></p>
+      <p class="pill-row"><span class="pill" id="rw-outcome">Outcome</span>
+        <span class="muted" id="rw-outcome-mean"></span></p>
+      <p class="footnote" id="rw-scope">已检查的回归检修。v0.3.19 仍是 Outcome A，v0.3.20 仍是 Outcome C。</p>
+    </section>
+
     <section class="rc-section" data-testid="fresh-composite" aria-labelledby="h-fc">
       <p class="eyebrow">v0.3.20 · 已发布证据</p>
       <h2 id="h-fc">冻结的 v0.3.19 组合策略在新目标上的 fresh 验证</h2>
@@ -544,6 +555,14 @@
     </header>
     <div class="ev-layout">
       <div class="ev-grid">
+        <article class="ev-card" data-testid="evidence-v0321">
+          <p class="ev-kicker">来源轮次 · v0.3.21</p>
+          <h2>Return-Waypoint Frontier Escape</h2>
+          <p class="limit-note">已检查的 v0.3.20 回归检修。24 个候选单元。不是 fresh 验证。产品默认未改。v0.3.20 Outcome C 仍保留。</p>
+          <ul class="status-rows" id="ev-v0321"></ul>
+          <pre class="cmd" id="ev-cmd-0321"></pre>
+          <button type="button" class="btn btn-ghost" data-copy="ev-cmd-0321">复制命令</button>
+        </article>
         <article class="ev-card" data-testid="evidence-v0320">
           <p class="ev-kicker">来源轮次 · v0.3.20</p>
           <h2>Strong Fresh Composite Validation</h2>

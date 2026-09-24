@@ -107,7 +107,8 @@ def test_showcase_missing_artifacts_do_not_crash():
                        v0317_root="/tmp/missing-v0317",
                        v0318_root="/tmp/missing-v0318",
                        v0319_root="/tmp/missing-v0319",
-                       v0320_root="/tmp/missing-v0320")
+                       v0320_root="/tmp/missing-v0320",
+                       v0321_root="/tmp/missing-v0321")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -121,6 +122,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["return_entry_drain"]["available"] is False
     assert s["finding_return_entry"]["available"] is False
     assert s["fresh_composite"]["available"] is False
+    assert s["return_waypoint"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -151,7 +153,24 @@ def test_showcase_endpoint_function_returns_payload():
     re = body.get("return_entry_drain") or {}
     fr = body.get("finding_return_entry") or {}
     fc = body.get("fresh_composite") or {}
-    if fc.get("available"):
+    rw = body.get("return_waypoint") or {}
+    if rw.get("available"):
+        assert body["latest"]["round"] == "v0.3.21"
+        assert body["project"]["latest_research"] == "v0.3.21"
+        assert rw["outcome"] == "C"
+        assert rw["product_default_changed"] is False
+        assert rw["fresh_validation"] is False
+        assert rw["engaged"] == 4
+        assert rw["catalog_escapes"] == 0
+        assert rw["kiosk_escapes"] == 0
+        assert fc.get("outcome") == "C"
+        assert fr.get("outcome") == "A"
+        assert re.get("outcome") == "C"
+        assert la.get("outcome") == "B"
+        assert rf.get("outcome") == "B"
+        assert fh.get("outcome") == "C"
+        assert hh.get("outcome") == "A"
+    elif fc.get("available"):
         assert body["latest"]["round"] == "v0.3.20"
         assert body["project"]["latest_research"] == "v0.3.20"
         assert fc["outcome"] == "C"
@@ -330,9 +349,17 @@ def test_showcase_reads_v0311_published_metrics():
     assert fc["guard_loss_count"] == 4
     assert fc["catalog_events"] == 0
     assert fc["kiosk_handoffs"] == 0
-    assert s["latest"]["round"] == "v0.3.20"
+    rw = s["return_waypoint"]
+    assert rw["available"] is True
+    assert rw["outcome"] == "C"
+    assert rw["product_default_changed"] is False
+    assert rw["fresh_validation"] is False
+    assert rw["engaged"] == 4
+    assert rw["catalog_escapes"] == 0
+    assert rw["kiosk_escapes"] == 0
+    assert s["latest"]["round"] == "v0.3.21"
     assert s["latest"]["outcome"] == "C"
-    assert s["project"]["latest_research"] == "v0.3.20"
+    assert s["project"]["latest_research"] == "v0.3.21"
     assert hh["outcome"] == "A"
     assert hh["product_default_changed"] is False
     assert hh["generalization_claim"] is False

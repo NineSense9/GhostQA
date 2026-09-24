@@ -1,0 +1,60 @@
+{
+  "algorithm_name": "ghost-structural-return-waypoint-frontier-guard",
+  "round": "v0.3.21",
+  "product": "v0.4 preview",
+  "source_head": "a989cb6507590c9501a40714d690657f095288d7",
+  "protocol_commit": "a989cb6507590c9501a40714d690657f095288d7",
+  "historical_candidate_freeze": "experiments/frozen/ghost-finding-return-entry-v0.3.19/freeze.json",
+  "historical_guard_freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+  "v0320_suite_freeze": "experiments/frozen/v0.3.20-fresh-composite-suite/freeze.json",
+  "policy": {
+    "constructor": "ReturnWaypointFrontierGuardGhostPolicy",
+    "controller": "ReturnWaypointFrontierSequenceController",
+    "policy_name": "ghost-structural-return-waypoint-frontier-guard",
+    "sequence_mode": "structural",
+    "use_frontier": false,
+    "subclasses": "FindingReturnEntryDrainSequenceController",
+    "event": "return_waypoint_frontier_escape",
+    "terminal_outcome": "return_cycle_abandoned",
+    "terminal_reason": "return_waypoint_escape",
+    "suppression_key": "<active branch key, waypoint cluster>",
+    "chooses_target_action": false,
+    "product_default": false,
+    "replaces_historical_identities": false,
+    "no_app_specific_rule": true
+  },
+  "note": "Candidate freeze before the v0.3.21 inspected cells. Do not change these files after the first empirical result.",
+  "hash_normalization": "LF newlines",
+  "files": {
+    "ghostqa/exploration/return_waypoint_frontier_guard.py": {
+      "sha256": "32bb69afbe97058db51dbc8cb74334941aff1df470e58f944610135c2bc9f72a",
+      "git_blob": "35856b8fa129bfd6da4201092a672073ed1cd37b",
+      "bytes": 15934
+    },
+    "benchmark/return_waypoint_frontier_analysis.py": {
+      "sha256": "a96c4df8a6cd5008f31151b34c071d7b41e3dbbb581c8100e2a4677675fd455d",
+      "git_blob": "e28a28cee1551d197e4a5eab67a4adb583c47871",
+      "bytes": 7215
+    },
+    "benchmark/return_waypoint_frontier_modelcheck.py": {
+      "sha256": "acb9c74e554b34082e979706086e6db9c9ddb5ee7f187b0b5f04457bc8543a85",
+      "git_blob": "686096526d43b3c1e8def421d0bfe4ebac3525dd",
+      "bytes": 7376
+    },
+    "benchmark/return_waypoint_frontier_trace.py": {
+      "sha256": "3d0e9ba23fe4c514fb6d4c49c72531f0ba9b8a587c16a31e3e84b4f36cdb1f69",
+      "git_blob": "f670b332cfaf7e37f8b65d9166f923fc09b86f39",
+      "bytes": 4691
+    },
+    "benchmark/return_waypoint_loss_audit.py": {
+      "sha256": "21bc3460dc738543762e109e3ae111951ab617b77202ef94dec77c1944ed3974",
+      "git_blob": "049f2143f5294ed0587e1278e14a112e966acf08",
+      "bytes": 15063
+    },
+    "experiments/validation/v0.3.21/protocol.json": {
+      "sha256": "a70e8a5a5507e4544bc687e5faf39d631fdf2d7b62b95667589e62cfe6a611f1",
+      "git_blob": "b160feb10ca571e804c1640be8041521eacc3ffb",
+      "bytes": 10172
+    }
+  }
+}

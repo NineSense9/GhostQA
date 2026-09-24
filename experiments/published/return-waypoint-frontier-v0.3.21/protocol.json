@@ -1,0 +1,219 @@
+{
+  "name": "v0.3.21 return-waypoint frontier escape",
+  "version": "v0.3.21",
+  "date": "2026-09-24",
+  "starting_head": "fc550eeccd153f201062dc612b2a791a3ed35b99",
+  "executed": false,
+  "question_kind": "inspected-failure-repair",
+  "research_question": "After a handoff-resolved outer sequence resumes returning, does abandoning the return obligation at a previously visited intermediate hub that still has residual local or structural frontier repair the shared v0.3.20 template 5/8/9 loss without a successful-return fabrication and without losing the frozen composite or historical gates?",
+  "hypothesis": "After handoff resolution, the composite candidate keeps the outer list-to-entity sequence alive as a return obligation. When that return path re-enters the known entity hub, it continues to the original list parent and starves already-observed residual frontier on the entity waypoint.",
+  "not": [
+    "a fresh validation round",
+    "productization",
+    "permission to rewrite v0.3.20 evidence",
+    "permission to change the product default",
+    "permission to retune after the candidate freeze",
+    "a claim that the mechanism recovers every bug before the experiment"
+  ],
+  "v0_3_20_immutable": {
+    "outcome": "C",
+    "sha": "fc550eeccd153f201062dc612b2a791a3ed35b99",
+    "publication": "experiments/published/fresh-composite-v0.3.20",
+    "protocol": "experiments/validation/v0.3.20/protocol.json",
+    "suite_freeze": "experiments/frozen/v0.3.20-fresh-composite-suite/freeze.json",
+    "cells": 42,
+    "product_default_changed": false
+  },
+  "loss_audit": "experiments/validation/v0.3.21/v0320-waypoint-loss-analysis.json",
+  "causal_language_allowed": [
+    "consistent with intermediate-waypoint residual-frontier starvation",
+    "entity local actions were observable but skipped",
+    "open_side was residual at the first waypoint and either absent or delayed"
+  ],
+  "causal_language_forbidden": [
+    "this proves the mechanism will recover every bug"
+  ],
+  "frozen_base_candidate": {
+    "identity": "ghost-structural-finding-return-entry-drain-guard",
+    "source": "ghostqa/exploration/finding_return_entry_guard.py",
+    "source_sha256": "0bfec3c7bd2811f154daa83bc81fde632976b8ab6e1da9ee6a208cf81c4bb42c",
+    "freeze": "experiments/frozen/ghost-finding-return-entry-v0.3.19/freeze.json",
+    "immutable": true,
+    "preserved_semantics": [
+      "v0.3.9 exact-repeat Return-Cycle Guard",
+      "v0.3.14 Horizon Handoff",
+      "v0.3.16 Early Parent Re-entry",
+      "v0.3.16 Structural Frontier Lease",
+      "v0.3.17 post-witness Local Action Drain",
+      "v0.3.18 Return-Entry Drain probe semantics",
+      "v0.3.19 Finding-Gated Return-Entry trigger",
+      "horizon-only return-entry bypass"
+    ]
+  },
+  "historical_modules_not_edited": [
+    "ghostqa/exploration/sequence.py",
+    "ghostqa/exploration/return_cycle_guard.py",
+    "ghostqa/exploration/nested_hub_guard.py",
+    "ghostqa/exploration/nested_stack_guard.py",
+    "ghostqa/exploration/horizon_handoff_guard.py",
+    "ghostqa/exploration/reentry_frontier_guard.py",
+    "ghostqa/exploration/local_action_drain_guard.py",
+    "ghostqa/exploration/return_entry_drain_guard.py",
+    "ghostqa/exploration/finding_return_entry_guard.py",
+    "ghostqa/exploration/policy.py",
+    "ghostqa/exploration/sequence_memory.py",
+    "ghostqa/exploration/interaction.py",
+    "ghostqa/exploration/payload.py"
+  ],
+  "new_candidate": {
+    "identity": "ghost-structural-return-waypoint-frontier-guard",
+    "module": "ghostqa/exploration/return_waypoint_frontier_guard.py",
+    "controller": "ReturnWaypointFrontierSequenceController",
+    "policy": "ReturnWaypointFrontierGuardGhostPolicy",
+    "research_only": true,
+    "product_default": false,
+    "subclasses": "FindingReturnEntryDrainSequenceController",
+    "chooses_target_action": false
+  },
+  "mechanism": {
+    "name": "Return-Waypoint Frontier Escape",
+    "event": "return_waypoint_frontier_escape",
+    "trigger_scope": "handoff-resolved outer return only",
+    "required_provenance": "parent_frame_resume_to_return for the same active sequence, from the existing handoff lifecycle",
+    "ordinary_return_phases": "not eligible",
+    "stack_depth": 0,
+    "true_return_required": [
+      "ledger.returning is true before the step",
+      "selected decision mode is return_hub",
+      "action is an existing return action"
+    ],
+    "not_a_waypoint_transition": [
+      "post-witness local probes",
+      "return-entry local probes",
+      "normal exploration actions",
+      "branch starts",
+      "child handoff starts"
+    ],
+    "intermediate_waypoint": [
+      "active resumed outer sequence still exists",
+      "destination state exists and is usable",
+      "destination cluster is not the original final parent cluster",
+      "destination cluster was visited earlier in the same active outer sequence during outbound exploration",
+      "stack depth is 0",
+      "branch has not terminally completed",
+      "no crash or unwind cleared the obligation"
+    ],
+    "final_parent_is_never_a_waypoint": true,
+    "brand_new_return_page_is_never_a_waypoint": true,
+    "cluster_match_is_sufficient": true,
+    "match_strength": ["exact", "cluster"],
+    "visited_hubs": "candidate-local, browser-observed states only, cluster-aware, exact variants share a cluster, reset clears them, historical frames are not mutated",
+    "residual_frontier": "at least one residual local button using the v0.3.17 eligible-button rule, or one residual structural branch using the frozen structural branch classification",
+    "residual_source": "current GUIState, current visible actions, BranchLedger, structural memory, and local-action drained keys",
+    "graph_json_during_execution": false,
+    "excluded_from_residual": [
+      "browser back",
+      "current return action",
+      "generic nav-up or back action classified as return",
+      "distractor action",
+      "disabled action",
+      "already-started structural branch",
+      "completed structural branch",
+      "already-drained local button key"
+    ],
+    "escape": "emit return_waypoint_frontier_escape, abandon the return obligation, do not select a frontier action, clear returning and commitment, preserve the physical waypoint, then let the frozen normal policy choose the next action",
+    "terminal_outcome": "return_cycle_abandoned",
+    "terminal_reason": "return_waypoint_escape",
+    "terminal_rationale": "Historical LEGAL_TERMINALS cannot be edited. The legal abandoned outcome is paired with the specific audit event. Exactly one terminal is emitted. return_success is not incremented and returned is not emitted.",
+    "return_success_delta": 0,
+    "sequences_completed_inflation": false,
+    "suppression_key": "<active branch key, waypoint cluster>",
+    "suppression_rationale": "Cluster alone is too broad across sequences. Sequence-instance alone is too narrow for an equivalent recreated branch. Branch key plus waypoint cluster is the stable key. A new branch key may escape at the same cluster. Reset clears keys.",
+    "precedence": [
+      "final parent completion wins over waypoint escape",
+      "early parent re-entry completion wins over waypoint escape",
+      "exact-repeat return-cycle escape on the same step wins and blocks a second escape",
+      "unresolved child or handoff stack depth greater than 0 blocks waypoint escape",
+      "crash or unusable destination blocks waypoint escape"
+    ]
+  },
+  "metrics": [
+    "return_waypoint_checks",
+    "return_waypoint_known_intermediate",
+    "return_waypoint_residual_present",
+    "return_waypoint_frontier_escape_events",
+    "return_waypoint_escape_local_residual_count",
+    "return_waypoint_escape_structural_residual_count",
+    "return_waypoint_escape_repeat_suppressed",
+    "return_waypoint_escape_exact_matches",
+    "return_waypoint_escape_cluster_matches",
+    "return_waypoint_false_success_violations",
+    "return_waypoint_terminal_accounting_violations",
+    "return_waypoint_parent_precedence_violations",
+    "return_waypoint_stack_scope_violations",
+    "return_waypoint_unknown_hub_violations",
+    "return_waypoint_repeat_escape_violations"
+  ],
+  "safety_suites": {
+    "W": "W1-W18 plus accounting safety",
+    "waypoint_model_traces": 37448,
+    "waypoint_model_alphabet": ["R", "T", "U", "P", "F", "N", "E", "C"],
+    "historical": [
+      "v0.3.19 FG safety",
+      "v0.3.19 finding trigger model 66429",
+      "v0.3.18 RE/X",
+      "v0.3.18 model 66429",
+      "v0.3.17 A/LA/I",
+      "v0.3.17 local-action model 66429",
+      "v0.3.16 R/F",
+      "v0.3.16 model 37448",
+      "H1-H20",
+      "v0.3.14 handoff model 19607",
+      "S1-S7",
+      "historical return model 5800",
+      "historical N/P suites"
+    ]
+  },
+  "matrix": {
+    "browser_seed": 1,
+    "cells_total": 24,
+    "positives": [
+      {"app": "buggy-campus", "budgets": [40, 80, 120]},
+      {"app": "buggy-warehouse", "budgets": [40, 80, 120]},
+      {"app": "buggy-studio", "budgets": [40, 80, 120]},
+      {"app": "buggy-booking", "budgets": [40, 80, 120]}
+    ],
+    "controls": [
+      {"app": "buggy-catalog", "budget": 120},
+      {"app": "buggy-kiosk", "budget": 120}
+    ],
+    "historical_budget_120": [
+      "buggy-lab",
+      "buggy-directory",
+      "buggy-forum",
+      "buggy-billing",
+      "buggy-crm",
+      "buggy-ops",
+      "buggy-desk",
+      "buggy-flow",
+      "buggy-wiki",
+      "buggy-shop"
+    ],
+    "no_extra_cells_after_outcome": true
+  },
+  "gates": {
+    "waypoint_engagement_minimum": "3/4 positives",
+    "outcome_A_guard_recovery": "confirmed(Guard) subset_of confirmed(v0.3.21) on all four v0.3.20 positives",
+    "catalog_waypoint_escape_for_A": 0,
+    "kiosk_waypoint_escape_for_A": 0,
+    "horizon_only_drain_for_A": 0,
+    "lab_guard": ["L1", "L2", "L8", "L9", "L10"],
+    "deep_guard": ["D6", "D7", "D11", "D12", "D13", "D14"],
+    "desk_guard": ["K1", "K2", "K3", "K5", "K6", "K9", "K10"],
+    "wiki_guard": ["W2"],
+    "shop_guard": ["W5", "W6", "W9", "W10"],
+    "outcome_order": ["C", "D", "B", "A"]
+  },
+  "product_default_changed": false,
+  "scope": "inspected repair of the v0.3.20 fresh targets, not fresh validation"
+}

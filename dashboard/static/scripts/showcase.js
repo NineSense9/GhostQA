@@ -539,6 +539,46 @@ function renderReturnEntry(re) {
   }
 }
 
+function renderWaypoint(rw) {
+  rw = rw || {};
+  const oc = gid('rw-outcome');
+  if (oc) {
+    oc.textContent = rw.outcome ? ('Outcome ' + rw.outcome) : 'Outcome';
+    oc.className = rw.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('rw-outcome-mean');
+  if (om) om.textContent = rw.outcome_meaning || '';
+  const delta = gid('rw-delta');
+  if (delta) {
+    delta.textContent = 'waypoint escape ' + rw.engaged + '/4'
+      + ' · Guard 全部保留 ' + rw.recovered + '/4'
+      + ' · 模板 5/8/9 ' + rw.template_recovered + '/4'
+      + ' · catalog escape ' + rw.catalog_escapes
+      + ' · kiosk escape ' + rw.kiosk_escapes
+      + ' · 历史 Guard 丢失 ' + rw.historical_loss_count
+      + ' · ' + (rw.promotion_readiness || 'not_ready');
+  }
+  if (!rw.available) return;
+  setText('proof-round', rw.round || 'v0.3.21');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = 'escape / Guard 保留';
+  if (m2) m2.textContent = '模板 5/8/9';
+  if (m3) m3.textContent = 'catalog / kiosk / 历史丢失';
+  setText('proof-b-states', rw.engaged + '/4');
+  setText('proof-g-states', rw.recovered + '/4');
+  setText('proof-b-ret', rw.template_recovered + '/4');
+  setText('proof-g-ret', rw.template_recovered + '/4');
+  setText('proof-esc', String(rw.catalog_escapes) + ' / ' + String(rw.kiosk_escapes)
+    + ' / ' + String(rw.historical_loss_count));
+  setText('proof-outcome', rw.outcome || '—');
+  const note = gid('proof-note');
+  if (note) {
+    note.textContent = '四个已检查目标都在中间枢纽放弃了交接恢复后的外层返回，下一次动作由原探索策略选择。Warehouse 和 Booking 收回了 Guard 的 5/8/9，Campus 和 Studio 没有。这轮是 Outcome C。不是新的 fresh 验证。v0.3.20 Outcome C 仍保留。产品默认未改。';
+  }
+}
+
 function renderFreshComposite(fc) {
   fc = fc || {};
   const oc = gid('fc-outcome');
@@ -753,6 +793,8 @@ function renderEvidence(data) {
   const re = (data && data.return_entry_drain) || {};
   const fr = (data && data.finding_return_entry) || {};
   const fc = (data && data.fresh_composite) || {};
+  const rw = (data && data.return_waypoint) || {};
+  const ev0321 = gid('ev-v0321');
   const ev0320 = gid('ev-v0320');
   const ev0319 = gid('ev-v0319');
   const ev0318 = gid('ev-v0318');
@@ -768,6 +810,31 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0321) {
+    if (!rw.available) {
+      ev0321.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = rw.reproduction || {};
+      ev0321.innerHTML = [
+        statusRow('轮次结果', rw.outcome ? ('Outcome ' + rw.outcome) : '—', rw.outcome === 'A'),
+        statusRow('waypoint escape', String(rw.engaged) + '/4', rw.engaged >= 3),
+        statusRow('Guard 全部保留', String(rw.recovered) + '/4', rw.recovered === 4),
+        statusRow('模板 5/8/9', String(rw.template_recovered) + '/4', rw.template_recovered === 4),
+        statusRow('catalog escape', String(rw.catalog_escapes), rw.catalog_escapes === 0),
+        statusRow('kiosk escape', String(rw.kiosk_escapes), rw.kiosk_escapes === 0),
+        statusRow('历史 Guard 丢失', String(rw.historical_loss_count), rw.historical_loss_count === 0),
+        statusRow('24 cells', String(rw.cells), rw.cells === 24),
+        statusRow('证据清单', fileLabel(r.evidence_files, true), true),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', rw.product_default_changed ? '已改' : '未改',
+          rw.product_default_changed === false),
+        statusRow('范围', '已检查检修', rw.fresh_validation === false),
+      ].join('');
+    }
+  }
+  const cmd0321 = rw.command || '';
+  const cmdEl21 = gid('ev-cmd-0321');
+  if (cmdEl21) cmdEl21.textContent = cmd0321;
   if (ev0320) {
     if (!fc.available) {
       ev0320.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -1148,6 +1215,7 @@ async function loadShowcase() {
     renderReturnEntry(data.return_entry_drain);
     renderFindingReturn(data.finding_return_entry);
     renderFreshComposite(data.fresh_composite);
+    renderWaypoint(data.return_waypoint);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

@@ -4,11 +4,13 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.20
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.21
 
-产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.20 没有改产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.21 没有改产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
 
-**v0.3.20 Outcome C — fresh validation harmful, unsafe, or invalid.** 冻结的 v0.3.19 组合策略在 4 个新 positive target 上都走到了 nested handoff 和 finding-gated Return-Entry Drain，catalog 的候选事件为 0，kiosk 的 nested handoff 为 0，horizon-only drain 为 0。但四个 positive target 都丢失了 Guard 已确认的缺陷，所以按预注册顺序这轮是 Outcome C。full transfer 是 0/4。promotion readiness 为 `not_ready`。这不是任意网站泛化，也不是 production-ready。下一问是失败分析，不是改默认策略。`python -m benchmark.fresh_composite_reproduce --root experiments/published/fresh-composite-v0.3.20 --verify`
+**v0.3.21 Outcome C — unsafe, harmful, or protocol-invalid.** 这是对已检查的 v0.3.20 目标做的 Return-Waypoint Frontier Escape 检修，不是新的 fresh 验证。四个 positive 都在 step 21 放弃了交接恢复后的外层返回，下一次动作由原探索策略选择 `open_side`。Warehouse 和 Booking 收回了 Guard 的模板 5/8/9。Campus 和 Studio 仍丢失这三类。四个目标还少了 v0.3.20 F 曾经确认、但 Guard 集合之外的空白页缺陷。历史回归、catalog/kiosk 对照和安全计数保持。promotion readiness 为 `not_ready`。下一问是失败分析，不是继续调这四个目标，也不是改默认策略。`python -m benchmark.return_waypoint_frontier_reproduce --root experiments/published/return-waypoint-frontier-v0.3.21 --verify`
+
+**v0.3.20 Outcome C 仍保留。** 冻结的 v0.3.19 组合策略在 4 个新 positive target 上都走到了 nested handoff 和 finding-gated Return-Entry Drain，但都丢失了 Guard 已确认的缺陷。`python -m benchmark.fresh_composite_reproduce --root experiments/published/fresh-composite-v0.3.20 --verify`
 
 **v0.3.19 Outcome A — inspected trigger repair.** Return-Entry Drain 只在同一步新出现 `sequence_terminal` outcome `finding`，并且这条 sequence 从 returning false 变成 true 时才启动。普通 `sequence_horizon_reached` 回到 v0.3.17 的返回。buggy-lab @120 仍在结果页按稳定顺序点 `btn_close` 然后 `btn_reopen`，BUG-L9 在第 18 步确认，Guard 的 L1、L2、L8、L9、L10 都保留。DeepBench @120 没有 horizon drain，states 26、URLs 8、return_success 37，Guard 的 D6、D7、D11、D12、D13、D14 都保留。目录 handoff 仍是 0。forum 与 billing 的 strict full transfer 都为 true。CRM 27/16，Ops 34/25。Desk、Wiki、BuggyShop 相对 guard 没有丢失。这是已检查的触发收窄，不是 fresh 验证，也不是晋升。下一轮必须是新的 fresh-validation。`python -m benchmark.finding_return_entry_reproduce --root experiments/published/finding-return-entry-v0.3.19 --verify`
 

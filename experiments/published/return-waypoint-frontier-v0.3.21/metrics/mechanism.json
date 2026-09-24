@@ -1,0 +1,257 @@
+{
+  "derived": {
+    "fresh_validation": false,
+    "generalization_claim": false,
+    "historical_guard_loss": [],
+    "inspected_repair": true,
+    "mechanism_engaged_count": 4,
+    "outcome": "C",
+    "outcome_a_complete": false,
+    "outcome_meaning": "unsafe, harmful, or protocol-invalid",
+    "positives_fully_recovered": 2,
+    "product_default_changed": false,
+    "promotion_readiness": "not_ready",
+    "regression_vs_v0320_f": [
+      {
+        "app": "buggy-campus",
+        "bugs": [
+          "BUG-CP1"
+        ]
+      },
+      {
+        "app": "buggy-warehouse",
+        "bugs": [
+          "BUG-WH1"
+        ]
+      },
+      {
+        "app": "buggy-studio",
+        "bugs": [
+          "BUG-ST1"
+        ]
+      },
+      {
+        "app": "buggy-booking",
+        "bugs": [
+          "BUG-BK1"
+        ]
+      }
+    ],
+    "residual_escape_count": 4,
+    "waypoint_reached_count": 4
+  },
+  "engagement": {
+    "buggy-booking": {
+      "engaged": true,
+      "escape_events": 2,
+      "escape_step": 21,
+      "local_residual_count": 2,
+      "match_strength": "exact",
+      "next_eid": "open_side",
+      "next_label": "branch",
+      "parent_cluster": "eb9d772b908dbb74",
+      "residual_escape": true,
+      "residual_tried": [
+        {
+          "eid": "open_side",
+          "index": 22
+        },
+        {
+          "eid": "nav_prefs",
+          "index": 84
+        },
+        {
+          "eid": "btn_pin",
+          "index": 89
+        },
+        {
+          "eid": "btn_cool",
+          "index": 90
+        },
+        {
+          "eid": "open_side",
+          "index": 95
+        },
+        {
+          "eid": "btn_pin",
+          "index": 114
+        },
+        {
+          "eid": "btn_cool",
+          "index": 115
+        }
+      ],
+      "resume_step": 20,
+      "return_success_before": 3,
+      "stack_depth": 0,
+      "structural_residual_count": 4,
+      "waypoint_cluster": "251b79f7a2cfcc9a",
+      "waypoint_reached": true
+    },
+    "buggy-campus": {
+      "engaged": true,
+      "escape_events": 1,
+      "escape_step": 21,
+      "local_residual_count": 2,
+      "match_strength": "exact",
+      "next_eid": "open_side",
+      "next_label": "branch",
+      "parent_cluster": "71024b528acdbbd1",
+      "residual_escape": true,
+      "residual_tried": [
+        {
+          "eid": "open_side",
+          "index": 22
+        }
+      ],
+      "resume_step": 20,
+      "return_success_before": 3,
+      "stack_depth": 0,
+      "structural_residual_count": 4,
+      "waypoint_cluster": "d9e86f110494d793",
+      "waypoint_reached": true
+    },
+    "buggy-studio": {
+      "engaged": true,
+      "escape_events": 1,
+      "escape_step": 21,
+      "local_residual_count": 2,
+      "match_strength": "exact",
+      "next_eid": "open_side",
+      "next_label": "branch",
+      "parent_cluster": "6790cbec7dfd4910",
+      "residual_escape": true,
+      "residual_tried": [
+        {
+          "eid": "open_side",
+          "index": 22
+        }
+      ],
+      "resume_step": 20,
+      "return_success_before": 3,
+      "stack_depth": 0,
+      "structural_residual_count": 4,
+      "waypoint_cluster": "259a23cc15d141f0",
+      "waypoint_reached": true
+    },
+    "buggy-warehouse": {
+      "engaged": true,
+      "escape_events": 2,
+      "escape_step": 21,
+      "local_residual_count": 2,
+      "match_strength": "exact",
+      "next_eid": "open_side",
+      "next_label": "branch",
+      "parent_cluster": "0b8f8f7e0dfd7868",
+      "residual_escape": true,
+      "residual_tried": [
+        {
+          "eid": "open_side",
+          "index": 22
+        },
+        {
+          "eid": "nav_prefs",
+          "index": 84
+        },
+        {
+          "eid": "btn_pin",
+          "index": 89
+        },
+        {
+          "eid": "btn_cool",
+          "index": 90
+        },
+        {
+          "eid": "open_side",
+          "index": 95
+        },
+        {
+          "eid": "btn_pin",
+          "index": 114
+        },
+        {
+          "eid": "btn_cool",
+          "index": 115
+        }
+      ],
+      "resume_step": 20,
+      "return_success_before": 3,
+      "stack_depth": 0,
+      "structural_residual_count": 4,
+      "waypoint_cluster": "cf496577d4e67d9c",
+      "waypoint_reached": true
+    }
+  },
+  "facts": {
+    "app_specific": false,
+    "candidate_freeze_ok": true,
+    "catalog_safety_failure": false,
+    "catalog_waypoint_escapes": 0,
+    "control_selectivity_failure": false,
+    "crm_ops_collapse": false,
+    "crm_ops_ok": true,
+    "deep_retained": true,
+    "desk_wiki_shop_ok": true,
+    "directory_ok": true,
+    "duplicate_terminal": false,
+    "escape_emitted_returned": false,
+    "escape_false_success": false,
+    "finding_provenance_ok": true,
+    "forum_billing_ok": true,
+    "historical_freeze_ok": true,
+    "historical_guard_loss": [],
+    "historical_models_ok": true,
+    "historical_source_mutation": false,
+    "horizon_only_drain_count": 0,
+    "kiosk_safety_failure": false,
+    "kiosk_waypoint_escapes": 0,
+    "lab_retained": true,
+    "mechanism_engaged_count": 4,
+    "model_invariant_failures": 0,
+    "model_ok": true,
+    "model_raw_traces": 37448,
+    "nested_transfer_ok": true,
+    "positives_fully_recovered": 2,
+    "post_freeze_edit": false,
+    "product_default_changed": false,
+    "protocol_ok": true,
+    "regression_vs_v0320_f": [
+      {
+        "app": "buggy-campus",
+        "bugs": [
+          "BUG-CP1"
+        ]
+      },
+      {
+        "app": "buggy-warehouse",
+        "bugs": [
+          "BUG-WH1"
+        ]
+      },
+      {
+        "app": "buggy-studio",
+        "bugs": [
+          "BUG-ST1"
+        ]
+      },
+      {
+        "app": "buggy-booking",
+        "bugs": [
+          "BUG-BK1"
+        ]
+      }
+    ],
+    "repeat_escape": false,
+    "residual_escape_count": 4,
+    "safety_ok": true,
+    "template_589_recovered": 2,
+    "w_series_ok": true,
+    "waypoint_accounting_violations": 0,
+    "waypoint_depth_escape": false,
+    "waypoint_parent_escape": false,
+    "waypoint_reached_count": 4,
+    "waypoint_scope_violation": false,
+    "waypoint_unknown_hub_escape": false,
+    "witness_terminal_trigger_violations": 0
+  }
+}
