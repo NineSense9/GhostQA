@@ -1,0 +1,26 @@
+{
+  "round": "v0.3.22",
+  "kind": "diagnostic",
+  "candidate": "ghost-structural-return-waypoint-frontier-guard",
+  "candidate_freeze": "experiments/frozen/ghost-return-waypoint-frontier-v0.3.21/freeze.json",
+  "diagnostic_conclusion": "persistent_post_terminal_sink",
+  "product_default_changed": false,
+  "promotion_readiness": "not_ready",
+  "fresh_validation": false,
+  "cell_count": 8,
+  "cells": [
+    "buggy-campus@240",
+    "buggy-campus@480",
+    "buggy-warehouse@240",
+    "buggy-warehouse@480",
+    "buggy-studio@240",
+    "buggy-studio@480",
+    "buggy-booking@240",
+    "buggy-booking@480"
+  ],
+  "historical_reference": "experiments/published/return-waypoint-frontier-v0.3.21",
+  "starting_head": "deda60a7ef7494466d12598b9418234c09b543f4",
+  "preregistration_commit": "5edcc22700a38eff3e9099ff43f0f33959994030",
+  "verify_command": "python -m benchmark.post_escape_sink_reproduce --root experiments/published/post-escape-sink-v0.3.22 --verify",
+  "v0_3_21_outcome": "C"
+}

@@ -539,6 +539,50 @@ function renderReturnEntry(re) {
   }
 }
 
+function renderSink(sink) {
+  sink = sink || {};
+  const pill = gid('sink-diagnosis');
+  if (pill) {
+    pill.textContent = sink.diagnosis ? ('Diagnosis ' + sink.diagnosis) : 'Diagnosis';
+    pill.className = 'pill';
+  }
+  const meaning = gid('sink-meaning');
+  if (meaning) meaning.textContent = sink.meaning || '';
+  const delta = gid('sink-delta');
+  if (delta) {
+    const frac = sink.dominant_sink_fraction || {};
+    const active = sink.active_sequence_after_abandonment || {};
+    delta.textContent = 'Campus b480 模板恢复 ' + (sink.campus_b480_template_recovered ? '是' : '否')
+      + ' · Studio b480 模板恢复 ' + (sink.studio_b480_template_recovered ? '是' : '否')
+      + ' · Warehouse/Booking 保留 ' + (sink.warehouse_booking_preserved ? '是' : '否')
+      + ' · sink fraction ' + (frac['buggy-campus'] ?? '—') + ' / ' + (frac['buggy-studio'] ?? '—')
+      + ' · active sequence after abandon ' + (active['buggy-campus'] ? 'true' : 'false')
+      + ' / ' + (active['buggy-studio'] ? 'true' : 'false')
+      + ' · 产品默认未改';
+  }
+  const scope = gid('sink-scope');
+  if (scope) scope.textContent = sink.public_copy || '';
+  if (!sink.available) return;
+  const kind = gid('proof-result-kind');
+  if (kind) kind.textContent = 'Diagnosis';
+  setText('proof-round', sink.round || 'v0.3.22');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = 'Campus / Studio b480';
+  if (m2) m2.textContent = 'Warehouse/Booking';
+  if (m3) m3.textContent = 'sink fraction';
+  setText('proof-b-states', sink.campus_b480_template_recovered ? 'recovered' : 'lost');
+  setText('proof-g-states', sink.studio_b480_template_recovered ? 'recovered' : 'lost');
+  setText('proof-b-ret', sink.warehouse_booking_preserved ? 'preserved' : 'changed');
+  setText('proof-g-ret', sink.warehouse_booking_preserved ? 'preserved' : 'changed');
+  const frac = sink.dominant_sink_fraction || {};
+  setText('proof-esc', String(frac['buggy-campus'] ?? '—') + ' / ' + String(frac['buggy-studio'] ?? '—'));
+  setText('proof-outcome', sink.diagnosis || '—');
+  const note = gid('proof-note');
+  if (note) note.textContent = sink.public_copy || '';
+}
+
 function renderWaypoint(rw) {
   rw = rw || {};
   const oc = gid('rw-outcome');
@@ -794,6 +838,8 @@ function renderEvidence(data) {
   const fr = (data && data.finding_return_entry) || {};
   const fc = (data && data.fresh_composite) || {};
   const rw = (data && data.return_waypoint) || {};
+  const sink = (data && data.post_escape_sink) || {};
+  const ev0322 = gid('ev-v0322');
   const ev0321 = gid('ev-v0321');
   const ev0320 = gid('ev-v0320');
   const ev0319 = gid('ev-v0319');
@@ -810,6 +856,35 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0322) {
+    if (!sink.available) {
+      ev0322.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = sink.reproduction || {};
+      const active = sink.active_sequence_after_abandonment || {};
+      const frac = sink.dominant_sink_fraction || {};
+      ev0322.innerHTML = [
+        statusRow('诊断', sink.diagnosis || '—', Boolean(sink.diagnosis)),
+        statusRow('Campus b480 模板', sink.campus_b480_template_recovered ? 'recovered' : 'lost',
+          sink.campus_b480_template_recovered === false || sink.campus_b480_template_recovered === true),
+        statusRow('Studio b480 模板', sink.studio_b480_template_recovered ? 'recovered' : 'lost', true),
+        statusRow('Warehouse/Booking', sink.warehouse_booking_preserved ? 'preserved' : 'changed',
+          sink.warehouse_booking_preserved === true),
+        statusRow('sink fraction', String(frac['buggy-campus'] ?? '—') + ' / ' + String(frac['buggy-studio'] ?? '—'), true),
+        statusRow('abandon 后仍有 active sequence',
+          (active['buggy-campus'] ? 'true' : 'false') + ' / ' + (active['buggy-studio'] ? 'true' : 'false'),
+          active['buggy-campus'] === false && active['buggy-studio'] === false),
+        statusRow('8 cells', String(sink.cells), sink.cells === 8),
+        statusRow('证据清单', fileLabel(r.evidence_files, true), true),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', sink.product_default_changed ? '已改' : '未改', sink.product_default_changed === false),
+        statusRow('v0.3.21', 'Outcome ' + (sink.v0321_outcome || 'C'), true),
+      ].join('');
+    }
+  }
+  const cmd0322 = sink.command || '';
+  const cmdEl22 = gid('ev-cmd-0322');
+  if (cmdEl22) cmdEl22.textContent = cmd0322;
   if (ev0321) {
     if (!rw.available) {
       ev0321.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -1130,7 +1205,7 @@ function renderEvidence(data) {
 
   if (rail) {
     const latest = (data && data.latest) || {};
-    const r = (ns.reproduction || mt.reproduction || ft.reproduction || rc.reproduction || {});
+    const r = (sink.reproduction || rw.reproduction || ns.reproduction || mt.reproduction || ft.reproduction || rc.reproduction || {});
     if (!mt.available && !ft.available && !rc.available && !app.available) {
       rail.innerHTML = '<h2>当前研究</h2><p>暂时无法读取已发布证据</p>';
     } else {
@@ -1216,6 +1291,7 @@ async function loadShowcase() {
     renderFindingReturn(data.finding_return_entry);
     renderFreshComposite(data.fresh_composite);
     renderWaypoint(data.return_waypoint);
+    renderSink(data.post_escape_sink);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

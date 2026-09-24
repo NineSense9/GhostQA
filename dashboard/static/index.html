@@ -84,7 +84,7 @@
           <div><dt id="proof-metric-1">BuggyDesk 状态</dt><dd><span class="mono" id="proof-b-states">—</span> → <span class="mono" id="proof-g-states">—</span></dd></div>
           <div><dt id="proof-metric-2">return attempt</dt><dd><span class="mono" id="proof-b-ret">—</span> → <span class="mono" id="proof-g-ret">—</span></dd></div>
           <div><dt id="proof-metric-3">cycle escape</dt><dd class="mono" id="proof-esc">—</dd></div>
-          <div><dt>结果</dt><dd>Outcome <span id="proof-outcome">—</span> · 产品默认未改</dd></div>
+          <div><dt>结果</dt><dd><span id="proof-result-kind">Outcome</span> <span id="proof-outcome">—</span> · 产品默认未改</dd></div>
         </dl>
         <p class="hero-proof-note" id="proof-note">一次 fresh cross-app transfer，不是广泛泛化证明。</p>
       </aside>
@@ -200,6 +200,17 @@
       <p class="pill-row"><span class="pill pill-ok" id="ft-outcome">Outcome</span>
         <span class="muted" id="ft-outcome-mean"></span></p>
       <p class="footnote" id="ft-scope">一次目标应用上的 transfer，不是 universal generalization。</p>
+    </section>
+
+    <section class="rc-section" data-testid="post-escape-sink" aria-labelledby="h-sink">
+      <p class="eyebrow">v0.3.22 · 诊断</p>
+      <h2 id="h-sink">第一次逃逸之后，普通探索有没有回到原来的 residual frontier</h2>
+      <p class="rc-lead" id="sink-lead">这一轮不改策略。它只解释 v0.3.21 里 Warehouse/Booking 收回 5/8/9、Campus/Studio 没有收回的分裂。</p>
+      <p class="limit-note">不是新修复，不是 fresh validation，也不是无限循环证明。产品默认未改。v0.3.21 仍是 Outcome C。</p>
+      <p class="delta" id="sink-delta"></p>
+      <p class="pill-row"><span class="pill" id="sink-diagnosis">Diagnosis</span>
+        <span class="muted" id="sink-meaning"></span></p>
+      <p class="footnote" id="sink-scope"></p>
     </section>
 
     <section class="rc-section" data-testid="return-waypoint" aria-labelledby="h-rw">
@@ -555,6 +566,14 @@
     </header>
     <div class="ev-layout">
       <div class="ev-grid">
+        <article class="ev-card" data-testid="evidence-v0322">
+          <p class="ev-kicker">来源轮次 · v0.3.22</p>
+          <h2>Post-Escape Sink Diagnosis</h2>
+          <p class="limit-note">只分析冻结的 v0.3.21 候选和四个 v0.3.20 positive。8 个诊断单元。不是新修复。产品默认未改。v0.3.21 Outcome C 仍保留。</p>
+          <ul class="status-rows" id="ev-v0322"></ul>
+          <pre class="cmd" id="ev-cmd-0322"></pre>
+          <button type="button" class="btn btn-ghost" data-copy="ev-cmd-0322">复制命令</button>
+        </article>
         <article class="ev-card" data-testid="evidence-v0321">
           <p class="ev-kicker">来源轮次 · v0.3.21</p>
           <h2>Return-Waypoint Frontier Escape</h2>
@@ -673,7 +692,7 @@
 </div>
 
 <script src="/static/vendor/cytoscape.min.js"></script>
-<script src="/static/scripts/showcase.js?v=20260924"></script>
+<script src="/static/scripts/showcase.js?v=20260924b"></script>
 <script src="/static/scripts/main.js?v=20260922"></script>
 </body>
 </html>

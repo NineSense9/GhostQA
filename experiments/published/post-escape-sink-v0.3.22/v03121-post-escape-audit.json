@@ -1,0 +1,516 @@
+{
+  "version": "v0.3.22",
+  "source_publication": "experiments\\published\\return-waypoint-frontier-v0.3.21",
+  "source_round": "v0.3.21",
+  "source_outcome": "C",
+  "budget": 120,
+  "seed": 1,
+  "candidate_policy": "ghost-structural-return-waypoint-frontier-guard",
+  "derived_from_events": true,
+  "targets": [
+    {
+      "app": "buggy-campus",
+      "budget": 120,
+      "first_waypoint_escape_step": 21,
+      "first_escape_entity_cluster": "d9e86f110494d793",
+      "first_escape_entity_node": "row_c1",
+      "next_action_eid": "open_side",
+      "next_action_label": "branch",
+      "match_strength": "exact",
+      "stack_depth": 0,
+      "local_residual_count": 2,
+      "structural_residual_count": 4,
+      "residual_eids": [
+        "btn_pin",
+        "btn_cool",
+        "open_side",
+        "nav_prefs"
+      ],
+      "residual_tried_before_escape": [],
+      "waypoint_escape_count": 1,
+      "template_lost": [
+        "BUG-CP5",
+        "BUG-CP8",
+        "BUG-CP9"
+      ],
+      "template_589_recovered": false,
+      "all_guard_bugs_retained": false,
+      "first_post_escape_cycle": {
+        "sequence_instance_id": "seq-0007",
+        "branch_key": "6f455021e2229b1a:click:open_cross",
+        "branch_start_step": 32,
+        "horizon_step": 34,
+        "return_attempt_count": 4,
+        "return_cycle_escape_step": 38,
+        "terminal_step": 38,
+        "terminal_outcome": "return_cycle_abandoned",
+        "events_after_terminal": [],
+        "active_same_sequence_afterward": false
+      },
+      "horizon_cycle": {
+        "sequence_instance_id": "seq-0014",
+        "branch_key": "0fad224e887cf7c5:click:open_leaf",
+        "branch_start_step": 63,
+        "horizon_step": 65,
+        "return_attempt_count": 2,
+        "return_cycle_escape_step": 67,
+        "terminal_step": 67,
+        "terminal_outcome": "return_cycle_abandoned",
+        "events_after_terminal": [],
+        "active_same_sequence_afterward": false
+      },
+      "sequence_events_after_horizon_terminal": [],
+      "suffix_dominant_pages": [
+        {
+          "page": "handbook.html",
+          "count": 29
+        },
+        {
+          "page": "help.html",
+          "count": 28
+        },
+        {
+          "page": "gradebook.html",
+          "count": 7
+        },
+        {
+          "page": "courses.html",
+          "count": 5
+        },
+        {
+          "page": "course.html",
+          "count": 4
+        },
+        {
+          "page": "module.html",
+          "count": 4
+        },
+        {
+          "page": "quiz.html",
+          "count": 2
+        },
+        {
+          "page": "index.html",
+          "count": 1
+        }
+      ],
+      "suffix_dominant_edges": [
+        {
+          "edge": "handbook.html|nav_up_help|help.html",
+          "count": 23
+        },
+        {
+          "edge": "help.html|open_loop|handbook.html",
+          "count": 23
+        },
+        {
+          "edge": "handbook.html|back|help.html",
+          "count": 5
+        },
+        {
+          "edge": "help.html|back|handbook.html",
+          "count": 5
+        },
+        {
+          "edge": "course.html|nav_up_list|courses.html",
+          "count": 2
+        },
+        {
+          "edge": "course.html|open_mid|module.html",
+          "count": 2
+        },
+        {
+          "edge": "gradebook.html|btn_note_a|gradebook.html",
+          "count": 2
+        },
+        {
+          "edge": "gradebook.html|btn_note_b|gradebook.html",
+          "count": 2
+        }
+      ],
+      "entity_reentry_count_after_abandon": 2,
+      "entity_residual_action_count_after_abandon": 0,
+      "productive_entity_reentry": false,
+      "dominant_scc_visit_fraction": 0.703704,
+      "static_classification": "closed_scc",
+      "post_abandon_step": 38,
+      "active_sequence_after_abandonment": true
+    },
+    {
+      "app": "buggy-warehouse",
+      "budget": 120,
+      "first_waypoint_escape_step": 21,
+      "first_escape_entity_cluster": "cf496577d4e67d9c",
+      "first_escape_entity_node": "row_w1",
+      "next_action_eid": "open_side",
+      "next_action_label": "branch",
+      "match_strength": "exact",
+      "stack_depth": 0,
+      "local_residual_count": 2,
+      "structural_residual_count": 4,
+      "residual_eids": [
+        "btn_pin",
+        "btn_cool",
+        "open_side",
+        "nav_prefs"
+      ],
+      "residual_tried_before_escape": [],
+      "waypoint_escape_count": 2,
+      "template_lost": [],
+      "template_589_recovered": true,
+      "all_guard_bugs_retained": true,
+      "first_post_escape_cycle": {
+        "sequence_instance_id": "seq-0007",
+        "branch_key": "a59348175951d67a:click:open_cross",
+        "branch_start_step": 32,
+        "horizon_step": 34,
+        "return_attempt_count": 4,
+        "return_cycle_escape_step": 38,
+        "terminal_step": 38,
+        "terminal_outcome": "return_cycle_abandoned",
+        "events_after_terminal": [],
+        "active_same_sequence_afterward": false
+      },
+      "horizon_cycle": {
+        "sequence_instance_id": "seq-0014",
+        "branch_key": "bf665b81ba0e1863:click:open_leaf",
+        "branch_start_step": 63,
+        "horizon_step": 65,
+        "return_attempt_count": 3,
+        "return_cycle_escape_step": 67,
+        "terminal_step": 67,
+        "terminal_outcome": "return_cycle_abandoned",
+        "events_after_terminal": [],
+        "active_same_sequence_afterward": false
+      },
+      "sequence_events_after_horizon_terminal": [],
+      "suffix_dominant_pages": [
+        {
+          "page": "settings.html",
+          "count": 14
+        },
+        {
+          "page": "warehouse.html",
+          "count": 14
+        },
+        {
+          "page": "warehouses.html",
+          "count": 8
+        },
+        {
+          "page": "inspection.html",
+          "count": 7
+        },
+        {
+          "page": "item.html",
+          "count": 6
+        },
+        {
+          "page": "zone.html",
+          "count": 6
+        },
+        {
+          "page": "batch.html",
+          "count": 5
+        },
+        {
+          "page": "zones.html",
+          "count": 5
+        }
+      ],
+      "suffix_dominant_edges": [
+        {
+          "edge": "settings.html|btn_submit|settings.html",
+          "count": 4
+        },
+        {
+          "edge": "warehouse.html|nav_up_list|warehouses.html",
+          "count": 4
+        },
+        {
+          "edge": "batch.html|nav_up_side_row|item.html",
+          "count": 3
+        },
+        {
+          "edge": "item.html|nav_up_side|items.html",
+          "count": 3
+        },
+        {
+          "edge": "item.html|open_mid_b|batch.html",
+          "count": 3
+        },
+        {
+          "edge": "settings.html|btn_export|settings.html",
+          "count": 3
+        },
+        {
+          "edge": "settings.html|btn_probe|settings.html",
+          "count": 3
+        },
+        {
+          "edge": "transfer.html|nav_up_child|zone.html",
+          "count": 3
+        }
+      ],
+      "entity_reentry_count_after_abandon": 10,
+      "entity_residual_action_count_after_abandon": 6,
+      "productive_entity_reentry": true,
+      "dominant_scc_visit_fraction": 1.0,
+      "static_classification": "policy_attractor_with_static_exit",
+      "post_abandon_step": 38,
+      "active_sequence_after_abandonment": true
+    },
+    {
+      "app": "buggy-studio",
+      "budget": 120,
+      "first_waypoint_escape_step": 21,
+      "first_escape_entity_cluster": "259a23cc15d141f0",
+      "first_escape_entity_node": "row_p1",
+      "next_action_eid": "open_side",
+      "next_action_label": "branch",
+      "match_strength": "exact",
+      "stack_depth": 0,
+      "local_residual_count": 2,
+      "structural_residual_count": 4,
+      "residual_eids": [
+        "btn_pin",
+        "btn_cool",
+        "open_side",
+        "nav_prefs"
+      ],
+      "residual_tried_before_escape": [],
+      "waypoint_escape_count": 1,
+      "template_lost": [
+        "BUG-ST5",
+        "BUG-ST8",
+        "BUG-ST9"
+      ],
+      "template_589_recovered": false,
+      "all_guard_bugs_retained": false,
+      "first_post_escape_cycle": {
+        "sequence_instance_id": "seq-0007",
+        "branch_key": "dc539ea5192346f8:click:open_cross",
+        "branch_start_step": 32,
+        "horizon_step": 34,
+        "return_attempt_count": 4,
+        "return_cycle_escape_step": 38,
+        "terminal_step": 38,
+        "terminal_outcome": "return_cycle_abandoned",
+        "events_after_terminal": [],
+        "active_same_sequence_afterward": false
+      },
+      "horizon_cycle": {
+        "sequence_instance_id": "seq-0014",
+        "branch_key": "4749750aebae6484:click:open_leaf",
+        "branch_start_step": 63,
+        "horizon_step": 65,
+        "return_attempt_count": 2,
+        "return_cycle_escape_step": 67,
+        "terminal_step": 67,
+        "terminal_outcome": "return_cycle_abandoned",
+        "events_after_terminal": [],
+        "active_same_sequence_afterward": false
+      },
+      "sequence_events_after_horizon_terminal": [],
+      "suffix_dominant_pages": [
+        {
+          "page": "help.html",
+          "count": 28
+        },
+        {
+          "page": "handbook.html",
+          "count": 16
+        },
+        {
+          "page": "scenes.html",
+          "count": 13
+        },
+        {
+          "page": "comments.html",
+          "count": 7
+        },
+        {
+          "page": "projects.html",
+          "count": 5
+        },
+        {
+          "page": "project.html",
+          "count": 4
+        },
+        {
+          "page": "scene.html",
+          "count": 4
+        },
+        {
+          "page": "render.html",
+          "count": 2
+        }
+      ],
+      "suffix_dominant_edges": [
+        {
+          "edge": "help.html|open_loop|handbook.html",
+          "count": 14
+        },
+        {
+          "edge": "handbook.html|nav_up_help|help.html",
+          "count": 13
+        },
+        {
+          "edge": "help.html|open_extra_0|scenes.html",
+          "count": 13
+        },
+        {
+          "edge": "scenes.html|nav_up_extra_0|help.html",
+          "count": 12
+        },
+        {
+          "edge": "comments.html|btn_note_a|comments.html",
+          "count": 2
+        },
+        {
+          "edge": "comments.html|btn_note_b|comments.html",
+          "count": 2
+        },
+        {
+          "edge": "comments.html|nav_up_finding|projects.html",
+          "count": 2
+        },
+        {
+          "edge": "handbook.html|back|help.html",
+          "count": 2
+        }
+      ],
+      "entity_reentry_count_after_abandon": 2,
+      "entity_residual_action_count_after_abandon": 0,
+      "productive_entity_reentry": false,
+      "dominant_scc_visit_fraction": 0.703704,
+      "static_classification": "closed_scc",
+      "post_abandon_step": 38,
+      "active_sequence_after_abandonment": true
+    },
+    {
+      "app": "buggy-booking",
+      "budget": 120,
+      "first_waypoint_escape_step": 21,
+      "first_escape_entity_cluster": "251b79f7a2cfcc9a",
+      "first_escape_entity_node": "row_v1",
+      "next_action_eid": "open_side",
+      "next_action_label": "branch",
+      "match_strength": "exact",
+      "stack_depth": 0,
+      "local_residual_count": 2,
+      "structural_residual_count": 4,
+      "residual_eids": [
+        "btn_pin",
+        "btn_cool",
+        "open_side",
+        "nav_prefs"
+      ],
+      "residual_tried_before_escape": [],
+      "waypoint_escape_count": 2,
+      "template_lost": [],
+      "template_589_recovered": true,
+      "all_guard_bugs_retained": true,
+      "first_post_escape_cycle": {
+        "sequence_instance_id": "seq-0007",
+        "branch_key": "936bff3530ff8c35:click:open_cross",
+        "branch_start_step": 32,
+        "horizon_step": 34,
+        "return_attempt_count": 4,
+        "return_cycle_escape_step": 38,
+        "terminal_step": 38,
+        "terminal_outcome": "return_cycle_abandoned",
+        "events_after_terminal": [],
+        "active_same_sequence_afterward": false
+      },
+      "horizon_cycle": {
+        "sequence_instance_id": "seq-0014",
+        "branch_key": "1ee6dbe67332601d:click:open_leaf",
+        "branch_start_step": 63,
+        "horizon_step": 65,
+        "return_attempt_count": 3,
+        "return_cycle_escape_step": 67,
+        "terminal_step": 67,
+        "terminal_outcome": "return_cycle_abandoned",
+        "events_after_terminal": [],
+        "active_same_sequence_afterward": false
+      },
+      "sequence_events_after_horizon_terminal": [],
+      "suffix_dominant_pages": [
+        {
+          "page": "settings.html",
+          "count": 14
+        },
+        {
+          "page": "venue.html",
+          "count": 14
+        },
+        {
+          "page": "venues.html",
+          "count": 8
+        },
+        {
+          "page": "notes.html",
+          "count": 7
+        },
+        {
+          "page": "reservation.html",
+          "count": 6
+        },
+        {
+          "page": "room.html",
+          "count": 6
+        },
+        {
+          "page": "modify.html",
+          "count": 5
+        },
+        {
+          "page": "rooms.html",
+          "count": 5
+        }
+      ],
+      "suffix_dominant_edges": [
+        {
+          "edge": "settings.html|btn_submit|settings.html",
+          "count": 4
+        },
+        {
+          "edge": "venue.html|nav_up_list|venues.html",
+          "count": 4
+        },
+        {
+          "edge": "guest.html|nav_up_child|room.html",
+          "count": 3
+        },
+        {
+          "edge": "modify.html|nav_up_side_row|reservation.html",
+          "count": 3
+        },
+        {
+          "edge": "reservation.html|nav_up_side|calendar.html",
+          "count": 3
+        },
+        {
+          "edge": "reservation.html|open_mid_b|modify.html",
+          "count": 3
+        },
+        {
+          "edge": "room.html|nav_up_row|venue.html",
+          "count": 3
+        },
+        {
+          "edge": "room.html|open_child_a|guest.html",
+          "count": 3
+        }
+      ],
+      "entity_reentry_count_after_abandon": 10,
+      "entity_residual_action_count_after_abandon": 6,
+      "productive_entity_reentry": true,
+      "dominant_scc_visit_fraction": 1.0,
+      "static_classification": "policy_attractor_with_static_exit",
+      "post_abandon_step": 38,
+      "active_sequence_after_abandonment": true
+    }
+  ]
+}

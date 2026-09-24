@@ -154,7 +154,22 @@ def test_showcase_endpoint_function_returns_payload():
     fr = body.get("finding_return_entry") or {}
     fc = body.get("fresh_composite") or {}
     rw = body.get("return_waypoint") or {}
-    if rw.get("available"):
+    sink = body.get("post_escape_sink") or {}
+    if sink.get("available"):
+        assert body["latest"]["round"] == "v0.3.22"
+        assert body["project"]["latest_research"] == "v0.3.22"
+        assert body["latest"].get("diagnosis")
+        assert body["latest"].get("outcome") is None
+        assert rw["outcome"] == "C"
+        assert sink["product_default_changed"] is False
+        assert sink["fresh_validation"] is False
+        assert sink["v0321_outcome"] == "C"
+        assert rw["product_default_changed"] is False
+        assert rw["fresh_validation"] is False
+        assert rw["engaged"] == 4
+        assert fc.get("outcome") == "C"
+        assert fr.get("outcome") == "A"
+    elif rw.get("available"):
         assert body["latest"]["round"] == "v0.3.21"
         assert body["project"]["latest_research"] == "v0.3.21"
         assert rw["outcome"] == "C"
@@ -357,9 +372,16 @@ def test_showcase_reads_v0311_published_metrics():
     assert rw["engaged"] == 4
     assert rw["catalog_escapes"] == 0
     assert rw["kiosk_escapes"] == 0
-    assert s["latest"]["round"] == "v0.3.21"
-    assert s["latest"]["outcome"] == "C"
-    assert s["project"]["latest_research"] == "v0.3.21"
+    sink = s.get("post_escape_sink") or {}
+    if sink.get("available"):
+        assert s["latest"]["round"] == "v0.3.22"
+        assert s["latest"].get("diagnosis")
+        assert s["project"]["latest_research"] == "v0.3.22"
+        assert sink["v0321_outcome"] == "C"
+    else:
+        assert s["latest"]["round"] == "v0.3.21"
+        assert s["latest"]["outcome"] == "C"
+        assert s["project"]["latest_research"] == "v0.3.21"
     assert hh["outcome"] == "A"
     assert hh["product_default_changed"] is False
     assert hh["generalization_claim"] is False

@@ -24,6 +24,7 @@ V0318 = os.path.join(PUBLISHED, "return-entry-drain-v0.3.18")
 V0319 = os.path.join(PUBLISHED, "finding-return-entry-v0.3.19")
 V0320 = os.path.join(PUBLISHED, "fresh-composite-v0.3.20")
 V0321 = os.path.join(PUBLISHED, "return-waypoint-frontier-v0.3.21")
+V0322 = os.path.join(PUBLISHED, "post-escape-sink-v0.3.22")
 
 
 def _load(path, default=None):
@@ -912,6 +913,71 @@ def _v0321(root: str | None = None) -> dict:
     }
 
 
+def _v0322(root: str | None = None) -> dict:
+    base = root or V0322
+    diagnostic = _load(os.path.join(base, "metrics", "budget-diagnostic.json")) or {}
+    per = _load(os.path.join(base, "metrics", "per-target.json")) or {}
+    repro = _load(os.path.join(base, "metrics", "reproduction.json")) or {}
+    man = _load(os.path.join(base, "evidence-manifest.json")) or {}
+    if not diagnostic.get("diagnostic_conclusion"):
+        return {"available": False}
+    rows = {
+        (row.get("app"), int(row.get("budget") or 0)): row
+        for row in (per.get("rows") or [])
+    }
+
+    def cell(app: str, budget: int) -> dict:
+        return rows.get((app, budget)) or {}
+
+    campus = cell("buggy-campus", 480)
+    studio = cell("buggy-studio", 480)
+    warehouse = cell("buggy-warehouse", 480)
+    booking = cell("buggy-booking", 480)
+    preserved = bool(
+        warehouse.get("template_589_recovered")
+        and warehouse.get("productive_entity_reentry")
+        and booking.get("template_589_recovered")
+        and booking.get("productive_entity_reentry")
+    )
+    return {
+        "available": True,
+        "round": "v0.3.22",
+        "title": "Post-Escape Sink Diagnosis",
+        "kind": "diagnostic",
+        "diagnosis": diagnostic.get("diagnostic_conclusion"),
+        "meaning": diagnostic.get("meaning") or "",
+        "campus_b480_template_recovered": bool(campus.get("template_589_recovered")),
+        "studio_b480_template_recovered": bool(studio.get("template_589_recovered")),
+        "warehouse_booking_preserved": preserved,
+        "dominant_sink_fraction": {
+            "buggy-campus": campus.get("dominant_scc_visit_fraction"),
+            "buggy-studio": studio.get("dominant_scc_visit_fraction"),
+        },
+        "active_sequence_after_abandonment": {
+            "buggy-campus": bool(campus.get("active_sequence_after_abandonment")),
+            "buggy-studio": bool(studio.get("active_sequence_after_abandonment")),
+        },
+        "public_copy": diagnostic.get("public_copy") or "",
+        "promotion_readiness": diagnostic.get("promotion_readiness") or "not_ready",
+        "product_default_changed": bool(diagnostic.get("product_default_changed")),
+        "generalization_claim": False,
+        "fresh_validation": False,
+        "v0321_outcome": "C",
+        "scope": "failure diagnosis of the frozen v0.3.21 split, not a repair and not fresh validation",
+        "cells": 8,
+        "reproduction": {
+            "clean_clone_verified": bool(repro.get("clean_clone_verified")),
+            "command": repro.get("command") or (
+                "python -m benchmark.post_escape_sink_reproduce "
+                "--root experiments/published/post-escape-sink-v0.3.22 --verify"),
+            "evidence_files": len(man.get("files") or []),
+        },
+        "command": (
+            "python -m benchmark.post_escape_sink_reproduce "
+            "--root experiments/published/post-escape-sink-v0.3.22 --verify"),
+    }
+
+
 def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None,
                    v0310_root: str | None = None, v0311_root: str | None = None,
                    v0312_root: str | None = None, v0313_root: str | None = None,
@@ -921,7 +987,8 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
                    v0318_root: str | None = None,
                    v0319_root: str | None = None,
                    v0320_root: str | None = None,
-                   v0321_root: str | None = None) -> dict:
+                   v0321_root: str | None = None,
+                   v0322_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
@@ -936,7 +1003,17 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
     v0319 = _v0319(v0319_root)
     v0320 = _v0320(v0320_root)
     v0321 = _v0321(v0321_root)
-    if v0321.get("available"):
+    v0322 = _v0322(v0322_root)
+    if v0322.get("available"):
+        latest = {
+            "round": "v0.3.22",
+            "title": "Post-Escape Sink Diagnosis",
+            "available": True,
+            "diagnosis": v0322.get("diagnosis"),
+            "product_default_changed": v0322.get("product_default_changed"),
+        }
+        latest_research = "v0.3.22"
+    elif v0321.get("available"):
         latest = {
             "round": "v0.3.21",
             "title": "Return-Waypoint Frontier Escape",
@@ -1061,6 +1138,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "post_escape_sink": v0322,
         "return_waypoint": v0321,
         "fresh_composite": v0320,
         "finding_return_entry": v0319,
@@ -1108,5 +1186,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
              "kind": "fresh composite validation"},
             {"round": "v0.3.21", "title": "Return-Waypoint Frontier Escape",
              "kind": "inspected failure repair"},
+            {"round": "v0.3.22", "title": "Post-Escape Sink Diagnosis",
+             "kind": "failure diagnosis"},
         ],
     }

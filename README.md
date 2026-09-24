@@ -4,9 +4,11 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.21
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.22 Diagnostic
 
-产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.21 没有改产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.22 没有改产品默认，也没有新候选。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+
+**v0.3.22 Diagnostic — persistent_post_terminal_sink.** 这轮没有改策略，只分析 v0.3.21 的分裂。Campus/Studio 在 sequence-scoped return cycle 已经被正确 abandon 之后，普通探索仍停在一个静态闭合的导航分量里；到 b480 仍没有重新执行原 entity residual frontier，模板 5/8/9 仍丢失。Warehouse/Booking 的同一分量包含回到 entity 的边，Guard 模板保持恢复。这是已检查目标上的 failure diagnosis，不是新修复，不是无限循环证明，也不是 fresh validation。`python -m benchmark.post_escape_sink_reproduce --root experiments/published/post-escape-sink-v0.3.22 --verify`
 
 **v0.3.21 Outcome C — unsafe, harmful, or protocol-invalid.** 这是对已检查的 v0.3.20 目标做的 Return-Waypoint Frontier Escape 检修，不是新的 fresh 验证。四个 positive 都在 step 21 放弃了交接恢复后的外层返回，下一次动作由原探索策略选择 `open_side`。Warehouse 和 Booking 收回了 Guard 的模板 5/8/9。Campus 和 Studio 仍丢失这三类。四个目标还少了 v0.3.20 F 曾经确认、但 Guard 集合之外的空白页缺陷。历史回归、catalog/kiosk 对照和安全计数保持。promotion readiness 为 `not_ready`。下一问是失败分析，不是继续调这四个目标，也不是改默认策略。`python -m benchmark.return_waypoint_frontier_reproduce --root experiments/published/return-waypoint-frontier-v0.3.21 --verify`
 

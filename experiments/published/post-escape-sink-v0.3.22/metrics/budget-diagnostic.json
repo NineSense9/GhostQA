@@ -1,0 +1,33 @@
+{
+  "diagnostic_conclusion": "persistent_post_terminal_sink",
+  "meaning": "Within the preregistered horizons, the remaining regression on the targets that lost template 5/8/9 at budget 120 is consistent with a post-terminal ordinary-policy attractor rather than sequence-scoped return-cycle failure or 120-step budget delay.",
+  "promotion_readiness": "not_ready",
+  "product_default_changed": false,
+  "fresh_validation": false,
+  "facts": {
+    "reasons": [],
+    "losing_targets": [
+      "buggy-campus",
+      "buggy-studio"
+    ],
+    "contrast_targets": [
+      "buggy-warehouse",
+      "buggy-booking"
+    ],
+    "first_recovery_budget": {
+      "buggy-campus": null,
+      "buggy-studio": null
+    },
+    "contrasts_preserved": [
+      "buggy-warehouse",
+      "buggy-booking"
+    ],
+    "trajectory_prefix_match": true,
+    "retained_template_loss": true,
+    "persistent_at_b480": true,
+    "no_productive_reentry_at_b480": true,
+    "ordinary_policy_recurrence": true
+  },
+  "public_copy": "v0.3.22 没有改策略，只分析 v0.3.21 的分裂结果。Campus/Studio 在 sequence-scoped return cycle 已经被正确 abandon 后，普通探索仍进入重复 导航吸引子；到 b480 仍未重新获得原 entity residual frontier。Warehouse/Booking 则保留了回到 entity 的生产性路径。这是已检查目标上的 failure diagnosis，不是新修复，也不是 fresh validation。",
+  "next_question": "Potential next research question: can ordinary no-active-sequence exploration detect repeated SCC/edge recurrence with no state or frontier progress and yield to a previously known global residual frontier without creating new sequence success?"
+}
