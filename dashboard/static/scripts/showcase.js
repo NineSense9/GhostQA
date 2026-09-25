@@ -562,6 +562,21 @@ function renderFreshTransfer25(item) {
   const kind = gid('proof-result-kind');
   if (kind) kind.textContent = 'Outcome';
   setText('proof-round', item.round || 'v0.3.25');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = '可评估正例';
+  if (m2) m2.textContent = '保住 Guard';
+  if (m3) m3.textContent = 'shelf / counter 交接';
+  const evaluable = gid('proof-b-states');
+  if (evaluable && evaluable.parentElement) {
+    evaluable.parentElement.textContent = String(item.evaluable_positives ?? '—') + ' / 4';
+  }
+  const kept = gid('proof-b-ret');
+  if (kept && kept.parentElement) {
+    kept.parentElement.textContent = String(item.structured_positives ?? '—') + ' / 4';
+  }
+  setText('proof-esc', String(item.shelf_handoff ?? '—') + ' / ' + String(item.counter_handoff ?? '—'));
   setText('proof-outcome', item.outcome || '—');
   const note = gid('proof-note');
   if (note) note.textContent = item.public_copy || '';
