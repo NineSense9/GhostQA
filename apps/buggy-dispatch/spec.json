@@ -1,0 +1,155 @@
+{
+  "app": "buggy-dispatch",
+  "assertions": [
+    {
+      "id": "dispatch_title_required",
+      "severity": "high",
+      "desc": "标题为空时不应提示已创建",
+      "when": {
+        "url_contains": "/settings.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "input_topic_title"
+          },
+          "right": {
+            "const": ""
+          }
+        },
+        "then": {
+          "op": "not_contains",
+          "left": {
+            "obs": "form_msg"
+          },
+          "right": {
+            "const": "已创建"
+          }
+        }
+      }
+    },
+    {
+      "id": "dispatch_qty_matches",
+      "severity": "medium",
+      "desc": "展示数量应与剩余数量一致",
+      "when": {
+        "url_contains": "/chart.html"
+      },
+      "assert": {
+        "op": "eq",
+        "left": {
+          "obs": "shown_qty"
+        },
+        "right": {
+          "obs": "live_qty"
+        }
+      }
+    },
+    {
+      "id": "dispatch_reopen_clears",
+      "severity": "high",
+      "desc": "重新打开后不应仍显示已关闭",
+      "when": {
+        "url_contains": "/order.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "reopened"
+          },
+          "right": {
+            "const": "是"
+          }
+        },
+        "then": {
+          "op": "ne",
+          "left": {
+            "obs": "status_label"
+          },
+          "right": {
+            "const": "已关闭"
+          }
+        }
+      }
+    },
+    {
+      "id": "dispatch_note_visibility",
+      "severity": "high",
+      "desc": "内部标注不应显示为公开",
+      "when": {
+        "url_contains": "/notice.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "note_kind"
+          },
+          "right": {
+            "const": "内部"
+          }
+        },
+        "then": {
+          "op": "eq",
+          "left": {
+            "obs": "note_visible"
+          },
+          "right": {
+            "const": "内部"
+          }
+        }
+      }
+    },
+    {
+      "id": "dispatch_handled_label",
+      "severity": "high",
+      "desc": "登记之后标记不应仍是未登记",
+      "when": {
+        "url_contains": "/slip.html"
+      },
+      "assert": {
+        "op": "implies",
+        "cond": {
+          "op": "eq",
+          "left": {
+            "obs": "handled"
+          },
+          "right": {
+            "const": "是"
+          }
+        },
+        "then": {
+          "op": "eq",
+          "left": {
+            "obs": "handled_label"
+          },
+          "right": {
+            "const": "已登记"
+          }
+        }
+      }
+    },
+    {
+      "id": "dispatch_score_matches",
+      "severity": "high",
+      "desc": "展示分数应与记录分数一致",
+      "when": {
+        "url_contains": "/finding.html"
+      },
+      "assert": {
+        "op": "eq",
+        "left": {
+          "obs": "score_shown"
+        },
+        "right": {
+          "obs": "score_live"
+        }
+      }
+    }
+  ]
+}

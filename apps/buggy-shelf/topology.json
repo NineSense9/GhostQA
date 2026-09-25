@@ -1,0 +1,264 @@
+{
+  "app": "buggy-shelf",
+  "note": "Judge and qualification topology. Not served. Exploration must not read this file.",
+  "topology_family": "shallow_shelf",
+  "seed": 1249598499,
+  "seed_hex": "4a7b5c23",
+  "expected_control_class": "catalog",
+  "branch_horizon": 3,
+  "nodes": [
+    {
+      "id": "home",
+      "page": "index.html",
+      "hub": false,
+      "hub_role": "entry",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "nav_shelf",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "nav_shelf",
+          "dst": "shelf",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "shelf",
+      "page": "shelf.html",
+      "hub": false,
+      "hub_role": "shelf",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_a",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_a",
+          "dst": "item_a",
+          "navigates": true
+        },
+        {
+          "testid": "open_b",
+          "dst": "item_b",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "item_a",
+      "page": "item.html",
+      "hub": false,
+      "hub_role": "item",
+      "entity": "a",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "item_b",
+      "page": "item.html",
+      "hub": false,
+      "hub_role": "item",
+      "entity": "b",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "help",
+      "page": "help.html",
+      "hub": false,
+      "hub_role": "help",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_loop",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_loop",
+          "dst": "settings",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "page": "settings.html",
+      "hub": false,
+      "hub_role": "settings",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_loop",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_loop",
+          "dst": "help",
+          "navigates": true
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "home:nav_shelf",
+      "src": "home",
+      "dst": "shelf",
+      "action": "nav_shelf",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "home:open_aid",
+      "src": "home",
+      "dst": "help",
+      "action": "open_aid",
+      "branch_like": false,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "shelf:open_a",
+      "src": "shelf",
+      "dst": "item_a",
+      "action": "open_a",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "shelf:open_b",
+      "src": "shelf",
+      "dst": "item_b",
+      "action": "open_b",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "shelf:nav_up_home",
+      "src": "shelf",
+      "dst": "home",
+      "action": "nav_up_home",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "home",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "item_a:nav_up_shelf",
+      "src": "item_a",
+      "dst": "shelf",
+      "action": "nav_up_shelf",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "shelf",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "item_b:nav_up_shelf",
+      "src": "item_b",
+      "dst": "shelf",
+      "action": "nav_up_shelf",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "shelf",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "help:open_loop",
+      "src": "help",
+      "dst": "settings",
+      "action": "open_loop",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "settings:open_loop",
+      "src": "settings",
+      "dst": "help",
+      "action": "open_loop",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "settings:nav_up_home_prefs",
+      "src": "settings",
+      "dst": "home",
+      "action": "nav_up_home_prefs",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "home",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    }
+  ]
+}

@@ -1,0 +1,1302 @@
+{
+  "app": "buggy-archive",
+  "note": "Judge and qualification topology. Not served. Exploration must not read this file.",
+  "topology_family": "roster_chart_order_spine",
+  "seed": 3908504821,
+  "seed_hex": "e8f70cf5",
+  "expected_control_class": "positive",
+  "branch_horizon": 3,
+  "nodes": [
+    {
+      "id": "home",
+      "page": "index.html",
+      "hub": true,
+      "hub_role": "entry",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "nav_roster",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "nav_roster",
+          "dst": "roster",
+          "navigates": true
+        },
+        {
+          "testid": "nav_board",
+          "dst": "board",
+          "navigates": true
+        },
+        {
+          "testid": "nav_blank",
+          "dst": "blank",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "blank",
+      "page": "blank.html",
+      "hub": false,
+      "hub_role": "blank",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": true,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "roster",
+      "page": "roster.html",
+      "hub": true,
+      "hub_role": "roster",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_r1",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_r1",
+          "dst": "chart_r1",
+          "navigates": true
+        },
+        {
+          "testid": "open_r2",
+          "dst": "chart_r2",
+          "navigates": true
+        },
+        {
+          "testid": "open_r3",
+          "dst": "chart_r3",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "chart_r1",
+      "page": "chart.html",
+      "hub": true,
+      "hub_role": "chart",
+      "entity": "r1",
+      "variant_of": "",
+      "first_branch_action": "open_order",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_pin",
+        "btn_cool"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_order",
+          "dst": "order",
+          "navigates": true
+        },
+        {
+          "testid": "open_desk",
+          "dst": "desk",
+          "navigates": true
+        },
+        {
+          "testid": "btn_pin",
+          "dst": "chart_r1",
+          "navigates": false
+        },
+        {
+          "testid": "btn_cool",
+          "dst": "chart_r1",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "chart_r2",
+      "page": "chart.html",
+      "hub": true,
+      "hub_role": "chart",
+      "entity": "r2",
+      "variant_of": "chart_r1",
+      "first_branch_action": "open_order",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_pin",
+        "btn_cool"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_order",
+          "dst": "order",
+          "navigates": true
+        },
+        {
+          "testid": "open_desk",
+          "dst": "desk",
+          "navigates": true
+        },
+        {
+          "testid": "btn_pin",
+          "dst": "chart_r2",
+          "navigates": false
+        },
+        {
+          "testid": "btn_cool",
+          "dst": "chart_r2",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "chart_r3",
+      "page": "chart.html",
+      "hub": true,
+      "hub_role": "chart",
+      "entity": "r3",
+      "variant_of": "chart_r1",
+      "first_branch_action": "open_order",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_pin",
+        "btn_cool"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_order",
+          "dst": "order",
+          "navigates": true
+        },
+        {
+          "testid": "open_desk",
+          "dst": "desk",
+          "navigates": true
+        },
+        {
+          "testid": "btn_pin",
+          "dst": "chart_r3",
+          "navigates": false
+        },
+        {
+          "testid": "btn_cool",
+          "dst": "chart_r3",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "order",
+      "page": "order.html",
+      "hub": true,
+      "hub_role": "order",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_slip",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_close",
+        "btn_reopen"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_slip",
+          "dst": "slip",
+          "navigates": true
+        },
+        {
+          "testid": "btn_close",
+          "dst": "order",
+          "navigates": false
+        },
+        {
+          "testid": "btn_reopen",
+          "dst": "order",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "slip",
+      "page": "slip.html",
+      "hub": false,
+      "hub_role": "slip",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "btn_mark",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_mark"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_mark",
+          "dst": "slip",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "board",
+      "page": "board.html",
+      "hub": true,
+      "hub_role": "board",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_s1",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_s1",
+          "dst": "slot_s1",
+          "navigates": true
+        },
+        {
+          "testid": "open_s2",
+          "dst": "slot_s2",
+          "navigates": true
+        },
+        {
+          "testid": "open_s3",
+          "dst": "slot_s3",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "slot_s1",
+      "page": "slot.html",
+      "hub": true,
+      "hub_role": "slot",
+      "entity": "s1",
+      "variant_of": "",
+      "first_branch_action": "open_notice",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_internal",
+        "btn_mark"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_notice",
+          "dst": "notice",
+          "navigates": true
+        },
+        {
+          "testid": "btn_internal",
+          "dst": "slot_s1",
+          "navigates": false
+        },
+        {
+          "testid": "btn_mark",
+          "dst": "slot_s1",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "slot_s2",
+      "page": "slot.html",
+      "hub": true,
+      "hub_role": "slot",
+      "entity": "s2",
+      "variant_of": "",
+      "first_branch_action": "open_notice",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_internal",
+        "btn_mark"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_notice",
+          "dst": "notice",
+          "navigates": true
+        },
+        {
+          "testid": "btn_internal",
+          "dst": "slot_s2",
+          "navigates": false
+        },
+        {
+          "testid": "btn_mark",
+          "dst": "slot_s2",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "slot_s3",
+      "page": "slot.html",
+      "hub": true,
+      "hub_role": "slot",
+      "entity": "s3",
+      "variant_of": "",
+      "first_branch_action": "open_notice",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_internal",
+        "btn_mark"
+      ],
+      "branch_actions": [
+        {
+          "testid": "open_notice",
+          "dst": "notice",
+          "navigates": true
+        },
+        {
+          "testid": "btn_internal",
+          "dst": "slot_s3",
+          "navigates": false
+        },
+        {
+          "testid": "btn_mark",
+          "dst": "slot_s3",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "notice",
+      "page": "notice.html",
+      "hub": false,
+      "hub_role": "notice",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "desk",
+      "page": "desk.html",
+      "hub": true,
+      "hub_role": "desk",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_lane",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_lane",
+          "dst": "lane_a",
+          "navigates": true
+        },
+        {
+          "testid": "open_finding",
+          "dst": "finding",
+          "navigates": true
+        },
+        {
+          "testid": "open_leaf",
+          "dst": "leaf",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "lane_a",
+      "page": "lane.html",
+      "hub": false,
+      "hub_role": "horizon_lane",
+      "entity": "s1",
+      "variant_of": "",
+      "first_branch_action": "open_lane_b",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_lane_b",
+          "dst": "lane_b",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "lane_b",
+      "page": "lane.html",
+      "hub": false,
+      "hub_role": "horizon_lane",
+      "entity": "s2",
+      "variant_of": "",
+      "first_branch_action": "open_dest",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_dest",
+          "dst": "lane_dest",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "lane_dest",
+      "page": "lane.html",
+      "hub": false,
+      "hub_role": "horizon_destination",
+      "entity": "dest",
+      "variant_of": "",
+      "first_branch_action": "btn_hold",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_hold",
+        "btn_tag"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_hold",
+          "dst": "lane_dest",
+          "navigates": false
+        },
+        {
+          "testid": "btn_tag",
+          "dst": "lane_dest",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "finding",
+      "page": "finding.html",
+      "hub": false,
+      "hub_role": "finding",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "btn_note_a",
+      "blank": false,
+      "eligible_buttons": [
+        "btn_note_a",
+        "btn_note_b"
+      ],
+      "branch_actions": [
+        {
+          "testid": "btn_note_a",
+          "dst": "finding",
+          "navigates": false
+        },
+        {
+          "testid": "btn_note_b",
+          "dst": "finding",
+          "navigates": false
+        }
+      ]
+    },
+    {
+      "id": "leaf",
+      "page": "leaf.html",
+      "hub": false,
+      "hub_role": "leaf",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": []
+    },
+    {
+      "id": "help",
+      "page": "help.html",
+      "hub": false,
+      "hub_role": "help",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_loop",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_loop",
+          "dst": "settings",
+          "navigates": true
+        }
+      ]
+    },
+    {
+      "id": "settings",
+      "page": "settings.html",
+      "hub": false,
+      "hub_role": "settings",
+      "entity": "",
+      "variant_of": "",
+      "first_branch_action": "open_loop",
+      "blank": false,
+      "eligible_buttons": [],
+      "branch_actions": [
+        {
+          "testid": "open_loop",
+          "dst": "help",
+          "navigates": true
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "id": "home:nav_roster",
+      "src": "home",
+      "dst": "roster",
+      "action": "nav_roster",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "home:nav_board",
+      "src": "home",
+      "dst": "board",
+      "action": "nav_board",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "home:nav_blank",
+      "src": "home",
+      "dst": "blank",
+      "action": "nav_blank",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "home:open_aid",
+      "src": "home",
+      "dst": "help",
+      "action": "open_aid",
+      "branch_like": false,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "roster:open_r1",
+      "src": "roster",
+      "dst": "chart_r1",
+      "action": "open_r1",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "roster:open_r2",
+      "src": "roster",
+      "dst": "chart_r2",
+      "action": "open_r2",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "roster:open_r3",
+      "src": "roster",
+      "dst": "chart_r3",
+      "action": "open_r3",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "roster:nav_up_home",
+      "src": "roster",
+      "dst": "home",
+      "action": "nav_up_home",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "home",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "chart_r1:open_order",
+      "src": "chart_r1",
+      "dst": "order",
+      "action": "open_order",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "chart_r1:open_desk",
+      "src": "chart_r1",
+      "dst": "desk",
+      "action": "open_desk",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "chart_r1:nav_up_roster",
+      "src": "chart_r1",
+      "dst": "roster",
+      "action": "nav_up_roster",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "roster",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "chart_r2:open_order",
+      "src": "chart_r2",
+      "dst": "order",
+      "action": "open_order",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "chart_r2:open_desk",
+      "src": "chart_r2",
+      "dst": "desk",
+      "action": "open_desk",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "chart_r2:nav_up_roster",
+      "src": "chart_r2",
+      "dst": "roster",
+      "action": "nav_up_roster",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "roster",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "state_variant_return": true
+    },
+    {
+      "id": "chart_r3:open_order",
+      "src": "chart_r3",
+      "dst": "order",
+      "action": "open_order",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "chart_r3:open_desk",
+      "src": "chart_r3",
+      "dst": "desk",
+      "action": "open_desk",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "chart_r3:nav_up_roster",
+      "src": "chart_r3",
+      "dst": "roster",
+      "action": "nav_up_roster",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "roster",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "order:open_slip",
+      "src": "order",
+      "dst": "slip",
+      "action": "open_slip",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "order:nav_up_chart",
+      "src": "order",
+      "dst": "chart_r1",
+      "action": "nav_up_chart",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "chart_r1",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "slip:btn_mark",
+      "src": "slip",
+      "dst": "slip",
+      "action": "btn_mark",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "chart_order",
+      "child_workflow_role": "chart_order"
+    },
+    {
+      "id": "slip:btn_follow",
+      "src": "slip",
+      "dst": "slip",
+      "action": "btn_follow",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": true,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "chart_order",
+      "child_workflow_role": "chart_order"
+    },
+    {
+      "id": "slip:nav_up_order",
+      "src": "slip",
+      "dst": "order",
+      "action": "nav_up_order",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "order",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "board:open_s1",
+      "src": "board",
+      "dst": "slot_s1",
+      "action": "open_s1",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "board:open_s2",
+      "src": "board",
+      "dst": "slot_s2",
+      "action": "open_s2",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "board:open_s3",
+      "src": "board",
+      "dst": "slot_s3",
+      "action": "open_s3",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "board:nav_up_home_board",
+      "src": "board",
+      "dst": "home",
+      "action": "nav_up_home_board",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "home",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "slot_s1:open_notice",
+      "src": "slot_s1",
+      "dst": "notice",
+      "action": "open_notice",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "slot_s1:btn_mark",
+      "src": "slot_s1",
+      "dst": "slot_s1",
+      "action": "btn_mark",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "notice_slip",
+      "child_workflow_role": "notice_slip"
+    },
+    {
+      "id": "slot_s1:nav_up_board",
+      "src": "slot_s1",
+      "dst": "board",
+      "action": "nav_up_board",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "board",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "slot_s2:open_notice",
+      "src": "slot_s2",
+      "dst": "notice",
+      "action": "open_notice",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "slot_s2:btn_mark",
+      "src": "slot_s2",
+      "dst": "slot_s2",
+      "action": "btn_mark",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "notice_slip",
+      "child_workflow_role": "notice_slip"
+    },
+    {
+      "id": "slot_s2:nav_up_board",
+      "src": "slot_s2",
+      "dst": "board",
+      "action": "nav_up_board",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "board",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "slot_s3:open_notice",
+      "src": "slot_s3",
+      "dst": "notice",
+      "action": "open_notice",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "slot_s3:btn_mark",
+      "src": "slot_s3",
+      "dst": "slot_s3",
+      "action": "btn_mark",
+      "branch_like": true,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": true,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "notice_slip",
+      "child_workflow_role": "notice_slip"
+    },
+    {
+      "id": "slot_s3:nav_up_board",
+      "src": "slot_s3",
+      "dst": "board",
+      "action": "nav_up_board",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "board",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "notice:nav_up_slot",
+      "src": "notice",
+      "dst": "slot_s1",
+      "action": "nav_up_slot",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "slot_s1",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "desk:open_lane",
+      "src": "desk",
+      "dst": "lane_a",
+      "action": "open_lane",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_no_finding": true,
+      "path_id": "horizon-main",
+      "opportunity_class": "horizon_only_return_entry_control"
+    },
+    {
+      "id": "desk:open_finding",
+      "src": "desk",
+      "dst": "finding",
+      "action": "open_finding",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_finding": true,
+      "path_id": "finding-desk",
+      "opportunity_class": "finding_return_entry_opportunity"
+    },
+    {
+      "id": "desk:open_leaf",
+      "src": "desk",
+      "dst": "leaf",
+      "action": "open_leaf",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "desk:nav_up_chart_desk",
+      "src": "desk",
+      "dst": "chart_r1",
+      "action": "nav_up_chart_desk",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "chart_r1",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "lane_a:open_lane_b",
+      "src": "lane_a",
+      "dst": "lane_b",
+      "action": "open_lane_b",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_no_finding": true,
+      "path_id": "horizon-main",
+      "path_index": 1,
+      "opportunity_class": "horizon_only_return_entry_control"
+    },
+    {
+      "id": "lane_a:nav_up_desk",
+      "src": "lane_a",
+      "dst": "desk",
+      "action": "nav_up_desk",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "desk",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "lane_b:open_dest",
+      "src": "lane_b",
+      "dst": "lane_dest",
+      "action": "open_dest",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": "",
+      "guarantees_no_finding": true,
+      "path_id": "horizon-main",
+      "path_index": 2,
+      "opportunity_class": "horizon_only_return_entry_control"
+    },
+    {
+      "id": "lane_b:nav_up_lane",
+      "src": "lane_b",
+      "dst": "lane_a",
+      "action": "nav_up_lane",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "lane_a",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "lane_dest:nav_up_lane_b",
+      "src": "lane_dest",
+      "dst": "lane_b",
+      "action": "nav_up_lane_b",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "lane_b",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "finding:nav_up_desk_finding",
+      "src": "finding",
+      "dst": "desk",
+      "action": "nav_up_desk_finding",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "desk",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "leaf:nav_up_desk_leaf",
+      "src": "leaf",
+      "dst": "desk",
+      "action": "nav_up_desk_leaf",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "desk",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "help:open_loop",
+      "src": "help",
+      "dst": "settings",
+      "action": "open_loop",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "settings:open_loop",
+      "src": "settings",
+      "dst": "help",
+      "action": "open_loop",
+      "branch_like": true,
+      "navigates": true,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": false,
+      "returns_to": "",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    },
+    {
+      "id": "settings:nav_up_chart_prefs",
+      "src": "settings",
+      "dst": "chart_r1",
+      "action": "nav_up_chart_prefs",
+      "branch_like": false,
+      "navigates": false,
+      "follow_up": false,
+      "child_local": false,
+      "parent_return": true,
+      "returns_to": "chart_r1",
+      "alternate_child_completion": false,
+      "family": "",
+      "child_workflow_role": ""
+    }
+  ]
+}
