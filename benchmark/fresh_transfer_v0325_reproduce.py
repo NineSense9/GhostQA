@@ -33,6 +33,28 @@ def _ancestor(earlier: str, later: str) -> bool:
     return proc.returncode == 0
 
 
+def record_clean_clone(root: str, verified_head: str) -> None:
+    path = os.path.join(root, "metrics", "reproduction.json")
+    repro = _load(path)
+    repro["clean_clone_verified"] = True
+    repro["verified_head"] = verified_head
+    text = json.dumps(repro, ensure_ascii=False, indent=2) + "\n"
+    with open(path, "w", encoding="utf-8", newline="\n") as handle:
+        handle.write(text)
+    man_path = os.path.join(root, "evidence-manifest.json")
+    man = _load(man_path)
+    new_hash = sha256_file(path)
+    found = False
+    for rec in man.get("files") or []:
+        if rec.get("relative_path") == "metrics/reproduction.json":
+            rec["sha256"] = new_hash
+            found = True
+    if not found:
+        raise SystemExit("metrics/reproduction.json missing from evidence-manifest.json")
+    with open(man_path, "w", encoding="utf-8", newline="\n") as handle:
+        handle.write(json.dumps(man, ensure_ascii=False, indent=2) + "\n")
+
+
 def verify(root: str) -> int:
     print(f"root {root}")
     norm = os.path.normpath(root).replace("\\", "/")
@@ -91,6 +113,10 @@ def verify(root: str) -> int:
     if product_default_changed() or repro.get("product_default_changed"):
         return _fail("product default changed")
     print("product default changed false")
+    if repro.get("clean_clone_verified"):
+        verified = repro.get("verified_head") or ""
+        if not verified or not _ancestor(verified, head):
+            return _fail("clean clone head mismatch")
     print(f"clean_clone_verified {bool(repro.get('clean_clone_verified'))}")
     print("OK")
     return 0
@@ -101,7 +127,11 @@ def main(argv=None) -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--root", required=True)
     parser.add_argument("--verify", action="store_true")
+    parser.add_argument("--record-clean-clone", default="")
     args = parser.parse_args(argv)
+    if args.record_clean_clone:
+        record_clean_clone(args.root, args.record_clean_clone)
+        print("recorded clean-clone", args.record_clean_clone)
     if args.verify:
         return verify(args.root)
     return 0
