@@ -1,0 +1,95 @@
+{
+  "name": "v0.3.25 fresh transfer of the frozen episode-drain candidate",
+  "version": "v0.3.25",
+  "date": "2026-09-26",
+  "starting_head": "55be966a8deeb792329c03a6e932ae063ec704e7",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "fresh-validation",
+  "fresh_validation": true,
+  "product_default_changed": false,
+  "research_question": "Does the frozen v0.3.24 episode-drain candidate transfer to new application graphs that were not used to design or repair it, while preserving Guard-confirmed bugs and the episode-drain safety invariants?",
+  "not": [
+    "another inspected repair of Campus or Studio",
+    "permission to edit the v0.3.24 candidate",
+    "permission to change the product default",
+    "permission to pick a favorable graph after seeing policy results",
+    "universal generalization",
+    "promotion"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-episode-drain-epoch-guard",
+    "module": "ghostqa/exploration/episode_drain_epoch_guard.py",
+    "module_sha256": "9403e81f34625ff225f4cca69bf65c992d937305cb3a516a8be12a7bc9e08d45",
+    "freeze": "experiments/frozen/ghost-episode-drain-epoch-v0.3.24/freeze.json",
+    "immutable": true,
+    "product_default": false
+  },
+  "guard_policy": "ghost-structural-return-guard",
+  "excluded_fresh_apps": [
+    "buggy-shop", "buggy-flow", "buggy-desk", "buggy-crm", "buggy-ops", "buggy-wiki",
+    "buggy-forum", "buggy-billing", "buggy-lab", "buggy-directory",
+    "buggy-campus", "buggy-warehouse", "buggy-studio", "buggy-booking",
+    "buggy-catalog", "buggy-kiosk"
+  ],
+  "topology_rule": "New positives are a single spine plus one board workflow. They are not the v0.3.20 dual mid/child column graph. Negatives reuse the v0.3.20 catalog and kiosk qualification classes on new page sets.",
+  "seed_prefix": "ghostqa-v0.3.25:",
+  "no_seed_search": true,
+  "targets": [
+    {"app": "buggy-clinic", "class": "positive", "port": 3961, "prefix": "BUG-CL"},
+    {"app": "buggy-dispatch", "class": "positive", "port": 3962, "prefix": "BUG-DP"},
+    {"app": "buggy-archive", "class": "positive", "port": 3963, "prefix": "BUG-AR"},
+    {"app": "buggy-fleet", "class": "positive", "port": 3964, "prefix": "BUG-FL"},
+    {"app": "buggy-shelf", "class": "negative", "negative_class": "catalog", "port": 3965, "prefix": "BUG-SH"},
+    {"app": "buggy-counter", "class": "negative", "negative_class": "kiosk", "port": 3966, "prefix": "BUG-CN"}
+  ],
+  "qualification": {
+    "branch_horizon": 3,
+    "positive_requires": [
+      "at least two distinct child-workflow chains that cross the horizon",
+      "at least one finding-return opportunity with two eligible buttons",
+      "at least one horizon-only return path of length 3",
+      "at least one state-variant return",
+      "at least one nested handoff edge"
+    ],
+    "shelf_requires": "catalog class: no nested chain, no handoff, max branch depth below 3",
+    "counter_requires": "kiosk class: no nested chain, no handoff, at least two finding-return opportunities and one horizon-only path",
+    "fix_generator_only_before_policy_runs": true
+  },
+  "matrix": {
+    "seed": 1,
+    "policies": ["ghost-structural-return-guard", "ghost-structural-episode-drain-epoch-guard"],
+    "positive_budgets": [40, 80, 120],
+    "negative_budget": 120,
+    "historical_budget": 120,
+    "historical_policy": "ghost-structural-episode-drain-epoch-guard",
+    "historical_apps": [
+      "buggy-lab", "buggy-flow", "buggy-forum", "buggy-billing", "buggy-directory",
+      "buggy-crm", "buggy-ops", "buggy-desk", "buggy-wiki", "buggy-shop"
+    ],
+    "fresh_cells": 28,
+    "historical_cells": 10,
+    "cells_total": 38
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "freeze or protocol mismatch, candidate edit, Guard bug loss on any fresh target, historical Guard loss, episode advance without relocation, cross-hub invalidation, restore probe, nested handoff on a negative control, app-specific candidate logic, or product default change",
+    "D": "safety holds but fewer than 3 positive targets are structurally evaluable at budget 120",
+    "B": "safety and Guard preservation hold, at least 3 positives are evaluable, but fewer than 3 keep every Guard bug while reaching the preregistered structure",
+    "A": "the frozen candidate is evaluable on at least 3 of 4 new positives, preserves Guard bugs on all 6 new targets and the historical suite, keeps both negative controls free of nested handoff, and does not change the product default",
+    "promotion": false
+  },
+  "evaluable": "At budget 120 the candidate records a nested handoff, a local drain, a finding-gated return drain, or a residual-debt relocation, and it also records a completed or returned sequence.",
+  "product_default": {
+    "policy": "ghost",
+    "use_frontier": false,
+    "sequence_mode": "off",
+    "unchanged": true
+  },
+  "phase_order": [
+    "protocol commit",
+    "generator, static qualification, and suite freeze",
+    "one matrix",
+    "publish the derived outcome without tuning"
+  ]
+}
