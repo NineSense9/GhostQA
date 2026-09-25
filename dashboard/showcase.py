@@ -27,6 +27,7 @@ V0321 = os.path.join(PUBLISHED, "return-waypoint-frontier-v0.3.21")
 V0322 = os.path.join(PUBLISHED, "post-escape-sink-v0.3.22")
 V0323 = os.path.join(PUBLISHED, "residual-frontier-debt-v0.3.23")
 V0324 = os.path.join(PUBLISHED, "episode-drain-epoch-v0.3.24")
+V0325 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.25")
 
 
 def _load(path, default=None):
@@ -1058,6 +1059,65 @@ def _v0323(root: str | None = None) -> dict:
     }
 
 
+def _v0325(root: str | None = None) -> dict:
+    base = root or V0325
+    mechanism = _load(os.path.join(base, "metrics", "mechanism.json")) or {}
+    safety = _load(os.path.join(base, "metrics", "safety.json")) or {}
+    repro = _load(os.path.join(base, "metrics", "reproduction.json")) or {}
+    man = _load(os.path.join(base, "evidence-manifest.json")) or {}
+    derived = mechanism.get("derived") or {}
+    positives = mechanism.get("positives") or {}
+    controls = mechanism.get("controls") or {}
+    if not derived.get("outcome"):
+        return {"available": False}
+    facts = safety.get("facts") or {}
+
+    def cell(app: str) -> dict:
+        item = positives.get(app) or {}
+        return {
+            "evaluable": bool(item.get("evaluable")),
+            "handoff": item.get("handoff"),
+            "lost": item.get("lost_vs_guard") or [],
+            "episode_advances": item.get("episode_advances"),
+        }
+
+    return {
+        "available": True,
+        "round": "v0.3.25",
+        "title": "Fresh transfer of the frozen episode-drain candidate",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning") or "",
+        "positives": {app: cell(app) for app in positives},
+        "evaluable_positives": facts.get("evaluable_positives"),
+        "structured_positives": facts.get("structured_positives"),
+        "fresh_guard_loss": facts.get("fresh_guard_loss") or [],
+        "historical_guard_loss": facts.get("historical_guard_loss") or [],
+        "shelf_handoff": (controls.get("buggy-shelf") or {}).get("handoff"),
+        "counter_handoff": (controls.get("buggy-counter") or {}).get("handoff"),
+        "product_default_changed": bool(facts.get("product_default_changed")),
+        "fresh_validation": True,
+        "promotion_readiness": "not_ready",
+        "v0324_outcome": "A",
+        "cells": 38,
+        "public_copy": (
+            "v0.3.25 把冻结的 v0.3.24 候选拿到六个新应用上做了一次 fresh validation。"
+            "四个正例都到达了嵌套交接，但每个都比 Guard 少确认了分数不一致缺陷。"
+            "历史回归没有丢 Guard 缺陷，两个负对照没有嵌套交接，产品默认未改。"
+            "结果是 Outcome C，候选不晋升。v0.3.24 在已检查用例上仍是 Outcome A。"
+        ),
+        "reproduction": {
+            "clean_clone_verified": bool(repro.get("clean_clone_verified")),
+            "command": repro.get("command") or (
+                "python -m benchmark.fresh_transfer_v0325_reproduce "
+                "--root experiments/published/fresh-transfer-v0.3.25 --verify"),
+            "evidence_files": len(man.get("files") or []),
+        },
+        "command": (
+            "python -m benchmark.fresh_transfer_v0325_reproduce "
+            "--root experiments/published/fresh-transfer-v0.3.25 --verify"),
+    }
+
+
 def _v0324(root: str | None = None) -> dict:
     base = root or V0324
     mechanism = _load(os.path.join(base, "metrics", "mechanism.json")) or {}
@@ -1150,7 +1210,8 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
                    v0321_root: str | None = None,
                    v0322_root: str | None = None,
                    v0323_root: str | None = None,
-                   v0324_root: str | None = None) -> dict:
+                   v0324_root: str | None = None,
+                   v0325_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
@@ -1168,7 +1229,17 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
     v0322 = _v0322(v0322_root)
     v0323 = _v0323(v0323_root)
     v0324 = _v0324(v0324_root)
-    if v0324.get("available"):
+    v0325 = _v0325(v0325_root)
+    if v0325.get("available"):
+        latest = {
+            "round": "v0.3.25",
+            "title": "Fresh transfer of the frozen episode-drain candidate",
+            "available": True,
+            "outcome": v0325.get("outcome"),
+            "product_default_changed": v0325.get("product_default_changed"),
+        }
+        latest_research = "v0.3.25"
+    elif v0324.get("available"):
         latest = {
             "round": "v0.3.24",
             "title": "Episode-Scoped Local Drain Revalidation",
@@ -1320,6 +1391,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "fresh_transfer_v0325": v0325,
         "episode_drain": v0324,
         "residual_frontier_debt": v0323,
         "post_escape_sink": v0322,

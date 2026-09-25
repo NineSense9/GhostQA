@@ -1,0 +1,54 @@
+{
+  "algorithm_name": "ghost-structural-episode-drain-epoch-guard",
+  "round": "v0.3.24",
+  "product": "v0.4 preview",
+  "source_head": "cc1e96dcbed8d0fc07af1e77c8910c147a727e67",
+  "protocol_commit": "5821b378601587ae28afc18e4d977f757a2505c2",
+  "historical_candidate_freeze": "experiments/frozen/ghost-residual-frontier-debt-v0.3.23/freeze.json",
+  "historical_guard_freeze": "experiments/frozen/ghost-return-cycle-guard-v0.3.9/freeze.json",
+  "v0320_suite_freeze": "experiments/frozen/v0.3.20-fresh-composite-suite/freeze.json",
+  "policy": {
+    "constructor": "EpisodeDrainEpochGuardGhostPolicy",
+    "controller": "EpisodeDrainEpochSequenceController",
+    "policy_name": "ghost-structural-episode-drain-epoch-guard",
+    "sequence_mode": "structural",
+    "use_frontier": false,
+    "subclasses": "ResidualFrontierDebtSequenceController",
+    "episode_event": "local_drain_episode_advanced",
+    "revalidated_event": "local_drain_key_revalidated",
+    "chooses_target_action": false,
+    "adds_drain_trigger": false,
+    "product_default": false,
+    "replaces_historical_identities": false,
+    "no_app_specific_rule": true
+  },
+  "note": "Candidate freeze before the v0.3.24 inspected cells. Do not change these files after the first empirical result.",
+  "hash_normalization": "LF newlines",
+  "files": {
+    "ghostqa/exploration/episode_drain_epoch_guard.py": {
+      "sha256": "9403e81f34625ff225f4cca69bf65c992d937305cb3a516a8be12a7bc9e08d45",
+      "git_blob": "dc9f432fffebf0d19d9be863239e169c30398495",
+      "bytes": 13182
+    },
+    "benchmark/episode_drain_epoch_modelcheck.py": {
+      "sha256": "69c3b384cc65ba3f7828609ca512af26140c9b0bb2f370fcee9595d188355075",
+      "git_blob": "de6587437e629adaef44714e6e3544e95cee7b39",
+      "bytes": 6966
+    },
+    "benchmark/episode_drain_epoch_analysis.py": {
+      "sha256": "3909b57cde5c15914da571af069c5081530b420af97b0e7ea8c83d12ec153c07",
+      "git_blob": "3695fcab0acbe4d609d35fce6c8743a3ca6f403a",
+      "bytes": 6340
+    },
+    "benchmark/episode_drain_epoch_audit.py": {
+      "sha256": "66437682bab0f4df53e8905d722c608ebae5ae19358a6ddc5d9ace60671de5c8",
+      "git_blob": "86ef75d5e9019a7b95b48f4168789007eb2f33ba",
+      "bytes": 19280
+    },
+    "experiments/validation/v0.3.24/protocol.json": {
+      "sha256": "45c70b2dd9327442443aadb72ee818476da5c630851c4b23aabb296425f69094",
+      "git_blob": "171d7a52b4b3961aef87bfecd6336a02a5f27265",
+      "bytes": 11876
+    }
+  }
+}

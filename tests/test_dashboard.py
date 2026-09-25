@@ -111,7 +111,8 @@ def test_showcase_missing_artifacts_do_not_crash():
                        v0321_root="/tmp/missing-v0321",
                        v0322_root="/tmp/missing-v0322",
                        v0323_root="/tmp/missing-v0323",
-                       v0324_root="/tmp/missing-v0324")
+                       v0324_root="/tmp/missing-v0324",
+                       v0325_root="/tmp/missing-v0325")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -129,6 +130,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["post_escape_sink"]["available"] is False
     assert s["residual_frontier_debt"]["available"] is False
     assert s["episode_drain"]["available"] is False
+    assert s["fresh_transfer_v0325"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -163,7 +165,23 @@ def test_showcase_endpoint_function_returns_payload():
     sink = body.get("post_escape_sink") or {}
     debt = body.get("residual_frontier_debt") or {}
     episode = body.get("episode_drain") or {}
-    if episode.get("available"):
+    fresh25 = body.get("fresh_transfer_v0325") or {}
+    if fresh25.get("available"):
+        assert body["latest"]["round"] == "v0.3.25"
+        assert body["project"]["latest_research"] == "v0.3.25"
+        assert body["latest"]["outcome"] == "C"
+        assert body["latest"]["product_default_changed"] is False
+        assert fresh25["outcome"] == "C"
+        assert fresh25["fresh_validation"] is True
+        assert fresh25["v0324_outcome"] == "A"
+        assert fresh25["evaluable_positives"] == 4
+        assert fresh25["structured_positives"] == 0
+        assert fresh25["shelf_handoff"] == 0
+        assert fresh25["counter_handoff"] == 0
+        assert fresh25["historical_guard_loss"] == []
+        assert episode["outcome"] == "A"
+        assert episode["product_default_changed"] is False
+    elif episode.get("available"):
         assert body["latest"]["round"] == "v0.3.24"
         assert body["project"]["latest_research"] == "v0.3.24"
         assert body["latest"]["outcome"] == "A"
@@ -432,7 +450,13 @@ def test_showcase_reads_v0311_published_metrics():
     sink = s.get("post_escape_sink") or {}
     debt = s.get("residual_frontier_debt") or {}
     episode = s.get("episode_drain") or {}
-    if episode.get("available"):
+    fresh25 = s.get("fresh_transfer_v0325") or {}
+    if fresh25.get("available"):
+        assert s["latest"]["round"] == "v0.3.25"
+        assert s["latest"]["outcome"] == "C"
+        assert s["project"]["latest_research"] == "v0.3.25"
+        assert episode["outcome"] == "A"
+    elif episode.get("available"):
         assert s["latest"]["round"] == "v0.3.24"
         assert s["latest"]["outcome"] == "A"
         assert s["latest"]["product_default_changed"] is False

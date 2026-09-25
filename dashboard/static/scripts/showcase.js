@@ -539,6 +539,34 @@ function renderReturnEntry(re) {
   }
 }
 
+function renderFreshTransfer25(item) {
+  item = item || {};
+  const oc = gid('ft25-outcome');
+  if (oc) {
+    oc.textContent = item.outcome ? ('Outcome ' + item.outcome) : 'Outcome';
+    oc.className = item.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('ft25-outcome-mean');
+  if (om) om.textContent = item.outcome_meaning || '';
+  const lead = gid('ft25-lead');
+  if (lead && item.public_copy) lead.textContent = item.public_copy;
+  const delta = gid('ft25-delta');
+  if (delta) {
+    delta.textContent = '可评估正例 ' + (item.evaluable_positives ?? '—')
+      + ' / 4 · 结构且保住 Guard ' + (item.structured_positives ?? '—')
+      + ' · shelf/counter 交接 ' + (item.shelf_handoff ?? '—')
+      + '/' + (item.counter_handoff ?? '—')
+      + ' · 产品默认未改';
+  }
+  if (!item.available) return;
+  const kind = gid('proof-result-kind');
+  if (kind) kind.textContent = 'Outcome';
+  setText('proof-round', item.round || 'v0.3.25');
+  setText('proof-outcome', item.outcome || '—');
+  const note = gid('proof-note');
+  if (note) note.textContent = item.public_copy || '';
+}
+
 function renderEpisode(ep) {
   ep = ep || {};
   const oc = gid('ep-outcome');
@@ -939,6 +967,8 @@ function renderEvidence(data) {
   const sink = (data && data.post_escape_sink) || {};
   const debt = (data && data.residual_frontier_debt) || {};
   const ep = (data && data.episode_drain) || {};
+  const ft25 = (data && data.fresh_transfer_v0325) || {};
+  const ev0325 = gid('ev-v0325');
   const ev0324 = gid('ev-v0324');
   const ev0323 = gid('ev-v0323');
   const ev0322 = gid('ev-v0322');
@@ -958,6 +988,28 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0325) {
+    if (!ft25.available) {
+      ev0325.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = ft25.reproduction || {};
+      ev0325.innerHTML = [
+        statusRow('轮次结果', ft25.outcome ? ('Outcome ' + ft25.outcome) : '—', ft25.outcome === 'A'),
+        statusRow('可评估正例', String(ft25.evaluable_positives ?? '—') + ' / 4', (ft25.evaluable_positives || 0) >= 3),
+        statusRow('保住 Guard 的正例', String(ft25.structured_positives ?? '—') + ' / 4', (ft25.structured_positives || 0) >= 3),
+        statusRow('负对照交接', String(ft25.shelf_handoff ?? '—') + ' / ' + String(ft25.counter_handoff ?? '—'),
+          ft25.shelf_handoff === 0 && ft25.counter_handoff === 0),
+        statusRow('历史 Guard 丢失', (ft25.historical_guard_loss || []).length ? '有' : '无', !(ft25.historical_guard_loss || []).length),
+        statusRow('38 cells', String(ft25.cells), ft25.cells === 38),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', ft25.product_default_changed ? '已改' : '未改', ft25.product_default_changed === false),
+        statusRow('v0.3.24', 'Outcome ' + (ft25.v0324_outcome || 'A'), true),
+      ].join('');
+    }
+  }
+  const cmd0325 = ft25.command || '';
+  const cmdEl25 = gid('ev-cmd-0325');
+  if (cmdEl25) cmdEl25.textContent = cmd0325;
   if (ev0324) {
     if (!ep.available) {
       ev0324.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -1459,6 +1511,7 @@ async function loadShowcase() {
     renderSink(data.post_escape_sink);
     renderDebt(data.residual_frontier_debt);
     renderEpisode(data.episode_drain);
+    renderFreshTransfer25(data.fresh_transfer_v0325);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

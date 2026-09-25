@@ -1,0 +1,179 @@
+{
+  "positives": {
+    "buggy-clinic": {
+      "guard_confirmed": [
+        "BUG-CL10",
+        "BUG-CL11",
+        "BUG-CL12",
+        "BUG-CL5",
+        "BUG-CL8",
+        "BUG-CL9"
+      ],
+      "candidate_confirmed": [
+        "BUG-CL1",
+        "BUG-CL10",
+        "BUG-CL11",
+        "BUG-CL4",
+        "BUG-CL5",
+        "BUG-CL6",
+        "BUG-CL7",
+        "BUG-CL8",
+        "BUG-CL9"
+      ],
+      "lost_vs_guard": [
+        "BUG-CL12"
+      ],
+      "evaluable": true,
+      "handoff": 4,
+      "local_drain": 4,
+      "finding_return": 4,
+      "relocations": 0,
+      "episode_advances": 0,
+      "return_success": 24
+    },
+    "buggy-dispatch": {
+      "guard_confirmed": [
+        "BUG-DP10",
+        "BUG-DP11",
+        "BUG-DP12",
+        "BUG-DP5",
+        "BUG-DP8",
+        "BUG-DP9"
+      ],
+      "candidate_confirmed": [
+        "BUG-DP1",
+        "BUG-DP10",
+        "BUG-DP11",
+        "BUG-DP4",
+        "BUG-DP5",
+        "BUG-DP6",
+        "BUG-DP7",
+        "BUG-DP8",
+        "BUG-DP9"
+      ],
+      "lost_vs_guard": [
+        "BUG-DP12"
+      ],
+      "evaluable": true,
+      "handoff": 4,
+      "local_drain": 4,
+      "finding_return": 4,
+      "relocations": 0,
+      "episode_advances": 0,
+      "return_success": 24
+    },
+    "buggy-archive": {
+      "guard_confirmed": [
+        "BUG-AR10",
+        "BUG-AR11",
+        "BUG-AR12",
+        "BUG-AR5",
+        "BUG-AR8",
+        "BUG-AR9"
+      ],
+      "candidate_confirmed": [
+        "BUG-AR1",
+        "BUG-AR10",
+        "BUG-AR11",
+        "BUG-AR4",
+        "BUG-AR5",
+        "BUG-AR6",
+        "BUG-AR7",
+        "BUG-AR8",
+        "BUG-AR9"
+      ],
+      "lost_vs_guard": [
+        "BUG-AR12"
+      ],
+      "evaluable": true,
+      "handoff": 4,
+      "local_drain": 4,
+      "finding_return": 4,
+      "relocations": 0,
+      "episode_advances": 0,
+      "return_success": 24
+    },
+    "buggy-fleet": {
+      "guard_confirmed": [
+        "BUG-FL10",
+        "BUG-FL11",
+        "BUG-FL12",
+        "BUG-FL5",
+        "BUG-FL8",
+        "BUG-FL9"
+      ],
+      "candidate_confirmed": [
+        "BUG-FL1",
+        "BUG-FL10",
+        "BUG-FL11",
+        "BUG-FL4",
+        "BUG-FL5",
+        "BUG-FL6",
+        "BUG-FL7",
+        "BUG-FL8",
+        "BUG-FL9"
+      ],
+      "lost_vs_guard": [
+        "BUG-FL12"
+      ],
+      "evaluable": true,
+      "handoff": 4,
+      "local_drain": 4,
+      "finding_return": 4,
+      "relocations": 0,
+      "episode_advances": 0,
+      "return_success": 24
+    }
+  },
+  "controls": {
+    "buggy-shelf": {
+      "guard_confirmed": [
+        "BUG-SH1",
+        "BUG-SH2",
+        "BUG-SH4",
+        "BUG-SH5",
+        "BUG-SH6"
+      ],
+      "candidate_confirmed": [
+        "BUG-SH1",
+        "BUG-SH2",
+        "BUG-SH4",
+        "BUG-SH5",
+        "BUG-SH6"
+      ],
+      "lost_vs_guard": [],
+      "handoff": 0,
+      "finding_return": 0,
+      "episode_advances": 0
+    },
+    "buggy-counter": {
+      "guard_confirmed": [
+        "BUG-CN1",
+        "BUG-CN2",
+        "BUG-CN4",
+        "BUG-CN5",
+        "BUG-CN6",
+        "BUG-CN7"
+      ],
+      "candidate_confirmed": [
+        "BUG-CN1",
+        "BUG-CN2",
+        "BUG-CN4",
+        "BUG-CN5",
+        "BUG-CN6",
+        "BUG-CN7"
+      ],
+      "lost_vs_guard": [],
+      "handoff": 0,
+      "finding_return": 2,
+      "episode_advances": 0
+    }
+  },
+  "derived": {
+    "outcome": "C",
+    "outcome_meaning": "unsafe, harmful, or protocol-invalid",
+    "promotion_readiness": "not_ready",
+    "fresh_validation": true,
+    "product_default_changed": false
+  }
+}
