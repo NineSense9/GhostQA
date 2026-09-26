@@ -1,0 +1,24 @@
+{
+  "version": "v0.3.28",
+  "protocol_commit": "2ac3f7fc9a9db75f12bf97d88319826bcf9954b0",
+  "outcome": "no_measured_miss",
+  "candidate_change": false,
+  "product_default_changed": false,
+  "apps": [
+    {
+      "app": "buggy-campus",
+      "reset_before_step": 68,
+      "confirmed_count": 9,
+      "unconfirmed": ["BUG-CP4", "BUG-CP6", "BUG-CP7"],
+      "measured_misses": []
+    },
+    {
+      "app": "buggy-studio",
+      "reset_before_step": 71,
+      "confirmed_count": 8,
+      "unconfirmed": ["BUG-ST1", "BUG-ST4", "BUG-ST6", "BUG-ST7"],
+      "measured_misses": []
+    }
+  ],
+  "reading": "Both published budget-120 traces do reset on relocate. The unconfirmed bugs are not explained by a reproduction control that was tried before the reset and skipped on the same signature afterwards. No candidate change follows from this measurement."
+}
