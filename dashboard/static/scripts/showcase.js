@@ -571,17 +571,16 @@ function renderFreshTransfer26(item) {
   if (m1) m1.textContent = '可评估正例';
   if (m2) m2.textContent = '保住 Guard';
   if (m3) m3.textContent = '历史 Guard 丢失';
-  const evaluable = gid('proof-b-states');
-  if (evaluable && evaluable.parentElement) {
-    evaluable.parentElement.textContent = String(item.evaluable_positives ?? '—') + ' / 4';
-  }
-  const kept = gid('proof-b-ret');
-  if (kept && kept.parentElement) {
-    kept.parentElement.textContent = String(item.structured_positives ?? '—') + ' / 4';
-  }
   const losses = item.historical_guard_loss || [];
   const lostBugs = losses.reduce((n, row) => n + ((row.bugs || []).length), 0);
-  setText('proof-esc', String(lostBugs));
+  const setPair = (labelId, value) => {
+    const label = gid(labelId);
+    const cell = label && label.nextElementSibling;
+    if (cell) cell.textContent = value;
+  };
+  setPair('proof-metric-1', String(item.evaluable_positives ?? '—') + ' / 4');
+  setPair('proof-metric-2', String(item.structured_positives ?? '—') + ' / 4');
+  setPair('proof-metric-3', String(lostBugs));
   setText('proof-outcome', item.outcome || '—');
   const note = gid('proof-note');
   if (note) note.textContent = item.public_copy || '';
