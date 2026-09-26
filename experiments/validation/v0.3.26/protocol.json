@@ -1,0 +1,109 @@
+{
+  "name": "v0.3.26 untried sibling before return",
+  "version": "v0.3.26",
+  "date": "2026-09-26",
+  "starting_head": "953ebedbad59e6f6ec2516ceb23b73ae3b43e348",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "fresh-validation",
+  "fresh_validation": true,
+  "product_default_changed": false,
+  "research_question": "When a return passes through a hub that still has an unstarted branch click, does taking that click before the return action preserve Guard bugs on new graphs, including the score-mismatch class, without negative handoff, historical Guard loss, or episode-safety violations?",
+  "diagnosis": "On all four v0.3.25 positives at budget 120, Guard opens finding.html from the desk hub and confirms the score-mismatch bug on arrival. The frozen episode-drain candidate reaches that same desk hub, takes the lane continuation, and on the way back clicks the parent return while finding.html is still unvisited. Episode advances and debt relocations are 0, so the miss is the return preference, not the episode repair. The new candidate may not name those applications or controls.",
+  "not": [
+    "an edit of the frozen v0.3.24 candidate",
+    "an edit of the six v0.3.25 applications to make the published Outcome C into A",
+    "permission to change the product default",
+    "permission to retune after seeing the fresh matrix",
+    "promotion"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-untried-sibling-guard",
+    "module": "ghostqa/exploration/untried_sibling_guard.py",
+    "subclasses": "EpisodeDrainEpochSequenceController",
+    "frozen_parent_module": "ghostqa/exploration/episode_drain_epoch_guard.py",
+    "frozen_parent_sha256": "9403e81f34625ff225f4cca69bf65c992d937305cb3a516a8be12a7bc9e08d45",
+    "product_default": false,
+    "rule": "While returning, if the current page is a hub with an unstarted branch click and a return action is also available, suspend the return and start that click. Resume the return after the child sequence comes back. Do not emit a new horizon handoff for this suspension."
+  },
+  "guard_policy": "ghost-structural-return-guard",
+  "excluded_fresh_apps": [
+    "buggy-shop", "buggy-flow", "buggy-desk", "buggy-crm", "buggy-ops", "buggy-wiki",
+    "buggy-forum", "buggy-billing", "buggy-lab", "buggy-directory",
+    "buggy-campus", "buggy-warehouse", "buggy-studio", "buggy-booking",
+    "buggy-catalog", "buggy-kiosk",
+    "buggy-clinic", "buggy-dispatch", "buggy-archive", "buggy-fleet",
+    "buggy-shelf", "buggy-counter"
+  ],
+  "topology_rule": "New positives keep a single spine plus one board, but the score-mismatch page is a sibling on the chart hub rather than on the desk hub used by v0.3.25. Negatives stay in the catalog and kiosk qualification classes.",
+  "seed_prefix": "ghostqa-v0.3.26:",
+  "no_seed_search": true,
+  "targets": [
+    {"app": "buggy-ward", "class": "positive", "port": 3971, "prefix": "BUG-WD"},
+    {"app": "buggy-harbor", "class": "positive", "port": 3972, "prefix": "BUG-HB"},
+    {"app": "buggy-gallery", "class": "positive", "port": 3973, "prefix": "BUG-GL"},
+    {"app": "buggy-signal", "class": "positive", "port": 3974, "prefix": "BUG-SG"},
+    {"app": "buggy-rack", "class": "negative", "negative_class": "catalog", "port": 3975, "prefix": "BUG-RK"},
+    {"app": "buggy-window", "class": "negative", "negative_class": "kiosk", "port": 3976, "prefix": "BUG-WN"}
+  ],
+  "inspected_regression": {
+    "apps": ["buggy-clinic", "buggy-dispatch", "buggy-archive", "buggy-fleet"],
+    "budget": 120,
+    "policy": "ghost-structural-untried-sibling-guard",
+    "affects_outcome_letter": false,
+    "reference": "experiments/published/fresh-transfer-v0.3.25/metrics/mechanism.json"
+  },
+  "qualification": {
+    "branch_horizon": 3,
+    "positive_requires": [
+      "at least two distinct child-workflow chains that cross the horizon",
+      "at least one finding-return opportunity with two eligible buttons",
+      "at least one horizon-only return path of length 3",
+      "at least one state-variant return",
+      "at least one nested handoff edge"
+    ],
+    "rack_requires": "catalog class: no nested chain, no handoff, max branch depth below 3",
+    "window_requires": "kiosk class: no nested chain, no handoff, at least two finding-return opportunities and one horizon-only path",
+    "fix_generator_only_before_policy_runs": true
+  },
+  "matrix": {
+    "seed": 1,
+    "policies": ["ghost-structural-return-guard", "ghost-structural-untried-sibling-guard"],
+    "positive_budgets": [40, 80, 120],
+    "negative_budget": 120,
+    "historical_budget": 120,
+    "historical_policy": "ghost-structural-untried-sibling-guard",
+    "historical_apps": [
+      "buggy-lab", "buggy-flow", "buggy-forum", "buggy-billing", "buggy-directory",
+      "buggy-crm", "buggy-ops", "buggy-desk", "buggy-wiki", "buggy-shop"
+    ],
+    "fresh_cells": 28,
+    "historical_cells": 10,
+    "inspected_cells": 4,
+    "cells_total": 42
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "freeze or protocol mismatch, candidate edit, Guard bug loss on any fresh target, historical Guard loss, episode advance without relocation, cross-hub invalidation, restore probe, nested handoff on a negative control, app-specific candidate logic, or product default change",
+    "D": "safety holds but fewer than 3 positive targets are structurally evaluable at budget 120",
+    "B": "safety and Guard preservation hold, at least 3 positives are evaluable, but fewer than 3 keep every Guard bug while also recording an untried-sibling selection",
+    "A": "at least 3 of 4 new positives are evaluable, keep every Guard bug, and record an untried-sibling selection; both negatives stay free of nested handoff; the historical suite loses no Guard bug; the product default stays unchanged",
+    "promotion": false,
+    "inspected_note": "The four v0.3.25 positives are reported beside the letter. They do not move A, B, C, or D."
+  },
+  "evaluable": "At budget 120 the candidate records a nested handoff, a local drain, a finding-gated return drain, a residual-debt relocation, or an untried-sibling selection, and it also records a completed or returned sequence.",
+  "structured": "Evaluable, no Guard bug lost, and untried_sibling_before_return_selections > 0.",
+  "product_default": {
+    "policy": "ghost",
+    "use_frontier": false,
+    "sequence_mode": "off",
+    "unchanged": true
+  },
+  "phase_order": [
+    "protocol commit",
+    "candidate, unit tests, and outcome function",
+    "generator, static qualification, and suite freeze",
+    "one matrix",
+    "publish the derived outcome without tuning"
+  ]
+}
