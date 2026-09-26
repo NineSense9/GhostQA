@@ -1,0 +1,114 @@
+{
+  "name": "v0.3.27 parent-hub sibling before return",
+  "version": "v0.3.27",
+  "date": "2026-09-27",
+  "starting_head": "8e3bec2aab6cbea4cadac5b24d2c01379d754f27",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "fresh-validation",
+  "fresh_validation": true,
+  "product_default_changed": false,
+  "research_question": "If an untried branch click is taken before a return only when the current page is that return's parent hub, do new graphs still keep Guard bugs, including the score-mismatch class, while the historical suite no longer loses the BuggyDesk ticket bugs?",
+  "diagnosis": "On BuggyDesk at budget 120 the v0.3.26 candidate confirmed K1, K2, K4, and K5, and missed K3, K6, K9, and K10. Those four bugs are local buttons on the ticket page. The candidate opened that page once, left through a customer link, and at step 7, while still returning toward the ticket hub, started nav_customers from the home page. It never clicked the ticket buttons. On the new positives the score page was opened later as an ordinary branch once the controller was idle on that page's own hub. The v0.3.26 module is not edited.",
+  "not": [
+    "an edit of the frozen v0.3.26 or v0.3.24 candidates",
+    "an edit of the published applications to change Outcome C",
+    "permission to change the product default",
+    "permission to retune after seeing the fresh matrix",
+    "promotion",
+    "real-LLM runs",
+    "Android"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-parent-hub-sibling-guard",
+    "module": "ghostqa/exploration/parent_hub_sibling_guard.py",
+    "subclasses": "UntriedSiblingSequenceController",
+    "frozen_parent_module": "ghostqa/exploration/untried_sibling_guard.py",
+    "frozen_parent_sha256": "0a425a46df8884bc8260bf2c9fa1ac3c85da6a7931b7dec2899a94b9daac35dd",
+    "frozen_episode_module": "ghostqa/exploration/episode_drain_epoch_guard.py",
+    "frozen_episode_sha256": "9403e81f34625ff225f4cca69bf65c992d937305cb3a516a8be12a7bc9e08d45",
+    "product_default": false,
+    "rule": "Keep the v0.3.26 sibling yield only when the current cluster is the active return's parent hub. A return that is still in transit through another hub is not interrupted."
+  },
+  "guard_policy": "ghost-structural-return-guard",
+  "excluded_fresh_apps": [
+    "buggy-shop", "buggy-flow", "buggy-desk", "buggy-crm", "buggy-ops", "buggy-wiki",
+    "buggy-forum", "buggy-billing", "buggy-lab", "buggy-directory",
+    "buggy-campus", "buggy-warehouse", "buggy-studio", "buggy-booking",
+    "buggy-catalog", "buggy-kiosk",
+    "buggy-clinic", "buggy-dispatch", "buggy-archive", "buggy-fleet",
+    "buggy-shelf", "buggy-counter",
+    "buggy-ward", "buggy-harbor", "buggy-gallery", "buggy-signal",
+    "buggy-rack", "buggy-window"
+  ],
+  "topology_rule": "New positives keep a single spine plus one board. The score-mismatch page is a sibling on the roster hub, not on the v0.3.26 chart hub or the v0.3.25 desk hub. Negatives stay in the catalog and kiosk classes.",
+  "seed_prefix": "ghostqa-v0.3.27:",
+  "no_seed_search": true,
+  "targets": [
+    {"app": "buggy-pier", "class": "positive", "port": 3977, "prefix": "BUG-PR"},
+    {"app": "buggy-mill", "class": "positive", "port": 3978, "prefix": "BUG-ML"},
+    {"app": "buggy-yard", "class": "positive", "port": 3979, "prefix": "BUG-YD"},
+    {"app": "buggy-tower", "class": "positive", "port": 3980, "prefix": "BUG-TW"},
+    {"app": "buggy-bin", "class": "negative", "negative_class": "catalog", "port": 3981, "prefix": "BUG-BN"},
+    {"app": "buggy-gate", "class": "negative", "negative_class": "kiosk", "port": 3982, "prefix": "BUG-GT"}
+  ],
+  "inspected_regression": {
+    "apps": ["buggy-ward", "buggy-harbor", "buggy-gallery", "buggy-signal"],
+    "budget": 120,
+    "policy": "ghost-structural-parent-hub-sibling-guard",
+    "affects_outcome_letter": false,
+    "reference": "experiments/published/fresh-transfer-v0.3.26/metrics/mechanism.json"
+  },
+  "qualification": {
+    "branch_horizon": 3,
+    "positive_requires": [
+      "at least two distinct child-workflow chains that cross the horizon",
+      "at least one finding-return opportunity with two eligible buttons",
+      "at least one horizon-only return path of length 3",
+      "at least one state-variant return",
+      "at least one nested handoff edge"
+    ],
+    "bin_requires": "catalog class: no nested chain, no handoff, max branch depth below 3",
+    "gate_requires": "kiosk class: no nested chain, no handoff, at least two finding-return opportunities and one horizon-only path"
+  },
+  "matrix": {
+    "seed": 1,
+    "policies": ["ghost-structural-return-guard", "ghost-structural-parent-hub-sibling-guard"],
+    "positive_budgets": [40, 80, 120],
+    "negative_budget": 120,
+    "historical_budget": 120,
+    "historical_policy": "ghost-structural-parent-hub-sibling-guard",
+    "historical_apps": [
+      "buggy-lab", "buggy-flow", "buggy-forum", "buggy-billing", "buggy-directory",
+      "buggy-crm", "buggy-ops", "buggy-desk", "buggy-wiki", "buggy-shop"
+    ],
+    "fresh_cells": 28,
+    "historical_cells": 10,
+    "inspected_cells": 4,
+    "cells_total": 42
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "freeze or protocol mismatch, candidate edit, Guard bug loss on any fresh target, historical Guard loss, episode advance without relocation, cross-hub invalidation, restore probe, nested handoff on a negative control, app-specific candidate logic, or product default change",
+    "D": "safety holds but fewer than 3 positive targets are structurally evaluable at budget 120",
+    "B": "safety and Guard preservation hold, at least 3 positives are evaluable, but fewer than 3 keep every Guard bug while also recording a parent-hub sibling selection",
+    "A": "at least 3 of 4 new positives are evaluable, keep every Guard bug, and record a parent-hub sibling selection; both negatives stay free of nested handoff; the historical suite, including BuggyDesk, loses no Guard bug; the product default stays unchanged",
+    "promotion": false,
+    "inspected_note": "The four v0.3.26 positives are reported beside the letter. They do not move A, B, C, or D."
+  },
+  "evaluable": "At budget 120 the candidate records a nested handoff, a local drain, a finding-gated return drain, a residual-debt relocation, or a parent-hub sibling selection, and it also records a completed or returned sequence.",
+  "structured": "Evaluable, no Guard bug lost, and untried_sibling_before_return_selections > 0.",
+  "product_default": {
+    "policy": "ghost",
+    "use_frontier": false,
+    "sequence_mode": "off",
+    "unchanged": true
+  },
+  "phase_order": [
+    "protocol commit",
+    "candidate, unit tests, and outcome function",
+    "generator, static qualification, and suite freeze",
+    "one matrix",
+    "publish the derived outcome without tuning"
+  ]
+}

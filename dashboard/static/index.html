@@ -202,6 +202,16 @@
       <p class="footnote" id="ft-scope">一次目标应用上的 transfer，不是 universal generalization。</p>
     </section>
 
+    <section class="rc-section" data-testid="fresh-transfer-v0327" aria-labelledby="h-ft27">
+      <p class="eyebrow">v0.3.27 · 已发布证据</p>
+      <h2 id="h-ft27">只在返回的父枢纽上才先走未试分支</h2>
+      <p class="rc-lead" id="ft27-lead">Guard 的缺陷都保住了，包括 BuggyDesk。父枢纽选择次数是 0，所以结果是 Outcome B。</p>
+      <p class="limit-note">这是 fresh validation。产品默认未改。v0.3.26 仍是 Outcome C，v0.3.24 仍是 Outcome A。</p>
+      <p class="delta" id="ft27-delta"></p>
+      <p class="pill-row"><span class="pill" id="ft27-outcome">Outcome</span>
+        <span class="muted" id="ft27-outcome-mean"></span></p>
+    </section>
+
     <section class="rc-section" data-testid="fresh-transfer-v0326" aria-labelledby="h-ft26">
       <p class="eyebrow">v0.3.26 · 已发布证据</p>
       <h2 id="h-ft26">返回经过枢纽时，先走还没开始的分支</h2>
@@ -608,6 +618,14 @@
     </header>
     <div class="ev-layout">
       <div class="ev-grid">
+        <article class="ev-card" data-testid="evidence-v0327">
+          <p class="ev-kicker">来源轮次 · v0.3.27</p>
+          <h2>Parent-hub sibling before return</h2>
+          <p class="limit-note">只在返回的父枢纽上插入未试分支。42 个单元。产品默认未改。候选不晋升。</p>
+          <ul class="status-rows" id="ev-v0327"></ul>
+          <pre class="cmd" id="ev-cmd-0327"></pre>
+          <button type="button" class="btn btn-ghost" data-copy="ev-cmd-0327">复制命令</button>
+        </article>
         <article class="ev-card" data-testid="evidence-v0326">
           <p class="ev-kicker">来源轮次 · v0.3.26</p>
           <h2>Untried sibling before return</h2>

@@ -539,6 +539,51 @@ function renderReturnEntry(re) {
   }
 }
 
+function renderFreshTransfer27(item) {
+  item = item || {};
+  const oc = gid('ft27-outcome');
+  if (oc) {
+    oc.textContent = item.outcome ? ('Outcome ' + item.outcome) : 'Outcome';
+    oc.className = item.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('ft27-outcome-mean');
+  if (om) om.textContent = item.outcome_meaning || '';
+  const lead = gid('ft27-lead');
+  if (lead && item.public_copy) lead.textContent = item.public_copy;
+  const losses = item.historical_guard_loss || [];
+  const lostBugs = losses.reduce((n, row) => n + ((row.bugs || []).length), 0);
+  const delta = gid('ft27-delta');
+  if (delta) {
+    delta.textContent = '可评估正例 ' + (item.evaluable_positives ?? '—')
+      + ' / 4 · 父枢纽选择 ' + (item.sibling_selections ?? '—')
+      + ' · 历史丢失 ' + lostBugs
+      + ' · bin/gate 交接 ' + (item.bin_handoff ?? '—')
+      + '/' + (item.gate_handoff ?? '—')
+      + ' · 产品默认未改';
+  }
+  if (!item.available) return;
+  const kind = gid('proof-result-kind');
+  if (kind) kind.textContent = 'Outcome';
+  setText('proof-round', item.round || 'v0.3.27');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = '可评估正例';
+  if (m2) m2.textContent = '父枢纽选择';
+  if (m3) m3.textContent = '历史 Guard 丢失';
+  const setPair = (labelId, value) => {
+    const label = gid(labelId);
+    const cell = label && label.nextElementSibling;
+    if (cell) cell.textContent = value;
+  };
+  setPair('proof-metric-1', String(item.evaluable_positives ?? '—') + ' / 4');
+  setPair('proof-metric-2', String(item.sibling_selections ?? '—'));
+  setPair('proof-metric-3', String(lostBugs));
+  setText('proof-outcome', item.outcome || '—');
+  const note = gid('proof-note');
+  if (note) note.textContent = item.public_copy || '';
+}
+
 function renderFreshTransfer26(item) {
   item = item || {};
   const oc = gid('ft26-outcome');
@@ -1031,6 +1076,8 @@ function renderEvidence(data) {
   const ep = (data && data.episode_drain) || {};
   const ft25 = (data && data.fresh_transfer_v0325) || {};
   const ft26 = (data && data.fresh_transfer_v0326) || {};
+  const ft27 = (data && data.fresh_transfer_v0327) || {};
+  const ev0327 = gid('ev-v0327');
   const ev0326 = gid('ev-v0326');
   const ev0325 = gid('ev-v0325');
   const ev0324 = gid('ev-v0324');
@@ -1052,6 +1099,31 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0327) {
+    if (!ft27.available) {
+      ev0327.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = ft27.reproduction || {};
+      const losses = ft27.historical_guard_loss || [];
+      ev0327.innerHTML = [
+        statusRow('轮次结果', ft27.outcome ? ('Outcome ' + ft27.outcome) : '—', ft27.outcome === 'A'),
+        statusRow('可评估正例', String(ft27.evaluable_positives ?? '—') + ' / 4', (ft27.evaluable_positives || 0) >= 3),
+        statusRow('父枢纽选择', String(ft27.sibling_selections ?? '—'), (ft27.sibling_selections || 0) > 0),
+        statusRow('负对照交接', String(ft27.bin_handoff ?? '—') + ' / ' + String(ft27.gate_handoff ?? '—'),
+          ft27.bin_handoff === 0 && ft27.gate_handoff === 0),
+        statusRow('历史 Guard 丢失', losses.length ? '有' : '无', !losses.length),
+        statusRow('对照分数缺陷', String((ft27.inspected_score_bugs || []).length) + ' / 4',
+          (ft27.inspected_score_bugs || []).length === 4),
+        statusRow('42 cells', String(ft27.cells), ft27.cells === 42),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', ft27.product_default_changed ? '已改' : '未改', ft27.product_default_changed === false),
+        statusRow('v0.3.26', 'Outcome ' + (ft27.v0326_outcome || 'C'), true),
+      ].join('');
+    }
+  }
+  const cmd0327 = ft27.command || '';
+  const cmdEl27 = gid('ev-cmd-0327');
+  if (cmdEl27) cmdEl27.textContent = cmd0327;
   if (ev0326) {
     if (!ft26.available) {
       ev0326.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -1602,6 +1674,7 @@ async function loadShowcase() {
     renderEpisode(data.episode_drain);
     renderFreshTransfer25(data.fresh_transfer_v0325);
     renderFreshTransfer26(data.fresh_transfer_v0326);
+    renderFreshTransfer27(data.fresh_transfer_v0327);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

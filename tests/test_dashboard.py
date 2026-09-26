@@ -113,7 +113,8 @@ def test_showcase_missing_artifacts_do_not_crash():
                        v0323_root="/tmp/missing-v0323",
                        v0324_root="/tmp/missing-v0324",
                        v0325_root="/tmp/missing-v0325",
-                       v0326_root="/tmp/missing-v0326")
+                       v0326_root="/tmp/missing-v0326",
+                       v0327_root="/tmp/missing-v0327")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -133,6 +134,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["episode_drain"]["available"] is False
     assert s["fresh_transfer_v0325"]["available"] is False
     assert s["fresh_transfer_v0326"]["available"] is False
+    assert s["fresh_transfer_v0327"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -169,7 +171,23 @@ def test_showcase_endpoint_function_returns_payload():
     episode = body.get("episode_drain") or {}
     fresh25 = body.get("fresh_transfer_v0325") or {}
     fresh26 = body.get("fresh_transfer_v0326") or {}
-    if fresh26.get("available"):
+    fresh27 = body.get("fresh_transfer_v0327") or {}
+    if fresh27.get("available"):
+        assert body["latest"]["round"] == "v0.3.27"
+        assert body["project"]["latest_research"] == "v0.3.27"
+        assert body["latest"]["outcome"] == "B"
+        assert body["latest"]["product_default_changed"] is False
+        assert fresh27["outcome"] == "B"
+        assert fresh27["evaluable_positives"] == 4
+        assert fresh27["structured_positives"] == 0
+        assert fresh27["sibling_selections"] == 0
+        assert fresh27["bin_handoff"] == 0
+        assert fresh27["gate_handoff"] == 0
+        assert fresh27["historical_guard_loss"] == []
+        assert fresh27["inspected_score_bugs"] == ["BUG-WD12", "BUG-HB12", "BUG-GL12", "BUG-SG12"]
+        assert fresh26["outcome"] == "C"
+        assert episode["outcome"] == "A"
+    elif fresh26.get("available"):
         assert body["latest"]["round"] == "v0.3.26"
         assert body["project"]["latest_research"] == "v0.3.26"
         assert body["latest"]["outcome"] == "C"
@@ -469,7 +487,14 @@ def test_showcase_reads_v0311_published_metrics():
     episode = s.get("episode_drain") or {}
     fresh25 = s.get("fresh_transfer_v0325") or {}
     fresh26 = s.get("fresh_transfer_v0326") or {}
-    if fresh26.get("available"):
+    fresh27 = s.get("fresh_transfer_v0327") or {}
+    if fresh27.get("available"):
+        assert s["latest"]["round"] == "v0.3.27"
+        assert s["latest"]["outcome"] == "B"
+        assert s["project"]["latest_research"] == "v0.3.27"
+        assert fresh26["outcome"] == "C"
+        assert episode["outcome"] == "A"
+    elif fresh26.get("available"):
         assert s["latest"]["round"] == "v0.3.26"
         assert s["latest"]["outcome"] == "C"
         assert s["project"]["latest_research"] == "v0.3.26"
