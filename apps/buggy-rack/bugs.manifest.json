@@ -1,0 +1,138 @@
+{
+  "app": "buggy-rack",
+  "note": "BENCHMARK JUDGE ONLY. GhostQA exploration must never read this file.",
+  "bugs": [
+    {
+      "id": "BUG-RK1",
+      "category": "boundary js error",
+      "severity": "medium",
+      "desc": "检索词过长",
+      "kind": "js_error",
+      "trigger_depth": 1,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "rack search query too long"
+      },
+      "min_reproduction": [
+        "index.html: search_box=25 chars",
+        "index.html: btn_query_submit"
+      ]
+    },
+    {
+      "id": "BUG-RK2",
+      "category": "form validation",
+      "severity": "high",
+      "desc": "空标题仍提示已创建",
+      "kind": "semantic",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "rack_title_required"
+      },
+      "min_reproduction": [
+        "index.html: nav_shelf",
+        "shelf.html: open_a",
+        "settings.html: btn_submit"
+      ]
+    },
+    {
+      "id": "BUG-RK3",
+      "category": "navigation loop",
+      "severity": "medium",
+      "desc": "说明与偏好互链",
+      "kind": "nav_loop",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "cycle_urls_contains": "help.html"
+      },
+      "min_reproduction": [
+        "index.html: open_aid",
+        "help.html: open_loop",
+        "settings.html: open_loop"
+      ]
+    },
+    {
+      "id": "BUG-RK4",
+      "category": "dead action",
+      "severity": "medium",
+      "desc": "草稿点击无效果",
+      "kind": "dead_action",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "eid": "btn_pin"
+      },
+      "min_reproduction": [
+        "index.html: open_aid",
+        "help.html: open_loop",
+        "settings.html: btn_pin"
+      ]
+    },
+    {
+      "id": "BUG-RK5",
+      "category": "js error",
+      "severity": "medium",
+      "desc": "同步异常",
+      "kind": "js_error",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "rack sync handshake failed"
+      },
+      "min_reproduction": [
+        "index.html: open_aid",
+        "help.html: open_loop",
+        "settings.html: btn_probe"
+      ]
+    },
+    {
+      "id": "BUG-RK6",
+      "category": "http 5xx",
+      "severity": "high",
+      "desc": "导出 500",
+      "kind": "http_error",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "/api/export"
+      },
+      "min_reproduction": [
+        "index.html: open_aid",
+        "help.html: open_loop",
+        "settings.html: btn_export"
+      ]
+    },
+    {
+      "id": "BUG-RK7",
+      "category": "state inconsistency",
+      "severity": "medium",
+      "desc": "数量不一致",
+      "kind": "semantic",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "rack_qty_matches"
+      },
+      "min_reproduction": [
+        "index.html: nav_shelf",
+        "shelf.html: open_a"
+      ]
+    },
+    {
+      "id": "BUG-RK8",
+      "category": "state inconsistency",
+      "severity": "medium",
+      "desc": "分数不一致",
+      "kind": "semantic",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "rack_score_matches"
+      },
+      "min_reproduction": [
+        "index.html: nav_shelf"
+      ]
+    }
+  ]
+}

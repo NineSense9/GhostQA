@@ -1,0 +1,217 @@
+{
+  "app": "buggy-signal",
+  "note": "BENCHMARK JUDGE ONLY. GhostQA exploration must never read this file.",
+  "bugs": [
+    {
+      "id": "BUG-SG1",
+      "category": "blank page",
+      "severity": "high",
+      "desc": "空白页完全空白",
+      "kind": "blank",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "url_contains": "/blank.html"
+      },
+      "min_reproduction": [
+        "index.html: nav_blank"
+      ]
+    },
+    {
+      "id": "BUG-SG2",
+      "category": "boundary js error",
+      "severity": "medium",
+      "desc": "首页检索词超过 24 字抛出未捕获异常",
+      "kind": "js_error",
+      "trigger_depth": 1,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "signal search query too long"
+      },
+      "min_reproduction": [
+        "index.html: search_box=25 chars",
+        "index.html: btn_query_submit"
+      ]
+    },
+    {
+      "id": "BUG-SG3",
+      "category": "navigation loop",
+      "severity": "medium",
+      "desc": "说明页与偏好页互相链接",
+      "kind": "nav_loop",
+      "trigger_depth": 2,
+      "prerequisites": [],
+      "match": {
+        "cycle_urls_contains": "help.html"
+      },
+      "min_reproduction": [
+        "index.html: open_aid",
+        "help.html: open_loop",
+        "settings.html: open_loop",
+        "help.html: open_loop",
+        "settings.html: open_loop"
+      ]
+    },
+    {
+      "id": "BUG-SG4",
+      "category": "form validation",
+      "severity": "high",
+      "desc": "标题为空时仍提示已创建",
+      "kind": "semantic",
+      "trigger_depth": 3,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "signal_title_required"
+      },
+      "min_reproduction": [
+        "index.html: nav_roster",
+        "roster.html: open_r1",
+        "chart.html: open_desk",
+        "settings.html: btn_submit"
+      ]
+    },
+    {
+      "id": "BUG-SG5",
+      "category": "dead action",
+      "severity": "medium",
+      "desc": "图表页收藏点击无效果",
+      "kind": "dead_action",
+      "trigger_depth": 3,
+      "prerequisites": [],
+      "match": {
+        "eid": "btn_pin"
+      },
+      "min_reproduction": [
+        "index.html: nav_roster",
+        "roster.html: open_r1",
+        "chart.html: btn_pin"
+      ]
+    },
+    {
+      "id": "BUG-SG6",
+      "category": "js error",
+      "severity": "medium",
+      "desc": "偏好页测试同步抛出未捕获异常",
+      "kind": "js_error",
+      "trigger_depth": 4,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "signal sync handshake failed"
+      },
+      "min_reproduction": [
+        "index.html: nav_roster",
+        "roster.html: open_r1",
+        "chart.html: open_desk",
+        "settings.html: btn_probe"
+      ]
+    },
+    {
+      "id": "BUG-SG7",
+      "category": "http 5xx",
+      "severity": "high",
+      "desc": "导出请求返回 500",
+      "kind": "http_error",
+      "trigger_depth": 4,
+      "prerequisites": [],
+      "match": {
+        "error_contains": "/api/export"
+      },
+      "min_reproduction": [
+        "index.html: nav_roster",
+        "roster.html: open_r1",
+        "chart.html: open_desk",
+        "settings.html: btn_export"
+      ]
+    },
+    {
+      "id": "BUG-SG8",
+      "category": "state inconsistency",
+      "severity": "medium",
+      "desc": "下调数量后展示值未更新",
+      "kind": "semantic",
+      "trigger_depth": 4,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "signal_qty_matches"
+      },
+      "min_reproduction": [
+        "index.html: nav_roster",
+        "roster.html: open_r1",
+        "chart.html: btn_cool"
+      ]
+    },
+    {
+      "id": "BUG-SG9",
+      "category": "cross-page consistency",
+      "severity": "high",
+      "desc": "内部标注在通知页显示为公开",
+      "kind": "semantic",
+      "trigger_depth": 5,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "signal_note_visibility"
+      },
+      "min_reproduction": [
+        "index.html: nav_board",
+        "board.html: open_s1",
+        "slot.html: btn_internal",
+        "slot.html: open_notice"
+      ]
+    },
+    {
+      "id": "BUG-SG10",
+      "category": "sequence-dependent",
+      "severity": "high",
+      "desc": "关闭后再打开仍显示已关闭",
+      "kind": "semantic",
+      "trigger_depth": 5,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "signal_reopen_clears"
+      },
+      "min_reproduction": [
+        "index.html: nav_roster",
+        "roster.html: open_r1",
+        "chart.html: open_order",
+        "order.html: btn_close",
+        "order.html: btn_reopen"
+      ]
+    },
+    {
+      "id": "BUG-SG11",
+      "category": "local action return",
+      "severity": "high",
+      "desc": "登记后的本地标记仍写着未登记",
+      "kind": "semantic",
+      "trigger_depth": 6,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "signal_handled_label"
+      },
+      "min_reproduction": [
+        "index.html: nav_roster",
+        "roster.html: open_r1",
+        "chart.html: open_order",
+        "order.html: open_slip",
+        "slip.html: btn_mark"
+      ]
+    },
+    {
+      "id": "BUG-SG12",
+      "category": "state inconsistency",
+      "severity": "high",
+      "desc": "分数展示与记录不一致",
+      "kind": "semantic",
+      "trigger_depth": 3,
+      "prerequisites": [],
+      "match": {
+        "assert_id": "signal_score_matches"
+      },
+      "min_reproduction": [
+        "index.html: nav_roster",
+        "roster.html: open_r1",
+        "chart.html: open_finding"
+      ]
+    }
+  ]
+}
