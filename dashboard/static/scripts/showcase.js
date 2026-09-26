@@ -539,6 +539,54 @@ function renderReturnEntry(re) {
   }
 }
 
+function renderFreshTransfer26(item) {
+  item = item || {};
+  const oc = gid('ft26-outcome');
+  if (oc) {
+    oc.textContent = item.outcome ? ('Outcome ' + item.outcome) : 'Outcome';
+    oc.className = item.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('ft26-outcome-mean');
+  if (om) om.textContent = item.outcome_meaning || '';
+  const lead = gid('ft26-lead');
+  if (lead && item.public_copy) lead.textContent = item.public_copy;
+  const delta = gid('ft26-delta');
+  if (delta) {
+    const losses = item.historical_guard_loss || [];
+    const lostBugs = losses.reduce((n, row) => n + ((row.bugs || []).length), 0);
+    delta.textContent = '可评估正例 ' + (item.evaluable_positives ?? '—')
+      + ' / 4 · 保住 Guard ' + (item.structured_positives ?? '—')
+      + ' / 4 · 历史丢失 ' + lostBugs
+      + ' · rack/window 交接 ' + (item.rack_handoff ?? '—')
+      + '/' + (item.window_handoff ?? '—')
+      + ' · 产品默认未改';
+  }
+  if (!item.available) return;
+  const kind = gid('proof-result-kind');
+  if (kind) kind.textContent = 'Outcome';
+  setText('proof-round', item.round || 'v0.3.26');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = '可评估正例';
+  if (m2) m2.textContent = '保住 Guard';
+  if (m3) m3.textContent = '历史 Guard 丢失';
+  const evaluable = gid('proof-b-states');
+  if (evaluable && evaluable.parentElement) {
+    evaluable.parentElement.textContent = String(item.evaluable_positives ?? '—') + ' / 4';
+  }
+  const kept = gid('proof-b-ret');
+  if (kept && kept.parentElement) {
+    kept.parentElement.textContent = String(item.structured_positives ?? '—') + ' / 4';
+  }
+  const losses = item.historical_guard_loss || [];
+  const lostBugs = losses.reduce((n, row) => n + ((row.bugs || []).length), 0);
+  setText('proof-esc', String(lostBugs));
+  setText('proof-outcome', item.outcome || '—');
+  const note = gid('proof-note');
+  if (note) note.textContent = item.public_copy || '';
+}
+
 function renderFreshTransfer25(item) {
   item = item || {};
   const oc = gid('ft25-outcome');
@@ -983,6 +1031,8 @@ function renderEvidence(data) {
   const debt = (data && data.residual_frontier_debt) || {};
   const ep = (data && data.episode_drain) || {};
   const ft25 = (data && data.fresh_transfer_v0325) || {};
+  const ft26 = (data && data.fresh_transfer_v0326) || {};
+  const ev0326 = gid('ev-v0326');
   const ev0325 = gid('ev-v0325');
   const ev0324 = gid('ev-v0324');
   const ev0323 = gid('ev-v0323');
@@ -1003,6 +1053,31 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0326) {
+    if (!ft26.available) {
+      ev0326.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = ft26.reproduction || {};
+      const losses = ft26.historical_guard_loss || [];
+      ev0326.innerHTML = [
+        statusRow('轮次结果', ft26.outcome ? ('Outcome ' + ft26.outcome) : '—', ft26.outcome === 'A'),
+        statusRow('可评估正例', String(ft26.evaluable_positives ?? '—') + ' / 4', (ft26.evaluable_positives || 0) >= 3),
+        statusRow('保住 Guard 的正例', String(ft26.structured_positives ?? '—') + ' / 4', (ft26.structured_positives || 0) >= 3),
+        statusRow('负对照交接', String(ft26.rack_handoff ?? '—') + ' / ' + String(ft26.window_handoff ?? '—'),
+          ft26.rack_handoff === 0 && ft26.window_handoff === 0),
+        statusRow('历史 Guard 丢失', losses.length ? '有' : '无', !losses.length),
+        statusRow('对照分数缺陷', String((ft26.inspected_score_bugs || []).length) + ' / 4',
+          (ft26.inspected_score_bugs || []).length === 4),
+        statusRow('42 cells', String(ft26.cells), ft26.cells === 42),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', ft26.product_default_changed ? '已改' : '未改', ft26.product_default_changed === false),
+        statusRow('v0.3.25', 'Outcome ' + (ft26.v0325_outcome || 'C'), true),
+      ].join('');
+    }
+  }
+  const cmd0326 = ft26.command || '';
+  const cmdEl26 = gid('ev-cmd-0326');
+  if (cmdEl26) cmdEl26.textContent = cmd0326;
   if (ev0325) {
     if (!ft25.available) {
       ev0325.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -1527,6 +1602,7 @@ async function loadShowcase() {
     renderDebt(data.residual_frontier_debt);
     renderEpisode(data.episode_drain);
     renderFreshTransfer25(data.fresh_transfer_v0325);
+    renderFreshTransfer26(data.fresh_transfer_v0326);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

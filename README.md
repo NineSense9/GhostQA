@@ -4,9 +4,11 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.25 Outcome C
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.26 Outcome C
 
-产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。v0.3.24 没有改产品默认。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+
+**v0.3.26 Outcome C — fresh validation lost four historical Guard bugs on BuggyDesk.** 返回经过枢纽时先走未开始的分支。ward、harbor、gallery、signal 四个新正例都保住了 Guard 缺陷，包括分数不一致。上一轮丢掉的 CL12、DP12、AR12、FL12 在对照格里确认回来了。rack 和 window 没有嵌套交接。BuggyDesk 少了 BUG-K3、BUG-K6、BUG-K9、BUG-K10，所以按预注册顺序这轮是 Outcome C。产品默认未改，候选不晋升。v0.3.25 仍是 Outcome C，v0.3.24 仍是 Outcome A。`python -m benchmark.fresh_transfer_v0326_reproduce --root experiments/published/fresh-transfer-v0.3.26 --verify`
 
 **v0.3.25 Outcome C — fresh validation failed the Guard-preservation gate.** 冻结的 v0.3.24 候选在 clinic、dispatch、archive、fleet 四个新正例上都到达了嵌套交接和本地 drain，但每个都比 Guard 少确认了分数不一致缺陷（CL12、DP12、AR12、FL12）。shelf 和 counter 没有嵌套交接，历史回归没有丢 Guard 缺陷。产品默认未改，候选不晋升。v0.3.24 在已检查用例上仍是 Outcome A。`python -m benchmark.fresh_transfer_v0325_reproduce --root experiments/published/fresh-transfer-v0.3.25 --verify`
 
