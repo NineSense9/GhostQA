@@ -1,0 +1,31 @@
+{
+  "name": "v0.3.28 tried-actions after reset",
+  "version": "v0.3.28",
+  "date": "2026-09-27",
+  "starting_head": "9f70949d67d6fc1f87e99cacef5c63bf7a1f6271",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "inspected-measurement",
+  "fresh_validation": false,
+  "product_default_changed": false,
+  "candidate_change": false,
+  "research_question": "On the published v0.3.24 campus and studio budget-120 traces, after a relocate reset, does graph.tried_actions still hide an unconfirmed Guard bug whose reproduction control was tried before the reset and not executed again?",
+  "why_this_round": "v0.3.27 is Outcome B. Fresh and historical Guard bugs were kept, including BuggyDesk K3, K6, K9, and K10, and the parent-hub sibling selection count was 0. The sibling rule is not widened. The remaining recorded algorithm gap is that executor.reset clears the browser while graph.tried_actions stays run-scoped.",
+  "not": [
+    "a change to any frozen candidate",
+    "a widening of the v0.3.26 sibling rule",
+    "permission to change the product default",
+    "promotion",
+    "real-LLM runs",
+    "Android"
+  ],
+  "sources": [
+    "experiments/published/episode-drain-epoch-v0.3.24/evidence/buggy-campus/ghost-structural-episode-drain-epoch-guard_b120_s1.events.jsonl",
+    "experiments/published/episode-drain-epoch-v0.3.24/evidence/buggy-studio/ghost-structural-episode-drain-epoch-guard_b120_s1.events.jsonl"
+  ],
+  "measurement": "Replay each trace. At the first relocate reset, remember every action key executed on each signature. A manifest bug is a measured miss only when it is absent from that run's confirmed set, one of its reproduction controls was executed before the reset, and that same control on that signature is not executed after the reset.",
+  "outcomes": {
+    "no_measured_miss": "Neither campus nor studio has a measured miss. No candidate change.",
+    "measured_miss": "At least one listed bug is a measured miss. This round still does not change code. A later repair round may be opened from that list."
+  }
+}
