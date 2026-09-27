@@ -117,7 +117,8 @@ def test_showcase_missing_artifacts_do_not_crash():
                        v0327_root="/tmp/missing-v0327",
                        v0330_root="/tmp/missing-v0330",
                        v0331_root="/tmp/missing-v0331",
-                       v0332_root="/tmp/missing-v0332")
+                       v0332_root="/tmp/missing-v0332",
+                       v0333_root="/tmp/missing-v0333")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -141,6 +142,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["fresh_transfer_v0330"]["available"] is False
     assert s["fresh_transfer_v0331"]["available"] is False
     assert s["fresh_transfer_v0332"]["available"] is False
+    assert s["fresh_transfer_v0333"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -181,7 +183,24 @@ def test_showcase_endpoint_function_returns_payload():
     fresh30 = body.get("fresh_transfer_v0330") or {}
     fresh31 = body.get("fresh_transfer_v0331") or {}
     fresh32 = body.get("fresh_transfer_v0332") or {}
-    if fresh32.get("available"):
+    fresh33 = body.get("fresh_transfer_v0333") or {}
+    if fresh33.get("available"):
+        assert body["latest"]["round"] == "v0.3.33"
+        assert body["project"]["latest_research"] == "v0.3.33"
+        assert body["latest"]["outcome"] == "C"
+        assert fresh33["outcome"] == "C"
+        assert body["latest"]["product_default_changed"] is False
+        assert fresh33["evaluable_positives"] == 4
+        assert fresh33["structured_positives"] == 4
+        assert fresh33["fresh_guard_loss"] == []
+        assert fresh33["historical_guard_loss"] == [
+            {"app": "buggy-wiki", "bugs": ["BUG-W2"]}]
+        assert fresh33["ledge_handoff"] == 0
+        assert fresh33["notch_handoff"] == 0
+        assert fresh32["outcome"] == "A"
+        assert fresh31["outcome"] == "C"
+        assert episode["outcome"] == "A"
+    elif fresh32.get("available"):
         assert body["latest"]["round"] == "v0.3.32"
         assert body["project"]["latest_research"] == "v0.3.32"
         assert body["latest"]["outcome"] == "A"
@@ -549,7 +568,22 @@ def test_showcase_reads_v0311_published_metrics():
     fresh30 = s.get("fresh_transfer_v0330") or {}
     fresh31 = s.get("fresh_transfer_v0331") or {}
     fresh32 = s.get("fresh_transfer_v0332") or {}
-    if fresh32.get("available"):
+    fresh33 = s.get("fresh_transfer_v0333") or {}
+    if fresh33.get("available"):
+        assert s["latest"]["round"] == "v0.3.33"
+        assert s["latest"]["outcome"] == "C"
+        assert s["project"]["latest_research"] == "v0.3.33"
+        assert fresh33["evaluable_positives"] == 4
+        assert fresh33["structured_positives"] == 4
+        assert fresh33["fresh_guard_loss"] == []
+        assert fresh33["historical_guard_loss"] == [
+            {"app": "buggy-wiki", "bugs": ["BUG-W2"]}]
+        assert fresh33["ledge_handoff"] == 0
+        assert fresh33["notch_handoff"] == 0
+        assert fresh32["outcome"] == "A"
+        assert fresh31["outcome"] == "C"
+        assert episode["outcome"] == "A"
+    elif fresh32.get("available"):
         assert s["latest"]["round"] == "v0.3.32"
         assert s["latest"]["outcome"] == "A"
         assert fresh32["outcome"] == "A"
