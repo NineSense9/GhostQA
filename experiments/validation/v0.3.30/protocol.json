@@ -1,0 +1,58 @@
+{
+  "name": "v0.3.30 untried click before repeated followup",
+  "version": "v0.3.30",
+  "date": "2026-09-27",
+  "starting_head": "37ebc9da45f8fe16821a066e432ee3de98dc4a59",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "fresh-validation",
+  "fresh_validation": true,
+  "product_default_changed": false,
+  "research_question": "If a sequence followup would repeat an action key already tried on this signature, and the page has an untried click, does taking that click keep Guard bugs on new graphs and confirm the settings-page submit, probe, and export bugs?",
+  "diagnosis": "v0.3.29 ran the frozen v0.3.27 candidate on Campus and Studio. It kept every Guard bug from the v0.3.20 budget-120 lists. On Campus step 73 it typed the normal title, step 74 typed that same payload again, and step 75 returned. btn_submit, btn_probe, and btn_export were visible and never clicked. BUG-CP4, BUG-CP6, BUG-CP7, BUG-ST4, BUG-ST6, and BUG-ST7 stayed unconfirmed. The v0.3.27 module is not edited.",
+  "not": [
+    "an edit of the frozen v0.3.27, v0.3.26, or v0.3.24 candidates",
+    "a widening of the sibling-before-return rule",
+    "permission to change the product default",
+    "permission to retune after the fresh matrix",
+    "promotion"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-repeat-click-guard",
+    "module": "ghostqa/exploration/repeat_click_guard.py",
+    "subclasses": "ParentHubSiblingSequenceController",
+    "frozen_parent_sha256": "33a479db2f062071438bb05c4b8dcc90a7a85bdcec4b97e54ebf06d2ebf7183b",
+    "rule": "When commitment remains and the first followup action key is already in this signature's tried set, take an untried non-return click on the page instead of repeating that followup."
+  },
+  "guard_policy": "ghost-structural-return-guard",
+  "topology_rule": "New positives keep one spine plus one board. Submit, probe, and export live only on a prefs page opened from the chart, not on the help-loop settings page. The score page stays on the roster hub.",
+  "seed_prefix": "ghostqa-v0.3.30:",
+  "targets": [
+    {"app": "buggy-creek", "class": "positive", "port": 3983, "prefix": "BUG-CR"},
+    {"app": "buggy-ridge", "class": "positive", "port": 3984, "prefix": "BUG-RG"},
+    {"app": "buggy-wharf", "class": "positive", "port": 3985, "prefix": "BUG-WF"},
+    {"app": "buggy-kiln", "class": "positive", "port": 3986, "prefix": "BUG-KN"},
+    {"app": "buggy-tray", "class": "negative", "negative_class": "catalog", "port": 3987, "prefix": "BUG-TY"},
+    {"app": "buggy-booth", "class": "negative", "negative_class": "kiosk", "port": 3988, "prefix": "BUG-BT"}
+  ],
+  "inspected_regression": {
+    "apps": ["buggy-campus", "buggy-studio"],
+    "budget": 120,
+    "affects_outcome_letter": false
+  },
+  "matrix": {
+    "fresh_cells": 28,
+    "historical_cells": 10,
+    "inspected_cells": 2,
+    "cells_total": 40
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "Guard loss on a fresh target, historical Guard loss, safety violation, negative handoff, candidate edit, or product-default change",
+    "D": "Safety holds but fewer than 3 positives are evaluable",
+    "B": "Guard bugs are kept and at least 3 positives are evaluable, but fewer than 3 keep every Guard bug, confirm submit, probe, and export, and record a repeat-click selection",
+    "A": "At least 3 positives keep every Guard bug, confirm the three prefs bugs, and record a repeat-click selection. Negatives have no nested handoff. The historical suite loses no Guard bug. The product default stays unchanged.",
+    "promotion": false
+  },
+  "product_default": {"policy": "ghost", "use_frontier": false, "sequence_mode": "off", "unchanged": true}
+}
