@@ -242,6 +242,9 @@ def main(argv=None) -> int:
             except Exception as exc:
                 failures.append(f"{app}: {exc}")
                 print(f"[app-fail] {app} {exc}", flush=True)
+                for pending in futures:
+                    pending.cancel()
+                break
     if failures:
         raise SystemExit("matrix failed\n" + "\n".join(failures))
     print("OK", flush=True)
