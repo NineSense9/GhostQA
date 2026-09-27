@@ -1,0 +1,40 @@
+{
+  "name": "v0.3.29 settings-button transfer check",
+  "version": "v0.3.29",
+  "date": "2026-09-27",
+  "starting_head": "54243a120476e494276edf99d0ba63cbc5dc68d6",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "inspected-transfer",
+  "fresh_validation": false,
+  "product_default_changed": false,
+  "candidate_change": false,
+  "candidate": "ghost-structural-parent-hub-sibling-guard",
+  "research_question": "On Campus and Studio at budget 120, does the frozen v0.3.27 candidate confirm the settings-page bugs that both Guard and the v0.3.24 candidate missed, without losing the Guard bugs those older runs confirmed?",
+  "diagnosis": "On Campus budget 120, Guard and the episode-drain candidate both open settings, type the normal payload twice, and return. Neither clicks btn_submit, btn_probe, or btn_export. The same shape is in the Studio manifest. The v0.3.27 candidate already confirmed the matching bugs on the new pier app. This round does not change that candidate. It only checks the two older apps.",
+  "not": [
+    "a new candidate",
+    "a widening of the sibling rule",
+    "permission to change the product default",
+    "promotion",
+    "real-LLM runs",
+    "Android"
+  ],
+  "cells": [
+    {"app": "buggy-campus", "policy": "ghost-structural-parent-hub-sibling-guard", "budget": 120, "seed": 1},
+    {"app": "buggy-studio", "policy": "ghost-structural-parent-hub-sibling-guard", "budget": 120, "seed": 1}
+  ],
+  "guard_keep": {
+    "buggy-campus": ["BUG-CP2", "BUG-CP3", "BUG-CP5", "BUG-CP8", "BUG-CP9", "BUG-CP10", "BUG-CP11", "BUG-CP12"],
+    "buggy-studio": ["BUG-ST2", "BUG-ST3", "BUG-ST5", "BUG-ST8", "BUG-ST9", "BUG-ST10", "BUG-ST11", "BUG-ST12"]
+  },
+  "settings_bugs": {
+    "buggy-campus": ["BUG-CP4", "BUG-CP6", "BUG-CP7"],
+    "buggy-studio": ["BUG-ST4", "BUG-ST6", "BUG-ST7"]
+  },
+  "outcomes": {
+    "already_covered": "No Guard bug from guard_keep is lost, and all six settings bugs are confirmed.",
+    "still_open": "No Guard bug from guard_keep is lost, and at least one settings bug is still unconfirmed. No candidate change in this round.",
+    "regression": "At least one Guard bug from guard_keep is lost. No candidate change in this round."
+  }
+}
