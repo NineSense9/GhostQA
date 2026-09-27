@@ -4,9 +4,13 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.33 Outcome C
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.34 Outcome A
 
 产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+
+**v0.3.34 Outcome A — remembering button ids kept Guard bugs and restored BuggyWiki.** 同一分支里记住已经点过的按钮，重复的跳过。brook、cairn、delta、grove 都保住了 Guard 的缺陷，并确认了同步和导出。历史应用没有丢缺陷，BuggyWiki 的 `BUG-W2` 还在。oxbow 和 pond 没有嵌套交接。Campus 确认了 `BUG-CP4`、`BUG-CP6`、`BUG-CP7`，Studio 确认了 `BUG-ST4`、`BUG-ST6`、`BUG-ST7`。产品默认未改，候选不晋升。v0.3.33 仍是 Outcome C，v0.3.32 仍是 Outcome A。`python -m benchmark.fresh_transfer_v0334_reproduce --root experiments/published/fresh-transfer-v0.3.34 --verify`
+
+## 上一轮：v0.3.33 Outcome C
 
 **v0.3.33 Outcome C — remaining buttons kept the new positives and lost BuggyWiki `BUG-W2`.** 同一非枢纽页上把剩下的未试按钮点完再返回。fen、heath、inlet、jetty 都保住了 Guard 的缺陷，并确认了同步和导出。历史应用丢掉了 BuggyWiki 的 `BUG-W2`：`btn_preview` 被连续点了 104 次，预算耗尽时没有确认缺陷。ledge 和 notch 没有嵌套交接。Campus 确认了 `BUG-CP4`、`BUG-CP6`、`BUG-CP7`，Studio 确认了 `BUG-ST4`、`BUG-ST6`、`BUG-ST7`。产品默认未改，候选不晋升。v0.3.32 仍是 Outcome A，v0.3.31 仍是 Outcome C。`python -m benchmark.fresh_transfer_v0333_reproduce --root experiments/published/fresh-transfer-v0.3.33 --verify`
 
