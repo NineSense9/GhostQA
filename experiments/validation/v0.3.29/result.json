@@ -1,0 +1,18 @@
+{
+  "version": "v0.3.29",
+  "protocol_commit": "3e0e5540cee8792e09340f971c475b63c06595b3",
+  "outcome": "still_open",
+  "candidate_change": false,
+  "product_default_changed": false,
+  "apps": {
+    "buggy-campus": {
+      "confirmed": ["BUG-CP1", "BUG-CP2", "BUG-CP3", "BUG-CP5", "BUG-CP8", "BUG-CP9", "BUG-CP10", "BUG-CP11", "BUG-CP12"],
+      "settings_missing": ["BUG-CP4", "BUG-CP6", "BUG-CP7"]
+    },
+    "buggy-studio": {
+      "confirmed": ["BUG-ST2", "BUG-ST3", "BUG-ST5", "BUG-ST8", "BUG-ST9", "BUG-ST10", "BUG-ST11", "BUG-ST12"],
+      "settings_missing": ["BUG-ST4", "BUG-ST6", "BUG-ST7"]
+    }
+  },
+  "reading": "The frozen v0.3.27 candidate keeps every listed Guard bug. On Campus it still opens settings, types the normal payload twice, and returns before submit, probe, or export. Those three buttons were observed and never clicked. Studio shows the same missing trio. No candidate change in this round."
+}
