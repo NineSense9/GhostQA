@@ -4,9 +4,13 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.31 Outcome C
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.32 Outcome A
 
 产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+
+**v0.3.32 Outcome A — one button after an alternate payload kept Guard bugs and confirmed the empty-title submit bug.** 换过输入之后，返回前在非枢纽页补一次还没试过的按钮。dune、reef、vale、knoll 都保住了 Guard 的缺陷，并确认了空标题提交缺陷。四个新正例的按钮选择次数都是 1。历史应用没有丢缺陷。loft 和 mesa 没有嵌套交接。Campus 确认了 `BUG-CP4`，Studio 确认了 `BUG-ST4`，同步和导出仍然没有确认。产品默认未改，候选不晋升。v0.3.31 仍是 Outcome C，v0.3.27 仍是 Outcome B。`python -m benchmark.fresh_transfer_v0332_reproduce --root experiments/published/fresh-transfer-v0.3.32 --verify`
+
+## 上一轮：v0.3.31 Outcome C
 
 **v0.3.31 Outcome C — the alternate-payload repair lost the empty-title submit bug.** 非枢纽页面上把重复的同一段输入换成另一种输入。marsh、cove、glen、forge 都少了 Guard 已确认的空标题提交缺陷 `BUG-MH4`、`BUG-CV4`、`BUG-GN4`、`BUG-FG4`。历史应用没有再丢缺陷。Campus 和 Studio 的提交、同步、导出仍然没有确认。产品默认未改，候选不晋升。v0.3.30 仍是 Outcome C，v0.3.27 仍是 Outcome B。`python -m benchmark.fresh_transfer_v0331_reproduce --root experiments/published/fresh-transfer-v0.3.31 --verify`
 

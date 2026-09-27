@@ -1,0 +1,4817 @@
+[
+  {
+    "step": 0,
+    "event": "hub_seen",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 0,
+    "event": "branch_discovered",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 0,
+    "event": "branch_start",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 0,
+    "event": "sequence_action",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "action_key": "click:nav_spaces:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 0,
+    "event": "mutation",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 1,
+    "event": "hub_seen",
+    "exact_sig": "ce3a3478afe474e0:none",
+    "cluster_id": "ce3a3478afe474e0",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 1,
+    "event": "branch_discovered",
+    "exact_sig": "ce3a3478afe474e0:none",
+    "cluster_id": "ce3a3478afe474e0",
+    "branch_key": "ce3a3478afe474e0:click:space_s1",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 1,
+    "event": "sequence_action",
+    "exact_sig": "ce3a3478afe474e0:none",
+    "cluster_id": "ce3a3478afe474e0",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "action_key": "click:space_s1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 1,
+    "event": "mutation",
+    "exact_sig": "ce3a3478afe474e0:none",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 1,
+    "event": "followup",
+    "exact_sig": "ce3a3478afe474e0:none",
+    "cluster_id": "ce3a3478afe474e0",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 1,
+    "event": "nested_continuation",
+    "exact_sig": "ce3a3478afe474e0:none",
+    "cluster_id": "ce3a3478afe474e0",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "outer_sequence_instance_id": "seq-0001",
+    "outer_branch": "1ca6b99a330c7290:click:nav_spaces",
+    "outer_parent_hub_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "outer_parent_hub_cluster": "1ca6b99a330c7290",
+    "nested_hub_sig": "ce3a3478afe474e0:none",
+    "nested_hub_cluster": "ce3a3478afe474e0",
+    "nested_branch": "ce3a3478afe474e0:click:space_s1",
+    "commitment_before": 2,
+    "commitment_after": 1
+  },
+  {
+    "step": 2,
+    "event": "sequence_action",
+    "exact_sig": "5a44476b6079377f:none",
+    "cluster_id": "5a44476b6079377f",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "action_key": "click:space_page_p1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 2,
+    "event": "mutation",
+    "exact_sig": "5a44476b6079377f:none",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 2,
+    "event": "followup",
+    "exact_sig": "5a44476b6079377f:none",
+    "cluster_id": "5a44476b6079377f",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 2,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "5a44476b6079377f:none",
+    "cluster_id": "5a44476b6079377f",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 2,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "branch": "1ca6b99a330c7290:click:nav_spaces",
+    "hub": "f40ba48ee9decdf5",
+    "parent": "1ca6b99a330c7290",
+    "eligible_visible_buttons": 2,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 3,
+    "event": "hub_seen",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 3,
+    "event": "sequence_action",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 3,
+    "event": "mutation",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 3,
+    "event": "return_attempt",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 4,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 4,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 4,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 4,
+    "event": "return_attempt",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001"
+  },
+  {
+    "step": 4,
+    "event": "sequence_terminal",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_spaces",
+    "sequence_instance_id": "seq-0001",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 5,
+    "event": "hub_seen",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 5,
+    "event": "branch_discovered",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 5,
+    "event": "branch_start",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 5,
+    "event": "sequence_action",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:nav_pages:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 5,
+    "event": "mutation",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 6,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 6,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 6,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:wiki_page_p1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 6,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 6,
+    "event": "followup",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 6,
+    "event": "nested_continuation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "outer_sequence_instance_id": "seq-0002",
+    "outer_branch": "1ca6b99a330c7290:click:nav_pages",
+    "outer_parent_hub_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "outer_parent_hub_cluster": "1ca6b99a330c7290",
+    "nested_hub_sig": "3d320e46aa6a52a7:none",
+    "nested_hub_cluster": "3d320e46aa6a52a7",
+    "nested_branch": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "commitment_before": 2,
+    "commitment_after": 1
+  },
+  {
+    "step": 7,
+    "event": "hub_seen",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 7,
+    "event": "sequence_action",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 7,
+    "event": "mutation",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 7,
+    "event": "followup",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 7,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 7,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "branch": "1ca6b99a330c7290:click:nav_pages",
+    "hub": "ef09cc4ff68509c8",
+    "parent": "1ca6b99a330c7290",
+    "eligible_visible_buttons": 0,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 8,
+    "event": "sequence_action",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 8,
+    "event": "mutation",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 8,
+    "event": "return_attempt",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 9,
+    "event": "hub_seen",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 9,
+    "event": "sequence_action",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 9,
+    "event": "mutation",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 9,
+    "event": "return_attempt",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 10,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 10,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 10,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 10,
+    "event": "return_attempt",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002"
+  },
+  {
+    "step": 10,
+    "event": "sequence_terminal",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_pages",
+    "sequence_instance_id": "seq-0002",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 11,
+    "event": "hub_seen",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 11,
+    "event": "branch_discovered",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 11,
+    "event": "branch_start",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 11,
+    "event": "sequence_action",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "action_key": "click:nav_tags:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 11,
+    "event": "mutation",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 12,
+    "event": "sequence_action",
+    "exact_sig": "cf43afae2ac0998b:none",
+    "cluster_id": "cf43afae2ac0998b",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "action_key": "click:tag_t1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 12,
+    "event": "mutation",
+    "exact_sig": "cf43afae2ac0998b:none",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 12,
+    "event": "followup",
+    "exact_sig": "cf43afae2ac0998b:none",
+    "cluster_id": "cf43afae2ac0998b",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 13,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 13,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 13,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 13,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 13,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 13,
+    "event": "followup",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 13,
+    "event": "horizon_handoff_started",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "suspended_sequence_instance_id": "seq-0003",
+    "suspended_branch": "1ca6b99a330c7290:click:nav_tags",
+    "suspended_parent_hub_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "suspended_parent_hub_cluster": "1ca6b99a330c7290",
+    "outer_commitment_before": 1,
+    "stored_commitment": 0,
+    "resume_returning": true,
+    "deferred_horizon": true,
+    "child_branch": "3d320e46aa6a52a7:click:nav_editor",
+    "child_parent_sig": "3d320e46aa6a52a7:none",
+    "child_parent_cluster": "3d320e46aa6a52a7",
+    "child_sequence_instance_id": "seq-0004",
+    "child_commitment_after": 2,
+    "child_commitment_assigned": 3,
+    "stack_depth": 1,
+    "expected_resume_mode": "return"
+  },
+  {
+    "step": 14,
+    "event": "sequence_action",
+    "exact_sig": "401c12ee5ad0e05d:148166a93b3b",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 14,
+    "event": "mutation",
+    "exact_sig": "401c12ee5ad0e05d:148166a93b3b",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 14,
+    "event": "followup",
+    "exact_sig": "401c12ee5ad0e05d:148166a93b3b",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 15,
+    "event": "sequence_action",
+    "exact_sig": "6a9e4d0e03bbd8b9:148166a93b3b",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "action_key": "input:page_title:",
+    "decision_mode": "alternate_payload"
+  },
+  {
+    "step": 15,
+    "event": "mutation",
+    "exact_sig": "6a9e4d0e03bbd8b9:148166a93b3b",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 15,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "6a9e4d0e03bbd8b9:148166a93b3b",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 15,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "401c12ee5ad0e05d:148166a93b3b",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "branch": "3d320e46aa6a52a7:click:nav_editor",
+    "hub": "401c12ee5ad0e05d",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 2,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 16,
+    "event": "sequence_action",
+    "exact_sig": "401c12ee5ad0e05d:148166a93b3b",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "action_key": "click:btn_preview:",
+    "decision_mode": "payload_button"
+  },
+  {
+    "step": 16,
+    "event": "mutation",
+    "exact_sig": "401c12ee5ad0e05d:148166a93b3b",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 17,
+    "event": "sequence_action",
+    "exact_sig": "401c12ee5ad0e05d:0fed12b82202",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 17,
+    "event": "mutation",
+    "exact_sig": "401c12ee5ad0e05d:0fed12b82202",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 17,
+    "event": "return_attempt",
+    "exact_sig": "401c12ee5ad0e05d:0fed12b82202",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004"
+  },
+  {
+    "step": 17,
+    "event": "sequence_terminal",
+    "exact_sig": "401c12ee5ad0e05d:0fed12b82202",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 17,
+    "event": "child_parent_witness",
+    "exact_sig": "401c12ee5ad0e05d:0fed12b82202",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0004",
+    "child_sequence_instance_id": "seq-0004",
+    "child_branch": "3d320e46aa6a52a7:click:nav_editor",
+    "expected_parent_sig": "3d320e46aa6a52a7:none",
+    "expected_parent_cluster": "3d320e46aa6a52a7",
+    "observed_destination_sig": "3d320e46aa6a52a7:none",
+    "observed_destination_cluster": "3d320e46aa6a52a7",
+    "witness_strength": "exact",
+    "terminal_context": "returned",
+    "return_success_delta": 1,
+    "stack_depth_before_pop": 1
+  },
+  {
+    "step": 17,
+    "event": "local_frontier_lease_granted",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0003",
+    "hub_sig": "3d320e46aa6a52a7:none",
+    "hub_cluster": "3d320e46aa6a52a7",
+    "frontier_keys": [
+      "3d320e46aa6a52a7:click:wiki_page_p2",
+      "3d320e46aa6a52a7:click:wiki_page_p3"
+    ],
+    "frontier_count": 2,
+    "outer_sequence_instance_id": "seq-0003",
+    "outer_parent_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "outer_parent_cluster": "1ca6b99a330c7290",
+    "lease_generation": 1,
+    "commitment_left": 1,
+    "returning": false,
+    "active_branch": "1ca6b99a330c7290:click:nav_tags"
+  },
+  {
+    "step": 18,
+    "event": "local_frontier_lease_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0003",
+    "hub_sig": "3d320e46aa6a52a7:none",
+    "hub_cluster": "3d320e46aa6a52a7",
+    "chosen_branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "frontier_count_before": 2,
+    "frontier_keys": [
+      "3d320e46aa6a52a7:click:wiki_page_p2",
+      "3d320e46aa6a52a7:click:wiki_page_p3"
+    ],
+    "outer_sequence_instance_id": "seq-0003",
+    "outer_parent_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "outer_parent_cluster": "1ca6b99a330c7290",
+    "lease_generation": 1,
+    "commitment_left": 1,
+    "returning": false
+  },
+  {
+    "step": 18,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 18,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 18,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 18,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005",
+    "action_key": "click:wiki_page_p2:",
+    "decision_mode": "local_frontier_lease"
+  },
+  {
+    "step": 18,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 18,
+    "event": "horizon_handoff_started",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005",
+    "suspended_sequence_instance_id": "seq-0003",
+    "suspended_branch": "1ca6b99a330c7290:click:nav_tags",
+    "suspended_parent_hub_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "suspended_parent_hub_cluster": "1ca6b99a330c7290",
+    "outer_commitment_before": 1,
+    "stored_commitment": 0,
+    "resume_returning": true,
+    "deferred_horizon": true,
+    "child_branch": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "child_parent_sig": "3d320e46aa6a52a7:none",
+    "child_parent_cluster": "3d320e46aa6a52a7",
+    "child_sequence_instance_id": "seq-0005",
+    "child_commitment_after": 2,
+    "child_commitment_assigned": 3,
+    "stack_depth": 1,
+    "expected_resume_mode": "return"
+  },
+  {
+    "step": 19,
+    "event": "hub_seen",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 19,
+    "event": "sequence_action",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 19,
+    "event": "mutation",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 19,
+    "event": "followup",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 20,
+    "event": "sequence_action",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005",
+    "action_key": "click:rev_r3:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 20,
+    "event": "mutation",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 20,
+    "event": "followup",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 20,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 20,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "7cf6026781d43bdf",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005",
+    "branch": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "hub": "7cf6026781d43bdf",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 1,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 21,
+    "event": "sequence_action",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "7cf6026781d43bdf",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 21,
+    "event": "mutation",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 21,
+    "event": "return_attempt",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "7cf6026781d43bdf",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 22,
+    "event": "sequence_action",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 22,
+    "event": "mutation",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 22,
+    "event": "return_attempt",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 23,
+    "event": "hub_seen",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 23,
+    "event": "sequence_action",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 23,
+    "event": "mutation",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 23,
+    "event": "return_attempt",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005"
+  },
+  {
+    "step": 23,
+    "event": "sequence_terminal",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 23,
+    "event": "child_parent_witness",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0005",
+    "child_sequence_instance_id": "seq-0005",
+    "child_branch": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "expected_parent_sig": "3d320e46aa6a52a7:none",
+    "expected_parent_cluster": "3d320e46aa6a52a7",
+    "observed_destination_sig": "3d320e46aa6a52a7:none",
+    "observed_destination_cluster": "3d320e46aa6a52a7",
+    "witness_strength": "exact",
+    "terminal_context": "returned",
+    "return_success_delta": 1,
+    "stack_depth_before_pop": 1
+  },
+  {
+    "step": 23,
+    "event": "local_frontier_lease_granted",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0003",
+    "hub_sig": "3d320e46aa6a52a7:none",
+    "hub_cluster": "3d320e46aa6a52a7",
+    "frontier_keys": [
+      "3d320e46aa6a52a7:click:wiki_page_p3"
+    ],
+    "frontier_count": 1,
+    "outer_sequence_instance_id": "seq-0003",
+    "outer_parent_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "outer_parent_cluster": "1ca6b99a330c7290",
+    "lease_generation": 2,
+    "commitment_left": 1,
+    "returning": false,
+    "active_branch": "1ca6b99a330c7290:click:nav_tags"
+  },
+  {
+    "step": 24,
+    "event": "local_frontier_lease_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0003",
+    "hub_sig": "3d320e46aa6a52a7:none",
+    "hub_cluster": "3d320e46aa6a52a7",
+    "chosen_branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "frontier_count_before": 1,
+    "frontier_keys": [
+      "3d320e46aa6a52a7:click:wiki_page_p3"
+    ],
+    "outer_sequence_instance_id": "seq-0003",
+    "outer_parent_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "outer_parent_cluster": "1ca6b99a330c7290",
+    "lease_generation": 2,
+    "commitment_left": 1,
+    "returning": false
+  },
+  {
+    "step": 24,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 24,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 24,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 24,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006",
+    "action_key": "click:wiki_page_p3:",
+    "decision_mode": "local_frontier_lease"
+  },
+  {
+    "step": 24,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 24,
+    "event": "horizon_handoff_started",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006",
+    "suspended_sequence_instance_id": "seq-0003",
+    "suspended_branch": "1ca6b99a330c7290:click:nav_tags",
+    "suspended_parent_hub_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "suspended_parent_hub_cluster": "1ca6b99a330c7290",
+    "outer_commitment_before": 1,
+    "stored_commitment": 0,
+    "resume_returning": true,
+    "deferred_horizon": true,
+    "child_branch": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "child_parent_sig": "3d320e46aa6a52a7:none",
+    "child_parent_cluster": "3d320e46aa6a52a7",
+    "child_sequence_instance_id": "seq-0006",
+    "child_commitment_after": 2,
+    "child_commitment_assigned": 3,
+    "stack_depth": 1,
+    "expected_resume_mode": "return"
+  },
+  {
+    "step": 25,
+    "event": "hub_seen",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 25,
+    "event": "sequence_action",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 25,
+    "event": "mutation",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 25,
+    "event": "followup",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 26,
+    "event": "sequence_action",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 26,
+    "event": "mutation",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 26,
+    "event": "followup",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 26,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 26,
+    "event": "return_attempt",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 26,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006",
+    "branch": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "hub": "b2d707497b2c6a99",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 2,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 27,
+    "event": "hub_seen",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 27,
+    "event": "sequence_action",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 27,
+    "event": "mutation",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 27,
+    "event": "return_attempt",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006"
+  },
+  {
+    "step": 27,
+    "event": "sequence_terminal",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 27,
+    "event": "child_parent_witness",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0006",
+    "child_sequence_instance_id": "seq-0006",
+    "child_branch": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "expected_parent_sig": "3d320e46aa6a52a7:none",
+    "expected_parent_cluster": "3d320e46aa6a52a7",
+    "observed_destination_sig": "3d320e46aa6a52a7:none",
+    "observed_destination_cluster": "3d320e46aa6a52a7",
+    "witness_strength": "exact",
+    "terminal_context": "returned",
+    "return_success_delta": 1,
+    "stack_depth_before_pop": 1
+  },
+  {
+    "step": 27,
+    "event": "parent_frame_resume_to_return",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "resumed_sequence_instance_id": "seq-0003",
+    "resumed_branch": "1ca6b99a330c7290:click:nav_tags",
+    "original_parent_hub_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "original_parent_hub_cluster": "1ca6b99a330c7290",
+    "returning": true,
+    "commitment_left": 0,
+    "stack_depth": 0
+  },
+  {
+    "step": 27,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "reason": "horizon_handoff_resolved"
+  },
+  {
+    "step": 28,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 28,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 28,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 28,
+    "event": "return_attempt",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": "seq-0003"
+  },
+  {
+    "step": 28,
+    "event": "sequence_terminal",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_tags",
+    "sequence_instance_id": "seq-0003",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 29,
+    "event": "hub_seen",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 29,
+    "event": "branch_discovered",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 29,
+    "event": "branch_start",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 29,
+    "event": "sequence_action",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 29,
+    "event": "mutation",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 30,
+    "event": "sequence_action",
+    "exact_sig": "401c12ee5ad0e05d:0fed12b82202",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 30,
+    "event": "mutation",
+    "exact_sig": "401c12ee5ad0e05d:0fed12b82202",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 30,
+    "event": "followup",
+    "exact_sig": "401c12ee5ad0e05d:0fed12b82202",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 31,
+    "event": "sequence_action",
+    "exact_sig": "6a9e4d0e03bbd8b9:0fed12b82202",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "input:page_title:",
+    "decision_mode": "alternate_payload"
+  },
+  {
+    "step": 31,
+    "event": "mutation",
+    "exact_sig": "6a9e4d0e03bbd8b9:0fed12b82202",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 31,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "6a9e4d0e03bbd8b9:0fed12b82202",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 31,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "401c12ee5ad0e05d:0fed12b82202",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007",
+    "branch": "1ca6b99a330c7290:click:nav_editor",
+    "hub": "401c12ee5ad0e05d",
+    "parent": "1ca6b99a330c7290",
+    "eligible_visible_buttons": 2,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 32,
+    "event": "sequence_action",
+    "exact_sig": "401c12ee5ad0e05d:0fed12b82202",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "click:btn_preview:",
+    "decision_mode": "payload_button"
+  },
+  {
+    "step": 32,
+    "event": "mutation",
+    "exact_sig": "401c12ee5ad0e05d:0fed12b82202",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 33,
+    "event": "sequence_action",
+    "exact_sig": "401c12ee5ad0e05d:2e923f4cfad1",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 33,
+    "event": "mutation",
+    "exact_sig": "401c12ee5ad0e05d:2e923f4cfad1",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 33,
+    "event": "return_attempt",
+    "exact_sig": "401c12ee5ad0e05d:2e923f4cfad1",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 34,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 34,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 34,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 34,
+    "event": "return_attempt",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007"
+  },
+  {
+    "step": 34,
+    "event": "sequence_terminal",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:nav_editor",
+    "sequence_instance_id": "seq-0007",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 35,
+    "event": "hub_seen",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 35,
+    "event": "branch_discovered",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_search",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 35,
+    "event": "branch_start",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_search",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 35,
+    "event": "sequence_action",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_search",
+    "sequence_instance_id": "seq-0008",
+    "action_key": "click:nav_search:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 35,
+    "event": "mutation",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_search",
+    "sequence_instance_id": "seq-0008"
+  },
+  {
+    "step": 35,
+    "event": "sequence_terminal",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_search",
+    "sequence_instance_id": "seq-0008",
+    "outcome": "finding",
+    "fingerprints": [
+      "fdfbc2580d7ca158"
+    ]
+  },
+  {
+    "step": 36,
+    "event": "mutation",
+    "exact_sig": "a927e0c80bd5257a:none",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:nav_search",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 36,
+    "event": "return_attempt",
+    "exact_sig": "a927e0c80bd5257a:none",
+    "cluster_id": "a927e0c80bd5257a",
+    "branch_key": "1ca6b99a330c7290:click:nav_search",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 37,
+    "event": "hub_seen",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 37,
+    "event": "branch_discovered",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 37,
+    "event": "branch_start",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 37,
+    "event": "sequence_action",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009",
+    "action_key": "click:search_btn:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 37,
+    "event": "mutation",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 38,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 38,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 38,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 38,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 38,
+    "event": "followup",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 38,
+    "event": "nested_continuation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009",
+    "outer_sequence_instance_id": "seq-0009",
+    "outer_branch": "1ca6b99a330c7290:click:search_btn",
+    "outer_parent_hub_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "outer_parent_hub_cluster": "1ca6b99a330c7290",
+    "nested_hub_sig": "3d320e46aa6a52a7:none",
+    "nested_hub_cluster": "3d320e46aa6a52a7",
+    "nested_branch": "3d320e46aa6a52a7:click:nav_editor",
+    "commitment_before": 2,
+    "commitment_after": 1
+  },
+  {
+    "step": 39,
+    "event": "sequence_action",
+    "exact_sig": "401c12ee5ad0e05d:2e923f4cfad1",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 39,
+    "event": "mutation",
+    "exact_sig": "401c12ee5ad0e05d:2e923f4cfad1",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 39,
+    "event": "followup",
+    "exact_sig": "401c12ee5ad0e05d:2e923f4cfad1",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 39,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "401c12ee5ad0e05d:2e923f4cfad1",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 39,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "6a9e4d0e03bbd8b9:2e923f4cfad1",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009",
+    "branch": "1ca6b99a330c7290:click:search_btn",
+    "hub": "6a9e4d0e03bbd8b9",
+    "parent": "1ca6b99a330c7290",
+    "eligible_visible_buttons": 2,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 40,
+    "event": "sequence_action",
+    "exact_sig": "6a9e4d0e03bbd8b9:2e923f4cfad1",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 40,
+    "event": "mutation",
+    "exact_sig": "6a9e4d0e03bbd8b9:2e923f4cfad1",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 40,
+    "event": "return_attempt",
+    "exact_sig": "6a9e4d0e03bbd8b9:2e923f4cfad1",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 41,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 41,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 41,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 41,
+    "event": "return_attempt",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009"
+  },
+  {
+    "step": 41,
+    "event": "sequence_terminal",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "1ca6b99a330c7290:click:search_btn",
+    "sequence_instance_id": "seq-0009",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 42,
+    "event": "hub_seen",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 42,
+    "event": "mutation",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 43,
+    "event": "hub_seen",
+    "exact_sig": "8b60400f8f33772b:8877d37c14a4",
+    "cluster_id": "8b60400f8f33772b",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 43,
+    "event": "branch_discovered",
+    "exact_sig": "8b60400f8f33772b:8877d37c14a4",
+    "cluster_id": "8b60400f8f33772b",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 43,
+    "event": "branch_start",
+    "exact_sig": "8b60400f8f33772b:8877d37c14a4",
+    "cluster_id": "8b60400f8f33772b",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 43,
+    "event": "sequence_action",
+    "exact_sig": "8b60400f8f33772b:8877d37c14a4",
+    "cluster_id": "8b60400f8f33772b",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "click:nav_spaces:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 43,
+    "event": "mutation",
+    "exact_sig": "8b60400f8f33772b:8877d37c14a4",
+    "cluster_id": "8b60400f8f33772b",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 44,
+    "event": "hub_seen",
+    "exact_sig": "ce3a3478afe474e0:none",
+    "cluster_id": "ce3a3478afe474e0",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 44,
+    "event": "branch_discovered",
+    "exact_sig": "ce3a3478afe474e0:none",
+    "cluster_id": "ce3a3478afe474e0",
+    "branch_key": "ce3a3478afe474e0:click:space_s1",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 44,
+    "event": "sequence_action",
+    "exact_sig": "ce3a3478afe474e0:none",
+    "cluster_id": "ce3a3478afe474e0",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "click:space_s1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 44,
+    "event": "mutation",
+    "exact_sig": "ce3a3478afe474e0:none",
+    "cluster_id": "8b60400f8f33772b",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 44,
+    "event": "followup",
+    "exact_sig": "ce3a3478afe474e0:none",
+    "cluster_id": "ce3a3478afe474e0",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 44,
+    "event": "nested_continuation",
+    "exact_sig": "ce3a3478afe474e0:none",
+    "cluster_id": "ce3a3478afe474e0",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010",
+    "outer_sequence_instance_id": "seq-0010",
+    "outer_branch": "8b60400f8f33772b:click:nav_spaces",
+    "outer_parent_hub_sig": "8b60400f8f33772b:8877d37c14a4",
+    "outer_parent_hub_cluster": "8b60400f8f33772b",
+    "nested_hub_sig": "ce3a3478afe474e0:none",
+    "nested_hub_cluster": "ce3a3478afe474e0",
+    "nested_branch": "ce3a3478afe474e0:click:space_s1",
+    "commitment_before": 2,
+    "commitment_after": 1
+  },
+  {
+    "step": 45,
+    "event": "sequence_action",
+    "exact_sig": "5a44476b6079377f:none",
+    "cluster_id": "5a44476b6079377f",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "click:space_page_p1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 45,
+    "event": "mutation",
+    "exact_sig": "5a44476b6079377f:none",
+    "cluster_id": "8b60400f8f33772b",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 45,
+    "event": "followup",
+    "exact_sig": "5a44476b6079377f:none",
+    "cluster_id": "5a44476b6079377f",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 45,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "5a44476b6079377f:none",
+    "cluster_id": "5a44476b6079377f",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 45,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010",
+    "branch": "8b60400f8f33772b:click:nav_spaces",
+    "hub": "f40ba48ee9decdf5",
+    "parent": "8b60400f8f33772b",
+    "eligible_visible_buttons": 2,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 46,
+    "event": "hub_seen",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 46,
+    "event": "sequence_action",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 46,
+    "event": "mutation",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "8b60400f8f33772b",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 46,
+    "event": "return_attempt",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 47,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 47,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 47,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "8b60400f8f33772b",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 47,
+    "event": "return_attempt",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 48,
+    "event": "hub_seen",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 48,
+    "event": "sequence_action",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010",
+    "action_key": "back::",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 48,
+    "event": "mutation",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "8b60400f8f33772b",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 48,
+    "event": "return_attempt",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010"
+  },
+  {
+    "step": 48,
+    "event": "return_cycle_escape",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010",
+    "repeated_destination_sig": "3d320e46aa6a52a7:none",
+    "parent_hub_sig": "8b60400f8f33772b:8877d37c14a4",
+    "parent_hub_cluster": "8b60400f8f33772b",
+    "active_branch": "8b60400f8f33772b:click:nav_spaces",
+    "return_phase_attempts": 3,
+    "outcome": "return_cycle_abandoned"
+  },
+  {
+    "step": 48,
+    "event": "sequence_terminal",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "8b60400f8f33772b:click:nav_spaces",
+    "sequence_instance_id": "seq-0010",
+    "outcome": "return_cycle_abandoned"
+  },
+  {
+    "step": 49,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 49,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 50,
+    "event": "hub_seen",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 50,
+    "event": "branch_discovered",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 50,
+    "event": "branch_start",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 50,
+    "event": "sequence_action",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "branch"
+  },
+  {
+    "step": 50,
+    "event": "mutation",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 51,
+    "event": "sequence_action",
+    "exact_sig": "33e96622f05fd3b9:2e923f4cfad1",
+    "cluster_id": "33e96622f05fd3b9",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 51,
+    "event": "mutation",
+    "exact_sig": "33e96622f05fd3b9:2e923f4cfad1",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 51,
+    "event": "followup",
+    "exact_sig": "33e96622f05fd3b9:2e923f4cfad1",
+    "cluster_id": "33e96622f05fd3b9",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 52,
+    "event": "sequence_action",
+    "exact_sig": "13a96b98bae8e8cb:2e923f4cfad1",
+    "cluster_id": "13a96b98bae8e8cb",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "input:page_title:",
+    "decision_mode": "alternate_payload"
+  },
+  {
+    "step": 52,
+    "event": "mutation",
+    "exact_sig": "13a96b98bae8e8cb:2e923f4cfad1",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 52,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "13a96b98bae8e8cb:2e923f4cfad1",
+    "cluster_id": "13a96b98bae8e8cb",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 52,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "33e96622f05fd3b9:2e923f4cfad1",
+    "cluster_id": "33e96622f05fd3b9",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011",
+    "branch": "f40ba48ee9decdf5:click:nav_editor",
+    "hub": "33e96622f05fd3b9",
+    "parent": "f40ba48ee9decdf5",
+    "eligible_visible_buttons": 2,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 53,
+    "event": "sequence_action",
+    "exact_sig": "33e96622f05fd3b9:2e923f4cfad1",
+    "cluster_id": "33e96622f05fd3b9",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "click:btn_preview:",
+    "decision_mode": "payload_button"
+  },
+  {
+    "step": 53,
+    "event": "mutation",
+    "exact_sig": "33e96622f05fd3b9:2e923f4cfad1",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 54,
+    "event": "sequence_action",
+    "exact_sig": "33e96622f05fd3b9:af02b6a03312",
+    "cluster_id": "33e96622f05fd3b9",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 54,
+    "event": "mutation",
+    "exact_sig": "33e96622f05fd3b9:af02b6a03312",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 54,
+    "event": "return_attempt",
+    "exact_sig": "33e96622f05fd3b9:af02b6a03312",
+    "cluster_id": "33e96622f05fd3b9",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 55,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 55,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "click:nav_home:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 55,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 55,
+    "event": "return_attempt",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 56,
+    "event": "hub_seen",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 56,
+    "event": "sequence_action",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011",
+    "action_key": "back::",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 56,
+    "event": "mutation",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 56,
+    "event": "return_attempt",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011"
+  },
+  {
+    "step": 56,
+    "event": "return_cycle_escape",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011",
+    "repeated_destination_sig": "3d320e46aa6a52a7:none",
+    "parent_hub_sig": "f40ba48ee9decdf5:6686af34f593",
+    "parent_hub_cluster": "f40ba48ee9decdf5",
+    "active_branch": "f40ba48ee9decdf5:click:nav_editor",
+    "return_phase_attempts": 4,
+    "outcome": "return_cycle_abandoned"
+  },
+  {
+    "step": 56,
+    "event": "sequence_terminal",
+    "exact_sig": "1ca6b99a330c7290:8877d37c14a4",
+    "cluster_id": "1ca6b99a330c7290",
+    "branch_key": "f40ba48ee9decdf5:click:nav_editor",
+    "sequence_instance_id": "seq-0011",
+    "outcome": "return_cycle_abandoned"
+  },
+  {
+    "step": 57,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 57,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 57,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 57,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012",
+    "action_key": "click:wiki_page_p1:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 57,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 58,
+    "event": "hub_seen",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 58,
+    "event": "sequence_action",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 58,
+    "event": "mutation",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 58,
+    "event": "followup",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 59,
+    "event": "sequence_action",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012",
+    "action_key": "click:rev_r1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 59,
+    "event": "mutation",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 59,
+    "event": "followup",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 59,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 59,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "c03c997eb4237850",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012",
+    "branch": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "hub": "c03c997eb4237850",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 1,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 60,
+    "event": "sequence_action",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "c03c997eb4237850",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 60,
+    "event": "mutation",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 60,
+    "event": "return_attempt",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "c03c997eb4237850",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 61,
+    "event": "sequence_action",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 61,
+    "event": "mutation",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 61,
+    "event": "return_attempt",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 62,
+    "event": "hub_seen",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 62,
+    "event": "sequence_action",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 62,
+    "event": "mutation",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 62,
+    "event": "return_attempt",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012"
+  },
+  {
+    "step": 62,
+    "event": "sequence_terminal",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0012",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 63,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 63,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 63,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 63,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013",
+    "action_key": "click:wiki_page_p2:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 63,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 64,
+    "event": "hub_seen",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 64,
+    "event": "sequence_action",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 64,
+    "event": "mutation",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 64,
+    "event": "followup",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 65,
+    "event": "sequence_action",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013",
+    "action_key": "click:rev_r3:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 65,
+    "event": "mutation",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 65,
+    "event": "followup",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 65,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 65,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "7cf6026781d43bdf",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013",
+    "branch": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "hub": "7cf6026781d43bdf",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 1,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 66,
+    "event": "sequence_action",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "7cf6026781d43bdf",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 66,
+    "event": "mutation",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 66,
+    "event": "return_attempt",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "7cf6026781d43bdf",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 67,
+    "event": "sequence_action",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 67,
+    "event": "mutation",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 67,
+    "event": "return_attempt",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 68,
+    "event": "hub_seen",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 68,
+    "event": "sequence_action",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 68,
+    "event": "mutation",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 68,
+    "event": "return_attempt",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013"
+  },
+  {
+    "step": 68,
+    "event": "sequence_terminal",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0013",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 69,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 69,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 69,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 69,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0014",
+    "action_key": "click:wiki_page_p3:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 69,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 70,
+    "event": "hub_seen",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 70,
+    "event": "sequence_action",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0014",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 70,
+    "event": "mutation",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 70,
+    "event": "followup",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 71,
+    "event": "sequence_action",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0014",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 71,
+    "event": "mutation",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 71,
+    "event": "followup",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 71,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 71,
+    "event": "return_attempt",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0014"
+  },
+  {
+    "step": 71,
+    "event": "sequence_terminal",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0014",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 72,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 72,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 72,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 72,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 72,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 72,
+    "event": "followup",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 73,
+    "event": "sequence_action",
+    "exact_sig": "401c12ee5ad0e05d:af02b6a03312",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 73,
+    "event": "mutation",
+    "exact_sig": "401c12ee5ad0e05d:af02b6a03312",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 73,
+    "event": "followup",
+    "exact_sig": "401c12ee5ad0e05d:af02b6a03312",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 74,
+    "event": "sequence_action",
+    "exact_sig": "6a9e4d0e03bbd8b9:af02b6a03312",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 74,
+    "event": "followup",
+    "exact_sig": "6a9e4d0e03bbd8b9:af02b6a03312",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 74,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "6a9e4d0e03bbd8b9:af02b6a03312",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 74,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "6a9e4d0e03bbd8b9:af02b6a03312",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015",
+    "branch": "3d320e46aa6a52a7:click:nav_editor",
+    "hub": "6a9e4d0e03bbd8b9",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 2,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 75,
+    "event": "sequence_action",
+    "exact_sig": "6a9e4d0e03bbd8b9:af02b6a03312",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 75,
+    "event": "mutation",
+    "exact_sig": "6a9e4d0e03bbd8b9:af02b6a03312",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 75,
+    "event": "return_attempt",
+    "exact_sig": "6a9e4d0e03bbd8b9:af02b6a03312",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015"
+  },
+  {
+    "step": 75,
+    "event": "sequence_terminal",
+    "exact_sig": "6a9e4d0e03bbd8b9:af02b6a03312",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0015",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 76,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 76,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 76,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 76,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016",
+    "action_key": "click:wiki_page_p1:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 76,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 77,
+    "event": "hub_seen",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 77,
+    "event": "sequence_action",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 77,
+    "event": "mutation",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 77,
+    "event": "followup",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 78,
+    "event": "sequence_action",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016",
+    "action_key": "click:rev_r1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 78,
+    "event": "mutation",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 78,
+    "event": "followup",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 78,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 78,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "c03c997eb4237850",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016",
+    "branch": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "hub": "c03c997eb4237850",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 1,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 79,
+    "event": "sequence_action",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "c03c997eb4237850",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 79,
+    "event": "mutation",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 79,
+    "event": "return_attempt",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "c03c997eb4237850",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 80,
+    "event": "sequence_action",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 80,
+    "event": "mutation",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 80,
+    "event": "return_attempt",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 81,
+    "event": "hub_seen",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 81,
+    "event": "sequence_action",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 81,
+    "event": "mutation",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 81,
+    "event": "return_attempt",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016"
+  },
+  {
+    "step": 81,
+    "event": "sequence_terminal",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0016",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 82,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 82,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 82,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 82,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017",
+    "action_key": "click:wiki_page_p2:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 82,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 83,
+    "event": "hub_seen",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 83,
+    "event": "sequence_action",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 83,
+    "event": "mutation",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 83,
+    "event": "followup",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 84,
+    "event": "sequence_action",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017",
+    "action_key": "click:rev_r3:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 84,
+    "event": "mutation",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 84,
+    "event": "followup",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 84,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 84,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "7cf6026781d43bdf",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017",
+    "branch": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "hub": "7cf6026781d43bdf",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 1,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 85,
+    "event": "sequence_action",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "7cf6026781d43bdf",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 85,
+    "event": "mutation",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 85,
+    "event": "return_attempt",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "7cf6026781d43bdf",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 86,
+    "event": "sequence_action",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 86,
+    "event": "mutation",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 86,
+    "event": "return_attempt",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 87,
+    "event": "hub_seen",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 87,
+    "event": "sequence_action",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 87,
+    "event": "mutation",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 87,
+    "event": "return_attempt",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017"
+  },
+  {
+    "step": 87,
+    "event": "sequence_terminal",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0017",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 88,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 88,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 88,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 88,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018",
+    "action_key": "click:wiki_page_p3:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 88,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 89,
+    "event": "hub_seen",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 89,
+    "event": "sequence_action",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 89,
+    "event": "mutation",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 89,
+    "event": "followup",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 90,
+    "event": "sequence_action",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018",
+    "action_key": "back::",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 90,
+    "event": "mutation",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 90,
+    "event": "followup",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 90,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 90,
+    "event": "return_attempt",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 90,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018",
+    "branch": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "hub": "b2d707497b2c6a99",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 2,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 91,
+    "event": "hub_seen",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 91,
+    "event": "sequence_action",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 91,
+    "event": "mutation",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 91,
+    "event": "return_attempt",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018"
+  },
+  {
+    "step": 91,
+    "event": "sequence_terminal",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0018",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 92,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 92,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 92,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 92,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 92,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 93,
+    "event": "sequence_action",
+    "exact_sig": "401c12ee5ad0e05d:af02b6a03312",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019",
+    "action_key": "input:page_title:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 93,
+    "event": "followup",
+    "exact_sig": "401c12ee5ad0e05d:af02b6a03312",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 94,
+    "event": "sequence_action",
+    "exact_sig": "401c12ee5ad0e05d:af02b6a03312",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019",
+    "action_key": "click:btn_preview:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 94,
+    "event": "mutation",
+    "exact_sig": "401c12ee5ad0e05d:af02b6a03312",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 94,
+    "event": "followup",
+    "exact_sig": "401c12ee5ad0e05d:af02b6a03312",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 94,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "401c12ee5ad0e05d:af02b6a03312",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 94,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "401c12ee5ad0e05d:b298130594b0",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019",
+    "branch": "3d320e46aa6a52a7:click:nav_editor",
+    "hub": "401c12ee5ad0e05d",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 2,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 95,
+    "event": "sequence_action",
+    "exact_sig": "401c12ee5ad0e05d:b298130594b0",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 95,
+    "event": "mutation",
+    "exact_sig": "401c12ee5ad0e05d:b298130594b0",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 95,
+    "event": "return_attempt",
+    "exact_sig": "401c12ee5ad0e05d:b298130594b0",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019"
+  },
+  {
+    "step": 95,
+    "event": "sequence_terminal",
+    "exact_sig": "401c12ee5ad0e05d:b298130594b0",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0019",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 96,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 96,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 96,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 96,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020",
+    "action_key": "click:wiki_page_p1:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 96,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 97,
+    "event": "hub_seen",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 97,
+    "event": "sequence_action",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 97,
+    "event": "mutation",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 97,
+    "event": "followup",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 98,
+    "event": "sequence_action",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020",
+    "action_key": "click:rev_r1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 98,
+    "event": "mutation",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 98,
+    "event": "followup",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 98,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 98,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "c03c997eb4237850",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020",
+    "branch": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "hub": "c03c997eb4237850",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 1,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 99,
+    "event": "sequence_action",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "c03c997eb4237850",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 99,
+    "event": "mutation",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 99,
+    "event": "return_attempt",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "c03c997eb4237850",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 100,
+    "event": "sequence_action",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 100,
+    "event": "mutation",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 100,
+    "event": "return_attempt",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 101,
+    "event": "hub_seen",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 101,
+    "event": "sequence_action",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 101,
+    "event": "mutation",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 101,
+    "event": "return_attempt",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020"
+  },
+  {
+    "step": 101,
+    "event": "sequence_terminal",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0020",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 102,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 102,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 102,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 102,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021",
+    "action_key": "click:wiki_page_p2:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 102,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 103,
+    "event": "hub_seen",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 103,
+    "event": "sequence_action",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 103,
+    "event": "mutation",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 103,
+    "event": "followup",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 104,
+    "event": "sequence_action",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021",
+    "action_key": "click:rev_r3:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 104,
+    "event": "mutation",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 104,
+    "event": "followup",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 104,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 104,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "7cf6026781d43bdf",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021",
+    "branch": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "hub": "7cf6026781d43bdf",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 1,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 105,
+    "event": "sequence_action",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "7cf6026781d43bdf",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 105,
+    "event": "mutation",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 105,
+    "event": "return_attempt",
+    "exact_sig": "7cf6026781d43bdf:e01f01653c70",
+    "cluster_id": "7cf6026781d43bdf",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 106,
+    "event": "sequence_action",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 106,
+    "event": "mutation",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 106,
+    "event": "return_attempt",
+    "exact_sig": "5f2701d86190d500:none",
+    "cluster_id": "5f2701d86190d500",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 107,
+    "event": "hub_seen",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 107,
+    "event": "sequence_action",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 107,
+    "event": "mutation",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 107,
+    "event": "return_attempt",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021"
+  },
+  {
+    "step": 107,
+    "event": "sequence_terminal",
+    "exact_sig": "1792cd409483fce5:77252a622530",
+    "cluster_id": "1792cd409483fce5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p2",
+    "sequence_instance_id": "seq-0021",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 108,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 108,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 108,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 108,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022",
+    "action_key": "click:wiki_page_p3:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 108,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 109,
+    "event": "hub_seen",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 109,
+    "event": "sequence_action",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 109,
+    "event": "mutation",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 109,
+    "event": "followup",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 110,
+    "event": "sequence_action",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022",
+    "action_key": "click:nav_back_page:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 110,
+    "event": "mutation",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 110,
+    "event": "followup",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 110,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 110,
+    "event": "return_attempt",
+    "exact_sig": "b99c520704ad3f57:none",
+    "cluster_id": "b99c520704ad3f57",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 110,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022",
+    "branch": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "hub": "b2d707497b2c6a99",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 2,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 111,
+    "event": "hub_seen",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 111,
+    "event": "sequence_action",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 111,
+    "event": "mutation",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 111,
+    "event": "return_attempt",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022"
+  },
+  {
+    "step": 111,
+    "event": "sequence_terminal",
+    "exact_sig": "b2d707497b2c6a99:68ac158295bb",
+    "cluster_id": "b2d707497b2c6a99",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p3",
+    "sequence_instance_id": "seq-0022",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 112,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 112,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 112,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 112,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023",
+    "action_key": "click:nav_editor:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 112,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 113,
+    "event": "sequence_action",
+    "exact_sig": "401c12ee5ad0e05d:b298130594b0",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 113,
+    "event": "mutation",
+    "exact_sig": "401c12ee5ad0e05d:b298130594b0",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 113,
+    "event": "followup",
+    "exact_sig": "401c12ee5ad0e05d:b298130594b0",
+    "cluster_id": "401c12ee5ad0e05d",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 114,
+    "event": "sequence_action",
+    "exact_sig": "6a9e4d0e03bbd8b9:b298130594b0",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023",
+    "action_key": "input:page_title:测试输入",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 114,
+    "event": "followup",
+    "exact_sig": "6a9e4d0e03bbd8b9:b298130594b0",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 114,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "6a9e4d0e03bbd8b9:b298130594b0",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 114,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "6a9e4d0e03bbd8b9:b298130594b0",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023",
+    "branch": "3d320e46aa6a52a7:click:nav_editor",
+    "hub": "6a9e4d0e03bbd8b9",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 2,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 115,
+    "event": "sequence_action",
+    "exact_sig": "6a9e4d0e03bbd8b9:b298130594b0",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023",
+    "action_key": "click:nav_back_pages:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 115,
+    "event": "mutation",
+    "exact_sig": "6a9e4d0e03bbd8b9:b298130594b0",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 115,
+    "event": "return_attempt",
+    "exact_sig": "6a9e4d0e03bbd8b9:b298130594b0",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023"
+  },
+  {
+    "step": 115,
+    "event": "sequence_terminal",
+    "exact_sig": "6a9e4d0e03bbd8b9:b298130594b0",
+    "cluster_id": "6a9e4d0e03bbd8b9",
+    "branch_key": "3d320e46aa6a52a7:click:nav_editor",
+    "sequence_instance_id": "seq-0023",
+    "outcome": "returned",
+    "length": 1
+  },
+  {
+    "step": 116,
+    "event": "hub_seen",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 116,
+    "event": "branch_discovered",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": null
+  },
+  {
+    "step": 116,
+    "event": "branch_start",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 116,
+    "event": "sequence_action",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024",
+    "action_key": "click:wiki_page_p1:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 116,
+    "event": "mutation",
+    "exact_sig": "3d320e46aa6a52a7:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 117,
+    "event": "hub_seen",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 117,
+    "event": "sequence_action",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024",
+    "action_key": "click:nav_history:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 117,
+    "event": "mutation",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 117,
+    "event": "followup",
+    "exact_sig": "f40ba48ee9decdf5:6686af34f593",
+    "cluster_id": "f40ba48ee9decdf5",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 118,
+    "event": "sequence_action",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024",
+    "action_key": "click:rev_r1:",
+    "decision_mode": "sequence_followup"
+  },
+  {
+    "step": 118,
+    "event": "mutation",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 118,
+    "event": "followup",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 118,
+    "event": "sequence_horizon_reached",
+    "exact_sig": "ef09cc4ff68509c8:none",
+    "cluster_id": "ef09cc4ff68509c8",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 118,
+    "event": "finding_return_entry_horizon_bypassed",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "c03c997eb4237850",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024",
+    "branch": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "hub": "c03c997eb4237850",
+    "parent": "3d320e46aa6a52a7",
+    "eligible_visible_buttons": 1,
+    "behavior": "v0317_fallback"
+  },
+  {
+    "step": 119,
+    "event": "sequence_action",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "c03c997eb4237850",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024",
+    "action_key": "click:nav_back_history:",
+    "decision_mode": "return_hub"
+  },
+  {
+    "step": 119,
+    "event": "mutation",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "3d320e46aa6a52a7",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 119,
+    "event": "return_attempt",
+    "exact_sig": "c03c997eb4237850:a5150dc3f221",
+    "cluster_id": "c03c997eb4237850",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024"
+  },
+  {
+    "step": 120,
+    "event": "sequence_terminal",
+    "exact_sig": "",
+    "cluster_id": "",
+    "branch_key": "3d320e46aa6a52a7:click:wiki_page_p1",
+    "sequence_instance_id": "seq-0024",
+    "outcome": "budget_end",
+    "length": 1
+  }
+]

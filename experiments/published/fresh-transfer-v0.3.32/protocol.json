@@ -1,0 +1,59 @@
+{
+  "name": "v0.3.32 one button after an alternate payload",
+  "version": "v0.3.32",
+  "date": "2026-09-28",
+  "starting_head": "0ae20c27d776e22cd952fe6cc39d67b1a03e1a87",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "fresh-validation",
+  "fresh_validation": true,
+  "product_default_changed": false,
+  "research_question": "After an alternate payload is chosen, does one untried button click on the next returning decision of a non-hub page keep Guard bugs and confirm the empty-title submit bug?",
+  "diagnosis": "On marsh, cove, glen, and forge at budget 120, step 18 typed the empty title as alternate_payload and step 19 returned. The submit button was never clicked. Guard confirmed the empty-title bug by typing the empty title and then clicking submit. Historical Guard loss was empty. The v0.3.31 module is not edited. The rule does not take a link, a return, or any click on a hub.",
+  "not": [
+    "an edit of the frozen v0.3.31 candidate",
+    "permission to take an arbitrary untried click",
+    "permission to click on a hub",
+    "permission to change the product default",
+    "permission to retune after the fresh matrix",
+    "promotion"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-payload-button-guard",
+    "module": "ghostqa/exploration/payload_button_guard.py",
+    "subclasses": "AlternatePayloadSequenceController",
+    "frozen_parent_sha256": "fef17c7441df69e68f083ec04e201e2a942b0be6cacf59a054e135d09b49d018",
+    "rule": "Arm a one-shot when an alternate payload is chosen. On the next returning decision of that same branch, if the page is not a hub, take the first untried button click. Do not take a link or a return action. If the page is a hub or the branch changed, drop the one-shot."
+  },
+  "guard_policy": "ghost-structural-return-guard",
+  "topology_rule": "New positives keep the chart-to-prefs page. Submit, probe, and export stay on that prefs page. The score page stays on the roster hub.",
+  "seed_prefix": "ghostqa-v0.3.32:",
+  "targets": [
+    {"app": "buggy-dune", "class": "positive", "port": 3995, "prefix": "BUG-DU"},
+    {"app": "buggy-reef", "class": "positive", "port": 3996, "prefix": "BUG-RF"},
+    {"app": "buggy-vale", "class": "positive", "port": 3997, "prefix": "BUG-VL"},
+    {"app": "buggy-knoll", "class": "positive", "port": 3998, "prefix": "BUG-KL"},
+    {"app": "buggy-loft", "class": "negative", "negative_class": "catalog", "port": 3999, "prefix": "BUG-LF"},
+    {"app": "buggy-mesa", "class": "negative", "negative_class": "kiosk", "port": 4000, "prefix": "BUG-MS"}
+  ],
+  "inspected_regression": {
+    "apps": ["buggy-campus", "buggy-studio"],
+    "budget": 120,
+    "affects_outcome_letter": false
+  },
+  "matrix": {
+    "fresh_cells": 28,
+    "historical_cells": 10,
+    "inspected_cells": 2,
+    "cells_total": 40
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "Guard loss on a fresh target, historical Guard loss, safety violation, negative handoff, candidate edit, or product-default change",
+    "D": "Safety holds but fewer than 3 positives are evaluable",
+    "B": "Guard bugs are kept and at least 3 positives are evaluable, but fewer than 3 keep every Guard bug, confirm the empty-title submit bug, and record a payload-button selection",
+    "A": "At least 3 positives keep every Guard bug, confirm the empty-title submit bug, and record a payload-button selection. Negatives have no nested handoff. The historical suite loses no Guard bug. The product default stays unchanged.",
+    "promotion": false
+  },
+  "product_default": {"policy": "ghost", "use_frontier": false, "sequence_mode": "off", "unchanged": true}
+}

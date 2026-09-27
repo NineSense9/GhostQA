@@ -32,6 +32,7 @@ V0326 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.26")
 V0327 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.27")
 V0330 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.30")
 V0331 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.31")
+V0332 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.32")
 
 
 def _load(path, default=None):
@@ -1063,6 +1064,66 @@ def _v0323(root: str | None = None) -> dict:
     }
 
 
+def _bug_list(rows) -> str:
+    names = []
+    for row in rows or []:
+        names.extend(row.get("bugs") or [])
+    return "、".join(names) if names else "没有"
+
+
+def _v0332(root: str | None = None) -> dict:
+    base = root or V0332
+    mechanism = _load(os.path.join(base, "metrics", "mechanism.json")) or {}
+    safety = _load(os.path.join(base, "metrics", "safety.json")) or {}
+    repro = _load(os.path.join(base, "metrics", "reproduction.json")) or {}
+    man = _load(os.path.join(base, "evidence-manifest.json")) or {}
+    derived = mechanism.get("derived") or {}
+    controls = mechanism.get("controls") or {}
+    if not derived.get("outcome"):
+        return {"available": False}
+    facts = safety.get("facts") or {}
+    fresh = facts.get("fresh_guard_loss") or []
+    hist = facts.get("historical_guard_loss") or []
+    return {
+        "available": True,
+        "round": "v0.3.32",
+        "title": "One button after an alternate payload",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning") or "",
+        "evaluable_positives": facts.get("evaluable_positives"),
+        "structured_positives": facts.get("structured_positives"),
+        "fresh_guard_loss": fresh,
+        "historical_guard_loss": hist,
+        "loft_handoff": (controls.get("buggy-loft") or {}).get("handoff"),
+        "mesa_handoff": (controls.get("buggy-mesa") or {}).get("handoff"),
+        "product_default_changed": bool(facts.get("product_default_changed")),
+        "fresh_validation": True,
+        "promotion_readiness": "not_ready",
+        "v0331_outcome": "C",
+        "v0327_outcome": "B",
+        "cells": 40,
+        "public_copy": (
+            "v0.3.32 在换过输入之后、返回之前，在非枢纽页上补一次还没试过的按钮。"
+            f"新正例 Guard 丢失：{_bug_list(fresh)}。"
+            f"历史 Guard 丢失：{_bug_list(hist)}。"
+            f"可评估 {facts.get('evaluable_positives')}，结构化 {facts.get('structured_positives')}。"
+            f"结果是 Outcome {derived.get('outcome')}。"
+            "产品默认未改，候选不晋升。"
+            "v0.3.31 仍是 Outcome C，v0.3.27 仍是 Outcome B。"
+        ),
+        "reproduction": {
+            "clean_clone_verified": bool(repro.get("clean_clone_verified")),
+            "command": repro.get("command") or (
+                "python -m benchmark.fresh_transfer_v0332_reproduce "
+                "--root experiments/published/fresh-transfer-v0.3.32 --verify"),
+            "evidence_files": len(man.get("files") or []),
+        },
+        "command": (
+            "python -m benchmark.fresh_transfer_v0332_reproduce "
+            "--root experiments/published/fresh-transfer-v0.3.32 --verify"),
+    }
+
+
 def _v0331(root: str | None = None) -> dict:
     base = root or V0331
     mechanism = _load(os.path.join(base, "metrics", "mechanism.json")) or {}
@@ -1443,7 +1504,8 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
                    v0326_root: str | None = None,
                    v0327_root: str | None = None,
                    v0330_root: str | None = None,
-                   v0331_root: str | None = None) -> dict:
+                   v0331_root: str | None = None,
+                   v0332_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
@@ -1466,7 +1528,17 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
     v0327 = _v0327(v0327_root)
     v0330 = _v0330(v0330_root)
     v0331 = _v0331(v0331_root)
-    if v0331.get("available"):
+    v0332 = _v0332(v0332_root)
+    if v0332.get("available"):
+        latest = {
+            "round": "v0.3.32",
+            "title": "One button after an alternate payload",
+            "available": True,
+            "outcome": v0332.get("outcome"),
+            "product_default_changed": v0332.get("product_default_changed"),
+        }
+        latest_research = "v0.3.32"
+    elif v0331.get("available"):
         latest = {
             "round": "v0.3.31",
             "title": "Alternate payload before a repeated input",
@@ -1663,6 +1735,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "fresh_transfer_v0332": v0332,
         "fresh_transfer_v0331": v0331,
         "fresh_transfer_v0330": v0330,
         "fresh_transfer_v0327": v0327,
