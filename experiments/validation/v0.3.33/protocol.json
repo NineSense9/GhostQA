@@ -1,0 +1,58 @@
+{
+  "name": "v0.3.33 remaining buttons after an alternate payload",
+  "version": "v0.3.33",
+  "date": "2026-09-28",
+  "starting_head": "0c58115e3cf01d3972117ad28edeea41c9d215fb",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "fresh-validation",
+  "fresh_validation": true,
+  "product_default_changed": false,
+  "research_question": "After an alternate payload, if every remaining untried button on that non-hub page is taken before the return, do the probe and export bugs get confirmed without losing Guard bugs?",
+  "diagnosis": "v0.3.32 Outcome A. On dune budget 120 the candidate typed the normal title, typed the empty title, clicked submit, and returned. The empty-title bug was confirmed. Probe and export were not clicked. The same one-button trace is the v0.3.32 rule: the one-shot is consumed by the first button. Campus confirmed BUG-CP4 and Studio confirmed BUG-ST4. The v0.3.32 module is not edited. Links and hub clicks stay out of the rule.",
+  "not": [
+    "an edit of the frozen v0.3.32 candidate",
+    "permission to take a link or a hub click",
+    "permission to change the product default",
+    "permission to retune after the fresh matrix",
+    "promotion"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-page-buttons-guard",
+    "module": "ghostqa/exploration/page_buttons_guard.py",
+    "subclasses": "PayloadButtonSequenceController",
+    "frozen_parent_sha256": "9f65597aa16971d8afae1a83c6e666fea800745df88dca67a3b50764530ffc52",
+    "rule": "After each button taken by the v0.3.32 one-shot, arm it again for the same branch. On each following returning decision, if the page is still not a hub, take the next untried button. Stop when no untried button remains, then return. Do not take a link. A hub or a changed branch drops the chain."
+  },
+  "guard_policy": "ghost-structural-return-guard",
+  "topology_rule": "New positives keep the chart-to-prefs page. Submit, probe, and export stay on that prefs page. The score page stays on the roster hub.",
+  "seed_prefix": "ghostqa-v0.3.33:",
+  "targets": [
+    {"app": "buggy-fen", "class": "positive", "port": 4001, "prefix": "BUG-FN"},
+    {"app": "buggy-heath", "class": "positive", "port": 4002, "prefix": "BUG-HT"},
+    {"app": "buggy-inlet", "class": "positive", "port": 4003, "prefix": "BUG-IN"},
+    {"app": "buggy-jetty", "class": "positive", "port": 4004, "prefix": "BUG-JT"},
+    {"app": "buggy-ledge", "class": "negative", "negative_class": "catalog", "port": 4005, "prefix": "BUG-LD"},
+    {"app": "buggy-notch", "class": "negative", "negative_class": "kiosk", "port": 4006, "prefix": "BUG-NT"}
+  ],
+  "inspected_regression": {
+    "apps": ["buggy-campus", "buggy-studio"],
+    "budget": 120,
+    "affects_outcome_letter": false
+  },
+  "matrix": {
+    "fresh_cells": 28,
+    "historical_cells": 10,
+    "inspected_cells": 2,
+    "cells_total": 40
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "Guard loss on a fresh target, historical Guard loss, safety violation, negative handoff, candidate edit, or product-default change",
+    "D": "Safety holds but fewer than 3 positives are evaluable",
+    "B": "Guard bugs are kept and at least 3 positives are evaluable, but fewer than 3 keep every Guard bug, confirm the probe and export bugs, and record at least two page-button selections",
+    "A": "At least 3 positives keep every Guard bug, confirm the probe and export bugs, and record at least two page-button selections. Negatives have no nested handoff. The historical suite loses no Guard bug. The product default stays unchanged.",
+    "promotion": false
+  },
+  "product_default": {"policy": "ghost", "use_frontier": false, "sequence_mode": "off", "unchanged": true}
+}
