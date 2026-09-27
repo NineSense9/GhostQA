@@ -1,0 +1,58 @@
+{
+  "name": "v0.3.34 remember button ids on the branch",
+  "version": "v0.3.34",
+  "date": "2026-09-28",
+  "starting_head": "0cdd35fc2fabbd114e43b9188d4e613b18b333b3",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "fresh-validation",
+  "fresh_validation": true,
+  "product_default_changed": false,
+  "research_question": "If a button id already taken on the current branch is skipped, and the next unseen button is taken instead, does BuggyWiki keep BUG-W2 while the new positives still confirm the probe and export bugs?",
+  "diagnosis": "v0.3.33 Outcome C. The four new positives kept every Guard bug and confirmed the probe and export bugs. BuggyWiki lost BUG-W2. btn_preview was clicked 104 times. Each click was stored on a different signature, so the current signature still treated the same button as untried and the chain never stopped. The v0.3.33 module is not edited.",
+  "not": [
+    "an edit of the frozen v0.3.33 candidate",
+    "permission to take a link or a hub click",
+    "permission to change the product default",
+    "permission to retune after the fresh matrix",
+    "promotion"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-seen-button-guard",
+    "module": "ghostqa/exploration/seen_button_guard.py",
+    "subclasses": "PageButtonsSequenceController",
+    "frozen_parent_sha256": "0d933edc834928a70c46af07a24091379e5b1ec3cdd81e18e1a4845d92464d81",
+    "rule": "Remember button ids taken on the current branch. If the next button choice repeats one of those ids, skip it and take the next unseen button. If none remain, drop the chain and return."
+  },
+  "guard_policy": "ghost-structural-return-guard",
+  "topology_rule": "New positives keep the chart-to-prefs page. Submit, probe, and export stay on that prefs page. The score page stays on the roster hub.",
+  "seed_prefix": "ghostqa-v0.3.34:",
+  "targets": [
+    {"app": "buggy-brook", "class": "positive", "port": 4007, "prefix": "BUG-BK"},
+    {"app": "buggy-cairn", "class": "positive", "port": 4008, "prefix": "BUG-CN"},
+    {"app": "buggy-delta", "class": "positive", "port": 4009, "prefix": "BUG-DL"},
+    {"app": "buggy-grove", "class": "positive", "port": 4010, "prefix": "BUG-GV"},
+    {"app": "buggy-oxbow", "class": "negative", "negative_class": "catalog", "port": 4011, "prefix": "BUG-OX"},
+    {"app": "buggy-pond", "class": "negative", "negative_class": "kiosk", "port": 4012, "prefix": "BUG-PD"}
+  ],
+  "inspected_regression": {
+    "apps": ["buggy-campus", "buggy-studio"],
+    "budget": 120,
+    "affects_outcome_letter": false
+  },
+  "matrix": {
+    "fresh_cells": 28,
+    "historical_cells": 10,
+    "inspected_cells": 2,
+    "cells_total": 40
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "Guard loss on a fresh target, historical Guard loss, safety violation, negative handoff, candidate edit, or product-default change",
+    "D": "Safety holds but fewer than 3 positives are evaluable",
+    "B": "Guard bugs are kept and at least 3 positives are evaluable, but fewer than 3 keep every Guard bug, confirm the probe and export bugs, and record at least two page-button selections",
+    "A": "At least 3 positives keep every Guard bug, confirm the probe and export bugs, and record at least two page-button selections. Negatives have no nested handoff. The historical suite loses no Guard bug. The product default stays unchanged.",
+    "promotion": false
+  },
+  "product_default": {"policy": "ghost", "use_frontier": false, "sequence_mode": "off", "unchanged": true}
+}
