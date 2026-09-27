@@ -114,7 +114,8 @@ def test_showcase_missing_artifacts_do_not_crash():
                        v0324_root="/tmp/missing-v0324",
                        v0325_root="/tmp/missing-v0325",
                        v0326_root="/tmp/missing-v0326",
-                       v0327_root="/tmp/missing-v0327")
+                       v0327_root="/tmp/missing-v0327",
+                       v0330_root="/tmp/missing-v0330")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -135,6 +136,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["fresh_transfer_v0325"]["available"] is False
     assert s["fresh_transfer_v0326"]["available"] is False
     assert s["fresh_transfer_v0327"]["available"] is False
+    assert s["fresh_transfer_v0330"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -172,7 +174,26 @@ def test_showcase_endpoint_function_returns_payload():
     fresh25 = body.get("fresh_transfer_v0325") or {}
     fresh26 = body.get("fresh_transfer_v0326") or {}
     fresh27 = body.get("fresh_transfer_v0327") or {}
-    if fresh27.get("available"):
+    fresh30 = body.get("fresh_transfer_v0330") or {}
+    if fresh30.get("available"):
+        assert body["latest"]["round"] == "v0.3.30"
+        assert body["project"]["latest_research"] == "v0.3.30"
+        assert body["latest"]["outcome"] == "C"
+        assert body["latest"]["product_default_changed"] is False
+        assert fresh30["evaluable_positives"] == 4
+        assert fresh30["structured_positives"] == 0
+        assert fresh30["tray_handoff"] == 0
+        assert fresh30["booth_handoff"] == 0
+        assert [row["bugs"] for row in fresh30["fresh_guard_loss"]] == [
+            ["BUG-CR4"], ["BUG-RG4"], ["BUG-WF4"], ["BUG-KN4"]]
+        assert fresh30["historical_guard_loss"] == [
+            {"app": "buggy-desk", "bugs": ["BUG-K10"]},
+            {"app": "buggy-shop", "bugs": ["BUG-W6"]},
+        ]
+        assert fresh30["inspected_settings"] == {"buggy-campus": [], "buggy-studio": []}
+        assert fresh27["outcome"] == "B"
+        assert episode["outcome"] == "A"
+    elif fresh27.get("available"):
         assert body["latest"]["round"] == "v0.3.27"
         assert body["project"]["latest_research"] == "v0.3.27"
         assert body["latest"]["outcome"] == "B"
@@ -488,7 +509,13 @@ def test_showcase_reads_v0311_published_metrics():
     fresh25 = s.get("fresh_transfer_v0325") or {}
     fresh26 = s.get("fresh_transfer_v0326") or {}
     fresh27 = s.get("fresh_transfer_v0327") or {}
-    if fresh27.get("available"):
+    fresh30 = s.get("fresh_transfer_v0330") or {}
+    if fresh30.get("available"):
+        assert s["latest"]["round"] == "v0.3.30"
+        assert s["latest"]["outcome"] == "C"
+        assert fresh27["outcome"] == "B"
+        assert episode["outcome"] == "A"
+    elif fresh27.get("available"):
         assert s["latest"]["round"] == "v0.3.27"
         assert s["latest"]["outcome"] == "B"
         assert s["project"]["latest_research"] == "v0.3.27"

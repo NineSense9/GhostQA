@@ -30,6 +30,7 @@ V0324 = os.path.join(PUBLISHED, "episode-drain-epoch-v0.3.24")
 V0325 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.25")
 V0326 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.26")
 V0327 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.27")
+V0330 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.30")
 
 
 def _load(path, default=None):
@@ -1061,6 +1062,60 @@ def _v0323(root: str | None = None) -> dict:
     }
 
 
+def _v0330(root: str | None = None) -> dict:
+    base = root or V0330
+    mechanism = _load(os.path.join(base, "metrics", "mechanism.json")) or {}
+    safety = _load(os.path.join(base, "metrics", "safety.json")) or {}
+    repro = _load(os.path.join(base, "metrics", "reproduction.json")) or {}
+    man = _load(os.path.join(base, "evidence-manifest.json")) or {}
+    derived = mechanism.get("derived") or {}
+    controls = mechanism.get("controls") or {}
+    inspected = mechanism.get("inspected") or {}
+    if not derived.get("outcome"):
+        return {"available": False}
+    facts = safety.get("facts") or {}
+    return {
+        "available": True,
+        "round": "v0.3.30",
+        "title": "Untried click before a repeated followup",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning") or "",
+        "evaluable_positives": facts.get("evaluable_positives"),
+        "structured_positives": facts.get("structured_positives"),
+        "fresh_guard_loss": facts.get("fresh_guard_loss") or [],
+        "historical_guard_loss": facts.get("historical_guard_loss") or [],
+        "tray_handoff": (controls.get("buggy-tray") or {}).get("handoff"),
+        "booth_handoff": (controls.get("buggy-booth") or {}).get("handoff"),
+        "product_default_changed": bool(facts.get("product_default_changed")),
+        "fresh_validation": True,
+        "promotion_readiness": "not_ready",
+        "v0327_outcome": "B",
+        "cells": 40,
+        "public_copy": (
+            "v0.3.30 在重复的后续动作上改点还没试过的点击。"
+            "四个新正例都少了 Guard 已确认的提交缺陷："
+            "BUG-CR4、BUG-RG4、BUG-WF4、BUG-KN4。"
+            "历史应用还少了 BuggyDesk 的 BUG-K10 和 BuggyShop 的 BUG-W6。"
+            "所以结果是 Outcome C。Campus 和 Studio 的提交、同步、导出仍然没有确认。"
+            "产品默认未改，候选不晋升。v0.3.27 仍是 Outcome B。"
+        ),
+        "reproduction": {
+            "clean_clone_verified": bool(repro.get("clean_clone_verified")),
+            "command": repro.get("command") or (
+                "python -m benchmark.fresh_transfer_v0330_reproduce "
+                "--root experiments/published/fresh-transfer-v0.3.30 --verify"),
+            "evidence_files": len(man.get("files") or []),
+        },
+        "command": (
+            "python -m benchmark.fresh_transfer_v0330_reproduce "
+            "--root experiments/published/fresh-transfer-v0.3.30 --verify"),
+        "inspected_settings": {
+            app: (item.get("settings_confirmed") or [])
+            for app, item in inspected.items()
+        },
+    }
+
+
 def _v0327(root: str | None = None) -> dict:
     base = root or V0327
     mechanism = _load(os.path.join(base, "metrics", "mechanism.json")) or {}
@@ -1335,7 +1390,8 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
                    v0324_root: str | None = None,
                    v0325_root: str | None = None,
                    v0326_root: str | None = None,
-                   v0327_root: str | None = None) -> dict:
+                   v0327_root: str | None = None,
+                   v0330_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
@@ -1356,7 +1412,17 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
     v0325 = _v0325(v0325_root)
     v0326 = _v0326(v0326_root)
     v0327 = _v0327(v0327_root)
-    if v0327.get("available"):
+    v0330 = _v0330(v0330_root)
+    if v0330.get("available"):
+        latest = {
+            "round": "v0.3.30",
+            "title": "Untried click before a repeated followup",
+            "available": True,
+            "outcome": v0330.get("outcome"),
+            "product_default_changed": v0330.get("product_default_changed"),
+        }
+        latest_research = "v0.3.30"
+    elif v0327.get("available"):
         latest = {
             "round": "v0.3.27",
             "title": "Parent-hub sibling before return",
@@ -1535,6 +1601,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "fresh_transfer_v0330": v0330,
         "fresh_transfer_v0327": v0327,
         "fresh_transfer_v0326": v0326,
         "fresh_transfer_v0325": v0325,
