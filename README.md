@@ -4,9 +4,13 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.30 Outcome C
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.31 Outcome C
 
 产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+
+**v0.3.31 Outcome C — the alternate-payload repair lost the empty-title submit bug.** 非枢纽页面上把重复的同一段输入换成另一种输入。marsh、cove、glen、forge 都少了 Guard 已确认的空标题提交缺陷 `BUG-MH4`、`BUG-CV4`、`BUG-GN4`、`BUG-FG4`。历史应用没有再丢缺陷。Campus 和 Studio 的提交、同步、导出仍然没有确认。产品默认未改，候选不晋升。v0.3.30 仍是 Outcome C，v0.3.27 仍是 Outcome B。`python -m benchmark.fresh_transfer_v0331_reproduce --root experiments/published/fresh-transfer-v0.3.31 --verify`
+
+## 上一轮：v0.3.30 Outcome C
 
 **v0.3.30 Outcome C — the repeat-click repair lost Guard bugs.** 重复的后续动作改点未试过的点击。creek、ridge、wharf、kiln 都少了 Guard 已确认的提交缺陷 `BUG-CR4`、`BUG-RG4`、`BUG-WF4`、`BUG-KN4`。历史应用还少了 BuggyDesk 的 `BUG-K10` 和 BuggyShop 的 `BUG-W6`。Campus 和 Studio 的提交、同步、导出仍然没有确认。产品默认未改，候选不晋升。v0.3.27 仍是 Outcome B。`python -m benchmark.fresh_transfer_v0330_reproduce --root experiments/published/fresh-transfer-v0.3.30 --verify`
 

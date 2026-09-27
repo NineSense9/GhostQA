@@ -1,0 +1,58 @@
+{
+  "name": "v0.3.31 alternate payload before a repeated input",
+  "version": "v0.3.31",
+  "date": "2026-09-27",
+  "starting_head": "e8ff06dfeffbe4b615bfc34bd97afd61fe0eb094",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "fresh-validation",
+  "fresh_validation": true,
+  "product_default_changed": false,
+  "research_question": "On a non-hub page, if a followup would repeat an input already used in the current branch, does switching to a different input text for that field keep Guard bugs and confirm the empty-title submit bug?",
+  "diagnosis": "On creek budget 120 the candidate opened prefs, typed the normal title twice, and returned. The second input was on a new signature, so v0.3.30 did not treat it as a repeat. Guard came back to the original prefs signature, typed the empty title, and clicked submit, confirming BUG-CR4. The same loss is RG4, WF4, and KN4. The v0.3.30 rule did fire later, on hub navigation such as btn_internal and nav_help. BuggyDesk lost BUG-K10 and BuggyShop lost BUG-W6. The v0.3.30 module is not edited, and the rule is not allowed to take an arbitrary click.",
+  "not": [
+    "an edit of the frozen v0.3.30 candidate",
+    "permission to take an arbitrary untried click",
+    "permission to change the product default",
+    "permission to retune after the fresh matrix",
+    "promotion"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-alternate-payload-guard",
+    "module": "ghostqa/exploration/alternate_payload_guard.py",
+    "subclasses": "RepeatClickSequenceController",
+    "frozen_parent_sha256": "e52e87a312120f838e6b9d922928f7666824d6f7fd32c4e73c3b5e538f41b501",
+    "rule": "Remember input keys used during the current branch. On a non-hub page, when the first followup repeats one of those keys, take another input for the same field with different text if the action list has one. Do not take a different click."
+  },
+  "guard_policy": "ghost-structural-return-guard",
+  "topology_rule": "New positives keep the chart-to-prefs page. Submit, probe, and export stay on that prefs page. The score page stays on the roster hub.",
+  "seed_prefix": "ghostqa-v0.3.31:",
+  "targets": [
+    {"app": "buggy-marsh", "class": "positive", "port": 3989, "prefix": "BUG-MH"},
+    {"app": "buggy-cove", "class": "positive", "port": 3990, "prefix": "BUG-CV"},
+    {"app": "buggy-glen", "class": "positive", "port": 3991, "prefix": "BUG-GN"},
+    {"app": "buggy-forge", "class": "positive", "port": 3992, "prefix": "BUG-FG"},
+    {"app": "buggy-crate", "class": "negative", "negative_class": "catalog", "port": 3993, "prefix": "BUG-CT"},
+    {"app": "buggy-stand", "class": "negative", "negative_class": "kiosk", "port": 3994, "prefix": "BUG-SD"}
+  ],
+  "inspected_regression": {
+    "apps": ["buggy-campus", "buggy-studio"],
+    "budget": 120,
+    "affects_outcome_letter": false
+  },
+  "matrix": {
+    "fresh_cells": 28,
+    "historical_cells": 10,
+    "inspected_cells": 2,
+    "cells_total": 40
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "Guard loss on a fresh target, historical Guard loss, safety violation, negative handoff, candidate edit, or product-default change",
+    "D": "Safety holds but fewer than 3 positives are evaluable",
+    "B": "Guard bugs are kept and at least 3 positives are evaluable, but fewer than 3 keep every Guard bug, confirm the empty-title submit bug, and record an alternate-payload selection",
+    "A": "At least 3 positives keep every Guard bug, confirm the empty-title submit bug, and record an alternate-payload selection. Negatives have no nested handoff. The historical suite loses no Guard bug. The product default stays unchanged.",
+    "promotion": false
+  },
+  "product_default": {"policy": "ghost", "use_frontier": false, "sequence_mode": "off", "unchanged": true}
+}
