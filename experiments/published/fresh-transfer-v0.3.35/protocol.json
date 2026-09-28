@@ -1,0 +1,58 @@
+{
+  "name": "v0.3.35 submit after a long search payload",
+  "version": "v0.3.35",
+  "date": "2026-09-28",
+  "starting_head": "dfec482bd4e08ac301f4f6d23565ab35ee336f7b",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "fresh-validation",
+  "fresh_validation": true,
+  "product_default_changed": false,
+  "research_question": "After a long search payload, does one untried button on that same signature confirm the boundary search bug without losing Guard bugs?",
+  "diagnosis": "On brook budget 120 the candidate typed the 25-character search payload and the next step left through nav_roster. The query button was clicked only on other signatures, so the boundary search bug stayed unconfirmed. Guard also missed that bug. The v0.3.34 module is not edited. The rule takes a button, not a link.",
+  "not": [
+    "an edit of the frozen v0.3.34 candidate",
+    "permission to take a hub link",
+    "permission to change the product default",
+    "permission to retune after the fresh matrix",
+    "promotion"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-search-submit-guard",
+    "module": "ghostqa/exploration/search_submit_guard.py",
+    "subclasses": "SeenButtonSequenceController",
+    "frozen_parent_sha256": "6db20305153d89712c3ef0e9998c254a31cd96c6da338a5242e88cb649ed3449",
+    "rule": "When a search field receives the long payload, arm a one-shot for the destination signature. On the next decision with that signature, take the first untried button. Do not take a link. Any other signature drops the one-shot."
+  },
+  "guard_policy": "ghost-structural-return-guard",
+  "topology_rule": "New positives keep the chart-to-prefs page. The home page keeps the search field and its query button. Submit, probe, and export stay on the prefs page.",
+  "seed_prefix": "ghostqa-v0.3.35:",
+  "targets": [
+    {"app": "buggy-quarry", "class": "positive", "port": 4013, "prefix": "BUG-QU"},
+    {"app": "buggy-rapid", "class": "positive", "port": 4014, "prefix": "BUG-RP"},
+    {"app": "buggy-shoal", "class": "positive", "port": 4015, "prefix": "BUG-SH"},
+    {"app": "buggy-tundra", "class": "positive", "port": 4016, "prefix": "BUG-TN"},
+    {"app": "buggy-umber", "class": "negative", "negative_class": "catalog", "port": 4017, "prefix": "BUG-UM"},
+    {"app": "buggy-verge", "class": "negative", "negative_class": "kiosk", "port": 4018, "prefix": "BUG-VG"}
+  ],
+  "inspected_regression": {
+    "apps": ["buggy-campus", "buggy-studio"],
+    "budget": 120,
+    "affects_outcome_letter": false
+  },
+  "matrix": {
+    "fresh_cells": 28,
+    "historical_cells": 10,
+    "inspected_cells": 2,
+    "cells_total": 40
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "Guard loss on a fresh target, historical Guard loss, safety violation, negative handoff, candidate edit, or product-default change",
+    "D": "Safety holds but fewer than 3 positives are evaluable",
+    "B": "Guard bugs are kept and at least 3 positives are evaluable, but fewer than 3 keep every Guard bug, confirm the boundary search bug, and record a search-submit selection",
+    "A": "At least 3 positives keep every Guard bug, confirm the boundary search bug, and record a search-submit selection. Negatives have no nested handoff. The historical suite loses no Guard bug. The product default stays unchanged.",
+    "promotion": false
+  },
+  "product_default": {"policy": "ghost", "use_frontier": false, "sequence_mode": "off", "unchanged": true}
+}
