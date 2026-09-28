@@ -34,6 +34,7 @@ from .report.generator import build_report, write_report
 POLICIES = ["ghost", "ghost-nollm", "monkey", "dfs", "bfs", "llm-naive",
             "workflow-bfs", "ghost-frontier-r0", "ghost-frontier-marginal",
             "ghost-deferred", "ghost-exploit", "ghost-postreach",
+            "ghost-branch", "ghost-followup", "ghost-sequence",
             "ghost-structural-memory",
             "ghost-structural-return-guard",
             "ghost-structural-nested-return-guard",

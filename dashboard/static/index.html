@@ -498,7 +498,7 @@
 
     <section class="timeline" aria-labelledby="h-tl">
       <p class="eyebrow">研究记录</p>
-      <h2 id="h-tl">v0.3.6 → v0.3.19</h2>
+      <h2 id="h-tl">v0.3.6 → v0.3.38</h2>
       <ol class="tl">
         <li><details><summary>v0.3.6 · Structural Memory</summary><p>DeepBench 上，structural memory 把重复 branch 尝试压低，同时保住 D6/D12 并找到更多深 workflow 缺陷。Deep-BDR @120：0.667 · development benchmark</p></details></li>
         <li><details><summary>v0.3.7 · Frozen Transfer Check</summary><p>冻结算法后换到 BuggyShop，C1 只确认 1/10。这轮没有顺手调参，结论直接记为 DeepBench-specific。BuggyShop: 6 states · W5</p></details></li>
@@ -513,7 +513,26 @@
         <li><details><summary>v0.3.16 · Early Parent Re-entry</summary><p id="tl-v0316">Outcome B。目录假 handoff 2 → 0。实验记录租约恢复 BUG-L8，仍丢失 BUG-L1、BUG-L9、BUG-L10。历史回归丢失为 0。产品默认未改。</p></details></li>
         <li><details><summary>v0.3.17 · Local Action Drain</summary><p id="tl-v0317">Outcome B。run 父页面先点可见按钮，恢复 BUG-L10 和 BUG-L1，BUG-L8 仍在。结果页没有 drain，BUG-L9 仍丢失。目录 handoff 仍是 0。历史回归丢失为 0。产品默认未改。</p></details></li>
         <li><details><summary>v0.3.18 · Return-Phase Entry Drain</summary><p id="tl-v0318">Outcome C。结果页 drain 排空 btn_close 和 btn_reopen，BUG-L9 从丢失变为保留。目录 handoff 仍是 0。DeepBench 相对 guard 丢失 D6、D7、D11、D12、D13、D14。产品默认未改。不是 fresh 验证。</p></details></li>
-        <li><details open><summary>v0.3.19 · Finding-Gated Return-Entry Drain</summary><p id="tl-v0319">Outcome A。同一步 finding terminal 才启动 drain，结果页仍保留 BUG-L9。horizon 单独进入返回时不再 drain。DeepBench 相对 guard 的丢失为 0。目录 handoff 仍是 0。产品默认未改。不是 fresh 验证。</p></details></li>
+        <li><details><summary>v0.3.19 · Finding-Gated Return-Entry Drain</summary><p id="tl-v0319">Outcome A。同一步 finding terminal 才启动 drain，结果页仍保留 BUG-L9。horizon 单独进入返回时不再 drain。DeepBench 相对 guard 的丢失为 0。目录 handoff 仍是 0。产品默认未改。不是 fresh 验证。</p></details></li>
+        <li><details><summary>v0.3.20 · Fresh Composite</summary><p id="tl-v0320">Outcome C。新正例相对 Guard 有丢失。产品默认未改。候选不晋升。</p></details></li>
+        <li><details><summary>v0.3.21 · Return Waypoint</summary><p id="tl-v0321">Outcome C。四个已检查目标里有两个保住全部 Guard 缺陷。产品默认未改。</p></details></li>
+        <li><details><summary>v0.3.22 · Post-terminal Sink</summary><p id="tl-v0322">诊断是 persistent post-terminal sink。这轮没有新的候选，也没有 Outcome 字母。</p></details></li>
+        <li><details><summary>v0.3.23 · Residual Frontier Debt</summary><p id="tl-v0323">Outcome B。Campus 和 Studio 仍缺 template 9。安全的部分修复。候选不晋升。</p></details></li>
+        <li><details><summary>v0.3.24 · Episode Drain</summary><p id="tl-v0324">Outcome A。同一 hub 的 episode drain 修好了 Campus 和 Studio 的检查用例。候选不晋升。</p></details></li>
+        <li><details><summary>v0.3.25 · Fresh Transfer</summary><p id="tl-v0325">Outcome C。新正例丢失 BUG-CL12、BUG-DP12、BUG-AR12、BUG-FL12。产品默认未改。</p></details></li>
+        <li><details><summary>v0.3.26 · Untried Sibling</summary><p id="tl-v0326">Outcome C。新正例没有相对 Guard 丢失。历史丢失 BuggyDesk 的 BUG-K3、BUG-K6、BUG-K9、BUG-K10。产品默认未改。</p></details></li>
+        <li><details><summary>v0.3.27 · Parent Hub Sibling</summary><p id="tl-v0327">Outcome B。Guard 缺陷保住，parent-hub sibling 选择不足。产品默认未改。</p></details></li>
+        <li><details><summary>v0.3.28 · Tried Actions</summary><p id="tl-v0328">测量结果是 no measured miss。没有改候选。</p></details></li>
+        <li><details><summary>v0.3.29 · Settings Transfer</summary><p id="tl-v0329">测量结果是 still open。没有改候选。</p></details></li>
+        <li><details><summary>v0.3.30 · Repeat Click</summary><p id="tl-v0330">Outcome C。新正例丢失 BUG-CR4、BUG-RG4、BUG-WF4、BUG-KN4。历史丢失 BUG-K10 和 BUG-W6。产品默认未改。</p></details></li>
+        <li><details><summary>v0.3.31 · Alternate Payload</summary><p id="tl-v0331">Outcome C。新正例丢失 BUG-MH4、BUG-CV4、BUG-GN4、BUG-FG4。历史丢失为空。产品默认未改。</p></details></li>
+        <li><details><summary>v0.3.32 · Payload Button</summary><p id="tl-v0332">Outcome A。保住 Guard 缺陷，并确认空标题提交。候选不晋升。</p></details></li>
+        <li><details><summary>v0.3.33 · Page Buttons</summary><p id="tl-v0333">Outcome C。新正例没有相对 Guard 丢失。历史丢失 BuggyWiki 的 BUG-W2。产品默认未改。</p></details></li>
+        <li><details><summary>v0.3.34 · Seen Button</summary><p id="tl-v0334">Outcome A。保住 Guard 缺陷，并确认同步和导出。候选不晋升。</p></details></li>
+        <li><details><summary>v0.3.35 · Search Submit</summary><p id="tl-v0335">Outcome A。保住 Guard 缺陷，并确认超长检索。历史丢失为空。候选不晋升。</p></details></li>
+        <li><details><summary>v0.3.36 · Hub Distractor</summary><p id="tl-v0336">Outcome C。新正例丢失 BUG-WI10、BUG-YA10、BUG-ZE10、BUG-AB10。历史丢失 BUG-DIR5。产品默认未改。</p></details></li>
+        <li><details><summary>v0.3.37 · Loop Exit</summary><p id="tl-v0337">Outcome C。新正例丢失 BUG-FD10、BUG-GD10、BUG-HL10、BUG-IT10。历史丢失 BUG-DIR5。产品默认未改。</p></details></li>
+        <li><details open><summary>v0.3.38 · Side Back</summary><p id="tl-v0338">Outcome A。四个新正例保住全部 Guard 缺陷，确认导航环，并记录浏览器后退。新正例和历史丢失为空。候选不晋升。</p></details></li>
       </ol>
     </section>
 
@@ -628,6 +647,12 @@
                   <option value="bfs">BFS</option>
                   <option value="dfs">DFS</option>
                   <option value="workflow-bfs">Workflow BFS</option>
+                  <option value="ghost-branch">Ghost · sequence branch</option>
+                  <option value="ghost-followup">Ghost · sequence followup</option>
+                  <option value="ghost-sequence">Ghost · sequence</option>
+                  <option value="ghost-deferred">Ghost · postreach deferred</option>
+                  <option value="ghost-exploit">Ghost · postreach exploit</option>
+                  <option value="ghost-postreach">Ghost · postreach</option>
                 </optgroup>
                 <optgroup label="研究策略">
                   <option value="ghost-structural-memory">Structural Memory · research</option>
@@ -966,6 +991,6 @@
 
 <script src="/static/vendor/cytoscape.min.js"></script>
 <script src="/static/scripts/showcase.js?v=20260928a"></script>
-<script src="/static/scripts/main.js?v=20260928b"></script>
+<script src="/static/scripts/main.js?v=20260929a"></script>
 </body>
 </html>

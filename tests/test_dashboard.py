@@ -965,7 +965,7 @@ def test_index_has_three_views_and_live_ids():
         'data-testid="horizon-handoff"', 'data-testid="evidence-v0314"',
         'data-testid="residual-debt"', 'data-testid="evidence-v0323"',
         'data-testid="post-escape-sink"', 'data-testid="evidence-v0322"',
-        'id="proof-metric-1"', 'id="tl-v0311"', 'id="tl-v0312"', 'id="tl-v0314"',
+        'id="proof-metric-1"', 'id="tl-v0311"', 'id="tl-v0312"', 'id="tl-v0314"', 'id="tl-v0338"',
         'data-testid="live-viewport"',
         'id="theme-toggle"', 'data-testid="theme-toggle"',
     ):
@@ -1073,3 +1073,24 @@ def test_make_policy_exposes_return_guard_without_changing_default():
         assert f'value="{name}"' in html
     assert d.sequence_mode == "off"
     assert d.use_frontier is False
+    assert d.postreach_mode == "off"
+    variants = (
+        ("ghost-branch", "branch", "off"),
+        ("ghost-followup", "followup", "off"),
+        ("ghost-sequence", "sequence", "off"),
+        ("ghost-deferred", "off", "deferred"),
+        ("ghost-exploit", "off", "exploit"),
+        ("ghost-postreach", "off", "postreach"),
+    )
+    for name, sequence_mode, postreach_mode in variants:
+        policy = _make_policy(name, None, 0)
+        assert name in POLICIES
+        assert isinstance(policy, GhostPolicy)
+        assert policy.name == "ghost"
+        assert policy.sequence_mode == sequence_mode
+        assert policy.postreach_mode == postreach_mode
+        assert policy.use_frontier is False
+        assert f'value="{name}"' in html
+    assert 'id="h-tl">v0.3.6 → v0.3.38' in html
+    assert 'id="tl-v0338"' in html
+    assert "Outcome A。四个新正例保住全部 Guard 缺陷" in html
