@@ -65,7 +65,9 @@ def test_dashboard_confirmed_uses_episode_local_length():
 
 
 def test_product_ghost_default_has_frontier_off():
-    assert GhostPolicy().use_frontier is False
+    policy = GhostPolicy()
+    assert policy.sequence_mode == "off"
+    assert policy.use_frontier is False
     assert GhostPolicy(use_frontier=True).use_frontier is True
 
 
@@ -121,7 +123,8 @@ def test_showcase_missing_artifacts_do_not_crash():
                        v0333_root="/tmp/missing-v0333",
                        v0334_root="/tmp/missing-v0334",
                        v0335_root="/tmp/missing-v0335",
-                       v0336_root="/tmp/missing-v0336")
+                       v0336_root="/tmp/missing-v0336",
+                       v0337_root="/tmp/missing-v0337")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -149,6 +152,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["fresh_transfer_v0334"]["available"] is False
     assert s["fresh_transfer_v0335"]["available"] is False
     assert s["fresh_transfer_v0336"]["available"] is False
+    assert s["fresh_transfer_v0337"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -193,7 +197,29 @@ def test_showcase_endpoint_function_returns_payload():
     fresh34 = body.get("fresh_transfer_v0334") or {}
     fresh35 = body.get("fresh_transfer_v0335") or {}
     fresh36 = body.get("fresh_transfer_v0336") or {}
-    if fresh36.get("available"):
+    fresh37 = body.get("fresh_transfer_v0337") or {}
+    if fresh37.get("available"):
+        assert body["latest"]["round"] == "v0.3.37"
+        assert body["project"]["latest_research"] == "v0.3.37"
+        assert body["latest"]["outcome"] == "C"
+        assert fresh37["outcome"] == "C"
+        assert body["latest"]["product_default_changed"] is False
+        assert fresh37["product_default_changed"] is False
+        assert fresh37["promotion_readiness"] == "not_ready"
+        assert fresh37["evaluable_positives"] == 4
+        assert fresh37["structured_positives"] == 0
+        assert [row["bugs"] for row in fresh37["fresh_guard_loss"]] == [
+            ["BUG-FD10"], ["BUG-GD10"], ["BUG-HL10"], ["BUG-IT10"]]
+        assert fresh37["historical_guard_loss"] == [
+            {"app": "buggy-directory", "bugs": ["BUG-DIR5"]}]
+        assert fresh37["junction_handoff"] == 0
+        assert fresh37["karst_handoff"] == 0
+        assert fresh36["outcome"] == "C"
+        assert fresh35["outcome"] == "A"
+        assert GhostPolicy().sequence_mode == "off"
+        assert GhostPolicy().use_frontier is False
+        assert episode["outcome"] == "A"
+    elif fresh36.get("available"):
         assert body["latest"]["round"] == "v0.3.36"
         assert body["project"]["latest_research"] == "v0.3.36"
         assert body["latest"]["outcome"] == "C"
@@ -628,7 +654,27 @@ def test_showcase_reads_v0311_published_metrics():
     fresh34 = s.get("fresh_transfer_v0334") or {}
     fresh35 = s.get("fresh_transfer_v0335") or {}
     fresh36 = s.get("fresh_transfer_v0336") or {}
-    if fresh36.get("available"):
+    fresh37 = s.get("fresh_transfer_v0337") or {}
+    if fresh37.get("available"):
+        assert s["latest"]["round"] == "v0.3.37"
+        assert s["latest"]["outcome"] == "C"
+        assert s["project"]["latest_research"] == "v0.3.37"
+        assert s["latest"]["product_default_changed"] is False
+        assert fresh37["promotion_readiness"] == "not_ready"
+        assert fresh37["evaluable_positives"] == 4
+        assert fresh37["structured_positives"] == 0
+        assert [row["bugs"] for row in fresh37["fresh_guard_loss"]] == [
+            ["BUG-FD10"], ["BUG-GD10"], ["BUG-HL10"], ["BUG-IT10"]]
+        assert fresh37["historical_guard_loss"] == [
+            {"app": "buggy-directory", "bugs": ["BUG-DIR5"]}]
+        assert fresh37["junction_handoff"] == 0
+        assert fresh37["karst_handoff"] == 0
+        assert fresh36["outcome"] == "C"
+        assert fresh35["outcome"] == "A"
+        assert GhostPolicy().sequence_mode == "off"
+        assert GhostPolicy().use_frontier is False
+        assert episode["outcome"] == "A"
+    elif fresh36.get("available"):
         assert s["latest"]["round"] == "v0.3.36"
         assert s["latest"]["outcome"] == "C"
         assert s["project"]["latest_research"] == "v0.3.36"

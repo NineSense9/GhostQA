@@ -1,0 +1,58 @@
+{
+  "name": "v0.3.37 leave the distractor path after four steps",
+  "version": "v0.3.37",
+  "date": "2026-09-28",
+  "starting_head": "3f819ce76799a633883ceff43fab6aa7c96d08f9",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "fresh-validation",
+  "fresh_validation": true,
+  "product_default_changed": false,
+  "research_question": "After the distractor side path has run four steps, does taking a return keep the reopen bug and the directory bug while the navigation loop is still confirmed?",
+  "diagnosis": "v0.3.36 Outcome C. The distractor link was taken once and the navigation loop was confirmed, but help.html and settings.html consumed 53 of 120 steps on wicket. The order page never clicked close or reopen, so BUG-WI10, BUG-YA10, BUG-ZE10, and BUG-AB10 were lost. BuggyDirectory lost BUG-DIR5. The navigation-loop oracle records an A-B-A-B pattern, which is four steps. The v0.3.36 module is not edited.",
+  "not": [
+    "an edit of the frozen v0.3.36 candidate",
+    "permission to skip the distractor link",
+    "permission to change the product default",
+    "permission to retune after the fresh matrix",
+    "promotion"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-loop-exit-guard",
+    "module": "ghostqa/exploration/loop_exit_guard.py",
+    "subclasses": "HubDistractorSequenceController",
+    "frozen_parent_sha256": "30a93da8ff3644db9a753bb85a2629d1d350d75739ff78cba6fff64f80cda558",
+    "rule": "When the hub-distractor link is taken, count the following steps. Once four have run, take a return action and stop counting. If no return exists, stop counting and continue."
+  },
+  "guard_policy": "ghost-structural-return-guard",
+  "topology_rule": "New positives keep the chart-to-prefs page, the order close and reopen buttons, and the help-settings loop behind the home help link.",
+  "seed_prefix": "ghostqa-v0.3.37:",
+  "targets": [
+    {"app": "buggy-fjord", "class": "positive", "port": 4025, "prefix": "BUG-FD"},
+    {"app": "buggy-glade", "class": "positive", "port": 4026, "prefix": "BUG-GD"},
+    {"app": "buggy-hollow", "class": "positive", "port": 4027, "prefix": "BUG-HL"},
+    {"app": "buggy-islet", "class": "positive", "port": 4028, "prefix": "BUG-IT"},
+    {"app": "buggy-junction", "class": "negative", "negative_class": "catalog", "port": 4029, "prefix": "BUG-JC"},
+    {"app": "buggy-karst", "class": "negative", "negative_class": "kiosk", "port": 4030, "prefix": "BUG-KT"}
+  ],
+  "inspected_regression": {
+    "apps": ["buggy-campus", "buggy-studio"],
+    "budget": 120,
+    "affects_outcome_letter": false
+  },
+  "matrix": {
+    "fresh_cells": 28,
+    "historical_cells": 10,
+    "inspected_cells": 2,
+    "cells_total": 40
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "Guard loss on a fresh target, historical Guard loss, safety violation, negative handoff, candidate edit, or product-default change",
+    "D": "Safety holds but fewer than 3 positives are evaluable",
+    "B": "Guard bugs are kept and at least 3 positives are evaluable, but fewer than 3 keep every Guard bug, confirm the navigation-loop bug, and record a loop-exit selection",
+    "A": "At least 3 positives keep every Guard bug, confirm the navigation-loop bug, and record a loop-exit selection. Negatives have no nested handoff. The historical suite loses no Guard bug. The product default stays unchanged.",
+    "promotion": false
+  },
+  "product_default": {"policy": "ghost", "use_frontier": false, "sequence_mode": "off", "unchanged": true}
+}
