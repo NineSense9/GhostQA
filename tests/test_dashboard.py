@@ -1040,3 +1040,36 @@ def test_make_policy_exposes_return_guard_without_changing_default():
     assert isinstance(n, NestedHubReturnGuardGhostPolicy)
     assert n.name == "ghost-structural-nested-return-guard"
     assert n is not d
+    from ghostqa.__main__ import POLICIES
+    research_names = (
+        "ghost-structural-horizon-handoff-guard",
+        "ghost-structural-reentry-frontier-guard",
+        "ghost-structural-local-action-drain-guard",
+        "ghost-structural-return-entry-drain-guard",
+        "ghost-structural-finding-return-entry-drain-guard",
+        "ghost-structural-return-waypoint-frontier-guard",
+        "ghost-structural-residual-frontier-debt-guard",
+        "ghost-structural-episode-drain-epoch-guard",
+        "ghost-structural-untried-sibling-guard",
+        "ghost-structural-parent-hub-sibling-guard",
+        "ghost-structural-repeat-click-guard",
+        "ghost-structural-alternate-payload-guard",
+        "ghost-structural-payload-button-guard",
+        "ghost-structural-page-buttons-guard",
+        "ghost-structural-seen-button-guard",
+        "ghost-structural-search-submit-guard",
+        "ghost-structural-hub-distractor-guard",
+        "ghost-structural-loop-exit-guard",
+        "ghost-structural-side-back-guard",
+    )
+    html = open(os.path.join(STATIC_DIR, "index.html"), encoding="utf-8").read()
+    assert 'value="ghost" selected' in html
+    for name in research_names:
+        policy = _make_policy(name, None, 0)
+        assert name in POLICIES
+        assert policy.name == name
+        assert policy.use_frontier is False
+        assert policy is not d
+        assert f'value="{name}"' in html
+    assert d.sequence_mode == "off"
+    assert d.use_frontier is False

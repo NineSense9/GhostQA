@@ -33,7 +33,30 @@ from .report.generator import build_report, write_report
 
 POLICIES = ["ghost", "ghost-nollm", "monkey", "dfs", "bfs", "llm-naive",
             "workflow-bfs", "ghost-frontier-r0", "ghost-frontier-marginal",
-            "ghost-deferred", "ghost-exploit", "ghost-postreach"]
+            "ghost-deferred", "ghost-exploit", "ghost-postreach",
+            "ghost-structural-memory",
+            "ghost-structural-return-guard",
+            "ghost-structural-nested-return-guard",
+            "ghost-structural-nested-stack-guard",
+            "ghost-structural-horizon-handoff-guard",
+            "ghost-structural-reentry-frontier-guard",
+            "ghost-structural-local-action-drain-guard",
+            "ghost-structural-return-entry-drain-guard",
+            "ghost-structural-finding-return-entry-drain-guard",
+            "ghost-structural-return-waypoint-frontier-guard",
+            "ghost-structural-residual-frontier-debt-guard",
+            "ghost-structural-episode-drain-epoch-guard",
+            "ghost-structural-untried-sibling-guard",
+            "ghost-structural-parent-hub-sibling-guard",
+            "ghost-structural-repeat-click-guard",
+            "ghost-structural-alternate-payload-guard",
+            "ghost-structural-payload-button-guard",
+            "ghost-structural-page-buttons-guard",
+            "ghost-structural-seen-button-guard",
+            "ghost-structural-search-submit-guard",
+            "ghost-structural-hub-distractor-guard",
+            "ghost-structural-loop-exit-guard",
+            "ghost-structural-side-back-guard"]
 
 
 def _make_llm(args):
@@ -47,6 +70,57 @@ def _make_llm(args):
         print("[ghostqa] WARNING: LLM requested but not configured "
               "(GHOSTQA_MODEL_* env vars) - falling back to no-LLM", file=sys.stderr)
     return None
+
+
+def _research_policy(name: str):
+    """Construct a published research policy. Never the product default."""
+    classes = {
+        "ghost-structural-horizon-handoff-guard": (
+            ".exploration.horizon_handoff_guard", "HorizonHandoffReturnGuardGhostPolicy"),
+        "ghost-structural-reentry-frontier-guard": (
+            ".exploration.reentry_frontier_guard", "ReentryFrontierGuardGhostPolicy"),
+        "ghost-structural-local-action-drain-guard": (
+            ".exploration.local_action_drain_guard", "LocalActionDrainGuardGhostPolicy"),
+        "ghost-structural-return-entry-drain-guard": (
+            ".exploration.return_entry_drain_guard", "ReturnEntryDrainGuardGhostPolicy"),
+        "ghost-structural-finding-return-entry-drain-guard": (
+            ".exploration.finding_return_entry_guard", "FindingReturnEntryDrainGuardGhostPolicy"),
+        "ghost-structural-return-waypoint-frontier-guard": (
+            ".exploration.return_waypoint_frontier_guard", "ReturnWaypointFrontierGuardGhostPolicy"),
+        "ghost-structural-residual-frontier-debt-guard": (
+            ".exploration.residual_frontier_debt_guard", "ResidualFrontierDebtGuardGhostPolicy"),
+        "ghost-structural-episode-drain-epoch-guard": (
+            ".exploration.episode_drain_epoch_guard", "EpisodeDrainEpochGuardGhostPolicy"),
+        "ghost-structural-untried-sibling-guard": (
+            ".exploration.untried_sibling_guard", "UntriedSiblingGuardGhostPolicy"),
+        "ghost-structural-parent-hub-sibling-guard": (
+            ".exploration.parent_hub_sibling_guard", "ParentHubSiblingGuardGhostPolicy"),
+        "ghost-structural-repeat-click-guard": (
+            ".exploration.repeat_click_guard", "RepeatClickGuardGhostPolicy"),
+        "ghost-structural-alternate-payload-guard": (
+            ".exploration.alternate_payload_guard", "AlternatePayloadGuardGhostPolicy"),
+        "ghost-structural-payload-button-guard": (
+            ".exploration.payload_button_guard", "PayloadButtonGuardGhostPolicy"),
+        "ghost-structural-page-buttons-guard": (
+            ".exploration.page_buttons_guard", "PageButtonsGuardGhostPolicy"),
+        "ghost-structural-seen-button-guard": (
+            ".exploration.seen_button_guard", "SeenButtonGuardGhostPolicy"),
+        "ghost-structural-search-submit-guard": (
+            ".exploration.search_submit_guard", "SearchSubmitGuardGhostPolicy"),
+        "ghost-structural-hub-distractor-guard": (
+            ".exploration.hub_distractor_guard", "HubDistractorGuardGhostPolicy"),
+        "ghost-structural-loop-exit-guard": (
+            ".exploration.loop_exit_guard", "LoopExitGuardGhostPolicy"),
+        "ghost-structural-side-back-guard": (
+            ".exploration.side_back_guard", "SideBackGuardGhostPolicy"),
+    }
+    found = classes.get(name)
+    if found is None:
+        return None
+    import importlib
+    module_name, class_name = found
+    module = importlib.import_module(module_name, __package__)
+    return getattr(module, class_name)(llm=None)
 
 
 def _make_policy(name: str, llm, seed: int):
@@ -87,6 +161,9 @@ def _make_policy(name: str, llm, seed: int):
         # Research-only. Not the product default. Does not replace v0.3.12.
         from .exploration.nested_stack_guard import NestedStackReturnGuardGhostPolicy
         return NestedStackReturnGuardGhostPolicy(llm=None)
+    research = _research_policy(name)
+    if research is not None:
+        return research
     if name == "ghost-contextual":
         return GhostPolicy(llm=None, use_frontier=False, sequence_mode="contextual")
     if name == "ghost-contextual-crossview":
