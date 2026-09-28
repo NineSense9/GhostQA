@@ -958,7 +958,7 @@ def test_index_has_three_views_and_live_ids():
     html = open(os.path.join(STATIC_DIR, "index.html"), encoding="utf-8").read()
     for token in (
         'id="view-overview"', 'id="view-live"', 'id="view-evidence"',
-        'id="run-form"', 'id="shot"', 'id="graph"', 'id="btn-run"',
+        'id="run-form"', 'id="run-history"', 'id="shot"', 'id="graph"', 'id="btn-run"',
         'data-testid="return-cycle"', 'data-testid="fresh-transfer"',
         'data-testid="multi-target"', 'data-testid="evidence-v0311"',
         'data-testid="nested-hub"', 'data-testid="evidence-v0312"',
@@ -1094,3 +1094,7 @@ def test_make_policy_exposes_return_guard_without_changing_default():
     assert 'id="h-tl">v0.3.6 → v0.3.38' in html
     assert 'id="tl-v0338"' in html
     assert "Outcome A。四个新正例保住全部 Guard 缺陷" in html
+    assert 'id="run-history"' in html
+    import pytest
+    with pytest.raises(ValueError):
+        _make_policy("not-a-real-policy", None, 0)

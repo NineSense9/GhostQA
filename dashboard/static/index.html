@@ -32,7 +32,7 @@
 <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="/static/styles/tokens.css?v=20260922">
 <link rel="stylesheet" href="/static/styles/base.css?v=20260922">
-<link rel="stylesheet" href="/static/styles/components.css?v=20260922">
+<link rel="stylesheet" href="/static/styles/components.css?v=20260929b">
 <link rel="stylesheet" href="/static/styles/showcase.css?v=20260922">
 </head>
 <body class="atmosphere view-overview">
@@ -50,7 +50,7 @@
     <button type="button" class="view-tab" role="tab" aria-selected="false" aria-controls="view-evidence" data-view="evidence" id="tab-evidence">研究证据</button>
   </nav>
   <div class="topbar-right">
-    <span class="research-badge" id="research-badge">研究版本 · v0.3.14</span>
+    <span class="research-badge" id="research-badge">研究版本 · v0.3.38</span>
     <span class="conn" id="conn"><span class="live-dot" id="conn-dot"></span><span id="conn-txt">Dashboard</span></span>
     <button type="button" class="theme-toggle" id="theme-toggle" data-testid="theme-toggle" aria-pressed="false" aria-label="切换到深色主题" title="切换到深色">
       <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -620,7 +620,7 @@
       </section>
     </div>
     <div class="col col-right">
-      <section class="card" aria-labelledby="h-run">
+      <section class="card" id="run-form-card" aria-labelledby="h-run">
         <div class="card-head">
           <h2 class="label" id="h-run">启动探索</h2>
           <span class="rule" aria-hidden="true"></span>
@@ -702,7 +702,16 @@
           </div>
         </form>
       </section>
-      <section class="card" aria-labelledby="h-bugs">
+      <section class="card" id="run-history-card" aria-labelledby="h-history">
+        <div class="card-head">
+          <h2 class="label" id="h-history">最近运行</h2>
+          <span class="rule" aria-hidden="true"></span>
+        </div>
+        <ul class="run-history" id="run-history">
+          <li class="empty">还没有运行记录。</li>
+        </ul>
+      </section>
+      <section class="card" id="bug-card" aria-labelledby="h-bugs">
         <div class="card-head">
           <h2 class="label" id="h-bugs">已确认缺陷</h2>
           <span class="rule" aria-hidden="true"></span>
@@ -712,7 +721,7 @@
           <p class="empty">还没有确认缺陷。<br>运行结束后，通过复现校验与 ddmin 的问题会出现在这里。</p>
         </div>
       </section>
-      <section class="card" aria-labelledby="h-tele">
+      <section class="card" id="tele-card" aria-labelledby="h-tele">
         <div class="card-head">
           <h2 class="label" id="h-tele">遥测</h2>
           <span class="rule" aria-hidden="true"></span>
@@ -991,6 +1000,6 @@
 
 <script src="/static/vendor/cytoscape.min.js"></script>
 <script src="/static/scripts/showcase.js?v=20260928a"></script>
-<script src="/static/scripts/main.js?v=20260929a"></script>
+<script src="/static/scripts/main.js?v=20260929b"></script>
 </body>
 </html>

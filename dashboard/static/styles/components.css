@@ -270,6 +270,8 @@ body.is-running .action-strip {
 .tag-crash     { color: var(--danger);          background: var(--danger-dim);        border-color: var(--line-strong); }
 
 .bugs { display: flex; flex-direction: column; gap: var(--sp-2); padding: var(--sp-2); }
+.run-history { list-style: none; margin: 0; padding: var(--sp-2); display: flex; flex-direction: column; gap: 6px; }
+.run-history-item { width: 100%; text-align: left; white-space: normal; }
 
 .bug {
   border: 1px solid var(--line);
@@ -585,9 +587,10 @@ a.btn, a.btn:hover { text-decoration: none; }
   .viewport-panel { order: 2; flex: 0 0 auto; }
   .graph-panel { order: 3; flex: 0 0 auto; }
   .log-panel { order: 5; flex: 0 0 auto; }
-  .col-right > .card:nth-child(1) { order: 1; }
-  .col-right > .card:nth-child(2) { order: 4; }
-  .col-right > .card:nth-child(3) { order: 6; }
+  #run-form-card { order: 1; }
+  #bug-card { order: 4; }
+  #tele-card { order: 6; }
+  #run-history-card { order: 7; }
   #graph { height: 300px; min-height: 300px; }
   .log { max-height: 300px; }
 }

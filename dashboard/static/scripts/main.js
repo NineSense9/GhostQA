@@ -704,6 +704,7 @@ async function tick() {
     if (els.liveError) els.liveError.hidden = true;
     stopPolling();
     setConn(true, '已完成');
+    loadHistory();
   } else if (st.status === 'error') {
     els.reportLink.hidden = true;
     stopPolling();
@@ -716,6 +717,82 @@ async function tick() {
     els.log.insertAdjacentHTML('beforeend',
       `<p class="empty" style="color:var(--danger)">运行出错：${escapeHtml(last)}</p>`);
   }
+}
+
+function resetLivePanels(message) {
+  S.events = []; S.seenSeq = -1; S.lastShot = ''; S.activeRow = null;
+  S.graphSig = ''; S.firstLayout = true; S.startSig = '';
+  S.staleRun = false; S.runStartedAt = Date.now(); S.lastEventAt = Date.now();
+  S.logPinned = true;
+  els.log.innerHTML = `<p class="empty">${escapeHtml(message)}</p>`;
+  els.logCount.textContent = '0';
+  els.steps.textContent = '0';
+  els.states.textContent = '0';
+  els.cands.textContent = '0';
+  els.bugs.textContent = '0';
+  els.llm.textContent = '0';
+  els.tActions.textContent = '0';
+  els.tWall.textContent = '0s';
+  els.tRelocate.textContent = '0';
+  if (els.tUrls) els.tUrls.textContent = '0';
+  els.shot.removeAttribute('src');
+  els.shot.hidden = true;
+  els.vpEmpty.hidden = false;
+  if (els.viewport) els.viewport.classList.remove('has-shot');
+  els.reportLink.hidden = true;
+  els.reportLink.removeAttribute('href');
+  els.verb.textContent = '—';
+  els.target.textContent = '等待首个动作';
+  els.url.textContent = '';
+  if (els.liveComplete) els.liveComplete.hidden = true;
+  if (els.liveError) els.liveError.hidden = true;
+  if (els.liveHint) els.liveHint.hidden = true;
+  if (els.graphEmpty) els.graphEmpty.hidden = false;
+  renderBugs([]);
+  if (S.cy) { S.cy.destroy(); S.cy = null; }
+  els.graphCount.textContent = '0 节点 / 0 边';
+}
+
+function runLabel(run) {
+  const cfg = run.cfg || {};
+  const summary = run.summary || {};
+  const status = STATUS_TEXT[run.status] || run.status || '';
+  const confirmed = summary.confirmed == null ? '—' : String(summary.confirmed);
+  return `${cfg.policy || 'ghost'} · ${cfg.budget || '—'} 步 · ${status} · 确认 ${confirmed}`;
+}
+
+async function loadHistory() {
+  const list = document.getElementById('run-history');
+  if (!list) return;
+  let runs = [];
+  try { runs = await getJSON('/api/runs'); } catch (_) { return; }
+  runs.sort((a, b) => (b.created || 0) - (a.created || 0));
+  list.innerHTML = '';
+  if (!runs.length) {
+    list.innerHTML = '<li class="empty">还没有运行记录。</li>';
+    return;
+  }
+  for (const run of runs.slice(0, 12)) {
+    const li = document.createElement('li');
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'btn btn-ghost run-history-item';
+    btn.dataset.runId = run.id;
+    btn.textContent = runLabel(run);
+    btn.addEventListener('click', () => openRun(run.id));
+    li.appendChild(btn);
+    list.appendChild(li);
+  }
+}
+
+async function openRun(id) {
+  resetLivePanels('正在读取运行…');
+  S.runId = id;
+  try { sessionStorage.setItem('ghostqa-run', id); } catch (_) {}
+  setConn(true, '已连接');
+  const st = await getJSON('/api/runs/' + id);
+  if (st.status === 'running' || st.status === 'validating') startPolling();
+  else await tick();
 }
 
 function startPolling() {
@@ -767,37 +844,7 @@ if (els.form) {
       mock_llm: $('f-mock').checked,
     };
 
-    S.events = []; S.seenSeq = -1; S.lastShot = ''; S.activeRow = null;
-    S.graphSig = ''; S.firstLayout = true; S.startSig = '';
-    S.staleRun = false; S.runStartedAt = Date.now(); S.lastEventAt = Date.now();
-    S.logPinned = true;
-    els.log.innerHTML = '<p class="empty">正在初始化探索器…</p>';
-    els.logCount.textContent = '0';
-    els.steps.textContent = '0';
-    els.states.textContent = '0';
-    els.cands.textContent = '0';
-    els.bugs.textContent = '0';
-    els.llm.textContent = '0';
-    els.tActions.textContent = '0';
-    els.tWall.textContent = '0s';
-    els.tRelocate.textContent = '0';
-    if (els.tUrls) els.tUrls.textContent = '0';
-    els.shot.removeAttribute('src');
-    els.shot.hidden = true;
-    els.vpEmpty.hidden = false;
-    if (els.viewport) els.viewport.classList.remove('has-shot');
-    els.reportLink.hidden = true;
-    els.reportLink.removeAttribute('href');
-    els.verb.textContent = '—';
-    els.target.textContent = '等待首个动作';
-    els.url.textContent = '';
-    if (els.liveComplete) els.liveComplete.hidden = true;
-    if (els.liveError) els.liveError.hidden = true;
-    if (els.liveHint) els.liveHint.hidden = true;
-    if (els.graphEmpty) els.graphEmpty.hidden = false;
-    renderBugs([]);
-    if (S.cy) { S.cy.destroy(); S.cy = null; }
-    els.graphCount.textContent = '0 节点 / 0 边';
+    resetLivePanels('正在初始化探索器…');
 
     els.btnRun.disabled = true;
     els.btnRunTxt.textContent = '正在启动…';
@@ -817,6 +864,7 @@ if (els.form) {
       S.runId = data.run_id;
       try { sessionStorage.setItem('ghostqa-run', S.runId); } catch (_) {}
       startPolling();
+      loadHistory();
     } catch (err) {
       els.btnRun.disabled = false;
       els.btnRunTxt.textContent = '启动探索';
@@ -885,6 +933,8 @@ if (themeBtn) {
   themeBtn.addEventListener('click', toggleTheme);
 }
 syncThemeToggle();
+
+loadHistory();
 
 (async function restore() {
   try {

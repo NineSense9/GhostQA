@@ -286,6 +286,13 @@ def index():
 def start_run(cfg: dict):
     if not cfg.get("url"):
         raise HTTPException(400, "url required")
+    policy_name = cfg.get("policy") or "ghost"
+    cfg["policy"] = policy_name
+    from ghostqa.__main__ import _make_policy
+    try:
+        _make_policy(policy_name, None, int(cfg.get("seed") or 0))
+    except ValueError as exc:
+        raise HTTPException(400, "unknown policy") from exc
     run_id = uuid.uuid4().hex[:8]
     handle = RunHandle(run_id, cfg)
     with RUNS_LOCK:

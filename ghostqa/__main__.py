@@ -184,9 +184,11 @@ def _make_policy(name: str, llm, seed: int):
         return GhostPolicy(llm=None, use_frontier=True, relocate_mode="lease")
     if name == "workflow-bfs":
         return WorkflowBFSPolicy()
-    # Product Ghost: local policy, Frontier OFF (v0.3.3 conclusion).
-    return GhostPolicy(llm=llm, use_frontier=False) if llm else GhostPolicy(
-        llm=None, use_frontier=False)
+    if name == "ghost":
+        # Product default: local policy, Frontier OFF.
+        return GhostPolicy(llm=llm, use_frontier=False) if llm else GhostPolicy(
+            llm=None, use_frontier=False)
+    raise ValueError(name)
 
 
 def cmd_run(args) -> int:
