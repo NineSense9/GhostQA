@@ -4,9 +4,13 @@
 
 给定一个 Web 应用与需求规格，GhostQA 在无人干预下：自主建立软件状态模型（State Graph）→ 用状态价值函数选择高价值测试路径 → 用三层 Oracle 判断异常（硬异常/结构异常/需求语义异常）→ 对每个候选 Bug 按 **BugFingerprint** 重放验证 → 用 **ddmin** 自动最小化复现路径 → 交付带证据的可信缺陷报告。
 
-## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.37 Outcome C
+## 当前状态：v0.4 preview（Dashboard）· 最新研究轮次 v0.3.38 Outcome A
 
 产品默认策略仍是 **NoFrontier + `sequence_mode=off`**。Dashboard 展示层读取已提交的 `experiments/published/` 产物。
+
+**v0.3.38 Outcome A — browser back left the distractor pair and kept the reopen bug.** 干扰旁路走了四步之后用浏览器后退离开那一组地址。lagoon、narrow、orchard、prairie 保住了 Guard 的全部缺陷，并确认了导航环。历史应用没有丢缺陷。saddle 和 timber 没有嵌套交接。产品默认未改，候选不晋升。v0.3.37 仍是 Outcome C，v0.3.35 仍是 Outcome A。`python -m benchmark.fresh_transfer_v0338_reproduce --root experiments/published/fresh-transfer-v0.3.38 --verify`
+
+## 上一轮：v0.3.37 Outcome C
 
 **v0.3.37 Outcome C — four side steps then a return still lost the reopen bug.** 干扰旁路走了四步之后点的是回到说明页的返回，帮助页和设置页仍然占满步数。fjord、glade、hollow、islet 少了 `BUG-FD10`、`BUG-GD10`、`BUG-HL10`、`BUG-IT10`。历史应用少了 `BUG-DIR5`。junction 和 karst 没有嵌套交接。产品默认未改，候选不晋升。v0.3.36 仍是 Outcome C，v0.3.35 仍是 Outcome A。`python -m benchmark.fresh_transfer_v0337_reproduce --root experiments/published/fresh-transfer-v0.3.37 --verify`
 

@@ -1,0 +1,58 @@
+{
+  "name": "v0.3.38 browser back out of the distractor path",
+  "version": "v0.3.38",
+  "date": "2026-09-28",
+  "starting_head": "8a49d154fc2bf7051d0ea00ba3017795733e2e1d",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "fresh-validation",
+  "fresh_validation": true,
+  "product_default_changed": false,
+  "research_question": "After four distractor-side steps, does browser back until the page leaves those URLs keep the reopen bug and BUG-DIR5 while the navigation loop is still confirmed?",
+  "diagnosis": "v0.3.37 Outcome C. On fjord step 66 opened help with hub_distractor and step 70 took loop_exit on nav_up_help_settings, which returns to help. help.html and settings.html still occupied 53 steps. The order page never clicked close or reopen, so the four reopen bugs were lost and BuggyDirectory lost BUG-DIR5. The in-page return stays inside the pair. The v0.3.37 module is not edited.",
+  "not": [
+    "an edit of the frozen v0.3.37 candidate",
+    "permission to skip the distractor link",
+    "permission to change the product default",
+    "permission to retune after the fresh matrix",
+    "promotion"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-side-back-guard",
+    "module": "ghostqa/exploration/side_back_guard.py",
+    "subclasses": "LoopExitSequenceController",
+    "frozen_parent_sha256": "cc763197a9cc4531b5e93c567535e2dfc195a3fcafb54dabf44a36d105e95e6a",
+    "rule": "After four steps on the distractor side path, take the browser back action while the current URL is one of the URLs seen during those four steps. Stop when the page is outside that set."
+  },
+  "guard_policy": "ghost-structural-return-guard",
+  "topology_rule": "New positives keep the chart-to-prefs page, the order close and reopen buttons, and the help-settings loop behind the home help link.",
+  "seed_prefix": "ghostqa-v0.3.38:",
+  "targets": [
+    {"app": "buggy-lagoon", "class": "positive", "port": 4031, "prefix": "BUG-LG"},
+    {"app": "buggy-narrow", "class": "positive", "port": 4032, "prefix": "BUG-NW"},
+    {"app": "buggy-orchard", "class": "positive", "port": 4033, "prefix": "BUG-OC"},
+    {"app": "buggy-prairie", "class": "positive", "port": 4034, "prefix": "BUG-PR"},
+    {"app": "buggy-saddle", "class": "negative", "negative_class": "catalog", "port": 4035, "prefix": "BUG-SA"},
+    {"app": "buggy-timber", "class": "negative", "negative_class": "kiosk", "port": 4036, "prefix": "BUG-TI"}
+  ],
+  "inspected_regression": {
+    "apps": ["buggy-campus", "buggy-studio"],
+    "budget": 120,
+    "affects_outcome_letter": false
+  },
+  "matrix": {
+    "fresh_cells": 28,
+    "historical_cells": 10,
+    "inspected_cells": 2,
+    "cells_total": 40
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "Guard loss on a fresh target, historical Guard loss, safety violation, negative handoff, candidate edit, or product-default change",
+    "D": "Safety holds but fewer than 3 positives are evaluable",
+    "B": "Guard bugs are kept and at least 3 positives are evaluable, but fewer than 3 keep every Guard bug, confirm the navigation-loop bug, and record a side-back selection",
+    "A": "At least 3 positives keep every Guard bug, confirm the navigation-loop bug, and record a side-back selection. Negatives have no nested handoff. The historical suite loses no Guard bug. The product default stays unchanged.",
+    "promotion": false
+  },
+  "product_default": {"policy": "ghost", "use_frontier": false, "sequence_mode": "off", "unchanged": true}
+}

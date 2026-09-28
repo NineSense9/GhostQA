@@ -38,6 +38,7 @@ V0334 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.34")
 V0335 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.35")
 V0336 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.36")
 V0337 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.37")
+V0338 = os.path.join(PUBLISHED, "fresh-transfer-v0.3.38")
 
 
 def _load(path, default=None):
@@ -1076,6 +1077,60 @@ def _bug_list(rows) -> str:
     return "、".join(names) if names else "没有"
 
 
+def _v0338(root: str | None = None) -> dict:
+    base = root or V0338
+    mechanism = _load(os.path.join(base, "metrics", "mechanism.json")) or {}
+    safety = _load(os.path.join(base, "metrics", "safety.json")) or {}
+    repro = _load(os.path.join(base, "metrics", "reproduction.json")) or {}
+    man = _load(os.path.join(base, "evidence-manifest.json")) or {}
+    derived = mechanism.get("derived") or {}
+    controls = mechanism.get("controls") or {}
+    if not derived.get("outcome"):
+        return {"available": False}
+    facts = safety.get("facts") or {}
+    fresh = facts.get("fresh_guard_loss") or []
+    hist = facts.get("historical_guard_loss") or []
+    return {
+        "available": True,
+        "round": "v0.3.38",
+        "title": "Browser back out of the distractor path",
+        "outcome": derived.get("outcome"),
+        "outcome_meaning": derived.get("outcome_meaning") or "",
+        "evaluable_positives": facts.get("evaluable_positives"),
+        "structured_positives": facts.get("structured_positives"),
+        "fresh_guard_loss": fresh,
+        "historical_guard_loss": hist,
+        "saddle_handoff": (controls.get("buggy-saddle") or {}).get("handoff"),
+        "timber_handoff": (controls.get("buggy-timber") or {}).get("handoff"),
+        "product_default_changed": bool(facts.get("product_default_changed")),
+        "fresh_validation": True,
+        "promotion_readiness": derived.get("promotion_readiness") or "not_ready",
+        "v0337_outcome": "C",
+        "v0336_outcome": "C",
+        "v0335_outcome": "A",
+        "cells": 40,
+        "public_copy": (
+            "v0.3.38 在干扰旁路走了四步之后，用浏览器后退离开那一组地址。"
+            f"新正例 Guard 丢失：{_bug_list(fresh)}。"
+            f"历史 Guard 丢失：{_bug_list(hist)}。"
+            f"可评估 {facts.get('evaluable_positives')}，结构化 {facts.get('structured_positives')}。"
+            f"结果是 Outcome {derived.get('outcome')}。"
+            "产品默认未改，候选不晋升。"
+            "v0.3.37 仍是 Outcome C，v0.3.35 仍是 Outcome A。"
+        ),
+        "reproduction": {
+            "clean_clone_verified": bool(repro.get("clean_clone_verified")),
+            "command": repro.get("command") or (
+                "python -m benchmark.fresh_transfer_v0338_reproduce "
+                "--root experiments/published/fresh-transfer-v0.3.38 --verify"),
+            "evidence_files": len(man.get("files") or []),
+        },
+        "command": (
+            "python -m benchmark.fresh_transfer_v0338_reproduce "
+            "--root experiments/published/fresh-transfer-v0.3.38 --verify"),
+    }
+
+
 def _v0337(root: str | None = None) -> dict:
     base = root or V0337
     mechanism = _load(os.path.join(base, "metrics", "mechanism.json")) or {}
@@ -1785,7 +1840,8 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
                    v0334_root: str | None = None,
                    v0335_root: str | None = None,
                    v0336_root: str | None = None,
-                   v0337_root: str | None = None) -> dict:
+                   v0337_root: str | None = None,
+                   v0338_root: str | None = None) -> dict:
     v039 = _v039(v039_root)
     v038 = _v038(v038_root)
     v0310 = _v0310(v0310_root)
@@ -1814,7 +1870,17 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
     v0335 = _v0335(v0335_root)
     v0336 = _v0336(v0336_root)
     v0337 = _v0337(v0337_root)
-    if v0337.get("available"):
+    v0338 = _v0338(v0338_root)
+    if v0338.get("available"):
+        latest = {
+            "round": "v0.3.38",
+            "title": "Browser back out of the distractor path",
+            "available": True,
+            "outcome": v0338.get("outcome"),
+            "product_default_changed": v0338.get("product_default_changed"),
+        }
+        latest_research = "v0.3.38"
+    elif v0337.get("available"):
         latest = {
             "round": "v0.3.37",
             "title": "Leave the distractor path after four steps",
@@ -2065,6 +2131,7 @@ def build_showcase(*, v039_root: str | None = None, v038_root: str | None = None
             "latest_research": latest_research,
         },
         "latest": latest,
+        "fresh_transfer_v0338": v0338,
         "fresh_transfer_v0337": v0337,
         "fresh_transfer_v0336": v0336,
         "fresh_transfer_v0335": v0335,

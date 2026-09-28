@@ -1,4 +1,5 @@
 """Dashboard presentation-layer helpers. Does not start a server."""
+import json
 import os
 
 from dashboard.server import (
@@ -7,6 +8,27 @@ from dashboard.server import (
 from ghostqa.exploration.policy import GhostPolicy
 from ghostqa.exploration.explorer import RunResult
 from ghostqa.state.models import Action, Finding, Step
+
+
+def _v0338_publication():
+    root = os.path.join(
+        os.path.dirname(os.path.dirname(__file__)),
+        "experiments", "published", "fresh-transfer-v0.3.38")
+    with open(os.path.join(root, "metrics", "mechanism.json"), encoding="utf-8") as handle:
+        mechanism = json.load(handle)
+    with open(os.path.join(root, "metrics", "safety.json"), encoding="utf-8") as handle:
+        safety = json.load(handle)
+    facts = safety["facts"]
+    controls = mechanism["controls"]
+    return {
+        "outcome": mechanism["derived"]["outcome"],
+        "evaluable_positives": facts["evaluable_positives"],
+        "structured_positives": facts["structured_positives"],
+        "fresh_guard_loss": facts["fresh_guard_loss"],
+        "historical_guard_loss": facts["historical_guard_loss"],
+        "saddle_handoff": controls["buggy-saddle"]["handoff"],
+        "timber_handoff": controls["buggy-timber"]["handoff"],
+    }
 
 
 def test_public_event_rewrites_screenshot_to_servable_url():
@@ -124,7 +146,8 @@ def test_showcase_missing_artifacts_do_not_crash():
                        v0334_root="/tmp/missing-v0334",
                        v0335_root="/tmp/missing-v0335",
                        v0336_root="/tmp/missing-v0336",
-                       v0337_root="/tmp/missing-v0337")
+                       v0337_root="/tmp/missing-v0337",
+                       v0338_root="/tmp/missing-v0338")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -153,6 +176,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["fresh_transfer_v0335"]["available"] is False
     assert s["fresh_transfer_v0336"]["available"] is False
     assert s["fresh_transfer_v0337"]["available"] is False
+    assert s["fresh_transfer_v0338"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -198,7 +222,35 @@ def test_showcase_endpoint_function_returns_payload():
     fresh35 = body.get("fresh_transfer_v0335") or {}
     fresh36 = body.get("fresh_transfer_v0336") or {}
     fresh37 = body.get("fresh_transfer_v0337") or {}
-    if fresh37.get("available"):
+    fresh38 = body.get("fresh_transfer_v0338") or {}
+    if fresh38.get("available"):
+        assert body["latest"]["round"] == "v0.3.38"
+        assert body["project"]["latest_research"] == "v0.3.38"
+        assert body["latest"]["outcome"] == "A"
+        assert fresh38["outcome"] == "A"
+        assert fresh38["product_default_changed"] is False
+        assert fresh38["promotion_readiness"] == "not_ready"
+        assert fresh38["evaluable_positives"] == 4
+        assert fresh38["structured_positives"] == 4
+        assert fresh38["fresh_guard_loss"] == []
+        assert fresh38["historical_guard_loss"] == []
+        assert fresh38["saddle_handoff"] == 0
+        assert fresh38["timber_handoff"] == 0
+        published = _v0338_publication()
+        assert fresh38["outcome"] == published["outcome"]
+        assert fresh38["evaluable_positives"] == published["evaluable_positives"]
+        assert fresh38["structured_positives"] == published["structured_positives"]
+        assert fresh38["fresh_guard_loss"] == published["fresh_guard_loss"]
+        assert fresh38["historical_guard_loss"] == published["historical_guard_loss"]
+        assert fresh38["saddle_handoff"] == published["saddle_handoff"]
+        assert fresh38["timber_handoff"] == published["timber_handoff"]
+        assert fresh37["outcome"] == "C"
+        assert fresh36["outcome"] == "C"
+        assert fresh35["outcome"] == "A"
+        assert GhostPolicy().sequence_mode == "off"
+        assert GhostPolicy().use_frontier is False
+        assert episode["outcome"] == "A"
+    elif fresh37.get("available"):
         assert body["latest"]["round"] == "v0.3.37"
         assert body["project"]["latest_research"] == "v0.3.37"
         assert body["latest"]["outcome"] == "C"
@@ -655,7 +707,35 @@ def test_showcase_reads_v0311_published_metrics():
     fresh35 = s.get("fresh_transfer_v0335") or {}
     fresh36 = s.get("fresh_transfer_v0336") or {}
     fresh37 = s.get("fresh_transfer_v0337") or {}
-    if fresh37.get("available"):
+    fresh38 = s.get("fresh_transfer_v0338") or {}
+    if fresh38.get("available"):
+        assert s["latest"]["round"] == "v0.3.38"
+        assert s["latest"]["outcome"] == "A"
+        assert fresh38["outcome"] == "A"
+        assert s["project"]["latest_research"] == "v0.3.38"
+        assert s["latest"]["product_default_changed"] is False
+        assert fresh38["promotion_readiness"] == "not_ready"
+        assert fresh38["evaluable_positives"] == 4
+        assert fresh38["structured_positives"] == 4
+        assert fresh38["fresh_guard_loss"] == []
+        assert fresh38["historical_guard_loss"] == []
+        assert fresh38["saddle_handoff"] == 0
+        assert fresh38["timber_handoff"] == 0
+        published = _v0338_publication()
+        assert fresh38["outcome"] == published["outcome"]
+        assert fresh38["evaluable_positives"] == published["evaluable_positives"]
+        assert fresh38["structured_positives"] == published["structured_positives"]
+        assert fresh38["fresh_guard_loss"] == published["fresh_guard_loss"]
+        assert fresh38["historical_guard_loss"] == published["historical_guard_loss"]
+        assert fresh38["saddle_handoff"] == published["saddle_handoff"]
+        assert fresh38["timber_handoff"] == published["timber_handoff"]
+        assert fresh37["outcome"] == "C"
+        assert fresh36["outcome"] == "C"
+        assert fresh35["outcome"] == "A"
+        assert GhostPolicy().sequence_mode == "off"
+        assert GhostPolicy().use_frontier is False
+        assert episode["outcome"] == "A"
+    elif fresh37.get("available"):
         assert s["latest"]["round"] == "v0.3.37"
         assert s["latest"]["outcome"] == "C"
         assert s["project"]["latest_research"] == "v0.3.37"
