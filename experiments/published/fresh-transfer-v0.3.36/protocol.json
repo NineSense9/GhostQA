@@ -1,0 +1,59 @@
+{
+  "name": "v0.3.36 one distractor link after hub branches",
+  "version": "v0.3.36",
+  "date": "2026-09-28",
+  "starting_head": "6bce6c248bc9ca5b1fddcc8a764630081649ff16",
+  "executed": false,
+  "one_shot": true,
+  "question_kind": "fresh-validation",
+  "fresh_validation": true,
+  "product_default_changed": false,
+  "research_question": "After a hub's branch clicks are started, does one untried distractor link confirm the navigation-loop bug without losing Guard bugs?",
+  "diagnosis": "On quarry budget 120 the candidate confirmed the blank page, the boundary search bug, the empty-title bug, and the probe and export bugs. It never opened help.html. The help link text is a distractor, so it is not a branch click and the hub explorer does not start it. The loop behind that link stayed unconfirmed. Guard also missed it. The v0.3.35 module is not edited.",
+  "not": [
+    "an edit of the frozen v0.3.35 candidate",
+    "permission to take a distractor before untried branch clicks",
+    "permission to take a return link",
+    "permission to change the product default",
+    "permission to retune after the fresh matrix",
+    "promotion"
+  ],
+  "candidate": {
+    "identity": "ghost-structural-hub-distractor-guard",
+    "module": "ghostqa/exploration/hub_distractor_guard.py",
+    "subclasses": "SearchSubmitSequenceController",
+    "frozen_parent_sha256": "04fd1fdc67f545c80c9744ad7d3ce6607cdfdba892f413b900d5bee912269112",
+    "rule": "On a hub that is not returning, after every branch click has been started, take one untried distractor link. Do not take a return. Each hub cluster gets one such click."
+  },
+  "guard_policy": "ghost-structural-return-guard",
+  "topology_rule": "New positives keep the chart-to-prefs page and the help-settings loop behind the home help link.",
+  "seed_prefix": "ghostqa-v0.3.36:",
+  "targets": [
+    {"app": "buggy-wicket", "class": "positive", "port": 4019, "prefix": "BUG-WI"},
+    {"app": "buggy-yarrow", "class": "positive", "port": 4020, "prefix": "BUG-YA"},
+    {"app": "buggy-zephyr", "class": "positive", "port": 4021, "prefix": "BUG-ZE"},
+    {"app": "buggy-arbor", "class": "positive", "port": 4022, "prefix": "BUG-AB"},
+    {"app": "buggy-basin", "class": "negative", "negative_class": "catalog", "port": 4023, "prefix": "BUG-BN"},
+    {"app": "buggy-cleft", "class": "negative", "negative_class": "kiosk", "port": 4024, "prefix": "BUG-CF"}
+  ],
+  "inspected_regression": {
+    "apps": ["buggy-campus", "buggy-studio"],
+    "budget": 120,
+    "affects_outcome_letter": false
+  },
+  "matrix": {
+    "fresh_cells": 28,
+    "historical_cells": 10,
+    "inspected_cells": 2,
+    "cells_total": 40
+  },
+  "outcomes": {
+    "order": ["C", "D", "B", "A"],
+    "C": "Guard loss on a fresh target, historical Guard loss, safety violation, negative handoff, candidate edit, or product-default change",
+    "D": "Safety holds but fewer than 3 positives are evaluable",
+    "B": "Guard bugs are kept and at least 3 positives are evaluable, but fewer than 3 keep every Guard bug, confirm the navigation-loop bug, and record a hub-distractor selection",
+    "A": "At least 3 positives keep every Guard bug, confirm the navigation-loop bug, and record a hub-distractor selection. Negatives have no nested handoff. The historical suite loses no Guard bug. The product default stays unchanged.",
+    "promotion": false
+  },
+  "product_default": {"policy": "ghost", "use_frontier": false, "sequence_mode": "off", "unchanged": true}
+}

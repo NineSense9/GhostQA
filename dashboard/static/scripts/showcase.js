@@ -539,6 +539,53 @@ function renderReturnEntry(re) {
   }
 }
 
+function renderFreshTransfer36(item) {
+  item = item || {};
+  const oc = gid('ft36-outcome');
+  if (oc) {
+    oc.textContent = item.outcome ? ('Outcome ' + item.outcome) : 'Outcome';
+    oc.className = item.outcome === 'A' ? 'pill pill-ok' : 'pill';
+  }
+  const om = gid('ft36-outcome-mean');
+  if (om) om.textContent = item.outcome_meaning || '';
+  const lead = gid('ft36-lead');
+  if (lead && item.public_copy) lead.textContent = item.public_copy;
+  const losses = item.historical_guard_loss || [];
+  const lostBugs = losses.reduce((n, row) => n + ((row.bugs || []).length), 0);
+  const fresh = item.fresh_guard_loss || [];
+  const freshBugs = fresh.reduce((n, row) => n + ((row.bugs || []).length), 0);
+  const delta = gid('ft36-delta');
+  if (delta) {
+    delta.textContent = '可评估正例 ' + (item.evaluable_positives ?? '—')
+      + ' / 4 · 新正例丢失 ' + freshBugs
+      + ' · 历史丢失 ' + lostBugs
+      + ' · basin/cleft 交接 ' + (item.basin_handoff ?? '—')
+      + '/' + (item.cleft_handoff ?? '—')
+      + ' · 产品默认未改';
+  }
+  if (!item.available) return;
+  const kind = gid('proof-result-kind');
+  if (kind) kind.textContent = 'Outcome';
+  setText('proof-round', item.round || 'v0.3.36');
+  const m1 = gid('proof-metric-1');
+  const m2 = gid('proof-metric-2');
+  const m3 = gid('proof-metric-3');
+  if (m1) m1.textContent = '可评估正例';
+  if (m2) m2.textContent = '新正例丢失';
+  if (m3) m3.textContent = '历史 Guard 丢失';
+  const setPair = (labelId, value) => {
+    const label = gid(labelId);
+    const cell = label && label.nextElementSibling;
+    if (cell) cell.textContent = value;
+  };
+  setPair('proof-metric-1', String(item.evaluable_positives ?? '—') + ' / 4');
+  setPair('proof-metric-2', String(freshBugs));
+  setPair('proof-metric-3', String(lostBugs));
+  setText('proof-outcome', item.outcome || '—');
+  const note = gid('proof-note');
+  if (note) note.textContent = item.public_copy || '';
+}
+
 function renderFreshTransfer35(item) {
   item = item || {};
   const oc = gid('ft35-outcome');
@@ -1365,6 +1412,8 @@ function renderEvidence(data) {
   const ft33 = (data && data.fresh_transfer_v0333) || {};
   const ft34 = (data && data.fresh_transfer_v0334) || {};
   const ft35 = (data && data.fresh_transfer_v0335) || {};
+  const ft36 = (data && data.fresh_transfer_v0336) || {};
+  const ev0336 = gid('ev-v0336');
   const ev0335 = gid('ev-v0335');
   const ev0334 = gid('ev-v0334');
   const ev0333 = gid('ev-v0333');
@@ -1393,6 +1442,30 @@ function renderEvidence(data) {
   const ev038 = gid('ev-v038');
   const rail = gid('ev-rail');
 
+  if (ev0336) {
+    if (!ft36.available) {
+      ev0336.innerHTML = '<li>暂时无法读取已发布证据</li>';
+    } else {
+      const r = ft36.reproduction || {};
+      const fresh = ft36.fresh_guard_loss || [];
+      const hist = ft36.historical_guard_loss || [];
+      ev0336.innerHTML = [
+        statusRow('轮次结果', ft36.outcome ? ('Outcome ' + ft36.outcome) : '—', ft36.outcome === 'A'),
+        statusRow('可评估正例', String(ft36.evaluable_positives ?? '—') + ' / 4', (ft36.evaluable_positives || 0) >= 3),
+        statusRow('新正例 Guard 丢失', fresh.length ? '有' : '无', !fresh.length),
+        statusRow('历史 Guard 丢失', hist.length ? '有' : '无', !hist.length),
+        statusRow('负对照交接', String(ft36.basin_handoff ?? '—') + ' / ' + String(ft36.cleft_handoff ?? '—'),
+          ft36.basin_handoff === 0 && ft36.cleft_handoff === 0),
+        statusRow('40 cells', String(ft36.cells), ft36.cells === 40),
+        statusRow('clean clone', yn(r.clean_clone_verified), r.clean_clone_verified),
+        statusRow('产品默认', ft36.product_default_changed ? '已改' : '未改', ft36.product_default_changed === false),
+        statusRow('v0.3.35', 'Outcome ' + (ft36.v0335_outcome || 'A'), true),
+      ].join('');
+    }
+  }
+  const cmd0336 = ft36.command || '';
+  const cmdEl36 = gid('ev-cmd-0336');
+  if (cmdEl36) cmdEl36.textContent = cmd0336;
   if (ev0335) {
     if (!ft35.available) {
       ev0335.innerHTML = '<li>暂时无法读取已发布证据</li>';
@@ -2119,6 +2192,7 @@ async function loadShowcase() {
     renderFreshTransfer33(data.fresh_transfer_v0333);
     renderFreshTransfer34(data.fresh_transfer_v0334);
     renderFreshTransfer35(data.fresh_transfer_v0335);
+    renderFreshTransfer36(data.fresh_transfer_v0336);
     renderEvidence(data);
     const badge = gid('research-badge');
     if (badge && data.latest && data.latest.round) {

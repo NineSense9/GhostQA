@@ -120,7 +120,8 @@ def test_showcase_missing_artifacts_do_not_crash():
                        v0332_root="/tmp/missing-v0332",
                        v0333_root="/tmp/missing-v0333",
                        v0334_root="/tmp/missing-v0334",
-                       v0335_root="/tmp/missing-v0335")
+                       v0335_root="/tmp/missing-v0335",
+                       v0336_root="/tmp/missing-v0336")
     assert s["return_cycle"]["available"] is False
     assert s["application_shape"]["available"] is False
     assert s["fresh_transfer"]["available"] is False
@@ -147,6 +148,7 @@ def test_showcase_missing_artifacts_do_not_crash():
     assert s["fresh_transfer_v0333"]["available"] is False
     assert s["fresh_transfer_v0334"]["available"] is False
     assert s["fresh_transfer_v0335"]["available"] is False
+    assert s["fresh_transfer_v0336"]["available"] is False
     assert s["latest"]["available"] is False
 
 
@@ -190,7 +192,25 @@ def test_showcase_endpoint_function_returns_payload():
     fresh33 = body.get("fresh_transfer_v0333") or {}
     fresh34 = body.get("fresh_transfer_v0334") or {}
     fresh35 = body.get("fresh_transfer_v0335") or {}
-    if fresh35.get("available"):
+    fresh36 = body.get("fresh_transfer_v0336") or {}
+    if fresh36.get("available"):
+        assert body["latest"]["round"] == "v0.3.36"
+        assert body["project"]["latest_research"] == "v0.3.36"
+        assert body["latest"]["outcome"] == "C"
+        assert fresh36["outcome"] == "C"
+        assert body["latest"]["product_default_changed"] is False
+        assert fresh36["evaluable_positives"] == 4
+        assert fresh36["structured_positives"] == 0
+        assert [row["bugs"] for row in fresh36["fresh_guard_loss"]] == [
+            ["BUG-WI10"], ["BUG-YA10"], ["BUG-ZE10"], ["BUG-AB10"]]
+        assert fresh36["historical_guard_loss"] == [
+            {"app": "buggy-directory", "bugs": ["BUG-DIR5"]}]
+        assert fresh36["basin_handoff"] == 0
+        assert fresh36["cleft_handoff"] == 0
+        assert fresh35["outcome"] == "A"
+        assert fresh34["outcome"] == "A"
+        assert episode["outcome"] == "A"
+    elif fresh35.get("available"):
         assert body["latest"]["round"] == "v0.3.35"
         assert body["project"]["latest_research"] == "v0.3.35"
         assert body["latest"]["outcome"] == "A"
@@ -607,7 +627,23 @@ def test_showcase_reads_v0311_published_metrics():
     fresh33 = s.get("fresh_transfer_v0333") or {}
     fresh34 = s.get("fresh_transfer_v0334") or {}
     fresh35 = s.get("fresh_transfer_v0335") or {}
-    if fresh35.get("available"):
+    fresh36 = s.get("fresh_transfer_v0336") or {}
+    if fresh36.get("available"):
+        assert s["latest"]["round"] == "v0.3.36"
+        assert s["latest"]["outcome"] == "C"
+        assert s["project"]["latest_research"] == "v0.3.36"
+        assert fresh36["evaluable_positives"] == 4
+        assert fresh36["structured_positives"] == 0
+        assert [row["bugs"] for row in fresh36["fresh_guard_loss"]] == [
+            ["BUG-WI10"], ["BUG-YA10"], ["BUG-ZE10"], ["BUG-AB10"]]
+        assert fresh36["historical_guard_loss"] == [
+            {"app": "buggy-directory", "bugs": ["BUG-DIR5"]}]
+        assert fresh36["basin_handoff"] == 0
+        assert fresh36["cleft_handoff"] == 0
+        assert fresh35["outcome"] == "A"
+        assert fresh34["outcome"] == "A"
+        assert episode["outcome"] == "A"
+    elif fresh35.get("available"):
         assert s["latest"]["round"] == "v0.3.35"
         assert s["latest"]["outcome"] == "A"
         assert s["project"]["latest_research"] == "v0.3.35"
