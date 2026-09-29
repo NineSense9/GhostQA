@@ -467,9 +467,10 @@ def run_report(run_id: str):
     h = _get(run_id)
     page = rendered_report_html(_run_dir(run_id))
     if page:
-        return HTMLResponse(page)
+        return HTMLResponse(page, headers={"Cache-Control": "no-store"})
     if h.report_html and os.path.exists(h.report_html):
-        return FileResponse(h.report_html)
+        return FileResponse(
+            h.report_html, headers={"Cache-Control": "no-store"})
     raise HTTPException(404, "report not ready")
 
 

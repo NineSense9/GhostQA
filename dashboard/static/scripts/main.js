@@ -855,13 +855,23 @@ function runWhen(created) {
   return `${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
 }
 
+function runSteps(run) {
+  const cfg = run.cfg || {};
+  const summary = run.summary || {};
+  const budget = cfg.budget || '—';
+  const done = summary.actions;
+  if (done == null || done === '') return `${budget} 步`;
+  if (String(done) === String(budget)) return `${budget} 步`;
+  return `${done}/${budget} 步`;
+}
+
 function runLabel(run) {
   const cfg = run.cfg || {};
   const summary = run.summary || {};
   const status = STATUS_TEXT[run.status] || run.status || '';
   const confirmed = summary.confirmed == null ? '—' : String(summary.confirmed);
   const when = runWhen(run.created);
-  return [run.id, when, cfg.policy || 'ghost', `${cfg.budget || '—'} 步`, status, `确认 ${confirmed}`]
+  return [run.id, when, cfg.policy || 'ghost', runSteps(run), status, `确认 ${confirmed}`]
     .filter(Boolean).join(' · ');
 }
 

@@ -1108,7 +1108,9 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "selectEvent(latestFrame(S.events))" in js
     assert "function eventForBug" in js
     assert "S.epoch" in js
-    assert "main.js?v=20260929i" in html
+    assert "main.js?v=20260929j" in html
+    assert "function runSteps" in js
+    assert "summary.actions" in js
     assert "停止探索" in js
     assert "/cancel" in js
     assert "fmtAction(a).join" not in js
@@ -1186,6 +1188,7 @@ def test_rendered_report_uses_stored_json_not_stale_html(tmp_path, monkeypatch):
         assert "register.html" in body
         assert "click[link:注册]" in body
         assert "stale" not in body
+        assert resp.headers.get("cache-control") == "no-store"
     finally:
         srv.RUNS.pop(run_id, None)
     assert srv.rendered_report_html(str(tmp_path / "missing")) is None
