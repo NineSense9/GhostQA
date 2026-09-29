@@ -1108,8 +1108,11 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "selectEvent(latestFrame(S.events))" in js
     assert "function eventForBug" in js
     assert "S.epoch" in js
-    assert "main.js?v=20260929e" in html
-    assert "components.css?v=20260929c" in html
+    assert "main.js?v=20260929f" in html
+    assert "components.css?v=20260929d" in html
+    assert "runs.slice(0, 12)" not in js
+    assert "max-height: 320px" in open(
+        os.path.join(STATIC_DIR, "styles", "components.css"), encoding="utf-8").read()
 
 
 def test_report_html_includes_page_and_observation():

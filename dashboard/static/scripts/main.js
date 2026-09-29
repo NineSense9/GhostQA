@@ -853,7 +853,7 @@ async function loadHistory() {
     list.innerHTML = '<li class="empty">还没有运行记录。</li>';
     return;
   }
-  for (const run of runs.slice(0, 12)) {
+  for (const run of runs) {
     const li = document.createElement('li');
     const btn = document.createElement('button');
     btn.type = 'button';
