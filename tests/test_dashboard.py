@@ -1118,10 +1118,13 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "function runWhen" in js
     assert "a.label" in js
     assert "run.id" in js
-    assert "components.css?v=20260929d" in html
+    assert "components.css?v=20260929e" in html
     assert "runs.slice(0, 12)" not in js
-    assert "max-height: 320px" in open(
-        os.path.join(STATIC_DIR, "styles", "components.css"), encoding="utf-8").read()
+    css = open(os.path.join(STATIC_DIR, "styles", "components.css"), encoding="utf-8").read()
+    assert "max-height: 320px" in css
+    assert ".bug-desc" in css
+    assert "flex: 1 1 100%" in css
+    assert "overflow-wrap: anywhere" in css
 
 
 def test_rendered_report_uses_stored_json_not_stale_html(tmp_path, monkeypatch):

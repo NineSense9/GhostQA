@@ -290,7 +290,10 @@ body.is-running .action-strip {
   overflow: hidden;
 }
 .bug-head {
-  display: flex; align-items: center; gap: var(--sp-2);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--sp-2);
   padding: 9px var(--sp-3);
   cursor: pointer;
   background: linear-gradient(90deg, var(--alert-dim), transparent 62%);
@@ -304,11 +307,11 @@ body.is-running .action-strip {
   flex-shrink: 0;
 }
 .bug-desc {
+  flex: 1 1 100%;
   font-size: var(--fs-sm);
   color: var(--text-strong);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: normal;
+  overflow-wrap: anywhere;
 }
 .bug-body {
   display: none;
