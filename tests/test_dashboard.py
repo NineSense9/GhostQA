@@ -1098,3 +1098,13 @@ def test_make_policy_exposes_return_guard_without_changing_default():
     import pytest
     with pytest.raises(ValueError):
         _make_policy("not-a-real-policy", None, 0)
+
+
+def test_reopen_restores_last_frame_and_run_config():
+    js = open(os.path.join(STATIC_DIR, "scripts", "main.js"), encoding="utf-8").read()
+    html = open(os.path.join(STATIC_DIR, "index.html"), encoding="utf-8").read()
+    assert "function latestFrame" in js
+    assert "function applyRunConfig" in js
+    assert "selectEvent(latestFrame(S.events))" in js
+    assert "S.epoch" in js
+    assert "main.js?v=20260929c" in html

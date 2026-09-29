@@ -35,6 +35,7 @@ const S = {
   lastEventAt: 0,
   logPinned: true,
   lastGraph: null,
+  epoch: 0,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -314,14 +315,25 @@ function selectEvent(ev) {
   updateActionStrip(ev);
 }
 
+function latestFrame(events) {
+  let frame = events[events.length - 1];
+  for (let i = events.length - 1; i >= 0; i--) {
+    const ev = events[i];
+    const shot = (ev.dst && ev.dst.screenshot) || (ev.src && ev.src.screenshot) || '';
+    if (shot) return ev;
+  }
+  return frame;
+}
+
 function appendEvents(list) {
   const steps = list.filter((e) => e.type === 'step');
   if (!steps.length) return;
   if (S.events.length === 0) els.log.innerHTML = '';
+  const streaming = S.status === 'running' || S.status === 'validating';
   for (const ev of steps) {
     S.events.push(ev);
     els.log.appendChild(renderLogRow(ev));
-    if (S.status === 'running' || S.status === 'validating') selectEvent(ev);
+    if (streaming) selectEvent(ev);
   }
   els.logCount.textContent = String(S.events.length);
   if (S.logPinned) els.log.scrollTop = els.log.scrollHeight;
@@ -331,6 +343,7 @@ function appendEvents(list) {
   els.tActions.textContent = String(S.events.length);
   const bugsSeen = S.events.reduce((n, e) => n + (e.findings || []).length, 0);
   if (bugsSeen) els.cands.textContent = String(bugsSeen);
+  if (!streaming && S.events.length) selectEvent(latestFrame(S.events));
 }
 
 /* ------------------------------- graph ---------------------------------- */
@@ -646,15 +659,19 @@ function showError(message, detail) {
 
 async function tick() {
   if (!S.runId) return;
+  const epoch = S.epoch;
+  const runId = S.runId;
   let st;
   try {
-    st = await getJSON(`/api/runs/${S.runId}`);
-    S.failedOnce = false;
-    setConn(true, '已连接');
+    st = await getJSON(`/api/runs/${runId}`);
   } catch (err) {
+    if (epoch !== S.epoch) return;
     if (!S.failedOnce) { setConn(false, '连接中断'); S.failedOnce = true; }
     return;
   }
+  if (epoch !== S.epoch) return;
+  S.failedOnce = false;
+  setConn(true, '已连接');
 
   S.status = st.status;
   els.status.textContent = STATUS_TEXT[st.status] || st.status;
@@ -675,15 +692,26 @@ async function tick() {
   if (active) els.tWall.textContent = elapsedLabel();
 
   try {
-    const ev = await getJSON(`/api/runs/${S.runId}/events?after=${S.seenSeq}`);
+    const ev = await getJSON(`/api/runs/${runId}/events?after=${S.seenSeq}`);
+    if (epoch !== S.epoch) return;
     if (ev.events && ev.events.length) {
       appendEvents(ev.events);
       S.seenSeq = ev.events[ev.events.length - 1].seq;
     }
   } catch (_) { /* transient */ }
+  if (epoch !== S.epoch) return;
 
-  try { syncGraph(await getJSON(`/api/runs/${S.runId}/graph`)); } catch (_) {}
-  try { renderBugs(await getJSON(`/api/runs/${S.runId}/bugs`)); } catch (_) {}
+  try {
+    const graph = await getJSON(`/api/runs/${runId}/graph`);
+    if (epoch !== S.epoch) return;
+    syncGraph(graph);
+  } catch (_) {}
+  try {
+    const bugs = await getJSON(`/api/runs/${runId}/bugs`);
+    if (epoch !== S.epoch) return;
+    renderBugs(bugs);
+  } catch (_) {}
+  if (epoch !== S.epoch) return;
 
   if (st.summary && Object.keys(st.summary).length) {
     const m = st.summary;
@@ -720,6 +748,8 @@ async function tick() {
 }
 
 function resetLivePanels(message) {
+  stopPolling();
+  S.epoch += 1;
   S.events = []; S.seenSeq = -1; S.lastShot = ''; S.activeRow = null;
   S.graphSig = ''; S.firstLayout = true; S.startSig = '';
   S.staleRun = false; S.runStartedAt = Date.now(); S.lastEventAt = Date.now();
@@ -732,9 +762,12 @@ function resetLivePanels(message) {
   els.bugs.textContent = '0';
   els.llm.textContent = '0';
   els.tActions.textContent = '0';
+  els.tNodes.textContent = '0';
+  els.tEdges.textContent = '0';
   els.tWall.textContent = '0s';
   els.tRelocate.textContent = '0';
   if (els.tUrls) els.tUrls.textContent = '0';
+  renderMix({ NEW: 0, SIMILAR: 0, IDENTICAL: 0 });
   els.shot.removeAttribute('src');
   els.shot.hidden = true;
   els.vpEmpty.hidden = false;
@@ -785,12 +818,41 @@ async function loadHistory() {
   }
 }
 
+function applyRunConfig(cfg) {
+  if (!cfg) return;
+  const url = $('f-url');
+  const spec = $('f-spec');
+  const policy = $('f-policy');
+  const budget = $('f-budget');
+  const mock = $('f-mock');
+  if (url && cfg.url) url.value = cfg.url;
+  if (spec && cfg.spec != null) spec.value = cfg.spec;
+  if (policy && cfg.policy) {
+    const known = [...policy.options].some((opt) => opt.value === cfg.policy);
+    if (known) policy.value = cfg.policy;
+  }
+  if (budget && cfg.budget) budget.value = String(cfg.budget);
+  if (mock) mock.checked = !!cfg.mock_llm;
+  updatePolicyHint();
+}
+
 async function openRun(id) {
   resetLivePanels('正在读取运行…');
+  const epoch = S.epoch;
   S.runId = id;
   try { sessionStorage.setItem('ghostqa-run', id); } catch (_) {}
   setConn(true, '已连接');
-  const st = await getJSON('/api/runs/' + id);
+  let st;
+  try {
+    st = await getJSON('/api/runs/' + id);
+  } catch (err) {
+    if (epoch !== S.epoch) return;
+    showError('无法读取这次运行。', err.message);
+    els.status.textContent = '出错';
+    return;
+  }
+  if (epoch !== S.epoch) return;
+  applyRunConfig(st.cfg);
   if (st.status === 'running' || st.status === 'validating') startPolling();
   else await tick();
 }
@@ -845,6 +907,7 @@ if (els.form) {
     };
 
     resetLivePanels('正在初始化探索器…');
+    const epoch = S.epoch;
 
     els.btnRun.disabled = true;
     els.btnRunTxt.textContent = '正在启动…';
@@ -859,13 +922,16 @@ if (els.form) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
+      if (epoch !== S.epoch) return;
       if (!res.ok) throw new Error('HTTP ' + res.status);
       const data = await res.json();
+      if (epoch !== S.epoch) { loadHistory(); return; }
       S.runId = data.run_id;
       try { sessionStorage.setItem('ghostqa-run', S.runId); } catch (_) {}
       startPolling();
       loadHistory();
     } catch (err) {
+      if (epoch !== S.epoch) return;
       els.btnRun.disabled = false;
       els.btnRunTxt.textContent = '启动探索';
       setConn(false, '启动失败');
@@ -942,7 +1008,9 @@ loadHistory();
     if (!saved) return;
     const st = await getJSON('/api/runs/' + saved);
     if (!st || !st.id) return;
+    if (S.runId && S.runId !== st.id) return;
     S.runId = st.id;
+    applyRunConfig(st.cfg);
     S.runStartedAt = Date.now();
     S.lastEventAt = Date.now();
     setConn(true, '已连接');
