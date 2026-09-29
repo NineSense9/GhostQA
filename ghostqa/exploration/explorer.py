@@ -222,10 +222,16 @@ def _candidates(state, policy, sig, can_back, input_vocab, ctx) -> tuple:
 
 def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
                     input_vocab=None, spec_brief: str = "",
-                    state_model: str = "semantic", on_step=None) -> RunResult:
+                    state_model: str = "semantic", on_step=None,
+                    should_stop=None) -> RunResult:
     """on_step: optional callback invoked after each executed step as
     on_step(step, graph, budget_used) — pure observability hook used by the
-    dashboard; does not affect exploration semantics."""
+    dashboard; does not affect exploration semantics.
+
+    should_stop: optional predicate checked before each step. When it returns
+    true the loop returns the result so far. It does not change which action
+    would have been chosen.
+    """
     oracle = oracle or OracleEngine()
     id_fn, cluster_fn, variant_fn = _id_fns(state_model)
     result = RunResult(app=executor.observe().app, policy=policy.name,
@@ -259,6 +265,8 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
     pp = getattr(policy, "payload_policy", None)
 
     for step_idx in range(budget):
+        if should_stop is not None and should_stop():
+            break
         if len(executor.ground_truth().get("__halt__", [])):
             break
         can_back = True

@@ -30,6 +30,39 @@ def test_explorer_ghost_finds_multiple_bug_kinds_on_shop():
     assert len(result.graph.nodes) >= 4           # discovered multiple states
 
 
+def test_should_stop_returns_before_the_next_step():
+    app, spec, _ = make_sim_shop()
+    stopped = run_exploration(
+        SimExecutor(app), RandomPolicy(seed=7), budget=40,
+        oracle=OracleEngine(spec), should_stop=lambda: True)
+    assert stopped.actions_executed == 0
+    seen = {"n": 0}
+
+    def stop_after_one():
+        seen["n"] += 1
+        return seen["n"] > 1
+
+    app2, spec2, _ = make_sim_shop()
+    one = run_exploration(
+        SimExecutor(app2), RandomPolicy(seed=7), budget=40,
+        oracle=OracleEngine(spec2), should_stop=stop_after_one)
+    assert one.actions_executed == 1
+
+
+def test_cancel_sets_the_run_stop_flag():
+    import dashboard.server as srv
+    handle = srv.RunHandle("stopme01", {"policy": "ghost"})
+    handle.status = "running"
+    srv.RUNS["stopme01"] = handle
+    try:
+        assert handle.stop.is_set() is False
+        out = srv.cancel_run("stopme01")
+        assert out == {"ok": True, "status": "running"}
+        assert handle.stop.is_set() is True
+    finally:
+        srv.RUNS.pop("stopme01", None)
+
+
 def test_explorer_deterministic_with_seed():
     app, spec, _ = make_sim_shop()
     r1 = run_exploration(SimExecutor(app), RandomPolicy(seed=7), budget=40,

@@ -1108,7 +1108,9 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "selectEvent(latestFrame(S.events))" in js
     assert "function eventForBug" in js
     assert "S.epoch" in js
-    assert "main.js?v=20260929h" in html
+    assert "main.js?v=20260929i" in html
+    assert "停止探索" in js
+    assert "/cancel" in js
     assert "fmtAction(a).join" not in js
     assert "function runWhen" in js
     assert "a.label" in js

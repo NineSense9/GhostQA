@@ -9,6 +9,7 @@ hook; events and artifacts land in dashboard_runs/<run_id>/ (gitignored).
 API:
     GET  /                         -> single-page dashboard
     POST /api/runs                 -> start a run {url, policy, budget, spec, mock_llm}
+    POST /api/runs/{id}/cancel     -> stop before the next exploration step
     GET  /api/runs                 -> list runs
     GET  /api/runs/{id}            -> run status + summary
     GET  /api/runs/{id}/events?after=N  -> event stream (polling)
@@ -80,6 +81,7 @@ class RunHandle:
     def __init__(self, run_id: str, cfg: dict):
         self.id = run_id
         self.cfg = cfg
+        self.stop = threading.Event()
         self.status = "running"          # running | validating | done | error
         self.error = ""
         self.created = time.time()
@@ -145,7 +147,8 @@ def _do_run(handle: RunHandle):
     try:
         result = run_exploration(web, policy, int(cfg.get("budget", 60)),
                                  oracle=oracle, spec_brief=spec_brief,
-                                 on_step=handle.emit)
+                                 on_step=handle.emit,
+                                 should_stop=handle.stop.is_set)
         handle.candidates = [result.finding_artifact(f) for f in result.candidates]
         result.graph.save(os.path.join(run_dir, "graph.json"))
         handle.graph = result.graph.to_dict()
@@ -299,6 +302,14 @@ def start_run(cfg: dict):
         RUNS[run_id] = handle
     threading.Thread(target=_do_run, args=(handle,), daemon=True).start()
     return {"run_id": run_id}
+
+
+@app.post("/api/runs/{run_id}/cancel")
+def cancel_run(run_id: str):
+    """Ask the exploration loop to return after the current step."""
+    h = _get(run_id)
+    h.stop.set()
+    return {"ok": True, "status": h.status}
 
 
 @app.get("/api/runs")

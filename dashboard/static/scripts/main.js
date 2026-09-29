@@ -36,6 +36,7 @@ const S = {
   logPinned: true,
   lastGraph: null,
   epoch: 0,
+  stopping: false,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -218,10 +219,13 @@ function setPill(el, status) {
 
 function setRunButton(status, stale) {
   if (!els.btnRun || !els.btnRunTxt) return;
-  const active = (status === 'running' || status === 'validating') && !stale;
-  els.btnRun.disabled = active;
-  if (status === 'running' && !stale) els.btnRunTxt.textContent = '探索中…';
-  else if (status === 'validating' && !stale) els.btnRunTxt.textContent = '正在重放验证…';
+  const running = status === 'running' && !stale;
+  const validating = status === 'validating' && !stale;
+  if (!running) S.stopping = false;
+  els.btnRun.disabled = validating || (running && S.stopping);
+  if (running && S.stopping) els.btnRunTxt.textContent = '正在停止…';
+  else if (running) els.btnRunTxt.textContent = '停止探索';
+  else if (validating) els.btnRunTxt.textContent = '正在重放验证…';
   else if (status === 'done') els.btnRunTxt.textContent = '再跑一次';
   else if (stale || status === 'error') els.btnRunTxt.textContent = '重新启动';
   else els.btnRunTxt.textContent = '启动探索';
@@ -808,7 +812,8 @@ function resetLivePanels(message) {
   S.epoch += 1;
   S.events = []; S.seenSeq = -1; S.lastShot = ''; S.activeRow = null;
   S.graphSig = ''; S.firstLayout = true; S.startSig = '';
-  S.staleRun = false; S.runStartedAt = Date.now(); S.lastEventAt = Date.now();
+  S.staleRun = false; S.stopping = false;
+  S.runStartedAt = Date.now(); S.lastEventAt = Date.now();
   S.logPinned = true;
   els.log.innerHTML = `<p class="empty">${escapeHtml(message)}</p>`;
   els.logCount.textContent = '0';
@@ -964,6 +969,19 @@ function updatePolicyHint() {
 if (els.form) {
   els.form.addEventListener('submit', async (e) => {
     e.preventDefault();
+    if (S.status === 'running' && S.runId && !S.staleRun) {
+      S.stopping = true;
+      setRunButton('running', false);
+      try {
+        const res = await fetch('/api/runs/' + S.runId + '/cancel', { method: 'POST' });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+      } catch (err) {
+        S.stopping = false;
+        setRunButton('running', false);
+        showError('没能停下这次运行。', err.message);
+      }
+      return;
+    }
     if (!validateForm()) return;
     const payload = {
       url: $('f-url').value.trim(),
