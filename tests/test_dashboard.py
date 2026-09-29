@@ -1242,3 +1242,39 @@ def test_report_html_includes_page_and_observation():
     typed = render_html(report)
     assert "input[input:搜索商品]=测试输入" in typed
     assert 'title="search_box"' in typed
+
+
+def test_hydrate_restores_saved_error(tmp_path, monkeypatch):
+    """A failed run stores its traceback in meta.json. Restart must keep it."""
+    import dashboard.server as srv
+
+    failed = tmp_path / "errkeep1"
+    failed.mkdir()
+    (failed / "meta.json").write_text(json.dumps({
+        "cfg": {"url": "http://127.0.0.1:3939", "policy": "bfs"},
+        "created": 1,
+        "status": "error",
+        "error": "TimeoutError: waiting until domcontentloaded\n"
+                 "navigating to http://127.0.0.1:3939/index.html",
+    }), encoding="utf-8")
+    interrupted = tmp_path / "runint1"
+    interrupted.mkdir()
+    (interrupted / "meta.json").write_text(json.dumps({
+        "cfg": {"url": "http://127.0.0.1:3939", "policy": "ghost"},
+        "created": 2,
+        "status": "running",
+    }), encoding="utf-8")
+    monkeypatch.setattr(srv, "RUNS_DIR", str(tmp_path))
+    for run_id in ("errkeep1", "runint1"):
+        srv.RUNS.pop(run_id, None)
+    try:
+        srv._hydrate_runs()
+        restored = srv.RUNS["errkeep1"]
+        assert restored.status == "error"
+        assert restored.error.endswith("navigating to http://127.0.0.1:3939/index.html")
+        stopped = srv.RUNS["runint1"]
+        assert stopped.status == "error"
+        assert stopped.error == "interrupted (server restarted)"
+    finally:
+        srv.RUNS.pop("errkeep1", None)
+        srv.RUNS.pop("runint1", None)

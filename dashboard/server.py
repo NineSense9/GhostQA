@@ -224,6 +224,11 @@ def _hydrate_runs() -> None:
             handle = RunHandle(name, cfg)
             handle.created = float(meta.get("created") or os.path.getmtime(run_dir))
             handle.status = meta.get("status") or ("done" if report else "error")
+            stored_error = meta.get("error")
+            # Failed runs keep the traceback in meta.json. A restart must
+            # show that text again; an empty string is what the page treats
+            # as an unknown error.
+            handle.error = stored_error if isinstance(stored_error, str) else ""
             if handle.status == "running":
                 handle.status = "error"
                 handle.error = "interrupted (server restarted)"
