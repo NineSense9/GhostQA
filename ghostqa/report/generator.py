@@ -49,6 +49,7 @@ _BUG_TMPL = """<div class="card">
 <table><tr><th>原始路径长度</th><th>最小复现长度</th><th>episode</th><th>global step</th><th>验证状态</th></tr>
 <tr><td>{orig}</td><td>{mini}</td><td>{epid}</td><td>{gstep}</td><td>已重放确认</td></tr></table>
 <div class="path"><b>最小复现路径</b>：{path}</div>
+{extra}
 </div>"""
 
 
@@ -59,12 +60,28 @@ def render_html(report: dict) -> str:
             f"<code>{a['type']}[{a.get('target_eid') or ''}]</code>"
             for a in b["reproduction"]) or "（空）"
         f = b["finding"]
+        evidence = f.get("evidence") or {}
+        extra = ""
+        url = evidence.get("url") or ""
+        if url:
+            extra += f'<div class="path">{html.escape(str(url))}</div>'
+        obs = evidence.get("obs") if isinstance(evidence.get("obs"), dict) else {}
+        bits = []
+        for key, val in list(obs.items())[:6]:
+            if val is not None and not isinstance(val, (str, int, float, bool)):
+                continue
+            shown = "（空）" if val is None or val == "" else str(val)
+            bits.append(
+                f"<code>{html.escape(str(key))}</code> {html.escape(shown)}")
+        if bits:
+            extra += '<div class="path">' + " · ".join(bits) + "</div>"
         bugs_html += _BUG_TMPL.format(
             idx=i, sev=f["severity"], kind=f["kind"],
             desc=html.escape(f["description"]),
             orig=b["original_length"], mini=len(b["reproduction"]), path=path,
             epid=b.get("source_episode_id", ""),
-            gstep=b.get("original_global_step", f.get("step_index", "")))
+            gstep=b.get("original_global_step", f.get("step_index", "")),
+            extra=extra)
     if not bugs_html:
         bugs_html = '<div class="card">未发现已确认缺陷。</div>'
     s = report["summary"]

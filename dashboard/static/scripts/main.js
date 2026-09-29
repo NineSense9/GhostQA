@@ -566,6 +566,43 @@ function shortLabel(n) {
 
 /* -------------------------------- bugs ---------------------------------- */
 
+function eventForBug(bug) {
+  const finding = bug.finding || {};
+  if (finding.step_index != null) {
+    const exact = S.events.find((ev) => ev.index === finding.step_index);
+    if (exact) return exact;
+  }
+  const desc = finding.description || '';
+  if (!desc) return null;
+  for (let i = S.events.length - 1; i >= 0; i--) {
+    const ev = S.events[i];
+    if ((ev.findings || []).some((f) => f && f.description === desc)) return ev;
+  }
+  return null;
+}
+
+function revealLogRow(row) {
+  if (!row || !els.log) return;
+  const rowTop = row.getBoundingClientRect().top;
+  const box = els.log.getBoundingClientRect();
+  if (rowTop < box.top || rowTop + row.offsetHeight > box.bottom) {
+    els.log.scrollTop += rowTop - box.top - 8;
+  }
+}
+
+function evidenceHtml(evidence) {
+  const obs = (evidence && evidence.obs) || {};
+  if (!obs || typeof obs !== 'object') return '';
+  const lines = [];
+  for (const key of Object.keys(obs).slice(0, 6)) {
+    const val = obs[key];
+    if (val != null && typeof val === 'object') continue;
+    const shown = val == null || val === '' ? '（空）' : String(val);
+    lines.push(`<li><code>${escapeHtml(key)}</code> ${escapeHtml(shown)}</li>`);
+  }
+  return lines.length ? `<ul class="bug-obs">${lines.join('')}</ul>` : '';
+}
+
 function renderBugs(list) {
   S.bugs = list;
   els.bugCount.textContent = String(list.length);
@@ -584,6 +621,10 @@ function renderBugs(list) {
       .map((a) => `<li>${escapeHtml(fmtAction(a).join(' '))}</li>`).join('');
     const saved = (b.original_length || 0) - (b.reproduction || []).length;
     const n = (b.reproduction || []).length;
+    const page = (f.evidence && f.evidence.url) || '';
+    const pageLine = page
+      ? `<p class="bug-page" title="${escapeHtml(page)}">${escapeHtml(page.replace(/^https?:\/\//, ''))}</p>`
+      : '';
     card.innerHTML =
       `<div class="bug-head" role="button" tabindex="0" aria-expanded="false">
          <span class="bug-kind">${escapeHtml(f.kind || 'defect')}</span>
@@ -591,6 +632,8 @@ function renderBugs(list) {
          <span class="bug-desc">${escapeHtml(f.description || '')}</span>
        </div>
        <div class="bug-body">
+         ${pageLine}
+         ${evidenceHtml(f.evidence)}
          <div class="repro-meta">
            <span>原始 <b>${b.original_length ?? '?'}</b> 步</span>
            <span>最小化 <b>${n}</b> 步</span>
@@ -602,6 +645,11 @@ function renderBugs(list) {
     const toggle = () => {
       const open = card.classList.toggle('is-open');
       head.setAttribute('aria-expanded', String(open));
+      if (!open) return;
+      const ev = eventForBug(b);
+      if (!ev) return;
+      selectEvent(ev);
+      revealLogRow(els.log.querySelector(`.log-row[data-seq="${ev.seq}"]`));
     };
     head.addEventListener('click', toggle);
     head.addEventListener('keydown', (e) => {

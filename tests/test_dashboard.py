@@ -1106,5 +1106,47 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "function latestFrame" in js
     assert "function applyRunConfig" in js
     assert "selectEvent(latestFrame(S.events))" in js
+    assert "function eventForBug" in js
     assert "S.epoch" in js
-    assert "main.js?v=20260929c" in html
+    assert "main.js?v=20260929e" in html
+    assert "components.css?v=20260929c" in html
+
+
+def test_report_html_includes_page_and_observation():
+    from ghostqa.report.generator import render_html
+    report = {
+        "app": "shop",
+        "policy": "ghost",
+        "summary": {
+            "actions_executed": 2,
+            "states_discovered": 3,
+            "candidate_findings": 1,
+            "confirmed_bugs": 1,
+            "llm_calls": 0,
+            "pseudo_tokens": 0,
+            "wall_seconds": 1.0,
+        },
+        "bugs": [{
+            "finding": {
+                "kind": "semantic",
+                "severity": "high",
+                "description": "用户名为空时不应提示注册成功",
+                "step_index": 1,
+                "evidence": {
+                    "url": "http://127.0.0.1:3939/register.html",
+                    "obs": {"form_msg": "注册成功", "input_reg_user": ""},
+                },
+            },
+            "reproduction": [{"type": "click", "target_eid": "btn_reg"}],
+            "original_length": 2,
+            "source_episode_id": 0,
+            "original_global_step": 1,
+        }],
+    }
+    page = render_html(report)
+    assert "register.html" in page
+    assert "form_msg" in page
+    assert "注册成功" in page
+    assert "（空）" in page
+    report["bugs"][0]["finding"]["evidence"] = {}
+    assert "最小复现路径" in render_html(report)
