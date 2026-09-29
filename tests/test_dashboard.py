@@ -1229,3 +1229,12 @@ def test_report_html_includes_page_and_observation():
     assert "（空）" in page
     report["bugs"][0]["finding"]["evidence"] = {}
     assert "最小复现路径" in render_html(report)
+    report["bugs"][0]["reproduction"] = [{
+        "type": "input",
+        "target_eid": "search_box",
+        "text": "测试输入",
+        "label": "input:搜索商品",
+    }]
+    typed = render_html(report)
+    assert "input[input:搜索商品]=测试输入" in typed
+    assert 'title="search_box"' in typed

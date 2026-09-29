@@ -54,12 +54,19 @@ _BUG_TMPL = """<div class="card">
 
 
 def _repro_step_html(action: dict) -> str:
-    """Show the visible control name when the dashboard stored one."""
+    """Show the visible control name when the dashboard stored one.
+
+    An input keeps its typed text. The name does not replace the payload.
+    """
     kind = html.escape(str(action.get("type") or ""))
     eid = str(action.get("target_eid") or "")
     label = str(action.get("label") or "").strip()
+    payload = action.get("text")
+    payload_s = "" if payload is None else str(payload)
+    title = f' title="{html.escape(eid)}"' if eid and label else ""
+    if label and payload_s:
+        return f"<code{title}>{kind}[{html.escape(label)}]={html.escape(payload_s)}</code>"
     if label:
-        title = f' title="{html.escape(eid)}"' if eid else ""
         return f"<code{title}>{kind}[{html.escape(label)}]</code>"
     return f"<code>{kind}[{html.escape(eid)}]</code>"
 
