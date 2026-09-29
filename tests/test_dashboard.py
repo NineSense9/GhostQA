@@ -1108,11 +1108,71 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "selectEvent(latestFrame(S.events))" in js
     assert "function eventForBug" in js
     assert "S.epoch" in js
-    assert "main.js?v=20260929f" in html
+    assert "main.js?v=20260929h" in html
+    assert "fmtAction(a).join" not in js
+    assert "function runWhen" in js
+    assert "a.label" in js
+    assert "run.id" in js
     assert "components.css?v=20260929d" in html
     assert "runs.slice(0, 12)" not in js
     assert "max-height: 320px" in open(
         os.path.join(STATIC_DIR, "styles", "components.css"), encoding="utf-8").read()
+
+
+def test_rendered_report_uses_stored_json_not_stale_html(tmp_path, monkeypatch):
+    import dashboard.server as srv
+    run_id = "rpttest1"
+    run_dir = tmp_path / run_id
+    run_dir.mkdir()
+    report = {
+        "app": "shop",
+        "policy": "ghost",
+        "summary": {
+            "actions_executed": 2,
+            "states_discovered": 3,
+            "candidate_findings": 1,
+            "confirmed_bugs": 1,
+            "llm_calls": 0,
+            "pseudo_tokens": 0,
+            "wall_seconds": 1.0,
+        },
+        "bugs": [{
+            "finding": {
+                "kind": "semantic",
+                "severity": "high",
+                "description": "用户名为空时不应提示注册成功",
+                "step_index": 1,
+                "evidence": {
+                    "url": "http://127.0.0.1:3939/register.html",
+                    "obs": {"form_msg": "注册成功", "input_reg_user": ""},
+                },
+            },
+            "reproduction": [{"type": "click", "target_eid": "btn_reg"}],
+            "original_length": 2,
+            "source_episode_id": 0,
+            "original_global_step": 1,
+        }],
+    }
+    (run_dir / "report.json").write_text(
+        json.dumps(report, ensure_ascii=False), encoding="utf-8")
+    (run_dir / "report.html").write_text("<html>stale</html>", encoding="utf-8")
+    monkeypatch.setattr(srv, "_run_dir", lambda rid: str(tmp_path / rid))
+    handle = srv.RunHandle(run_id, {"policy": "ghost"})
+    handle.report_html = str(run_dir / "report.html")
+    handle.status = "done"
+    srv.RUNS[run_id] = handle
+    try:
+        page = srv.rendered_report_html(str(run_dir))
+        assert "register.html" in page
+        assert "form_msg" in page
+        assert "stale" not in page
+        resp = srv.run_report(run_id)
+        body = resp.body.decode("utf-8")
+        assert "register.html" in body
+        assert "stale" not in body
+    finally:
+        srv.RUNS.pop(run_id, None)
+    assert srv.rendered_report_html(str(tmp_path / "missing")) is None
 
 
 def test_report_html_includes_page_and_observation():

@@ -14,7 +14,7 @@ API:
     GET  /api/runs/{id}/events?after=N  -> event stream (polling)
     GET  /api/runs/{id}/graph      -> current state graph
     GET  /api/runs/{id}/bugs       -> confirmed bugs (after validation)
-    GET  /api/runs/{id}/report.html-> generated report (after run)
+    GET  /api/runs/{id}/report.html-> report rebuilt from report.json when present
     GET  /api/runs/{id}/shot       -> latest browser screenshot (png)
     GET  /api/benchmarks           -> published benchmark metrics
     GET  /api/showcase             -> presentation-safe research evidence
@@ -385,9 +385,32 @@ def run_bugs(run_id: str):
     return _get(run_id).bugs
 
 
+def rendered_report_html(run_dir: str):
+    """Rebuild the HTML report from the stored JSON.
+
+    Runs written before the page and observation lines existed keep those
+    fields in report.json and a stale report.html. Rendering on read shows
+    the stored evidence without rewriting the file. Returns None when the
+    JSON is missing or does not match the renderer.
+    """
+    report = _read_json(os.path.join(run_dir, "report.json"), None)
+    if not isinstance(report, dict):
+        return None
+    if not isinstance(report.get("summary"), dict) or not isinstance(report.get("bugs"), list):
+        return None
+    try:
+        from ghostqa.report.generator import render_html
+        return render_html(report)
+    except Exception:
+        return None
+
+
 @app.get("/api/runs/{run_id}/report.html")
 def run_report(run_id: str):
     h = _get(run_id)
+    page = rendered_report_html(_run_dir(run_id))
+    if page:
+        return HTMLResponse(page)
     if h.report_html and os.path.exists(h.report_html):
         return FileResponse(h.report_html)
     raise HTTPException(404, "report not ready")

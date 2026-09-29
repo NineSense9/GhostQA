@@ -185,6 +185,8 @@ def test_build_step_event_is_pure_serialization():
     before = (g.nodes["s1"].visits, step.decision_mode, step.state_sig_before)
     ev = _build_step_event(step, g, state, state, "new", exec_result, 1, 0)
     assert ev["decision_mode"] == "branch"
+    assert ev["action"]["label"] == "button:A"
+    assert "label" not in step.action.to_dict()
     assert (g.nodes["s1"].visits, step.decision_mode, step.state_sig_before) == before
     src = inspect.getsource(_build_step_event)
     assert "policy.select" not in src

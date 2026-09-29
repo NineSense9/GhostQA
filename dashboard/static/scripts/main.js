@@ -189,10 +189,14 @@ function setConn(live, text) {
 }
 
 function fmtAction(a) {
-  if (!a) return ['?', ''];
+  if (!a) return ['?', '', ''];
   const verb = (a.type || 'act').toUpperCase();
-  const detail = a.text || a.value || a.target_eid || a.key || '';
-  return [verb, String(detail).slice(0, 70)];
+  const payload = a.text || a.value || '';
+  const label = a.label || '';
+  const eid = a.target_eid || a.key || '';
+  const detail = payload || label || eid;
+  const title = [label, payload, eid].filter(Boolean).join(' · ');
+  return [verb, String(detail).slice(0, 70), title];
 }
 
 function shortPath(url) {
@@ -257,11 +261,11 @@ function showShot(url, altText) {
 }
 
 function updateActionStrip(ev) {
-  const [verb, detail] = fmtAction(ev.action);
+  const [verb, detail, title] = fmtAction(ev.action);
   const fullUrl = (ev.dst && ev.dst.url) ? ev.dst.url : '';
   els.verb.textContent = verb;
   els.target.textContent = detail || '（无文本目标）';
-  els.target.title = detail || '';
+  els.target.title = title || detail || '';
   els.url.textContent = fullUrl.replace(/^https?:\/\//, '');
   els.url.title = fullUrl;
 }
@@ -279,7 +283,7 @@ function tagFor(ev) {
 }
 
 function renderLogRow(ev) {
-  const [verb, detail] = fmtAction(ev.action);
+  const [verb, detail, title] = fmtAction(ev.action);
   const [tag, cls] = tagFor(ev);
   const src = shortPath(ev.src && ev.src.url);
   const dst = shortPath(ev.dst && ev.dst.url);
@@ -290,6 +294,7 @@ function renderLogRow(ev) {
   row.dataset.seq = ev.seq;
   row.tabIndex = 0;
   row.setAttribute('role', 'button');
+  if (title) row.title = title;
   row.innerHTML =
     `<span class="log-i">${String(ev.index + 1).padStart(3, '0')}</span>` +
     `<span class="log-txt"><b>${escapeHtml(verb + ' ' + detail)}</b>` +
@@ -618,7 +623,10 @@ function renderBugs(list) {
     const card = document.createElement('article');
     card.className = 'bug';
     const steps = (b.reproduction || [])
-      .map((a) => `<li>${escapeHtml(fmtAction(a).join(' '))}</li>`).join('');
+      .map((a) => {
+        const [verb, detail] = fmtAction(a);
+        return `<li>${escapeHtml(`${verb} ${detail}`.trim())}</li>`;
+      }).join('');
     const saved = (b.original_length || 0) - (b.reproduction || []).length;
     const n = (b.reproduction || []).length;
     const page = (f.evidence && f.evidence.url) || '';
@@ -834,12 +842,22 @@ function resetLivePanels(message) {
   els.graphCount.textContent = '0 节点 / 0 边';
 }
 
+function runWhen(created) {
+  const n = Number(created);
+  if (!Number.isFinite(n) || n <= 0) return '';
+  const d = new Date(n * 1000);
+  const p = (x) => String(x).padStart(2, '0');
+  return `${p(d.getMonth() + 1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+
 function runLabel(run) {
   const cfg = run.cfg || {};
   const summary = run.summary || {};
   const status = STATUS_TEXT[run.status] || run.status || '';
   const confirmed = summary.confirmed == null ? '—' : String(summary.confirmed);
-  return `${cfg.policy || 'ghost'} · ${cfg.budget || '—'} 步 · ${status} · 确认 ${confirmed}`;
+  const when = runWhen(run.created);
+  return [run.id, when, cfg.policy || 'ghost', `${cfg.budget || '—'} 步`, status, `确认 ${confirmed}`]
+    .filter(Boolean).join(' · ');
 }
 
 async function loadHistory() {
@@ -860,6 +878,7 @@ async function loadHistory() {
     btn.className = 'btn btn-ghost run-history-item';
     btn.dataset.runId = run.id;
     btn.textContent = runLabel(run);
+    if (run.cfg && run.cfg.url) btn.title = run.cfg.url;
     btn.addEventListener('click', () => openRun(run.id));
     li.appendChild(btn);
     list.appendChild(li);

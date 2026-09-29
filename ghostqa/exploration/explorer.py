@@ -22,6 +22,28 @@ from .interaction import (
 
 
 
+def _visible_action_label(state, action) -> str:
+    """Copy the clicked control's visible name into the dashboard event.
+
+    The policy still sees only the action id. This does not invent a label:
+    it reads the element text already on the observed state.
+    """
+    eid = getattr(action, "target_eid", None) or ""
+    if not eid or state is None:
+        return ""
+    for el in getattr(state, "elements", ()) or ():
+        if getattr(el, "eid", None) != eid:
+            continue
+        text = str(getattr(el, "text", "") or getattr(el, "aria_label", "")
+                   or getattr(el, "placeholder", "") or getattr(el, "name", "")
+                   or "").strip()
+        role = str(getattr(el, "role", "") or "").strip()
+        if text and role:
+            return f"{role}:{text}"[:80]
+        return (text or role)[:80]
+    return ""
+
+
 def _build_step_event(step, graph, state, new_state, relation, exec_result,
                       budget_used: int, episode_id: int,
                       restore_step: bool = False) -> dict:
@@ -33,6 +55,10 @@ def _build_step_event(step, graph, state, new_state, relation, exec_result,
     src = graph.nodes.get(step.state_sig_before) if graph else None
     dst = graph.nodes.get(step.state_sig_after) if graph else None
     meta = dict(new_state.meta) if new_state and getattr(new_state, "meta", None) else {}
+    action = step.action.to_dict()
+    label = _visible_action_label(state, step.action)
+    if label:
+        action = dict(action, label=label)
     return {
         "type": "step",
         "index": step.index,
@@ -40,7 +66,7 @@ def _build_step_event(step, graph, state, new_state, relation, exec_result,
         "episode_id": episode_id,
         "budget_used": budget_used,
         "restore": restore_step,
-        "action": step.action.to_dict(),
+        "action": action,
         "relation": relation,
         "findings": [f.to_dict() for f in step.findings],
         "src": {
