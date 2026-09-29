@@ -53,12 +53,22 @@ _BUG_TMPL = """<div class="card">
 </div>"""
 
 
+def _repro_step_html(action: dict) -> str:
+    """Show the visible control name when the dashboard stored one."""
+    kind = html.escape(str(action.get("type") or ""))
+    eid = str(action.get("target_eid") or "")
+    label = str(action.get("label") or "").strip()
+    if label:
+        title = f' title="{html.escape(eid)}"' if eid else ""
+        return f"<code{title}>{kind}[{html.escape(label)}]</code>"
+    return f"<code>{kind}[{html.escape(eid)}]</code>"
+
+
 def render_html(report: dict) -> str:
     bugs_html = ""
     for i, b in enumerate(report["bugs"], 1):
         path = " → ".join(
-            f"<code>{a['type']}[{a.get('target_eid') or ''}]</code>"
-            for a in b["reproduction"]) or "（空）"
+            _repro_step_html(a) for a in b["reproduction"]) or "（空）"
         f = b["finding"]
         evidence = f.get("evidence") or {}
         extra = ""

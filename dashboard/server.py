@@ -385,13 +385,58 @@ def run_bugs(run_id: str):
     return _get(run_id).bugs
 
 
+def _labels_by_action(run_dir: str) -> dict:
+    """Map (type, eid, text) to the visible name stored on a step event."""
+    path = os.path.join(run_dir, "events.jsonl")
+    found = {}
+    if not os.path.isfile(path):
+        return found
+    with open(path, encoding="utf-8") as handle:
+        for line in handle:
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                ev = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            action = ev.get("action") if isinstance(ev, dict) else None
+            if not isinstance(action, dict):
+                continue
+            label = str(action.get("label") or "").strip()
+            if not label:
+                continue
+            key = (action.get("type") or "", action.get("target_eid") or "",
+                   action.get("text") or "")
+            found.setdefault(key, label)
+    return found
+
+
+def _with_action_labels(report: dict, labels: dict) -> dict:
+    if not labels:
+        return report
+    report = json.loads(json.dumps(report))
+    for bug in report.get("bugs") or []:
+        if not isinstance(bug, dict):
+            continue
+        for action in bug.get("reproduction") or []:
+            if not isinstance(action, dict) or action.get("label"):
+                continue
+            key = (action.get("type") or "", action.get("target_eid") or "",
+                   action.get("text") or "")
+            if key in labels:
+                action["label"] = labels[key]
+    return report
+
+
 def rendered_report_html(run_dir: str):
     """Rebuild the HTML report from the stored JSON.
 
     Runs written before the page and observation lines existed keep those
     fields in report.json and a stale report.html. Rendering on read shows
-    the stored evidence without rewriting the file. Returns None when the
-    JSON is missing or does not match the renderer.
+    the stored evidence without rewriting the file. Visible control names
+    are copied from step events when the run recorded them. Returns None
+    when the JSON is missing or does not match the renderer.
     """
     report = _read_json(os.path.join(run_dir, "report.json"), None)
     if not isinstance(report, dict):
@@ -400,6 +445,7 @@ def rendered_report_html(run_dir: str):
         return None
     try:
         from ghostqa.report.generator import render_html
+        report = _with_action_labels(report, _labels_by_action(run_dir))
         return render_html(report)
     except Exception:
         return None

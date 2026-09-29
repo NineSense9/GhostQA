@@ -1147,7 +1147,10 @@ def test_rendered_report_uses_stored_json_not_stale_html(tmp_path, monkeypatch):
                     "obs": {"form_msg": "注册成功", "input_reg_user": ""},
                 },
             },
-            "reproduction": [{"type": "click", "target_eid": "btn_reg"}],
+            "reproduction": [
+                {"type": "click", "target_eid": "252de9b8e3"},
+                {"type": "click", "target_eid": "btn_reg"},
+            ],
             "original_length": 2,
             "source_episode_id": 0,
             "original_global_step": 1,
@@ -1156,6 +1159,13 @@ def test_rendered_report_uses_stored_json_not_stale_html(tmp_path, monkeypatch):
     (run_dir / "report.json").write_text(
         json.dumps(report, ensure_ascii=False), encoding="utf-8")
     (run_dir / "report.html").write_text("<html>stale</html>", encoding="utf-8")
+    (run_dir / "events.jsonl").write_text(
+        json.dumps({
+            "type": "step",
+            "action": {"type": "click", "target_eid": "252de9b8e3",
+                       "text": None, "label": "link:注册"},
+        }, ensure_ascii=False) + "\n",
+        encoding="utf-8")
     monkeypatch.setattr(srv, "_run_dir", lambda rid: str(tmp_path / rid))
     handle = srv.RunHandle(run_id, {"policy": "ghost"})
     handle.report_html = str(run_dir / "report.html")
@@ -1165,10 +1175,14 @@ def test_rendered_report_uses_stored_json_not_stale_html(tmp_path, monkeypatch):
         page = srv.rendered_report_html(str(run_dir))
         assert "register.html" in page
         assert "form_msg" in page
+        assert "click[link:注册]" in page
+        assert 'title="252de9b8e3"' in page
+        assert "click[btn_reg]" in page
         assert "stale" not in page
         resp = srv.run_report(run_id)
         body = resp.body.decode("utf-8")
         assert "register.html" in body
+        assert "click[link:注册]" in body
         assert "stale" not in body
     finally:
         srv.RUNS.pop(run_id, None)
