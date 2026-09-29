@@ -599,6 +599,21 @@ function revealLogRow(row) {
   }
 }
 
+function withVisibleLabel(action) {
+  if (!action || action.label) return action;
+  const eid = action.target_eid || '';
+  const text = action.text || '';
+  for (const ev of S.events) {
+    const seen = ev.action || {};
+    if ((seen.type || '') !== (action.type || '')) continue;
+    if ((seen.target_eid || '') !== eid) continue;
+    if ((seen.text || '') !== text) continue;
+    if (!seen.label) continue;
+    return Object.assign({}, action, { label: seen.label });
+  }
+  return action;
+}
+
 function evidenceHtml(evidence) {
   const obs = (evidence && evidence.obs) || {};
   if (!obs || typeof obs !== 'object') return '';
@@ -628,7 +643,7 @@ function renderBugs(list) {
     card.className = 'bug';
     const steps = (b.reproduction || [])
       .map((a) => {
-        const [verb, detail] = fmtAction(a);
+        const [verb, detail] = fmtAction(withVisibleLabel(a));
         return `<li>${escapeHtml(`${verb} ${detail}`.trim())}</li>`;
       }).join('');
     const saved = (b.original_length || 0) - (b.reproduction || []).length;

@@ -1108,7 +1108,8 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "selectEvent(latestFrame(S.events))" in js
     assert "function eventForBug" in js
     assert "S.epoch" in js
-    assert "main.js?v=20260929j" in html
+    assert "main.js?v=20260929k" in html
+    assert "function withVisibleLabel" in js
     assert "function runSteps" in js
     assert "summary.actions" in js
     assert "停止探索" in js
