@@ -1108,7 +1108,8 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "selectEvent(latestFrame(S.events))" in js
     assert "function eventForBug" in js
     assert "S.epoch" in js
-    assert "main.js?v=20260930b" in html
+    assert "main.js?v=20260930c" in html
+    assert "const showErrorReport" in js
     assert "function unconfirmedCandidates" in js
     assert "重放未通过" in js
     assert "重放未完成" in js
@@ -1477,6 +1478,71 @@ def test_hydrate_recovers_candidates_after_validation_crash(tmp_path, monkeypatc
         assert restored.summary["confirmed"] == 0
     finally:
         srv.RUNS.pop("ddminerr", None)
+
+
+def test_crashed_run_without_report_file_lists_unfinished_candidates(tmp_path, monkeypatch):
+    """A ddmin crash kept the findings in step events and never wrote report.json."""
+    import pytest
+    from fastapi import HTTPException
+    import dashboard.server as srv
+    from ghostqa.report.generator import report_for_saved_run
+
+    assert report_for_saved_run({}, {}, [], "done") is None
+    run = tmp_path / "crashrpt"
+    run.mkdir()
+    (run / "meta.json").write_text(json.dumps({
+        "cfg": {"url": "http://127.0.0.1:3939", "policy": "bfs", "budget": 40},
+        "created": 4,
+        "status": "error",
+        "error": "playwright._impl._errors.TimeoutError: Page.goto: Timeout 15000ms exceeded.\n",
+        "summary": {
+            "actions": 40, "states": 20, "candidates": 1, "confirmed": 0,
+            "llm_calls": 0, "wall_seconds": 12.5,
+        },
+    }), encoding="utf-8")
+    dead = {
+        "kind": "dead_action",
+        "severity": "medium",
+        "description": "点击无响应：元素 btn_reg 点击后界面无任何变化",
+        "step_index": 2,
+        "evidence": {
+            "eid": "btn_reg",
+            "url": "http://127.0.0.1:3939/register.html",
+            "action": "click[btn_reg]",
+        },
+    }
+    (run / "events.jsonl").write_text(json.dumps({
+        "type": "step", "seq": 2, "index": 2, "findings": [dead],
+    }, ensure_ascii=False) + "\n", encoding="utf-8")
+    empty = tmp_path / "emptyerr"
+    empty.mkdir()
+    (empty / "meta.json").write_text(json.dumps({
+        "cfg": {"url": "http://127.0.0.1:3939", "policy": "ghost"},
+        "created": 5,
+        "status": "error",
+        "error": "interrupted (server restarted)",
+    }), encoding="utf-8")
+    monkeypatch.setattr(srv, "RUNS_DIR", str(tmp_path))
+    for run_id in ("crashrpt", "emptyerr"):
+        srv.RUNS.pop(run_id, None)
+    try:
+        srv._hydrate_runs()
+        resp = srv.run_report("crashrpt")
+        body = resp.body.decode("utf-8")
+        assert "重放没有跑完，这些候选还不能当成已确认缺陷。" in body
+        assert "重放未完成" in body
+        assert "未通过重放" not in body
+        assert "最小复现路径" not in body
+        assert "点击无响应：元素 btn_reg 点击后界面无任何变化" in body
+        assert "click[btn_reg]" in body
+        assert "web:127.0.0.1:3939" in body
+        assert resp.headers.get("cache-control") == "no-store"
+        with pytest.raises(HTTPException) as raised:
+            srv.run_report("emptyerr")
+        assert raised.value.status_code == 404
+    finally:
+        srv.RUNS.pop("crashrpt", None)
+        srv.RUNS.pop("emptyerr", None)
 
 
 def test_hydrate_keeps_saved_candidates_when_replay_was_interrupted(tmp_path, monkeypatch):

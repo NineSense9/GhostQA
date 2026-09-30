@@ -5,6 +5,40 @@ import html
 import json
 
 
+def report_for_saved_run(cfg, summary, bugs, status) -> dict | None:
+    """Report shell for a run that stopped or crashed before report.json existed.
+
+    A finished run stays on its stored report. This does not invent a
+    minimized path; the caller passes the saved candidates separately.
+    """
+    if status not in ("error", "stopped"):
+        return None
+    if not isinstance(cfg, dict):
+        cfg = {}
+    if not isinstance(summary, dict):
+        summary = {}
+    if not isinstance(bugs, list):
+        bugs = []
+    url = str(cfg.get("url") or "")
+    app = "web:" + url.split("//", 1)[-1] if "://" in url else (url or "web")
+    return {
+        "app": app,
+        "policy": str(cfg.get("policy") or "ghost"),
+        "config": cfg,
+        "summary": {
+            "actions_executed": summary.get("actions", 0),
+            "states_discovered": summary.get("states", 0),
+            "candidate_findings": summary.get("candidates", 0),
+            "confirmed_bugs": summary.get("confirmed", len(bugs)),
+            "llm_calls": summary.get("llm_calls", 0),
+            "pseudo_tokens": summary.get("pseudo_tokens", 0),
+            "wall_seconds": summary.get("wall_seconds", 0),
+        },
+        "bugs": bugs,
+        "replay_state": status,
+    }
+
+
 def build_report(run_result, confirmed_bugs, config: dict) -> dict:
     return {
         "app": run_result.app,

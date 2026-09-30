@@ -902,7 +902,13 @@ async function tick() {
     els.log.insertAdjacentHTML('beforeend',
       '<p class="empty">已停止。已经确认的缺陷会保留。</p>');
   } else if (st.status === 'error') {
-    els.reportLink.hidden = true;
+    const showErrorReport = (st.candidates && st.candidates.length) || S.bugs.length;
+    if (showErrorReport) {
+      els.reportLink.href = `/api/runs/${S.runId}/report.html`;
+      els.reportLink.hidden = false;
+    } else {
+      els.reportLink.hidden = true;
+    }
     stopPolling();
     setConn(false, '运行出错');
     const raw = st.error || '';

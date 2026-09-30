@@ -240,6 +240,8 @@ def _do_run(handle: RunHandle):
     # Truncate so emit() can append incrementally.
     open(os.path.join(run_dir, "events.jsonl"), "w", encoding="utf-8").close()
     web = None
+    result = None
+    confirmed = []
     try:
         spec_path = resolve_spec_path(cfg.get("spec") or "")
         spec = load_spec(spec_path) if spec_path else []
@@ -337,11 +339,23 @@ def _do_run(handle: RunHandle):
         _write_json(os.path.join(run_dir, "candidates.json"), handle.candidates)
         handle.emit({"type": "run_done", "summary": handle.summary})
     except Exception:
+        if handle.status in ("done", "stopped"):
+            raise
         handle.status = "error"
         handle.error = traceback.format_exc(limit=5)
         if handle.summary:
             handle.summary = dict(handle.summary)
             handle.summary["confirmed"] = len(handle.bugs or [])
+        if result is not None and (handle.candidates or confirmed):
+            try:
+                report = build_report(result, confirmed, cfg)
+                report["replay_state"] = "error"
+                write_report(report, os.path.join(run_dir, "report.json"),
+                             os.path.join(run_dir, "report.html"),
+                             handle.candidates)
+                handle.report_html = os.path.join(run_dir, "report.html")
+            except Exception:
+                pass
         meta = {
             "cfg": cfg, "created": handle.created, "status": "error",
             "error": handle.error,
@@ -610,6 +624,28 @@ def _with_action_labels(report: dict, labels: dict) -> dict:
     return report
 
 
+def unfinished_report_html(handle, run_dir: str):
+    """Render a crash or stop that never wrote report.json.
+
+    Candidates recovered from step events are enough. The heading stays
+    重放未完成, and confirmed bugs keep the minimized path already stored.
+    """
+    from ghostqa.report.generator import render_html, report_for_saved_run
+
+    candidates = handle.candidates if isinstance(handle.candidates, list) else []
+    bugs = handle.bugs if isinstance(handle.bugs, list) else []
+    if not candidates and not bugs:
+        return None
+    report = report_for_saved_run(handle.cfg, handle.summary, bugs, handle.status)
+    if report is None:
+        return None
+    try:
+        report = _with_action_labels(report, _labels_by_action(run_dir))
+        return render_html(report, candidates)
+    except Exception:
+        return None
+
+
 def rendered_report_html(run_dir: str):
     """Rebuild the HTML report from the stored JSON.
 
@@ -638,7 +674,10 @@ def rendered_report_html(run_dir: str):
 @app.get("/api/runs/{run_id}/report.html")
 def run_report(run_id: str):
     h = _get(run_id)
-    page = rendered_report_html(_run_dir(run_id))
+    run_dir = _run_dir(run_id)
+    page = rendered_report_html(run_dir)
+    if not page:
+        page = unfinished_report_html(h, run_dir)
     if page:
         return HTMLResponse(page, headers={"Cache-Control": "no-store"})
     if h.report_html and os.path.exists(h.report_html):
