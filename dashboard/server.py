@@ -65,6 +65,45 @@ def _read_json(path: str, default=None):
         return json.load(f)
 
 
+def candidates_from_events(events) -> list:
+    """First finding of each fingerprint, in step order.
+
+    This is the same dedup the explorer uses when it builds
+    RunResult.candidates. It only reads stored step events.
+    """
+    from ghostqa.oracle.fingerprint import fingerprint_of
+    seen = set()
+    found = []
+    for ev in events or []:
+        if not isinstance(ev, dict) or ev.get("type") != "step":
+            continue
+        for finding in ev.get("findings") or []:
+            if not isinstance(finding, dict) or not finding.get("kind"):
+                continue
+            evidence = finding.get("evidence") if isinstance(finding.get("evidence"), dict) else {}
+            fp = fingerprint_of(str(finding.get("kind")), evidence)
+            if fp in seen:
+                continue
+            seen.add(fp)
+            row = dict(finding)
+            if "episode_id" not in row:
+                row["episode_id"] = ev.get("episode_id")
+            found.append(row)
+    return found
+
+
+def _summary_from_events(handle: "RunHandle") -> dict:
+    steps = [e for e in handle.event_log
+             if isinstance(e, dict) and e.get("type") == "step"]
+    nodes = handle.graph.get("nodes") if isinstance(handle.graph, dict) else []
+    return {
+        "actions": len(steps),
+        "states": len(nodes or []),
+        "candidates": len(handle.candidates or []),
+        "confirmed": len(handle.bugs or []),
+    }
+
+
 def _index_shots(handle: "RunHandle", run_dir: str) -> None:
     shots = os.path.join(run_dir, "screenshots")
     if not os.path.isdir(shots):
@@ -155,14 +194,28 @@ def _do_run(handle: RunHandle):
         with open(os.path.join(run_dir, "events.jsonl"), "w", encoding="utf-8") as f:
             for ev in handle.event_log:
                 f.write(json.dumps(ev, ensure_ascii=False) + "\n")
-
+        # Validation can time out after exploration has already recorded
+        # findings. Keep those findings on disk before replay starts.
+        handle.summary = {
+            "actions": result.actions_executed,
+            "states": len(result.graph.nodes) if result.graph else 0,
+            "candidates": len(result.candidates),
+            "confirmed": 0,
+            "llm_calls": result.llm_calls,
+            "wall_seconds": round(result.wall_seconds, 1),
+            "relocate_count": getattr(result, "relocate_count", 0),
+            "similarity_counts": getattr(result, "similarity_counts", {}),
+        }
+        _write_json(os.path.join(run_dir, "candidates.json"), handle.candidates)
         handle.status = "validating"
         _write_json(os.path.join(run_dir, "meta.json"), {
-            "cfg": cfg, "created": handle.created, "status": "validating"})
+            "cfg": cfg, "created": handle.created, "status": "validating",
+            "summary": handle.summary})
         shared = web.share_handle()
         factory = lambda: PlaywrightWebExecutor(cfg["url"], headless=True,
                                                 shared=shared)
         confirmed = []
+        handle.bugs = []
         for finding in result.candidates:
             repro_actions = result.reproduction_actions(finding)
             vr = validate_candidate(factory, repro_actions, finding, oracle)
@@ -170,22 +223,16 @@ def _do_run(handle: RunHandle):
                 continue
             repro = minimize_reproduction(factory, repro_actions, finding, oracle)
             confirmed.append(result.make_confirmed(finding, repro))
-        handle.bugs = [b.to_dict() for b in confirmed]
+            handle.bugs = [b.to_dict() for b in confirmed]
 
         report = build_report(result, confirmed, cfg)
         write_report(report, os.path.join(run_dir, "report.json"),
-                     os.path.join(run_dir, "report.html"))
+                     os.path.join(run_dir, "report.html"),
+                     handle.candidates)
         handle.report_html = os.path.join(run_dir, "report.html")
-        handle.summary = {
-            "actions": result.actions_executed,
-            "states": len(result.graph.nodes),
-            "candidates": len(result.candidates),
-            "confirmed": len(confirmed),
-            "llm_calls": result.llm_calls,
-            "wall_seconds": round(result.wall_seconds, 1),
-            "relocate_count": getattr(result, "relocate_count", 0),
-            "similarity_counts": getattr(result, "similarity_counts", {}),
-        }
+        handle.summary = dict(handle.summary)
+        handle.summary["confirmed"] = len(confirmed)
+        handle.summary["states"] = len(result.graph.nodes)
         handle.status = "done"
         _write_json(os.path.join(run_dir, "meta.json"), {
             "cfg": cfg, "created": handle.created, "status": "done",
@@ -196,9 +243,20 @@ def _do_run(handle: RunHandle):
     except Exception:
         handle.status = "error"
         handle.error = traceback.format_exc(limit=5)
-        _write_json(os.path.join(run_dir, "meta.json"), {
+        if handle.summary:
+            handle.summary = dict(handle.summary)
+            handle.summary["confirmed"] = len(handle.bugs or [])
+        meta = {
             "cfg": cfg, "created": handle.created, "status": "error",
-            "error": handle.error})
+            "error": handle.error,
+        }
+        if handle.summary:
+            meta["summary"] = handle.summary
+        if handle.candidates:
+            _write_json(os.path.join(run_dir, "candidates.json"), handle.candidates)
+        if handle.bugs:
+            _write_json(os.path.join(run_dir, "bugs.json"), handle.bugs)
+        _write_json(os.path.join(run_dir, "meta.json"), meta)
         handle.emit({"type": "run_error", "error": handle.error})
     finally:
         web.close()
@@ -229,7 +287,8 @@ def _hydrate_runs() -> None:
             # show that text again; an empty string is what the page treats
             # as an unknown error.
             handle.error = stored_error if isinstance(stored_error, str) else ""
-            if handle.status == "running":
+            if handle.status in ("running", "validating"):
+                # The thread that was exploring or replaying is gone.
                 handle.status = "error"
                 handle.error = "interrupted (server restarted)"
             handle.summary = meta.get("summary") or {}
@@ -261,6 +320,13 @@ def _hydrate_runs() -> None:
             handle.graph = _read_json(os.path.join(run_dir, "graph.json"),
                                       {"nodes": [], "edges": []}) or {
                 "nodes": [], "edges": []}
+            if not handle.candidates:
+                handle.candidates = candidates_from_events(handle.event_log)
+            if not handle.summary and (
+                    handle.candidates or any(
+                        isinstance(e, dict) and e.get("type") == "step"
+                        for e in handle.event_log)):
+                handle.summary = _summary_from_events(handle)
             report_html = os.path.join(run_dir, "report.html")
             if os.path.isfile(report_html):
                 handle.report_html = report_html
@@ -462,7 +528,10 @@ def rendered_report_html(run_dir: str):
     try:
         from ghostqa.report.generator import render_html
         report = _with_action_labels(report, _labels_by_action(run_dir))
-        return render_html(report)
+        candidates = _read_json(os.path.join(run_dir, "candidates.json"), [])
+        if not isinstance(candidates, list):
+            candidates = []
+        return render_html(report, candidates)
     except Exception:
         return None
 

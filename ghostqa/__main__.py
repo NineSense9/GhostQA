@@ -212,9 +212,9 @@ def cmd_run(args) -> int:
         pass
 
     findings_path = os.path.join(args.out, "findings.json")
+    finding_rows = [result.finding_artifact(x) for x in result.candidates]
     with open(findings_path, "w", encoding="utf-8") as f:
-        json.dump([result.finding_artifact(x) for x in result.candidates], f,
-                  ensure_ascii=False, indent=2)
+        json.dump(finding_rows, f, ensure_ascii=False, indent=2)
     result.graph.save(os.path.join(args.out, "graph.json"))
     with open(os.path.join(args.out, "trace.jsonl"), "w", encoding="utf-8") as f:
         for s in result.steps:
@@ -253,8 +253,10 @@ def cmd_run(args) -> int:
     config = {"url": args.url, "policy": policy.name, "budget": args.budget,
               "seed": args.seed, "spec": args.spec, "mock_llm": args.mock_llm}
     report = build_report(result, confirmed, config)
+    # Skipped validation did not reject the candidates. Do not call that a replay failure.
     write_report(report, os.path.join(args.out, "report.json"),
-                 os.path.join(args.out, "report.html"))
+                 os.path.join(args.out, "report.html"),
+                 None if args.no_validate else finding_rows)
     ep = episode_stats(result)
     metrics = {
         "config": config,

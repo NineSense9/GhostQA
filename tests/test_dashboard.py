@@ -1108,10 +1108,11 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "selectEvent(latestFrame(S.events))" in js
     assert "function eventForBug" in js
     assert "S.epoch" in js
-    assert "main.js?v=20260929l" in html
+    assert "main.js?v=20260929m" in html
     assert "function unconfirmedCandidates" in js
     assert "重放未通过" in js
-    assert "st.status === 'done' ? st.candidates : []" in js
+    assert "重放未完成" in js
+    assert "st.status === 'done' || st.status === 'error' ? st.candidates : []" in js
     assert "function withVisibleLabel" in js
     assert "function runSteps" in js
     assert "summary.actions" in js
@@ -1198,9 +1199,79 @@ def test_rendered_report_uses_stored_json_not_stale_html(tmp_path, monkeypatch):
         assert "click[link:注册]" in body
         assert "stale" not in body
         assert resp.headers.get("cache-control") == "no-store"
+        assert "未通过重放" not in body
     finally:
         srv.RUNS.pop(run_id, None)
     assert srv.rendered_report_html(str(tmp_path / "missing")) is None
+
+
+def test_rendered_report_lists_replay_failures(tmp_path):
+    """The header already counts every candidate. List the ones replay rejected."""
+    import dashboard.server as srv
+    from ghostqa.report.generator import render_html
+
+    run_dir = tmp_path / "rptfail1"
+    run_dir.mkdir()
+    semantic = "用户名为空时不应提示注册成功"
+    report = {
+        "app": "shop",
+        "policy": "ghost",
+        "summary": {
+            "actions_executed": 3,
+            "states_discovered": 2,
+            "candidate_findings": 2,
+            "confirmed_bugs": 1,
+            "llm_calls": 0,
+            "pseudo_tokens": 0,
+            "wall_seconds": 1.0,
+        },
+        "bugs": [{
+            "finding": {
+                "kind": "semantic",
+                "severity": "high",
+                "description": semantic,
+                "step_index": 1,
+                "evidence": {"url": "http://127.0.0.1:3939/register.html"},
+            },
+            "reproduction": [{"type": "click", "target_eid": "btn_reg"}],
+            "original_length": 2,
+            "source_episode_id": 0,
+            "original_global_step": 1,
+        }],
+    }
+    dead = {
+        "kind": "dead_action",
+        "severity": "medium",
+        "description": "点击无响应：元素 btn_reg 点击后界面无任何变化",
+        "step_index": 2,
+        "evidence": {
+            "eid": "btn_reg",
+            "url": "http://127.0.0.1:3939/register.html",
+            "action": "click[btn_reg]",
+        },
+    }
+    (run_dir / "report.json").write_text(
+        json.dumps(report, ensure_ascii=False), encoding="utf-8")
+    (run_dir / "candidates.json").write_text(json.dumps([
+        {
+            "kind": "semantic",
+            "severity": "high",
+            "description": semantic,
+            "step_index": 1,
+            "evidence": {"url": "http://127.0.0.1:3939/register.html"},
+        },
+        dead,
+    ], ensure_ascii=False), encoding="utf-8")
+    page = srv.rendered_report_html(str(run_dir))
+    assert page.count(semantic) == 1
+    assert "未通过重放" in page
+    assert "点击无响应：元素 btn_reg 点击后界面无任何变化" in page
+    assert "click[btn_reg]" in page
+    pending = page.split("未通过重放", 1)[1]
+    assert "最小复现路径" not in pending
+    direct = render_html(report, [dead])
+    assert "未通过重放" in direct
+    assert "最小复现路径" not in direct.split("未通过重放", 1)[1]
 
 
 def test_report_html_includes_page_and_observation():
@@ -1286,3 +1357,103 @@ def test_hydrate_restores_saved_error(tmp_path, monkeypatch):
     finally:
         srv.RUNS.pop("errkeep1", None)
         srv.RUNS.pop("runint1", None)
+
+
+def test_hydrate_recovers_candidates_after_validation_crash(tmp_path, monkeypatch):
+    """A ddmin timeout used to leave the finished exploration with no candidates."""
+    import dashboard.server as srv
+
+    run = tmp_path / "ddminerr"
+    run.mkdir()
+    (run / "meta.json").write_text(json.dumps({
+        "cfg": {"url": "http://127.0.0.1:3939", "policy": "bfs", "budget": 40},
+        "created": 3,
+        "status": "error",
+        "error": "playwright._impl._errors.TimeoutError: Page.goto: Timeout 15000ms exceeded.\n",
+    }), encoding="utf-8")
+    semantic = {
+        "kind": "semantic",
+        "severity": "high",
+        "description": "用户名为空时不应提示注册成功",
+        "step_index": 27,
+        "evidence": {
+            "assert_id": "register_requires_username",
+            "url": "http://127.0.0.1:3939/register.html",
+        },
+    }
+    dead = {
+        "kind": "dead_action",
+        "severity": "medium",
+        "description": "点击无响应：元素 btn_reg 点击后界面无任何变化",
+        "step_index": 2,
+        "evidence": {
+            "eid": "btn_reg",
+            "page": "http://127.0.0.1:3939/register.html",
+            "url": "http://127.0.0.1:3939/register.html",
+        },
+    }
+    lines = []
+    for index, findings in ((2, [dead]), (27, [semantic]), (28, [dict(semantic, step_index=28)])):
+        lines.append(json.dumps({
+            "type": "step", "seq": index, "index": index, "episode_id": 1,
+            "findings": findings,
+        }, ensure_ascii=False))
+    (run / "events.jsonl").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (run / "graph.json").write_text(
+        json.dumps({"nodes": [{"id": "a"}, {"id": "b"}], "edges": []}),
+        encoding="utf-8")
+    monkeypatch.setattr(srv, "RUNS_DIR", str(tmp_path))
+    srv.RUNS.pop("ddminerr", None)
+    try:
+        srv._hydrate_runs()
+        restored = srv.RUNS["ddminerr"]
+        assert restored.status == "error"
+        assert "TimeoutError" in restored.error
+        assert [item["kind"] for item in restored.candidates] == ["dead_action", "semantic"]
+        assert restored.candidates[1]["step_index"] == 27
+        assert restored.candidates[1]["episode_id"] == 1
+        assert restored.summary["actions"] == 3
+        assert restored.summary["states"] == 2
+        assert restored.summary["candidates"] == 2
+        assert restored.summary["confirmed"] == 0
+    finally:
+        srv.RUNS.pop("ddminerr", None)
+
+
+def test_hydrate_keeps_saved_candidates_when_replay_was_interrupted(tmp_path, monkeypatch):
+    import dashboard.server as srv
+
+    run = tmp_path / "valint1"
+    run.mkdir()
+    (run / "meta.json").write_text(json.dumps({
+        "cfg": {"url": "http://127.0.0.1:3939", "policy": "ghost", "budget": 8},
+        "created": 4,
+        "status": "validating",
+        "summary": {"actions": 8, "states": 3, "candidates": 1, "confirmed": 0},
+    }), encoding="utf-8")
+    (run / "candidates.json").write_text(json.dumps([{
+        "kind": "semantic",
+        "description": "stored-candidate",
+        "step_index": 1,
+        "evidence": {"assert_id": "stored", "url": "http://127.0.0.1:3939/"},
+    }]), encoding="utf-8")
+    (run / "events.jsonl").write_text(json.dumps({
+        "type": "step", "index": 4, "episode_id": 0,
+        "findings": [{
+            "kind": "dead_action",
+            "description": "other-candidate",
+            "step_index": 4,
+            "evidence": {"eid": "btn_x", "page": "/x"},
+        }],
+    }) + "\n", encoding="utf-8")
+    monkeypatch.setattr(srv, "RUNS_DIR", str(tmp_path))
+    srv.RUNS.pop("valint1", None)
+    try:
+        srv._hydrate_runs()
+        restored = srv.RUNS["valint1"]
+        assert restored.status == "error"
+        assert restored.error == "interrupted (server restarted)"
+        assert restored.summary["actions"] == 8
+        assert [item["description"] for item in restored.candidates] == ["stored-candidate"]
+    finally:
+        srv.RUNS.pop("valint1", None)

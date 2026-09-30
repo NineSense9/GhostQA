@@ -71,7 +71,72 @@ def _repro_step_html(action: dict) -> str:
     return f"<code>{kind}[{html.escape(eid)}]</code>"
 
 
-def render_html(report: dict) -> str:
+def _finding_key(item: dict):
+    """Match a candidate to a confirmed bug without reading replay results."""
+    if not isinstance(item, dict):
+        return None
+    finding = item.get("finding")
+    if isinstance(finding, dict):
+        item = finding
+    if not item.get("kind") and not item.get("description"):
+        return None
+    step = item.get("step_index")
+    return (
+        str(item.get("kind") or ""),
+        "" if step is None else str(step),
+        str(item.get("description") or ""),
+    )
+
+
+def pending_findings(candidates, confirmed_bugs) -> list:
+    """Candidates that are not already listed as confirmed bugs."""
+    confirmed = set()
+    for bug in confirmed_bugs or []:
+        key = _finding_key(bug)
+        if key is not None:
+            confirmed.add(key)
+    pending = []
+    for item in candidates or []:
+        key = _finding_key(item)
+        if key is None or key in confirmed:
+            continue
+        pending.append(item)
+    return pending
+
+
+def _pending_card(item: dict) -> str:
+    """Evidence only. A failed replay has no minimized path to invent."""
+    evidence = item.get("evidence") if isinstance(item.get("evidence"), dict) else {}
+    kind = html.escape(str(item.get("kind") or "candidate"))
+    desc = html.escape(str(item.get("description") or ""))
+    sev = str(item.get("severity") or "")
+    badge = f' <span class="badge {sev}">{sev}</span>' if sev in ("high", "medium", "low") else ""
+    extra = ""
+    url = evidence.get("url") or evidence.get("page") or ""
+    if url:
+        extra += f'<div class="path">{html.escape(str(url))}</div>'
+    action = evidence.get("action") or ""
+    if action:
+        extra += f'<div class="path">{html.escape(str(action))}</div>'
+    eid = evidence.get("eid") or ""
+    if eid:
+        extra += f'<div class="path">{html.escape(str(eid))}</div>'
+    obs = evidence.get("obs") if isinstance(evidence.get("obs"), dict) else {}
+    bits = []
+    for key, val in list(obs.items())[:6]:
+        if val is not None and not isinstance(val, (str, int, float, bool)):
+            continue
+        shown = "（空）" if val is None or val == "" else str(val)
+        bits.append(f"<code>{html.escape(str(key))}</code> {html.escape(shown)}")
+    if bits:
+        extra += '<div class="path">' + " · ".join(bits) + "</div>"
+    return (
+        f'<div class="card"><b>未通过重放</b>{badge} <code>{kind}</code>　{desc}<br>'
+        f"{extra}</div>"
+    )
+
+
+def render_html(report: dict, candidates=None) -> str:
     bugs_html = ""
     for i, b in enumerate(report["bugs"], 1):
         path = " → ".join(
@@ -101,6 +166,8 @@ def render_html(report: dict) -> str:
             extra=extra)
     if not bugs_html:
         bugs_html = '<div class="card">未发现已确认缺陷。</div>'
+    for item in pending_findings(candidates, report.get("bugs") or []):
+        bugs_html += _pending_card(item)
     s = report["summary"]
     return _HTML_TMPL.format(
         app=html.escape(report["app"]), policy=report["policy"],
@@ -110,9 +177,9 @@ def render_html(report: dict) -> str:
         bugs_html=bugs_html)
 
 
-def write_report(report: dict, json_path: str, html_path: str = None):
+def write_report(report: dict, json_path: str, html_path: str = None, candidates=None):
     with open(json_path, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
     if html_path:
         with open(html_path, "w", encoding="utf-8") as f:
-            f.write(render_html(report))
+            f.write(render_html(report, candidates))

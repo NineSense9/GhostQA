@@ -672,10 +672,11 @@ function bindBugToggle(card, head, bug) {
   });
 }
 
-function renderBugs(list, candidates) {
+function renderBugs(list, candidates, replayState) {
   const bugs = list || [];
   S.bugs = bugs;
   const pending = unconfirmedCandidates(candidates, bugs);
+  const unfinished = replayState === 'error';
   els.bugCount.textContent = String(bugs.length);
   els.tBugs.textContent = String(bugs.length);
   els.bugList.innerHTML = '';
@@ -683,7 +684,9 @@ function renderBugs(list, candidates) {
     const note = document.createElement('p');
     note.className = 'empty';
     note.innerHTML = pending.length
-      ? '没有通过重放的缺陷。'
+      ? (unfinished
+        ? '重放没有跑完，这些候选还不能当成已确认缺陷。'
+        : '没有通过重放的缺陷。')
       : '还没有确认缺陷。<br>运行结束后，通过复现校验与 ddmin 的问题会出现在这里。';
     els.bugList.appendChild(note);
   }
@@ -725,7 +728,7 @@ function renderBugs(list, candidates) {
   if (!pending.length) return;
   const split = document.createElement('p');
   split.className = 'bug-split';
-  split.textContent = '未通过重放';
+  split.textContent = unfinished ? '重放未完成' : '未通过重放';
   els.bugList.appendChild(split);
   for (const candidate of pending) {
     const card = document.createElement('article');
@@ -733,7 +736,7 @@ function renderBugs(list, candidates) {
     card.innerHTML =
       `<div class="bug-head" role="button" tabindex="0" aria-expanded="false">
          <span class="bug-kind">${escapeHtml(candidate.kind || 'candidate')}</span>
-         <span class="bug-status">重放未通过</span>
+         <span class="bug-status">${unfinished ? '重放未完成' : '重放未通过'}</span>
          <span class="bug-desc">${escapeHtml(candidate.description || '')}</span>
        </div>
        <div class="bug-body">${unconfirmedBody(candidate)}</div>`;
@@ -841,7 +844,10 @@ async function tick() {
   try {
     const bugs = await getJSON(`/api/runs/${runId}/bugs`);
     if (epoch !== S.epoch) return;
-    renderBugs(bugs, st.status === 'done' ? st.candidates : []);
+    renderBugs(
+      bugs,
+      st.status === 'done' || st.status === 'error' ? st.candidates : [],
+      st.status);
   } catch (_) {}
   if (epoch !== S.epoch) return;
 
