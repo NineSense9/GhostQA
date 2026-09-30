@@ -1108,7 +1108,7 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "selectEvent(latestFrame(S.events))" in js
     assert "function eventForBug" in js
     assert "S.epoch" in js
-    assert "main.js?v=20260929m" in html
+    assert "main.js?v=20260930a" in html
     assert "function unconfirmedCandidates" in js
     assert "重放未通过" in js
     assert "重放未完成" in js
@@ -1457,3 +1457,90 @@ def test_hydrate_keeps_saved_candidates_when_replay_was_interrupted(tmp_path, mo
         assert [item["description"] for item in restored.candidates] == ["stored-candidate"]
     finally:
         srv.RUNS.pop("valint1", None)
+
+
+def test_entry_url_keeps_origin_index_and_opens_a_named_page():
+    from ghostqa.executor.playwright_web import entry_url
+    assert entry_url("http://127.0.0.1:3939") == "http://127.0.0.1:3939/index.html"
+    assert entry_url("http://127.0.0.1:3939/") == "http://127.0.0.1:3939/"
+    assert entry_url("http://127.0.0.1:8787/cases/register.html") == (
+        "http://127.0.0.1:8787/cases/register.html")
+    assert entry_url("http://127.0.0.1:5173/app/") == "http://127.0.0.1:5173/app/"
+
+
+def test_builtin_cases_are_on_the_form_and_served():
+    import dashboard.server as srv
+    html = open(os.path.join(STATIC_DIR, "index.html"), encoding="utf-8").read()
+    js = open(os.path.join(STATIC_DIR, "scripts", "main.js"), encoding="utf-8").read()
+    assert 'id="f-case"' in html
+    assert "我的项目" in html
+    assert "空用户名注册" in html
+    assert "apps/builtin-cases/spec.json" in html
+    assert "function applyCase" in js
+    assert "function dashboardLoopback" in js
+    assert "$('f-policy').value = 'ghost-nollm'" not in js
+    assert "$('f-mock').checked = true" not in js
+    assert any(getattr(route, "path", None) == "/cases" for route in srv.app.routes)
+    for name in (
+        "index.html", "register.html", "dead.html", "script.html",
+        "blank-link.html", "blank.html", "help.html", "help2.html",
+        "stock.html", "cart.html", "profile.html",
+    ):
+        text = open(os.path.join(srv.CASES_DIR, name), encoding="utf-8").read()
+        assert text.strip()
+        assert "BUG-" not in text
+
+
+def test_builtin_spec_resolves_from_repo_root(tmp_path, monkeypatch):
+    import dashboard.server as srv
+    from ghostqa.oracle.spec import load_spec
+    monkeypatch.chdir(tmp_path)
+    path = srv.resolve_spec_path("apps/builtin-cases/spec.json")
+    loaded = load_spec(path)
+    assert {item["id"] for item in loaded} >= {
+        "case_register_requires_username",
+        "case_stock_non_negative",
+        "case_cart_total_consistent",
+        "case_login_gate",
+    }
+    assert srv.reject_unreadable_spec("") == ""
+    assert srv.reject_unreadable_spec("apps/builtin-cases/spec.json") == path
+
+
+def test_missing_or_invalid_spec_is_rejected_before_a_run(tmp_path):
+    from fastapi import HTTPException
+    import dashboard.server as srv
+    before = set(srv.RUNS)
+    try:
+        srv.start_run({
+            "url": "http://127.0.0.1:9/index.html",
+            "spec": "apps/does-not-exist.json",
+            "policy": "ghost",
+            "budget": 1,
+        })
+        assert False, "missing spec should not start a run"
+    except HTTPException as exc:
+        assert exc.status_code == 400
+        assert "规格文件不存在" in exc.detail
+    bad = tmp_path / "bad.json"
+    bad.write_text("{", encoding="utf-8")
+    try:
+        srv.start_run({
+            "url": "http://127.0.0.1:9/index.html",
+            "spec": str(bad),
+            "policy": "ghost",
+            "budget": 1,
+        })
+        assert False, "invalid JSON should not start a run"
+    except HTTPException as exc:
+        assert exc.status_code == 400
+        assert "不是合法 JSON" in exc.detail
+    number = tmp_path / "num.json"
+    number.write_text("123", encoding="utf-8")
+    try:
+        srv.reject_unreadable_spec(str(number))
+        assert False, "a JSON number is not an assertion list"
+    except HTTPException as exc:
+        assert exc.status_code == 400
+        assert "断言列表" in exc.detail
+    assert set(srv.RUNS) == before

@@ -1,0 +1,27 @@
+{
+  "app": "builtin-cases",
+  "note": "Assertions use only page-presented values (data-obs / input values).",
+  "assertions": [
+    {"id": "case_cart_total_consistent", "severity": "high",
+     "desc": "购物车显示总价应与商品金额之和一致",
+     "when": {"url_contains": "/cases/cart"},
+     "assert": {"op": "eq", "left": {"obs": "cart_total"},
+                "right": {"obs_sum": "cart_item_price"}}},
+    {"id": "case_stock_non_negative", "severity": "medium",
+     "desc": "库存显示不应为负数",
+     "when": {"url_contains": "/cases/stock"},
+     "assert": {"op": "ge", "left": {"obs": "stock_num"}, "right": {"const": 0}}},
+    {"id": "case_register_requires_username", "severity": "high",
+     "desc": "用户名为空时不应提示注册成功",
+     "when": {"url_contains": "/cases/register"},
+     "assert": {"op": "implies",
+                "cond": {"op": "eq", "left": {"obs": "input_reg_user"}, "right": {"const": ""}},
+                "then": {"op": "not_contains", "left": {"obs": "form_msg"},
+                         "right": {"const": "成功"}}}},
+    {"id": "case_login_gate", "severity": "high",
+     "desc": "个人中心不应在未登录状态下展示未登录内容",
+     "when": {"url_contains": "/cases/profile"},
+     "assert": {"op": "not_contains", "left": {"obs": "login_state"},
+                "right": {"const": "未登录"}}}
+  ]
+}

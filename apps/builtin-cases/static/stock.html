@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>库存</title>
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+<h1>商品库存</h1>
+<p>库存：<span data-obs="stock_num" id="stock">0</span></p>
+<p><button type="button" id="btn_buy" data-testid="btn_buy">立即购买</button></p>
+<script>
+document.getElementById("btn_buy").onclick = function () {
+  var el = document.getElementById("stock");
+  el.textContent = String(Number(el.textContent) - 1);
+};
+</script>
+</body>
+</html>

@@ -18,6 +18,7 @@ import io
 import os
 import time
 from typing import Optional
+from urllib.parse import urlsplit, urlunsplit
 
 from ..state.models import GUIState, Action, UIElement
 from .base import Executor, ExecResult
@@ -124,13 +125,35 @@ def _ahash64_from_png(data: bytes) -> Optional[int]:
         return None
 
 
+def entry_url(raw: str) -> str:
+    """First page the browser opens.
+
+    An origin such as http://127.0.0.1:3939 still opens /index.html, which is
+    how the bundled apps and the benchmarks start. A URL that already names a
+    page opens that page. A trailing slash opens the site root itself, so an
+    app whose home page is / can be tested without an index.html file.
+    """
+    text = (raw or "").strip()
+    parts = urlsplit(text)
+    if parts.scheme not in ("http", "https") or not parts.netloc:
+        return text
+    if parts.path in ("", "/"):
+        if parts.path == "/" and text.endswith("/"):
+            return text
+        origin = urlunsplit((parts.scheme, parts.netloc, "", "", ""))
+        return origin + "/index.html"
+    return text
+
+
 class PlaywrightWebExecutor(Executor):
     def __init__(self, base_url: str, headless: bool = True,
                  screenshots_dir: str = None, slow_mo_ms: int = 0,
                  shared: dict = None):
         """`shared` = {"pw": ..., "browser": ...} reuses an existing browser
         process (sync Playwright allows only one instance per thread)."""
-        self.base_url = base_url.rstrip("/")
+        raw = (base_url or "").strip()
+        self.base_url = raw.rstrip("/")
+        self._entry = entry_url(raw)
         self.screenshots_dir = screenshots_dir
         if screenshots_dir:
             os.makedirs(screenshots_dir, exist_ok=True)
@@ -156,7 +179,7 @@ class PlaywrightWebExecutor(Executor):
         self.page.on("console", self._on_console)
         self.page.on("pageerror", self._on_pageerror)
         self.page.on("response", self._on_response)
-        self._goto(self.base_url + "/index.html")
+        self._goto(self._entry)
         self.page.evaluate(_MUTATION_JS)
 
     # ---- event listeners ----
@@ -327,9 +350,9 @@ class PlaywrightWebExecutor(Executor):
     def reset(self) -> GUIState:
         self._nav_stack = []
         self._drain_errors()
-        self._goto(self.base_url + "/index.html")
+        self._goto(self._entry)
         self.page.evaluate("() => localStorage.clear()")
-        self._goto(self.base_url + "/index.html")
+        self._goto(self._entry)
         self.page.evaluate(_MUTATION_JS)
         return self.observe()
 

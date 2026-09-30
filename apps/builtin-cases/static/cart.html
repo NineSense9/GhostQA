@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>购物车</title>
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+<h1>购物车</h1>
+<ul>
+  <li>红富士苹果 ¥<span data-obs="cart_item_price">5</span></li>
+</ul>
+<p>总价：¥<span data-obs="cart_total" id="cart_total">12</span></p>
+<p><button type="button" id="btn_refresh" data-testid="btn_refresh">刷新合计</button></p>
+<div data-obs="cart_note" id="cart_note"></div>
+<script>
+document.getElementById("btn_refresh").onclick = function () {
+  document.getElementById("cart_note").textContent = "已刷新";
+};
+</script>
+</body>
+</html>

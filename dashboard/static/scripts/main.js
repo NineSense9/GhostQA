@@ -987,6 +987,17 @@ function applyRunConfig(cfg) {
   const mock = $('f-mock');
   if (url && cfg.url) url.value = cfg.url;
   if (spec && cfg.spec != null) spec.value = cfg.spec;
+  const sel = $('f-case');
+  if (sel && url && spec) {
+    const name = matchCase(url.value, spec.value);
+    sel.value = name || 'own';
+    const note = $('case-note');
+    if (note) {
+      note.textContent = name && CASES[name]
+        ? CASES[name].note
+        : '这是一次已保存的运行配置。';
+    }
+  }
   if (policy && cfg.policy) {
     const known = [...policy.options].some((opt) => opt.value === cfg.policy);
     if (known) policy.value = cfg.policy;
@@ -1096,7 +1107,14 @@ if (els.form) {
         body: JSON.stringify(payload),
       });
       if (epoch !== S.epoch) return;
-      if (!res.ok) throw new Error('HTTP ' + res.status);
+      if (!res.ok) {
+        let detail = 'HTTP ' + res.status;
+        try {
+          const body = await res.json();
+          if (body && typeof body.detail === 'string' && body.detail) detail = body.detail;
+        } catch (_) { /* keep the status */ }
+        throw new Error(detail);
+      }
       const data = await res.json();
       if (epoch !== S.epoch) { loadHistory(); return; }
       S.runId = data.run_id;
@@ -1111,23 +1129,145 @@ if (els.form) {
       els.status.textContent = '出错';
       setPill(els.vpPill, 'error');
       setBarStatus('error');
-      showError('无法启动运行。确认目标地址可访问后再试。', err.message);
+      showError(err.message || '无法启动运行。', '');
       els.log.innerHTML =
         `<p class="empty" style="color:var(--danger)">无法启动运行：${escapeHtml(err.message)}</p>`;
     }
   });
 }
 
+function dashboardLoopback() {
+  const port = location.port || '80';
+  return 'http://127.0.0.1:' + port;
+}
+
+const BUILTIN_SPEC = 'apps/builtin-cases/spec.json';
+
+const CASES = {
+  catalog: {
+    path: '/cases/index.html',
+    spec: BUILTIN_SPEC,
+    budget: '40',
+    policy: 'ghost',
+    mock: false,
+    note: '从目录走进各个内置页面。规格只在地址匹配时生效。',
+  },
+  register: {
+    path: '/cases/register.html',
+    spec: BUILTIN_SPEC,
+    budget: '8',
+    policy: 'ghost',
+    mock: false,
+    note: '注册页只有提交按钮。用户名为空时仍会显示注册成功，要点到提交后才会进入候选。',
+  },
+  dead: {
+    path: '/cases/dead.html',
+    spec: '',
+    budget: '6',
+    policy: 'ghost',
+    mock: false,
+    note: '收藏按钮没有反应。通用检查会把它记为点击无响应，不需要规格文件。',
+  },
+  script: {
+    path: '/cases/script.html',
+    spec: '',
+    budget: '6',
+    policy: 'ghost',
+    mock: false,
+    note: '支付按钮会让页面抛出脚本错误。',
+  },
+  blank: {
+    path: '/cases/blank-link.html',
+    spec: '',
+    budget: '6',
+    policy: 'ghost',
+    mock: false,
+    note: '点开活动页后，新页面没有内容。',
+  },
+  loop: {
+    path: '/cases/help.html',
+    spec: '',
+    budget: '12',
+    policy: 'ghost',
+    mock: false,
+    note: '两个帮助页只互相跳转。要沿着链接来回走几次，才会记成导航循环。',
+  },
+  stock: {
+    path: '/cases/stock.html',
+    spec: BUILTIN_SPEC,
+    budget: '8',
+    policy: 'ghost',
+    mock: false,
+    note: '购买会把已经是 0 的库存再减一。',
+  },
+  cart: {
+    path: '/cases/cart.html',
+    spec: BUILTIN_SPEC,
+    budget: '6',
+    policy: 'ghost',
+    mock: false,
+    note: '商品金额和总价对不上。刷新合计后，规格会把这一页记为候选。',
+  },
+  profile: {
+    path: '/cases/profile.html',
+    spec: BUILTIN_SPEC,
+    budget: '6',
+    policy: 'ghost',
+    mock: false,
+    note: '未登录也展示个人中心。刷新后，规格会把这一页记为候选。',
+  },
+  own: {
+    url: '',
+    spec: '',
+    budget: '40',
+    policy: 'ghost',
+    mock: false,
+    focus: true,
+    note: '规格已留空。把这台机器上另一个网站的地址填进目标地址，例如 http://127.0.0.1:3000/ 。',
+  },
+  shop: {
+    url: 'http://127.0.0.1:3939',
+    spec: 'apps/buggy-shop/spec.json',
+    budget: '40',
+    policy: 'ghost',
+    mock: false,
+    note: '原来的示例商店。需要本机 3939 端口已经跑着 BuggyShop。策略是 Ghost，不打开 Mock。',
+  },
+};
+
+function matchCase(url, spec) {
+  const specText = spec || '';
+  return Object.keys(CASES).find((name) => {
+    const item = CASES[name];
+    if ((item.spec || '') !== specText) return false;
+    if (item.url != null) return item.url === url;
+    return !!item.path && url.endsWith(item.path);
+  }) || '';
+}
+
+function applyCase(name) {
+  const item = CASES[name];
+  if (!item) return;
+  const sel = $('f-case');
+  if (sel) sel.value = name;
+  const url = item.url != null ? item.url : (dashboardLoopback() + item.path);
+  $('f-url').value = url;
+  $('f-spec').value = item.spec;
+  $('f-budget').value = item.budget;
+  $('f-policy').value = item.policy;
+  $('f-mock').checked = !!item.mock;
+  const note = $('case-note');
+  if (note) note.textContent = item.note;
+  updatePolicyHint();
+  if (item.focus) $('f-url').focus();
+}
+
+const caseSel = $('f-case');
+if (caseSel) caseSel.addEventListener('change', () => applyCase(caseSel.value));
+
 const presetBtn = $('btn-preset');
 if (presetBtn) {
-  presetBtn.addEventListener('click', () => {
-    $('f-url').value = 'http://127.0.0.1:3939';
-    $('f-spec').value = 'apps/buggy-shop/spec.json';
-    $('f-budget').value = '40';
-    $('f-policy').value = 'ghost-nollm';
-    $('f-mock').checked = true;
-    updatePolicyHint();
-  });
+  presetBtn.addEventListener('click', () => applyCase('shop'));
 }
 
 const policySel = $('f-policy');
@@ -1174,6 +1314,7 @@ if (themeBtn) {
 syncThemeToggle();
 
 loadHistory();
+applyCase('catalog');
 
 (async function restore() {
   try {

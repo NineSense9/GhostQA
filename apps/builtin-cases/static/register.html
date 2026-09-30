@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>注册</title>
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+<h1>注册</h1>
+<p><input id="reg_user" data-testid="reg_user" type="text" value="" placeholder="用户名" disabled></p>
+<p><button type="button" id="btn_reg" data-testid="btn_reg">提交注册</button></p>
+<div data-obs="form_msg" id="reg_msg"></div>
+<script>
+document.getElementById("btn_reg").onclick = function () {
+  document.getElementById("reg_msg").textContent = "注册成功";
+};
+</script>
+</body>
+</html>

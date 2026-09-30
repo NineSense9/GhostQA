@@ -38,12 +38,14 @@ from fastapi.staticfiles import StaticFiles
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 RUNS_DIR = os.path.join(ROOT, "dashboard_runs")
 STATIC_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "static")
+CASES_DIR = os.path.join(ROOT, "apps", "builtin-cases", "static")
 PUBLISHED_DIR = os.path.join(ROOT, "experiments", "published")
 
 os.makedirs(RUNS_DIR, exist_ok=True)
 
 app = FastAPI(title="GhostQA Dashboard")
 app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
+app.mount("/cases", StaticFiles(directory=CASES_DIR), name="builtin-cases")
 
 RUNS: dict = {}
 RUNS_LOCK = threading.Lock()
@@ -152,6 +154,49 @@ class RunHandle:
             pass
 
 
+def resolve_spec_path(spec) -> str:
+    """Spec paths are relative to the repo root, then the process cwd.
+
+    An absolute path is used as given. A missing path is returned unchanged
+    so the caller can report it.
+    """
+    text = "" if spec is None else str(spec).strip()
+    if not text:
+        return ""
+    if os.path.isabs(text) and os.path.isfile(text):
+        return text
+    rooted = os.path.normpath(os.path.join(ROOT, text))
+    if os.path.isfile(rooted):
+        return rooted
+    if os.path.isfile(text):
+        return os.path.abspath(text)
+    return text
+
+
+def reject_unreadable_spec(spec) -> str:
+    """Return the spec path to load, or '' when the run has no spec.
+
+    Raises HTTPException before a browser starts when the file is missing
+    or is not a JSON assertion list.
+    """
+    from ghostqa.oracle.spec import load_spec
+    text = "" if spec is None else str(spec).strip()
+    if not text:
+        return ""
+    path = resolve_spec_path(text)
+    if not os.path.isfile(path):
+        raise HTTPException(400, f"规格文件不存在：{text}")
+    try:
+        loaded = load_spec(path)
+    except json.JSONDecodeError:
+        raise HTTPException(400, f"规格文件不是合法 JSON：{text}")
+    except OSError:
+        raise HTTPException(400, f"规格文件无法读取：{text}")
+    if not isinstance(loaded, list):
+        raise HTTPException(400, f"规格文件里没有断言列表：{text}")
+    return path
+
+
 def _do_run(handle: RunHandle):
     from ghostqa.__main__ import _make_policy
     from ghostqa.agent.gateway import MockLLM, NullLLM, OpenAICompatibleGateway
@@ -172,18 +217,20 @@ def _do_run(handle: RunHandle):
         "cfg": cfg, "created": handle.created, "status": "running"})
     # Truncate so emit() can append incrementally.
     open(os.path.join(run_dir, "events.jsonl"), "w", encoding="utf-8").close()
-    spec = load_spec(cfg["spec"]) if cfg.get("spec") else []
-    oracle = OracleEngine(spec)
-    spec_brief = "; ".join(f"{a['id']}: {a.get('desc', '')}" for a in spec)
-    if cfg.get("mock_llm"):
-        llm = MockLLM()
-    else:
-        gw = OpenAICompatibleGateway()
-        llm = gw if gw.available else None
-    policy = _make_policy(cfg.get("policy", "ghost"), llm, cfg.get("seed", 0))
-
-    web = PlaywrightWebExecutor(cfg["url"], headless=True, screenshots_dir=shots)
+    web = None
     try:
+        spec_path = resolve_spec_path(cfg.get("spec") or "")
+        spec = load_spec(spec_path) if spec_path else []
+        oracle = OracleEngine(spec)
+        spec_brief = "; ".join(f"{a['id']}: {a.get('desc', '')}" for a in spec)
+        if cfg.get("mock_llm"):
+            llm = MockLLM()
+        else:
+            gw = OpenAICompatibleGateway()
+            llm = gw if gw.available else None
+        policy = _make_policy(cfg.get("policy", "ghost"), llm, cfg.get("seed", 0))
+
+        web = PlaywrightWebExecutor(cfg["url"], headless=True, screenshots_dir=shots)
         result = run_exploration(web, policy, int(cfg.get("budget", 60)),
                                  oracle=oracle, spec_brief=spec_brief,
                                  on_step=handle.emit,
@@ -259,7 +306,8 @@ def _do_run(handle: RunHandle):
         _write_json(os.path.join(run_dir, "meta.json"), meta)
         handle.emit({"type": "run_error", "error": handle.error})
     finally:
-        web.close()
+        if web is not None:
+            web.close()
 
 
 def _hydrate_runs() -> None:
@@ -367,6 +415,8 @@ def start_run(cfg: dict):
         _make_policy(policy_name, None, int(cfg.get("seed") or 0))
     except ValueError as exc:
         raise HTTPException(400, "unknown policy") from exc
+    reject_unreadable_spec(cfg.get("spec") or "")
+    cfg["spec"] = "" if cfg.get("spec") is None else str(cfg.get("spec")).strip()
     run_id = uuid.uuid4().hex[:8]
     handle = RunHandle(run_id, cfg)
     with RUNS_LOCK:

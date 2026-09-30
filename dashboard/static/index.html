@@ -72,7 +72,7 @@
       <div class="hero-copy">
         <p class="eyebrow">Web 探索测试原型</p>
         <h1>让浏览器自己走，问题必须走得回来。</h1>
-        <p class="hero-lead">给 GhostQA 一个站点和测试规格，它会实际打开浏览器、记录页面状态和转移。发现异常后先重放；复现成功，才记为已确认缺陷。</p>
+        <p class="hero-lead">在同一台机器上运行 GhostQA。要测自己的网站，把那个网站的地址填进实时探索；手头没有网站时，直接选一个内置案例。它会打开浏览器、记录页面状态和转移。发现异常后先重放；复现成功，才记为已确认缺陷。</p>
         <div class="hero-cta">
           <button type="button" class="btn btn-primary" data-goto="live">运行一次探索</button>
           <button type="button" class="btn btn-ghost" data-goto="evidence">查看实验记录</button>
@@ -627,15 +627,35 @@
         </div>
         <form class="form" id="run-form">
           <div class="field">
+            <label for="f-case">内置案例</label>
+            <select id="f-case" name="case">
+              <option value="catalog" selected>案例目录</option>
+              <option value="register">空用户名注册</option>
+              <option value="dead">点击无响应</option>
+              <option value="script">脚本报错</option>
+              <option value="blank">空白页</option>
+              <option value="loop">帮助页来回跳</option>
+              <option value="stock">库存变成负数</option>
+              <option value="cart">购物车总价不对</option>
+              <option value="profile">未登录的个人中心</option>
+              <option value="own">我的项目</option>
+              <option value="shop">BuggyShop 示例</option>
+            </select>
+            <p class="field-hint" id="case-note"></p>
+          </div>
+          <div class="field">
             <label for="f-url">目标地址</label>
             <input id="f-url" name="url" type="url" required
-                   value="http://127.0.0.1:3939" placeholder="http://127.0.0.1:3939">
+                   value="" placeholder="http://127.0.0.1:3000/">
+            <p class="field-hint" id="url-note">浏览器由运行 GhostQA 的这台机器打开。测自己的项目时，先在这台机器上把它跑起来，再填写地址。只写到端口时从 /index.html 进入；首页在网站根路径时，地址末尾加上 / 。</p>
             <p class="field-error" id="err-url"></p>
           </div>
           <div class="field">
             <label for="f-spec">规格文件</label>
             <input id="f-spec" name="spec" type="text"
-                   value="apps/buggy-shop/spec.json" placeholder="apps/buggy-shop/spec.json">
+                   value="apps/builtin-cases/spec.json" placeholder="留空则只做通用检查">
+            <p class="field-hint" id="spec-note">留空只做通用检查：点击无响应、脚本报错、白屏、导航循环、崩溃。业务规则写成 JSON，路径相对仓库根目录。文件不存在时不会开始探索。</p>
+            <p class="field-error" id="err-spec"></p>
           </div>
           <div class="row-2">
             <div class="field">
@@ -1000,6 +1020,6 @@
 
 <script src="/static/vendor/cytoscape.min.js"></script>
 <script src="/static/scripts/showcase.js?v=20260928a"></script>
-<script src="/static/scripts/main.js?v=20260929m"></script>
+<script src="/static/scripts/main.js?v=20260930a"></script>
 </body>
 </html>

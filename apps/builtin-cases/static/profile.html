@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>个人中心</title>
+<link rel="stylesheet" href="case.css">
+</head>
+<body>
+<h1>个人中心</h1>
+<p data-obs="login_state">未登录</p>
+<p>我的订单 / 我的收藏 / 收货地址</p>
+<p><button type="button" id="btn_refresh" data-testid="btn_refresh">刷新</button></p>
+<div data-obs="refreshed" id="refreshed"></div>
+<script>
+document.getElementById("btn_refresh").onclick = function () {
+  document.getElementById("refreshed").textContent = "1";
+};
+</script>
+</body>
+</html>
