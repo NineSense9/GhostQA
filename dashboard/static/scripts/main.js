@@ -70,7 +70,7 @@ const els = {
 
 const STATUS_TEXT = {
   idle: '空闲', running: '探索中', validating: '校验中',
-  done: '已完成', error: '出错',
+  done: '已完成', error: '出错', stopped: '已停止',
 };
 
 const POLICY_HINT = {
@@ -221,13 +221,14 @@ function setRunButton(status, stale) {
   if (!els.btnRun || !els.btnRunTxt) return;
   const running = status === 'running' && !stale;
   const validating = status === 'validating' && !stale;
-  if (!running) S.stopping = false;
-  els.btnRun.disabled = validating || (running && S.stopping);
-  if (running && S.stopping) els.btnRunTxt.textContent = '正在停止…';
+  const busy = running || validating;
+  if (!busy) S.stopping = false;
+  els.btnRun.disabled = busy && S.stopping;
+  if (busy && S.stopping) els.btnRunTxt.textContent = '正在停止…';
   else if (running) els.btnRunTxt.textContent = '停止探索';
-  else if (validating) els.btnRunTxt.textContent = '正在重放验证…';
+  else if (validating) els.btnRunTxt.textContent = '停止重放';
   else if (status === 'done') els.btnRunTxt.textContent = '再跑一次';
-  else if (stale || status === 'error') els.btnRunTxt.textContent = '重新启动';
+  else if (stale || status === 'error' || status === 'stopped') els.btnRunTxt.textContent = '重新启动';
   else els.btnRunTxt.textContent = '启动探索';
 }
 
@@ -672,11 +673,24 @@ function bindBugToggle(card, head, bug) {
   });
 }
 
+function visibleErrorLine(raw) {
+  const lines = String(raw || '').split('\n').map((line) => line.trim()).filter(Boolean);
+  if (!lines.length) return '未知错误';
+  for (let i = lines.length - 1; i >= 0; i -= 1) {
+    if (/Error:|Exception:/.test(lines[i])) return lines[i];
+  }
+  for (let i = lines.length - 1; i >= 0; i -= 1) {
+    if (lines[i] === 'Call log:' || lines[i].startsWith('- ')) continue;
+    return lines[i];
+  }
+  return lines[lines.length - 1];
+}
+
 function renderBugs(list, candidates, replayState) {
   const bugs = list || [];
   S.bugs = bugs;
   const pending = unconfirmedCandidates(candidates, bugs);
-  const unfinished = replayState === 'error';
+  const unfinished = replayState === 'error' || replayState === 'stopped';
   els.bugCount.textContent = String(bugs.length);
   els.tBugs.textContent = String(bugs.length);
   els.bugList.innerHTML = '';
@@ -775,7 +789,7 @@ function showComplete(st) {
   const steps = m.actions ?? S.events.length;
   const states = m.states ?? els.states.textContent;
   const bugs = m.confirmed ?? S.bugs.length;
-  const report = st.status === 'done' && S.runId;
+  const report = (st.status === 'done' || st.status === 'stopped') && S.runId;
   els.liveComplete.hidden = false;
   els.liveComplete.textContent =
     `${steps} 步 · ${states} 个状态 · ${bugs} 个已确认缺陷` +
@@ -846,7 +860,8 @@ async function tick() {
     if (epoch !== S.epoch) return;
     renderBugs(
       bugs,
-      st.status === 'done' || st.status === 'error' ? st.candidates : [],
+      st.status === 'done' || st.status === 'error' || st.status === 'stopped'
+        ? st.candidates : [],
       st.status);
   } catch (_) {}
   if (epoch !== S.epoch) return;
@@ -871,12 +886,27 @@ async function tick() {
     stopPolling();
     setConn(true, '已完成');
     loadHistory();
+  } else if (st.status === 'stopped') {
+    els.reportLink.href = `/api/runs/${S.runId}/report.html`;
+    els.reportLink.hidden = false;
+    if (els.liveError) els.liveError.hidden = true;
+    if (els.liveComplete) {
+      const m = st.summary || {};
+      els.liveComplete.hidden = false;
+      els.liveComplete.textContent =
+        `${m.actions ?? S.events.length} 步 · 已确认 ${m.confirmed ?? S.bugs.length} · 已停止，没重放完的候选不能当成已确认`;
+    }
+    stopPolling();
+    setConn(true, '已停止');
+    loadHistory();
+    els.log.insertAdjacentHTML('beforeend',
+      '<p class="empty">已停止。已经确认的缺陷会保留。</p>');
   } else if (st.status === 'error') {
     els.reportLink.hidden = true;
     stopPolling();
     setConn(false, '运行出错');
     const raw = st.error || '';
-    const last = raw.split('\n').filter(Boolean).pop() || '未知错误';
+    const last = visibleErrorLine(raw);
     showError(
       '这次运行没有完成。可以重新启动；之前的报告文件不会被删除。',
       raw);
@@ -1068,15 +1098,15 @@ function updatePolicyHint() {
 if (els.form) {
   els.form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if (S.status === 'running' && S.runId && !S.staleRun) {
+    if ((S.status === 'running' || S.status === 'validating') && S.runId && !S.staleRun) {
       S.stopping = true;
-      setRunButton('running', false);
+      setRunButton(S.status, false);
       try {
         const res = await fetch('/api/runs/' + S.runId + '/cancel', { method: 'POST' });
         if (!res.ok) throw new Error('HTTP ' + res.status);
       } catch (err) {
         S.stopping = false;
-        setRunButton('running', false);
+        setRunButton(S.status, false);
         showError('没能停下这次运行。', err.message);
       }
       return;

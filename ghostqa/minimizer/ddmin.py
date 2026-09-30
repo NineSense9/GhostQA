@@ -53,7 +53,12 @@ def ddmin(actions, test) -> list:
     return actions
 
 
-def minimize_reproduction(executor_factory, actions, finding, oracle) -> list:
+class ReplayStopped(Exception):
+    """Stop was requested between replays. This is not a failed predicate."""
+
+
+def minimize_reproduction(executor_factory, actions, finding, oracle,
+                          should_stop=None) -> list:
     """Full pipeline: tri-state fingerprint predicate, then ddmin.
 
     `actions` must already be the episode-local reproduction prefix
@@ -62,8 +67,17 @@ def minimize_reproduction(executor_factory, actions, finding, oracle) -> list:
 
     The returned sequence is guaranteed executable end-to-end from a clean
     reset (ddmin only keeps candidates whose predicate is PASS).
+
+    `should_stop` is checked before each replay. When it is true this raises
+    ReplayStopped instead of treating the candidate as unreproducible.
     """
     from ..replay.validator import make_bug_test, PASS
 
     tri = make_bug_test(executor_factory, finding.fingerprint(), oracle)
-    return ddmin(list(actions), lambda seq: tri(seq) == PASS)
+
+    def _test(seq, tri=tri):
+        if should_stop is not None and should_stop():
+            raise ReplayStopped()
+        return tri(seq) == PASS
+
+    return ddmin(list(actions), _test)

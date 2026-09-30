@@ -1108,11 +1108,13 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "selectEvent(latestFrame(S.events))" in js
     assert "function eventForBug" in js
     assert "S.epoch" in js
-    assert "main.js?v=20260930a" in html
+    assert "main.js?v=20260930b" in html
     assert "function unconfirmedCandidates" in js
     assert "重放未通过" in js
     assert "重放未完成" in js
-    assert "st.status === 'done' || st.status === 'error' ? st.candidates : []" in js
+    assert "st.status === 'done' || st.status === 'error' || st.status === 'stopped'" in js
+    assert "function visibleErrorLine" in js
+    assert "停止重放" in js
     assert "function withVisibleLabel" in js
     assert "function runSteps" in js
     assert "summary.actions" in js
@@ -1122,7 +1124,7 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "function runWhen" in js
     assert "a.label" in js
     assert "run.id" in js
-    assert "components.css?v=20260929f" in html
+    assert "components.css?v=20260930b" in html
     assert "runs.slice(0, 12)" not in js
     css = open(os.path.join(STATIC_DIR, "styles", "components.css"), encoding="utf-8").read()
     assert "max-height: 320px" in css
@@ -1544,3 +1546,99 @@ def test_missing_or_invalid_spec_is_rejected_before_a_run(tmp_path):
         assert exc.status_code == 400
         assert "断言列表" in exc.detail
     assert set(srv.RUNS) == before
+
+
+def test_replay_stop_keeps_confirms_and_skips_the_rest():
+    import dashboard.server as srv
+    from ghostqa.minimizer.ddmin import ReplayStopped, minimize_reproduction
+
+    class Finding:
+        def fingerprint(self):
+            return "fp"
+
+    try:
+        minimize_reproduction(lambda: None, ["click"], Finding(), None,
+                              should_stop=lambda: True)
+        assert False, "stop must not look like a failed replay"
+    except ReplayStopped:
+        pass
+
+    saved = []
+
+    def minimize(finding):
+        if finding == "later":
+            raise ReplayStopped()
+        return [finding]
+
+    stopped = srv.replay_until_stop(
+        ["kept", "skip", "later", "never"],
+        lambda: False,
+        lambda finding: finding != "skip",
+        minimize,
+        lambda finding, repro: saved.append((finding, repro)))
+    assert stopped is True
+    assert saved == [("kept", ["kept"])]
+
+    calls = []
+    stopped = srv.replay_until_stop(
+        ["a", "b"],
+        lambda: True,
+        lambda finding: calls.append(finding) or True,
+        lambda finding: ["x"],
+        lambda finding, repro: None)
+    assert stopped is True
+    assert calls == []
+
+
+def test_visible_error_line_prefers_the_exception():
+    import subprocess
+    script = r"""
+const fs = require('fs');
+const js = fs.readFileSync('dashboard/static/scripts/main.js', 'utf8');
+const start = js.indexOf('function visibleErrorLine');
+const end = js.indexOf('function renderBugs');
+eval(js.slice(start, end));
+const raw = [
+  'Traceback (most recent call last):',
+  'playwright._impl._errors.TimeoutError: Page.goto: Timeout 15000ms exceeded.',
+  'Call log:',
+  '  - navigating to "http://127.0.0.1:3939/index.html", waiting until "domcontentloaded"'
+].join('\n');
+const line = visibleErrorLine(raw);
+if (!line.includes('TimeoutError')) {
+  console.error(line);
+  process.exit(1);
+}
+if (visibleErrorLine('') !== '未知错误') process.exit(2);
+"""
+    subprocess.check_call(["node", "-e", script], cwd=os.path.dirname(os.path.dirname(__file__)))
+
+
+def test_hydrate_keeps_a_stopped_replay(tmp_path, monkeypatch):
+    import dashboard.server as srv
+    run = tmp_path / "stop1"
+    run.mkdir()
+    (run / "meta.json").write_text(json.dumps({
+        "cfg": {"url": "http://127.0.0.1:8798/cases/dead.html", "policy": "ghost"},
+        "created": 5,
+        "status": "stopped",
+        "error": "",
+        "summary": {"actions": 4, "states": 2, "candidates": 2, "confirmed": 1},
+    }), encoding="utf-8")
+    (run / "bugs.json").write_text(json.dumps([{"finding": {"kind": "dead_action"}}]),
+                                   encoding="utf-8")
+    (run / "candidates.json").write_text(json.dumps([
+        {"kind": "dead_action"}, {"kind": "semantic"},
+    ]), encoding="utf-8")
+    monkeypatch.setattr(srv, "RUNS_DIR", str(tmp_path))
+    srv.RUNS.pop("stop1", None)
+    try:
+        srv._hydrate_runs()
+        restored = srv.RUNS["stop1"]
+        assert restored.status == "stopped"
+        assert restored.error == ""
+        assert restored.summary["confirmed"] == 1
+        assert len(restored.candidates) == 2
+        assert len(restored.bugs) == 1
+    finally:
+        srv.RUNS.pop("stop1", None)

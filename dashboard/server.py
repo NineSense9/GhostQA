@@ -197,6 +197,28 @@ def reject_unreadable_spec(spec) -> str:
     return path
 
 
+def replay_until_stop(findings, stop_is_set, validate, minimize, on_confirmed) -> bool:
+    """Replay findings until stop_is_set or the list ends.
+
+    Returns True when the caller asked to stop. on_confirmed runs after each
+    finding that both replayed and minimized, so a later failure keeps the
+    confirms already finished. ReplayStopped from minimize is a stop, not a
+    crash. Other exceptions propagate.
+    """
+    from ghostqa.minimizer.ddmin import ReplayStopped
+    try:
+        for finding in findings:
+            if stop_is_set():
+                return True
+            if not validate(finding):
+                continue
+            repro = minimize(finding)
+            on_confirmed(finding, repro)
+    except ReplayStopped:
+        return True
+    return False
+
+
 def _do_run(handle: RunHandle):
     from ghostqa.__main__ import _make_policy
     from ghostqa.agent.gateway import MockLLM, NullLLM, OpenAICompatibleGateway
@@ -263,14 +285,40 @@ def _do_run(handle: RunHandle):
                                                 shared=shared)
         confirmed = []
         handle.bugs = []
-        for finding in result.candidates:
-            repro_actions = result.reproduction_actions(finding)
-            vr = validate_candidate(factory, repro_actions, finding, oracle)
-            if not vr.confirmed:
-                continue
-            repro = minimize_reproduction(factory, repro_actions, finding, oracle)
+
+        def _on_confirmed(finding, repro, result=result, confirmed=confirmed):
             confirmed.append(result.make_confirmed(finding, repro))
             handle.bugs = [b.to_dict() for b in confirmed]
+
+        stopped = replay_until_stop(
+            result.candidates,
+            handle.stop.is_set,
+            lambda finding: validate_candidate(
+                factory, result.reproduction_actions(finding), finding, oracle
+            ).confirmed,
+            lambda finding: minimize_reproduction(
+                factory, result.reproduction_actions(finding), finding, oracle,
+                should_stop=handle.stop.is_set),
+            _on_confirmed)
+        if stopped:
+            handle.summary = dict(handle.summary)
+            handle.summary["confirmed"] = len(confirmed)
+            handle.summary["states"] = len(result.graph.nodes)
+            report = build_report(result, confirmed, cfg)
+            write_report(report, os.path.join(run_dir, "report.json"),
+                         os.path.join(run_dir, "report.html"),
+                         handle.candidates)
+            handle.report_html = os.path.join(run_dir, "report.html")
+            handle.status = "stopped"
+            handle.error = ""
+            _write_json(os.path.join(run_dir, "meta.json"), {
+                "cfg": cfg, "created": handle.created, "status": "stopped",
+                "summary": handle.summary})
+            _write_json(os.path.join(run_dir, "bugs.json"), handle.bugs)
+            _write_json(os.path.join(run_dir, "candidates.json"), handle.candidates)
+            handle.emit({"type": "run_done", "summary": handle.summary,
+                         "stopped": True})
+            return
 
         report = build_report(result, confirmed, cfg)
         write_report(report, os.path.join(run_dir, "report.json"),
@@ -427,7 +475,7 @@ def start_run(cfg: dict):
 
 @app.post("/api/runs/{run_id}/cancel")
 def cancel_run(run_id: str):
-    """Ask the exploration loop to return after the current step."""
+    """Stop before the next exploration step, or between replays."""
     h = _get(run_id)
     h.stop.set()
     return {"ok": True, "status": h.status}
