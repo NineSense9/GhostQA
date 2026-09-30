@@ -1276,6 +1276,63 @@ def test_rendered_report_lists_replay_failures(tmp_path):
     assert "最小复现路径" not in direct.split("未通过重放", 1)[1]
 
 
+def test_stopped_report_does_not_call_unfinished_candidates_failed():
+    """A user stop did not replay the remaining candidates."""
+    from ghostqa.report.generator import render_html
+
+    dead = {
+        "kind": "dead_action",
+        "severity": "medium",
+        "description": "点击无响应：元素 btn_reg 点击后界面无任何变化",
+        "step_index": 2,
+        "evidence": {"eid": "btn_reg", "url": "http://127.0.0.1:8798/cases/register.html"},
+    }
+    confirmed = {
+        "finding": {
+            "kind": "semantic",
+            "severity": "high",
+            "description": "用户名为空时不应提示注册成功",
+            "step_index": 1,
+            "evidence": {"url": "http://127.0.0.1:8798/cases/register.html"},
+        },
+        "reproduction": [{"type": "click", "target_eid": "btn_reg", "label": "button:提交注册"}],
+        "original_length": 2,
+        "source_episode_id": 0,
+        "original_global_step": 1,
+    }
+    summary = {
+        "actions_executed": 13,
+        "states_discovered": 6,
+        "candidate_findings": 2,
+        "confirmed_bugs": 1,
+        "llm_calls": 0,
+        "pseudo_tokens": 0,
+        "wall_seconds": 8.0,
+    }
+    stopped = render_html({
+        "app": "cases",
+        "policy": "ghost",
+        "summary": summary,
+        "bugs": [confirmed],
+        "replay_state": "stopped",
+    }, [dead])
+    assert "重放没有跑完，这些候选还不能当成已确认缺陷。" in stopped
+    assert "重放未完成" in stopped
+    assert "未通过重放" not in stopped
+    assert "已重放确认" in stopped
+    assert "click[button:提交注册]" in stopped
+    pending = stopped.split("重放未完成", 1)[1]
+    assert "最小复现路径" not in pending
+    finished = render_html({
+        "app": "cases",
+        "policy": "ghost",
+        "summary": summary,
+        "bugs": [confirmed],
+    }, [dead])
+    assert "未通过重放" in finished
+    assert "重放未完成" not in finished
+
+
 def test_report_html_includes_page_and_observation():
     from ghostqa.report.generator import render_html
     report = {

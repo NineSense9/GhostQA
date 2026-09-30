@@ -104,8 +104,15 @@ def pending_findings(candidates, confirmed_bugs) -> list:
     return pending
 
 
-def _pending_card(item: dict) -> str:
-    """Evidence only. A failed replay has no minimized path to invent."""
+def _pending_heading(report: dict) -> str:
+    """A stop or a crash did not finish replay. A finished run did."""
+    if report.get("replay_state") in ("stopped", "error"):
+        return "重放未完成"
+    return "未通过重放"
+
+
+def _pending_card(item: dict, heading: str) -> str:
+    """Evidence only. An unfinished or failed replay has no minimized path."""
     evidence = item.get("evidence") if isinstance(item.get("evidence"), dict) else {}
     kind = html.escape(str(item.get("kind") or "candidate"))
     desc = html.escape(str(item.get("description") or ""))
@@ -131,8 +138,8 @@ def _pending_card(item: dict) -> str:
     if bits:
         extra += '<div class="path">' + " · ".join(bits) + "</div>"
     return (
-        f'<div class="card"><b>未通过重放</b>{badge} <code>{kind}</code>　{desc}<br>'
-        f"{extra}</div>"
+        f'<div class="card"><b>{html.escape(heading)}</b>{badge} '
+        f"<code>{kind}</code>　{desc}<br>{extra}</div>"
     )
 
 
@@ -166,8 +173,12 @@ def render_html(report: dict, candidates=None) -> str:
             extra=extra)
     if not bugs_html:
         bugs_html = '<div class="card">未发现已确认缺陷。</div>'
-    for item in pending_findings(candidates, report.get("bugs") or []):
-        bugs_html += _pending_card(item)
+    heading = _pending_heading(report)
+    pending = pending_findings(candidates, report.get("bugs") or [])
+    if pending and heading == "重放未完成":
+        bugs_html += "<div class=\"card\">重放没有跑完，这些候选还不能当成已确认缺陷。</div>"
+    for item in pending:
+        bugs_html += _pending_card(item, heading)
     s = report["summary"]
     return _HTML_TMPL.format(
         app=html.escape(report["app"]), policy=report["policy"],

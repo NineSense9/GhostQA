@@ -305,6 +305,7 @@ def _do_run(handle: RunHandle):
             handle.summary["confirmed"] = len(confirmed)
             handle.summary["states"] = len(result.graph.nodes)
             report = build_report(result, confirmed, cfg)
+            report["replay_state"] = "stopped"
             write_report(report, os.path.join(run_dir, "report.json"),
                          os.path.join(run_dir, "report.html"),
                          handle.candidates)
