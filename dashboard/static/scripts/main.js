@@ -627,17 +627,67 @@ function evidenceHtml(evidence) {
   return lines.length ? `<ul class="bug-obs">${lines.join('')}</ul>` : '';
 }
 
-function renderBugs(list) {
-  S.bugs = list;
-  els.bugCount.textContent = String(list.length);
-  els.tBugs.textContent = String(list.length);
-  els.bugList.innerHTML = '';
-  if (!list.length) {
-    els.bugList.innerHTML =
-      '<p class="empty">还没有确认缺陷。<br>运行结束后，通过复现校验与 ddmin 的问题会出现在这里。</p>';
-    return;
+function findingKey(item) {
+  const f = item && item.finding ? item.finding : (item || {});
+  const step = f.step_index == null ? '' : String(f.step_index);
+  return [f.kind || '', step, f.description || ''].join('\n');
+}
+
+function unconfirmedCandidates(candidates, bugs) {
+  const confirmed = new Set((bugs || []).map(findingKey));
+  const pending = [];
+  for (const item of candidates || []) {
+    if (!item || confirmed.has(findingKey(item))) continue;
+    pending.push(item);
   }
-  for (const b of list) {
+  return pending;
+}
+
+function unconfirmedBody(candidate) {
+  const evidence = candidate.evidence || {};
+  const page = evidence.url || evidence.page || '';
+  const pageLine = page
+    ? `<p class="bug-page" title="${escapeHtml(page)}">${escapeHtml(String(page).replace(/^https?:\/\//, ''))}</p>`
+    : '';
+  const action = evidence.action
+    ? `<p class="bug-page">${escapeHtml(String(evidence.action))}</p>` : '';
+  const eid = evidence.eid
+    ? `<p class="bug-page">${escapeHtml(String(evidence.eid))}</p>` : '';
+  return `${pageLine}${evidenceHtml(evidence)}${action}${eid}`;
+}
+
+function bindBugToggle(card, head, bug) {
+  const toggle = () => {
+    const open = card.classList.toggle('is-open');
+    head.setAttribute('aria-expanded', String(open));
+    if (!open) return;
+    const ev = eventForBug(bug);
+    if (!ev) return;
+    selectEvent(ev);
+    revealLogRow(els.log.querySelector(`.log-row[data-seq="${ev.seq}"]`));
+  };
+  head.addEventListener('click', toggle);
+  head.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+  });
+}
+
+function renderBugs(list, candidates) {
+  const bugs = list || [];
+  S.bugs = bugs;
+  const pending = unconfirmedCandidates(candidates, bugs);
+  els.bugCount.textContent = String(bugs.length);
+  els.tBugs.textContent = String(bugs.length);
+  els.bugList.innerHTML = '';
+  if (!bugs.length) {
+    const note = document.createElement('p');
+    note.className = 'empty';
+    note.innerHTML = pending.length
+      ? '没有通过重放的缺陷。'
+      : '还没有确认缺陷。<br>运行结束后，通过复现校验与 ddmin 的问题会出现在这里。';
+    els.bugList.appendChild(note);
+  }
+  for (const b of bugs) {
     const f = b.finding || {};
     const card = document.createElement('article');
     card.className = 'bug';
@@ -669,19 +719,26 @@ function renderBugs(list) {
          <ol class="repro-steps">${steps || '<li>（空复现序列）</li>'}</ol>
        </div>`;
     const head = card.querySelector('.bug-head');
-    const toggle = () => {
-      const open = card.classList.toggle('is-open');
-      head.setAttribute('aria-expanded', String(open));
-      if (!open) return;
-      const ev = eventForBug(b);
-      if (!ev) return;
-      selectEvent(ev);
-      revealLogRow(els.log.querySelector(`.log-row[data-seq="${ev.seq}"]`));
-    };
-    head.addEventListener('click', toggle);
-    head.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
-    });
+    bindBugToggle(card, head, b);
+    els.bugList.appendChild(card);
+  }
+  if (!pending.length) return;
+  const split = document.createElement('p');
+  split.className = 'bug-split';
+  split.textContent = '未通过重放';
+  els.bugList.appendChild(split);
+  for (const candidate of pending) {
+    const card = document.createElement('article');
+    card.className = 'bug is-unconfirmed';
+    card.innerHTML =
+      `<div class="bug-head" role="button" tabindex="0" aria-expanded="false">
+         <span class="bug-kind">${escapeHtml(candidate.kind || 'candidate')}</span>
+         <span class="bug-status">重放未通过</span>
+         <span class="bug-desc">${escapeHtml(candidate.description || '')}</span>
+       </div>
+       <div class="bug-body">${unconfirmedBody(candidate)}</div>`;
+    const head = card.querySelector('.bug-head');
+    bindBugToggle(card, head, { finding: candidate });
     els.bugList.appendChild(card);
   }
 }
@@ -784,7 +841,7 @@ async function tick() {
   try {
     const bugs = await getJSON(`/api/runs/${runId}/bugs`);
     if (epoch !== S.epoch) return;
-    renderBugs(bugs);
+    renderBugs(bugs, st.status === 'done' ? st.candidates : []);
   } catch (_) {}
   if (epoch !== S.epoch) return;
 

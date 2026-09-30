@@ -1108,7 +1108,10 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "selectEvent(latestFrame(S.events))" in js
     assert "function eventForBug" in js
     assert "S.epoch" in js
-    assert "main.js?v=20260929k" in html
+    assert "main.js?v=20260929l" in html
+    assert "function unconfirmedCandidates" in js
+    assert "重放未通过" in js
+    assert "st.status === 'done' ? st.candidates : []" in js
     assert "function withVisibleLabel" in js
     assert "function runSteps" in js
     assert "summary.actions" in js
@@ -1118,13 +1121,15 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "function runWhen" in js
     assert "a.label" in js
     assert "run.id" in js
-    assert "components.css?v=20260929e" in html
+    assert "components.css?v=20260929f" in html
     assert "runs.slice(0, 12)" not in js
     css = open(os.path.join(STATIC_DIR, "styles", "components.css"), encoding="utf-8").read()
     assert "max-height: 320px" in css
     assert ".bug-desc" in css
     assert "flex: 1 1 100%" in css
     assert "overflow-wrap: anywhere" in css
+    assert ".bug.is-unconfirmed" in css
+    assert "未通过重放" in js
 
 
 def test_rendered_report_uses_stored_json_not_stale_html(tmp_path, monkeypatch):
