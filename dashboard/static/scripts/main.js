@@ -37,6 +37,8 @@ const S = {
   lastGraph: null,
   epoch: 0,
   stopping: false,
+  phase: 'config',
+  lastDecision: null,
 };
 
 const $ = (id) => document.getElementById(id);
@@ -66,11 +68,20 @@ const els = {
   policyHint: $('policy-hint'),
   policyResearch: $('policy-research'),
   viewport: $('viewport'),
+  stage: $('run-stage'),
+  aiReadout: $('ai-readout'), aiStatus: $('ai-status'),
+  aiSummary: $('ai-summary'), aiCandidates: $('ai-candidates'),
+  formCard: $('run-form-card'),
 };
 
 const STATUS_TEXT = {
   idle: '空闲', running: '探索中', validating: '校验中',
-  done: '已完成', error: '出错', stopped: '已停止',
+  minimizing: '最小化中', partial: '部分完成', done: '已完成', error: '出错', stopped: '已停止',
+};
+
+const PHASE_TEXT = {
+  config: '配置', exploration: '探索', candidate: '候选', replay: '重放',
+  minimizing: '最小化', report: '报告', error: '错误',
 };
 
 const POLICY_HINT = {
@@ -219,22 +230,48 @@ function setPill(el, status) {
 
 function setRunButton(status, stale) {
   if (!els.btnRun || !els.btnRunTxt) return;
-  const running = status === 'running' && !stale;
-  const validating = status === 'validating' && !stale;
-  const busy = running || validating;
+  const running = status === 'running';
+  const validating = status === 'validating';
+  const minimizing = status === 'minimizing';
+  const busy = running || validating || minimizing;
   if (!busy) S.stopping = false;
   els.btnRun.disabled = busy && S.stopping;
   if (busy && S.stopping) els.btnRunTxt.textContent = '正在停止…';
   else if (running) els.btnRunTxt.textContent = '停止探索';
   else if (validating) els.btnRunTxt.textContent = '停止重放';
-  else if (status === 'done') els.btnRunTxt.textContent = '再跑一次';
+  else if (minimizing) els.btnRunTxt.textContent = '停止最小化';
+  else if (status === 'done' || status === 'partial') els.btnRunTxt.textContent = '再跑一次';
   else if (stale || status === 'error' || status === 'stopped') els.btnRunTxt.textContent = '重新启动';
   else els.btnRunTxt.textContent = '启动探索';
+  const liveControl = $('btn-live-control');
+  if (liveControl) {
+    liveControl.hidden = !S.runId;
+    liveControl.disabled = els.btnRun.disabled;
+    liveControl.textContent = els.btnRunTxt.textContent;
+  }
 }
 
 function setBarStatus(status) {
   if (els.liveBar) els.liveBar.dataset.status = status || 'idle';
-  document.body.classList.toggle('is-running', status === 'running');
+  document.body.classList.toggle('is-running', ['running', 'validating', 'minimizing'].includes(status));
+  if (els.formCard) {
+    els.formCard.classList.toggle('is-running', ['running', 'validating', 'minimizing'].includes(status));
+    if (S.runId && status !== 'idle') els.formCard.classList.add('is-collapsed');
+  }
+}
+
+function setStage(phase, status) {
+  const p = PHASE_TEXT[phase] ? phase : (status === 'idle' ? 'config' : phase || 'exploration');
+  S.phase = p;
+  if (!els.stage) return;
+  const nodes = [...els.stage.querySelectorAll('[data-stage]')];
+  const active = nodes.findIndex((n) => n.dataset.stage === p);
+  nodes.forEach((node, i) => {
+    node.classList.toggle('is-active', i === active);
+    node.classList.toggle('is-done', active >= 0 && i < active);
+    node.setAttribute('aria-current', i === active ? 'step' : 'false');
+  });
+  els.stage.dataset.phase = p;
 }
 
 function escapeHtml(s) {
@@ -316,6 +353,46 @@ function renderLogRow(ev) {
   return row;
 }
 
+function renderAI(ev) {
+  const decision = ev && ev.decision;
+  if (!decision || typeof decision !== 'object' || !Object.keys(decision).length) return;
+  S.lastDecision = decision;
+  if (!els.aiReadout) return;
+  els.aiReadout.hidden = false;
+  const mode = decision.mode || ev.decision_mode || '';
+  const used = decision.model_used === true;
+  const fallback = decision.fallback === true || decision.model_unavailable === true;
+  const calls = decision.model_calls == null ? '—' : decision.model_calls;
+  if (fallback) {
+    els.aiStatus.textContent = '程序评分';
+    els.aiStatus.className = 'status-pill is-idle';
+    els.aiSummary.textContent = decision.model_unavailable
+      ? '模型未连接，已切换到程序评分路径。'
+      : '模型调用未成功，本步使用程序评分；中性分数不代表模型判断。';
+  } else if (used || mode === 'model_gate') {
+    els.aiStatus.textContent = decision.cache_hit ? '缓存命中' : '门控触发';
+    els.aiStatus.className = 'status-pill is-running';
+    els.aiSummary.textContent = `AI 门控：${used ? '触发' : '已评估'} · 模型调用：第 ${calls} 次` +
+      (decision.cache_hit ? ' · 本次使用精确状态缓存' : '') +
+      (decision.model_kind === 'mock' ? ' · Mock 离线模拟' : '');
+  } else {
+    els.aiStatus.textContent = '未触发';
+    els.aiStatus.className = 'status-pill is-idle';
+    els.aiSummary.textContent = '本步由程序评分选择动作，未触发模型。';
+  }
+  const top = Array.isArray(decision.top_k) ? decision.top_k : [];
+  els.aiCandidates.innerHTML = top.length
+    ? top.slice(0, 5).map((item) => {
+      const label = item.label || item.key || '候选动作';
+      const score = Number(item.score);
+      const shown = Number.isFinite(score) ? score.toFixed(2) : '—';
+      return `<span class="ai-candidate"><b>${escapeHtml(label)}</b><em>${shown}</em></span>`;
+    }).join('')
+    : '';
+  els.llm.textContent = String(calls);
+  $('ai-choice').textContent = '最终选择：' + (decision.chosen || '—');
+}
+
 function selectEvent(ev) {
   if (S.activeRow) S.activeRow.classList.remove('is-active');
   const row = els.log.querySelector(`.log-row[data-seq="${ev.seq}"]`);
@@ -323,6 +400,8 @@ function selectEvent(ev) {
   const shot = (ev.dst && ev.dst.screenshot) || (ev.src && ev.src.screenshot) || '';
   showShot(shot, `第 ${ev.index + 1} 步后的页面`);
   updateActionStrip(ev);
+  renderAI(ev);
+  $('action-result').textContent = `${ev.relation || '—'} · Oracle：${ev.oracle_result || '无异常'} · 本步候选 ${(ev.findings || []).length}`;
 }
 
 function latestFrame(events) {
@@ -336,13 +415,22 @@ function latestFrame(events) {
 }
 
 function appendEvents(list) {
-  const steps = list.filter((e) => e.type === 'step');
-  if (!steps.length) return;
+  const all = list || [];
+  if (all.length) S.lastEventAt = Date.now();
+  for (const ev of all) appendPhaseRecord(ev);
+  const steps = all.filter((e) => e.type === 'step');
+  const lastPhase = [...all].reverse().find((ev) => ev.type === 'phase' || ev.type === 'run_done' || ev.type === 'run_error');
+  if (!steps.length) {
+    if (lastPhase) setStage(lastPhase.phase || (lastPhase.type === 'run_error' ? 'error' : 'report'), S.status);
+    return;
+  }
   if (S.events.length === 0) els.log.innerHTML = '';
-  const streaming = S.status === 'running' || S.status === 'validating';
+  const streaming = ['running', 'validating', 'minimizing'].includes(S.status);
   for (const ev of steps) {
     S.events.push(ev);
     els.log.appendChild(renderLogRow(ev));
+    renderAI(ev);
+    if (ev.phase) setStage(ev.phase, S.status);
     if (streaming) selectEvent(ev);
   }
   els.logCount.textContent = String(S.events.length);
@@ -354,6 +442,23 @@ function appendEvents(list) {
   const bugsSeen = S.events.reduce((n, e) => n + (e.findings || []).length, 0);
   if (bugsSeen) els.cands.textContent = String(bugsSeen);
   if (!streaming && S.events.length) selectEvent(latestFrame(S.events));
+  if (lastPhase) setStage(lastPhase.phase || (lastPhase.type === 'run_error' ? 'error' : 'report'), S.status);
+}
+
+function appendPhaseRecord(ev) {
+  const list = $('phase-records');
+  if (!list || !['phase', 'minimize'].includes(ev.type)) return;
+  let text;
+  if (ev.type === 'minimize') {
+    text = `测试子序列 ${ev.tested_subset || 1}：${ev.tested_length ?? ev.current_length} 步，${ev.result}；当前路径 ${ev.current_length} 步`;
+  } else {
+    text = `${PHASE_TEXT[ev.phase] || ev.phase}` +
+      (ev.candidate_index ? ` · 候选 ${ev.candidate_index}/${ev.candidate_total}` : '') +
+      (ev.status ? ` · ${STATUS_TEXT[ev.status] || ev.status}` : '');
+  }
+  const row = document.createElement('li');
+  row.textContent = text;
+  list.appendChild(row);
 }
 
 /* ------------------------------- graph ---------------------------------- */
@@ -438,8 +543,8 @@ function initGraph() {
     const found = [...S.events].reverse().find(
       (ev) => ev.dst && ev.dst.sig === sig && ev.dst.screenshot);
     if (found) {
-      showShot(found.dst.screenshot, found.dst.title || sig);
-      updateActionStrip(found);
+      selectEvent(found);
+      revealLogRow(S.activeRow);
     }
   });
   S.cy.on('dbltap', () => fitGraph());
@@ -628,6 +733,19 @@ function evidenceHtml(evidence) {
   return lines.length ? `<ul class="bug-obs">${lines.join('')}</ul>` : '';
 }
 
+function friendlyFinding(f) {
+  if ((f.evidence || {}).assert_id === 'case_cart_total_consistent') return '购物车总价与商品金额不一致';
+  return f.description || '待复查的异常';
+}
+
+function cartEvidenceHtml(f) {
+  if ((f.evidence || {}).assert_id !== 'case_cart_total_consistent') return '';
+  const obs = f.evidence.obs || {};
+  const prices = Array.isArray(obs.cart_item_price) ? obs.cart_item_price : [obs.cart_item_price];
+  const sum = prices.reduce((total, value) => total + Number(value), 0);
+  return `<p>期望：商品金额之和应等于购物车总价</p><p>实际：商品金额 ${escapeHtml(Number.isFinite(sum) ? sum : '—')}，总价 ${escapeHtml(obs.cart_total ?? '—')}</p><p class="muted">断言：${escapeHtml(f.evidence.assert_id)}</p>`;
+}
+
 function findingKey(item) {
   const f = item && item.finding ? item.finding : (item || {});
   const step = f.step_index == null ? '' : String(f.step_index);
@@ -690,7 +808,7 @@ function renderBugs(list, candidates, replayState) {
   const bugs = list || [];
   S.bugs = bugs;
   const pending = unconfirmedCandidates(candidates, bugs);
-  const unfinished = replayState === 'error' || replayState === 'stopped';
+  const unfinished = replayState === 'error' || replayState === 'stopped' || replayState === 'partial';
   els.bugCount.textContent = String(bugs.length);
   els.tBugs.textContent = String(bugs.length);
   els.bugList.innerHTML = '';
@@ -707,7 +825,7 @@ function renderBugs(list, candidates, replayState) {
   for (const b of bugs) {
     const f = b.finding || {};
     const card = document.createElement('article');
-    card.className = 'bug';
+    card.className = 'bug is-open';
     const steps = (b.reproduction || [])
       .map((a) => {
         const [verb, detail] = fmtAction(withVisibleLabel(a));
@@ -723,10 +841,11 @@ function renderBugs(list, candidates, replayState) {
       `<div class="bug-head" role="button" tabindex="0" aria-expanded="false">
          <span class="bug-kind">${escapeHtml(f.kind || 'defect')}</span>
          <span class="bug-status">重放通过 · ${n} 步复现</span>
-         <span class="bug-desc">${escapeHtml(f.description || '')}</span>
+         <span class="bug-desc">${escapeHtml(friendlyFinding(f))}</span>
        </div>
        <div class="bug-body">
          ${pageLine}
+         ${cartEvidenceHtml(f)}
          ${evidenceHtml(f.evidence)}
          <div class="repro-meta">
            <span>原始 <b>${b.original_length ?? '?'}</b> 步</span>
@@ -742,15 +861,18 @@ function renderBugs(list, candidates, replayState) {
   if (!pending.length) return;
   const split = document.createElement('p');
   split.className = 'bug-split';
-  split.textContent = unfinished ? '重放未完成' : '未通过重放';
+  split.textContent = '候选处理结果';
   els.bugList.appendChild(split);
   for (const candidate of pending) {
+    const candidateUnfinished = (unfinished && candidate.replay_status !== 'failed') || candidate.replay_status === 'unfinished' ||
+      candidate.replay_error_type === 'navigation_timeout';
+    const pendingLabel = candidateUnfinished ? '重放未完成' : '未通过重放';
     const card = document.createElement('article');
     card.className = 'bug is-unconfirmed';
     card.innerHTML =
       `<div class="bug-head" role="button" tabindex="0" aria-expanded="false">
          <span class="bug-kind">${escapeHtml(candidate.kind || 'candidate')}</span>
-         <span class="bug-status">${unfinished ? '重放未完成' : '重放未通过'}</span>
+         <span class="bug-status">${pendingLabel}</span>
          <span class="bug-desc">${escapeHtml(candidate.description || '')}</span>
        </div>
        <div class="bug-body">${unconfirmedBody(candidate)}</div>`;
@@ -789,11 +911,11 @@ function showComplete(st) {
   const steps = m.actions ?? S.events.length;
   const states = m.states ?? els.states.textContent;
   const bugs = m.confirmed ?? S.bugs.length;
-  const report = (st.status === 'done' || st.status === 'stopped') && S.runId;
+  const report = ['done', 'partial', 'stopped'].includes(st.status) && S.runId;
   els.liveComplete.hidden = false;
   els.liveComplete.textContent =
     `${steps} 步 · ${states} 个状态 · ${bugs} 个已确认缺陷` +
-    (report ? ' · 报告已就绪' : '');
+    (report ? (st.status === 'partial' ? ' · 部分候选未完成 · 报告已就绪' : ' · 报告已就绪') : '');
 }
 
 function showError(message, detail) {
@@ -823,18 +945,18 @@ async function tick() {
   setConn(true, '已连接');
 
   S.status = st.status;
+  setStage(st.phase || (st.status === 'done' || st.status === 'partial' ? 'report' :
+    st.status === 'validating' ? 'replay' : st.status === 'minimizing' ? 'minimizing' :
+    st.status === 'running' ? 'exploration' : 'config'), st.status);
   els.status.textContent = STATUS_TEXT[st.status] || st.status;
   setPill(els.vpPill, st.status);
   setBarStatus(st.status);
-  const active = (st.status === 'running' || st.status === 'validating');
-  if (active && S.runStartedAt && Date.now() - S.runStartedAt > STALE_MS
-      && S.lastEventAt && Date.now() - S.lastEventAt > STALE_MS) {
-    S.staleRun = true;
-  }
+  const active = ['running', 'validating', 'minimizing'].includes(st.status);
+  S.staleRun = false; // A live API response is authoritative, including long replays.
   setRunButton(st.status, S.staleRun);
   if (els.liveHint) els.liveHint.hidden = st.status !== 'idle' && !!S.runId;
   if (els.liveIntro) els.liveIntro.hidden = st.status !== 'idle';
-  if (active) els.llm.textContent = '…';
+  if (active && !S.lastDecision) els.llm.textContent = '…';
   if (st.candidates && st.candidates.length) {
     els.cands.textContent = String(st.candidates.length);
   }
@@ -850,6 +972,8 @@ async function tick() {
   } catch (_) { /* transient */ }
   if (epoch !== S.epoch) return;
 
+  setStage(st.phase || S.phase, st.status);
+
   try {
     const graph = await getJSON(`/api/runs/${runId}/graph`);
     if (epoch !== S.epoch) return;
@@ -860,8 +984,8 @@ async function tick() {
     if (epoch !== S.epoch) return;
     renderBugs(
       bugs,
-      st.status === 'done' || st.status === 'error' || st.status === 'stopped'
-        ? st.candidates : [],
+      (st.status === 'done' || st.status === 'error' || st.status === 'stopped' ||
+       st.status === 'partial') ? st.candidates : [],
       st.status);
   } catch (_) {}
   if (epoch !== S.epoch) return;
@@ -878,13 +1002,14 @@ async function tick() {
     if (m.similarity_counts) renderMix(m.similarity_counts);
   }
 
-  if (st.status === 'done') {
+  if (st.status === 'done' || st.status === 'partial') {
     els.reportLink.href = `/api/runs/${S.runId}/report.html`;
     els.reportLink.hidden = false;
     showComplete(st);
     if (els.liveError) els.liveError.hidden = true;
     stopPolling();
-    setConn(true, '已完成');
+    setStage('report', st.status);
+    setConn(true, st.status === 'partial' ? '部分完成' : '已完成');
     loadHistory();
   } else if (st.status === 'stopped') {
     els.reportLink.href = `/api/runs/${S.runId}/report.html`;
@@ -910,6 +1035,7 @@ async function tick() {
       els.reportLink.hidden = true;
     }
     stopPolling();
+    setStage('error', 'error');
     setConn(false, '运行出错');
     const raw = st.error || '';
     const last = visibleErrorLine(raw);
@@ -922,11 +1048,14 @@ async function tick() {
 }
 
 function resetLivePanels(message) {
+  if ($('phase-records')) $('phase-records').innerHTML = '';
+  if (els.formCard) els.formCard.classList.remove('is-collapsed');
   stopPolling();
   S.epoch += 1;
   S.events = []; S.seenSeq = -1; S.lastShot = ''; S.activeRow = null;
   S.graphSig = ''; S.firstLayout = true; S.startSig = '';
   S.staleRun = false; S.stopping = false;
+  S.phase = 'config'; S.lastDecision = null;
   S.runStartedAt = Date.now(); S.lastEventAt = Date.now();
   S.logPinned = true;
   els.log.innerHTML = `<p class="empty">${escapeHtml(message)}</p>`;
@@ -957,6 +1086,15 @@ function resetLivePanels(message) {
   if (els.liveHint) els.liveHint.hidden = true;
   if (els.graphEmpty) els.graphEmpty.hidden = false;
   renderBugs([]);
+  if (els.aiReadout) els.aiReadout.hidden = true;
+  if (els.aiSummary) els.aiSummary.textContent = '模型只在门控条件满足时参与动作排序。';
+  if (els.aiCandidates) els.aiCandidates.innerHTML = '';
+  if (els.aiStatus) {
+    els.aiStatus.textContent = '未触发';
+    els.aiStatus.className = 'status-pill is-idle';
+  }
+  setStage('config', 'idle');
+  setBarStatus('idle');
   if (S.cy) { S.cy.destroy(); S.cy = null; }
   els.graphCount.textContent = '0 节点 / 0 边';
 }
@@ -1000,7 +1138,7 @@ async function loadHistory() {
     list.innerHTML = '<li class="empty">还没有运行记录。</li>';
     return;
   }
-  for (const run of runs) {
+  for (const [index, run] of runs.entries()) {
     const li = document.createElement('li');
     const btn = document.createElement('button');
     btn.type = 'button';
@@ -1010,7 +1148,22 @@ async function loadHistory() {
     if (run.cfg && run.cfg.url) btn.title = run.cfg.url;
     btn.addEventListener('click', () => openRun(run.id));
     li.appendChild(btn);
-    list.appendChild(li);
+    if (!index) list.appendChild(li);
+    else {
+      let details = list.querySelector('details');
+      if (!details) {
+        details = document.createElement('details');
+        const summary = document.createElement('summary');
+        summary.textContent = `更早的运行（${runs.length - 1}）`;
+        details.appendChild(summary);
+        const older = document.createElement('ul');
+        details.appendChild(older);
+        const holder = document.createElement('li');
+        holder.appendChild(details);
+        list.appendChild(holder);
+      }
+      details.querySelector('ul').appendChild(li);
+    }
   }
 }
 
@@ -1060,7 +1213,7 @@ async function openRun(id) {
   }
   if (epoch !== S.epoch) return;
   applyRunConfig(st.cfg);
-  if (st.status === 'running' || st.status === 'validating') startPolling();
+  if (['running', 'validating', 'minimizing'].includes(st.status)) startPolling();
   else await tick();
 }
 
@@ -1104,7 +1257,7 @@ function updatePolicyHint() {
 if (els.form) {
   els.form.addEventListener('submit', async (e) => {
     e.preventDefault();
-    if ((S.status === 'running' || S.status === 'validating') && S.runId && !S.staleRun) {
+    if (['running', 'validating', 'minimizing'].includes(S.status) && S.runId) {
       S.stopping = true;
       setRunButton(S.status, false);
       try {
@@ -1315,6 +1468,12 @@ if (policySel) {
 const fitBtn = $('graph-fit');
 if (fitBtn) fitBtn.addEventListener('click', fitGraph);
 
+$('config-toggle').addEventListener('click', () => els.formCard.classList.toggle('is-collapsed'));
+$('shot-zoom').addEventListener('click', () => {
+  const zoomed = els.viewport.classList.toggle('is-zoomed');
+  $('shot-zoom').textContent = zoomed ? '完整画面' : '放大画面';
+});
+
 if (els.log) {
   els.log.addEventListener('scroll', () => {
     const el = els.log;
@@ -1350,7 +1509,9 @@ if (themeBtn) {
 syncThemeToggle();
 
 loadHistory();
-applyCase('catalog');
+applyCase('cart');
+els.viewport.classList.add('is-zoomed');
+$('shot-zoom').textContent = '完整画面';
 
 (async function restore() {
   try {

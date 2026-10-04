@@ -11,7 +11,7 @@ def report_for_saved_run(cfg, summary, bugs, status) -> dict | None:
     A finished run stays on its stored report. This does not invent a
     minimized path; the caller passes the saved candidates separately.
     """
-    if status not in ("error", "stopped"):
+    if status not in ("error", "stopped", "partial"):
         return None
     if not isinstance(cfg, dict):
         cfg = {}
@@ -39,7 +39,7 @@ def report_for_saved_run(cfg, summary, bugs, status) -> dict | None:
     }
 
 
-def build_report(run_result, confirmed_bugs, config: dict) -> dict:
+def build_report(run_result, confirmed_bugs, config: dict, unfinished=None) -> dict:
     return {
         "app": run_result.app,
         "policy": run_result.policy,
@@ -54,6 +54,7 @@ def build_report(run_result, confirmed_bugs, config: dict) -> dict:
             "wall_seconds": round(run_result.wall_seconds, 2),
         },
         "bugs": [b.to_dict() for b in confirmed_bugs],
+        "unfinished_candidates": list(unfinished or []),
         "graph": run_result.graph.to_dict() if run_result.graph else {},
         "trace": [s.to_dict() for s in run_result.steps],
     }
@@ -140,7 +141,7 @@ def pending_findings(candidates, confirmed_bugs) -> list:
 
 def _pending_heading(report: dict) -> str:
     """A stop or a crash did not finish replay. A finished run did."""
-    if report.get("replay_state") in ("stopped", "error"):
+    if report.get("replay_state") in ("stopped", "error", "partial"):
         return "重放未完成"
     return "未通过重放"
 
@@ -171,8 +172,15 @@ def _pending_card(item: dict, heading: str) -> str:
         bits.append(f"<code>{html.escape(str(key))}</code> {html.escape(shown)}")
     if bits:
         extra += '<div class="path">' + " · ".join(bits) + "</div>"
+    item_heading = heading
+    if item.get("replay_status") == "failed":
+        item_heading = "未通过重放"
+    elif item.get("replay_status") == "unfinished":
+        item_heading = "重放未完成"
+    if item.get("replay_error_type") == "navigation_timeout":
+        extra += '<div class="path">原因：导航超时</div>'
     return (
-        f'<div class="card"><b>{html.escape(heading)}</b>{badge} '
+        f'<div class="card"><b>{html.escape(item_heading)}</b>{badge} '
         f"<code>{kind}</code>　{desc}<br>{extra}</div>"
     )
 

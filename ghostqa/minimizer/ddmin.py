@@ -58,7 +58,7 @@ class ReplayStopped(Exception):
 
 
 def minimize_reproduction(executor_factory, actions, finding, oracle,
-                          should_stop=None) -> list:
+                          should_stop=None, on_test=None) -> list:
     """Full pipeline: tri-state fingerprint predicate, then ddmin.
 
     `actions` must already be the episode-local reproduction prefix
@@ -74,10 +74,22 @@ def minimize_reproduction(executor_factory, actions, finding, oracle,
     from ..replay.validator import make_bug_test, PASS
 
     tri = make_bug_test(executor_factory, finding.fingerprint(), oracle)
+    tested = 0
+    current_length = len(actions)
 
     def _test(seq, tri=tri):
+        nonlocal tested, current_length
         if should_stop is not None and should_stop():
             raise ReplayStopped()
-        return tri(seq) == PASS
+        status = tri(seq)
+        tested += 1
+        if status == PASS:
+            current_length = min(current_length, len(seq))
+        if on_test is not None:
+            on_test({"type": "minimize", "phase": "minimizing",
+                     "original_length": len(actions), "current_length": current_length,
+                     "tested_length": len(seq), "tested_subset": tested,
+                     "result": status})
+        return status == PASS
 
     return ddmin(list(actions), _test)

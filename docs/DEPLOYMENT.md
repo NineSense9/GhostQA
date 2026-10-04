@@ -61,3 +61,22 @@ Confirm:
 - public Overview, Evidence, Live, and a short Live run still work
 
 Never put passwords in git, systemd units, or command logs.
+
+## 录制前主流程与健康检查
+
+主录制使用 dashboard 自带的购物车案例，不需要先启动 BuggyShop：
+
+```bash
+curl -fsS http://127.0.0.1:8787/cases/cart.html >/dev/null
+python -m pytest -q tests/test_dashboard.py tests/test_web_integration.py
+```
+
+浏览器中依次验证首页、实时探索和报告链接。连续运行 3 次购物车案例，确认阶段栏进入探索、候选、重放、最小化和报告；主案例通常产生 1 个候选、1 个确认缺陷和 1 步最小路径。模型可用时，AI 观测中应至少出现一次门控；模型不可用时，页面必须明确显示程序评分降级。
+
+## 超时和 partial
+
+单候选重放的导航超时只影响该候选。服务继续处理后续候选，最终状态为 `partial`；未完成候选进入报告的“重放未完成”区域，不计入已确认缺陷。停止操作仍发生在下一步或下一候选之间，不中断已经发出的浏览器调用。
+
+## 端口约束
+
+PPT 预览使用 5062，已有本地服务使用 8873。启动 dashboard 或临时验证服务前先检查端口占用，选择其他空闲端口，避免覆盖这两个服务。

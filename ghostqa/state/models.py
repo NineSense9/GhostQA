@@ -114,12 +114,14 @@ class Step:
     findings: list = field(default_factory=list)   # list[Finding]
     episode_id: int = 0
     decision_mode: str = ""   # progress | exploit | probe_commit | escape (observability)
+    decision: dict = field(default_factory=dict)
 
     def to_dict(self) -> dict:
         return {
             "index": self.index,
             "episode_id": self.episode_id,
             "decision_mode": self.decision_mode,
+            "decision": self.decision,
             "state_sig_before": self.state_sig_before,
             "action": self.action.to_dict(),
             "state_sig_after": self.state_sig_after,

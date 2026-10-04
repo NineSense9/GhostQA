@@ -108,6 +108,7 @@ class OpenAICompatibleGateway(ModelGateway):
         self.completion_tokens = 0
         self.total_latency_ms = 0.0
         self.degraded = False
+        self.last_fallback = False
         self._cache: dict = {}
         self._fail_streak = 0
 
@@ -156,6 +157,7 @@ class OpenAICompatibleGateway(ModelGateway):
             return None
 
     def _scored(self, state_brief: str, action_briefs: list, spec_brief: str):
+        self.last_fallback = False
         key = (state_brief, tuple(action_briefs), spec_brief)
         if key in self._cache:
             return self._cache[key]
@@ -176,6 +178,7 @@ class OpenAICompatibleGateway(ModelGateway):
             except (urllib.error.URLError, TimeoutError, KeyError, ValueError):
                 continue
         if result is None:
+            self.last_fallback = True
             self._fail_streak += 1
             if self._fail_streak >= 3:
                 self.degraded = True        # fallback: behave as no-LLM policy
@@ -188,6 +191,7 @@ class OpenAICompatibleGateway(ModelGateway):
     # ---- ModelGateway interface ----
     def score_actions(self, state_brief, action_briefs, spec_brief=""):
         if not self.available:
+            self.last_fallback = True
             return {i: 0.5 for i in range(len(action_briefs))}
         scores = self._scored(state_brief, action_briefs, spec_brief)
         return {i: scores[i] for i in range(len(action_briefs))}

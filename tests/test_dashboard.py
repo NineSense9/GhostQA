@@ -4,6 +4,7 @@ import os
 
 from dashboard.server import (
     _public_event, STATIC_DIR, shot_basename, is_safe_shot_name,
+    RunHandle, replay_until_stop,
 )
 from ghostqa.exploration.policy import GhostPolicy
 from ghostqa.exploration.explorer import RunResult
@@ -39,6 +40,80 @@ def test_public_event_rewrites_screenshot_to_servable_url():
     assert ev["src"]["screenshot"] == "/api/runs/abc123/shot/shot-1.png"
     assert ev["dst"]["screenshot"] == "/api/runs/abc123/shot/shot-2.png"
     assert ev["src"]["url"] == "/a"
+
+
+def test_public_event_exposes_phase_and_ai_observability():
+    ev = _public_event("abc123", {
+        "type": "step", "phase": "exploration",
+        "decision": {"mode": "model_gate", "model_used": True,
+                      "top_k": [{"label": "刷新合计", "score": 0.86}]},
+        "src": {}, "dst": {},
+    })
+    assert ev["phase"] == "exploration"
+    assert ev["decision"]["model_used"] is True
+    assert ev["decision"]["top_k"][0]["label"] == "刷新合计"
+
+
+def test_replay_until_stop_keeps_unfinished_candidates_and_continues():
+    unfinished = []
+    confirmed = []
+
+    def validate(finding):
+        if finding == "timeout":
+            raise TimeoutError("navigation timeout")
+        return True
+
+    replay_until_stop(
+        ["timeout", "ok"], lambda: False, validate,
+        lambda finding: [finding],
+        lambda finding, repro: confirmed.append(finding),
+        lambda finding, exc: unfinished.append((finding, str(exc))),
+    )
+    assert unfinished == [("timeout", "navigation timeout")]
+    assert confirmed == ["ok"]
+
+
+def test_live_console_has_product_flow_and_ai_panel():
+    html = open(os.path.join(STATIC_DIR, "index.html"), encoding="utf-8").read()
+    js = open(os.path.join(STATIC_DIR, "scripts", "main.js"), encoding="utf-8").read()
+    assert 'id="run-stage"' in html
+    assert 'id="ai-readout"' in html
+    assert "配置" in html and "最小化" in html and "报告" in html
+    assert "decision" in js
+    assert "partial" in js
+
+
+def test_ghost_decision_is_observable_without_changing_selection():
+    from ghostqa.exploration.observation import select_observed
+    from ghostqa.agent.gateway import MockLLM
+    from ghostqa.state.graph import StateGraph
+    from ghostqa.state.models import GUIState
+    policy = GhostPolicy(MockLLM())
+    policy._program_score = lambda *args: 1.0
+    policy._gate_reasons = lambda *args: ["near_tie"]
+    actions = [Action("click", "pay"), Action("back")]
+    ctx = {"sig": "exact:1", "step": 0}
+    state = GUIState(app="test", url="/cart", title="购物车")
+    chosen = select_observed(policy, StateGraph(), state, actions, ctx)
+    assert ctx["last_decision"]["model_used"] is True
+    assert ctx["last_decision"]["cache_hit"] is False
+    assert ctx["last_decision"]["chosen_key"] == chosen.key()
+    json.dumps(ctx["last_decision"])
+    select_observed(policy, StateGraph(), state, actions, ctx)
+    assert ctx["last_decision"]["cache_hit"] is True
+
+
+def test_partial_report_distinguishes_failed_and_unfinished():
+    from ghostqa.report.generator import report_for_saved_run, render_html
+    report = report_for_saved_run({}, {}, [], "partial")
+    assert report is not None
+    page = render_html(report, [
+        {"kind": "dead_action", "description": "未复现", "replay_status": "failed"},
+        {"kind": "nav_loop", "description": "入口未完成", "replay_status": "unfinished",
+         "replay_error_type": "navigation_timeout", "replay_error": "navigation timeout"},
+    ])
+    assert "未通过重放" in page and "重放未完成" in page
+    assert "导航超时" in page
 
 
 def test_shot_basename_is_os_agnostic():
@@ -1111,7 +1186,7 @@ def test_reopen_restores_last_frame_and_run_config():
     assert "main.js?v=20260930c" in html
     assert "const showErrorReport" in js
     assert "function unconfirmedCandidates" in js
-    assert "重放未通过" in js
+    assert "candidate.replay_status !== 'failed'" in js
     assert "重放未完成" in js
     assert "st.status === 'done' || st.status === 'error' || st.status === 'stopped'" in js
     assert "function visibleErrorLine" in js
@@ -1711,6 +1786,24 @@ def test_replay_stop_keeps_confirms_and_skips_the_rest():
         lambda finding, repro: None)
     assert stopped is True
     assert calls == []
+
+
+def test_replay_marks_failed_candidates_and_continues():
+    import dashboard.server as srv
+
+    failed = []
+    confirmed = []
+    stopped = srv.replay_until_stop(
+        ["bad", "good", "later"],
+        lambda: False,
+        lambda finding: finding == "good",
+        lambda finding: [finding],
+        lambda finding, repro: confirmed.append((finding, repro)),
+        on_failed=failed.append,
+    )
+    assert stopped is False
+    assert failed == ["bad", "later"]
+    assert confirmed == [("good", ["good"])]
 
 
 def test_visible_error_line_prefers_the_exception():

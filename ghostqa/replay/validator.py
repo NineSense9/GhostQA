@@ -36,6 +36,15 @@ def _replay(executor_factory, actions, oracle: OracleEngine):
     Returns (status, findings, diag).
     """
     executor = executor_factory()
+    try:
+        return _replay_open(executor, actions, oracle)
+    finally:
+        close = getattr(executor, "close", None)
+        if close is not None:
+            close()
+
+
+def _replay_open(executor, actions, oracle):
     oracle = oracle or OracleEngine()
     state = executor.reset()
     hist = [state_signature(state)]
@@ -47,6 +56,9 @@ def _replay(executor_factory, actions, oracle: OracleEngine):
     for i, action in enumerate(actions):
         result = executor.execute(action)
         if not result.ok:
+            message = str(result.message or "")
+            if "timeout" in message.lower() and "page.goto" in message.lower():
+                raise TimeoutError(message)
             return INVALID, all_findings, {
                 "failed_action_index": i,
                 "failed_action": action.brief() if hasattr(action, "brief") else str(action),

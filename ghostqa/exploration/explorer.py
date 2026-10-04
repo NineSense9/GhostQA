@@ -59,8 +59,22 @@ def _build_step_event(step, graph, state, new_state, relation, exec_result,
     label = _visible_action_label(state, step.action)
     if label:
         action = dict(action, label=label)
+    decision = dict(getattr(step, "decision", {}) or {})
+    for candidate in decision.get("top_k", []):
+        key = candidate.get("key")
+        for el in getattr(state, "elements", ()) or ():
+            if key == f"click:{el.eid}:":
+                candidate["label"] = el.text or el.aria_label or candidate["label"]
+    verbs = {"click": "点击", "input": "输入", "back": "后退", "wait": "等待"}
     return {
         "type": "step",
+        "phase": "exploration",
+        "decision": decision,
+        "action_label": (verbs.get(step.action.type, step.action.type) + " " +
+                         (label or step.action.brief())).strip(),
+        "page": new_state.url if new_state else (state.url if state else ""),
+        "oracle_result": ", ".join(f.kind for f in step.findings) or "no_finding",
+        "finding_count": len(step.findings),
         "index": step.index,
         "decision_mode": getattr(step, "decision_mode", "") or "",
         "episode_id": episode_id,
@@ -349,7 +363,8 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
         else:
             if not actions:
                 break
-            action = policy.select(graph, state, actions, ctx)
+            from .observation import select_observed
+            action = select_observed(policy, graph, state, actions, ctx)
         if recent_action_keys and action.key() in recent_action_keys[-3:]:
             result.repeat_actions += 1
 
@@ -403,7 +418,8 @@ def run_exploration(executor, policy, budget: int, oracle: OracleEngine = None,
         result.steps.append(Step(index=step_idx, state_sig_before=sig,
                                  action=action, state_sig_after=new_sig,
                                  findings=findings, episode_id=episode_id,
-                                 decision_mode=ctx.get("decision_mode", "")))
+                                 decision_mode=ctx.get("decision_mode", ""),
+                                 decision=dict(ctx.get("last_decision") or {})))
         result.actions_executed += 1
         recent_action_keys.append(action.key())
         if on_step is not None:

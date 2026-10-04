@@ -1,34 +1,56 @@
-# GhostQA dashboard demo
+# GhostQA 录制演示
 
-Two terminals. Keep BuggyShop running while the dashboard is open.
+默认录制路径固定为：
+
+> 配置目标 → AI 辅助探索 → 发现候选 → 重放确认 → ddmin 最小化 → 打开报告
+
+主案例是 dashboard 自带的“购物车总价不对”，页面由 dashboard 自己提供，不需要先启动 BuggyShop。
+
+## 启动
 
 ```bash
-python apps/buggy-shop/server.py 3939
 python -m dashboard.server --port 8787
 ```
 
-Open http://127.0.0.1:8787/
+打开 `http://127.0.0.1:8787/`，切到“实时探索”。默认表单已经填好：
 
-The top bar has a sun/moon control. The first visit follows the system
-color scheme (or light if that is unavailable). After you pick a theme,
-it is stored as `ghostqa-theme` and kept on refresh.
+- 内置案例：购物车总价不对（主录制）
+- 目标地址：当前 dashboard 的 `/cases/cart.html`
+- 规格文件：`apps/builtin-cases/spec.json`
+- 策略：Ghost（产品默认）
+- 预算：6 步
+- Mock LLM：关闭
 
-## 2-minute walkthrough
+点击“启动探索”后，按阶段栏讲解画面：
 
-1. **总览** — default view. What GhostQA does, then the current research card (v0.3.11 Outcome D: only buggy-wiki is evaluable; crm/ops do not engage the return-cycle mechanism) plus historical v0.3.10 / v0.3.9. Numbers come from committed published artifacts, not hardcoded demo data. Primary button is **运行一次探索**.
-2. **实时探索** — the form opens on the built-in case catalog (served by the dashboard at `/cases/`). Pick another case, or 我的项目 and type a URL on this machine. 载入 BuggyShop 示例 still fills `http://127.0.0.1:3939` and the shop spec, with policy Ghost and Mock off. Click 启动探索. Watch the screenshot, state graph, and decision log. Theme can be switched while a run is in progress; the graph restyles with the page.
-3. **研究证据** — from 总览, **查看实验记录**. v0.3.11 Outcome D plus v0.3.10 / v0.3.9 Outcome A, freeze / clean-clone status, copyable reproduce commands. Product default remains unchanged.
+1. **配置**：说明目标地址、规格和预算。
+2. **探索**：浏览器画面、状态图、动作日志同步增长；AI 卡显示门控是否触发、调用次数和 Top-K 分数。
+3. **候选**：规格检查发现“商品金额和总价不一致”。候选只是异常线索，还没有算确认缺陷。
+4. **重放**：GhostQA 干净重置页面，重放候选动作前缀。通过后进入最小化。
+5. **最小化**：ddmin 删除无关动作，保留仍能触发相同 BugFingerprint 的序列。
+6. **报告**：顶部“打开报告”链接可查看证据、原始路径、最小路径和观测值。
 
-## Fallback if a live run fails
+录制时只展示评委需要看到的结果：期望值、实际值、触发动作、重放状态、原始路径和最小路径。内部 case ID 放在报告的次要位置。
 
-Stay on 总览 and 研究证据. Both read `experiments/published/` and do not need a running exploration.
+## 模型不可用时
 
-Typical live-run failures: BuggyShop not on :3939, Playwright browser missing (`python -m playwright install chromium`).
+不需要修改策略。页面会显示“模型未连接，已切换到程序评分路径”，运行仍可继续。AI 卡展示的是门控、缓存和降级状态，不展示模型内部思维过程。
 
-## Visual QA
+## 案例目录补充演示
+
+“案例目录”会沿着多个页面探索，路径更长，可能遇到入口页导航超时。若运行状态为“部分完成”，报告会分别列出：
+
+- 已确认：通过重放并完成最小化的缺陷；
+- 未通过重放：重放完成但指纹没有再次出现；
+- 重放未完成：导航超时或其他单候选异常，不能当成已确认缺陷。
+
+该案例只用于补充说明报告如何保留不完整证据，不作为主录制路径。
+
+## 录制前检查
 
 ```bash
-python tools/dashboard_visual_qa.py --dashboard-url http://127.0.0.1:8787 --output-dir ./tmp-visual-qa
+python -m pytest -q tests/test_dashboard.py tests/test_web_integration.py
+python tools/dashboard_visual_qa.py --dashboard-url http://127.0.0.1:8787 --output-dir ./tmp-visual-qa --skip-live
 ```
 
-`--skip-live` captures Overview / Evidence / Live idle only, in both themes.
+浏览器窗口建议使用 1280×720。检查阶段栏、当前动作、浏览器截图和“已确认缺陷”能同时看见；确认顶部报告链接可打开。

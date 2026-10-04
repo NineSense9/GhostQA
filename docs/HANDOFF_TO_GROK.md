@@ -1,7 +1,7 @@
 # GhostQA 技术交接文档
 
 > 原 v0.2 交接（审计基线 `9c6c0a0`，文档提交 `94f5db1`）仍保留于下文，作为历史。
-> **v0.3.20 更新**：Strong fresh composite validation。起始 SHA `7e730565d043fd5e8744e1882e44686f566a7276`。协议 `c278b8274d92c509ea4d29de286150e51c4918ea`。suite freeze `c4965c7b67bdba92c23627d4c1ec2d0d13cf5acf`。候选仍是冻结的 v0.3.19 `ghost-structural-finding-return-entry-drain-guard`，源哈希 `0bfec3c7bd2811f154daa83bc81fde632976b8ab6e1da9ee6a208cf81c4bb42c`，本轮未改。六个新目标：campus `8e5a4335` / 2388280117，warehouse `84bb020a` / 2226848266，studio `85e3eacd` / 2246306509，booking `28cc5678` / 684480120，catalog `38a953bd` / 950621117，kiosk `27141746` / 655628102。**Outcome C**：四个 positive target 都 composite evaluable，nested transfer 4/4，finding-drain transfer 4/4，full transfer 0/4。Guard 丢失 campus CP5/CP8/CP9，warehouse WH5/WH8/WH9，studio ST5/ST8/ST9，booking BK5/BK8/BK9。catalog 候选事件 0。kiosk handoff 0，finding trigger 2，horizon drain 0。trigger / witness / terminal violations 为 0。promotion `not_ready`。产品默认未改。下一问是失败分析，不是 v0.3.21 产品化。`python -m benchmark.fresh_composite_reproduce --root experiments/published/fresh-composite-v0.3.20 --verify`
+> **v0.3.20 更新**：Strong fresh composite validation。起始 SHA `7e730565d043fd5e8744e1882e44686f566a7276`。协议 `c278b8274d92c509ea4d29de286150e51c4918ea`。suite freeze `c4965c7b67bdba92c23627d4c1ec2d0d13cf5acf`。候选仍是冻结的 v0.3.19 `ghost-structural-finding-return-entry-drain-guard`，源哈希 `0bfec3c7bd2811f154daa83bc81fde632976b8ab6e1da9ee6a208cf81c4bb42c`，本轮未改。六个新目标：campus `8e5a4335` / 2388280117，warehouse `84bb020a` / 2226848266，studio `85e3eacd` / 2246306509，booking `28cc5678` / 684480120，catalog `38a953bd` / 950621117，kiosk `27141746` / 655628102。**Outcome C**：四个 positive target 都 composite evaluable，nested transfer 4/4，finding-drain transfer 4/4，full transfer 0/4。Guard 丢失 campus CP5/CP8/CP9，warehouse WH5/WH8/WH9，studio ST5/ST8/ST9，booking BK5/BK8/BK9。catalog 候选事件 0。kiosk handoff 0，finding trigger 2，horizon drain 0。trigger / witness / terminal violations 为 0。promotion `not_ready`。产品默认未改。`python -m benchmark.fresh_composite_reproduce --root experiments/published/fresh-composite-v0.3.20 --verify`
 >
 > **v0.3.19 更新**：Finding-Gated Return-Entry Drain。协议 `01f1021870e819596d6b38cc15c41392ad976c5e`。候选冻结 `eb119e5dce1e6d5695d8709bbfbb89be7232694a`。**Outcome A**：同一步 `sequence_terminal` outcome `finding` 才启动 Return-Entry Drain。Lab @120 结果页 `btn_close` 然后 `btn_reopen`，BUG-L9 第 18 步确认，L1 L2 L8 L9 L10 保留。DeepBench horizon drain 为 0，states 26 / URLs 8 / return_success 37，D6 D7 D11 D12 D13 D14 保留。目录 handoff 0。forum 与 billing strict full transfer 为 true。CRM 27/16，Ops 34/25。Desk / Wiki / BuggyShop 相对 guard 丢失为 0。FG1–FG16、horizon differential、66429 finding-trigger traces、66429 return-entry traces、66429 local-action traces、37448 reentry traces、19607 handoff traces、5800 return traces 的 failures 为 0。v0.3.18 仍是 Outcome C，v0.3.17 仍是 Outcome B，v0.3.16 仍是 Outcome B，v0.3.15 仍是 Outcome C，v0.3.14 仍是 Outcome A。不是 fresh 验证，不晋升，产品默认不切。下一轮必须是新目标身份的 fresh validation。`python -m benchmark.finding_return_entry_reproduce --root experiments/published/finding-return-entry-v0.3.19 --verify`
 >
@@ -11,7 +11,7 @@
 >
 > **v0.3.16 更新**：Early parent re-entry + local frontier lease。协议 `3e42aaaf4feadff9075552a6daddce3621b4add3`。候选冻结 `90d0771e5badfda777d7986e56ccf27043bad0c5`。**Outcome B — partial safe repair**：目录 @120 handoff 2 → 0，提前返回 4，guard 缺陷未丢。buggy-lab @120 租约 6 次、租约动作 6 次，恢复 BUG-L8，仍丢失 BUG-L1、BUG-L9、BUG-L10。forum 完整 transfer 仍在。billing 未丢 guard 缺陷，但 states/URLs 与 guard 持平，v0.3.15 扩张门未过。CRM 27/16、Ops 28/25，没有重新塌缩。Desk / DeepBench / Wiki / BuggyShop 相对 guard 丢失为 0。R1–R12、F1–F20、37448 reentry traces、H1–H20、19607 handoff traces、5800 return traces 的 failures 为 0。v0.3.15 仍是 Outcome C，v0.3.14 仍是 Outcome A。不是 fresh 验证，不晋升，产品默认不切。下一轮若要晋升候选，需要一次新的 fresh 验证；本轮不再加宽租约。`python -m benchmark.reentry_frontier_reproduce --root experiments/published/reentry-frontier-v0.3.16 --verify`
 >
-> **v0.3.15 更新**：Fresh multi-target Horizon Handoff validation。协议 `4681d444dc45905c8c644528dae7c253dd936233`。目标套件冻结 `5bf7e10b84ba6f37f70be90017ae1278e1013246`。发布 `f81e62c28cb76195612c850fc3da60ad006e9f40`。种子：buggy-forum `93494ede` / 2471055070，buggy-billing `5e5d80a8` / 1583186088，buggy-lab `5e7e0329` / 1585316649，buggy-directory `85797ba0` / 2239331232。**Outcome C — validation failed**：3 个正目标都实际可评估，forum 与 billing 完整 transfer，buggy-lab 丢失 BUG-L1、BUG-L8、BUG-L9、BUG-L10，buggy-directory 的 H@120 触发 2 次 handoff。Witness / terminal violations 为 0。产品默认未改。promotion readiness = `not_ready`。下一问是失败分析，不是产品化。`python -m benchmark.fresh_handoff_reproduce --root experiments/published/fresh-handoff-v0.3.15 --verify`
+> **v0.3.15 更新**：Fresh multi-target Horizon Handoff validation。协议 `4681d444dc45905c8c644528dae7c253dd936233`。目标套件冻结 `5bf7e10b84ba6f37f70be90017ae1278e1013246`。发布 `f81e62c28cb76195612c850fc3da60ad006e9f40`。种子：buggy-forum `93494ede` / 2471055070，buggy-billing `5e5d80a8` / 1583186088，buggy-lab `5e7e0329` / 1585316649，buggy-directory `85797ba0` / 2239331232。**Outcome C — validation failed**：3 个正目标都实际可评估，forum 与 billing 完整 transfer，buggy-lab 丢失 BUG-L1、BUG-L8、BUG-L9、BUG-L10，buggy-directory 的 H@120 触发 2 次 handoff。Witness / terminal violations 为 0。产品默认未改。promotion readiness = `not_ready`。`python -m benchmark.fresh_handoff_reproduce --root experiments/published/fresh-handoff-v0.3.15 --verify`
 >
 > **v0.3.14 更新**：Horizon Handoff。协议 `experiments/validation/v0.3.14/protocol.json`。候选冻结 `experiments/frozen/ghost-horizon-handoff-v0.3.14/`。**Outcome A — inspected mechanism repaired and regression-safe**：嵌套分支在 `commitment_left > 1` 时 continuation，只在 `commitment_left == 1` 时 handoff 成真实 child，并用 child 自己的 parent witness 恢复外层 return phase。CRM @120 20 states / 13 URLs / 5 continuations / 2 handoffs / 2 witnesses / horizon 10。Ops @120 28 states / 25 URLs / 13 continuations / 7 handoffs / 4 witnesses / horizon 19。BuggyDesk、DeepBench、Wiki、BuggyShop 相对 guard 的已确认缺陷丢失为 0。Witness violations 为 0。H1–H20、19607 handoff traces、S1–S7、5800 return model、N1–N12、P1–P15 的 failures 为 0。v0.3.13 的 `restore_without_child_return` 把 same-step finding 加上物理 parent match 误记为 false restore；订正 residual 为 0，但 v0.3.13 仍是 Outcome C，没有变成成功。v0.3.12 仍是 Outcome C，v0.3.11 仍是 Outcome D。不是 fresh validation。候选不晋升。产品默认不切。下一轮应做 fresh validation，而不是直接改产品默认。`python -m benchmark.horizon_handoff_reproduce --root experiments/published/horizon-handoff-v0.3.14 --verify`
 > **v0.3.13 更新**：Suspended-parent nested sequence stack。协议 `experiments/validation/v0.3.13/protocol.json`。候选冻结 `experiments/frozen/ghost-nested-stack-guard-v0.3.13/`。**Outcome C — harmful / unsafe**：CRM @120 guard 5 states / 80 lost_parent → stack 5 states / 5 URLs / 80 pushes / 0 resumes / depth 80 / 0 horizon / 0 return。Ops @120 guard 5 states / 79 lost_parent → stack 5 states / 5 URLs / 79 pushes / 0 resumes / depth 79。P1–P15、S1–S7、5800 exhaustive traces 均为 0 failures，terminal violations 为 0。BuggyDesk stack 确认 K3/K5/K6/K9/K10，相对 guard 丢失 K1/K2。DeepBench 确认 D6/D12，丢失 D7/D11/D13/D14。Wiki 丢失 W2。BuggyShop 保留 W5/W6/W9/W10。v0.3.12 仍是 Outcome C，v0.3.11 仍是 Outcome D。不是 fresh validation。候选不晋升。产品默认不切。`python -m benchmark.nested_stack_reproduce --root experiments/published/nested-stack-v0.3.13 --verify`
@@ -23,7 +23,7 @@
 > **v0.3.7 更新**：算法冻结后做 holdout + BuggyShop。C1 holdout **0/2**，BuggyShop **1/10** 且 6 states。预注册结论 **C：DeepBench-specific**。产品默认不切。不要用 holdout 调参。
 > **v0.3.6 更新**：Structural hub memory（cluster-level）。C1 `ghost-structural-memory`@80–120 Deep-BDR=0.667（D6/D7/D11–D14），BDR=0.429 并列 DFS。C0 仍 D6+D12。产品默认不切。Freeze `5355abd`。
 > **v0.3.5.1-r2 更新**：sequence length 按 concrete `sequence_action` 计；horizon 不是 terminal。max len=6；terminally tested branches=6。行为仍 D6+D12。
-> **v0.3.5.1 更新**：Sequence metrics 纠偏。行为不变（仍 D6+D12）。`hub_count=57` 是 variant；canonical hub=3。下一问：跨 semantic variant 的 workflow memory。
+> **v0.3.5.1 更新**：Sequence metrics 纠偏。行为不变（仍 D6+D12）。`hub_count=57` 是 variant；canonical hub=3。
 > **v0.3.5 更新**：Sequence-aware branches。`ghost-sequence` 首次确认 D12，Deep-BDR=0.222，D6 仍在。产品默认仍是 NoFrontier。Freeze `5355abd`。
 > **v0.3.4 更新**：Post-reach exploration。产品 Ghost 默认 NoFrontier。`ghost-deferred`@120 与 DFS BDR 打平且保留 D6；full exploit/postreach 会丢 D6。Freeze `5355abd`。
 > **v0.3.3 更新**：Frontier relocation study。inventory-sum + 双计 path cost 导致 over-jump；Shadow 证明 step 6 的 hop 会打断 D6。默认应关闭 reset+replay。Freeze 仍是 `5355abd`。产品 v0.4 preview 未改。
@@ -49,8 +49,6 @@
 
 P0-2 里“Time-to-Deep-Bug 应显著优于 BFS”是 **research hypothesis**，不是工程验收门。假设未成立。
 
-v0.4 不要做 Dashboard 直到先处理：input vocab 基数、relocate 与表单未试动作的冲突、以及冻结 DeepBench 上的重跑。
-
 真实 LLM：`real LLM experiment skipped: credentials unavailable`。
 
 ---
@@ -67,7 +65,7 @@ v0.4 不要做 Dashboard 直到先处理：input vocab 基数、relocate 与表�
 
 **GhostQA 是一个 AI 驱动的自主探索式软件测试系统**：给定一个 Web 应用和需求规格，它自主建立软件状态模型、智能选择测试路径、发现异常，并把每个异常转化为**经过机器重放验证、带可执行最小复现路径**的可信缺陷报告。
 
-核心技术主线（不要说"第一个会自动测试网页的 AI"——竞品已有 Momentic/QA.tech）：
+核心技术主线：
 
 ```
 Value-Guided Exploration        状态价值函数引导的探索（透明、可测、可消融）
@@ -330,7 +328,7 @@ FastAPI 后端、Live Dashboard（浏览器画面流 + State Graph 实时生长 
 4. 不要在探索/Oracle 中读 manifest 或应用内部状态。
 5. 不要引入多 Agent / RAG / 知识图谱 / 微调——除非先证明单 Agent 价值函数到顶。
 6. 不要做没有指标贡献的功能（先答"改善哪个指标"）。
-7. 不要把设计文档写成已实现；状态判断以代码为准。
+7. 状态判断以代码为准。
 8. 不要拿 MockLLM 数据冒充真实 LLM 实验。
 
 ---

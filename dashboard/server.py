@@ -123,7 +123,8 @@ class RunHandle:
         self.id = run_id
         self.cfg = cfg
         self.stop = threading.Event()
-        self.status = "running"          # running | validating | done | error
+        self.status = "running"          # running | validating | minimizing | done | partial | error
+        self.phase = "exploration"
         self.error = ""
         self.created = time.time()
         self.events: queue.Queue = queue.Queue()
@@ -133,12 +134,15 @@ class RunHandle:
         self.summary: dict = {}
         self.bugs: list = []
         self.candidates: list = []
+        self.unfinished: list = []
         self.report_html = ""
         self.shot_index: dict = {}       # basename -> abs path, for /shot/{name}
 
     def emit(self, ev: dict):
         """Consume one step event produced by run_exploration(on_step=...)."""
         ev = dict(ev)
+        if ev.get("type") == "phase":
+            self.phase = ev.get("phase") or self.phase
         ev["seq"] = len(self.event_log)
         self.event_log.append(ev)
         for side in ("src", "dst"):
@@ -197,7 +201,9 @@ def reject_unreadable_spec(spec) -> str:
     return path
 
 
-def replay_until_stop(findings, stop_is_set, validate, minimize, on_confirmed) -> bool:
+def replay_until_stop(findings, stop_is_set, validate, minimize, on_confirmed,
+                      on_unfinished=None, on_candidate_start=None,
+                      on_failed=None) -> bool:
     """Replay findings until stop_is_set or the list ends.
 
     Returns True when the caller asked to stop. on_confirmed runs after each
@@ -207,13 +213,28 @@ def replay_until_stop(findings, stop_is_set, validate, minimize, on_confirmed) -
     """
     from ghostqa.minimizer.ddmin import ReplayStopped
     try:
-        for finding in findings:
+        total = len(findings)
+        for index, finding in enumerate(findings, 1):
             if stop_is_set():
                 return True
-            if not validate(finding):
-                continue
-            repro = minimize(finding)
-            on_confirmed(finding, repro)
+            if on_candidate_start is not None:
+                on_candidate_start(finding, index, total)
+            try:
+                if not validate(finding):
+                    if on_failed is not None:
+                        on_failed(finding)
+                    continue
+                repro = minimize(finding)
+                if not repro:
+                    raise RuntimeError("最小化时原始路径未能再次复现，未保存为确认缺陷")
+                on_confirmed(finding, repro)
+            except ReplayStopped:
+                return True
+            except Exception as exc:
+                if on_unfinished is not None:
+                    on_unfinished(finding, exc)
+                else:
+                    raise
     except ReplayStopped:
         return True
     return False
@@ -278,7 +299,14 @@ def _do_run(handle: RunHandle):
             "similarity_counts": getattr(result, "similarity_counts", {}),
         }
         _write_json(os.path.join(run_dir, "candidates.json"), handle.candidates)
+        handle.emit({"type": "phase", "phase": "candidate",
+                     "candidate_total": len(result.candidates),
+                     "status": "ready"})
         handle.status = "validating"
+        handle.phase = "replay"
+        handle.emit({"type": "phase", "phase": "replay",
+                     "candidate_total": len(result.candidates),
+                     "status": "running"})
         _write_json(os.path.join(run_dir, "meta.json"), {
             "cfg": cfg, "created": handle.created, "status": "validating",
             "summary": handle.summary})
@@ -292,38 +320,96 @@ def _do_run(handle: RunHandle):
             confirmed.append(result.make_confirmed(finding, repro))
             handle.bugs = [b.to_dict() for b in confirmed]
 
+        def _on_candidate_start(finding, index, total):
+            handle.status = "validating"
+            handle.phase = "replay"
+            handle.emit({"type": "phase", "phase": "replay",
+                         "candidate_index": index, "candidate_total": total,
+                         "status": "running"})
+
+        def _minimize(finding):
+            handle.status = "minimizing"
+            handle.phase = "minimizing"
+            handle.emit({"type": "phase", "phase": "minimizing",
+                         "status": "running"})
+            original = result.reproduction_actions(finding)
+            repro = minimize_reproduction(
+                factory, original, finding, oracle,
+                should_stop=handle.stop.is_set, on_test=handle.emit)
+            return repro
+
+        def _on_failed(finding):
+            artifact = result.finding_artifact(finding)
+            artifact["replay_status"] = "failed"
+            fp = finding.fingerprint() if hasattr(finding, "fingerprint") else ""
+            for candidate in handle.candidates:
+                if candidate.get("fingerprint") == fp or (
+                        candidate.get("kind") == artifact.get("kind") and
+                        candidate.get("step_index") == artifact.get("step_index")):
+                    candidate["replay_status"] = "failed"
+                    break
+
+        def _on_unfinished(finding, exc):
+            artifact = result.finding_artifact(finding)
+            artifact["replay_status"] = "unfinished"
+            artifact["replay_error"] = (str(exc).splitlines() or [type(exc).__name__])[0][:300]
+            artifact["replay_error_type"] = (
+                "navigation_timeout" if "timeout" in str(exc).lower() and
+                any(word in str(exc).lower() for word in ("goto", "navigation", "navigate"))
+                else "replay_error")
+            handle.unfinished.append(artifact)
+            fp = finding.fingerprint() if hasattr(finding, "fingerprint") else ""
+            for candidate in handle.candidates:
+                if candidate.get("fingerprint") == fp or (
+                        candidate.get("kind") == artifact.get("kind") and
+                        candidate.get("step_index") == artifact.get("step_index")):
+                    candidate.update({k: artifact[k] for k in (
+                        "replay_status", "replay_error", "replay_error_type")
+                        if k in artifact})
+                    break
+
         stopped = replay_until_stop(
             result.candidates,
             handle.stop.is_set,
             lambda finding: validate_candidate(
                 factory, result.reproduction_actions(finding), finding, oracle
             ).confirmed,
-            lambda finding: minimize_reproduction(
-                factory, result.reproduction_actions(finding), finding, oracle,
-                should_stop=handle.stop.is_set),
-            _on_confirmed)
+            _minimize,
+            _on_confirmed,
+            _on_unfinished,
+            _on_candidate_start,
+            _on_failed)
+
         if stopped:
             handle.summary = dict(handle.summary)
             handle.summary["confirmed"] = len(confirmed)
             handle.summary["states"] = len(result.graph.nodes)
-            report = build_report(result, confirmed, cfg)
+            report = build_report(result, confirmed, cfg,
+                                  unfinished=handle.unfinished)
             report["replay_state"] = "stopped"
             write_report(report, os.path.join(run_dir, "report.json"),
                          os.path.join(run_dir, "report.html"),
                          handle.candidates)
             handle.report_html = os.path.join(run_dir, "report.html")
             handle.status = "stopped"
+            handle.phase = "report"
             handle.error = ""
             _write_json(os.path.join(run_dir, "meta.json"), {
                 "cfg": cfg, "created": handle.created, "status": "stopped",
+                "phase": "report",
                 "summary": handle.summary})
             _write_json(os.path.join(run_dir, "bugs.json"), handle.bugs)
             _write_json(os.path.join(run_dir, "candidates.json"), handle.candidates)
+            _write_json(os.path.join(run_dir, "unfinished.json"), handle.unfinished)
+            handle.emit({"type": "phase", "phase": "report", "status": "stopped"})
             handle.emit({"type": "run_done", "summary": handle.summary,
                          "stopped": True})
             return
 
-        report = build_report(result, confirmed, cfg)
+        report = build_report(result, confirmed, cfg,
+                              unfinished=handle.unfinished)
+        if handle.unfinished:
+            report["replay_state"] = "partial"
         write_report(report, os.path.join(run_dir, "report.json"),
                      os.path.join(run_dir, "report.html"),
                      handle.candidates)
@@ -331,15 +417,22 @@ def _do_run(handle: RunHandle):
         handle.summary = dict(handle.summary)
         handle.summary["confirmed"] = len(confirmed)
         handle.summary["states"] = len(result.graph.nodes)
-        handle.status = "done"
+        handle.status = "partial" if handle.unfinished else "done"
+        handle.phase = "report"
         _write_json(os.path.join(run_dir, "meta.json"), {
-            "cfg": cfg, "created": handle.created, "status": "done",
+            "cfg": cfg, "created": handle.created, "status": handle.status,
+            "phase": "report",
             "summary": handle.summary})
         _write_json(os.path.join(run_dir, "bugs.json"), handle.bugs)
         _write_json(os.path.join(run_dir, "candidates.json"), handle.candidates)
-        handle.emit({"type": "run_done", "summary": handle.summary})
+        _write_json(os.path.join(run_dir, "unfinished.json"), handle.unfinished)
+        handle.emit({"type": "phase", "phase": "report",
+                     "status": handle.status})
+        handle.emit({"type": "run_done", "summary": handle.summary,
+                     "status": handle.status,
+                     "unfinished": len(handle.unfinished)})
     except Exception:
-        if handle.status in ("done", "stopped"):
+        if handle.status in ("done", "partial", "stopped"):
             raise
         handle.status = "error"
         handle.error = traceback.format_exc(limit=5)
@@ -348,7 +441,8 @@ def _do_run(handle: RunHandle):
             handle.summary["confirmed"] = len(handle.bugs or [])
         if result is not None and (handle.candidates or confirmed):
             try:
-                report = build_report(result, confirmed, cfg)
+                report = build_report(result, confirmed, cfg,
+                                      unfinished=handle.unfinished)
                 report["replay_state"] = "error"
                 write_report(report, os.path.join(run_dir, "report.json"),
                              os.path.join(run_dir, "report.html"),
@@ -364,6 +458,8 @@ def _do_run(handle: RunHandle):
             meta["summary"] = handle.summary
         if handle.candidates:
             _write_json(os.path.join(run_dir, "candidates.json"), handle.candidates)
+        if handle.unfinished:
+            _write_json(os.path.join(run_dir, "unfinished.json"), handle.unfinished)
         if handle.bugs:
             _write_json(os.path.join(run_dir, "bugs.json"), handle.bugs)
         _write_json(os.path.join(run_dir, "meta.json"), meta)
@@ -393,12 +489,13 @@ def _hydrate_runs() -> None:
             handle = RunHandle(name, cfg)
             handle.created = float(meta.get("created") or os.path.getmtime(run_dir))
             handle.status = meta.get("status") or ("done" if report else "error")
+            handle.phase = meta.get("phase") or ("report" if report else "exploration")
             stored_error = meta.get("error")
             # Failed runs keep the traceback in meta.json. A restart must
             # show that text again; an empty string is what the page treats
             # as an unknown error.
             handle.error = stored_error if isinstance(stored_error, str) else ""
-            if handle.status in ("running", "validating"):
+            if handle.status in ("running", "validating", "minimizing"):
                 # The thread that was exploring or replaying is gone.
                 handle.status = "error"
                 handle.error = "interrupted (server restarted)"
@@ -417,6 +514,11 @@ def _hydrate_runs() -> None:
                                      report.get("bugs") or []) or []
             handle.candidates = _read_json(
                 os.path.join(run_dir, "candidates.json"), []) or []
+            handle.unfinished = _read_json(
+                os.path.join(run_dir, "unfinished.json"), []) or []
+            if not handle.unfinished:
+                handle.unfinished = [c for c in handle.candidates
+                                     if isinstance(c, dict) and c.get("replay_status") == "unfinished"]
             events_path = os.path.join(run_dir, "events.jsonl")
             if os.path.isfile(events_path):
                 with open(events_path, encoding="utf-8") as f:
@@ -499,7 +601,7 @@ def cancel_run(run_id: str):
 @app.get("/api/runs")
 def list_runs():
     with RUNS_LOCK:
-        return [{"id": h.id, "status": h.status, "cfg": h.cfg,
+        return [{"id": h.id, "status": h.status, "phase": h.phase, "cfg": h.cfg,
                  "summary": h.summary, "created": h.created}
                 for h in RUNS.values()]
 
@@ -514,7 +616,8 @@ def _get(run_id: str) -> RunHandle:
 @app.get("/api/runs/{run_id}")
 def run_status(run_id: str):
     h = _get(run_id)
-    return {"id": h.id, "status": h.status, "error": h.error,
+    return {"id": h.id, "status": h.status, "phase": h.phase,
+            "unfinished": h.unfinished, "error": h.error,
             "cfg": h.cfg, "summary": h.summary,
             "candidates": h.candidates, "events": len(h.event_log)}
 

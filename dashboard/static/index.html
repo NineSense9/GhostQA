@@ -32,8 +32,8 @@
 <noscript><link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&family=Noto+Sans+SC:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
 <link rel="stylesheet" href="/static/styles/tokens.css?v=20260922">
 <link rel="stylesheet" href="/static/styles/base.css?v=20260922">
-<link rel="stylesheet" href="/static/styles/components.css?v=20260930b">
-<link rel="stylesheet" href="/static/styles/showcase.css?v=20260922">
+<link rel="stylesheet" href="/static/styles/components.css?v=20260930b&rev=20261005-final">
+<link rel="stylesheet" href="/static/styles/showcase.css?v=20261005-final">
 </head>
 <body class="atmosphere view-overview">
 
@@ -42,7 +42,7 @@
 <header class="topbar" role="banner">
   <div class="brand">
     <span class="brand-mark">Ghost<em>QA</em></span>
-    <span class="brand-ver">研究工作台</span>
+    <span class="brand-ver">Web 探索测试</span>
   </div>
   <nav class="view-nav" id="main-nav" role="tablist" aria-label="主视图">
     <button type="button" class="view-tab is-active" role="tab" aria-selected="true" aria-controls="view-overview" data-view="overview" id="tab-overview">总览</button>
@@ -50,7 +50,7 @@
     <button type="button" class="view-tab" role="tab" aria-selected="false" aria-controls="view-evidence" data-view="evidence" id="tab-evidence">研究证据</button>
   </nav>
   <div class="topbar-right">
-    <span class="research-badge" id="research-badge">研究版本 · v0.3.38</span>
+    <span class="research-badge" id="research-badge">产品默认 · Ghost</span>
     <span class="conn" id="conn"><span class="live-dot" id="conn-dot"></span><span id="conn-txt">Dashboard</span></span>
     <button type="button" class="theme-toggle" id="theme-toggle" data-testid="theme-toggle" aria-pressed="false" aria-label="切换到深色主题" title="切换到深色">
       <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round">
@@ -71,13 +71,273 @@
     <section class="hero">
       <div class="hero-copy">
         <p class="eyebrow">Web 探索测试原型</p>
-        <h1>让浏览器自己走，问题必须走得回来。</h1>
+        <h1>自动探索网页，留下可重放的缺陷。</h1>
         <p class="hero-lead">在同一台机器上运行 GhostQA。要测自己的网站，把那个网站的地址填进实时探索；手头没有网站时，直接选一个内置案例。它会打开浏览器、记录页面状态和转移。发现异常后先重放；复现成功，才记为已确认缺陷。</p>
         <div class="hero-cta">
           <button type="button" class="btn btn-primary" data-goto="live">运行一次探索</button>
           <button type="button" class="btn btn-ghost" data-goto="evidence">查看实验记录</button>
         </div>
       </div>
+
+    </section>
+
+    <section class="traits product-flow" aria-label="输入过程输出">
+      <article><h2>输入</h2><p>目标地址、JSON 规格和步数预算。默认使用购物车案例，6 步即可检查一次完整流程。</p></article>
+      <article><h2>过程</h2><p>浏览器执行动作，状态图记录路径，AI 按门控重排候选，Oracle 检查通用错误和业务断言。</p></article>
+      <article><h2>输出</h2><p>候选逐条重放，再用 ddmin 缩减步骤。报告区分已确认、未复现和未完成，并保留现场证据。</p></article>
+    </section>
+    <section class="product-boundary"><h2>录制路径</h2><p>配置目标 → 探索 → 发现候选 → 重放确认 → 最小化 → 打开报告</p><p>真实模型需配置网关；没有模型时使用程序评分，并显示降级状态。复杂登录和外部系统需单独接入。</p></section>
+
+    <footer class="site-foot">GhostQA · 研究原型 · 结果与证据保存在仓库中</footer>
+  </div>
+</div>
+
+<!-- ============================ LIVE ============================== -->
+<div id="view-live" class="view-panel" role="tabpanel" hidden data-testid="live" aria-labelledby="tab-live">
+  <div class="live-bar" role="status" aria-live="polite">
+    <span class="readout"><span class="readout-k">状态</span><span class="readout-v" id="r-status">空闲</span></span>
+    <span class="readout"><span class="readout-k">步数</span><span class="readout-v is-accent" id="r-steps">0</span></span>
+    <span class="readout"><span class="readout-k">状态节点</span><span class="readout-v is-accent" id="r-states">0</span></span>
+    <span class="readout"><span class="readout-k">候选</span><span class="readout-v" id="r-cands">0</span></span>
+    <span class="readout"><span class="readout-k">已确认</span><span class="readout-v is-alert" id="r-bugs">0</span></span>
+    <span class="readout"><span class="readout-k">耗时</span><span class="readout-v" id="t-wall">0s</span></span>
+    <span class="readout muted-llm"><span class="readout-k">LLM</span><span class="readout-v" id="r-llm">0</span></span>
+    <div id="run-stage" class="run-stage" aria-label="运行阶段">
+      <span data-stage="config">配置</span><i>→</i><span data-stage="exploration">探索</span><i>→</i><span data-stage="candidate">候选</span><i>→</i><span data-stage="replay">重放</span><i>→</i><span data-stage="minimizing">最小化</span><i>→</i><span data-stage="report">报告</span>
+    </div>
+  </div>
+  <p class="live-intro" id="live-intro">运行时同时查看页面、状态图、动作记录和已确认缺陷。</p>
+  <button type="submit" form="run-form" formnovalidate class="btn btn-ghost btn-tiny live-control" id="btn-live-control" hidden>停止探索</button>
+  <p class="live-hint" id="live-hint">启动后，这里会显示当前页面截图、状态图、动作记录和确认后的缺陷。下面的表单用来选站点和策略。</p>
+  <div class="live-complete" id="live-complete" hidden></div>
+  <div class="live-error" id="live-error" hidden></div>
+
+  <main class="console">
+    <div class="col">
+      <section class="panel viewport-panel" aria-labelledby="h-viewport">
+        <div class="panel-head">
+          <h2 class="label" id="h-viewport">实时画面</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="status-pill" id="vp-pill">待启动</span>
+          <button type="button" class="btn btn-ghost btn-tiny" id="shot-zoom">放大画面</button>
+        </div>
+        <div class="viewport" id="viewport" data-testid="live-viewport">
+          <div class="viewport-empty" id="viewport-empty">
+            <h3>尚未开始</h3>
+            <p>启动运行后，这里会显示测试代理当前看到的页面。</p>
+          </div>
+          <img id="shot" alt="探索器当前所见页面截图" hidden>
+        </div>
+        <div class="action-strip">
+          <span class="action-verb" id="a-verb">—</span>
+          <span class="action-target" id="a-target" title="">等待首个动作</span>
+          <span class="action-arrow" aria-hidden="true">→</span>
+          <span class="action-url" id="a-url" title=""></span>
+        </div>
+      </section>
+      <p class="action-result" id="action-result">状态关系与 Oracle 结果将在动作执行后显示。</p>
+      <section class="panel graph-panel" aria-labelledby="h-graph">
+        <div class="panel-head">
+          <h2 class="label" id="h-graph">状态图</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="readout-k" id="graph-count">0 节点 / 0 边</span>
+          <button type="button" class="btn btn-ghost btn-tiny" id="graph-fit" title="适应画布">适应</button>
+        </div>
+        <div class="graph-stage">
+          <div id="graph" role="img" aria-label="探索过程中构建的状态转移图"></div>
+          <div class="graph-empty" id="graph-empty">状态图会随着探索逐步展开。</div>
+        </div>
+        <div class="graph-legend">
+          <span class="key"><i class="key-new"></i>新状态 NEW</span>
+          <span class="key"><i class="key-similar"></i>相似 SIMILAR</span>
+          <span class="key"><i class="key-identical"></i>相同 IDENTICAL</span>
+          <span class="key"><i class="key-flagged"></i>缺陷节点</span>
+        </div>
+      </section>
+
+      <section class="card log-panel" aria-labelledby="h-log">
+        <div class="card-head">
+          <h2 class="label" id="h-log">决策日志</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="status-pill" id="log-count">0</span>
+          <button type="button" class="btn btn-ghost btn-tiny log-jump" id="log-latest" hidden>回到最新</button>
+        </div>
+        <div class="log" id="log" role="log" aria-live="polite">
+          <p class="empty">启动后，每一步动作会出现在这里。</p>
+        </div>
+      </section>
+    </div>
+    <div class="col col-right">
+      <section class="card" id="run-form-card" aria-labelledby="h-run">
+        <div class="card-head">
+          <h2 class="label" id="h-run">启动探索</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <button type="button" class="btn btn-ghost btn-tiny" id="config-toggle">展开 / 收起</button>
+        </div>
+        <form class="form" id="run-form">
+          <div class="field">
+            <label for="f-case">内置案例</label>
+            <select id="f-case" name="case">
+              <option value="catalog">案例目录</option>
+              <option value="register">空用户名注册</option>
+              <option value="dead">点击无响应</option>
+              <option value="script">脚本报错</option>
+              <option value="blank">空白页</option>
+              <option value="loop">帮助页来回跳</option>
+              <option value="stock">库存变成负数</option>
+              <option value="cart" selected>购物车总价不对（主录制）</option>
+              <option value="profile">未登录的个人中心</option>
+              <option value="own">我的项目</option>
+              <option value="shop">BuggyShop 示例</option>
+            </select>
+            <p class="field-hint" id="case-note"></p>
+          </div>
+          <div class="field">
+            <label for="f-url">目标地址</label>
+            <input id="f-url" name="url" type="url" required
+                   value="" placeholder="http://127.0.0.1:3000/">
+            <p class="field-hint" id="url-note">浏览器由运行 GhostQA 的这台机器打开。测自己的项目时，先在这台机器上把它跑起来，再填写地址。只写到端口时从 /index.html 进入；首页在网站根路径时，地址末尾加上 / 。</p>
+            <p class="field-error" id="err-url"></p>
+          </div>
+          <div class="field">
+            <label for="f-spec">规格文件</label>
+            <input id="f-spec" name="spec" type="text"
+                   value="apps/builtin-cases/spec.json" placeholder="留空则只做通用检查">
+            <p class="field-hint" id="spec-note">留空只做通用检查：点击无响应、脚本报错、白屏、导航循环、崩溃。业务规则写成 JSON，路径相对仓库根目录。文件不存在时不会开始探索。</p>
+            <p class="field-error" id="err-spec"></p>
+          </div>
+          <div class="row-2">
+            <div class="field">
+              <label for="f-policy">策略</label>
+              <select id="f-policy" name="policy">
+                <optgroup label="稳定策略">
+                  <option value="ghost" selected>Ghost · default</option>
+                  <option value="ghost-nollm">Ghost NoLLM</option>
+                  <option value="bfs">BFS</option>
+                  <option value="dfs">DFS</option>
+                  <option value="workflow-bfs">Workflow BFS</option>
+                  <option value="ghost-branch">Ghost · sequence branch</option>
+                  <option value="ghost-followup">Ghost · sequence followup</option>
+                  <option value="ghost-sequence">Ghost · sequence</option>
+                  <option value="ghost-deferred">Ghost · postreach deferred</option>
+                  <option value="ghost-exploit">Ghost · postreach exploit</option>
+                  <option value="ghost-postreach">Ghost · postreach</option>
+                </optgroup>
+                <optgroup label="研究策略">
+                  <option value="ghost-structural-memory">Structural Memory · research</option>
+                  <option value="ghost-structural-return-guard">Return Guard · research</option>
+                  <option value="ghost-structural-nested-return-guard">Nested Hub Guard · research</option>
+                  <option value="ghost-structural-nested-stack-guard">Nested Stack Guard · research</option>
+                  <option value="ghost-structural-horizon-handoff-guard">Horizon Handoff · v0.3.14 · research</option>
+                  <option value="ghost-structural-reentry-frontier-guard">Reentry Frontier · v0.3.16 · research</option>
+                  <option value="ghost-structural-local-action-drain-guard">Local Action Drain · v0.3.17 · research</option>
+                  <option value="ghost-structural-return-entry-drain-guard">Return Entry Drain · v0.3.18 · research</option>
+                  <option value="ghost-structural-finding-return-entry-drain-guard">Finding Return · v0.3.19 · research</option>
+                  <option value="ghost-structural-return-waypoint-frontier-guard">Return Waypoint · v0.3.21 · research</option>
+                  <option value="ghost-structural-residual-frontier-debt-guard">Residual Frontier Debt · v0.3.23 · research</option>
+                  <option value="ghost-structural-episode-drain-epoch-guard">Episode Drain · v0.3.24 · research</option>
+                  <option value="ghost-structural-untried-sibling-guard">Untried Sibling · v0.3.26 · research</option>
+                  <option value="ghost-structural-parent-hub-sibling-guard">Parent Hub Sibling · v0.3.27 · research</option>
+                  <option value="ghost-structural-repeat-click-guard">Repeat Click · v0.3.30 · research</option>
+                  <option value="ghost-structural-alternate-payload-guard">Alternate Payload · v0.3.31 · research</option>
+                  <option value="ghost-structural-payload-button-guard">Payload Button · v0.3.32 · research</option>
+                  <option value="ghost-structural-page-buttons-guard">Page Buttons · v0.3.33 · research</option>
+                  <option value="ghost-structural-seen-button-guard">Seen Button · v0.3.34 · research</option>
+                  <option value="ghost-structural-search-submit-guard">Search Submit · v0.3.35 · research</option>
+                  <option value="ghost-structural-hub-distractor-guard">Hub Distractor · v0.3.36 · research</option>
+                  <option value="ghost-structural-loop-exit-guard">Loop Exit · v0.3.37 · research</option>
+                  <option value="ghost-structural-side-back-guard">Side Back · v0.3.38 · research</option>
+                </optgroup>
+              </select>
+              <p class="field-hint" id="policy-hint"></p>
+              <p class="field-hint research-only" id="policy-research" hidden>研究策略 · 不代表产品默认</p>
+            </div>
+            <div class="field">
+              <label for="f-budget">预算（步）</label>
+              <input id="f-budget" name="budget" type="number" min="1" max="400" value="6">
+              <p class="field-error" id="err-budget"></p>
+            </div>
+          </div>
+          <label class="check">
+            <input id="f-mock" type="checkbox">
+            <span class="check-box" aria-hidden="true"></span>
+            <span class="check-label">Mock LLM · 离线演示，不请求外部模型</span>
+          </label>
+          <div class="form-actions">
+            <button class="btn btn-ghost" type="button" id="btn-preset">载入 BuggyShop 示例</button>
+            <button class="btn btn-primary" id="btn-run" type="submit" data-testid="run-button">
+              <span id="btn-run-txt">启动探索</span>
+            </button>
+          </div>
+        </form>
+      </section>
+      <section class="card" id="run-history-card" aria-labelledby="h-history">
+        <div class="card-head">
+          <h2 class="label" id="h-history">最近运行</h2>
+          <span class="rule" aria-hidden="true"></span>
+        </div>
+        <ul class="run-history" id="run-history">
+          <li class="empty">还没有运行记录。</li>
+        </ul>
+      </section>
+      <section id="ai-readout" class="card ai-readout" hidden aria-labelledby="h-ai">
+        <div class="card-head"><h2 class="label" id="h-ai">AI 决策观测</h2><span class="rule"></span><span class="status-pill" id="ai-status">未触发</span></div>
+        <p id="ai-summary" class="ai-summary">模型只在门控条件满足时参与动作排序。</p>
+        <div id="ai-candidates" class="ai-candidates"></div>
+        <p id="ai-choice" class="ai-choice"></p>
+      </section>
+      <section class="card phase-card" aria-labelledby="h-phase-records">
+        <div class="card-head"><h2 class="label" id="h-phase-records">重放与最小化记录</h2></div>
+        <ol id="phase-records" class="phase-records"></ol>
+      </section>
+      <section class="card" id="bug-card" aria-labelledby="h-bugs">
+        <div class="card-head">
+          <h2 class="label" id="h-bugs">已确认缺陷</h2>
+          <span class="rule" aria-hidden="true"></span>
+          <span class="status-pill" id="bug-count">0</span>
+        </div>
+        <div class="bugs" id="bugs">
+          <p class="empty">还没有确认缺陷。<br>运行结束后，通过复现校验与 ddmin 的问题会出现在这里。</p>
+        </div>
+      </section>
+      <section class="card" id="tele-card" aria-labelledby="h-tele">
+        <div class="card-head">
+          <h2 class="label" id="h-tele">遥测</h2>
+          <span class="rule" aria-hidden="true"></span>
+        </div>
+        <div class="stat-grid">
+          <div class="stat is-accent"><span class="stat-k">动作</span><span class="stat-v" id="t-actions">0</span></div>
+          <div class="stat"><span class="stat-k">节点</span><span class="stat-v" id="t-nodes">0</span></div>
+          <div class="stat"><span class="stat-k">边</span><span class="stat-v" id="t-edges">0</span></div>
+          <div class="stat"><span class="stat-k">重定位</span><span class="stat-v" id="t-relocate">0</span></div>
+          <div class="stat"><span class="stat-k">URLs</span><span class="stat-v" id="t-urls">0</span></div>
+          <div class="stat is-alert"><span class="stat-k">缺陷</span><span class="stat-v" id="t-bugs">0</span></div>
+        </div>
+        <div class="mix">
+          <div class="mix-bar" id="mix-bar" aria-hidden="true">
+            <span id="mix-new" class="mix-new"></span>
+            <span id="mix-similar" class="mix-similar"></span>
+            <span id="mix-identical" class="mix-identical"></span>
+          </div>
+          <div class="mix-rows">
+            <span class="mix-row"><i class="key-new"></i>NEW<b id="m-new">0</b></span>
+            <span class="mix-row"><i class="key-similar"></i>SIMILAR<b id="m-similar">0</b></span>
+            <span class="mix-row"><i class="key-identical"></i>IDENTICAL<b id="m-identical">0</b></span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>
+
+<!-- ============================ EVIDENCE ============================== -->
+<div id="view-evidence" class="view-panel" role="tabpanel" hidden data-testid="evidence" aria-labelledby="tab-evidence">
+  <div class="evidence-wrap">
+    <header class="ev-head">
+      <p class="eyebrow">研究证据</p>
+      <h1>实验结果怎么复现</h1>
+      <p>这里列出冻结版本、证据清单、clean-clone 校验和复现命令。页面里的数字来自仓库中的已发布产物。</p>
+    </header>
       <aside class="hero-proof" aria-label="当前研究摘要">
         <p class="hero-proof-kicker">当前研究 <b id="proof-round">v0.3.10</b></p>
         <dl class="hero-proof-dl">
@@ -88,27 +348,6 @@
         </dl>
         <p class="hero-proof-note" id="proof-note">一次 fresh cross-app transfer，不是广泛泛化证明。</p>
       </aside>
-    </section>
-
-    <section class="traits" aria-label="项目原则">
-      <article>
-        <h2>先记状态，再选下一步</h2>
-        <p>GhostQA 用状态图记录已经走过的页面和转移，探索不是一串写死的点击。</p>
-      </article>
-      <article>
-        <h2>发现之后再复现</h2>
-        <p>浏览器里的异常先进入候选列表。只有重放成功，才标记为已确认；之后再用 ddmin 缩短路径。</p>
-      </article>
-      <article>
-        <h2>跨页流程不能丢</h2>
-        <p>sequence / structural memory 保存 workflow 进度，用来处理需要连续经过多个页面才能触发的问题。</p>
-      </article>
-      <article>
-        <h2>实验结果能对账</h2>
-        <p>协议、freeze、manifest、复现命令和 CI 结果都跟着版本保存在仓库里。</p>
-      </article>
-    </section>
-
     <section class="rc-section" data-testid="return-cycle" aria-labelledby="h-rc">
       <p class="eyebrow">v0.3.9 · 已发布证据</p>
       <h2 id="h-rc">打断 return loop 后，探索从 6 个状态继续向外走</h2>
@@ -359,7 +598,7 @@
       <p class="eyebrow">v0.3.21 · 已发布证据</p>
       <h2 id="h-rw">交接恢复后的外层返回，不再饿死中间枢纽上还没试过的分支</h2>
       <p class="rc-lead" id="rw-lead">四个已检查的 v0.3.20 positive target 都在 step 21 触发了 Return-Waypoint Frontier Escape，下一次动作由原来的探索策略选择。Warehouse 和 Booking 收回了 Guard 的 5/8/9。Campus 和 Studio 仍丢失这三类。这轮是 Outcome C。v0.3.20 的失败记录保留。</p>
-      <p class="limit-note">这是对已经检查过的 v0.3.20 目标做的检修，不是新的 fresh 验证。产品默认未改。下一问是失败分析，不是继续调这四个目标。</p>
+      <p class="limit-note">这是对已经检查过的 v0.3.20 目标做的检修，不是新的 fresh 验证。产品默认未改。</p>
       <p class="delta" id="rw-delta"></p>
       <p class="pill-row"><span class="pill" id="rw-outcome">Outcome</span>
         <span class="muted" id="rw-outcome-mean"></span></p>
@@ -374,7 +613,7 @@
       <p class="delta" id="fc-delta"></p>
       <p class="pill-row"><span class="pill" id="fc-outcome">Outcome</span>
         <span class="muted" id="fc-outcome-mean"></span></p>
-      <p class="footnote" id="fc-scope">下一问是失败分析，不是改默认策略。</p>
+      <p class="footnote" id="fc-scope">产品默认未改。</p>
     </section>
 
     <section class="rc-section" data-testid="finding-return-entry" aria-labelledby="h-fr">
@@ -547,238 +786,6 @@
       </div>
     </section>
 
-    <footer class="site-foot">GhostQA · 研究原型 · 结果与证据保存在仓库中</footer>
-  </div>
-</div>
-
-<!-- ============================ LIVE ============================== -->
-<div id="view-live" class="view-panel" role="tabpanel" hidden data-testid="live" aria-labelledby="tab-live">
-  <div class="live-bar" role="status" aria-live="polite">
-    <span class="readout"><span class="readout-k">状态</span><span class="readout-v" id="r-status">空闲</span></span>
-    <span class="readout"><span class="readout-k">步数</span><span class="readout-v is-accent" id="r-steps">0</span></span>
-    <span class="readout"><span class="readout-k">状态节点</span><span class="readout-v is-accent" id="r-states">0</span></span>
-    <span class="readout"><span class="readout-k">候选</span><span class="readout-v" id="r-cands">0</span></span>
-    <span class="readout"><span class="readout-k">已确认</span><span class="readout-v is-alert" id="r-bugs">0</span></span>
-    <span class="readout"><span class="readout-k">耗时</span><span class="readout-v" id="t-wall">0s</span></span>
-    <span class="readout muted-llm"><span class="readout-k">LLM</span><span class="readout-v" id="r-llm">0</span></span>
-  </div>
-  <p class="live-intro" id="live-intro">运行时同时查看页面、状态图、动作记录和已确认缺陷。</p>
-  <p class="live-hint" id="live-hint">启动后，这里会显示当前页面截图、状态图、动作记录和确认后的缺陷。下面的表单用来选站点和策略。</p>
-  <div class="live-complete" id="live-complete" hidden></div>
-  <div class="live-error" id="live-error" hidden></div>
-
-  <main class="console">
-    <div class="col">
-      <section class="panel viewport-panel" aria-labelledby="h-viewport">
-        <div class="panel-head">
-          <h2 class="label" id="h-viewport">实时画面</h2>
-          <span class="rule" aria-hidden="true"></span>
-          <span class="status-pill" id="vp-pill">待启动</span>
-        </div>
-        <div class="viewport" id="viewport" data-testid="live-viewport">
-          <div class="viewport-empty" id="viewport-empty">
-            <h3>尚未开始</h3>
-            <p>启动运行后，这里会显示测试代理当前看到的页面。</p>
-          </div>
-          <img id="shot" alt="探索器当前所见页面截图" hidden>
-        </div>
-        <div class="action-strip">
-          <span class="action-verb" id="a-verb">—</span>
-          <span class="action-target" id="a-target" title="">等待首个动作</span>
-          <span class="action-arrow" aria-hidden="true">→</span>
-          <span class="action-url" id="a-url" title=""></span>
-        </div>
-      </section>
-      <section class="panel graph-panel" aria-labelledby="h-graph">
-        <div class="panel-head">
-          <h2 class="label" id="h-graph">状态图</h2>
-          <span class="rule" aria-hidden="true"></span>
-          <span class="readout-k" id="graph-count">0 节点 / 0 边</span>
-          <button type="button" class="btn btn-ghost btn-tiny" id="graph-fit" title="适应画布">适应</button>
-        </div>
-        <div class="graph-stage">
-          <div id="graph" role="img" aria-label="探索过程中构建的状态转移图"></div>
-          <div class="graph-empty" id="graph-empty">状态图会随着探索逐步展开。</div>
-        </div>
-        <div class="graph-legend">
-          <span class="key"><i class="key-new"></i>新状态 NEW</span>
-          <span class="key"><i class="key-similar"></i>相似 SIMILAR</span>
-          <span class="key"><i class="key-identical"></i>相同 IDENTICAL</span>
-          <span class="key"><i class="key-flagged"></i>缺陷节点</span>
-        </div>
-      </section>
-      <section class="card log-panel" aria-labelledby="h-log">
-        <div class="card-head">
-          <h2 class="label" id="h-log">决策日志</h2>
-          <span class="rule" aria-hidden="true"></span>
-          <span class="status-pill" id="log-count">0</span>
-          <button type="button" class="btn btn-ghost btn-tiny log-jump" id="log-latest" hidden>回到最新</button>
-        </div>
-        <div class="log" id="log" role="log" aria-live="polite">
-          <p class="empty">启动后，每一步动作会出现在这里。</p>
-        </div>
-      </section>
-    </div>
-    <div class="col col-right">
-      <section class="card" id="run-form-card" aria-labelledby="h-run">
-        <div class="card-head">
-          <h2 class="label" id="h-run">启动探索</h2>
-          <span class="rule" aria-hidden="true"></span>
-        </div>
-        <form class="form" id="run-form">
-          <div class="field">
-            <label for="f-case">内置案例</label>
-            <select id="f-case" name="case">
-              <option value="catalog" selected>案例目录</option>
-              <option value="register">空用户名注册</option>
-              <option value="dead">点击无响应</option>
-              <option value="script">脚本报错</option>
-              <option value="blank">空白页</option>
-              <option value="loop">帮助页来回跳</option>
-              <option value="stock">库存变成负数</option>
-              <option value="cart">购物车总价不对</option>
-              <option value="profile">未登录的个人中心</option>
-              <option value="own">我的项目</option>
-              <option value="shop">BuggyShop 示例</option>
-            </select>
-            <p class="field-hint" id="case-note"></p>
-          </div>
-          <div class="field">
-            <label for="f-url">目标地址</label>
-            <input id="f-url" name="url" type="url" required
-                   value="" placeholder="http://127.0.0.1:3000/">
-            <p class="field-hint" id="url-note">浏览器由运行 GhostQA 的这台机器打开。测自己的项目时，先在这台机器上把它跑起来，再填写地址。只写到端口时从 /index.html 进入；首页在网站根路径时，地址末尾加上 / 。</p>
-            <p class="field-error" id="err-url"></p>
-          </div>
-          <div class="field">
-            <label for="f-spec">规格文件</label>
-            <input id="f-spec" name="spec" type="text"
-                   value="apps/builtin-cases/spec.json" placeholder="留空则只做通用检查">
-            <p class="field-hint" id="spec-note">留空只做通用检查：点击无响应、脚本报错、白屏、导航循环、崩溃。业务规则写成 JSON，路径相对仓库根目录。文件不存在时不会开始探索。</p>
-            <p class="field-error" id="err-spec"></p>
-          </div>
-          <div class="row-2">
-            <div class="field">
-              <label for="f-policy">策略</label>
-              <select id="f-policy" name="policy">
-                <optgroup label="稳定策略">
-                  <option value="ghost" selected>Ghost · default</option>
-                  <option value="ghost-nollm">Ghost NoLLM</option>
-                  <option value="bfs">BFS</option>
-                  <option value="dfs">DFS</option>
-                  <option value="workflow-bfs">Workflow BFS</option>
-                  <option value="ghost-branch">Ghost · sequence branch</option>
-                  <option value="ghost-followup">Ghost · sequence followup</option>
-                  <option value="ghost-sequence">Ghost · sequence</option>
-                  <option value="ghost-deferred">Ghost · postreach deferred</option>
-                  <option value="ghost-exploit">Ghost · postreach exploit</option>
-                  <option value="ghost-postreach">Ghost · postreach</option>
-                </optgroup>
-                <optgroup label="研究策略">
-                  <option value="ghost-structural-memory">Structural Memory · research</option>
-                  <option value="ghost-structural-return-guard">Return Guard · research</option>
-                  <option value="ghost-structural-nested-return-guard">Nested Hub Guard · research</option>
-                  <option value="ghost-structural-nested-stack-guard">Nested Stack Guard · research</option>
-                  <option value="ghost-structural-horizon-handoff-guard">Horizon Handoff · v0.3.14 · research</option>
-                  <option value="ghost-structural-reentry-frontier-guard">Reentry Frontier · v0.3.16 · research</option>
-                  <option value="ghost-structural-local-action-drain-guard">Local Action Drain · v0.3.17 · research</option>
-                  <option value="ghost-structural-return-entry-drain-guard">Return Entry Drain · v0.3.18 · research</option>
-                  <option value="ghost-structural-finding-return-entry-drain-guard">Finding Return · v0.3.19 · research</option>
-                  <option value="ghost-structural-return-waypoint-frontier-guard">Return Waypoint · v0.3.21 · research</option>
-                  <option value="ghost-structural-residual-frontier-debt-guard">Residual Frontier Debt · v0.3.23 · research</option>
-                  <option value="ghost-structural-episode-drain-epoch-guard">Episode Drain · v0.3.24 · research</option>
-                  <option value="ghost-structural-untried-sibling-guard">Untried Sibling · v0.3.26 · research</option>
-                  <option value="ghost-structural-parent-hub-sibling-guard">Parent Hub Sibling · v0.3.27 · research</option>
-                  <option value="ghost-structural-repeat-click-guard">Repeat Click · v0.3.30 · research</option>
-                  <option value="ghost-structural-alternate-payload-guard">Alternate Payload · v0.3.31 · research</option>
-                  <option value="ghost-structural-payload-button-guard">Payload Button · v0.3.32 · research</option>
-                  <option value="ghost-structural-page-buttons-guard">Page Buttons · v0.3.33 · research</option>
-                  <option value="ghost-structural-seen-button-guard">Seen Button · v0.3.34 · research</option>
-                  <option value="ghost-structural-search-submit-guard">Search Submit · v0.3.35 · research</option>
-                  <option value="ghost-structural-hub-distractor-guard">Hub Distractor · v0.3.36 · research</option>
-                  <option value="ghost-structural-loop-exit-guard">Loop Exit · v0.3.37 · research</option>
-                  <option value="ghost-structural-side-back-guard">Side Back · v0.3.38 · research</option>
-                </optgroup>
-              </select>
-              <p class="field-hint" id="policy-hint"></p>
-              <p class="field-hint research-only" id="policy-research" hidden>研究策略 · 不代表产品默认</p>
-            </div>
-            <div class="field">
-              <label for="f-budget">预算（步）</label>
-              <input id="f-budget" name="budget" type="number" min="1" max="400" value="40">
-              <p class="field-error" id="err-budget"></p>
-            </div>
-          </div>
-          <label class="check">
-            <input id="f-mock" type="checkbox">
-            <span class="check-box" aria-hidden="true"></span>
-            <span class="check-label">Mock LLM · 离线演示，不请求外部模型</span>
-          </label>
-          <div class="form-actions">
-            <button class="btn btn-ghost" type="button" id="btn-preset">载入 BuggyShop 示例</button>
-            <button class="btn btn-primary" id="btn-run" type="submit" data-testid="run-button">
-              <span id="btn-run-txt">启动探索</span>
-            </button>
-          </div>
-        </form>
-      </section>
-      <section class="card" id="run-history-card" aria-labelledby="h-history">
-        <div class="card-head">
-          <h2 class="label" id="h-history">最近运行</h2>
-          <span class="rule" aria-hidden="true"></span>
-        </div>
-        <ul class="run-history" id="run-history">
-          <li class="empty">还没有运行记录。</li>
-        </ul>
-      </section>
-      <section class="card" id="bug-card" aria-labelledby="h-bugs">
-        <div class="card-head">
-          <h2 class="label" id="h-bugs">已确认缺陷</h2>
-          <span class="rule" aria-hidden="true"></span>
-          <span class="status-pill" id="bug-count">0</span>
-        </div>
-        <div class="bugs" id="bugs">
-          <p class="empty">还没有确认缺陷。<br>运行结束后，通过复现校验与 ddmin 的问题会出现在这里。</p>
-        </div>
-      </section>
-      <section class="card" id="tele-card" aria-labelledby="h-tele">
-        <div class="card-head">
-          <h2 class="label" id="h-tele">遥测</h2>
-          <span class="rule" aria-hidden="true"></span>
-        </div>
-        <div class="stat-grid">
-          <div class="stat is-accent"><span class="stat-k">动作</span><span class="stat-v" id="t-actions">0</span></div>
-          <div class="stat"><span class="stat-k">节点</span><span class="stat-v" id="t-nodes">0</span></div>
-          <div class="stat"><span class="stat-k">边</span><span class="stat-v" id="t-edges">0</span></div>
-          <div class="stat"><span class="stat-k">重定位</span><span class="stat-v" id="t-relocate">0</span></div>
-          <div class="stat"><span class="stat-k">URLs</span><span class="stat-v" id="t-urls">0</span></div>
-          <div class="stat is-alert"><span class="stat-k">缺陷</span><span class="stat-v" id="t-bugs">0</span></div>
-        </div>
-        <div class="mix">
-          <div class="mix-bar" id="mix-bar" aria-hidden="true">
-            <span id="mix-new" class="mix-new"></span>
-            <span id="mix-similar" class="mix-similar"></span>
-            <span id="mix-identical" class="mix-identical"></span>
-          </div>
-          <div class="mix-rows">
-            <span class="mix-row"><i class="key-new"></i>NEW<b id="m-new">0</b></span>
-            <span class="mix-row"><i class="key-similar"></i>SIMILAR<b id="m-similar">0</b></span>
-            <span class="mix-row"><i class="key-identical"></i>IDENTICAL<b id="m-identical">0</b></span>
-          </div>
-        </div>
-      </section>
-    </div>
-  </main>
-</div>
-
-<!-- ============================ EVIDENCE ============================== -->
-<div id="view-evidence" class="view-panel" role="tabpanel" hidden data-testid="evidence" aria-labelledby="tab-evidence">
-  <div class="evidence-wrap">
-    <header class="ev-head">
-      <p class="eyebrow">研究证据</p>
-      <h1>实验结果怎么复现</h1>
-      <p>这里列出冻结版本、证据清单、clean-clone 校验和复现命令。页面里的数字来自仓库中的已发布产物。</p>
-    </header>
     <div class="ev-layout">
       <div class="ev-grid">
         <article class="ev-card" data-testid="evidence-v0338">
@@ -1020,6 +1027,6 @@
 
 <script src="/static/vendor/cytoscape.min.js"></script>
 <script src="/static/scripts/showcase.js?v=20260928a"></script>
-<script src="/static/scripts/main.js?v=20260930c"></script>
+<script src="/static/scripts/main.js?v=20260930c&rev=20261005-final"></script>
 </body>
 </html>

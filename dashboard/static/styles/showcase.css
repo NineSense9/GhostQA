@@ -4,6 +4,12 @@
    ========================================================================== */
 
 .view-panel { position: relative; z-index: 3; }
+.hero { grid-template-columns: 1fr !important; }
+.product-flow { grid-template-columns: repeat(3, 1fr); }
+.product-boundary { border-top: 1px solid var(--line); padding: 22px 0; }
+.product-boundary h2 { font-size: 18px; margin: 0 0 10px; }
+.product-boundary p { font-size: 15px; margin: 8px 0; color: var(--muted); }
+.view-overview .research-badge, .view-live .research-badge { display: none; }
 #view-overview:not([hidden]),
 #view-evidence:not([hidden]) { display: block; }
 #view-live:not([hidden]) {
@@ -619,6 +625,10 @@ html[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
   display: block;
   color: var(--muted);
   font-size: 11px;
+}
+
+@media (min-width: 721px) and (max-height: 800px) {
+  .graph-stage, .graph-stage #graph { min-height: 72px; }
 }
 .log-mode {
   font-family: var(--font-mono);
