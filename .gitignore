@@ -12,3 +12,8 @@ tmp-visual-qa-*/
 qa*.png
 real*.png
 final*.png
+
+# competition video pipeline: heavy local media & isolated TTS deps stay out of git
+artifacts/
+tools/video_ghostqa/.tmp_*/
+tools/video_ghostqa/.kokoro-models/
