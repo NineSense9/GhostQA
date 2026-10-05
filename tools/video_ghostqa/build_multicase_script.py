@@ -187,7 +187,7 @@ def main() -> None:
 
     output = {
         'speaker': {'provider': 'Qwen3-TTS official Hugging Face Demo',
-                    'voice': 'Ethan / 晨煦', 'language': 'Chinese / 中文',
+                    'voice': 'Ryan / 甜茶', 'language': 'Chinese / 中文',
                     'rate': 'default', 'pitch': 'default'},
         'duration': duration,
         'run_id': facts['run_id'],
