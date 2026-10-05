@@ -43,6 +43,8 @@ def main():
     parser.add_argument('--cases', default=','.join(CASES))
     parser.add_argument('--mock', action='store_true')
     parser.add_argument('--cart-repeats', type=int, default=1)
+    parser.add_argument('--run-timeout', type=int, default=1800,
+                        help='Whole-run wait limit; long ddmin runs can exceed four minutes.')
     args = parser.parse_args()
     args.out.mkdir(parents=True, exist_ok=True)
     rows, errors, console = [], [], []
@@ -73,7 +75,7 @@ def main():
                 dst = args.out / f'{label}-{rid}'
                 dst.mkdir(exist_ok=True)
                 print('START', label, rid, flush=True)
-                deadline = time.monotonic() + 240
+                deadline = time.monotonic() + args.run_timeout
                 while time.monotonic() < deadline:
                     st = context.request.get(args.url + f'/api/runs/{rid}').json()
                     if st['status'] in TERMINAL:
@@ -97,7 +99,7 @@ def main():
                 layouts = []
                 for width, height in ((1280,720), (1920,1080), (1366,768), (1024,768), (390,844)):
                     page.set_viewport_size({'width': width, 'height': height})
-                    page.wait_for_timeout(100)
+                    page.wait_for_timeout(550)
                     layout = audit_layout(page)
                     layouts.append(layout)
                     if layout['horizontalOverflow']:

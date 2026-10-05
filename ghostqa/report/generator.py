@@ -61,9 +61,9 @@ def build_report(run_result, confirmed_bugs, config: dict, unfinished=None) -> d
 
 
 _HTML_TMPL = """<!DOCTYPE html>
-<html lang="zh"><head><meta charset="utf-8"><title>GhostQA 测试报告 - {app}</title>
+<html lang="zh"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>GhostQA 测试报告 - {app}</title>
 <style>
-body{{font-family:system-ui,"Microsoft YaHei",sans-serif;margin:2rem;background:#fafafa;color:#222}}
+body{{font-family:system-ui,"Microsoft YaHei",sans-serif;margin:2rem;background:#fafafa;color:#222;overflow-wrap:anywhere}}
 h1{{font-size:1.4rem}} .card{{background:#fff;border:1px solid #e3e3e3;border-radius:8px;
 padding:1rem 1.2rem;margin:.8rem 0;box-shadow:0 1px 2px rgba(0,0,0,.04)}}
 .badge{{display:inline-block;padding:.1rem .55rem;border-radius:999px;font-size:.75rem;color:#fff}}
@@ -71,6 +71,10 @@ padding:1rem 1.2rem;margin:.8rem 0;box-shadow:0 1px 2px rgba(0,0,0,.04)}}
 table{{border-collapse:collapse;margin:.5rem 0}} td,th{{border:1px solid #ddd;padding:.3rem .8rem;font-size:.85rem}}
 code{{background:#f0f0f0;padding:.05rem .3rem;border-radius:4px;font-size:.82rem}}
 .path{{font-size:.85rem;line-height:1.9}}
+@media(max-width:600px){{
+body{{margin:1rem}} .card{{padding:.8rem}}
+table{{width:100%;table-layout:fixed}} td,th{{padding:.3rem .25rem}}
+}}
 </style></head><body>
 <h1>GhostQA 缺陷报告 · {app}</h1>
 <div class="card"><b>测试策略</b>：{policy} ｜ <b>执行动作</b>：{actions} ｜

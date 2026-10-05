@@ -539,7 +539,7 @@ function initGraph() {
     style: graphStyles(),
     layout: { name: 'preset' },
     wheelSensitivity: 0.22,
-    minZoom: 0.25,
+    minZoom: 0.02,
     maxZoom: 3,
   });
   S.cy.on('tap', 'node', (e) => {
@@ -552,11 +552,24 @@ function initGraph() {
     }
   });
   S.cy.on('dbltap', () => fitGraph());
+  const resizeObserver = new ResizeObserver(() => {
+    requestAnimationFrame(() => {
+      S.cy.resize();
+      if (S.cy.nodes().length && box.offsetWidth > 0) fitGraph();
+    });
+  });
+  resizeObserver.observe(box);
   window.__cy = S.cy;
 }
 
 function fitGraph() {
-  if (S.cy) S.cy.fit(undefined, 48);
+  if (!S.cy) return;
+  const padding = Math.min(32, S.cy.height() / 5, S.cy.width() / 5);
+  S.cy.fit(undefined, padding);
+  if (S.cy.zoom() > 1.5) {
+    S.cy.zoom(1.5);
+    S.cy.center();
+  }
 }
 
 function graphSignature(payload) {
@@ -663,17 +676,14 @@ function syncGraph(payload) {
       positions[id] = { x: d * COL_W, y: (offset + i) * ROW_H };
     });
   }
-  cy.layout({
+  const layout = cy.layout({
     name: 'preset', positions: (n) => positions[n.id()],
     animate: cy.nodes().length > 1 && !S.firstLayout && !REDUCE,
     animationDuration: 380, animationEasing: 'ease-out',
     fit: true, padding: 48,
-  }).run();
-
-  const z = cy.zoom();
-  if (z > 1.5) cy.zoom(1.5);
-  else if (z < 0.78) cy.zoom(0.78);
-  cy.center();
+  });
+  layout.one('layoutstop', fitGraph);
+  layout.run();
   S.firstLayout = false;
 }
 

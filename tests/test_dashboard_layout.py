@@ -159,3 +159,60 @@ def test_completed_result_focuses_the_card_in_its_own_scroll_area(live_page):
         card: document.getElementById('bug-card').getBoundingClientRect().top
     })""")
     assert abs(top['rail'] - top['card']) <= 2
+
+
+def test_large_graph_fits_all_nodes_after_layout_and_resize(live_page):
+    page = live_page
+    page.evaluate("""() => {
+        const nodes = Array.from({length: 12}, (_, i) => ({
+            sig: 'layout-node-' + i, title: '案例页面 ' + i,
+            relation: 'NEW', visits: 1, flags: []
+        }));
+        const edges = nodes.slice(1).map((n, i) => ({
+            src: nodes[i].sig, dst: n.sig, action_key: 'layout-click-' + i
+        }));
+        syncGraph({nodes, edges});
+    }""")
+    for width, height in [(1280, 720), (1920, 1080), (390, 844), (1280, 720)]:
+        page.set_viewport_size({'width': width, 'height': height})
+        page.wait_for_timeout(550)
+        bounds = page.evaluate("""() => ({
+            nodes: S.cy.nodes().renderedBoundingBox(),
+            width: S.cy.width(), height: S.cy.height()
+        })""")
+        assert bounds['nodes']['x1'] >= -1, bounds
+        assert bounds['nodes']['y1'] >= -1, bounds
+        assert bounds['nodes']['x2'] <= bounds['width'] + 1, bounds
+        assert bounds['nodes']['y2'] <= bounds['height'] + 1, bounds
+
+
+@pytest.mark.parametrize('width,height', [(1280, 720), (390, 844)])
+def test_report_keeps_evidence_and_table_inside_page(browser, width, height):
+    from ghostqa.report.generator import render_html
+
+    report = {
+        'app': 'web:127.0.0.1:8787/cases/index.html', 'policy': 'ghost',
+        'summary': dict(actions_executed=40, states_discovered=12, candidate_findings=1,
+                        confirmed_bugs=1, llm_calls=2, pseudo_tokens=0, wall_seconds=10),
+        'bugs': [{'finding': {'kind': 'semantic', 'severity': 'high',
+                  'description': '购物车总价与商品金额不一致',
+                  'evidence': {'url': 'http://127.0.0.1:8787/cases/cart.html',
+                               'assert_id': 'case_cart_total_consistent',
+                               'obs': {'cart_item_price': '5', 'cart_total': '12'}}},
+                  'original_length': 1,
+                  'reproduction': [{'type': 'click', 'target_eid': 'btn_refresh', 'label': '刷新合计'}]}],
+    }
+    page = browser.new_page(viewport={'width': width, 'height': height})
+    try:
+        page.set_content(render_html(report))
+        bounds = page.evaluate('''() => ({width: innerWidth,
+            documentWidth: document.documentElement.scrollWidth,
+            viewportMeta: !!document.querySelector('meta[name=viewport]'),
+            clipped: [...document.querySelectorAll('.card')].some(e => e.scrollWidth > e.clientWidth + 2)
+        })''')
+        assert bounds['viewportMeta'], bounds
+        assert bounds['documentWidth'] <= width + 2, bounds
+        assert not bounds['clipped'], bounds
+        assert '已重放确认' in page.locator('body').inner_text()
+    finally:
+        page.close()
