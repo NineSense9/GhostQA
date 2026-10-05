@@ -55,9 +55,9 @@ Confirm:
 - both units `active` and `enabled`
 - port 3939 is loopback-only
 - port 8787 is reachable publicly
-- `/api/showcase` reports v0.3.11 Outcome D (inconclusive suite; only buggy-wiki
-  evaluable), product default unchanged, plus historical v0.3.10 Outcome A on
-  BuggyDesk and v0.3.9 return-cycle numbers
+- `/api/showcase` and the Evidence page agree with the published experiment
+  versions (through v0.3.38); research candidates remain separate from the
+  unchanged product default
 - public Overview, Evidence, Live, and a short Live run still work
 
 Never put passwords in git, systemd units, or command logs.
@@ -80,3 +80,17 @@ python -m pytest -q tests/test_dashboard.py tests/test_web_integration.py
 ## 端口约束
 
 PPT 预览使用 5062，已有本地服务使用 8873。启动 dashboard 或临时验证服务前先检查端口占用，选择其他空闲端口，避免覆盖这两个服务。
+
+## 打包前页面检查
+
+```bash
+python -m pytest -q tests/test_dashboard.py tests/test_dashboard_layout.py
+python tools/dashboard_submission_qa.py --url http://127.0.0.1:8787 --out output/playwright/submission-local --mock
+python tools/dashboard_submission_qa.py --url http://39.106.200.173:8787 --out output/playwright/submission-public --cart-repeats 3
+```
+
+第二条命令用 Mock 检查本地完整流程，不能作为真实模型收益证据；第三条命令关闭 Mock，保存实际公网运行记录。每组案例独立记录 run_id、配置、状态、事件、图、缺陷和报告，刷新后检查是否恢复同一运行。
+
+界面验收覆盖 1280×720、1366×768、1920×1080、1024×768 和 390×844。展开缺陷后，断言、观测值及复现路径均应可读；右栏统一滚动，不截断卡片。截图默认显示完整画面，“放大画面”后可以滚动查看原始截图。状态图和日志不应相互覆盖。
+
+仅修改 HTML、CSS、前端脚本时，文件由服务即时读取，可以先更新静态资源而不重启执行中的服务；修改 Python 服务代码时，必须等所有运行进入终态后再重启。部署记录分别保存源码 SHA、静态资源哈希、服务状态和本次验收 run_id。

@@ -65,10 +65,10 @@
 }
 
 .col { display: flex; flex-direction: column; gap: var(--sp-3); min-height: 0; min-width: 0; }
-.col-right { overflow-y: auto; min-height: 0; padding-right: 3px; }
+.col-right { overflow-y: auto; overflow-anchor: none; min-height: 0; padding-right: 3px; }
 
 .viewport-panel { display: flex; flex-direction: column; min-height: 0; flex: 1.15 1 190px; }
-.graph-panel    { display: flex; flex-direction: column; min-height: 0; flex: 1.05 1 200px; }
+.graph-panel    { display: flex; flex-direction: column; min-height: 225px; flex: 1.05 1 200px; }
 .log-panel      { display: flex; flex-direction: column; min-height: 0; flex: 0.85 1 145px; }
 
 .panel-head {
@@ -91,13 +91,13 @@
   background: var(--viewport-wash);
   overflow: hidden;
   flex: 1;
-  min-height: 260px;
+  min-height: 0;
   padding: var(--sp-3);
 }
 
 .viewport img {
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;
@@ -341,6 +341,7 @@ body.is-running .action-strip {
 .run-history-item { width: 100%; text-align: left; white-space: normal; }
 
 .bug {
+  flex-shrink: 0;
   border: 1px solid var(--line);
   border-left: 3px solid var(--warning);
   border-radius: var(--r-sm);
@@ -643,19 +644,21 @@ a.btn, a.btn:hover { text-decoration: none; }
 .live-control { position: absolute; right: 12px; top: 46px; z-index: 4; background: var(--surface); }
 .action-result { margin: 0; font-size: 12px; color: var(--accent); flex-shrink: 0; }
 .ai-choice { padding: 0 12px 8px; margin: 0; font-size: 12px; color: var(--accent); }
-.phase-records { margin: 8px 12px; padding-left: 16px; max-height: 82px; overflow-y: auto; font-size: 12px; line-height: 1.7; }
+.phase-records { margin: 8px 12px; padding-left: 16px; font-size: 12px; line-height: 1.7; }
 .col-right #run-form-card { order: 0; }
 .col-right #ai-readout { order: 1; }
 .col-right #bug-card { order: 2; }
 .col-right .phase-card { order: 3; }
 .col-right #tele-card { order: 4; }
 .col-right #run-history-card { order: 5; }
-.viewport.is-zoomed { padding: 0; align-items: flex-start; justify-content: flex-start; }
-.viewport.is-zoomed img { width: 100%; height: 100%; max-height: 100%; object-fit: none; object-position: left top; border-radius: 0; }
+.viewport.is-zoomed { padding: 0; display: block; overflow: auto; }
+.viewport.is-zoomed img { width: auto; height: auto; max-width: none; max-height: none; object-fit: contain; border-radius: 0; }
 .viewport.is-zoomed img { box-shadow: none; }
 .col-right > .card:not(.log-panel) { flex-shrink: 0; }
 
-#bugs { max-height: 190px; overflow-y: auto; }
+/* Evidence uses the right rail's scrollbar. A second capped flex list used
+   to shrink each open card and clip its assertion and reproduction steps. */
+#bugs { overflow: visible; }
 .card-head {
   display: flex; align-items: center; gap: var(--sp-3);
   padding: 9px var(--sp-3);
@@ -693,9 +696,12 @@ a.btn, a.btn:hover { text-decoration: none; }
 .status-pill.is-idle    { color: var(--muted); }
 
 @media (max-width: 1180px) {
-  .console { grid-template-columns: 1fr; overflow-y: auto; }
+  .console { grid-template-columns: 1fr; grid-auto-rows: max-content; align-content: start; overflow-y: auto; }
   .col-right { overflow: visible; }
-  .viewport { min-height: 320px; }
+  .col:not(.col-right) { min-height: 820px; }
+  .viewport-panel { min-height: 360px; }
+  .graph-panel { min-height: 240px; }
+  .log-panel { min-height: 160px; }
   .run-stage { margin-left: 0; padding-left: 0; grid-column: 1 / -1; }
 }
 
@@ -726,7 +732,7 @@ a.btn, a.btn:hover { text-decoration: none; }
   .console { gap: var(--sp-2); padding: var(--sp-2); }
   .viewport-panel { flex: 3 1 285px; }
   .viewport { min-height: 0; }
-  .graph-panel { flex: 1.2 1 142px; }
+  .graph-panel { flex: 1.2 1 142px; min-height: 160px; }
   .log-panel { flex: 0.8 1 96px; }
   .graph-stage, .graph-stage #graph { min-height: 72px; }
   .ai-summary { padding-top: 6px; }

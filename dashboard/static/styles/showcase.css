@@ -15,8 +15,17 @@
 #view-live:not([hidden]) {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - var(--header-h));
+  flex: 1;
+  overflow: hidden;
   min-height: 0;
+}
+body.view-live { display: flex; flex-direction: column; height: 100dvh; }
+body.view-live > .topbar { flex-shrink: 0; }
+#view-live > :not(.console) { flex-shrink: 0; }
+
+@media (max-width: 720px) {
+  body.view-live { height: auto; min-height: 100dvh; }
+  #view-live:not([hidden]) { flex: none; overflow: visible; }
 }
 #view-live .console {
   flex: 1 1 auto;

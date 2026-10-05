@@ -452,9 +452,13 @@ function appendPhaseRecord(ev) {
   if (ev.type === 'minimize') {
     text = `测试子序列 ${ev.tested_subset || 1}：${ev.tested_length ?? ev.current_length} 步，${ev.result}；当前路径 ${ev.current_length} 步`;
   } else {
+    const runningText = ev.phase === 'replay' ? '重放中' :
+      ev.phase === 'minimizing' ? '最小化中' : '探索中';
+    const statusText = ev.status === 'ready' ? '待验证' :
+      ev.status === 'running' ? runningText : (STATUS_TEXT[ev.status] || ev.status);
     text = `${PHASE_TEXT[ev.phase] || ev.phase}` +
       (ev.candidate_index ? ` · 候选 ${ev.candidate_index}/${ev.candidate_total}` : '') +
-      (ev.status ? ` · ${STATUS_TEXT[ev.status] || ev.status}` : '');
+      (ev.status ? ` · ${statusText}` : '');
   }
   const row = document.createElement('li');
   row.textContent = text;
@@ -838,7 +842,7 @@ function renderBugs(list, candidates, replayState) {
       ? `<p class="bug-page" title="${escapeHtml(page)}">${escapeHtml(page.replace(/^https?:\/\//, ''))}</p>`
       : '';
     card.innerHTML =
-      `<div class="bug-head" role="button" tabindex="0" aria-expanded="false">
+      `<div class="bug-head" role="button" tabindex="0" aria-expanded="true">
          <span class="bug-kind">${escapeHtml(f.kind || 'defect')}</span>
          <span class="bug-status">重放通过 · ${n} 步复现</span>
          <span class="bug-desc">${escapeHtml(friendlyFinding(f))}</span>
@@ -916,6 +920,18 @@ function showComplete(st) {
   els.liveComplete.textContent =
     `${steps} 步 · ${states} 个状态 · ${bugs} 个已确认缺陷` +
     (report ? (st.status === 'partial' ? ' · 部分候选未完成 · 报告已就绪' : ' · 报告已就绪') : '');
+}
+
+function focusConfirmedBugs() {
+  if (!S.bugs.length) return;
+  const card = $('bug-card');
+  const rail = card && card.closest('.col-right');
+  if (!card || !rail) return;
+  if (getComputedStyle(rail).overflowY === 'auto') {
+    rail.scrollTop += card.getBoundingClientRect().top - rail.getBoundingClientRect().top;
+  } else {
+    card.scrollIntoView({ block: 'start' });
+  }
 }
 
 function showError(message, detail) {
@@ -1011,6 +1027,7 @@ async function tick() {
     setStage('report', st.status);
     setConn(true, st.status === 'partial' ? '部分完成' : '已完成');
     loadHistory();
+    requestAnimationFrame(focusConfirmedBugs);
   } else if (st.status === 'stopped') {
     els.reportLink.href = `/api/runs/${S.runId}/report.html`;
     els.reportLink.hidden = false;
@@ -1510,8 +1527,6 @@ syncThemeToggle();
 
 loadHistory();
 applyCase('cart');
-els.viewport.classList.add('is-zoomed');
-$('shot-zoom').textContent = '完整画面';
 
 (async function restore() {
   try {
