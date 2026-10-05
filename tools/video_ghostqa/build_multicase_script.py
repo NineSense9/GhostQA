@@ -186,12 +186,8 @@ def main() -> None:
         duration = 300
 
     output = {
-        'speaker': {'provider': 'Xiaomi MiMo TTS (OpenAI-compatible)',
-                    'model': 'mimo-v2.5-tts-voicedesign',
-                    'voice': '',
-                    'language': 'Chinese / 中文',
-                    'instruct': ('三十五岁左右的男性新闻播音员，普通话标准，声音沉稳干净，中低音区，'
-                                 '吐字清晰，语速平稳，语调平直克制，无情绪起伏，适合电视新闻联播播报。'),
+        'speaker': {'provider': 'Qwen3-TTS official Hugging Face Demo',
+                    'voice': 'Ethan / 晨煦', 'language': 'Chinese / 中文',
                     'rate': 'default', 'pitch': 'default'},
         'duration': duration,
         'run_id': facts['run_id'],
